@@ -1,6 +1,6 @@
 #include "..\Header\Logo.h"
-
 #include "Export_Function.h"
+#include "CUI.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -95,6 +95,14 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 	
+	// UI
+	CUI* pUI = CUI::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pUI, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
+	
+
+
+
 	pCamera->Set_TargetObj(pPlayer);
 
 	m_mapLayer.insert({ _eType, pLayer });

@@ -40,9 +40,6 @@ public:
 public:
 	void Set_Billboard();
 	
-
-
-
 private:
 	CComponent* Find_Component(COMPONENT_TYPE eType, COMPONENTID eID);
 

@@ -10,8 +10,10 @@ class CTexture;
 class CAnimator;
 
 END
+
 class CUI : public CGameObject
 {
+
 private:
 	explicit CUI(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CUI(const CUI& rhs);
@@ -26,7 +28,6 @@ public:
 protected:
 	_matrix m_matProj;
 	_matrix m_matView;
-
 
 public:
 	static CUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);

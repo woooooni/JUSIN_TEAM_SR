@@ -63,6 +63,13 @@ const _matrix * CTransform::Compute_LookAtTarget(const _vec3 * pTargetPos)
 											D3DXVec3Normalize(&vUp, &m_vInfo[INFO_UP]))));
 }
 
+void CTransform::Set_Scale(_vec3 _vScale)
+{
+	m_matWorld._11 = _vScale.x;
+	m_matWorld._22 = _vScale.y;
+	m_matWorld._33 = _vScale.z;
+}
+
 _vec3 CTransform::Get_Scale()
 {
 	_vec3 vRight, vUp, vLook;

@@ -42,7 +42,9 @@ public:
 		Set_Info(INFO_POS, &m_vInfo[INFO_POS]);
 	}
 
+	void Set_Scale(_vec3 _vScale);
 	_vec3 Get_Scale();
+
 	
 
 	void RotationAxis(const _vec3& vAxis, const _float& fAngle);

@@ -18,6 +18,7 @@ CTexture::CTexture(const CTexture & rhs)
 	, m_iIdx(rhs.m_iIdx)
 {
 	m_vecTexture = rhs.m_vecTexture;
+	m_vecTextureInfo = rhs.m_vecTextureInfo;
 }
 
 
@@ -28,7 +29,10 @@ CTexture::~CTexture()
 HRESULT CTexture::Ready_Texture(TEXTUREID _eType, const _tchar * _pPath, const _uint & iCnt)
 {
 	m_vecTexture.reserve(iCnt);
+	m_vecTextureInfo.reserve(iCnt);
 
+	D3DXIMAGE_INFO tInfo;
+	ZeroMemory(&tInfo, sizeof(D3DXIMAGE_INFO));
 	IDirect3DBaseTexture9*		pTexture = nullptr;
 
 	for (_uint i = 0; i < iCnt; ++i)
@@ -40,14 +44,29 @@ HRESULT CTexture::Ready_Texture(TEXTUREID _eType, const _tchar * _pPath, const _
 		switch (_eType)
 		{
 		case TEX_NORMAL:
-			FAILED_CHECK_RETURN(D3DXCreateTextureFromFile(m_pGraphicDev, szFileName, (LPDIRECT3DTEXTURE9*)&pTexture), E_FAIL);
+			FAILED_CHECK_RETURN(D3DXCreateTextureFromFileEx(
+				m_pGraphicDev, 
+				szFileName,
+				0, 0,
+				0,
+				0,
+				D3DFMT_A8R8G8B8,
+				D3DPOOL_MANAGED,
+				D3DX_DEFAULT,
+				D3DX_DEFAULT,
+				0,
+				&tInfo,
+				NULL,
+				(LPDIRECT3DTEXTURE9*)&pTexture), E_FAIL);
 			break;
 
 		case TEX_CUBE:
+			// TODO :: Ex로 변경할 것.
 			FAILED_CHECK_RETURN(D3DXCreateCubeTextureFromFile(m_pGraphicDev, szFileName, (LPDIRECT3DCUBETEXTURE9*)&pTexture), E_FAIL);
 			break;
 		}
-		
+	
+		m_vecTextureInfo.push_back(tInfo);
 		m_vecTexture.push_back(pTexture);
 	}
 
