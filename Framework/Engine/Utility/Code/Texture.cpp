@@ -105,8 +105,11 @@ CComponent * CTexture::Clone()
 
 void CTexture::Free()
 {
-	for_each(m_vecTexture.begin(), m_vecTexture.end(), CDeleteObj());
+	if(!m_bClone)
+		for_each(m_vecTexture.begin(), m_vecTexture.end(), CDeleteObj());
+
 	m_vecTexture.clear();
+
 
 	CComponent::Free();
 }

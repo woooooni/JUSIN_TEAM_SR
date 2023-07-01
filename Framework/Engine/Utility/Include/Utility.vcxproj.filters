@@ -129,7 +129,7 @@
     <ClInclude Include="..\..\Header\Texture.h">
       <Filter>05. Component\03. Texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Header\RcTerrain.h">
+    <ClInclude Include="..\..\Header\TerrainTex.h">
       <Filter>05. Component\00. VIBuffer\03. RcTerrain</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\CameraMgr.h">
@@ -203,7 +203,7 @@
     <ClCompile Include="..\Code\Texture.cpp">
       <Filter>05. Component\03. Texture</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\RcTerrain.cpp">
+    <ClCompile Include="..\Code\TerrainTex.cpp">
       <Filter>05. Component\00. VIBuffer\03. RcTerrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CameraMgr.cpp">

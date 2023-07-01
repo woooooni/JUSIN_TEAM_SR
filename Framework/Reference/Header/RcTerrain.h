@@ -17,10 +17,6 @@ public:
 	virtual void			Render_Buffer(void);
 
 public:
-	void	ReBuildHeightMap(LPDIRECT3DTEXTURE9& _pHeighMapTex, float _fScale, bool _bRandom);
-
-
-public:
 	_uint m_iVertexCountRow; 
 	_uint m_iVertexCountCol;
 	_uint m_iCellSpacing;

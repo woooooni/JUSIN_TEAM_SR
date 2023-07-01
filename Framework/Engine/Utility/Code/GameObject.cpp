@@ -5,6 +5,7 @@
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	: m_pGraphicDev(pGraphicDev)
 	, m_eType(_eType)
+	, m_eDir(OBJ_DIR::DIR_D)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -12,6 +13,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 CGameObject::CGameObject(const CGameObject & rhs)
 	: m_pGraphicDev(rhs.m_pGraphicDev)
 	, m_eType(rhs.m_eType)
+	, m_eDir(rhs.m_eDir)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -62,12 +64,11 @@ void CGameObject::Set_Billboard()
 		return;
 
 	_vec3 fScale = m_pTransformCom->Get_Scale();
-	m_pTransformCom->Get_Info(INFO_LOOK, &m_vLookTemp);
 
 	_matrix		matView;
-
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
 
+	// 카메라의 월드행렬.
 	D3DXMatrixInverse(&matView, nullptr, &matView);
 
 	_vec3 vCameraPos = _vec3(matView._41, matView._42, matView._43);

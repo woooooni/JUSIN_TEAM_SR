@@ -4,7 +4,8 @@
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
-          1개 파일이 복사되었습니다.
+  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
+          0개 파일이 복사되었습니다.
   .\Engine\Header\Animator.h
   .\Engine\Header\BoxCollider.h
   .\Engine\Header\Camera.h
@@ -35,10 +36,10 @@
   .\Engine\Header\ProtoMgr.h
   .\Engine\Header\RcCol.h
   .\Engine\Header\RcCube.h
-  .\Engine\Header\RcTerrain.h
   .\Engine\Header\RcTex.h
   .\Engine\Header\Renderer.h
   .\Engine\Header\Scene.h
+  .\Engine\Header\TerrainTex.h
   .\Engine\Header\Texture.h
   .\Engine\Header\Timer.h
   .\Engine\Header\TimerMgr.h

@@ -47,7 +47,7 @@ void CUI::LateUpdate_Object(void)
 
 void CUI::Render_Object(void)
 {
-	CGameObject::Render_Object();
+	/*CGameObject::Render_Object();
 	_matrix matPreView, matPreProj;
 
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
@@ -70,7 +70,7 @@ void CUI::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);*/
 }
 
 CUI* CUI::Create(LPDIRECT3DDEVICE9 pGraphicDev)

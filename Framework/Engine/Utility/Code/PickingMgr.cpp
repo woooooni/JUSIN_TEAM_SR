@@ -57,7 +57,7 @@ void CPickingMgr::Compute_LocalLayInfo(_vec3 * pDir, _vec3 * pRayPos, CTransform
 BOOL CPickingMgr::IsPicking(CGameObject* _pObj, _vec3* _vHit)
 {
 	CTransform* pTransform = dynamic_cast<CTransform*>(_pObj->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
-	CRcTerrain*  pBuffer = dynamic_cast<CRcTerrain*>(_pObj->Get_Component(COMPONENT_TYPE::COM_BUFFER, COMPONENTID::ID_STATIC));
+	CTerrainTex*  pBuffer = dynamic_cast<CTerrainTex*>(_pObj->Get_Component(COMPONENT_TYPE::COM_BUFFER, COMPONENTID::ID_STATIC));
 
 	if (nullptr == pBuffer)
 		return FALSE;

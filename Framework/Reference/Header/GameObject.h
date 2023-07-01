@@ -34,8 +34,15 @@ public:
 
 public:
 	CComponent* Get_Component(COMPONENT_TYPE eType, COMPONENTID eID);
-	OBJ_TYPE Get_ObjType() { return m_eType; }
-	void Set_ObjType(OBJ_TYPE _eType) { m_eType = _eType; }
+	
+	OBJ_TYPE GetObj_Type() { return m_eType; }
+	void SetObj_Type(OBJ_TYPE _eType) { m_eType = _eType; }
+	
+	OBJ_DIR GetObj_Dir() { return m_eDir; }
+	void SetObj_Dir(OBJ_DIR _eDir) { m_eDir = _eDir; }
+
+	OBJ_STATE GetObj_State() { return m_eState; }
+	void SetObj_State(OBJ_STATE _eState) { m_eState = _eState; }
 
 public:
 	void Set_Billboard();
@@ -56,11 +63,10 @@ protected:
 	CTexture*		m_pTextureCom = nullptr;
 
 protected:
-	_vec3		m_vLookTemp;
 	wstring		m_strName;
 	OBJ_TYPE	m_eType;
-	
-
+	OBJ_DIR		m_eDir;
+	OBJ_STATE	m_eState;
 
 public:
 	virtual void		Free();

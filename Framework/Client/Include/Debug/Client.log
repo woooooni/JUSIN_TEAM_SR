@@ -1,14 +1,6 @@
-﻿  unity_8RMMZNE316XK6VJE.cpp
-  BackGround.cpp
-  CUI.cpp
-  Logo.cpp
-  MainApp.cpp
-  unity_R5NPLUI9D54X23Z2.cpp
-  Client.cpp
-  unity_WSG9TVNGDN01JLRE.cpp
+﻿  unity_WSG9TVNGDN01JLRE.cpp
   Monster.cpp
   Player.cpp
   Stage.cpp
   Terrain.cpp
-  코드를 생성하고 있습니다...
   Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Bin\Client.exe
