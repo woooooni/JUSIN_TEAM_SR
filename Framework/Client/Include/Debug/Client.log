@@ -1,6 +1,20 @@
-﻿  unity_3B9NNQ67A2NK4WSM.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\Users\xodnj\Desktop\Lecture5\Custom\Framework\Client\Include\Debug\unity_3B9NNQ67A2NK4WSM.cpp' 경로의 일부를 찾을 수 없습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\Users\xodnj\Desktop\Lecture5\Custom\Framework\Client\Include\Debug\unity_UN5AHNA9FVAM8JB1.cpp' 경로의 일부를 찾을 수 없습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\Users\xodnj\Desktop\Lecture5\Custom\Framework\Client\Include\Debug\unity_7UN09FBHOIHRFIQY.cpp' 경로의 일부를 찾을 수 없습니다.
+  stdafx.cpp
+  unity_T5BV3JU23N9CRZON.cpp
   BackGround.cpp
   CUI.cpp
   Logo.cpp
   MainApp.cpp
-  Client.vcxproj -> C:\Users\xodnj\Desktop\Lecture5\Custom\Framework\Client\Bin\Client.exe
+  unity_D1IRZJG0DR8ZSU31.cpp
+  Monster.cpp
+  Player.cpp
+  Stage.cpp
+  Terrain.cpp
+  unity_P09NJ9W2RIROKTXG.cpp
+  Client.cpp
+  코드를 생성하고 있습니다...
+  LINK : ..\Bin\Client.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+     ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
+  Client.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Bin\Client.exe

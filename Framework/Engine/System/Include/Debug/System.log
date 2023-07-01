@@ -1,5 +1,8 @@
-﻿  unity_RDQC9HI7KHA7129C.cpp
-  System.vcxproj -> C:\Users\xodnj\Desktop\Lecture5\Custom\Framework\Engine\System\Bin\System.dll
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\Users\xodnj\Desktop\Lecture5\Custom\Framework\Engine\System\Include\Debug\unity_RDQC9HI7KHA7129C.cpp' 경로의 일부를 찾을 수 없습니다.
+  unity_EPI7Z8P8ECEL1OXM.cpp
+  LINK : ..\Bin\System.dll을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+     ../Bin\System.lib 라이브러리 및 ../Bin\System.exp 개체를 생성하고 있습니다.
+  System.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
