@@ -69,7 +69,6 @@ HRESULT CTexture::Ready_Texture(TEXTUREID _eType, const _tchar * _pPath, const _
 		m_vecTextureInfo.push_back(tInfo);
 		m_vecTexture.push_back(pTexture);
 	}
-
 	return S_OK;
 }
 
