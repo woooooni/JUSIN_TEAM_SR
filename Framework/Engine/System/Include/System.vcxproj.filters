@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00. GraphicDev">
+      <UniqueIdentifier>{126bd31f-c28b-4e3b-b1e5-fa46106c38ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Export">
+      <UniqueIdentifier>{535f0aaf-dd26-4512-82d8-fbb027e1f191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Timer">
+      <UniqueIdentifier>{18877baa-2e54-4ce1-b9f7-5eedaeb41497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Timer\Manager">
+      <UniqueIdentifier>{18ca250b-02b9-4e6b-8b41-9e56d060242f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Frame">
+      <UniqueIdentifier>{45918026-0866-4cf9-9536-b137b5be1064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Frame\Manager">
+      <UniqueIdentifier>{3f2641a0-a958-4db9-ab12-93b39ff210e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. ImGui">
+      <UniqueIdentifier>{ecb18418-d9ab-4c5c-961f-1a0548abba06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. InputDevice">
+      <UniqueIdentifier>{5c3e7fd6-05db-434e-b76c-9146195c1775}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Header\Export_System.h">
+      <Filter>99. Export</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\GraphicDev.h">
+      <Filter>00. GraphicDev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\Timer.h">
+      <Filter>01. Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\TimerMgr.h">
+      <Filter>01. Timer\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\Frame.h">
+      <Filter>02. Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\FrameMgr.h">
+      <Filter>02. Frame\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\InputDevice.h">
+      <Filter>04. InputDevice</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Header\Export_System.inl">
+      <Filter>99. Export</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Code\GraphicDev.cpp">
+      <Filter>00. GraphicDev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Timer.cpp">
+      <Filter>01. Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TimerMgr.cpp">
+      <Filter>01. Timer\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Frame.cpp">
+      <Filter>02. Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FrameMgr.cpp">
+      <Filter>02. Frame\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\InputDevice.cpp">
+      <Filter>04. InputDevice</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
