@@ -6,6 +6,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	: m_pGraphicDev(pGraphicDev)
 	, m_eType(_eType)
 	, m_eDir(OBJ_DIR::DIR_D)
+	, m_bActive(true)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -14,6 +15,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	: m_pGraphicDev(rhs.m_pGraphicDev)
 	, m_eType(rhs.m_eType)
 	, m_eDir(rhs.m_eDir)
+	, m_bActive(true)
 {
 	m_pGraphicDev->AddRef();
 }
