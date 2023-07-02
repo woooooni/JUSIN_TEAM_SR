@@ -96,9 +96,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 	
 	// UI
-	CUI* pUI = CUI::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pUI, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
+	//CUI* pUI = CUI::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pUI, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
 	
 
 
