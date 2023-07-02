@@ -24,16 +24,21 @@ public:
 	virtual void	Render_Object(void)							override;
 
 private:
-	HRESULT			Add_Component(void);
+	HRESULT	Add_Component(void);
+	virtual void Trace() PURE;
+
+public:
+	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
+	
 
 private:
-	CTriCol*			m_pBufferCom = nullptr;
-	CTransform*			m_pTransformCom = nullptr;
-	CCollider*			m_pColliderCom = nullptr;
-	_float				m_fSpeed = 5.f;
-	
-public:
-	static CMonster* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	CTriCol* m_pBufferCom = nullptr;
+	CTransform* m_pTransformCom = nullptr;
+	CCollider* m_pColliderCom = nullptr;
+	_float m_fSpeed = 5.f;
+
+private:
+	CGameObject* m_pTarget;
 
 private:
 	virtual void Free() override;

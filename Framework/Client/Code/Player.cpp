@@ -28,10 +28,7 @@ HRESULT CPlayer::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_pAnimator->Add_Animation(L"Ogu_Idle_U", L"Proto_Ogu_Idle_U");
-	m_pAnimator->Add_Animation(L"Ogu_Idle_D", L"Proto_Ogu_Idle_D");
-	m_pAnimator->Add_Animation(L"Ogu_Idle_L", L"Proto_Ogu_Idle_L");
-	m_pAnimator->Add_Animation(L"Ogu_Idle_R", L"Proto_Ogu_Idle_R");
+	m_pAnimator->Add_Animation(L"Player", L"Proto_Texture_Player");
 
 	m_pAnimator->Play_Animation(L"Player");
 

@@ -62,22 +62,11 @@ HRESULT CMonster::Add_Component(void)
 	return S_OK;
 }
 
+void CMonster::Trace()
+{
+}
+
 void CMonster::Free()
 {
 	__super::Free();
-}
-
-CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-	CMonster*	pInstance = new CMonster(pGraphicDev);
-
-	if (FAILED(pInstance->Ready_Object()))
-	{
-		Safe_Release(pInstance);
-
-		MSG_BOX("Monster Create Failed");
-		return nullptr;
-	}
-
-	return pInstance;
 }
