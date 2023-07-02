@@ -17,7 +17,7 @@ CUI::~CUI()
 
 HRESULT CUI::Ready_Object(void)
 {
-	D3DXMatrixOrthoLH(&m_matProj, 1, 1, 0, 1);
+	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
 	D3DXMatrixIdentity(&m_matView);
 
 	m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
@@ -47,7 +47,7 @@ void CUI::LateUpdate_Object(void)
 
 void CUI::Render_Object(void)
 {
-	/*CGameObject::Render_Object();
+	CGameObject::Render_Object();
 	_matrix matPreView, matPreProj;
 
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
@@ -57,9 +57,11 @@ void CUI::Render_Object(void)
 	
 	m_pTransformCom->Set_Pos(&vPos);
 
-	_vec3 vScale = _vec3((m_pTextureCom->Get_TextureDesc(0).Width) / _float(WINCX), (m_pTextureCom->Get_TextureDesc(0).Height) / _float(WINCY), 1.f);
-	vScale.x *= WINCX / 3840.f;
-	vScale.y *= WINCY / 2160.f;
+	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+
+	_float fRatio = fHeight / fWidth;
+	_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -70,7 +72,7 @@ void CUI::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);*/
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 }
 
 CUI* CUI::Create(LPDIRECT3DDEVICE9 pGraphicDev)

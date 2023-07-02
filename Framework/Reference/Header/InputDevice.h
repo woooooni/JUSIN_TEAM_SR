@@ -20,6 +20,7 @@ public:
 	_long	Get_DIMouseMove(MOUSEMOVESTATE eMouseState)
 	{
 		return *(((_long*)&m_tMouseState) + eMouseState);
+
 	}
 
 public:
