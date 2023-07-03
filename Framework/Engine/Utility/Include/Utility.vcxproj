@@ -183,7 +183,7 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\PickingMgr.h" />
     <ClInclude Include="..\..\Header\ProtoMgr.h" />
     <ClInclude Include="..\..\Header\RcCol.h" />
-    <ClInclude Include="..\..\Header\RcCube.h" />
+    <ClInclude Include="..\..\Header\CubeTex.h" />
     <ClInclude Include="..\..\Header\TerrainTex.h" />
     <ClInclude Include="..\..\Header\RcTex.h" />
     <ClInclude Include="..\..\Header\Renderer.h" />
@@ -209,7 +209,7 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\PickingMgr.cpp" />
     <ClCompile Include="..\Code\ProtoMgr.cpp" />
     <ClCompile Include="..\Code\RcCol.cpp" />
-    <ClCompile Include="..\Code\RcCube.cpp" />
+    <ClCompile Include="..\Code\CubeTex.cpp" />
     <ClCompile Include="..\Code\TerrainTex.cpp" />
     <ClCompile Include="..\Code\RcTex.cpp" />
     <ClCompile Include="..\Code\Renderer.cpp" />

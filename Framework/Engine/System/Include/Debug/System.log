@@ -1,7 +1,7 @@
-﻿  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\System\Bin\System.dll
+﻿  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
-          0개 파일이 복사되었습니다.
   지정된 파일을 찾을 수 없습니다.
+          0개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
   .\Engine\Header\Animator.h
@@ -11,6 +11,7 @@
   .\Engine\Header\Collider.h
   .\Engine\Header\CollisionMgr.h
   .\Engine\Header\Component.h
+  .\Engine\Header\CubeTex.h
   .\Engine\Header\Engine_Define.h
   .\Engine\Header\Engine_Enum.h
   .\Engine\Header\Engine_Function.h
@@ -33,7 +34,6 @@
   .\Engine\Header\PickingMgr.h
   .\Engine\Header\ProtoMgr.h
   .\Engine\Header\RcCol.h
-  .\Engine\Header\RcCube.h
   .\Engine\Header\RcTex.h
   .\Engine\Header\Renderer.h
   .\Engine\Header\Scene.h

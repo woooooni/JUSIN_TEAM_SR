@@ -12,7 +12,7 @@
 #include "RcCol.h"
 #include "RcTex.h"
 #include "TerrainTex.h"
-#include "RcCube.h"
+#include "CubeTex.h"
 
 #include "Transform.h"
 #include "Collider.h"

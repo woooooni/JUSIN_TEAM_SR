@@ -2,7 +2,7 @@
 #include "Collider.h"
 
 BEGIN(Engine)
-class CRcCube;
+class CCubeTex;
 class ENGINE_DLL CBoxCollider : public CCollider
 {
 	
@@ -30,7 +30,7 @@ public:
 	virtual CComponent *	Clone(void) override;
 
 private:
-	CRcCube*	m_pBuffer;
+	CCubeTex*	m_pBuffer;
 
 
 

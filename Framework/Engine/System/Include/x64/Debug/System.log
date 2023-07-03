@@ -1,21 +1,13 @@
-﻿  imgui_widgets.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\system\include\imgui_internal.h(206): fatal error C1083: 포함 파일을 열 수 없습니다. 'imstb_textedit.h': No such file or directory
-  imgui_tables.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\system\include\imgui_internal.h(206): fatal error C1083: 포함 파일을 열 수 없습니다. 'imstb_textedit.h': No such file or directory
-  imgui_draw.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\system\include\imgui_internal.h(206): fatal error C1083: 포함 파일을 열 수 없습니다. 'imstb_textedit.h': No such file or directory
-  imgui.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\system\include\imgui_internal.h(206): fatal error C1083: 포함 파일을 열 수 없습니다. 'imstb_textedit.h': No such file or directory
-  TimerMgr.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\header\timermgr.h(3): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
-  Timer.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\header\timer.h(2): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
-  ImGuiMgr.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\header\engine_define.h(5): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  GraphicDev.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\header\engine_define.h(5): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
+﻿  Frame.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Code\Frame.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Frame.h': No such file or directory
   FrameMgr.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\header\framemgr.h(3): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
-  Frame.cpp
-c:\users\xodnj\desktop\lecture5\custom\framework\engine\system\code\frame.cpp(1): fatal error C1083: 포함 파일을 열 수 없습니다. 'Frame.h': No such file or directory
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\FrameMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+  GraphicDev.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
+  InputDevice.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
+  Timer.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Timer.h(2,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+  TimerMgr.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\TimerMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
   코드를 생성하고 있습니다...
