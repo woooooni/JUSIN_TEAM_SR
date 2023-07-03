@@ -1,1 +1,13 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.Cpp.Platform.targets(57,5): error MSB8020: The build tools for v142 (Platform Toolset = 'v142') cannot be found. To build using the v142 build tools, please install v142 build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+﻿  Frame.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Code\Frame.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Frame.h': No such file or directory
+  FrameMgr.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\FrameMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+  GraphicDev.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
+  InputDevice.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
+  Timer.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Timer.h(2,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+  TimerMgr.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\TimerMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+  코드를 생성하고 있습니다...

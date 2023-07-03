@@ -93,9 +93,6 @@
     <ClInclude Include="..\Header\SkyBox.h">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\ImGuiMgr.h">
-      <Filter>98. Manager\ImGui</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -128,9 +125,6 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp">
       <Filter>02. GameObject\05. SkyBox</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\ImGuiMgr.cpp">
-      <Filter>98. Manager\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ HRESULT CPlayer::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_pAnimator->Add_Animation(L"Player", L"Proto_Texture_Player");
+	m_pAnimator->Add_Animation(L"Player", L"Proto_Texture_Player", .3f);
 
 	m_pAnimator->Play_Animation(L"Player");
 
