@@ -31,14 +31,13 @@ public:
     virtual HRESULT Fall_Obj() override;
     virtual void Push_Obj(const _vec3& pDirection) override;
 
+    virtual void    Free() override;
+
     static      CPushStone* Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
     HRESULT                 Ready_Component();
 
     CRcTex* m_pRcTex = nullptr;
-    CTransform* m_pTransform = nullptr;
-    CCollider* m_pColider = nullptr;
-    CTexture* m_pTex = nullptr;
     CCubeTex* m_pCubeTex = nullptr;
 };

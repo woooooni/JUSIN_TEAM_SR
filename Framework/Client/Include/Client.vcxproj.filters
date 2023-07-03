@@ -49,6 +49,15 @@
     <Filter Include="02. GameObject\06. InteractiveObj\00. Stone">
       <UniqueIdentifier>{7226a995-e819-4ebe-875b-411c95eea3e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\07. BreakableObj">
+      <UniqueIdentifier>{fb822bd7-6e50-41e8-8d72-312b15b14032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. OnEventObj">
+      <UniqueIdentifier>{5e6f6c92-efcf-45c8-8d3c-d9e24f26adcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. OnEventObj\00. LinkedObj">
+      <UniqueIdentifier>{3c32b2d5-e1cd-4d5e-a440-b481ea806204}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -96,6 +105,9 @@
     <ClInclude Include="..\Header\PushStone.h">
       <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\BreakableObj.h">
+      <Filter>02. GameObject\07. BreakableObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -134,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\PushStone.cpp">
       <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BreakableObj.cpp">
+      <Filter>02. GameObject\07. BreakableObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
