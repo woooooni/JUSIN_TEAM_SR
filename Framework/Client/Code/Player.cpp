@@ -5,11 +5,14 @@
 
 #include "Scene.h"
 #include "Terrain.h"
+#include "Player_State_Walk.h"
+#include "Player_State_Idle.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
 	, m_fSpeed(5.f)
 	, m_vDest(0.f, 0.f, 0.f)
+	, m_bStateChange(false)
 {
 
 }
@@ -17,6 +20,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	: Engine::CGameObject(rhs)
 	, m_fSpeed(rhs.m_fSpeed)
 	, m_vDest(0.f, 0.f, 0.f)
+	, m_bStateChange(false)
 {
 
 }
@@ -28,9 +32,34 @@ HRESULT CPlayer::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_pAnimator->Add_Animation(L"Player", L"Proto_Texture_Player");
+	m_pAnimator->Add_Animation(L"Idle_Down", L"Proto_Texture_Player_Idle_Down");
+	m_pAnimator->Add_Animation(L"Idle_Up", L"Proto_Texture_Player_Idle_Up");
+	m_pAnimator->Add_Animation(L"Idle_Left", L"Proto_Texture_Player_Idle_Left");
+	m_pAnimator->Add_Animation(L"Idle_Right", L"Proto_Texture_Player_Idle_Right");
+	m_pAnimator->Add_Animation(L"Idle_LeftUp", L"Proto_Texture_Player_Idle_LeftUp");
+	m_pAnimator->Add_Animation(L"Idle_LeftDown", L"Proto_Texture_Player_Idle_LeftDown");
+	m_pAnimator->Add_Animation(L"Idle_RightUp", L"Proto_Texture_Player_Idle_RightUp");
+	m_pAnimator->Add_Animation(L"Idle_RightDown", L"Proto_Texture_Player_Idle_RightDown");
 
-	m_pAnimator->Play_Animation(L"Player");
+	m_pAnimator->Add_Animation(L"Walk_Down", L"Proto_Texture_Player_Walk_Down");
+	m_pAnimator->Add_Animation(L"Walk_Up", L"Proto_Texture_Player_Walk_Up");
+	m_pAnimator->Add_Animation(L"Walk_Left", L"Proto_Texture_Player_Walk_Left");
+	m_pAnimator->Add_Animation(L"Walk_Right", L"Proto_Texture_Player_Walk_Right");
+	m_pAnimator->Add_Animation(L"Walk_LeftUp", L"Proto_Texture_Player_Walk_LeftUp");
+	m_pAnimator->Add_Animation(L"Walk_LeftDown", L"Proto_Texture_Player_Walk_LeftDown");
+	m_pAnimator->Add_Animation(L"Walk_RightUp", L"Proto_Texture_Player_Walk_RightUp");
+	m_pAnimator->Add_Animation(L"Walk_RightDown", L"Proto_Texture_Player_Walk_RightDown");
+
+
+	m_pAnimator->Play_Animation(L"Idle_Down");
+
+	m_eState = OBJ_STATE::IDLE;
+	m_eDir = OBJ_DIR::DIR_D;
+
+	m_vecState.reserve(10);
+
+	m_vecState.push_back(new CPlayer_State_Idle(this));
+	m_vecState.push_back(new CPlayer_State_Walk(this));
 
 	return S_OK;
 }
@@ -39,15 +68,14 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	
+	if (m_bStateChange)
+	{
+		m_eState = m_eChangeState;
+		m_vecState[(_uint)m_eState]->Ready_State();
+	}
 
-	Key_Input(fTimeDelta);
+	m_vecState[(_uint)m_eState]->Update_State(fTimeDelta);
 
-	CTerrain* pTerrain = dynamic_cast<CTerrain*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Terrain"));
-	_vec3 vDest;
-	if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) && Engine::IsPicking(pTerrain, &vDest))
-		m_vDest = vDest;
-
-	Player_Move(fTimeDelta);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -55,6 +83,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 
 void CPlayer::LateUpdate_Object(void)
 {
+	m_vecState[(_uint)m_eState]->LateUpdate_State();
 	__super::LateUpdate_Object();
 }
 
@@ -97,76 +126,6 @@ HRESULT CPlayer::Ready_Component(void)
 }
 
 
-void CPlayer::Key_Input(const _float& fTimeDelta)
-{
-	if (GetAsyncKeyState(VK_UP) & 0x8000)
-	{
-		if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LU, 10.f, fTimeDelta);
-		}
-		else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RU, 10.f, fTimeDelta);
-		}
-		else
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_U, 10.f, fTimeDelta);
-		}
-		return;
-	}
-
-	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-	{
-		if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LD, 10.f, fTimeDelta);
-		}
-		else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RD, 10.f, fTimeDelta);
-		}
-		else
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_D, 10.f, fTimeDelta);
-		}
-		return;
-	}
-
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-	{
-		if (GetAsyncKeyState(VK_UP) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LU, 10.f, fTimeDelta);
-		}
-		else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LD, 10.f, fTimeDelta);
-		}
-		else
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_L, 10.f, fTimeDelta);
-		}
-		return;
-	}
-
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-	{
-		if (GetAsyncKeyState(VK_UP) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RU, 10.f, fTimeDelta);
-		}
-		else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RD, 10.f, fTimeDelta);
-		}
-		else
-		{
-			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_R, 10.f, fTimeDelta);
-		}
-		return;
-	}
-}
 
 void CPlayer::Player_Move(_float fTimeDelta)
 {

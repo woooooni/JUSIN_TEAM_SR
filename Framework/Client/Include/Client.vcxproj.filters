@@ -43,6 +43,21 @@
     <Filter Include="02. GameObject\05. SkyBox">
       <UniqueIdentifier>{8bc25a65-3bb6-49f6-93e1-39ceab443d6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Player\00. Player">
+      <UniqueIdentifier>{304b2b3c-53b9-4b27-b45a-1365090a5953}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State">
+      <UniqueIdentifier>{9e2a1e65-b62e-4eec-9945-850dbb8def03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\00. Player_State">
+      <UniqueIdentifier>{e69d5a32-c8f4-4618-9339-5da9c101edb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\02. Player_State_Walk">
+      <UniqueIdentifier>{14a21941-2b00-4800-9a06-664f919b0d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\01. Player_State_Idle">
+      <UniqueIdentifier>{4d7fbfcd-5b2d-4c12-9fbb-8f95b251f023}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -53,9 +68,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\BackGround.h">
       <Filter>02. GameObject\00. BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Player.h">
-      <Filter>02. GameObject\01. Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Monster.h">
       <Filter>02. GameObject\02. Monster</Filter>
@@ -84,6 +96,18 @@
     <ClInclude Include="..\Header\SkyBox.h">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>02. GameObject\01. Player\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\00. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Walk.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\02. Player_State_Walk</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Idle.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\01. Player_State_Idle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -94,9 +118,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\BackGround.cpp">
       <Filter>02. GameObject\00. BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Player.cpp">
-      <Filter>02. GameObject\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Monster.cpp">
       <Filter>02. GameObject\02. Monster</Filter>
@@ -116,6 +137,18 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp">
       <Filter>02. GameObject\05. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>02. GameObject\01. Player\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\00. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Walk.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\02. Player_State_Walk</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Idle.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\01. Player_State_Idle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
