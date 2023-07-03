@@ -34,6 +34,7 @@ HRESULT CCamera::Ready_Object(void)
 
 _int CCamera::Update_Object(const _float& fTimeDelta)
 {
+	// Key_Input(fTimeDelta);
 	Follow(fTimeDelta);
 
 	_vec3 vPos, vLook, vRight, vUp;

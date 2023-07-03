@@ -5,6 +5,8 @@
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	: m_pGraphicDev(pGraphicDev)
 	, m_eType(_eType)
+	, m_eDir(OBJ_DIR::DIR_D)
+	, m_bActive(true)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -12,6 +14,8 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 CGameObject::CGameObject(const CGameObject & rhs)
 	: m_pGraphicDev(rhs.m_pGraphicDev)
 	, m_eType(rhs.m_eType)
+	, m_eDir(rhs.m_eDir)
+	, m_bActive(true)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -62,19 +66,26 @@ void CGameObject::Set_Billboard()
 		return;
 
 	_vec3 fScale = m_pTransformCom->Get_Scale();
-	m_pTransformCom->Get_Info(INFO_LOOK, &m_vLookTemp);
 
 	_matrix		matView;
-
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matView);
 
-	/* 카메라의 월드행렬이다. */
+	// 카메라의 월드행렬.
 	D3DXMatrixInverse(&matView, nullptr, &matView);
 
+	_vec3 vCameraPos = _vec3(matView._41, matView._42, matView._43);
+	_vec3 vObjPos, vObjUp;
+	m_pTransformCom->Get_Info(INFO_UP, &vObjUp);
+	m_pTransformCom->Get_Info(INFO_POS, &vObjPos);
 
-	m_pTransformCom->Set_Info(INFO_RIGHT, &(*(_vec3*)&matView.m[0][0] * fScale.x));
-	m_pTransformCom->Set_Info(INFO_UP, &(*(_vec3*)&matView.m[1][0] * fScale.y));
-	m_pTransformCom->Set_Info(INFO_LOOK, &(*(_vec3*)&matView.m[2][0] * fScale.z));
+	_vec3 vDir = vCameraPos - vObjPos;
+	_vec3 vRight, vLook;
+	D3DXVec3Normalize(&vDir, &vDir);
+	D3DXVec3Cross(&vRight, &vObjUp, &vDir);
+	D3DXVec3Cross(&vLook, &vRight, &vObjUp);
+	m_pTransformCom->Set_Info(INFO_RIGHT, &(vRight));
+	m_pTransformCom->Set_Info(INFO_LOOK, &(vLook));
+
 }
 
 CComponent * CGameObject::Find_Component(COMPONENT_TYPE eType, COMPONENTID eID)
@@ -96,4 +107,9 @@ void CGameObject::Free()
 	}
 
 	Safe_Release(m_pGraphicDev);
+	Safe_Release(m_pBufferCom);
+	Safe_Release(m_pColliderCom);
+	Safe_Release(m_pTextureCom);
+	Safe_Release(m_pTransformCom);
+	Safe_Release(m_pAnimator);
 }

@@ -40,9 +40,6 @@
     <Filter Include="05. Component\00. VIBuffer\03. RcTerrain">
       <UniqueIdentifier>{5badb914-767d-4638-aeb9-779c924fe7c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Component\00. VIBuffer\04. RcCube">
-      <UniqueIdentifier>{8bb1bf93-bab2-4978-b31e-de6948f89b71}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Component\01. Transform">
       <UniqueIdentifier>{bb29c6d4-4195-4298-8275-dba0a89a8e20}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,9 @@
     </Filter>
     <Filter Include="00. Manager\04. LightMgr">
       <UniqueIdentifier>{52fcbec9-7e73-4a87-ba23-cc6f7ce59fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\00. VIBuffer\04. CubeTex">
+      <UniqueIdentifier>{8bb1bf93-bab2-4978-b31e-de6948f89b71}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +129,7 @@
     <ClInclude Include="..\..\Header\Texture.h">
       <Filter>05. Component\03. Texture</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Header\RcTerrain.h">
+    <ClInclude Include="..\..\Header\TerrainTex.h">
       <Filter>05. Component\00. VIBuffer\03. RcTerrain</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\CameraMgr.h">
@@ -141,8 +141,8 @@
     <ClInclude Include="..\..\Header\Animator.h">
       <Filter>05. Component\04. Animator</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Header\RcCube.h">
-      <Filter>05. Component\00. VIBuffer\04. RcCube</Filter>
+    <ClInclude Include="..\..\Header\CubeTex.h">
+      <Filter>05. Component\00. VIBuffer\04. CubeTex</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\Renderer.h">
       <Filter>00. Manager\01. Renderer</Filter>
@@ -203,7 +203,7 @@
     <ClCompile Include="..\Code\Texture.cpp">
       <Filter>05. Component\03. Texture</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\RcTerrain.cpp">
+    <ClCompile Include="..\Code\TerrainTex.cpp">
       <Filter>05. Component\00. VIBuffer\03. RcTerrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CameraMgr.cpp">
@@ -215,8 +215,8 @@
     <ClCompile Include="..\Code\Animator.cpp">
       <Filter>05. Component\04. Animator</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\RcCube.cpp">
-      <Filter>05. Component\00. VIBuffer\04. RcCube</Filter>
+    <ClCompile Include="..\Code\CubeTex.cpp">
+      <Filter>05. Component\00. VIBuffer\04. CubeTex</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Renderer.cpp">
       <Filter>00. Manager\01. Renderer</Filter>

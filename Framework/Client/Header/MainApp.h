@@ -22,12 +22,11 @@ public:
 	void		Render_MainApp();
 
 private:
-	HRESULT				SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev);
-	HRESULT				Ready_Default_SamplerState();
-	HRESULT				Ready_Default_RenderState();
-	HRESULT				Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev);
-
-	HRESULT				Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement** ppManagementClass);
+	HRESULT	SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev);
+	HRESULT	Ready_Default_SamplerState();
+	HRESULT	Ready_Default_RenderState();
+	HRESULT	Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT	Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement** ppManagementClass);
 	
 
 private:
