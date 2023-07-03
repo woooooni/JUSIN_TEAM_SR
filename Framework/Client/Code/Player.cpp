@@ -29,6 +29,7 @@ HRESULT CPlayer::Ready_Object(void)
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
 	m_pAnimator->Add_Animation(L"Player", L"Proto_Texture_Player");
+
 	m_pAnimator->Play_Animation(L"Player");
 
 	return S_OK;
@@ -42,13 +43,11 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	Key_Input(fTimeDelta);
 
 	CTerrain* pTerrain = dynamic_cast<CTerrain*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Terrain"));
-
 	_vec3 vDest;
 	if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000) && Engine::IsPicking(pTerrain, &vDest))
 		m_vDest = vDest;
 
 	Player_Move(fTimeDelta);
-	pTerrain->SetY_Terrain(this, fTimeDelta);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -61,10 +60,9 @@ void CPlayer::LateUpdate_Object(void)
 
 void CPlayer::Render_Object(void)
 {
-	//Set_Billboard();
-
+	Set_Billboard();
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
- 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
@@ -101,35 +99,79 @@ HRESULT CPlayer::Ready_Component(void)
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
-	m_pTransformCom->Get_Info(INFO_LOOK, &m_vDir);
-
-	if (GetAsyncKeyState(VK_UP))
+	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
-		D3DXVec3Normalize(&m_vDir, &m_vDir);
-		m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, m_fSpeed);
+		if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LU, 10.f, fTimeDelta);
+		}
+		else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RU, 10.f, fTimeDelta);
+		}
+		else
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_U, 10.f, fTimeDelta);
+		}
+		return;
 	}
 
-	if (GetAsyncKeyState(VK_DOWN))
+	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
-		D3DXVec3Normalize(&m_vDir, &m_vDir);
-		m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, -m_fSpeed);
+		if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LD, 10.f, fTimeDelta);
+		}
+		else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RD, 10.f, fTimeDelta);
+		}
+		else
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_D, 10.f, fTimeDelta);
+		}
+		return;
 	}
 
-	if (GetAsyncKeyState(VK_LEFT))
+	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
-		m_pTransformCom->RotationAxis({ 0.f, 1.f, 0.f }, D3DXToRadian(-180.f * fTimeDelta));
+		if (GetAsyncKeyState(VK_UP) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LU, 10.f, fTimeDelta);
+		}
+		else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_LD, 10.f, fTimeDelta);
+		}
+		else
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_L, 10.f, fTimeDelta);
+		}
+		return;
 	}
 
-	if (GetAsyncKeyState(VK_RIGHT))
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
-		m_pTransformCom->RotationAxis({ 0.f, 1.f, 0.f }, D3DXToRadian(180.f * fTimeDelta));
+		if (GetAsyncKeyState(VK_UP) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RU, 10.f, fTimeDelta);
+		}
+		else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_RD, 10.f, fTimeDelta);
+		}
+		else
+		{
+			m_pTransformCom->Move_Pos(OBJ_DIR::DIR_R, 10.f, fTimeDelta);
+		}
+		return;
 	}
 }
 
 void CPlayer::Player_Move(_float fTimeDelta)
 {
 	_float fDist = D3DXVec3Length(&m_vDest);
-	if (fDist > 2.f)
+	if (fDist > 5.f)
 	{
 		_vec3 vDir, vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);

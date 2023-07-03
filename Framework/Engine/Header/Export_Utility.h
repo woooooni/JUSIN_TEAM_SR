@@ -11,8 +11,8 @@
 #include "TriCol.h"
 #include "RcCol.h"
 #include "RcTex.h"
-#include "RcTerrain.h"
-#include "RcCube.h"
+#include "TerrainTex.h"
+#include "CubeTex.h"
 
 #include "Transform.h"
 #include "Collider.h"

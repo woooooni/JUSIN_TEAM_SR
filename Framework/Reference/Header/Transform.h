@@ -42,12 +42,14 @@ public:
 		Set_Info(INFO_POS, &m_vInfo[INFO_POS]);
 	}
 
+	void Set_Scale(_vec3 _vScale);
 	_vec3 Get_Scale();
-	
 
+	
+public:
 	void RotationAxis(const _vec3& vAxis, const _float& fAngle);
-	void Chase_Target(const _vec3* pTargetPos, const _float& fTimeDelta, const _float& fSpeed);
 	const _matrix* Compute_LookAtTarget(const _vec3* pTargetPos);
+	void Move_Pos(OBJ_DIR _eDir, const _float& speed, const _float& fTimeDelta);
 
 
 public:
