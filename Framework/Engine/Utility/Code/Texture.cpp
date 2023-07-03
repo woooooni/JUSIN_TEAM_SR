@@ -3,19 +3,28 @@
 
 
 CTexture::CTexture()
-	: m_iIdx()
+	: m_iIdx(0)
+	, m_fAccTime(0.f)
+	, m_fFrameTime(0.f)
+	, m_bFinished(false)
 {
 }
 
 CTexture::CTexture(LPDIRECT3DDEVICE9 _pDevice)
 	:CComponent(_pDevice, COMPONENT_TYPE::COM_TEXTURE)
 	, m_iIdx(0)
+	, m_fAccTime(0.f)
+	, m_fFrameTime(0.f)
+	, m_bFinished(false)
 {
 }
 
 CTexture::CTexture(const CTexture & rhs)
 	: CComponent(rhs)
 	, m_iIdx(rhs.m_iIdx)
+	, m_fAccTime(0.f)
+	, m_fFrameTime(rhs.m_fFrameTime)
+	, m_bFinished(false)
 {
 	m_vecTexture = rhs.m_vecTexture;
 	m_vecTextureInfo = rhs.m_vecTextureInfo;
@@ -24,6 +33,23 @@ CTexture::CTexture(const CTexture & rhs)
 
 CTexture::~CTexture()
 {
+}
+
+_int CTexture::Update_Component(const _float& fTimeDelta)
+{
+	m_fAccTime += fTimeDelta;
+	if (m_fAccTime >= m_fFrameTime)
+	{
+		m_fAccTime = 0.f;
+		m_iIdx++;
+		
+		if (m_iIdx >= m_vecTexture.size())
+		{
+			m_iIdx = 0;
+			m_bFinished = true;
+		}
+	}
+	return S_OK;
 }
 
 HRESULT CTexture::Ready_Texture(TEXTUREID _eType, const _tchar * _pPath, const _uint & iCnt)

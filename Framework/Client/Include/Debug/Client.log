@@ -1,22 +1,6 @@
-﻿  unity_SNHSVRB679LBTV2J.cpp
-  BackGround.cpp
-  CUI.cpp
-  ImGuiMgr.cpp
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\ImGuiMgr.cpp(19,2): error C3861: 'IMGUI_CHECKVERSION': 식별자를 찾을 수 없습니다.
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\ImGuiMgr.cpp(20,2): error C2653: 'ImGui': 클래스 또는 네임스페이스 이름이 아닙니다.
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\ImGuiMgr.cpp(20,9): error C3861: 'CreateContext': 식별자를 찾을 수 없습니다.
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\ImGuiMgr.cpp(21,2): error C2653: 'ImGui': 클래스 또는 네임스페이스 이름이 아닙니다.
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\ImGuiMgr.cpp(21,9): error C3861: 'StyleColorsDark': 식별자를 찾을 수 없습니다.
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\ImGuiMgr.cpp(23,2): error C3861: 'ImGui_ImplWin32_Init': 식별자를 찾을 수 없습니다.
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\ImGuiMgr.cpp(24,2): error C3861: 'ImGui_ImplDX9_Init': 식별자를 찾을 수 없습니다.
-  Logo.cpp
-  MainApp.cpp
-  unity_6UARJ9V85ZRXBKMZ.cpp
-  Monster.cpp
+﻿  unity_USPXJ4R1Q5IVLVPG.cpp
   Player.cpp
   SkyBox.cpp
   Stage.cpp
   Terrain.cpp
-  unity_R5NPLUI9D54X23Z2.cpp
-  Client.cpp
-  코드를 생성하고 있습니다...
+  Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Bin\Client.exe

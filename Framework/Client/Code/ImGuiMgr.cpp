@@ -1,6 +1,8 @@
 #include "../Include/stdafx.h"
 #include "ImGuiMgr.h"
-
+#include "../ThirdParty/imgui.h"
+#include "../ThirdParty/imgui_impl_win32.h"
+#include "../ThirdParty/imgui_impl_dx9.h"
 CImGuiMgr::CImGuiMgr()
 	: m_bEnabled(true)
 	, m_pGraphicDev(nullptr)
