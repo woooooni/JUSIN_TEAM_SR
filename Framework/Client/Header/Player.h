@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Player_State.h"
 
 BEGIN(Engine)
 
@@ -31,7 +32,11 @@ private:
 	HRESULT			Ready_Component(void);
 
 public:
-	void			Key_Input(const _float& fTimeDelta);
+	void			Change_State(OBJ_STATE _eState)
+	{
+		m_bStateChange = true;
+		m_eChangeState = _eState;
+	}
 	void			Player_Move(_float fTimeDelta);
 
 
@@ -41,11 +46,15 @@ private:
 
 	_vec3			m_vDest;
 
+	bool			m_bStateChange;
+	OBJ_STATE		m_eChangeState;
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free() override;
 
+
+	vector<CPlayer_State*> m_vecState;
 };
 

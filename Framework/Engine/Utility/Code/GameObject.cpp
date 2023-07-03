@@ -78,7 +78,7 @@ void CGameObject::Set_Billboard()
 	m_pTransformCom->Get_Info(INFO_UP, &vObjUp);
 	m_pTransformCom->Get_Info(INFO_POS, &vObjPos);
 
-	_vec3 vDir = vCameraPos - vObjPos;
+	_vec3 vDir = vObjPos - vCameraPos;
 	_vec3 vRight, vLook;
 	D3DXVec3Normalize(&vDir, &vDir);
 	D3DXVec3Cross(&vRight, &vObjUp, &vDir);
