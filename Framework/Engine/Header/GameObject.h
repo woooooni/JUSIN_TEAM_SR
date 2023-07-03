@@ -47,6 +47,12 @@ public:
 	void Set_Active(_float _bActive) { m_bActive = _bActive; }
 	_bool Is_Active() { return m_bActive; }
 
+	CVIBuffer* Get_BufferCom() { return m_pBufferCom; }
+	CTransform* Get_TransformCom() { return m_pTransformCom; }
+	CCollider* Get_ColliderCom() { return m_pColliderCom; }
+	CAnimator* Get_AnimatorCom() { return m_pAnimator; }
+	CTexture* Get_TextureCom() { return m_pTextureCom; }
+
 public:
 	void Set_Billboard();
 

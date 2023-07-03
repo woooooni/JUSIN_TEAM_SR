@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="..\Header\BackGround.h" />
     <ClInclude Include="..\Header\CUI.h" />
+    <ClInclude Include="..\Header\ImGuiMgr.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
     <ClInclude Include="..\Header\Monster.h" />
@@ -188,6 +189,7 @@
   <ItemGroup>
     <ClCompile Include="..\Code\BackGround.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
+    <ClCompile Include="..\Code\ImGuiMgr.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />

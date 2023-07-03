@@ -43,6 +43,15 @@
     <Filter Include="02. GameObject\05. SkyBox">
       <UniqueIdentifier>{8bc25a65-3bb6-49f6-93e1-39ceab443d6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager">
+      <UniqueIdentifier>{8776aeeb-7ca4-436e-a080-553a28e368ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\ImGui">
+      <UniqueIdentifier>{3f0d7fce-eeb9-40e3-9260-5bd8a560e1e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\ImGui\Lib">
+      <UniqueIdentifier>{18e17259-8955-4f19-bedb-b5191799fba1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -84,6 +93,9 @@
     <ClInclude Include="..\Header\SkyBox.h">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ImGuiMgr.h">
+      <Filter>98. Manager\ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -116,6 +128,9 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp">
       <Filter>02. GameObject\05. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ImGuiMgr.cpp">
+      <Filter>98. Manager\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
