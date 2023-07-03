@@ -180,6 +180,8 @@
     <ClInclude Include="..\Header\Player.h" />
     <ClInclude Include="..\Header\Player_State.h" />
     <ClInclude Include="..\Header\Player_State_Idle.h" />
+    <ClInclude Include="..\Header\Player_State_Rolling.h" />
+    <ClInclude Include="..\Header\Player_State_Run.h" />
     <ClInclude Include="..\Header\Player_State_Walk.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\Stage.h" />
@@ -198,6 +200,8 @@
     <ClCompile Include="..\Code\Player.cpp" />
     <ClCompile Include="..\Code\Player_State.cpp" />
     <ClCompile Include="..\Code\Player_State_Idle.cpp" />
+    <ClCompile Include="..\Code\Player_State_Rolling.cpp" />
+    <ClCompile Include="..\Code\Player_State_Run.cpp" />
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />

@@ -58,6 +58,12 @@
     <Filter Include="02. GameObject\01. Player\01. Player_State\01. Player_State_Idle">
       <UniqueIdentifier>{4d7fbfcd-5b2d-4c12-9fbb-8f95b251f023}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\03. Player_State_Run">
+      <UniqueIdentifier>{7a62ea58-bd13-4b0f-83e4-08251b170f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling">
+      <UniqueIdentifier>{f7ff71bf-2bb6-49ed-ac13-50c9f7a94791}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -108,6 +114,12 @@
     <ClInclude Include="..\Header\Player_State_Idle.h">
       <Filter>02. GameObject\01. Player\01. Player_State\01. Player_State_Idle</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Run.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\03. Player_State_Run</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Rolling.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -149,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Idle.cpp">
       <Filter>02. GameObject\01. Player\01. Player_State\01. Player_State_Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Run.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\03. Player_State_Run</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Rolling.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

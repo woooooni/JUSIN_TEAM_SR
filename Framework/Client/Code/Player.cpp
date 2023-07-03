@@ -7,6 +7,8 @@
 #include "Terrain.h"
 #include "Player_State_Walk.h"
 #include "Player_State_Idle.h"
+#include "Player_State_Run.h"
+#include "Player_State_Rolling.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -50,6 +52,24 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Walk_RightUp", L"Proto_Texture_Player_Walk_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"Walk_RightDown", L"Proto_Texture_Player_Walk_RightDown", 0.1f);
 
+	m_pAnimator->Add_Animation(L"Run_Down", L"Proto_Texture_Player_Run_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_Up", L"Proto_Texture_Player_Run_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_Left", L"Proto_Texture_Player_Run_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_Right", L"Proto_Texture_Player_Run_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_LeftUp", L"Proto_Texture_Player_Run_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_LeftDown", L"Proto_Texture_Player_Run_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_RightUp", L"Proto_Texture_Player_Run_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_RightDown", L"Proto_Texture_Player_Run_RightDown", 0.1f);
+
+	m_pAnimator->Add_Animation(L"Rolling_Down", L"Proto_Texture_Player_Rolling_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"Rolling_Up", L"Proto_Texture_Player_Rolling_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"Rolling_Left", L"Proto_Texture_Player_Rolling_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"Rolling_Right", L"Proto_Texture_Player_Rolling_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"Rolling_LeftUp", L"Proto_Texture_Player_Rolling_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Rolling_LeftDown", L"Proto_Texture_Player_Rolling_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Rolling_RightUp", L"Proto_Texture_Player_Rolling_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Rolling_RightDown", L"Proto_Texture_Player_Rolling_RightDown", 0.1f);
+
 
 	m_pAnimator->Play_Animation(L"Idle_Down");
 
@@ -60,6 +80,8 @@ HRESULT CPlayer::Ready_Object(void)
 
 	m_vecState.push_back(new CPlayer_State_Idle(this));
 	m_vecState.push_back(new CPlayer_State_Walk(this));
+	m_vecState.push_back(new CPlayer_State_Run(this));
+	m_vecState.push_back(new CPlayer_State_Rolling(this));
 
 	return S_OK;
 }
@@ -72,6 +94,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	{
 		m_eState = m_eChangeState;
 		m_vecState[(_uint)m_eState]->Ready_State();
+		m_bStateChange = false;
 	}
 
 	m_vecState[(_uint)m_eState]->Update_State(fTimeDelta);
