@@ -1,14 +1,12 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Include\Debug\unity_X561RILUVP1RJJ69.cpp' 경로의 일부를 찾을 수 없습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Include\Debug\unity_USPXJ4R1Q5IVLVPG.cpp' 경로의 일부를 찾을 수 없습니다.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Include\Debug\unity_R5NPLUI9D54X23Z2.cpp' 경로의 일부를 찾을 수 없습니다.
-  stdafx.cpp
-  unity_E00OD2HN1DUNXKHD.cpp
+﻿  stdafx.cpp
+  unity_JU2F2617MV333KCE.cpp
   BackGround.cpp
   CUI.cpp
+  InteractiveObj.cpp
   Logo.cpp
   MainApp.cpp
+  unity_UHDL32KJEDM9UBVN.cpp
   Monster.cpp
-  unity_ONWG53IDG1Q6GDF1.cpp
   Player.cpp
   SkyBox.cpp
   Stage.cpp

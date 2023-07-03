@@ -43,6 +43,12 @@
     <Filter Include="02. GameObject\05. SkyBox">
       <UniqueIdentifier>{8bc25a65-3bb6-49f6-93e1-39ceab443d6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. InteractiveObj">
+      <UniqueIdentifier>{d365d323-3a2d-42dc-8129-6778d466e7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. InteractiveObj\00. Stone">
+      <UniqueIdentifier>{7226a995-e819-4ebe-875b-411c95eea3e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -84,6 +90,12 @@
     <ClInclude Include="..\Header\SkyBox.h">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\InteractiveObj.h">
+      <Filter>02. GameObject\06. InteractiveObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PushStone.h">
+      <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -116,6 +128,12 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp">
       <Filter>02. GameObject\05. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\InteractiveObj.cpp">
+      <Filter>02. GameObject\06. InteractiveObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PushStone.cpp">
+      <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
