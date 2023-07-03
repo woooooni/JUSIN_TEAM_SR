@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "PickingMgr.h"
 #include "LightMgr.h"
+#include "KeyMgr.h"
 
 #include "TriCol.h"
 #include "RcCol.h"
@@ -57,6 +58,11 @@ inline BOOL				IsPicking(CGameObject* _pObj, _vec3* _vHit);
 inline 	HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	const D3DLIGHT9* pLightInfo,
 	const _uint& iIndex);
+
+// KeyMgr
+
+inline	HRESULT Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd);
+inline	void	Update_KeyMgr();
 
 inline void				Release_Utility();
 

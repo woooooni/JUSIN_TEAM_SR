@@ -91,4 +91,12 @@ namespace Engine
 							type();\
 							~type();
 
+
+// FOR KEY MANAGER
+#define KEY_CHECK(key, state) CKeyMgr::GetInstance()->GetKeyState(key) == state
+#define KEY_HOLD(key) KEY_CHECK(key, KEY_STATE::HOLD)
+#define KEY_TAP(key) KEY_CHECK(key, KEY_STATE::TAP)
+#define KEY_AWAY(key) KEY_CHECK(key, KEY_STATE::AWAY)
+#define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
+
 #endif // Engine_Macro_h__

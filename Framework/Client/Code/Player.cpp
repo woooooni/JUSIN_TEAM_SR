@@ -99,6 +99,10 @@ HRESULT CPlayer::Ready_Component(void)
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
+	if (KEY_TAP(KEY::W))
+	{
+		_int i = 0;
+	}
 	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
 		if (GetAsyncKeyState(VK_LEFT) & 0x8000)

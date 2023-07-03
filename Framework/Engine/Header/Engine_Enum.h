@@ -36,5 +36,34 @@ namespace Engine
 	enum class OBJ_DIR { DIR_U, DIR_D, DIR_L, DIR_R, DIR_LU, DIR_RU, DIR_LD, DIR_RD, DIR_END };
 	enum class OBJ_STATE { IDLE, MOVE, RUN, ATTACK, SKILL, DIE, END };
 	enum class DIR_TRANSFORM { DIR_X, DIR_Y, DIR_Z, DIR_END };
+
+
+	// KeyMgr
+	enum class KEY_STATE
+	{
+		NONE,
+		TAP,
+		HOLD,
+		AWAY
+	};
+
+	enum class KEY
+	{
+		LEFT_ARROW,
+		RIGHT_ARROW,
+		UP_ARROW,
+		DOWN_ARROW,
+		TAB,
+		F1, F2, F3, F4, F5, F6, F7, F8, F9,
+		INSERT, DEL, HOME, END, PAGE_UP, PAGE_DOWN,
+		NUM_1, NUM_2, NUM_3, NUM_4, NUM_5, NUM_6, NUM_7, NUM_8, NUM_9,
+		Q, W, E, R, T, Y, U, I, O, P,
+		A, S, D, F, G, H, J, K, L,
+		Z, X, C, V, B, N, M,
+		ALT, CTRL, SHIFT,
+		SPACE, ENTER, ESC,
+		LBTN, RBTN,
+		TYPE_END
+	};
 }
 #endif // Engine_Enum_h__

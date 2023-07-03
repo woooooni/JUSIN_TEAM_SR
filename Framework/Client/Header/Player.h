@@ -15,6 +15,7 @@ END
 
 class CPlayer : public Engine::CGameObject
 {
+	
 private:
 	explicit CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CPlayer(const CPlayer& rhs);

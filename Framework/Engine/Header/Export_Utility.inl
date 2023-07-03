@@ -86,8 +86,19 @@ HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	return	CLightMgr::GetInstance()->Ready_Light(pGraphicDev, pLightInfo, iIndex);
 }
 
+inline HRESULT Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
+{
+	return CKeyMgr::GetInstance()->Ready_KeyMgr(_pDevice, _hWnd);
+}
+
+inline void Update_KeyMgr()
+{
+	CKeyMgr::GetInstance()->Update_KeyMgr();
+}
+
 void			Release_Utility()
 {
+	CKeyMgr::GetInstance()->DestroyInstance();
 	CPickingMgr::GetInstance()->DestroyInstance();
 	CRenderer::GetInstance()->DestroyInstance();
 	CLightMgr::GetInstance()->DestroyInstance();

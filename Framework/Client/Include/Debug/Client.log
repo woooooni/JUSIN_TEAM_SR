@@ -1,7 +1,16 @@
-﻿  unity_USPXJ4R1Q5IVLVPG.cpp
+﻿  unity_R5NPLUI9D54X23Z2.cpp
+  Client.cpp
+  unity_USPXJ4R1Q5IVLVPG.cpp
   Player.cpp
   SkyBox.cpp
   Stage.cpp
   Terrain.cpp
+  unity_X561RILUVP1RJJ69.cpp
+  BackGround.cpp
+  CUI.cpp
+  Logo.cpp
+  MainApp.cpp
+  Monster.cpp
+  코드를 생성하고 있습니다...
      ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
   Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Bin\Client.exe

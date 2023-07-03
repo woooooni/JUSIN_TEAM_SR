@@ -36,7 +36,7 @@ _int CGameObject::Update_Object(const _float & fTimeDelta)
 	for (auto& iter : m_mapComponent[ID_DYNAMIC])
 		iter.second->Update_Component(fTimeDelta);
 	
-	return 0;
+	return S_OK;
 }
 
 void CGameObject::LateUpdate_Object(void)

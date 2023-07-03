@@ -35,6 +35,7 @@ public:
 		m_vInfo[INFO_POS] += *pDir * fTimeDelta * fSpeed;
 		Set_Info(INFO_POS, &m_vInfo[INFO_POS]);
 	}
+	void Move_Pos(OBJ_DIR _eDir, const _float& speed, const _float& fTimeDelta);
 
 	void Set_Pos(const _vec3* const pPos)
 	{
@@ -49,7 +50,7 @@ public:
 public:
 	void RotationAxis(const _vec3& vAxis, const _float& fAngle);
 	const _matrix* Compute_LookAtTarget(const _vec3* pTargetPos);
-	void Move_Pos(OBJ_DIR _eDir, const _float& speed, const _float& fTimeDelta);
+	
 
 
 public:

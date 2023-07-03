@@ -1,10 +1,12 @@
-﻿  Utility.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Utility\Bin\Utility.dll
+﻿  unity_0212XENMCVZBU8IJ.cpp
+     ../Bin\Utility.lib 라이브러리 및 ../Bin\Utility.exp 개체를 생성하고 있습니다.
+  Utility.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Utility\Bin\Utility.dll
   .\Engine\Utility\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
   .\Engine\Utility\Code\*.hpp 
-  지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
+  지정된 파일을 찾을 수 없습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
   .\Engine\Header\Animator.h
@@ -30,6 +32,7 @@
   .\Engine\Header\GraphicDev.h
   .\Engine\Header\ImGuiMgr.h
   .\Engine\Header\InputDevice.h
+  .\Engine\Header\KeyMgr.h
   .\Engine\Header\Layer.h
   .\Engine\Header\Light.h
   .\Engine\Header\LightMgr.h
@@ -47,7 +50,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         40개 파일이 복사되었습니다.
+         41개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.
