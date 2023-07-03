@@ -1,13 +1,13 @@
 ﻿  Frame.cpp
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Code\Frame.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Frame.h': No such file or directory
+D:\SRTeam\Framework\Engine\System\Code\Frame.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Frame.h': No such file or directory
   FrameMgr.cpp
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\FrameMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+D:\SRTeam\Framework\Engine\Header\FrameMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
   GraphicDev.cpp
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
+D:\SRTeam\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
   InputDevice.cpp
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
+D:\SRTeam\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
   Timer.cpp
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\Timer.h(2,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+D:\SRTeam\Framework\Engine\Header\Timer.h(2,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
   TimerMgr.cpp
-C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\TimerMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
+D:\SRTeam\Framework\Engine\Header\TimerMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
   코드를 생성하고 있습니다...
