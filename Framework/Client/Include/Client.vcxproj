@@ -172,7 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\BackGround.h" />
-    <ClInclude Include="..\Header\BreakableObj.h" />
+    <ClInclude Include="..\Header\AttackableObj.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\InteractiveObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
@@ -190,7 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\BackGround.cpp" />
-    <ClCompile Include="..\Code\BreakableObj.cpp" />
+    <ClCompile Include="..\Code\AttackableObj.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\InteractiveObj.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
