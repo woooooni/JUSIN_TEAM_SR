@@ -139,8 +139,6 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Lift_RightUp", L"Proto_Texture_Player_Lift_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"Lift_RightDown", L"Proto_Texture_Player_Lift_RightDown", 0.1f);
 
-
-
 	m_pAnimator->Play_Animation(L"Idle_Down", true);
 
 	m_eState = PLAYER_STATE::IDLE;
@@ -245,6 +243,11 @@ void CPlayer::Player_Move(_float fTimeDelta)
 }
 void CPlayer::Free()
 {
+	for (_uint i = 0; i < m_vecState.size(); ++i)
+	{
+		delete m_vecState[i];
+		m_vecState[i] = nullptr;
+	}
 	__super::Free();
 }
 

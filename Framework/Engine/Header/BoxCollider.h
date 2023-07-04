@@ -34,6 +34,9 @@ public:
 	const	_vec3& Get_Scale() { return m_vScale; }
 
 private:
+	void InputCollider();
+
+private:
 	CCubeTex*	m_pBuffer;
 
 	_vec3		m_vScale = {1, 1, 1};

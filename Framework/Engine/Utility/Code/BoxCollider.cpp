@@ -1,6 +1,6 @@
 #include "..\..\Header\BoxCollider.h"
 #include "Export_Function.h"
-
+#include "KeyMgr.h"
 CBoxCollider::CBoxCollider()
 {
 }
@@ -38,7 +38,7 @@ _int CBoxCollider::Update_Component(const _float & fTimeDelta)
 	pOwnerTransform->Get_Info(INFO_POS, &m_vCenterPos);
 	const D3DXMATRIX& matWorld = *pOwnerTransform->Get_WorldMatrix();
 
-
+	InputCollider();
 
 	return S_OK;
 }
@@ -50,6 +50,9 @@ void CBoxCollider::LateUpdate_Component()
 
 void CBoxCollider::Render_Component()
 {
+	if (!m_bRender)
+		return;
+
 	CTransform* pOwnerTransform = (CTransform*)(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
 
 	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
@@ -100,6 +103,13 @@ void CBoxCollider::Free()
 CComponent * CBoxCollider::Clone(void)
 {
 	return new CBoxCollider(*this);
+}
+
+void CBoxCollider::InputCollider()
+{
+	if (KEY_TAP(KEY::F2))
+		m_bRender = !m_bRender;
+
 }
 
 void CBoxCollider::OnCollisionEnter(CCollider * _pOther)

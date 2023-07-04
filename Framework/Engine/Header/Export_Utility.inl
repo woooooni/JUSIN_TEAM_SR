@@ -100,6 +100,7 @@ void			Release_Utility()
 {
 	CKeyMgr::GetInstance()->DestroyInstance();
 	CPickingMgr::GetInstance()->DestroyInstance();
+	CCollisionMgr::GetInstance()->DestroyInstance();
 	CRenderer::GetInstance()->DestroyInstance();
 	CLightMgr::GetInstance()->DestroyInstance();
 	CCameraMgr::GetInstance()->DestroyInstance();

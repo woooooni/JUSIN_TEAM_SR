@@ -28,7 +28,8 @@ CCamera::~CCamera()
 HRESULT CCamera::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pTransformCom->Set_Pos(&_vec3( 0.f, 5.f, -10.f ));
+	m_pTransformCom->Set_Pos(&_vec3( 0.f, 10.f
+		, -10.f ));
 	return S_OK;
 }
 
@@ -104,8 +105,8 @@ void CCamera::Follow(const _float& fTimeDelta)
 	
 	D3DXVec3Normalize(&vDir, &vDir);
 	vCameraPos.x = vTargetPos.x;
-	vCameraPos.y = vTargetPos.y + 5.f;
-	vCameraPos.z = vTargetPos.z - 10.f;
+	vCameraPos.y = vTargetPos.y + 10.f;
+	vCameraPos.z = vTargetPos.z - 20.f;
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
 	
 }
