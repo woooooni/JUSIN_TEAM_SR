@@ -33,16 +33,22 @@ public:
 	void Set_Finished(_bool _bFinished) { m_bFinished = _bFinished; }
 
 	void Set_Frame(_float _fFrame) { m_fFrameTime = _fFrame; }
+
+	void Set_Loop(_bool _bLoop) { m_bLoop = _bLoop; }
+	_bool Is_Loop() { return m_bLoop; }
+
 private:
 	vector<IDirect3DBaseTexture9*>	m_vecTexture;
 	vector<D3DXIMAGE_INFO>			m_vecTextureInfo;
 
 	_bool							m_bFinished;
+	_bool							m_bLoop;
 
 	_float							m_fAccTime;
 	_float							m_fFrameTime;
 	_uint							m_iIdx;
 
+	
 public:
 	static CTexture* Create(LPDIRECT3DDEVICE9 _pDevice, TEXTUREID eType, _tchar * pPath, const _uint & iCnt = 1);
 	virtual CComponent*	Clone();

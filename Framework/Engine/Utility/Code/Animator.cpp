@@ -62,7 +62,7 @@ HRESULT CAnimator::Add_Animation(const wstring & _strKey, const wstring& _strPro
 	return S_OK;
 }
 
-HRESULT CAnimator::Play_Animation(const wstring & _strKey)
+HRESULT CAnimator::Play_Animation(const wstring & _strKey, _bool _bLoop)
 {
 	auto iter = m_mapTexture.find(_strKey);
 
@@ -77,6 +77,7 @@ HRESULT CAnimator::Play_Animation(const wstring & _strKey)
 
 	m_pCurAnimation = iter->second;
 	m_pCurAnimation->Set_Finished(false);
+	m_pCurAnimation->Set_Loop(_bLoop);
 
 	return S_OK;
 }

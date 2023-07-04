@@ -93,7 +93,7 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Swing_RightDown", L"Proto_Texture_Player_Swing_RightDown", 0.1f);
 
 
-	m_pAnimator->Play_Animation(L"Idle_Down");
+	m_pAnimator->Play_Animation(L"Idle_Down", true);
 
 	m_eState = PLAYER_STATE::IDLE;
 	m_eDir = OBJ_DIR::DIR_D;
