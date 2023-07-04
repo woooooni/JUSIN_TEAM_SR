@@ -82,4 +82,10 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::JUMP);
 	}
+
+	if (GetAsyncKeyState('A') & 0x8000)
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SWING);
+	}
+
 }
