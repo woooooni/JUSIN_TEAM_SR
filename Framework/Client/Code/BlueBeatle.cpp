@@ -42,11 +42,13 @@ void CBlueBeatle::Update_Die(_float fTimeDelta)
 
 HRESULT CBlueBeatle::Ready_Object(void)
 {
-	//m_pAnimator->Add_Animation(L"Idle_Down", L"Proto_Texture_BlueBeatle_Idle_Down", 0.1f);
 	Set_State(MONSTER_STATE::IDLE);
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+	m_pAnimator->Add_Animation(L"BlueBeatle_Idle_Down", L"Proto_Texture_BlueBeatle_Idle_Down", 0.1f);
+
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
+	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down");
 	return S_OK;
 }
 
@@ -60,7 +62,7 @@ void CBlueBeatle::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
+	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -78,6 +80,15 @@ HRESULT CBlueBeatle::Add_Component(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
+
+	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+
+	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 	return S_OK;
 }
 CBlueBeatle* CBlueBeatle::Create(LPDIRECT3DDEVICE9 pGraphicDev)

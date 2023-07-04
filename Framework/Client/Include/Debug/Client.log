@@ -1,8 +1,1 @@
-﻿  unity_53QRRTODMHISBID2.cpp
-  AttackableObj.cpp
-  BackGround.cpp
-  BlueBeatle.cpp
-  CUI.cpp
-  InteractiveObj.cpp
-     ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
-  Client.vcxproj -> D:\Team\Framework\Client\Bin\Client.exe
+﻿  Client.vcxproj -> D:\Team\Framework\Client\Bin\Client.exe
