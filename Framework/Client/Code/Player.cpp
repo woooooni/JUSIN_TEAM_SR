@@ -11,6 +11,8 @@
 #include "Player_State_Rolling.h"
 #include "Player_State_Jump.h"
 #include "Player_State_Swing.h"
+#include "Player_State_Hit.h"
+#include "Player_State_Lift.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -92,6 +94,52 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Swing_RightUp", L"Proto_Texture_Player_Swing_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"Swing_RightDown", L"Proto_Texture_Player_Swing_RightDown", 0.1f);
 
+	m_pAnimator->Add_Animation(L"Hit_Down", L"Proto_Texture_Player_Hit_Down", 0.2f);
+	m_pAnimator->Add_Animation(L"Hit_Up", L"Proto_Texture_Player_Hit_Up", 0.2f);
+	m_pAnimator->Add_Animation(L"Hit_Left", L"Proto_Texture_Player_Hit_Left", 0.2f);
+	m_pAnimator->Add_Animation(L"Hit_Right", L"Proto_Texture_Player_Hit_Right", 0.2f);
+	m_pAnimator->Add_Animation(L"Hit_LeftUp", L"Proto_Texture_Player_Hit_LeftUp", 0.2f);
+	m_pAnimator->Add_Animation(L"Hit_LeftDown", L"Proto_Texture_Player_Hit_LeftDown", 0.2f);
+	m_pAnimator->Add_Animation(L"Hit_RightUp", L"Proto_Texture_Player_Hit_RightUp", 0.2f);
+	m_pAnimator->Add_Animation(L"Hit_RightDown", L"Proto_Texture_Player_Hit_RightDown", 0.2f);
+
+	m_pAnimator->Add_Animation(L"LiftUp_Down", L"Proto_Texture_Player_LiftUp_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftUp_Up", L"Proto_Texture_Player_LiftUp_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftUp_Left", L"Proto_Texture_Player_LiftUp_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftUp_Right", L"Proto_Texture_Player_LiftUp_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftUp_LeftUp", L"Proto_Texture_Player_LiftUp_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftUp_LeftDown", L"Proto_Texture_Player_LiftUp_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftUp_RightUp", L"Proto_Texture_Player_LiftUp_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftUp_RightDown", L"Proto_Texture_Player_LiftUp_RightDown", 0.1f);
+
+	m_pAnimator->Add_Animation(L"LiftDown_Down", L"Proto_Texture_Player_LiftDown_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftDown_Up", L"Proto_Texture_Player_LiftDown_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftDown_Left", L"Proto_Texture_Player_LiftDown_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftDown_Right", L"Proto_Texture_Player_LiftDown_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftDown_LeftUp", L"Proto_Texture_Player_LiftDown_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftDown_LeftDown", L"Proto_Texture_Player_LiftDown_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftDown_RightUp", L"Proto_Texture_Player_LiftDown_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftDown_RightDown", L"Proto_Texture_Player_LiftDown_RightDown", 0.1f);
+
+	m_pAnimator->Add_Animation(L"LiftWalk_Down", L"Proto_Texture_Player_LiftWalk_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Up", L"Proto_Texture_Player_LiftWalk_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Left", L"Proto_Texture_Player_LiftWalk_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Right", L"Proto_Texture_Player_LiftWalk_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_LeftUp", L"Proto_Texture_Player_LiftWalk_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_LeftDown", L"Proto_Texture_Player_LiftWalk_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_RightUp", L"Proto_Texture_Player_LiftWalk_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_RightDown", L"Proto_Texture_Player_LiftWalk_RightDown", 0.1f);
+
+	m_pAnimator->Add_Animation(L"Lift_Down", L"Proto_Texture_Player_Lift_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"Lift_Up", L"Proto_Texture_Player_Lift_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"Lift_Left", L"Proto_Texture_Player_Lift_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"Lift_Right", L"Proto_Texture_Player_Lift_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"Lift_LeftUp", L"Proto_Texture_Player_Lift_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Lift_LeftDown", L"Proto_Texture_Player_Lift_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Lift_RightUp", L"Proto_Texture_Player_Lift_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Lift_RightDown", L"Proto_Texture_Player_Lift_RightDown", 0.1f);
+
+
 
 	m_pAnimator->Play_Animation(L"Idle_Down", true);
 
@@ -106,6 +154,8 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_Rolling(this));
 	m_vecState.push_back(new CPlayer_State_Jump(this));
 	m_vecState.push_back(new CPlayer_State_Swing(this));
+	m_vecState.push_back(new CPlayer_State_Hit(this));
+	m_vecState.push_back(new CPlayer_State_Lift(this));
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
@@ -122,14 +172,10 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
 	}
-
+	_int iExit = __super::Update_Object(fTimeDelta);
+	Add_CollisionGroup(m_pColliderCom);
 	m_vecState[(_uint)m_eState]->Update_State(fTimeDelta);
 
-
-	_int iExit = __super::Update_Object(fTimeDelta);
-
-	Add_CollisionGroup(m_pColliderCom);
-	
 	return iExit;
 }
 

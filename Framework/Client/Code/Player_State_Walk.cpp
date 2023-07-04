@@ -6,7 +6,7 @@
 #include "Player.h"
 
 CPlayer_State_Walk::CPlayer_State_Walk(CGameObject* _pOwner)
-	: CPlayer_State(_pOwner)
+	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
 {
 }
 
@@ -16,6 +16,39 @@ CPlayer_State_Walk::~CPlayer_State_Walk()
 
 HRESULT CPlayer_State_Walk::Ready_State(void)
 {	
+	if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_LU);
+	}
+	else if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_RU);
+	}
+	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_RD);
+	}
+	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_LD);
+	}
+	else if (GetAsyncKeyState(VK_UP) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_U);
+	}
+	else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_D);
+	}
+	else if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_L);
+	}
+	else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+	{
+		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_R);
+	}
+
 	switch (m_pOwner->GetObj_Dir())
 	{
 	case OBJ_DIR::DIR_U:
@@ -48,7 +81,16 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 
 _int CPlayer_State_Walk::Update_State(const _float& fTimeDelta)
 {
-	Key_Input(fTimeDelta);
+	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 5.f, fTimeDelta);
+	if (m_fAccTime > m_fKeyDelayTime)
+	{
+		Key_Input(fTimeDelta);
+		m_fAccTime = 0.0f;
+	}
+	else
+		m_fAccTime += fTimeDelta;
+
+
 	return 0;
 }
 
@@ -77,42 +119,34 @@ void CPlayer_State_Walk::Key_Input(const _float& fTimeDelta)
 	if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_LU,L"Walk_LeftUp");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_LU, 5.f, fTimeDelta);
 	}
 	else if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_RU, L"Walk_RightUp");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_RU, 5.f, fTimeDelta);
 	}
 	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_RD, L"Walk_RightDown");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_RD, 5.f, fTimeDelta);
 	}
 	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_LD, L"Walk_LeftDown");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_LD, 5.f, fTimeDelta);
 	}
 	else if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_U, L"Walk_Up");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_U, 5.f, fTimeDelta);
 	}
 	else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_D, L"Walk_Down");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_D, 5.f, fTimeDelta);
 	}
 	else if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_L, L"Walk_Left");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_L, 5.f, fTimeDelta);
 	}
 	else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
 		Change_Dir(OBJ_DIR::DIR_R, L"Walk_Right");
-		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(OBJ_DIR::DIR_R, 5.f, fTimeDelta);
 	}
 	else
 	{

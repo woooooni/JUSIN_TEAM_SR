@@ -15,6 +15,9 @@ public:
 
 private:
 	void					Key_Input(const _float& fTimeDelta);
+
+	_float m_fAccTime;
+	_float m_fKeyDelayTime;
 };
 
 

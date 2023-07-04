@@ -3,6 +3,7 @@
 
 #include "Animator.h"
 #include "Player.h"
+#include "KeyMgr.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -61,12 +62,12 @@ void CPlayer_State_Idle::Render_State(void)
 
 void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 {
-	if (GetAsyncKeyState(VK_UP) & 0x8000 || 
-		GetAsyncKeyState(VK_RIGHT) & 0x8000 ||
-		GetAsyncKeyState(VK_DOWN) & 0x8000 ||
-		GetAsyncKeyState(VK_LEFT) & 0x8000)
+	if (KEY_HOLD(KEY::LEFT_ARROW) || 
+		KEY_HOLD(KEY::RIGHT_ARROW) ||
+		KEY_HOLD(KEY::UP_ARROW) ||
+		KEY_HOLD(KEY::DOWN_ARROW))
 	{
-		if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+		if (KEY_HOLD(KEY::SHIFT))
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::RUN);
 		else
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::MOVE);
@@ -86,6 +87,16 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	if (GetAsyncKeyState('A') & 0x8000)
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SWING);
+	}
+
+	if (GetAsyncKeyState('S') & 0x8000)
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::HIT);
+	}
+
+	if (GetAsyncKeyState('G') & 0x8000)
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::LIFT);
 	}
 
 }
