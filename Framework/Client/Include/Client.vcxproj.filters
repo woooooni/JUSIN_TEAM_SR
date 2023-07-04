@@ -43,32 +43,32 @@
     <Filter Include="02. GameObject\05. SkyBox">
       <UniqueIdentifier>{8bc25a65-3bb6-49f6-93e1-39ceab443d6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\06. InteractiveObj">
-      <UniqueIdentifier>{d365d323-3a2d-42dc-8129-6778d466e7e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\08. OnEventObj">
       <UniqueIdentifier>{5e6f6c92-efcf-45c8-8d3c-d9e24f26adcf}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\07. AttackableObj">
       <UniqueIdentifier>{fb822bd7-6e50-41e8-8d72-312b15b14032}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\06. InteractiveObj\00. PushableObj">
-      <UniqueIdentifier>{d8497950-60df-4f33-b57d-0c6d54907061}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\06. InteractiveObj\00. PushableObj\00. Stone">
-      <UniqueIdentifier>{7226a995-e819-4ebe-875b-411c95eea3e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\06. InteractiveObj\01. GrabbableObj">
-      <UniqueIdentifier>{e77b86f2-c4c8-4bcd-85a9-8b50fd5f02ee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\06. InteractiveObj\02. BenchObj">
-      <UniqueIdentifier>{37266a86-5e6d-4239-868a-4995d80878e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\09. EnvironmentObj">
       <UniqueIdentifier>{895afe5f-b291-4bac-9ef6-7355f543f756}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\09. EnvironmentObj\00. NearReactObj">
       <UniqueIdentifier>{8a6196fd-5402-4513-8f05-b924c7e1afe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj">
+      <UniqueIdentifier>{d365d323-3a2d-42dc-8129-6778d466e7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\00. PushableObj">
+      <UniqueIdentifier>{d8497950-60df-4f33-b57d-0c6d54907061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\00. PushableObj\00. Stone">
+      <UniqueIdentifier>{7226a995-e819-4ebe-875b-411c95eea3e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\01. GrabbableObj">
+      <UniqueIdentifier>{e77b86f2-c4c8-4bcd-85a9-8b50fd5f02ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\02. BenchObj">
+      <UniqueIdentifier>{37266a86-5e6d-4239-868a-4995d80878e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,22 +123,22 @@
     <ClInclude Include="..\Header\Player_State_Walk.h" />
     <ClInclude Include="..\Header\Scene_Tool.h" />
     <ClInclude Include="..\Header\PushStone.h">
-      <Filter>02. GameObject\06. InteractiveObj\00. PushableObj\00. Stone</Filter>
+      <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\AttackableObj.h">
       <Filter>02. GameObject\07. AttackableObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\PushableObj.h">
-      <Filter>02. GameObject\06. InteractiveObj\00. PushableObj</Filter>
+      <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GrabbableObj.h">
-      <Filter>02. GameObject\06. InteractiveObj\01. GrabbableObj</Filter>
+      <Filter>02. GameObject\06. FieldObj\01. GrabbableObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\OnEventObj.h">
       <Filter>02. GameObject\08. OnEventObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BenchObj.h">
-      <Filter>02. GameObject\06. InteractiveObj\02. BenchObj</Filter>
+      <Filter>02. GameObject\06. FieldObj\02. BenchObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\NearReactObj.h">
       <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj</Filter>
@@ -146,7 +146,9 @@
     <ClInclude Include="..\Header\BlueBeatle.h">
       <Filter>02. GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\FieldObject.h" />
+    <ClInclude Include="..\Header\FieldObject.h">
+      <Filter>02. GameObject\06. FieldObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -192,22 +194,22 @@
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="..\Code\PushStone.cpp">
-      <Filter>02. GameObject\06. InteractiveObj\00. PushableObj\00. Stone</Filter>
+      <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\AttackableObj.cpp">
       <Filter>02. GameObject\07. AttackableObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\PushableObj.cpp">
-      <Filter>02. GameObject\06. InteractiveObj\00. PushableObj</Filter>
+      <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GrabbableObj.cpp">
-      <Filter>02. GameObject\06. InteractiveObj\01. GrabbableObj</Filter>
+      <Filter>02. GameObject\06. FieldObj\01. GrabbableObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\OnEventObj.cpp">
       <Filter>02. GameObject\08. OnEventObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BenchObj.cpp">
-      <Filter>02. GameObject\06. InteractiveObj\02. BenchObj</Filter>
+      <Filter>02. GameObject\06. FieldObj\02. BenchObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\NearReactObj.cpp">
       <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj</Filter>
@@ -215,7 +217,9 @@
     <ClCompile Include="..\Code\BlueBeatle.cpp">
       <Filter>02. GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\FieldObject.cpp" />
+    <ClCompile Include="..\Code\FieldObject.cpp">
+      <Filter>02. GameObject\06. FieldObj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

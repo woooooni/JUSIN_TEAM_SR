@@ -11,5 +11,6 @@ protected:
 	bool m_bIsPushable = false;
 	bool m_bIsGrabbable = false;
 	bool m_bIsAttackable = false;
+	bool m_bIsBreakable = false;
 };
 
