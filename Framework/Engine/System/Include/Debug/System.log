@@ -1,7 +1,4 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.Cpp.Unity.targets(189,5): warning : 'C:\SRTeam\Framework\Engine\System\Include\Debug\unity_7PGFFP9BUG8U1XM7.cpp' 경로의 일부를 찾을 수 없습니다.
-  unity_EPI7Z8P8ECEL1OXM.cpp
-     ../Bin\System.lib 라이브러리 및 ../Bin\System.exp 개체를 생성하고 있습니다.
-  System.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\System\Bin\System.dll
+﻿  System.vcxproj -> C:\SRTeam\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
