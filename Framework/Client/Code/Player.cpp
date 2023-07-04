@@ -115,6 +115,9 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 
 
 	_int iExit = __super::Update_Object(fTimeDelta);
+
+	Add_CollisionGroup(m_pColliderCom);
+	
 	return iExit;
 }
 

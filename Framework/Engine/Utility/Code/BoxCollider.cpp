@@ -39,11 +39,6 @@ _int CBoxCollider::Update_Component(const _float & fTimeDelta)
 	const D3DXMATRIX& matWorld = *pOwnerTransform->Get_WorldMatrix();
 
 
-	for (UINT i = 0; i < 3; ++i)
-	{
-		m_vAxisDir[i] *= m_fAxisLen[i];
-		memcpy(&m_vAxisDir[i], &matWorld.m[i][0], sizeof(_vec3));
-	}
 
 	return S_OK;
 }
@@ -62,8 +57,8 @@ void CBoxCollider::Render_Component()
 
 	for (int i = 0; i < 3; ++i)
 	{
-		m_vAxisDir[i] *= m_fAxisLen[i];
-		memcpy(&matWorld.m[i][0], &(m_vAxisDir[i]), sizeof(_vec3));
+
+		memcpy(&matWorld.m[i][i], &(m_vScale[i]), sizeof(float));
 	}
 		
 	memcpy(&matWorld.m[3][0], &m_vCenterPos, sizeof(_vec3));
@@ -85,6 +80,11 @@ CBoxCollider * CBoxCollider::Create(LPDIRECT3DDEVICE9 _pDevice)
 		MSG_BOX("BoxCollider Create Failed");
 		return nullptr;
 	}
+
+	pInstance->m_vAxisDir[0] = {1, 0, 0};
+	pInstance->m_vAxisDir[0] = { 0, 1, 0 };
+	pInstance->m_vAxisDir[0] = { 0, 0, 1 };
+
 
 	return pInstance;
 }

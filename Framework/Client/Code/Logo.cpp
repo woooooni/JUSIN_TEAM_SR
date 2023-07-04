@@ -40,6 +40,8 @@ Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 
 void CLogo::LateUpdate_Scene()
 {
+	Group_Collide();
+
 	__super::LateUpdate_Scene();
 }
 
@@ -96,9 +98,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 	
 
-	//CPushStone* pPush = CPushStone::Create(_vec3(0, 1, 0), m_pGraphicDev);
-	//NULL_CHECK_RETURN(pPlayer, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Stone", pPush), E_FAIL);
+	CPushStone* pPush = CPushStone::Create(_vec3(3, 1, 3), m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlayer, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Stone", pPush), E_FAIL);
 
 
 	// UI

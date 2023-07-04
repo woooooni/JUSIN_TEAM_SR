@@ -8,6 +8,7 @@
 #include "PickingMgr.h"
 #include "LightMgr.h"
 #include "KeyMgr.h"
+#include "CollisionMgr.h"
 
 #include "TriCol.h"
 #include "RcCol.h"
@@ -65,6 +66,16 @@ inline	HRESULT Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd);
 inline	void	Update_KeyMgr();
 
 inline void				Release_Utility();
+
+// CollisionMgr
+
+inline void		Add_CollisionGroup(CCollider* pCol);
+
+inline void		Group_Collide();
+
+inline HRESULT			Check_Collision(CGameObject* objA, CGameObject* objB);
+inline HRESULT			Check_Collision(CCollider* objA, CCollider* objB);
+
 
 #include "Export_Utility.inl"
 
