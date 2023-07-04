@@ -1,7 +1,36 @@
-﻿  unity_USYHA121NNGP05N7.cpp
+﻿  unity_W5KKTR38I7V33SQC.cpp
+  AttackableObj.cpp
+  BackGround.cpp
+  BenchObj.cpp
+  BlueBeatle.cpp
+  CUI.cpp
+  unity_4Q4OBL8OEHRAQMQF.cpp
+  GrabbableObj.cpp
   NearReactObj.cpp
   OnEventObj.cpp
   PushableObj.cpp
   Logo.cpp
+  unity_B715EITOTJF885AN.cpp
   MainApp.cpp
+  Monster.cpp
+  Player.cpp
+  Player_State.cpp
+  Player_State_Hit.cpp
+  unity_22LUXJFOWTXGQH0F.cpp
+  Player_State_Idle.cpp
+  Player_State_Jump.cpp
+  Player_State_Lift.cpp
+  Player_State_Push.cpp
+  Player_State_Rolling.cpp
+  unity_6MPY3W4U9FQYKC4H.cpp
+  Player_State_Run.cpp
+  Player_State_Swing.cpp
+  Player_State_Walk.cpp
+  PushStone.cpp
+  SkyBox.cpp
+  unity_3O93UPKKGTHS6JZX.cpp
+  Stage.cpp
+  Terrain.cpp
+  코드를 생성하고 있습니다...
+     ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
   Client.vcxproj -> C:\SRTeam\Framework\Client\Bin\Client.exe
