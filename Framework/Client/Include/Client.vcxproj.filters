@@ -64,6 +64,21 @@
     <Filter Include="02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling">
       <UniqueIdentifier>{f7ff71bf-2bb6-49ed-ac13-50c9f7a94791}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\05. Player_State_Jump">
+      <UniqueIdentifier>{621315df-de0e-4f61-9529-b91e12092ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\06. Player_State_Swing">
+      <UniqueIdentifier>{1e131d1d-59c9-418a-8c30-31c7e3eac96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\07. Player_State_Hit">
+      <UniqueIdentifier>{a44219c8-af4c-4f16-a1ef-81175a1afa3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\08. Player_State_Lift">
+      <UniqueIdentifier>{b490ea66-b3af-4ce8-aabe-be9c1b6ff064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\09. Player_State_Push">
+      <UniqueIdentifier>{4c7554d7-a8bb-4f0d-8b69-4f5e4f0ea2a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -120,6 +135,21 @@
     <ClInclude Include="..\Header\Player_State_Rolling.h">
       <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Jump.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\05. Player_State_Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Swing.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\06. Player_State_Swing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Hit.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\07. Player_State_Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Lift.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\08. Player_State_Lift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Push.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\09. Player_State_Push</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -167,6 +197,21 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Rolling.cpp">
       <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Jump.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\05. Player_State_Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Swing.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\06. Player_State_Swing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Hit.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\07. Player_State_Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Lift.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\08. Player_State_Lift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Push.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\09. Player_State_Push</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
