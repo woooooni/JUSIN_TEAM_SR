@@ -14,7 +14,7 @@ END
 class CUI : public CGameObject
 {
 
-private:
+protected:
 	explicit CUI(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CUI(const CUI& rhs);
 	virtual ~CUI();
