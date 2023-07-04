@@ -16,6 +16,7 @@ Engine::CCollisionMgr::~CCollisionMgr(void)
 
 void CCollisionMgr::Free(void)
 {
+	
 }
 
 void CCollisionMgr::Add_CollisionGroup(CCollider* pCol)
