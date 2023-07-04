@@ -143,6 +143,7 @@
     <ClInclude Include="..\Header\NearReactObj.h">
       <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\BlueBeatle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -208,6 +209,7 @@
     <ClCompile Include="..\Code\NearReactObj.cpp">
       <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\BlueBeatle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

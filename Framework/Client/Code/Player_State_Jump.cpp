@@ -77,7 +77,6 @@ HRESULT CPlayer_State_Jump::Ready_State(void)
 		break;
 	}
 
-	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.5f, 1.5f, 1.5f));
 	return S_OK;
 }
 
@@ -94,7 +93,6 @@ void CPlayer_State_Jump::LateUpdate_State(void)
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
-		m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 	}
 }
 
