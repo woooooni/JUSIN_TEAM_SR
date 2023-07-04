@@ -61,6 +61,15 @@
     <Filter Include="02. GameObject\02. Monster\BlueBeatle">
       <UniqueIdentifier>{a25dd0f4-78ec-480e-9e56-ff3e40d4f76e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\00. AdventureBook">
+      <UniqueIdentifier>{48445ae2-b720-49a9-b600-c820079ca60d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\00. PlayerState">
+      <UniqueIdentifier>{3a55b387-51e0-4626-b3b2-8d617defea05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\00. PlayerState\00. Idle">
+      <UniqueIdentifier>{8cf4631f-d5f7-40fb-a1d3-312cffcd400a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -102,7 +111,6 @@
     <ClInclude Include="..\Header\SkyBox.h">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Player_State.h" />
     <ClInclude Include="..\Header\Player_State_Hit.h" />
     <ClInclude Include="..\Header\Player_State_Idle.h" />
     <ClInclude Include="..\Header\Player_State_Jump.h" />
@@ -124,6 +132,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\BlueBeatle.h">
       <Filter>02. GameObject\02. Monster\BlueBeatle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_AdventureBook.h">
+      <Filter>02. GameObject\04. UI\00. AdventureBook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State.h">
+      <Filter>02. GameObject\01. Player\00. PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +172,6 @@
     <ClCompile Include="..\Code\SkyBox.cpp">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player_State.cpp" />
     <ClCompile Include="..\Code\Player_State_Hit.cpp" />
     <ClCompile Include="..\Code\Player_State_Idle.cpp" />
     <ClCompile Include="..\Code\Player_State_Jump.cpp" />
@@ -180,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\BlueBeatle.cpp">
       <Filter>02. GameObject\02. Monster\BlueBeatle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_AdventureBook.cpp">
+      <Filter>02. GameObject\04. UI\00. AdventureBook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State.cpp">
+      <Filter>02. GameObject\01. Player\00. PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

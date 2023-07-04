@@ -7,6 +7,7 @@ CTexture::CTexture()
 	, m_fAccTime(0.f)
 	, m_fFrameTime(0.f)
 	, m_bFinished(false)
+	, m_bLoop(true)
 {
 }
 
@@ -16,6 +17,7 @@ CTexture::CTexture(LPDIRECT3DDEVICE9 _pDevice)
 	, m_fAccTime(0.f)
 	, m_fFrameTime(0.f)
 	, m_bFinished(false)
+	, m_bLoop(true)
 {
 }
 
@@ -25,6 +27,7 @@ CTexture::CTexture(const CTexture & rhs)
 	, m_fAccTime(0.f)
 	, m_fFrameTime(rhs.m_fFrameTime)
 	, m_bFinished(false)
+	, m_bLoop(rhs.m_bLoop)
 {
 	m_vecTexture = rhs.m_vecTexture;
 	m_vecTextureInfo = rhs.m_vecTextureInfo;
@@ -45,7 +48,7 @@ _int CTexture::Update_Component(const _float& fTimeDelta)
 		
 		if (m_iIdx >= m_vecTexture.size())
 		{
-			m_iIdx = 0;
+			m_bLoop ? m_iIdx = 0 : m_iIdx;
 			m_bFinished = true;
 		}
 	}
