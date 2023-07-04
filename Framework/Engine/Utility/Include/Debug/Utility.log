@@ -25,6 +25,7 @@
   .\Engine\Header\Export_Function.h
   .\Engine\Header\Export_System.h
   .\Engine\Header\Export_Utility.h
+  .\Engine\Header\FontMgr.h
   .\Engine\Header\Frame.h
   .\Engine\Header\FrameMgr.h
   .\Engine\Header\GameObject.h
@@ -49,7 +50,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         41개 파일이 복사되었습니다.
+         42개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

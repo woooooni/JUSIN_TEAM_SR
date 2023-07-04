@@ -1,4 +1,10 @@
-﻿  unity_3E43IWLQ8QTLAKQ9.cpp
+﻿  unity_NM1C9GMV10006H3A.cpp
+  Logo.cpp
+  MainApp.cpp
+  Monster.cpp
+  Player.cpp
+  Player_State.cpp
+  unity_3E43IWLQ8QTLAKQ9.cpp
   Player_State_Hit.cpp
 C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\Player_State_Hit.cpp(22,120): error C2660: 'Engine::CAnimator::Play_Animation': 함수는 1개의 인수를 사용하지 않습니다.
 C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Reference\Header\Animator.h(23,11): message : 'Engine::CAnimator::Play_Animation' 선언을 참조하십시오.

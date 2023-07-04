@@ -1,51 +1,6 @@
-﻿  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Bin\System.dll
-  .\Engine\System\Code\*.h 
-          0개 파일이 복사되었습니다.
-  지정된 파일을 찾을 수 없습니다.
-          1개 파일이 복사되었습니다.
-          1개 파일이 복사되었습니다.
-  .\Engine\Header\Animator.h
-  .\Engine\Header\BoxCollider.h
-  .\Engine\Header\Camera.h
-  .\Engine\Header\CameraMgr.h
-  .\Engine\Header\Collider.h
-  .\Engine\Header\CollisionMgr.h
-  .\Engine\Header\Component.h
-  .\Engine\Header\CubeTex.h
-  .\Engine\Header\Engine_Define.h
-  .\Engine\Header\Engine_Enum.h
-  .\Engine\Header\Engine_Function.h
-  .\Engine\Header\Engine_Macro.h
-  .\Engine\Header\Engine_Struct.h
-  .\Engine\Header\Engine_Typedef.h
-  .\Engine\Header\Export_Function.h
-  .\Engine\Header\Export_System.h
-  .\Engine\Header\Export_Utility.h
-  .\Engine\Header\Frame.h
-  .\Engine\Header\FrameMgr.h
-  .\Engine\Header\GameObject.h
-  .\Engine\Header\GraphicDev.h
-  .\Engine\Header\ImGuiMgr.h
-  .\Engine\Header\InputDevice.h
-  .\Engine\Header\KeyMgr.h
-  .\Engine\Header\Layer.h
-  .\Engine\Header\Light.h
-  .\Engine\Header\LightMgr.h
-  .\Engine\Header\Management.h
-  .\Engine\Header\PickingMgr.h
-  .\Engine\Header\ProtoMgr.h
-  .\Engine\Header\RcCol.h
-  .\Engine\Header\RcTex.h
-  .\Engine\Header\Renderer.h
-  .\Engine\Header\Scene.h
-  .\Engine\Header\TerrainTex.h
-  .\Engine\Header\Texture.h
-  .\Engine\Header\Timer.h
-  .\Engine\Header\TimerMgr.h
-  .\Engine\Header\Transform.h
-  .\Engine\Header\TriCol.h
-  .\Engine\Header\VIBuffer.h
-         41개 파일이 복사되었습니다.
-  .\Engine\Header\Export_System.inl
-  .\Engine\Header\Export_Utility.inl
-          2개 파일이 복사되었습니다.
+﻿  unity_X74SGK72G564F8Z7.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Code\FontMgr.cpp(21,17): error C2660: 'D3DXCreateFontW': 함수는 0개의 인수를 사용하지 않습니다.
+C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\d3dx9core.h(396,5): message : 'D3DXCreateFontW' 선언을 참조하십시오.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Code\FontMgr.cpp(22,2): error C2146: 구문 오류: ';'이(가) 'D3DXCreateFontW' 식별자 앞에 없습니다.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Code\FontMgr.cpp(24,2): error C2143: 구문 오류: ';'이(가) 'return' 앞에 없습니다.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Code\FontMgr.cpp(22,2): warning C4551: 함수 호출에 인수 목록이 없습니다.
