@@ -31,11 +31,13 @@ protected:
 	float			m_fAxisLen[3];
 	// 상자의 평행한 세 축의 길이 fAxisLen[n]은 vAxisDir[n]에 각각 대응한다.
 
+protected:
+	_bool			m_bRender;
+	_bool			m_bEnable;
+
 private:
 	static UINT		g_iNextID;
-	bool			m_bEnable;
-	bool			m_bRender;
-
+	
 	UINT			m_iID;
 	COLLIDER_TYPE	m_eType;
 };
