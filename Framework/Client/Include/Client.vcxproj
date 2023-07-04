@@ -179,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="..\Header\AttackableObj.h" />
     <ClInclude Include="..\Header\BackGround.h" />
+    <ClInclude Include="..\Header\BlueBeatle.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\InteractiveObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
@@ -208,6 +209,7 @@
   <ItemGroup>
     <ClCompile Include="..\Code\AttackableObj.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
+    <ClCompile Include="..\Code\BlueBeatle.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\InteractiveObj.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />

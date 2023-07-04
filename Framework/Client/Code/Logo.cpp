@@ -95,6 +95,12 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 	
+	// BlueBeatle
+	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
+
+
 
 	//CPushStone* pPush = CPushStone::Create(_vec3(0, 1, 0), m_pGraphicDev);
 	//NULL_CHECK_RETURN(pPlayer, E_FAIL);

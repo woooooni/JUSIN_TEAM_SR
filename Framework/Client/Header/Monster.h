@@ -4,7 +4,7 @@
 
 BEGIN(Engine)
 
-class CTriCol;
+class CRcTex;
 class CTransform;
 class CCollider;
 
@@ -23,7 +23,7 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
-private:
+protected:
 	HRESULT	Add_Component(void);
 	
 
@@ -46,8 +46,8 @@ public:
 	virtual void Update_Die(_float fTimeDelta)		PURE;
 	
 
-private:
-	CTriCol* m_pBufferCom = nullptr;
+protected:
+
 	CTransform* m_pTransformCom = nullptr;
 	CCollider* m_pColliderCom = nullptr;
 
@@ -58,7 +58,7 @@ private:
 private:
 	CGameObject* m_pTarget;
 
-private:
+protected:
 	virtual void Free() override;
 
 };
