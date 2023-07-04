@@ -1,12 +1,9 @@
-﻿  unity_7PGFFP9BUG8U1XM7.cpp
-     ../Bin\System.lib 라이브러리 및 ../Bin\System.exp 개체를 생성하고 있습니다.
-  System.vcxproj -> C:\SRTeam\Framework\Engine\System\Bin\System.dll
+﻿  System.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
-          0개 파일이 복사되었습니다.
   지정된 파일을 찾을 수 없습니다.
-          1개 파일이 복사되었습니다.
-  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
           0개 파일이 복사되었습니다.
+          1개 파일이 복사되었습니다.
+          1개 파일이 복사되었습니다.
   .\Engine\Header\Animator.h
   .\Engine\Header\BoxCollider.h
   .\Engine\Header\Camera.h
@@ -24,6 +21,7 @@
   .\Engine\Header\Export_Function.h
   .\Engine\Header\Export_System.h
   .\Engine\Header\Export_Utility.h
+  .\Engine\Header\FontMgr.h
   .\Engine\Header\Frame.h
   .\Engine\Header\FrameMgr.h
   .\Engine\Header\GameObject.h
@@ -48,7 +46,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         41개 파일이 복사되었습니다.
+         42개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

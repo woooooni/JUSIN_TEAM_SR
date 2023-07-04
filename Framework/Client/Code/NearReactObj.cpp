@@ -21,7 +21,7 @@ HRESULT CNearReactObj::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"Nunk_Move", L"Proto_Texture_NearPlant", 0.2f), E_FAIL);
 
-	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"Nunk_Move"), E_FAIL);
+	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"Nunk_Move", FALSE), E_FAIL);
 
 	return S_OK;
 }
