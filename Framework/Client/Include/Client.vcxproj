@@ -177,8 +177,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Header\AttackableObj.h" />
     <ClInclude Include="..\Header\BackGround.h" />
     <ClInclude Include="..\Header\CUI.h" />
+    <ClInclude Include="..\Header\InteractiveObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
     <ClInclude Include="..\Header\Monster.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="..\Header\Player_State_Run.h" />
     <ClInclude Include="..\Header\Player_State_Swing.h" />
     <ClInclude Include="..\Header\Player_State_Walk.h" />
+    <ClInclude Include="..\Header\PushStone.h" />
     <ClInclude Include="..\Header\Scene_Tool.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\Stage.h" />
@@ -203,8 +206,10 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\AttackableObj.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
+    <ClCompile Include="..\Code\InteractiveObj.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
@@ -219,6 +224,7 @@
     <ClCompile Include="..\Code\Player_State_Run.cpp" />
     <ClCompile Include="..\Code\Player_State_Swing.cpp" />
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
+    <ClCompile Include="..\Code\PushStone.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
