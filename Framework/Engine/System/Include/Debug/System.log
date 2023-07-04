@@ -1,6 +1,5 @@
-﻿  unity_EPI7Z8P8ECEL1OXM.cpp
-     ../Bin\System.lib 라이브러리 및 ../Bin\System.exp 개체를 생성하고 있습니다.
-  System.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\System\Bin\System.dll
+﻿  unity_X74SGK72G564F8Z7.cpp
+  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
@@ -23,6 +22,7 @@
   .\Engine\Header\Export_Function.h
   .\Engine\Header\Export_System.h
   .\Engine\Header\Export_Utility.h
+  .\Engine\Header\FontMgr.h
   .\Engine\Header\Frame.h
   .\Engine\Header\FrameMgr.h
   .\Engine\Header\GameObject.h
@@ -47,7 +47,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         41개 파일이 복사되었습니다.
+         42개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.
