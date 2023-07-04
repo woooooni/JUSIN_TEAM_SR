@@ -6,7 +6,6 @@
 #include "Player.h"
 #include "BlueBeatle.h"
 #include "Terrain.h"
-
 class CStage : public Engine::CScene
 {
 private:

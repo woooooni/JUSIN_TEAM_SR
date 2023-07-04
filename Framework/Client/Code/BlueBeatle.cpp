@@ -20,22 +20,34 @@ CBlueBeatle::~CBlueBeatle()
 void CBlueBeatle::Update_Idle(_float fTimeDelta)
 {
 
-	_vec3 vDir,vPos,vDst;
 	if (m_fMoveTime > 10.f)
 	{
+		Set_State(MONSTER_STATE::MOVE);
+		m_pAnimator->Play_Animation(L"BlueBeatle_Move_Down");
+		m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10 * fTimeDelta;
+}
+void CBlueBeatle::Update_Move(_float fTimeDelta)
+{
+
+	_vec3 vDir, vPos, vDst;
+	if (m_fMoveTime > 5.f)
+	{
+		Set_State(MONSTER_STATE::IDLE);
+		m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down");
 		vDst = { float(rand() % 10),1.f,float(rand() % 10) };
 		if (vDst != m_vDst)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10* fTimeDelta;
+	m_fMoveTime += 10 * fTimeDelta;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst - vPos;
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 }
-
 void CBlueBeatle::Update_Die(_float fTimeDelta)
 {
 }
@@ -45,10 +57,12 @@ HRESULT CBlueBeatle::Ready_Object(void)
 	Set_State(MONSTER_STATE::IDLE);
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pAnimator->Add_Animation(L"BlueBeatle_Idle_Down", L"Proto_Texture_BlueBeatle_Idle_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"BlueBeatle_Move_Down", L"Proto_Texture_BlueBeatle_Move_Down", 0.1f);
 
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
-	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down");
+
 	return S_OK;
 }
 
@@ -106,7 +120,7 @@ CBlueBeatle* CBlueBeatle::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
-void CBlueBeatle::Trace()
+void CBlueBeatle::Trace(_float fTimeDelta)
 {
 }
 
@@ -114,9 +128,6 @@ void CBlueBeatle::Update_Regen(_float fTimeDelta)
 {
 }
 
-void CBlueBeatle::Update_Move(_float fTimeDelta)
-{
-}
 
 void CBlueBeatle::Update_Attack(_float fTimeDelta)
 {

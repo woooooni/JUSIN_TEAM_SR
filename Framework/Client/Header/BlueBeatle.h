@@ -18,7 +18,7 @@ public:
     virtual void Update_Attack(_float fTimeDelta) override;
 public:
     virtual HRESULT Ready_Object(void)							override;
-    void Render_Object(void);
+    virtual void    Render_Object(void)                         override;
     virtual void	LateUpdate_Object(void)						override;
 
     HRESULT	Add_Component(void);
@@ -28,7 +28,7 @@ private:
     _float m_fMoveTime;
     _vec3 m_vDst = { 0,1,0 };
     // CMonster을(를) 통해 상속됨
-    virtual void Trace() override;
+    virtual void Trace(_float fTimeDelta) override;
 
 };
 

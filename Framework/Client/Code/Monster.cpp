@@ -87,11 +87,12 @@ HRESULT CMonster::Add_Component(void)
 	return S_OK;
 }
 
-void CMonster::Trace()
+void CMonster::Trace(_float fTimeDelta)
 {
 }
 
 void CMonster::Free()
 {
+	Safe_Release(m_pTarget);
 	__super::Free();
 }
