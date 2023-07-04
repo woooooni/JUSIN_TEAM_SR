@@ -179,9 +179,12 @@
   <ItemGroup>
     <ClInclude Include="..\Header\AttackableObj.h" />
     <ClInclude Include="..\Header\BackGround.h" />
-    <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\CUI.h" />
-    <ClInclude Include="..\Header\InteractiveObj.h" />
+    <ClInclude Include="..\Header\GrabbableObj.h" />
+    <ClInclude Include="..\Header\NearReactObj.h" />
+    <ClInclude Include="..\Header\OnEventObj.h" />
+    <ClInclude Include="..\Header\PushableObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
     <ClInclude Include="..\Header\Monster.h" />
@@ -201,7 +204,6 @@
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\Stage.h" />
     <ClInclude Include="..\Header\Terrain.h" />
-    <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -210,9 +212,12 @@
   <ItemGroup>
     <ClCompile Include="..\Code\AttackableObj.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
-    <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
-    <ClCompile Include="..\Code\InteractiveObj.cpp" />
+    <ClCompile Include="..\Code\GrabbableObj.cpp" />
+    <ClCompile Include="..\Code\NearReactObj.cpp" />
+    <ClCompile Include="..\Code\OnEventObj.cpp" />
+    <ClCompile Include="..\Code\PushableObj.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
@@ -231,7 +236,6 @@
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
-    <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="stdafx.cpp">
