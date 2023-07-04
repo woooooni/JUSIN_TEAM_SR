@@ -67,6 +67,21 @@
     <Filter Include="01. Scene\99. Tool">
       <UniqueIdentifier>{e2bd57c1-9a9b-47bc-ade9-e7f4135bef2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\05. Player_State_Jump">
+      <UniqueIdentifier>{d4346ff5-3eef-4079-a3d2-634bb2e5b6cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\06. Player_State_Swing">
+      <UniqueIdentifier>{9b0df217-bc2c-4d21-a716-7f884d1cf67e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\07. Player_State_Hit">
+      <UniqueIdentifier>{40a55256-24d6-4000-ae42-eb0fa84d36d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\08. Player_State_Lift">
+      <UniqueIdentifier>{1c66c151-fee0-4b44-841e-137ffad125f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State\09. Player_State_Push">
+      <UniqueIdentifier>{db0c9c35-e9c0-45ed-9a6e-1d64ae5e2dc9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -126,6 +141,21 @@
     <ClInclude Include="..\Header\Scene_Tool.h">
       <Filter>01. Scene\99. Tool</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Jump.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\05. Player_State_Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Hit.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\07. Player_State_Hit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Lift.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\08. Player_State_Lift</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Push.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\09. Player_State_Push</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Swing.h">
+      <Filter>02. GameObject\01. Player\01. Player_State\06. Player_State_Swing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -176,6 +206,21 @@
     </ClCompile>
     <ClCompile Include="Scene_Tool.cpp">
       <Filter>01. Scene\99. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Jump.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\05. Player_State_Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Hit.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\07. Player_State_Hit</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Lift.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\08. Player_State_Lift</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Push.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\09. Player_State_Push</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Swing.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State\06. Player_State_Swing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -38,7 +38,7 @@ namespace Engine
 	
 	enum class DIR_TRANSFORM { DIR_X, DIR_Y, DIR_Z, DIR_END };
 	enum class MONSTER_STATE { IDLE, MOVE, REGEN, ATTACK, DIE, END };
-	enum class PLAYER_STATE { IDLE, MOVE, RUN, ROLL, ATTACK, SKILL, DIE, END };
+	enum class PLAYER_STATE { IDLE, MOVE, RUN, ROLL, JUMP, ATTACK, SKILL, DIE, END };
 	
 	enum class KEY_STATE
 	{

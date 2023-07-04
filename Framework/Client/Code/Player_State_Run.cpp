@@ -121,6 +121,6 @@ void CPlayer_State_Run::Key_Input(const _float& fTimeDelta)
 
 	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
 	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(OBJ_STATE::JUMP);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::JUMP);
 	}
 }

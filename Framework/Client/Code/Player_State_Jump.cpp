@@ -90,7 +90,7 @@ void CPlayer_State_Jump::LateUpdate_State(void)
 	if ( dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Is_Finished())
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(OBJ_STATE::IDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 	}
 }
 
