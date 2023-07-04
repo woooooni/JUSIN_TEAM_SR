@@ -168,13 +168,14 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	
 	if (m_bStateChange)
 	{
-		m_eState = m_eState;
+		m_eState = m_eChangeState;
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
 	}
-	_int iExit = __super::Update_Object(fTimeDelta);
 	Add_CollisionGroup(m_pColliderCom);
 	m_vecState[(_uint)m_eState]->Update_State(fTimeDelta);
+
+	_int iExit = __super::Update_Object(fTimeDelta);
 
 	return iExit;
 }
@@ -189,6 +190,8 @@ void CPlayer::Render_Object(void)
 {
 	Set_Billboard();
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	__super::Render_Object();
@@ -205,6 +208,7 @@ HRESULT CPlayer::Ready_Component(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
+
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

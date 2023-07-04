@@ -50,6 +50,8 @@ void CBoxCollider::LateUpdate_Component()
 
 void CBoxCollider::Render_Component()
 {
+	CTransform* pOwnerTransform = (CTransform*)(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
+
 	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	_matrix matWorld;
@@ -57,7 +59,6 @@ void CBoxCollider::Render_Component()
 
 	for (int i = 0; i < 3; ++i)
 	{
-
 		memcpy(&matWorld.m[i][i], &(m_vScale[i]), sizeof(float));
 	}
 		
@@ -66,8 +67,9 @@ void CBoxCollider::Render_Component()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &matWorld);
 	m_pBuffer->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, pOwnerTransform->Get_WorldMatrix());
 
+	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
 
 CBoxCollider * CBoxCollider::Create(LPDIRECT3DDEVICE9 _pDevice)
