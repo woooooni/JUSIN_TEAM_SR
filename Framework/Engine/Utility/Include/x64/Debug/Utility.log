@@ -1,51 +1,56 @@
-﻿  Animator.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Utility\Code\Animator.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Export_Function.h': No such file or directory
-  BoxCollider.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  Camera.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Utility\Code\Camera.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Camera.h': No such file or directory
-  CameraMgr.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\CameraMgr.h(3,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
-  Collider.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  CollisionMgr.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  Component.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  GameObject.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  Layer.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  Light.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Light.h(4,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
-  LightMgr.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Light.h(4,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
-  Management.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Utility\Code\Management.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Export_Utility.h': No such file or directory
-  PickingMgr.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Utility\Code\PickingMgr.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. '../Header/PickingMgr.h': No such file or directory
-  ProtoMgr.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  RcCol.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  CubeTex.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  TerrainTex.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  RcTex.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  Renderer.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  Scene.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  코드를 생성하고 있습니다...
-  컴파일하고 있습니다...
-  Texture.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Utility\Code\Texture.cpp(1,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'Texture.h': No such file or directory
-  Transform.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  TriCol.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  VIBuffer.cpp
-C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Header\Engine_Define.h(5,10): fatal error C1083: 포함 파일을 열 수 없습니다. 'd3dx9.h': No such file or directory
-  코드를 생성하고 있습니다...
+﻿  unity_YG0GWT9Q7LZJJHQW.cpp
+C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Header\Texture.h(23,19): warning C4267: 'return': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Utility.vcxproj -> C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Utility\Bin\Utility.dll
+  .\Engine\Utility\Code\*.h 
+  지정된 파일을 찾을 수 없습니다.
+          0개 파일이 복사되었습니다.
+  .\Engine\Utility\Code\*.hpp 
+  지정된 파일을 찾을 수 없습니다.
+          0개 파일이 복사되었습니다.
+          1개 파일이 복사되었습니다.
+          1개 파일이 복사되었습니다.
+  .\Engine\Header\Animator.h
+  .\Engine\Header\BoxCollider.h
+  .\Engine\Header\Camera.h
+  .\Engine\Header\CameraMgr.h
+  .\Engine\Header\Collider.h
+  .\Engine\Header\CollisionMgr.h
+  .\Engine\Header\Component.h
+  .\Engine\Header\CubeTex.h
+  .\Engine\Header\Engine_Define.h
+  .\Engine\Header\Engine_Enum.h
+  .\Engine\Header\Engine_Function.h
+  .\Engine\Header\Engine_Macro.h
+  .\Engine\Header\Engine_Struct.h
+  .\Engine\Header\Engine_Typedef.h
+  .\Engine\Header\Export_Function.h
+  .\Engine\Header\Export_System.h
+  .\Engine\Header\Export_Utility.h
+  .\Engine\Header\Frame.h
+  .\Engine\Header\FrameMgr.h
+  .\Engine\Header\GameObject.h
+  .\Engine\Header\GraphicDev.h
+  .\Engine\Header\ImGuiMgr.h
+  .\Engine\Header\InputDevice.h
+  .\Engine\Header\KeyMgr.h
+  .\Engine\Header\Layer.h
+  .\Engine\Header\Light.h
+  .\Engine\Header\LightMgr.h
+  .\Engine\Header\Management.h
+  .\Engine\Header\PickingMgr.h
+  .\Engine\Header\ProtoMgr.h
+  .\Engine\Header\RcCol.h
+  .\Engine\Header\RcTex.h
+  .\Engine\Header\Renderer.h
+  .\Engine\Header\Scene.h
+  .\Engine\Header\TerrainTex.h
+  .\Engine\Header\Texture.h
+  .\Engine\Header\Timer.h
+  .\Engine\Header\TimerMgr.h
+  .\Engine\Header\Transform.h
+  .\Engine\Header\TriCol.h
+  .\Engine\Header\VIBuffer.h
+         41개 파일이 복사되었습니다.
+  .\Engine\Header\Export_System.inl
+  .\Engine\Header\Export_Utility.inl
+          2개 파일이 복사되었습니다.

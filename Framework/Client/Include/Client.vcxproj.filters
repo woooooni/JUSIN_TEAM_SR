@@ -64,6 +64,9 @@
     <Filter Include="02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling">
       <UniqueIdentifier>{f7ff71bf-2bb6-49ed-ac13-50c9f7a94791}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\99. Tool">
+      <UniqueIdentifier>{e2bd57c1-9a9b-47bc-ade9-e7f4135bef2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="..\Header\Player_State_Rolling.h">
       <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Scene_Tool.h">
+      <Filter>01. Scene\99. Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -167,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Rolling.cpp">
       <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Tool.cpp">
+      <Filter>01. Scene\99. Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
