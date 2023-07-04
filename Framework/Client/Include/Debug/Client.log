@@ -1,36 +1,22 @@
-﻿  unity_MYLQOI1CQPB7NDTA.cpp
+﻿  unity_9592Y09BGE3SAK7X.cpp
   AttackableObj.cpp
   BackGround.cpp
   BenchObj.cpp
   BlueBeatle.cpp
   CUI.cpp
-  unity_ADKUL234HGT9GPRI.cpp
-  GrabbableObj.cpp
-  NearReactObj.cpp
-  OnEventObj.cpp
-  PushableObj.cpp
-  Logo.cpp
-  unity_LQELQR43X21DTSIK.cpp
-  MainApp.cpp
-  Monster.cpp
-  Player.cpp
-  Player_State.cpp
-  Player_State_Hit.cpp
-  unity_HWG8CUGS52Z2FY47.cpp
-  Player_State_Idle.cpp
-  Player_State_Jump.cpp
-  Player_State_Lift.cpp
-  Player_State_Push.cpp
-  Player_State_Rolling.cpp
-  unity_ZK0QIFMB23RCELMI.cpp
-  Player_State_Run.cpp
-  Player_State_Swing.cpp
-  Player_State_Walk.cpp
-  PushStone.cpp
-  SkyBox.cpp
-  unity_VFZU5F84UGT4FA8F.cpp
+  unity_QRSQX4JEBX5MGJYQ.cpp
   Stage.cpp
   Terrain.cpp
+  TrashBig.cpp
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\TrashBig.cpp(26,52): error C2660: 'Engine::CAnimator::Play_Animation': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Reference\Header\Animator.h(23,11): message : 'Engine::CAnimator::Play_Animation' 선언을 참조하십시오.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\TrashBig.cpp(46,52): error C2660: 'Engine::CAnimator::Play_Animation': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Reference\Header\Animator.h(23,11): message : 'Engine::CAnimator::Play_Animation' 선언을 참조하십시오.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\TrashBig.cpp(91,51): error C2660: 'Engine::CAnimator::Play_Animation': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Reference\Header\Animator.h(23,11): message : 'Engine::CAnimator::Play_Animation' 선언을 참조하십시오.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Code\TrashBig.cpp(110,52): error C2660: 'Engine::CAnimator::Play_Animation': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Reference\Header\Animator.h(23,11): message : 'Engine::CAnimator::Play_Animation' 선언을 참조하십시오.
+  unity_XWLKXFR0X0VLQSTN.cpp
+  Client.cpp
+  Scene_Tool.cpp
   코드를 생성하고 있습니다...
-     ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
-  Client.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Bin\Client.exe
