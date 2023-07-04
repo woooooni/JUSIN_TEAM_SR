@@ -144,6 +144,9 @@
       <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="..\Header\Player_State_Down.h" />
+    <ClInclude Include="..\Header\Player_State_GameOver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -210,6 +213,9 @@
       <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="..\Code\Player_State_Down.cpp" />
+    <ClCompile Include="..\Code\Player_State_GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
