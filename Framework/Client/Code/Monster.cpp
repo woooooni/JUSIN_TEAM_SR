@@ -15,6 +15,7 @@ CMonster::CMonster(const CMonster& rhs)
 {
 
 }
+
 CMonster::~CMonster()
 {
 }
@@ -93,6 +94,6 @@ void CMonster::Trace(_float fTimeDelta)
 
 void CMonster::Free()
 {
-	Safe_Release(m_pTarget);
 	__super::Free();
 }
+
