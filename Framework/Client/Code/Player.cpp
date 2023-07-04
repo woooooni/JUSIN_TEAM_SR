@@ -9,6 +9,7 @@
 #include "Player_State_Idle.h"
 #include "Player_State_Run.h"
 #include "Player_State_Rolling.h"
+#include "Player_State_Jump.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -72,6 +73,14 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Rolling_RightUp", L"Proto_Texture_Player_Rolling_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"Rolling_RightDown", L"Proto_Texture_Player_Rolling_RightDown", 0.1f);
 
+	m_pAnimator->Add_Animation(L"Jump_Down", L"Proto_Texture_Player_Jump_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_Up", L"Proto_Texture_Player_Jump_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_Left", L"Proto_Texture_Player_Jump_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_Right", L"Proto_Texture_Player_Jump_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_LeftUp", L"Proto_Texture_Player_Jump_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_LeftDown", L"Proto_Texture_Player_Jump_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_RightUp", L"Proto_Texture_Player_Jump_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_RightDown", L"Proto_Texture_Player_Jump_RightDown", 0.1f);
 
 	m_pAnimator->Play_Animation(L"Idle_Down");
 
@@ -84,6 +93,9 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_Walk(this));
 	m_vecState.push_back(new CPlayer_State_Run(this));
 	m_vecState.push_back(new CPlayer_State_Rolling(this));
+	m_vecState.push_back(new CPlayer_State_Jump(this));
+
+	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
 	return S_OK;
 }

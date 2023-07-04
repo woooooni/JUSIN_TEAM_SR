@@ -5,7 +5,7 @@
 #include "Player.h"
 
 CPlayer_State_Rolling::CPlayer_State_Rolling(CGameObject* _pOwner)
-	:CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fRollTime(1.0f)
+	:CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fRollTime(0.5f)
 {
 }
 
