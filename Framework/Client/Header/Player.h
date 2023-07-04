@@ -35,7 +35,7 @@ public:
 	void			Change_State(PLAYER_STATE _eState)
 	{
 		m_bStateChange = true;
-		m_eState = _eState;
+		m_eChangeState = _eState;
 	}
 	void			Player_Move(_float fTimeDelta);
 
@@ -48,6 +48,7 @@ private:
 
 	bool			m_bStateChange;
 	PLAYER_STATE	m_eState;
+	PLAYER_STATE	m_eChangeState;
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

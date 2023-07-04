@@ -77,7 +77,7 @@ HRESULT CPlayer_State_Swing::Ready_State(void)
 		break;
 	}
 
-	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(2.3f, 2.3f, 2.3f));
+	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(2.5f, 2.5f, 2.5f));
 
 	return S_OK;
 }
