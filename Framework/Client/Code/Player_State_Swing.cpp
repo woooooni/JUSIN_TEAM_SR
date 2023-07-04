@@ -2,6 +2,7 @@
 #include "Player_State_Swing.h"
 #include "Texture.h"
 #include "Player.h"
+#include "Transform.h"
 
 CPlayer_State_Swing::CPlayer_State_Swing(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner)
@@ -75,6 +76,9 @@ HRESULT CPlayer_State_Swing::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_RightDown");
 		break;
 	}
+
+	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(2.3f, 2.3f, 2.3f));
+
 	return S_OK;
 }
 
@@ -89,6 +93,7 @@ void CPlayer_State_Swing::LateUpdate_State(void)
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+		m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 	}
 }
 

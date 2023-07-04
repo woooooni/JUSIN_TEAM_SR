@@ -1,5 +1,8 @@
 #include "../Include/stdafx.h"
 #include "Player_State_Hit.h"
+#include "Texture.h"
+#include "Player.h"
+#include "Transform.h"
 
 CPlayer_State_Hit::CPlayer_State_Hit(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner)
@@ -8,20 +11,54 @@ CPlayer_State_Hit::CPlayer_State_Hit(CGameObject* _pOwner)
 
 CPlayer_State_Hit::~CPlayer_State_Hit()
 {
+
 }
 
 HRESULT CPlayer_State_Hit::Ready_State(void)
 {
-	return E_NOTIMPL;
+	switch (m_pOwner->GetObj_Dir())
+	{
+	case OBJ_DIR::DIR_U:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_Up");
+		break;
+	case OBJ_DIR::DIR_D:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_Down");
+		break;
+	case OBJ_DIR::DIR_L:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_Left");
+		break;
+	case OBJ_DIR::DIR_R:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_Right");
+		break;
+	case OBJ_DIR::DIR_LD:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_LeftDown");
+		break;
+	case OBJ_DIR::DIR_LU:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_LeftUp");
+		break;
+	case OBJ_DIR::DIR_RU:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_RightUp");
+		break;
+	case OBJ_DIR::DIR_RD:
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Hit_RightDown");
+		break;
+	}
+
+	return S_OK;
 }
 
 _int CPlayer_State_Hit::Update_State(const _float& fTimeDelta)
 {
-	return _int();
+	return 0;
 }
 
 void CPlayer_State_Hit::LateUpdate_State(void)
 {
+	if (dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Is_Finished())
+	{
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+	}
 }
 
 void CPlayer_State_Hit::Render_State(void)

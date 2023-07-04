@@ -58,6 +58,12 @@
     <Filter Include="02. GameObject\07. AttackableObj">
       <UniqueIdentifier>{fb822bd7-6e50-41e8-8d72-312b15b14032}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Player\00. Player">
+      <UniqueIdentifier>{02fe4289-d799-405f-b874-74c926fa1871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\01. Player_State">
+      <UniqueIdentifier>{872cf36f-c927-4778-9bec-678b56077072}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -68,9 +74,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\BackGround.h">
       <Filter>02. GameObject\00. BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Player.h">
-      <Filter>02. GameObject\01. Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Monster.h">
       <Filter>02. GameObject\02. Monster</Filter>
@@ -99,16 +102,6 @@
     <ClInclude Include="..\Header\SkyBox.h">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Player_State.h" />
-    <ClInclude Include="..\Header\Player_State_Hit.h" />
-    <ClInclude Include="..\Header\Player_State_Idle.h" />
-    <ClInclude Include="..\Header\Player_State_Jump.h" />
-    <ClInclude Include="..\Header\Player_State_Lift.h" />
-    <ClInclude Include="..\Header\Player_State_Push.h" />
-    <ClInclude Include="..\Header\Player_State_Rolling.h" />
-    <ClInclude Include="..\Header\Player_State_Run.h" />
-    <ClInclude Include="..\Header\Player_State_Swing.h" />
-    <ClInclude Include="..\Header\Player_State_Walk.h" />
     <ClInclude Include="..\Header\Scene_Tool.h" />
     <ClInclude Include="..\Header\PushStone.h">
       <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
@@ -118,6 +111,39 @@
     </ClInclude>
     <ClInclude Include="..\Header\InteractiveObj.h">
       <Filter>02. GameObject\06. InteractiveObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>02. GameObject\01. Player\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Hit.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Idle.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Jump.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Lift.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Push.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Rolling.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Run.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Swing.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Walk.h">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -129,9 +155,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\BackGround.cpp">
       <Filter>02. GameObject\00. BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Player.cpp">
-      <Filter>02. GameObject\01. Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Monster.cpp">
       <Filter>02. GameObject\02. Monster</Filter>
@@ -152,16 +175,6 @@
     <ClCompile Include="..\Code\SkyBox.cpp">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player_State.cpp" />
-    <ClCompile Include="..\Code\Player_State_Hit.cpp" />
-    <ClCompile Include="..\Code\Player_State_Idle.cpp" />
-    <ClCompile Include="..\Code\Player_State_Jump.cpp" />
-    <ClCompile Include="..\Code\Player_State_Lift.cpp" />
-    <ClCompile Include="..\Code\Player_State_Push.cpp" />
-    <ClCompile Include="..\Code\Player_State_Rolling.cpp" />
-    <ClCompile Include="..\Code\Player_State_Run.cpp" />
-    <ClCompile Include="..\Code\Player_State_Swing.cpp" />
-    <ClCompile Include="..\Code\Player_State_Walk.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="..\Code\PushStone.cpp">
       <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
@@ -171,6 +184,39 @@
     </ClCompile>
     <ClCompile Include="..\Code\InteractiveObj.cpp">
       <Filter>02. GameObject\06. InteractiveObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>02. GameObject\01. Player\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Hit.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Idle.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Jump.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Lift.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Push.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Rolling.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Run.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Swing.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Walk.cpp">
+      <Filter>02. GameObject\01. Player\01. Player_State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
