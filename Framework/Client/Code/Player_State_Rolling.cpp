@@ -100,7 +100,7 @@ void CPlayer_State_Rolling::LateUpdate_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
 		m_fAccTime = 0.0f;
 
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(OBJ_STATE::IDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 	}
 }
 

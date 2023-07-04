@@ -41,9 +41,6 @@ public:
 	OBJ_DIR GetObj_Dir() { return m_eDir; }
 	void SetObj_Dir(OBJ_DIR _eDir) { m_eDir = _eDir; }
 
-	OBJ_STATE GetObj_State() { return m_eState; }
-	void SetObj_State(OBJ_STATE _eState) { m_eState = _eState; }
-
 	void Set_Active(_float _bActive) { m_bActive = _bActive; }
 	_bool Is_Active() { return m_bActive; }
 
@@ -82,7 +79,6 @@ protected:
 	wstring		m_strName;
 	OBJ_TYPE	m_eType;
 	OBJ_DIR		m_eDir;
-	OBJ_STATE	m_eState;
 
 private:
 	_bool		m_bActive;

@@ -14,6 +14,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
 	, m_fSpeed(5.f)
 	, m_vDest(0.f, 0.f, 0.f)
+	, m_eState(PLAYER_STATE::IDLE)
 	, m_bStateChange(false)
 {
 
@@ -23,6 +24,7 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_fSpeed(rhs.m_fSpeed)
 	, m_vDest(0.f, 0.f, 0.f)
 	, m_bStateChange(false)
+	, m_eState(PLAYER_STATE::IDLE)
 {
 
 }
@@ -73,7 +75,7 @@ HRESULT CPlayer::Ready_Object(void)
 
 	m_pAnimator->Play_Animation(L"Idle_Down");
 
-	m_eState = OBJ_STATE::IDLE;
+	m_eState = PLAYER_STATE::IDLE;
 	m_eDir = OBJ_DIR::DIR_D;
 
 	m_vecState.reserve(10);
@@ -92,7 +94,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	
 	if (m_bStateChange)
 	{
-		m_eState = m_eChangeState;
+		m_eState = m_eState;
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
 	}

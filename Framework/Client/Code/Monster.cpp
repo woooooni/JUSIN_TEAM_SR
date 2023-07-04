@@ -3,11 +3,15 @@
 
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+	, m_eState(MONSTER_STATE::REGEN)
+	, m_fSpeed(5.f)
 {
 
 }
 CMonster::CMonster(const CMonster& rhs)
 	: Engine::CGameObject(rhs)
+	, m_fSpeed(rhs.m_fSpeed)
+	, m_eState(MONSTER_STATE::REGEN)
 {
 
 }
@@ -25,7 +29,24 @@ HRESULT CMonster::Ready_Object(void)
 Engine::_int CMonster::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
-
+	switch (m_eState)
+	{
+	case MONSTER_STATE::IDLE:
+		Update_Idle(fTimeDelta);
+		break;
+	case MONSTER_STATE::MOVE:
+		Update_Move(fTimeDelta);
+		break;
+	case MONSTER_STATE::REGEN:
+		Update_Regen(fTimeDelta);
+		break;
+	case MONSTER_STATE::ATTACK:
+		Update_Attack(fTimeDelta);
+		break;
+	case MONSTER_STATE::DIE:
+		Update_Die(fTimeDelta);
+		break;
+	}
 
 	return iExit;
 }

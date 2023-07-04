@@ -1,22 +1,16 @@
-﻿  unity_G4ISAJHDY9K41DUB.cpp
-  Client.cpp
-  unity_HY8OF4UQ1RF2G4GA.cpp
+﻿  unity_LUXIFXKLLMIX3R8O.cpp
   Player_State_Walk.cpp
   SkyBox.cpp
   Stage.cpp
   Terrain.cpp
-  unity_O2F96KLGX8ESKI6W.cpp
-  Player.cpp
-  Player_State.cpp
-  Player_State_Idle.cpp
-  Player_State_Rolling.cpp
-  Player_State_Run.cpp
-  unity_XHKW94IJ41ZW67YO.cpp
+  unity_X561RILUVP1RJJ69.cpp
   BackGround.cpp
   CUI.cpp
   Logo.cpp
   MainApp.cpp
   Monster.cpp
+  unity_XWLKXFR0X0VLQSTN.cpp
+  Client.cpp
+  Scene_Tool.cpp
   코드를 생성하고 있습니다...
-     ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
-  Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Client\Bin\Client.exe
+  Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Bin\Client.exe

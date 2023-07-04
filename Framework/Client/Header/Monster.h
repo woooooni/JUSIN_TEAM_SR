@@ -25,17 +25,35 @@ public:
 
 private:
 	HRESULT	Add_Component(void);
-	virtual void Trace() PURE;
+	
+
+public:
+	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
+	_float Get_Speed() { return m_fSpeed; }
+
+	MONSTER_STATE Get_State(){ return m_eState; }
+	void Set_State(MONSTER_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
 
 public:
 	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
+	virtual void Trace() PURE;
+
+public:
+	virtual void Update_Idle(_float fTimeDelta)		PURE;
+	virtual void Update_Regen(_float fTimeDelta)	PURE;
+	virtual void Update_Move(_float fTimeDelta)		PURE;
+	virtual void Update_Attack(_float fTimeDelta)	PURE;
+	virtual void Update_Die(_float fTimeDelta)		PURE;
 	
 
 private:
 	CTriCol* m_pBufferCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CCollider* m_pColliderCom = nullptr;
-	_float m_fSpeed = 5.f;
+
+private:
+	_float			m_fSpeed = 5.f;
+	MONSTER_STATE	m_eState;
 
 private:
 	CGameObject* m_pTarget;

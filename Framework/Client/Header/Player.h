@@ -32,10 +32,10 @@ private:
 	HRESULT			Ready_Component(void);
 
 public:
-	void			Change_State(OBJ_STATE _eState)
+	void			Change_State(PLAYER_STATE _eState)
 	{
 		m_bStateChange = true;
-		m_eChangeState = _eState;
+		m_eState = _eState;
 	}
 	void			Player_Move(_float fTimeDelta);
 
@@ -47,7 +47,7 @@ private:
 	_vec3			m_vDest;
 
 	bool			m_bStateChange;
-	OBJ_STATE		m_eChangeState;
+	PLAYER_STATE	m_eState;
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

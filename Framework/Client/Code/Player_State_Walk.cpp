@@ -66,7 +66,7 @@ void CPlayer_State_Walk::Key_Input(const _float& fTimeDelta)
 {	
 	if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
 	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(OBJ_STATE::RUN);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::RUN);
 	}
 
 
@@ -112,12 +112,12 @@ void CPlayer_State_Walk::Key_Input(const _float& fTimeDelta)
 	}
 	else
 	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(OBJ_STATE::IDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 	}
 	
 
 	if (GetAsyncKeyState('X') & 0x8000)
 	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(OBJ_STATE::ROLL);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::ROLL);
 	}
 }
