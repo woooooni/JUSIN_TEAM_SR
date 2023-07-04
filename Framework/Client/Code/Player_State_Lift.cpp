@@ -125,6 +125,10 @@ _int CPlayer_State_Lift::Update_LiftIdle(const _float& fTimeDelta)
 	{
 		m_eLiftState = LIFT_STATE::LIFTWALK;
 
+		m_fAccTime = m_fKeyDelayTime + 1.0f;
+
+
+
 		switch (m_pOwner->GetObj_Dir())
 		{
 		case OBJ_DIR::DIR_U:

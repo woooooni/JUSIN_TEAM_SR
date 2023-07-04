@@ -13,6 +13,8 @@
 #include "Player_State_Swing.h"
 #include "Player_State_Hit.h"
 #include "Player_State_Lift.h"
+#include "Player_State_Down.h"
+#include "Player_State_GameOver.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -40,14 +42,14 @@ HRESULT CPlayer::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_pAnimator->Add_Animation(L"Idle_Down", L"Proto_Texture_Player_Idle_Down",0.1f);
-	m_pAnimator->Add_Animation(L"Idle_Up", L"Proto_Texture_Player_Idle_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"Idle_Left", L"Proto_Texture_Player_Idle_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"Idle_Right", L"Proto_Texture_Player_Idle_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"Idle_LeftUp", L"Proto_Texture_Player_Idle_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Idle_LeftDown", L"Proto_Texture_Player_Idle_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"Idle_RightUp", L"Proto_Texture_Player_Idle_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Idle_RightDown", L"Proto_Texture_Player_Idle_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Idle_Down", L"Proto_Texture_Player_Idle_Down",0.3f);
+	m_pAnimator->Add_Animation(L"Idle_Up", L"Proto_Texture_Player_Idle_Up", 0.3f);
+	m_pAnimator->Add_Animation(L"Idle_Left", L"Proto_Texture_Player_Idle_Left", 0.3f);
+	m_pAnimator->Add_Animation(L"Idle_Right", L"Proto_Texture_Player_Idle_Right", 0.3f);
+	m_pAnimator->Add_Animation(L"Idle_LeftUp", L"Proto_Texture_Player_Idle_LeftUp", 0.3f);
+	m_pAnimator->Add_Animation(L"Idle_LeftDown", L"Proto_Texture_Player_Idle_LeftDown", 0.3f);
+	m_pAnimator->Add_Animation(L"Idle_RightUp", L"Proto_Texture_Player_Idle_RightUp", 0.3f);
+	m_pAnimator->Add_Animation(L"Idle_RightDown", L"Proto_Texture_Player_Idle_RightDown", 0.3f);
 
 	m_pAnimator->Add_Animation(L"Walk_Down", L"Proto_Texture_Player_Walk_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"Walk_Up", L"Proto_Texture_Player_Walk_Up", 0.1f);
@@ -139,6 +141,17 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Lift_RightUp", L"Proto_Texture_Player_Lift_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"Lift_RightDown", L"Proto_Texture_Player_Lift_RightDown", 0.1f);
 
+
+	m_pAnimator->Add_Animation(L"Push_Down", L"Proto_Texture_Player_Push_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"Push_Up", L"Proto_Texture_Player_Push_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"Push_Left", L"Proto_Texture_Player_Push_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"Push_Right", L"Proto_Texture_Player_Push_Right", 0.1f);
+
+	m_pAnimator->Add_Animation(L"Down", L"Proto_Texture_Player_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"GameOver", L"Proto_Texture_Player_GameOver", 0.1f);
+
+
+
 	m_pAnimator->Play_Animation(L"Idle_Down", true);
 
 	m_eState = PLAYER_STATE::IDLE;
@@ -154,6 +167,8 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_Swing(this));
 	m_vecState.push_back(new CPlayer_State_Hit(this));
 	m_vecState.push_back(new CPlayer_State_Lift(this));
+	m_vecState.push_back(new CPlayer_State_Down(this));
+	m_vecState.push_back(new CPlayer_State_GameOver(this));
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
@@ -243,11 +258,6 @@ void CPlayer::Player_Move(_float fTimeDelta)
 }
 void CPlayer::Free()
 {
-	for (_uint i = 0; i < m_vecState.size(); ++i)
-	{
-		delete m_vecState[i];
-		m_vecState[i] = nullptr;
-	}
 	__super::Free();
 }
 
