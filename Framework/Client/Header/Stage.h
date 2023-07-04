@@ -4,7 +4,7 @@
 #include "BackGround.h"
 
 #include "Player.h"
-#include "Monster.h"
+#include "BlueBeatle.h"
 #include "Terrain.h"
 
 class CStage : public Engine::CScene

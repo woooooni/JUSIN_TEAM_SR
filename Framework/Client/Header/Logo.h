@@ -5,6 +5,7 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "BlueBeatle.h"
 #include "Terrain.h"
 #include	"PushStone.h"
 
