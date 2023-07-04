@@ -43,29 +43,20 @@
     <Filter Include="02. GameObject\05. SkyBox">
       <UniqueIdentifier>{8bc25a65-3bb6-49f6-93e1-39ceab443d6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\00. Player">
-      <UniqueIdentifier>{304b2b3c-53b9-4b27-b45a-1365090a5953}</UniqueIdentifier>
+    <Filter Include="02. GameObject\06. InteractiveObj">
+      <UniqueIdentifier>{d365d323-3a2d-42dc-8129-6778d466e7e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\01. Player_State">
-      <UniqueIdentifier>{9e2a1e65-b62e-4eec-9945-850dbb8def03}</UniqueIdentifier>
+    <Filter Include="02. GameObject\06. InteractiveObj\00. Stone">
+      <UniqueIdentifier>{7226a995-e819-4ebe-875b-411c95eea3e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\01. Player_State\00. Player_State">
-      <UniqueIdentifier>{e69d5a32-c8f4-4618-9339-5da9c101edb7}</UniqueIdentifier>
+    <Filter Include="02. GameObject\08. OnEventObj">
+      <UniqueIdentifier>{5e6f6c92-efcf-45c8-8d3c-d9e24f26adcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\01. Player_State\02. Player_State_Walk">
-      <UniqueIdentifier>{14a21941-2b00-4800-9a06-664f919b0d1a}</UniqueIdentifier>
+    <Filter Include="02. GameObject\08. OnEventObj\00. LinkedObj">
+      <UniqueIdentifier>{3c32b2d5-e1cd-4d5e-a440-b481ea806204}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\01. Player_State\01. Player_State_Idle">
-      <UniqueIdentifier>{4d7fbfcd-5b2d-4c12-9fbb-8f95b251f023}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Player\01. Player_State\03. Player_State_Run">
-      <UniqueIdentifier>{7a62ea58-bd13-4b0f-83e4-08251b170f2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling">
-      <UniqueIdentifier>{f7ff71bf-2bb6-49ed-ac13-50c9f7a94791}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\99. Tool">
-      <UniqueIdentifier>{e2bd57c1-9a9b-47bc-ade9-e7f4135bef2b}</UniqueIdentifier>
+    <Filter Include="02. GameObject\07. AttackableObj">
+      <UniqueIdentifier>{fb822bd7-6e50-41e8-8d72-312b15b14032}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\01. Player\01. Player_State\05. Player_State_Jump">
       <UniqueIdentifier>{d4346ff5-3eef-4079-a3d2-634bb2e5b6cd}</UniqueIdentifier>
@@ -92,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\BackGround.h">
       <Filter>02. GameObject\00. BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player.h">
+      <Filter>02. GameObject\01. Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Monster.h">
       <Filter>02. GameObject\02. Monster</Filter>
@@ -120,26 +114,14 @@
     <ClInclude Include="..\Header\SkyBox.h">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Player.h">
-      <Filter>02. GameObject\01. Player\00. Player</Filter>
+    <ClInclude Include="..\Header\InteractiveObj.h">
+      <Filter>02. GameObject\06. InteractiveObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Player_State.h">
-      <Filter>02. GameObject\01. Player\01. Player_State\00. Player_State</Filter>
+    <ClInclude Include="..\Header\PushStone.h">
+      <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Player_State_Walk.h">
-      <Filter>02. GameObject\01. Player\01. Player_State\02. Player_State_Walk</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Player_State_Idle.h">
-      <Filter>02. GameObject\01. Player\01. Player_State\01. Player_State_Idle</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Player_State_Run.h">
-      <Filter>02. GameObject\01. Player\01. Player_State\03. Player_State_Run</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Player_State_Rolling.h">
-      <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Scene_Tool.h">
-      <Filter>01. Scene\99. Tool</Filter>
+    <ClInclude Include="..\Header\AttackableObj.h">
+      <Filter>02. GameObject\07. AttackableObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_State_Jump.h">
       <Filter>02. GameObject\01. Player\01. Player_State\05. Player_State_Jump</Filter>
@@ -167,6 +149,9 @@
     <ClCompile Include="..\Code\BackGround.cpp">
       <Filter>02. GameObject\00. BackGround</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Player.cpp">
+      <Filter>02. GameObject\01. Player</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\Monster.cpp">
       <Filter>02. GameObject\02. Monster</Filter>
     </ClCompile>
@@ -186,26 +171,14 @@
     <ClCompile Include="..\Code\SkyBox.cpp">
       <Filter>02. GameObject\05. SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player.cpp">
-      <Filter>02. GameObject\01. Player\00. Player</Filter>
+    <ClCompile Include="..\Code\InteractiveObj.cpp">
+      <Filter>02. GameObject\06. InteractiveObj</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player_State.cpp">
-      <Filter>02. GameObject\01. Player\01. Player_State\00. Player_State</Filter>
+    <ClCompile Include="..\Code\PushStone.cpp">
+      <Filter>02. GameObject\06. InteractiveObj\00. Stone</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Player_State_Walk.cpp">
-      <Filter>02. GameObject\01. Player\01. Player_State\02. Player_State_Walk</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Player_State_Idle.cpp">
-      <Filter>02. GameObject\01. Player\01. Player_State\01. Player_State_Idle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Player_State_Run.cpp">
-      <Filter>02. GameObject\01. Player\01. Player_State\03. Player_State_Run</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Player_State_Rolling.cpp">
-      <Filter>02. GameObject\01. Player\01. Player_State\04. Player_State_Rolling</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene_Tool.cpp">
-      <Filter>01. Scene\99. Tool</Filter>
+    <ClCompile Include="..\Code\AttackableObj.cpp">
+      <Filter>02. GameObject\07. AttackableObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Jump.cpp">
       <Filter>02. GameObject\01. Player\01. Player_State\05. Player_State_Jump</Filter>
