@@ -2,11 +2,11 @@
 #include "PushStone.h"
 #include "Export_Function.h"
 
-CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CInteractiveObj(pDev)
+CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev)
 {
 }
 
-CPushStone::CPushStone(const CPushStone& rhs) : CInteractiveObj(rhs)
+CPushStone::CPushStone(const CPushStone& rhs) : CPushableObj(rhs)
 {
 }
 
@@ -41,6 +41,8 @@ void CPushStone::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
+	
+
 	m_pTextureCom->Render_Texture();
 
 	m_pBufferCom->Render_Buffer();
@@ -48,15 +50,6 @@ void CPushStone::Render_Object(void)
 	__super::Render_Object();
 }
 
-HRESULT CPushStone::Grap_Obj(CPlayer* p_Owner)
-{
-    return E_NOTIMPL;
-}
-
-HRESULT CPushStone::Fall_Obj()
-{
-    return E_NOTIMPL;
-}
 
 void CPushStone::Push_Obj(const _vec3& pDirection)
 {

@@ -7,6 +7,7 @@
 #include "Monster.h"
 #include "Terrain.h"
 #include	"PushStone.h"
+#include "NearReactObj.h"
 
 
 class CLogo : public Engine::CScene

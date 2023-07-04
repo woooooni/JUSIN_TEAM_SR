@@ -1,5 +1,5 @@
 #pragma once
-#include "InteractiveObj.h"
+#include "PushableObj.h"
 
 BEGIN(Engine)
 
@@ -11,12 +11,12 @@ class CCubeTex;
 
 END
 class CPushStone :
-    public CInteractiveObj
+    public CPushableObj
 {
 private:
     CPushStone(LPDIRECT3DDEVICE9 pDev);
     CPushStone(const CPushStone& rhs);
-    ~CPushStone();
+    virtual ~CPushStone();
 
 public:
     virtual HRESULT		Ready_Object(void) override;
@@ -24,14 +24,12 @@ public:
     virtual void		LateUpdate_Object(void) override;
     virtual void		Render_Object(void) override;
 
+    virtual void    Free() override;
 
 
     // CInteractiveObj을(를) 통해 상속됨
-    virtual HRESULT Grap_Obj(CPlayer* p_Owner) override;
-    virtual HRESULT Fall_Obj() override;
     virtual void Push_Obj(const _vec3& pDirection) override;
 
-    virtual void    Free() override;
 
     static      CPushStone* Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev);
 
