@@ -434,7 +434,7 @@ FodyWeavers.xsd
 *.tga
 *.bmp
 
-
+*.vcxproj.filters
 # JetBrains Rider
 *.sln.iml
 

@@ -27,6 +27,9 @@ _int CPushStone::Update_Object(const _float& fTimeDelta)
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
+	__super::Update_Object(fTimeDelta);
+
+	Add_CollisionGroup(m_pColliderCom);
     return 0;
 }
 
