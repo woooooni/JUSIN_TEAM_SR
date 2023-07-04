@@ -36,7 +36,7 @@ public:
 
 public:
 	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
-	virtual void Trace() PURE;
+	virtual void Trace(_float fTimeDelta) PURE;
 
 public:
 	virtual void Update_Idle(_float fTimeDelta)		PURE;
@@ -55,7 +55,7 @@ private:
 	_float			m_fSpeed = 5.f;
 	MONSTER_STATE	m_eState;
 
-private:
+protected:
 	CGameObject* m_pTarget;
 
 protected:

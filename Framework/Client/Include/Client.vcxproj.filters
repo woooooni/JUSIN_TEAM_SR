@@ -58,7 +58,10 @@
     <Filter Include="02. GameObject\07. AttackableObj">
       <UniqueIdentifier>{fb822bd7-6e50-41e8-8d72-312b15b14032}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\BlueBeatle">
+    <Filter Include="02. GameObject\02. Monster\01. TrashBig">
+      <UniqueIdentifier>{7cff5039-e961-4a3b-8db9-9b72334b9253}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\00. BlueBeatle">
       <UniqueIdentifier>{a25dd0f4-78ec-480e-9e56-ff3e40d4f76e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -123,7 +126,10 @@
       <Filter>02. GameObject\06. InteractiveObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BlueBeatle.h">
-      <Filter>02. GameObject\02. Monster\BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\00. BlueBeatle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TrashBig.h">
+      <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,7 +185,10 @@
       <Filter>02. GameObject\06. InteractiveObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BlueBeatle.cpp">
-      <Filter>02. GameObject\02. Monster\BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\00. BlueBeatle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashBig.cpp">
+      <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
