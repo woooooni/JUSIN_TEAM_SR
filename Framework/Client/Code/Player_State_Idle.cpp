@@ -74,27 +74,27 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	}
 
 
-	if (GetAsyncKeyState('X') & 0x8000)
+	if (KEY_TAP(KEY::X))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::ROLL);
 	}
 
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	if (KEY_TAP(KEY::SPACE))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::JUMP);
 	}
 
-	if (GetAsyncKeyState('A') & 0x8000)
+	if (KEY_HOLD(KEY::A))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SWING);
 	}
 
-	if (GetAsyncKeyState('S') & 0x8000)
+	if (KEY_HOLD(KEY::T))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::HIT);
 	}
 
-	if (GetAsyncKeyState('G') & 0x8000)
+	if (KEY_HOLD(KEY::G))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::LIFT);
 	}

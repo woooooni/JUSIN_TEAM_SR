@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Texture.h"
 #include "Player.h"
+#include "KeyMgr.h"
 
 CPlayer_State_Lift::CPlayer_State_Lift(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
@@ -206,35 +207,35 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 	if (m_fAccTime > m_fKeyDelayTime)
 	{
 		m_fAccTime = 0.0f;
-		if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
+		if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::LEFT_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_LU, L"LiftWalk_LeftUp");
 		}
-		else if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		else if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::RIGHT_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_RU, L"LiftWalk_RightUp");
 		}
-		else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		else if (KEY_HOLD(KEY::DOWN_ARROW) && KEY_HOLD(KEY::RIGHT_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_RD, L"LiftWalk_RightDown");
 		}
-		else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
+		else if (KEY_HOLD(KEY::DOWN_ARROW) && KEY_HOLD(KEY::LEFT_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_LD, L"LiftWalk_LeftDown");
 		}
-		else if (GetAsyncKeyState(VK_UP) & 0x8000)
+		else if (KEY_HOLD(KEY::UP_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_U, L"LiftWalk_Up");
 		}
-		else if (GetAsyncKeyState(VK_DOWN) & 0x8000)
+		else if (KEY_HOLD(KEY::DOWN_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_D, L"LiftWalk_Down");
 		}
-		else if (GetAsyncKeyState(VK_LEFT) & 0x8000)
+		else if (KEY_HOLD(KEY::LEFT_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_L, L"LiftWalk_Left");
 		}
-		else if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
+		else if (KEY_HOLD(KEY::RIGHT_ARROW))
 		{
 			Change_Dir(OBJ_DIR::DIR_R, L"LiftWalk_Right");
 		}
@@ -270,7 +271,7 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 			}
 		}
 
-		if (GetAsyncKeyState('G') & 0x8000)
+		if (KEY_HOLD(KEY::G))
 		{
 			m_eLiftState = LIFT_STATE::LIFTDOWN;
 

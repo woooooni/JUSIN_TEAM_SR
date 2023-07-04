@@ -2,6 +2,7 @@
 #include "Player_State_Run.h"
 #include "Transform.h"
 #include "Player.h"
+#include "KeyMgr.h"
 
 CPlayer_State_Run::CPlayer_State_Run(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
@@ -101,44 +102,44 @@ void CPlayer_State_Run::Render_State(void)
 
 void CPlayer_State_Run::Key_Input(const _float& fTimeDelta)
 {
-	if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::LEFT_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_LU, L"Run_LeftUp");
 	}
-	else if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	else if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::RIGHT_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_RU, L"Run_RightUp");
 	}
-	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_RIGHT) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	else if (KEY_HOLD(KEY::DOWN_ARROW) && KEY_HOLD(KEY::RIGHT_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_RD, L"Run_RightDown");
 	}
-	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	else if (KEY_HOLD(KEY::DOWN_ARROW) && KEY_HOLD(KEY::LEFT_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_LD, L"Run_LeftDown");
 	}
-	else if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	else if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_U, L"Run_Up");
 	}
-	else if (GetAsyncKeyState(VK_DOWN) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	else if (KEY_HOLD(KEY::DOWN_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_D, L"Run_Down");
 	}
-	else if (GetAsyncKeyState(VK_LEFT) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	else if (KEY_HOLD(KEY::LEFT_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_L, L"Run_Left");
 	}
-	else if (GetAsyncKeyState(VK_RIGHT) & 0x8000 && GetAsyncKeyState(VK_SHIFT) & 0x8000)
+	else if (KEY_HOLD(KEY::RIGHT_ARROW) && KEY_HOLD(KEY::SHIFT))
 	{
 		Change_Dir(OBJ_DIR::DIR_R, L"Run_Right");
 	}
 	else
 	{
-		if (GetAsyncKeyState(VK_UP) & 0x8000 ||
-			GetAsyncKeyState(VK_RIGHT) & 0x8000 ||
-			GetAsyncKeyState(VK_DOWN) & 0x8000 ||
-			GetAsyncKeyState(VK_LEFT) & 0x8000)
+		if (KEY_HOLD(KEY::UP_ARROW) ||
+			KEY_HOLD(KEY::RIGHT_ARROW) ||
+			KEY_HOLD(KEY::DOWN_ARROW) ||
+			KEY_HOLD(KEY::LEFT_ARROW))
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::MOVE);
 		else
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
@@ -146,17 +147,17 @@ void CPlayer_State_Run::Key_Input(const _float& fTimeDelta)
 	}
 
 
-	if (GetAsyncKeyState('X') & 0x8000)
+	if (KEY_HOLD(KEY::X))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::ROLL);
 	}
 
-	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	if (KEY_HOLD(KEY::SPACE))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::JUMP);
 	}
 
-	if (GetAsyncKeyState('A') & 0x8000)
+	if (KEY_HOLD(KEY::A))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SWING);
 	}
