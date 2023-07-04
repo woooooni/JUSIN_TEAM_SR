@@ -21,28 +21,28 @@ HRESULT CPlayer_State_Lift::Ready_State(void)
 	switch (m_pOwner->GetObj_Dir())
 	{
 	case OBJ_DIR::DIR_U:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Up");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Up", FALSE);
 		break;
 	case OBJ_DIR::DIR_D:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Down");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Down", FALSE);
 		break;
 	case OBJ_DIR::DIR_L:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Left");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Left", FALSE);
 		break;
 	case OBJ_DIR::DIR_R:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Right");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Right", FALSE);
 		break;
 	case OBJ_DIR::DIR_LD:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftDown");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftDown", FALSE);
 		break;
 	case OBJ_DIR::DIR_LU:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftUp");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftUp", FALSE);
 		break;
 	case OBJ_DIR::DIR_RU:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightUp");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightUp", FALSE);
 		break;
 	case OBJ_DIR::DIR_RD:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightDown");
+		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightDown", FALSE);
 		break;
 	}
 
@@ -87,28 +87,28 @@ _int CPlayer_State_Lift::Update_LiftUp(const _float& fTimeDelta)
 		switch (m_pOwner->GetObj_Dir())
 		{
 		case OBJ_DIR::DIR_U:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Up");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Up", FALSE);
 			break;
 		case OBJ_DIR::DIR_D:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Down");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Down", FALSE);
 			break;
 		case OBJ_DIR::DIR_L:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Left");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Left", FALSE);
 			break;
 		case OBJ_DIR::DIR_R:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Right");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Right", FALSE);
 			break;
 		case OBJ_DIR::DIR_LD:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftDown");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftDown", FALSE);
 			break;
 		case OBJ_DIR::DIR_LU:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftUp");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftUp", FALSE);
 			break;
 		case OBJ_DIR::DIR_RU:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightUp");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightUp", FALSE);
 			break;
 		case OBJ_DIR::DIR_RD:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightDown");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightDown", FALSE);
 			break;
 		}
 	}
@@ -127,28 +127,28 @@ _int CPlayer_State_Lift::Update_LiftIdle(const _float& fTimeDelta)
 		switch (m_pOwner->GetObj_Dir())
 		{
 		case OBJ_DIR::DIR_U:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Up");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Up", TRUE);
 			break;
 		case OBJ_DIR::DIR_D:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Down");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Down", TRUE);
 			break;
 		case OBJ_DIR::DIR_L:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Left");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Left", TRUE);
 			break;
 		case OBJ_DIR::DIR_R:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Right");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_Right", TRUE);
 			break;
 		case OBJ_DIR::DIR_LD:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_LeftDown");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_LeftDown", TRUE);
 			break;
 		case OBJ_DIR::DIR_LU:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_LeftUp");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_LeftUp", TRUE);
 			break;
 		case OBJ_DIR::DIR_RU:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_RightUp");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_RightUp", TRUE);
 			break;
 		case OBJ_DIR::DIR_RD:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_RightDown");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftWalk_RightDown", TRUE);
 			break;
 		}
 	}
@@ -161,28 +161,28 @@ _int CPlayer_State_Lift::Update_LiftIdle(const _float& fTimeDelta)
 		switch (m_pOwner->GetObj_Dir())
 		{
 		case OBJ_DIR::DIR_U:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Up");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Up", FALSE);
 			break;
 		case OBJ_DIR::DIR_D:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Down");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Down", FALSE);
 			break;
 		case OBJ_DIR::DIR_L:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Left");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Left", FALSE);
 			break;
 		case OBJ_DIR::DIR_R:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Right");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Right", FALSE);
 			break;
 		case OBJ_DIR::DIR_LD:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftDown");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftDown", FALSE);
 			break;
 		case OBJ_DIR::DIR_LU:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftUp");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftUp", FALSE);
 			break;
 		case OBJ_DIR::DIR_RU:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightUp");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightUp", FALSE);
 			break;
 		case OBJ_DIR::DIR_RD:
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightDown");
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightDown", FALSE);
 			break;
 		}
 	}
@@ -244,28 +244,28 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 			switch (m_pOwner->GetObj_Dir())
 			{
 			case OBJ_DIR::DIR_U:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Up");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Up", FALSE);
 				break;
 			case OBJ_DIR::DIR_D:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Down");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Down", FALSE);
 				break;
 			case OBJ_DIR::DIR_L:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Left");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Left", FALSE);
 				break;
 			case OBJ_DIR::DIR_R:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Right");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_Right", FALSE);
 				break;
 			case OBJ_DIR::DIR_LD:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftDown");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftDown", FALSE);
 				break;
 			case OBJ_DIR::DIR_LU:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftUp");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_LeftUp", FALSE);
 				break;
 			case OBJ_DIR::DIR_RU:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightUp");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightUp", FALSE);
 				break;
 			case OBJ_DIR::DIR_RD:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightDown");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightDown", FALSE);
 				break;
 			}
 		}
@@ -278,28 +278,28 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 			switch (m_pOwner->GetObj_Dir())
 			{
 			case OBJ_DIR::DIR_U:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Up");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Up", FALSE);
 				break;
 			case OBJ_DIR::DIR_D:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Down");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Down", FALSE);
 				break;
 			case OBJ_DIR::DIR_L:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Left");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Left", FALSE);
 				break;
 			case OBJ_DIR::DIR_R:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Right");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Right", FALSE);
 				break;
 			case OBJ_DIR::DIR_LD:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftDown");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftDown", FALSE);
 				break;
 			case OBJ_DIR::DIR_LU:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftUp");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftUp", FALSE);
 				break;
 			case OBJ_DIR::DIR_RU:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightUp");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightUp", FALSE);
 				break;
 			case OBJ_DIR::DIR_RD:
-				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightDown");
+				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightDown", FALSE);
 				break;
 			}
 		}
