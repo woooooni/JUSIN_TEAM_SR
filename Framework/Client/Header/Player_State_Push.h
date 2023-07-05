@@ -12,5 +12,14 @@ public:
 	virtual _int			Update_State(const _float& fTimeDelta) override;
 	virtual void			LateUpdate_State(void) override;
 	virtual void			Render_State(void) override;
+
+
+private:
+	void					Key_Input(const _float& fTimeDelta);
+
+	OBJ_DIR					m_eStartDir;
+
+	_float m_fAccTime;
+	_float m_fKeyDelayTime;
 };
 

@@ -15,6 +15,7 @@
 #include "Player_State_Lift.h"
 #include "Player_State_Down.h"
 #include "Player_State_GameOver.h"
+#include "Player_State_Push.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -169,6 +170,7 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_Lift(this));
 	m_vecState.push_back(new CPlayer_State_Down(this));
 	m_vecState.push_back(new CPlayer_State_GameOver(this));
+	m_vecState.push_back(new CPlayer_State_Push(this));
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
