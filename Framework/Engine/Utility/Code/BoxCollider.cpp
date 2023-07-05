@@ -114,15 +114,15 @@ void CBoxCollider::InputCollider()
 
 void CBoxCollider::OnCollisionEnter(CCollider * _pOther)
 {
-	m_pOwner->Collision_Enter(_pOther->GetOwner());
+	m_pOwner->Collision_Enter(_pOther->GetOwner(), Get_Id());
 }
 
 void CBoxCollider::OnCollisionStay(CCollider * _pOther)
 {
-	m_pOwner->Collision_Stay(_pOther->GetOwner());
+	m_pOwner->Collision_Stay(_pOther->GetOwner(), Get_Id());
 }
 
 void CBoxCollider::OnCollisionExit(CCollider * _pOther)
 {
-	m_pOwner->Collision_Exit(_pOther->GetOwner());
+	m_pOwner->Collision_Exit(_pOther->GetOwner(), Get_Id());
 }
