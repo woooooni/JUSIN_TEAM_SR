@@ -69,6 +69,9 @@ protected:
 	map<COMPONENT_TYPE, CComponent*>		m_mapComponent[ID_END];		
 	LPDIRECT3DDEVICE9						m_pGraphicDev;
 
+public:
+	_float Get_ViewZ() { return m_fViewZ; }
+
 protected:
 	CVIBuffer*		m_pBufferCom = nullptr;
 	CTransform*		m_pTransformCom = nullptr;
@@ -81,6 +84,8 @@ protected:
 	wstring		m_strName;
 	OBJ_TYPE	m_eType;
 	OBJ_DIR		m_eDir;
+
+	_float		m_fViewZ;
 
 private:
 	_bool		m_bActive;

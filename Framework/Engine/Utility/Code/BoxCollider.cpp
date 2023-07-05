@@ -35,7 +35,12 @@ _int CBoxCollider::Update_Component(const _float & fTimeDelta)
 	CTransform* pOwnerTransform = (CTransform*)(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
 
 
-	pOwnerTransform->Get_Info(INFO_POS, &m_vCenterPos);
+	_vec3 vPos;
+	pOwnerTransform->Get_Info(INFO_POS, &vPos);
+	vPos += m_vOffset;
+	
+	m_vCenterPos = vPos;
+
 	const D3DXMATRIX& matWorld = *pOwnerTransform->Get_WorldMatrix();
 
 	InputCollider();

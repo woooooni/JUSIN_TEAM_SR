@@ -29,7 +29,7 @@ public:
 	virtual void			Free();
 	virtual CComponent *	Clone(void) override;
 
-	void					Set_Scale(const _vec3& p_Scale) { m_vScale = p_Scale; }
+	void	Set_Scale(const _vec3& p_Scale) { m_vScale = p_Scale; }
 	const	_vec3& Get_Pos() { return m_vCenterPos; }
 	const	_vec3& Get_Scale() { return m_vScale; }
 
