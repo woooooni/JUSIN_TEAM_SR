@@ -56,9 +56,9 @@ public:
 
 public:
 	// 충돌 호출
-	virtual void Collision_Enter(CGameObject* pCollisionObj) {};
-	virtual void Collision_Stay(CGameObject* pCollisionObj) {};
-	virtual void Collision_Exit(CGameObject* pCollisionObj) {};
+	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID) {};
+	virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)	{};
+	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)	{};
 
 	
 private:

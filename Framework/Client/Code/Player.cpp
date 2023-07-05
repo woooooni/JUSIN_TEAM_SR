@@ -272,15 +272,15 @@ void CPlayer::Player_Move(_float fTimeDelta)
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 10.f);
 	}
 }
-void CPlayer::Collision_Enter(CGameObject* pCollisionObj)
+void CPlayer::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 {
 	MSG_BOX("충돌 Enter");
 }
-void CPlayer::Collision_Stay(CGameObject* pCollisionObj)
+void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 {
 	MSG_BOX("충돌 Stay");
 }
-void CPlayer::Collision_Exit(CGameObject* pCollisionObj)
+void CPlayer::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
 {
 	MSG_BOX("충돌 Exit");
 }

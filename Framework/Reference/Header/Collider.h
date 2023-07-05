@@ -24,8 +24,8 @@ public:
 
 public:
 	virtual void	OnCollisionEnter(CCollider* _pOther)		PURE;
-	virtual void	OnCollisionStay(CCollider* _pOther)		PURE;
-	virtual void	OnCollisionExit(CCollider* _pOther)		PURE;
+	virtual void	OnCollisionStay(CCollider* _pOther)			PURE;
+	virtual void	OnCollisionExit(CCollider* _pOther)			PURE;
 
 protected:
 	D3DXVECTOR3		m_vCenterPos;	// »óÀÚ Áß¾ÓÀÇ ÁÂÇ¥
