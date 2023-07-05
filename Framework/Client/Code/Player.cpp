@@ -274,15 +274,15 @@ void CPlayer::Player_Move(_float fTimeDelta)
 }
 void CPlayer::Collision_Enter(CGameObject* pCollisionObj)
 {
-	MSG_BOX("面倒 Enter");
+//	MSG_BOX("面倒 Enter");
 }
 void CPlayer::Collision_Stay(CGameObject* pCollisionObj)
 {
-	MSG_BOX("面倒 Stay");
+	//MSG_BOX("面倒 Stay");
 }
 void CPlayer::Collision_Exit(CGameObject* pCollisionObj)
 {
-	MSG_BOX("面倒 Exit");
+	//MSG_BOX("面倒 Exit");
 }
 
 void CPlayer::Free()
