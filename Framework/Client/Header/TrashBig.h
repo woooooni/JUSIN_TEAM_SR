@@ -27,7 +27,7 @@ class CTrashBig :
         static  CTrashBig* Create(LPDIRECT3DDEVICE9 pGraphicDev);
     private:
         _float m_fMoveTime;
-        _vec3 m_vDst = { 0,1,0 };
+        _vec3 m_vDst = { 0,0,0 };
         virtual void Trace(_float fTimeDelta) override;
 
 

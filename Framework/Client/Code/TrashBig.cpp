@@ -22,9 +22,12 @@ void CTrashBig::Update_Idle(_float fTimeDelta)
 	
 	if (m_fMoveTime > 10.f)
 	{
-		Set_State(MONSTER_STATE::MOVE);
-		m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
-		m_fMoveTime = 0.f;
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::MOVE);
+			m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
+		}
+			m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;
 }
@@ -42,9 +45,12 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 	_vec3 vDir, vPos, vDst;
 	if (m_fMoveTime > 5.f)
 	{
-		Set_State(MONSTER_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
-		vDst = { float(rand() % 10),1.f,float(rand() % 10) };
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::IDLE);
+			m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
+		}
+		vDst = { float(rand() % 10)-5.f,0.f,float(rand() % 10)-5.f };
 		if (vDst != m_vDst)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
@@ -52,7 +58,7 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 	m_fMoveTime += 10 * fTimeDelta;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = m_vDst - vPos;
+	vDir = m_vDst;
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_pTarget = nullptr;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
@@ -75,7 +81,7 @@ HRESULT CTrashBig::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashBig_Idle_RightDown",	L"Proto_Texture_TrashBig_Idle_RightDown", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Idle_RightUp",	L"Proto_Texture_TrashBig_Idle_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Idle_LeftDown",	L"Proto_Texture_TrashBig_Idle_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashBig_Idle_LeftUp",		L"Proto_Texture_TrashBig_Move_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBig_Idle_LeftUp",		L"Proto_Texture_TrashBig_Idle_LeftUp", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Move_Down",		L"Proto_Texture_TrashBig_Move_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Move_Up",			L"Proto_Texture_TrashBig_Move_Up", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Move_Left",		L"Proto_Texture_TrashBig_Move_Left", 0.1f);
@@ -106,8 +112,10 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
 		if (D3DXVec3Length(&vDir) < 5)
+		{
 			Set_State(MONSTER_STATE::ATTACK);
-		m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
+			m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
+		}
 	}
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -178,6 +186,7 @@ void CTrashBig::Trace(_float fTimeDelta)
 	if (D3DXVec3Length(&vDir) > 5)
 	{
 		Set_State(MONSTER_STATE::IDLE);
+		m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
 		return;
 	}
 	D3DXVec3Normalize(&vDir, &vDir);
