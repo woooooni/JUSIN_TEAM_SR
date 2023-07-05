@@ -18,6 +18,7 @@
 #include "Player_State_Push.h"
 #include "Player_State_GetItem.h"
 #include "Player_State_BallonFly.h"
+#include "Player_State_Drawing.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -155,6 +156,7 @@ HRESULT CPlayer::Ready_Object(void)
 
 	m_pAnimator->Add_Animation(L"GetItem", L"Proto_Texture_Player_GetItem", 0.1f);
 	m_pAnimator->Add_Animation(L"BalloonFly", L"Proto_Texture_Player_BalloonFly", 0.1f);
+	m_pAnimator->Add_Animation(L"Drawing", L"Proto_Texture_Player_Drawing", 0.1f);
 
 
 	m_pAnimator->Play_Animation(L"Idle_Down", true);
@@ -177,6 +179,7 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_Push(this));
 	m_vecState.push_back(new CPlayer_State_GetItem(this));
 	m_vecState.push_back(new Player_State_BallonFly(this));
+	m_vecState.push_back(new CPlayer_State_Drawing(this));
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
