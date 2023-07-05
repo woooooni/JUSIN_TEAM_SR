@@ -135,7 +135,8 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 		}
 	}
 
-	m_vecCol->clear();
+	for (_uint i = 0; i < (_uint)COLLISION_GROUP::COLLIDE_END; ++i)
+		m_vecCol[i].clear();
 
 }
 

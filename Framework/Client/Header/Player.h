@@ -70,7 +70,7 @@ public:
 private:
 	virtual void Free() override;
 
-
+	CCollider* m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_END];
 
 
 
