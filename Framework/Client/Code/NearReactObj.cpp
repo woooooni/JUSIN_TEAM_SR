@@ -41,11 +41,13 @@ _int CNearReactObj::Update_Object(const _float& fTimeDelta)
 
 	m_pTransformCom->Get_Info(INFO_POS, &tmp);
 
-	if (D3DXVec3Length(&(src - tmp)) < m_fFindRange && m_fCurFrame < 7.f)
+	if (D3DXVec3Length(&(src - tmp)) < m_fFindRange && m_fCurFrame <= 7.5f)
 		m_fCurFrame += fTimeDelta * 10.f;
-	else if (D3DXVec3Length(&(src - tmp)) > m_fFindRange && m_fCurFrame < 7.f && m_fCurFrame != 0.f)
-		m_fCurFrame = 15.f - m_fCurFrame - 1.f;
-	else if (D3DXVec3Length(&(src - tmp)) > m_fFindRange && m_fCurFrame >= 7.f)
+	else if (D3DXVec3Length(&(src - tmp)) < m_fFindRange && m_fCurFrame > 7.5f)
+		m_fCurFrame = 15.f - m_fCurFrame;
+	else if (D3DXVec3Length(&(src - tmp)) > m_fFindRange && m_fCurFrame <= 7.5f && m_fCurFrame != 0.f)
+		m_fCurFrame = 15.f - m_fCurFrame;
+	else if (D3DXVec3Length(&(src - tmp)) > m_fFindRange && m_fCurFrame > 7.5f)
 	{
 		m_fCurFrame += fTimeDelta * 10.f;
 		if (m_fCurFrame >= (float)m_pAnimator->GetCurrAnimation()->Get_Size())

@@ -116,6 +116,21 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pNear, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Gosari", pNear), E_FAIL);
 
+	pNear = CNearReactObj::Create(m_pGraphicDev, { 10, 1, 10 });
+	NULL_CHECK_RETURN(pNear, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Gosari", pNear), E_FAIL);
+
+
+	pNear = CNearReactObj::Create(m_pGraphicDev, { 10, 1, 5 });
+	NULL_CHECK_RETURN(pNear, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Gosari", pNear), E_FAIL);
+
+	pNear = CNearReactObj::Create(m_pGraphicDev, { 5, 1, 10 });
+	NULL_CHECK_RETURN(pNear, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Gosari", pNear), E_FAIL);
+
+
+
 	CGrabbableObj* pGrab = CGrabbableObj::Create(m_pGraphicDev, { 7, 1, 7 });
 	NULL_CHECK_RETURN(pGrab, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GrabStone", pGrab), E_FAIL);
