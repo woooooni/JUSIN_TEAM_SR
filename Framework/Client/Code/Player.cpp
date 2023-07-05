@@ -258,6 +258,9 @@ void CPlayer::Player_Move(_float fTimeDelta)
 }
 void CPlayer::Free()
 {
+	for (_uint i = 0; i < m_vecState.size(); ++i)
+		Safe_Delete(m_vecState[i]);
+
 	__super::Free();
 }
 

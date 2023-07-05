@@ -1,6 +1,7 @@
-﻿  unity_X74SGK72G564F8Z7.cpp
+﻿  unity_2G9PI8QCNLI5DVHG.cpp
+  LINK : ..\Bin\System.dll을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
      ../Bin\System.lib 라이브러리 및 ../Bin\System.exp 개체를 생성하고 있습니다.
-  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Bin\System.dll
+  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
