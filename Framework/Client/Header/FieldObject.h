@@ -4,13 +4,15 @@
 class CFieldObject : public CGameObject
 {
 public:
+	CFieldObject(LPDIRECT3DDEVICE9 pGraphicDev);
+	CFieldObject(const CFieldObject& rhs);
+	virtual ~CFieldObject();
+
+
 	virtual void	OnAttacked() {};
 	
 
 protected:
-	bool m_bIsPushable = false;
-	bool m_bIsGrabbable = false;
-	bool m_bIsAttackable = false;
-	bool m_bIsBreakable = false;
+	OBJ_INFO m_tInfo;
 };
 

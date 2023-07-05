@@ -6,7 +6,10 @@ IMPLEMENT_SINGLETON(CCollisionMgr)
 
 Engine::CCollisionMgr::CCollisionMgr(void)
 {
-
+	for (auto& iter : m_vecCol)
+	{
+		iter.reserve(sizeof(CCollider*) * 100);
+	}
 }
 
 Engine::CCollisionMgr::~CCollisionMgr(void)
@@ -19,31 +22,79 @@ void CCollisionMgr::Free(void)
 	
 }
 
-void CCollisionMgr::Add_CollisionGroup(CCollider* pCol)
+void CCollisionMgr::Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState)
 {
-	m_vecCol.push_back(pCol);
+	m_vecCol[(_uint)pState].push_back(pCol);
 }
 
-void CCollisionMgr::Group_Collide()
+void CCollisionMgr::Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStateB)
 {
-	for (size_t i = 0; i < (m_vecCol.size() - 1); i++)
+	COLLISION_DIR dir = COLLISION_DIR::NOT_COLLIDE;
+
+	switch (pStateA)
 	{
-		for (size_t j = i + 1; j < m_vecCol.size(); j++)
+	case Engine::COLLIDE_STATE::COLLIDE_WALL:
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_PLAYER:
+		for (auto& iter : (m_vecCol[(_uint)pStateB]))
 		{
-			Check_Collision(m_vecCol[i], m_vecCol[j]);
-		}
-	}
+			switch (pStateB)
+			{
+			case Engine::COLLIDE_STATE::COLLIDE_WALL:
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_PLAYER:
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_MOBBODY:
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_GRAB:
+				if ((_uint)(dir = Check_Collision((m_vecCol[(_uint)pStateA])[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], iter)))
+				{
 
-	m_vecCol.clear();
+				}
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_PUSH:
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_BREAK:
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_BULLET:
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_BOMB:
+				break;
+			case Engine::COLLIDE_STATE::COLLIDE_END:
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_MOBBODY:
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_GRAB:
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_PUSH:
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_BREAK:
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_BULLET:
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_BOMB:
+		break;
+	case Engine::COLLIDE_STATE::COLLIDE_END:
+		break;
+	default:
+		break;
+	}
 }
 
-HRESULT CCollisionMgr::Check_Collision( CGameObject* objA,  CGameObject* objB)
+
+
+COLLISION_DIR CCollisionMgr::Check_Collision( CGameObject* objA,  CGameObject* objB)
 {
 	CBoxCollider* colA = dynamic_cast<CBoxCollider*>(objA->Get_ColliderCom());
 	CBoxCollider* colB = dynamic_cast<CBoxCollider*>(objB->Get_ColliderCom());
 
-	NULL_CHECK_RETURN(colA, E_FAIL);
-	NULL_CHECK_RETURN(colB, E_FAIL);
+	NULL_CHECK_RETURN(colA, COLLISION_DIR::NOT_COLLIDE);
+	NULL_CHECK_RETURN(colB, COLLISION_DIR::NOT_COLLIDE);
 
 
 	const _vec3& scaleA = colA->Get_Scale();
@@ -63,53 +114,52 @@ HRESULT CCollisionMgr::Check_Collision( CGameObject* objA,  CGameObject* objB)
 		{
 			if (posB.x > posA.x)
 			{
-				MSG_BOX("哭率面倒");
+				return COLLISION_DIR::DIR_L;
 			}
 			else
 			{
-				MSG_BOX("坷弗率面倒");
+				return COLLISION_DIR::DIR_R;
 			}
 		}
 		else if (colY < colX && colY < colZ)
 		{
 			if (posB.y > posA.y)
 			{
-				MSG_BOX("酒贰率面倒");
+				return COLLISION_DIR::DIR_D;
 			}
 			else
 			{
-				MSG_BOX("困率面倒");
+				return COLLISION_DIR::DIR_U;
 			}
 		}
 		else if (colZ < colX && colZ < colY)
 		{
 			if (posB.z > posA.z)
 			{
-				MSG_BOX("菊率面倒");
+				return COLLISION_DIR::DIR_FAR;
 			}
 			else
 			{
-				MSG_BOX("第率面倒");
+				return COLLISION_DIR::DIR_NEAR;
 			}
 		}
 
-		return S_OK;
 	}
 
 
 
 	
 
-	return E_FAIL;
+	return COLLISION_DIR::NOT_COLLIDE;
 }
 
-HRESULT CCollisionMgr::Check_Collision(CCollider* objA, CCollider* objB)
+COLLISION_DIR CCollisionMgr::Check_Collision(CCollider* objA, CCollider* objB)
 {
 	CBoxCollider* colA = dynamic_cast<CBoxCollider*>(objA);
 	CBoxCollider* colB = dynamic_cast<CBoxCollider*>(objB);
 
-	NULL_CHECK_RETURN(colA, E_FAIL);
-	NULL_CHECK_RETURN(colB, E_FAIL);
+	NULL_CHECK_RETURN(colA, COLLISION_DIR::NOT_COLLIDE);
+	NULL_CHECK_RETURN(colB, COLLISION_DIR::NOT_COLLIDE);
 
 	const _vec3& scaleA = colA->Get_Scale();
 	const _vec3& posA = colA->Get_Pos();
@@ -128,42 +178,37 @@ HRESULT CCollisionMgr::Check_Collision(CCollider* objA, CCollider* objB)
 		{
 			if (posB.x > posA.x)
 			{
-				MSG_BOX("哭率面倒");
+				return COLLISION_DIR::DIR_L;
 			}
 			else
 			{
-				MSG_BOX("坷弗率面倒");
+				return COLLISION_DIR::DIR_R;
 			}
 		}
 		else if (colY < colX && colY < colZ)
 		{
 			if (posB.y > posA.y)
 			{
-				MSG_BOX("酒贰率面倒");
+				return COLLISION_DIR::DIR_D;
 			}
 			else
 			{
-				MSG_BOX("困率面倒");
+				return COLLISION_DIR::DIR_U;
 			}
 		}
 		else if (colZ < colX && colZ < colY)
 		{
 			if (posB.z > posA.z)
 			{
-				MSG_BOX("菊率面倒");
+				return COLLISION_DIR::DIR_FAR;
 			}
 			else
 			{
-				MSG_BOX("第率面倒");
+				return COLLISION_DIR::DIR_NEAR;
 			}
 		}
 
-		return S_OK;
 	}
+	return COLLISION_DIR::NOT_COLLIDE;
 
-
-
-
-
-	return E_FAIL;
 }

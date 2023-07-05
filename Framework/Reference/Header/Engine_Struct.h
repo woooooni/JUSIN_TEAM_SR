@@ -52,6 +52,14 @@ namespace Engine
 		_ulong	_2;
 
 	}INDEX32;
+
+	typedef struct tagObjectInfo
+	{
+		bool m_bIsPushable = false;
+		bool m_bIsGrabbable = false;
+		bool m_bIsAttackable = false;
+		bool m_bIsBreakable = false;
+	}OBJ_INFO;
 	
 }
 
