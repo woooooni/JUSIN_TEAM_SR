@@ -22,6 +22,7 @@ HRESULT CMainApp::Ready_MainApp(void)
 	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_PickingMgr(m_pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_KeyMgr(m_pGraphicDev, g_hWnd), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_CollisionMgr(m_pGraphicDev), E_FAIL);
 
 	return S_OK;
 }
@@ -42,6 +43,7 @@ void CMainApp::LateUpdate_MainApp()
 {
 	NULL_CHECK(m_pManagementClass);
 	m_pManagementClass->LateUpdate_Scene();
+	Engine::Update_Collision();
 }
 
 void CMainApp::Render_MainApp()

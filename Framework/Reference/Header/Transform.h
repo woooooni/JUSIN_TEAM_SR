@@ -27,6 +27,7 @@ public:
 
 	void Set_Info(MATRIX_INFO eType, _vec3* pInfo)
 	{
+		m_vInfo[eType] = *pInfo;
 		memcpy(&m_matWorld.m[eType][0], pInfo, sizeof(_vec3));
 	}
 

@@ -39,6 +39,11 @@ public:
 	}
 	void			Player_Move(_float fTimeDelta);
 
+public:
+	// 충돌 호출
+	virtual void Collision_Enter(CGameObject* pCollisionObj);
+	virtual void Collision_Stay(CGameObject* pCollisionObj);
+	virtual void Collision_Exit(CGameObject* pCollisionObj);
 
 private:
 	_vec3			m_vDir;

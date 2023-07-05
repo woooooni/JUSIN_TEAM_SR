@@ -16,10 +16,6 @@ CTrashBig::~CTrashBig()
 
 void CTrashBig::Update_Idle(_float fTimeDelta)
 {
-
-
-
-	
 	if (m_fMoveTime > 10.f)
 	{
 		Set_State(MONSTER_STATE::MOVE);
@@ -95,7 +91,7 @@ HRESULT CTrashBig::Ready_Object(void)
 
 _int CTrashBig::Update_Object(const _float& fTimeDelta)
 {
-
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");

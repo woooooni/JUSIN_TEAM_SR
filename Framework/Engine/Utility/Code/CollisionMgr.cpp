@@ -8,8 +8,9 @@ Engine::CCollisionMgr::CCollisionMgr(void)
 {
 	for (auto& iter : m_vecCol)
 	{
-		iter.reserve(sizeof(CCollider*) * 100);
+		iter.reserve(100);
 	}
+	Reset();
 }
 
 Engine::CCollisionMgr::~CCollisionMgr(void)
@@ -17,198 +18,157 @@ Engine::CCollisionMgr::~CCollisionMgr(void)
 	Free();
 }
 
+HRESULT CCollisionMgr::Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice)
+{
+	m_pGraphicDev = _pDevice;
+	_pDevice->AddRef();
+
+	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_MONSTER);
+
+	return S_OK;
+}
+
+void CCollisionMgr::Update_Collision()
+{
+	for (UINT iRow = 0; iRow < (UINT)COLLISION_GROUP::COLLIDE_END; iRow++)
+	{
+		for (UINT iCol = iRow; iCol < (UINT)COLLISION_GROUP::COLLIDE_END; iCol++)
+		{
+			if (m_arrCheck[iRow] & (1 << iCol))
+			{
+				CollisionUpdate((COLLISION_GROUP)iRow, (COLLISION_GROUP)iCol);
+			}
+		}
+	}
+}
+
+void CCollisionMgr::Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP _eGroup)
+{
+	m_vecCol[(_uint)_eGroup].push_back(pCol);
+}
+
+void CCollisionMgr::CheckGroupType(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight)
+{
+	UINT iRow = (UINT)_eLeft;
+	UINT iCol = (UINT)_eRight;
+
+	if (iCol < iRow)
+	{
+		iRow = (UINT)_eRight;
+		iCol = (UINT)_eLeft;
+	}
+
+	if (m_arrCheck[iRow] & (1 << iCol))
+	{
+		m_arrCheck[iRow] &= ~(1 << iCol);
+	}
+	else
+	{
+		m_arrCheck[iRow] |= (1 << iCol);
+	}
+}
+
+void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight)
+{
+	map<ULONGLONG, _bool>::iterator iter;
+	for (auto& lCollider : m_vecCol[(_uint)_eLeft])
+	{
+		if (!lCollider->Is_Active() || nullptr == lCollider)
+			continue;
+
+		for (auto& rCollider : m_vecCol[(_uint)_eRight])
+		{
+			if (!rCollider->Is_Active() || nullptr == rCollider || lCollider == rCollider)
+				continue;
+
+			if (!lCollider->Is_Active() || !rCollider->Is_Active())
+				continue;
+
+			// gen map key by using union
+			COLLIDER_ID ID;
+			ID.iLeft_id = lCollider->Get_Id();
+			ID.iRight_id = rCollider->Get_Id();
+
+			iter = m_mapColInfo.find(ID.ID);
+
+			if (m_mapColInfo.end() == iter)
+			{
+				m_mapColInfo.insert(make_pair(ID.ID, false));
+				iter = m_mapColInfo.find(ID.ID);
+			}
+
+			if (IsCollision(lCollider, rCollider))
+			{
+				if (iter->second)
+				{
+					if (!lCollider->GetOwner()->Is_Active() || !rCollider->GetOwner()->Is_Active())
+					{
+						lCollider->OnCollisionExit(rCollider);
+						rCollider->OnCollisionExit(lCollider);
+						iter->second = false;
+					}
+					else
+					{
+						lCollider->OnCollisionStay(rCollider);
+						rCollider->OnCollisionStay(lCollider);
+					}
+				}
+				else
+				{
+					if (lCollider->GetOwner()->Is_Active() && rCollider->GetOwner()->Is_Active())
+					{
+						lCollider->OnCollisionEnter(rCollider);
+						rCollider->OnCollisionEnter(lCollider);
+						iter->second = true;
+					}
+				}
+			}
+			else
+			{
+				if (iter->second)
+				{
+					lCollider->OnCollisionExit(rCollider);
+					rCollider->OnCollisionExit(lCollider);
+					iter->second = false;
+				}
+			}
+		}
+	}
+
+	m_vecCol->clear();
+
+}
+
+bool CCollisionMgr::IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol)
+{
+	const _vec3& vLeftScale = ((CBoxCollider*)_pLeftCol)->Get_Scale();
+	const _vec3& vLeftPos =	((CBoxCollider*)_pLeftCol)->Get_Pos();
+	const _vec3& vRightScale = ((CBoxCollider*)_pRightCol)->Get_Scale();
+	const _vec3& vRightPos =	((CBoxCollider*)_pRightCol)->Get_Pos();
+
+	if (fabs(vRightPos.x - vLeftPos.x) < 0.5f * (vLeftScale.x + vRightScale.x)
+		&& fabs(vRightPos.y - vLeftPos.y) < 0.5f * (vLeftScale.y + vRightScale.y)
+		&& fabs(vRightPos.z - vLeftPos.z) < 0.5f * (vLeftScale.z + vRightScale.z))
+	{
+		float colX = 0.5f * (vLeftScale.x + vRightScale.x) - fabs(vRightPos.x - vLeftPos.x);
+		float colY = 0.5f * (vLeftScale.y + vRightScale.y) - fabs(vRightPos.y - vLeftPos.y);
+		float colZ = 0.5f * (vLeftScale.z + vRightScale.z) - fabs(vRightPos.z - vLeftPos.z);
+
+		if (colX < colY && colX < colZ)
+			return true;
+
+		else if (colY < colX && colY < colZ)
+			return true;
+
+		else if (colZ < colX && colZ < colY)
+			return true;
+	}
+
+	return false;
+}
+
+
 void CCollisionMgr::Free(void)
 {
-	
-}
-
-void CCollisionMgr::Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState)
-{
-	m_vecCol[(_uint)pState].push_back(pCol);
-}
-
-void CCollisionMgr::Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStateB)
-{
-	COLLISION_DIR dir = COLLISION_DIR::NOT_COLLIDE;
-
-	switch (pStateA)
-	{
-	case Engine::COLLIDE_STATE::COLLIDE_WALL:
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_PLAYER:
-		for (auto& iter : (m_vecCol[(_uint)pStateB]))
-		{
-			switch (pStateB)
-			{
-			case Engine::COLLIDE_STATE::COLLIDE_WALL:
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_PLAYER:
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_MOBBODY:
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_GRAB:
-				if ((_uint)(dir = Check_Collision((m_vecCol[(_uint)pStateA])[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], iter)))
-				{
-
-				}
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_PUSH:
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_BREAK:
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_BULLET:
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_BOMB:
-				break;
-			case Engine::COLLIDE_STATE::COLLIDE_END:
-				break;
-			default:
-				break;
-			}
-		}
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_MOBBODY:
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_GRAB:
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_PUSH:
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_BREAK:
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_BULLET:
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_BOMB:
-		break;
-	case Engine::COLLIDE_STATE::COLLIDE_END:
-		break;
-	default:
-		break;
-	}
-}
-
-
-
-COLLISION_DIR CCollisionMgr::Check_Collision( CGameObject* objA,  CGameObject* objB)
-{
-	CBoxCollider* colA = dynamic_cast<CBoxCollider*>(objA->Get_ColliderCom());
-	CBoxCollider* colB = dynamic_cast<CBoxCollider*>(objB->Get_ColliderCom());
-
-	NULL_CHECK_RETURN(colA, COLLISION_DIR::NOT_COLLIDE);
-	NULL_CHECK_RETURN(colB, COLLISION_DIR::NOT_COLLIDE);
-
-
-	const _vec3& scaleA = colA->Get_Scale();
-	const _vec3& posA = colA->Get_Pos();
-	const _vec3& scaleB = colB->Get_Scale();
-	const _vec3& posB = colB->Get_Pos();
-
-	if (fabs(posB.x - posA.x) < 0.5f * (scaleA.x + scaleB.x)
-		&& fabs(posB.y - posA.y) < 0.5f * (scaleA.y + scaleB.y)
-		&& fabs(posB.z - posA.z) < 0.5f * (scaleA.z + scaleB.z))
-	{
-		float colX = 0.5f * (scaleA.x + scaleB.x) - fabs(posB.x - posA.x);
-		float colY = 0.5f * (scaleA.y + scaleB.y) - fabs(posB.y - posA.y);
-		float colZ = 0.5f * (scaleA.z + scaleB.z) - fabs(posB.z - posA.z);
-
-		if (colX < colY && colX < colZ)
-		{
-			if (posB.x > posA.x)
-			{
-				return COLLISION_DIR::DIR_L;
-			}
-			else
-			{
-				return COLLISION_DIR::DIR_R;
-			}
-		}
-		else if (colY < colX && colY < colZ)
-		{
-			if (posB.y > posA.y)
-			{
-				return COLLISION_DIR::DIR_D;
-			}
-			else
-			{
-				return COLLISION_DIR::DIR_U;
-			}
-		}
-		else if (colZ < colX && colZ < colY)
-		{
-			if (posB.z > posA.z)
-			{
-				return COLLISION_DIR::DIR_FAR;
-			}
-			else
-			{
-				return COLLISION_DIR::DIR_NEAR;
-			}
-		}
-
-	}
-
-
-
-	
-
-	return COLLISION_DIR::NOT_COLLIDE;
-}
-
-COLLISION_DIR CCollisionMgr::Check_Collision(CCollider* objA, CCollider* objB)
-{
-	CBoxCollider* colA = dynamic_cast<CBoxCollider*>(objA);
-	CBoxCollider* colB = dynamic_cast<CBoxCollider*>(objB);
-
-	NULL_CHECK_RETURN(colA, COLLISION_DIR::NOT_COLLIDE);
-	NULL_CHECK_RETURN(colB, COLLISION_DIR::NOT_COLLIDE);
-
-	const _vec3& scaleA = colA->Get_Scale();
-	const _vec3& posA = colA->Get_Pos();
-	const _vec3& scaleB = colB->Get_Scale();
-	const _vec3& posB = colB->Get_Pos();
-
-	if (fabs(posB.x - posA.x) < 0.5f * (scaleA.x + scaleB.x)
-		&& fabs(posB.y - posA.y) < 0.5f * (scaleA.y + scaleB.y)
-		&& fabs(posB.z - posA.z) < 0.5f * (scaleA.z + scaleB.z))
-	{
-		float colX = 0.5f * (scaleA.x + scaleB.x) - fabs(posB.x - posA.x);
-		float colY = 0.5f * (scaleA.y + scaleB.y) - fabs(posB.y - posA.y);
-		float colZ = 0.5f * (scaleA.z + scaleB.z) - fabs(posB.z - posA.z);
-
-		if (colX < colY && colX < colZ)
-		{
-			if (posB.x > posA.x)
-			{
-				return COLLISION_DIR::DIR_L;
-			}
-			else
-			{
-				return COLLISION_DIR::DIR_R;
-			}
-		}
-		else if (colY < colX && colY < colZ)
-		{
-			if (posB.y > posA.y)
-			{
-				return COLLISION_DIR::DIR_D;
-			}
-			else
-			{
-				return COLLISION_DIR::DIR_U;
-			}
-		}
-		else if (colZ < colX && colZ < colY)
-		{
-			if (posB.z > posA.z)
-			{
-				return COLLISION_DIR::DIR_FAR;
-			}
-			else
-			{
-				return COLLISION_DIR::DIR_NEAR;
-			}
-		}
-
-	}
-	return COLLISION_DIR::NOT_COLLIDE;
-
+	Safe_Release(m_pGraphicDev);
 }

@@ -20,8 +20,10 @@ public:
 
 	void			SetAxisLen(MATRIX_INFO eInfo, _float _f) { m_fAxisLen[eInfo] = _f; }
 
+	UINT			Get_Id() { return m_iID; }
+
 public:
-	virtual void	OnCollisionEnter(CCollider* _pOther)	PURE;
+	virtual void	OnCollisionEnter(CCollider* _pOther)		PURE;
 	virtual void	OnCollisionStay(CCollider* _pOther)		PURE;
 	virtual void	OnCollisionExit(CCollider* _pOther)		PURE;
 
