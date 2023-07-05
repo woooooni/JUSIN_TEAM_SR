@@ -47,7 +47,7 @@ void CCollisionMgr::Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStat
 			case Engine::COLLIDE_STATE::COLLIDE_MOBBODY:
 				break;
 			case Engine::COLLIDE_STATE::COLLIDE_GRAB:
-				if ((_uint)(dir = Check_Collision((m_vecCol[(_uint)pStateA])[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], iter)))
+				if (m_vecCol[(_uint)pStateA].size() >= (_uint)COLLIDER_PLAYER::COLLIDER_GRAB && (_uint)(dir = Check_Collision((m_vecCol[(_uint)pStateA])[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], iter)))
 				{
 
 				}

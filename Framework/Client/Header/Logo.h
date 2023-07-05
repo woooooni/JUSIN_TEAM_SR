@@ -10,6 +10,7 @@
 #include "Terrain.h"
 #include	"PushStone.h"
 #include "NearReactObj.h"
+#include "GrabbableObj.h"
 
 
 class CLogo : public Engine::CScene
