@@ -1,9 +1,10 @@
 #include "Export_Function.h"
 #include "SunGollem.h"
 
-CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
-, m_eState(SUNGOLEM_STATE::REGEN)
-, m_fSpeed(5.f)
+CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+	, m_eState(SUNGOLEM_STATE::REGEN)
+	, m_fSpeed(5.f)
 {
 }
 CSunGollem::CSunGollem(const CSunGollem& rhs)

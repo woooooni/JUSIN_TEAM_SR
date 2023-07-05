@@ -173,8 +173,4 @@ void CCollisionMgr::Free(void)
 	Safe_Release(m_pGraphicDev);
 }
 
-void CCollisionMgr::Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState)
-{
-	m_vecCol[(_uint)pState].push_back(pCol);
-}
 

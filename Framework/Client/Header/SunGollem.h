@@ -31,7 +31,7 @@ public:
 protected:
 	HRESULT	Add_Component(void);
 private:
-	vector<CGameObject> vecParts;
+	//vector<CGameObject> vecParts;
 
 public:
 	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }

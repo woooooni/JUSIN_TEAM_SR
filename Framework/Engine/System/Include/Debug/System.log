@@ -1,6 +1,4 @@
-﻿  unity_TDYWOQIDZRYCDJHA.cpp
-     ../Bin\System.lib 라이브러리 및 ../Bin\System.exp 개체를 생성하고 있습니다.
-  System.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\System\Bin\System.dll
+﻿  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
@@ -16,22 +14,18 @@
   .\Engine\Header\CubeTex.h
   .\Engine\Header\Engine_Define.h
   .\Engine\Header\Engine_Enum.h
-  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\Engine_Function.h
   .\Engine\Header\Engine_Macro.h
   .\Engine\Header\Engine_Struct.h
   .\Engine\Header\Engine_Typedef.h
   .\Engine\Header\Export_Function.h
-  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\Export_System.h
-  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\Export_Utility.h
   .\Engine\Header\FontMgr.h
   .\Engine\Header\Frame.h
   .\Engine\Header\FrameMgr.h
   .\Engine\Header\GameObject.h
   .\Engine\Header\GraphicDev.h
-  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\ImGuiMgr.h
   .\Engine\Header\InputDevice.h
   .\Engine\Header\KeyMgr.h
@@ -44,6 +38,7 @@
   .\Engine\Header\RcCol.h
   .\Engine\Header\RcTex.h
   .\Engine\Header\Renderer.h
+  .\Engine\Header\RigidBody.h
   .\Engine\Header\Scene.h
   .\Engine\Header\TerrainTex.h
   .\Engine\Header\Texture.h
@@ -52,7 +47,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         38개 파일이 복사되었습니다.
+         43개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.
