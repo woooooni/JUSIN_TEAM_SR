@@ -36,7 +36,13 @@ HRESULT CGrabbableObj::Ready_Object(void)
 
 _int CGrabbableObj::Update_Object(const _float& fTimeDelta)
 {
-	return _int();
+	_int ret = __super::Update_Object(fTimeDelta);
+
+	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_GRAB);
+
+	return ret;
 }
 
 void CGrabbableObj::LateUpdate_Object(void)
@@ -45,6 +51,9 @@ void CGrabbableObj::LateUpdate_Object(void)
 
 void CGrabbableObj::Render_Object(void)
 {
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pTextureCom->Render_Texture();
+	m_pBufferCom->Render_Buffer();
 }
 
 HRESULT CGrabbableObj::Ready_Component(void)
