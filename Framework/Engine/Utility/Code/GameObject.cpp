@@ -33,6 +33,9 @@ HRESULT CGameObject::Ready_Object(void)
 
 _int CGameObject::Update_Object(const _float & fTimeDelta)
 {
+	if (!m_bActive)
+		return S_OK;
+
 	for (auto& iter : m_mapComponent[ID_DYNAMIC])
 		iter.second->Update_Component(fTimeDelta);
 	
@@ -41,12 +44,18 @@ _int CGameObject::Update_Object(const _float & fTimeDelta)
 
 void CGameObject::LateUpdate_Object(void)
 {
+	if (!m_bActive)
+		return;
+
 	for (auto& iter : m_mapComponent[ID_DYNAMIC])
 		iter.second->LateUpdate_Component();
 }
 
 void CGameObject::Render_Object(void)
 {
+	if (!m_bActive)
+		return;
+
 	for (auto& iter : m_mapComponent[ID_DYNAMIC])
 		iter.second->Render_Component();
 }

@@ -27,6 +27,7 @@ namespace Engine
 		COM_BOX_COLLIDER,
 		COM_TEXTURE,
 		COM_ANIMATOR,
+		COM_RIGIDBODY,
 		COM_END
 	};
 

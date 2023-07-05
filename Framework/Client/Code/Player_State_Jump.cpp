@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Player.h"
 #include "Transform.h"
+#include "RigidBody.h"
 
 CPlayer_State_Jump::CPlayer_State_Jump(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -76,6 +77,13 @@ HRESULT CPlayer_State_Jump::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Jump_RightDown", FALSE);
 		break;
 	}
+
+	//CRigidBody* pRigidBody = m_pOwner->Get_RigidBodyCom();
+	//if (nullptr == pRigidBody)
+	//	return S_OK;
+
+	//pRigidBody->AddForce(_vec3{ 0.f, 120.f, 0.f });
+	//pRigidBody->SetGround(false);
 
 	return S_OK;
 }
