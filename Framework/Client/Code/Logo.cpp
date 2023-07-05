@@ -129,6 +129,11 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pNear, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Gosari", pNear), E_FAIL);
 
+	CNearReactMoonObj* pMoonNear = CNearReactMoonObj::Create(m_pGraphicDev, { 13, 1, 13 });
+	NULL_CHECK_RETURN(pMoonNear, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DalPul", pMoonNear), E_FAIL);
+
+
 
 
 	CGrabbableObj* pGrab = CGrabbableObj::Create(m_pGraphicDev, { 7, 1, 7 });

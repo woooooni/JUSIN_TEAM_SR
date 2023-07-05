@@ -11,6 +11,7 @@
 #include	"PushStone.h"
 #include "NearReactObj.h"
 #include "GrabbableObj.h"
+#include "NearReactMoonObj.h"
 
 
 class CLogo : public Engine::CScene

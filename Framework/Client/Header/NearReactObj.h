@@ -27,7 +27,7 @@ public:
 	static	CNearReactObj* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 p_pos = { 0, 0, 0 });
 
 protected:
-	HRESULT			Ready_Component(void);
+	virtual HRESULT			Ready_Component(void);
 
 	float			m_fFindRange = 3.f;
 	float			m_fCurFrame = 0.f;

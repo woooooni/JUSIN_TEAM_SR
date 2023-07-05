@@ -70,6 +70,9 @@
     <Filter Include="02. GameObject\06. FieldObj\02. BenchObj">
       <UniqueIdentifier>{37266a86-5e6d-4239-868a-4995d80878e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\09. EnvironmentObj\00. NearReactObj\00. NearReactMoonObj">
+      <UniqueIdentifier>{1ee59d1e-0327-46c5-9636-6dedafcb2f72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -149,6 +152,12 @@
     <ClInclude Include="..\Header\FieldObject.h">
       <Filter>02. GameObject\06. FieldObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Down.h" />
+    <ClInclude Include="..\Header\Player_State_GameOver.h" />
+    <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="..\Header\NearReactMoonObj.h">
+      <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj\00. NearReactMoonObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -219,6 +228,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\FieldObject.cpp">
       <Filter>02. GameObject\06. FieldObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Down.cpp" />
+    <ClCompile Include="..\Code\Player_State_GameOver.cpp" />
+    <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="..\Code\NearReactMoonObj.cpp">
+      <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj\00. NearReactMoonObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

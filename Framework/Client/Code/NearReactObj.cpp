@@ -118,10 +118,10 @@ HRESULT CNearReactObj::Ready_Component(void)
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
 	return S_OK;
 
-	return E_NOTIMPL;
 }
