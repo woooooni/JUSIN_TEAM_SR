@@ -109,6 +109,10 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
+	
+	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
 	CPushStone* pPush = CPushStone::Create(_vec3(3, 1, 3), m_pGraphicDev);
 	NULL_CHECK_RETURN(pPush, E_FAIL);

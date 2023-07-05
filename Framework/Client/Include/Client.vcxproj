@@ -184,6 +184,7 @@
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\GolemHead.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="..\Header\Scene_Tool.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\Stage.h" />
+    <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
     <ClInclude Include="Client.h" />
@@ -227,6 +229,7 @@
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\GolemHead.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
@@ -254,6 +257,7 @@
     <ClCompile Include="..\Code\PushStone.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
+    <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="Client.cpp" />
