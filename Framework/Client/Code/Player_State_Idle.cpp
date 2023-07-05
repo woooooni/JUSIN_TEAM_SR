@@ -4,6 +4,7 @@
 #include "Animator.h"
 #include "Player.h"
 #include "KeyMgr.h"
+#include "Transform.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -43,7 +44,12 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_RightDown", true);
 		break;
 	}
+
+	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
+
 	return S_OK;
+
+	
 }
 
 _int CPlayer_State_Idle::Update_State(const _float& fTimeDelta)
@@ -54,6 +60,15 @@ _int CPlayer_State_Idle::Update_State(const _float& fTimeDelta)
 
 void CPlayer_State_Idle::LateUpdate_State(void)
 {
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Is_GetItem())
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::GETTIEM);
+	}
+
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Is_BalloonFly())
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::BALLOONFLY);
+	}
 }
 
 void CPlayer_State_Idle::Render_State(void)
@@ -109,4 +124,20 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::PUSH);
 	}
 
+
+	if (KEY_TAP(KEY::Q))
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_GetItem(true);
+	}
+
+
+	if (KEY_TAP(KEY::W))
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(true);
+	}
+
+	if (KEY_TAP(KEY::E))
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DRAWING);
+	}
 }

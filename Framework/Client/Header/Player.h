@@ -40,10 +40,20 @@ public:
 	void			Player_Move(_float fTimeDelta);
 
 public:
+
 	// 충돌 호출
 	virtual void Collision_Enter(CGameObject* pCollisionObj);
 	virtual void Collision_Stay(CGameObject* pCollisionObj);
 	virtual void Collision_Exit(CGameObject* pCollisionObj);
+
+	bool			Is_GetItem() { return m_bGetItem; }
+	void			Set_GetItem(bool _bGetItem) { m_bGetItem = _bGetItem; }
+
+	void			Set_BalloonFly(bool _bBalloonFly) { m_bBalloonFly = _bBalloonFly; }
+	void			Set_Flying(bool _bFlying) { m_bFlying = _bFlying; }
+	bool			Is_Flying() { return m_bFlying; }
+	bool			Is_BalloonFly() { return m_bBalloonFly; }
+
 
 private:
 	_vec3			m_vDir;
@@ -61,6 +71,17 @@ private:
 	virtual void Free() override;
 
 
+
+
+
+	//플레이어 상태
 	vector<CPlayer_State*> m_vecState;
+
+	bool m_bGetItem = false;
+
+
+	bool m_bBalloonFly = false;
+	bool m_bFlying = false;
+	//
 };
 
