@@ -240,6 +240,9 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_BalloonFly", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_BalloonFly/Player_BallonFly_%d.png", 32)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_GetItem", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_GetItem/Player_GetItem_%d.png", 6)), E_FAIL);
+
 	return S_OK;
 }
 

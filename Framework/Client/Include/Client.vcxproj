@@ -185,8 +185,10 @@
     <ClInclude Include="..\Header\GrabbableObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
+    <ClInclude Include="..\Header\Player_State_BallonFly.h" />
     <ClInclude Include="..\Header\Player_State_Down.h" />
     <ClInclude Include="..\Header\Player_State_GameOver.h" />
+    <ClInclude Include="..\Header\Player_State_GetItem.h" />
     <ClInclude Include="..\Header\PushableObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -222,8 +224,10 @@
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />
+    <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />
     <ClCompile Include="..\Code\Player_State_Down.cpp" />
     <ClCompile Include="..\Code\Player_State_GameOver.cpp" />
+    <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
     <ClCompile Include="..\Code\PushableObj.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
