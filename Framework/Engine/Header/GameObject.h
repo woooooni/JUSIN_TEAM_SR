@@ -11,6 +11,7 @@ class CTransform;
 class CCollider;
 class CTexture;
 class CAnimator;
+class CRigidBody;
 
 
 class ENGINE_DLL CGameObject : public CBase
@@ -49,7 +50,7 @@ public:
 	CCollider* Get_ColliderCom() { return m_pColliderCom; }
 	CAnimator* Get_AnimatorCom() { return m_pAnimator; }
 	CTexture* Get_TextureCom() { return m_pTextureCom; }
-
+	CRigidBody* Get_RigidBodyCom() { return m_pRigidBodyCom; }
 public:
 	void Set_Billboard();
 
@@ -74,6 +75,7 @@ protected:
 	CCollider*		m_pColliderCom = nullptr;
 	CAnimator*		m_pAnimator = nullptr;
 	CTexture*		m_pTextureCom = nullptr;
+	CRigidBody*		m_pRigidBodyCom = nullptr;
 
 protected:
 	wstring		m_strName;

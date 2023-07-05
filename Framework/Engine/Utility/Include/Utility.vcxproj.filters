@@ -85,6 +85,9 @@
     <Filter Include="00. Manager\05. KeyMgr">
       <UniqueIdentifier>{379e7162-36ec-4381-a7ad-2c3a14435d37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\05. RigidBody">
+      <UniqueIdentifier>{89a82244-198a-4d7f-9cce-0b9e7fd95c49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Scene.h">
@@ -165,6 +168,9 @@
     <ClInclude Include="..\..\Header\KeyMgr.h">
       <Filter>00. Manager\05. KeyMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\RigidBody.h">
+      <Filter>05. Component\05. RigidBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Scene.cpp">
@@ -241,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\KeyMgr.cpp">
       <Filter>00. Manager\05. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RigidBody.cpp">
+      <Filter>05. Component\05. RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
