@@ -73,6 +73,21 @@
     <Filter Include="02. GameObject\02. Monster\03. DesertRhino">
       <UniqueIdentifier>{e08a4cbd-a953-45a6-b35f-2b7c85ae5ac2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\10. Boss">
+      <UniqueIdentifier>{1ec18c12-8a76-4d82-9d5d-f15ea6a367bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem">
+      <UniqueIdentifier>{7d0b66cf-ad05-47df-ab11-644dd3235276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\00. Arm">
+      <UniqueIdentifier>{c96512d7-1ca4-4719-abbd-5b4edcef7ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\01. Hand">
+      <UniqueIdentifier>{b5b08609-5513-4b85-b49d-2425be3215e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\02. Head">
+      <UniqueIdentifier>{72792338-a1c3-4f6a-b97b-8b6d8a4039a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -151,6 +166,12 @@
     <ClInclude Include="..\Header\DesertRhino.h">
       <Filter>02. GameObject\02. Monster\03. DesertRhino</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\SunGollem.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemHead.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\02. Head</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -220,6 +241,12 @@
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp">
       <Filter>02. GameObject\02. Monster\03. DesertRhino</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SunGollem.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemHead.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\02. Head</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

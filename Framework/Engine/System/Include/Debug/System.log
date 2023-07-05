@@ -14,18 +14,22 @@
   .\Engine\Header\CubeTex.h
   .\Engine\Header\Engine_Define.h
   .\Engine\Header\Engine_Enum.h
+  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\Engine_Function.h
   .\Engine\Header\Engine_Macro.h
   .\Engine\Header\Engine_Struct.h
   .\Engine\Header\Engine_Typedef.h
   .\Engine\Header\Export_Function.h
+  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\Export_System.h
+  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\Export_Utility.h
   .\Engine\Header\FontMgr.h
   .\Engine\Header\Frame.h
   .\Engine\Header\FrameMgr.h
   .\Engine\Header\GameObject.h
   .\Engine\Header\GraphicDev.h
+  다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.
   .\Engine\Header\ImGuiMgr.h
   .\Engine\Header\InputDevice.h
   .\Engine\Header\KeyMgr.h
@@ -46,7 +50,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         42개 파일이 복사되었습니다.
+         38개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

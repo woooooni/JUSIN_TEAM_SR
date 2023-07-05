@@ -8,6 +8,7 @@
 #include "BlueBeatle.h"
 #include "TrashBig.h"
 #include "DesertRhino.h"
+#include "SunGollem.h"
 #include "Terrain.h"
 #include	"PushStone.h"
 #include "NearReactObj.h"
