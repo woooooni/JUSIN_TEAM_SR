@@ -19,8 +19,12 @@ void CDesertRhino::Update_Idle(_float fTimeDelta)
 {
 	if (m_fMoveTime > 10.f)
 	{
-		Set_State(MONSTER_STATE::MOVE);
-		m_pAnimator->Play_Animation(L"DesertRhino_Move_Down", true);
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::MOVE);
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Down", true);
+		}
+	
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;
@@ -32,7 +36,12 @@ void CDesertRhino::Update_Die(_float fTimeDelta)
 
 void CDesertRhino::Update_Regen(_float fTimeDelta)
 {
-	if (m_fMoveTime > 20.f)
+	_vec3 vTargetPos, vPos, vDir;
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = vTargetPos - vPos;
+	m_vDir = vTargetPos - vPos;
+	if (m_fMoveTime > 15.f)
 	{
 		Set_State(MONSTER_STATE::ATTACK);
 		m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
@@ -46,13 +55,17 @@ void CDesertRhino::Update_Move(_float fTimeDelta)
 	_vec3 vDir, vPos, vDst;
 	if (m_fMoveTime > 5.f)
 	{
-		Set_State(MONSTER_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::IDLE);
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
+		}
+
 		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
 		if (vDst != m_vDst)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
-	}
+	}	
 	m_fMoveTime += 10 * fTimeDelta;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -128,7 +141,6 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
-		m_vDst = vTargetPos;
 		m_vDir = vTargetPos - vPos;
 		if (D3DXVec3Length(&vDir) < 5)
 		{

@@ -22,8 +22,12 @@ void CBlueBeatle::Update_Idle(_float fTimeDelta)
 
 	if (m_fMoveTime > 10.f)
 	{
-		Set_State(MONSTER_STATE::MOVE);
-		m_pAnimator->Play_Animation(L"BlueBeatle_Move_Down", true);
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::MOVE);
+			m_pAnimator->Play_Animation(L"BlueBeatle_Move_Down", true);
+		}
+	
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;
@@ -34,8 +38,11 @@ void CBlueBeatle::Update_Move(_float fTimeDelta)
 	_vec3 vDir, vPos, vDst;
 	if (m_fMoveTime > 5.f)
 	{
-		Set_State(MONSTER_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::IDLE);
+			m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+		}
 		vDst = { float(rand() % 10),1.f,float(rand() % 10) };
 		if (vDst != m_vDst)
 			m_vDst = vDst;
