@@ -20,16 +20,17 @@ private:
 public:
 	virtual void	Free(void);
 
-	void		Add_CollisionGroup(CCollider*		pCol);
+	void		Add_CollisionGroup(CCollider*		pCol, COLLISION_GROUP pState);
 
-	void		Group_Collide();
+	void		Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStateB);
 
-	HRESULT			Check_Collision( CGameObject* objA,  CGameObject* objB);
-	HRESULT			Check_Collision(CCollider* objA, CCollider* objB);
+
+	COLLISION_DIR			Check_Collision(CGameObject* objA,  CGameObject* objB);
+	COLLISION_DIR			Check_Collision(CCollider* objA, CCollider* objB);
 
 
 private:
-	vector<CCollider*> m_vecCol;
+	vector<CCollider*> m_vecCol[(_uint)COLLISION_GROUP::COLLIDE_END];
 
 };
 

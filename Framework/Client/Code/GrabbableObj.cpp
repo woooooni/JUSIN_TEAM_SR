@@ -3,11 +3,11 @@
 #include "Export_Function.h"
 
 
-CGrabbableObj::CGrabbableObj(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT)
+CGrabbableObj::CGrabbableObj(LPDIRECT3DDEVICE9 pGraphicDev) : CFieldObject(pGraphicDev)
 {
 }
 
-CGrabbableObj::CGrabbableObj(const CGrabbableObj& rhs) : CGameObject(rhs)
+CGrabbableObj::CGrabbableObj(const CGrabbableObj& rhs) : CFieldObject(rhs)
 {
 }
 
@@ -17,15 +17,6 @@ CGrabbableObj::~CGrabbableObj()
 
 void CGrabbableObj::Grap()
 {
-	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
-
-	_vec3 src, up;
-
-	player->Get_TransformCom()->Get_Info(INFO_POS, &src);
-
-	player->Get_TransformCom()->Get_Info(INFO_UP, &up);
-
-	m_pTransformCom->Set_Pos(&(src + up * 1.0f /*이 수치를 조종해 잡았을때 위치를 조절가능*/));
 
 
 }
@@ -35,4 +26,67 @@ void CGrabbableObj::UnGrap()
 
 
 
+}
+
+HRESULT CGrabbableObj::Ready_Object(void)
+{	
+	FAILED_CHECK(Ready_Component());
+	return S_OK;
+}
+
+_int CGrabbableObj::Update_Object(const _float& fTimeDelta)
+{
+	return _int();
+}
+
+void CGrabbableObj::LateUpdate_Object(void)
+{
+}
+
+void CGrabbableObj::Render_Object(void)
+{
+}
+
+HRESULT CGrabbableObj::Ready_Component(void)
+{
+	CComponent* pComponent = nullptr;
+
+	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
+
+
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
+
+	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_GrabStone"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	return S_OK;
+
+}
+
+CGrabbableObj* CGrabbableObj::Create(LPDIRECT3DDEVICE9 pDev, const _vec3 p_Pos)
+{
+	CGrabbableObj* ret = new CGrabbableObj(pDev);
+
+	if (FAILED((ret->Ready_Object())))
+	{
+		Safe_Release(ret);
+		MSG_BOX("GrabObjCreateFailed");
+		return nullptr;
+	}
+	ret->Get_TransformCom()->Set_Pos(&p_Pos);
+
+	return ret;
 }

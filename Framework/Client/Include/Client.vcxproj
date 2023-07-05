@@ -182,6 +182,7 @@
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
     <ClInclude Include="..\Header\CUI.h" />
+    <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
+    <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />

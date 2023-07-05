@@ -187,7 +187,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
 	}
-	Add_CollisionGroup(m_pColliderCom);
+	//Add_CollisionGroup(m_pColliderCom);
 	m_vecState[(_uint)m_eState]->Update_State(fTimeDelta);
 
 	_int iExit = __super::Update_Object(fTimeDelta);

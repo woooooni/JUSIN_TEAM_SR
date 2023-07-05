@@ -29,7 +29,7 @@ public:
 protected:
 	HRESULT			Ready_Component(void);
 
-	float			m_fFindRange = 5.f;
+	float			m_fFindRange = 3.f;
 	float			m_fCurFrame = 0.f;
 
 };

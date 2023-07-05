@@ -108,22 +108,22 @@ void			Release_Utility()
 	CManagement::GetInstance()->DestroyInstance();
 }
 
-inline void Add_CollisionGroup(CCollider* pCol)
+inline void Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState)
 {
-	CCollisionMgr::GetInstance()->Add_CollisionGroup(pCol);
+	CCollisionMgr::GetInstance()->Add_CollisionGroup(pCol, pState);
 }
 
-inline void Group_Collide()
+inline void Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStateB)
 {
-	CCollisionMgr::GetInstance()->Group_Collide();
+	CCollisionMgr::GetInstance()->Group_Collide(pStateA, pStateB);
 }
 
-inline HRESULT Check_Collision(CGameObject* objA, CGameObject* objB)
+inline COLLISION_DIR Check_Collision(CGameObject* objA, CGameObject* objB)
 {
 	return CCollisionMgr::GetInstance()->Check_Collision(objA, objB);
 }
 
-inline HRESULT Check_Collision(CCollider* objA, CCollider* objB)
+inline COLLISION_DIR Check_Collision(CCollider* objA, CCollider* objB)
 {
 	return CCollisionMgr::GetInstance()->Check_Collision(objA, objB);
 }

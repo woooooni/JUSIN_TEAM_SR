@@ -40,7 +40,7 @@ Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 
 void CLogo::LateUpdate_Scene()
 {
-	Group_Collide();
+	//Group_Collide();
 
 	__super::LateUpdate_Scene();
 }

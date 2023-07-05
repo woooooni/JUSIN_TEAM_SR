@@ -69,12 +69,12 @@ inline void				Release_Utility();
 
 // CollisionMgr
 
-inline void		Add_CollisionGroup(CCollider* pCol);
+inline void		Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState);
 
-inline void		Group_Collide();
+inline void		Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStateB);
 
-inline HRESULT			Check_Collision(CGameObject* objA, CGameObject* objB);
-inline HRESULT			Check_Collision(CCollider* objA, CCollider* objB);
+inline COLLISION_DIR			Check_Collision(CGameObject* objA, CGameObject* objB);
+inline COLLISION_DIR			Check_Collision(CCollider* objA, CCollider* objB);
 
 
 #include "Export_Utility.inl"

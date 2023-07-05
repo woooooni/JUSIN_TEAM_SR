@@ -29,7 +29,7 @@ _int CPushStone::Update_Object(const _float& fTimeDelta)
 
 	__super::Update_Object(fTimeDelta);
 
-	Add_CollisionGroup(m_pColliderCom);
+	//Add_CollisionGroup(m_pColliderCom);
     return 0;
 }
 
