@@ -44,7 +44,7 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
-		vDst = { float(rand() % 10),1.f,float(rand() % 10) };
+		vDst = { float(rand() % 10)-5.f,0.f,float(rand() % 10)-5.f };
 		if (vDst != m_vDst)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
@@ -52,7 +52,7 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 	m_fMoveTime += 10 * fTimeDelta;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = m_vDst - vPos;
+	vDir = m_vDst;
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_pTarget = nullptr;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());

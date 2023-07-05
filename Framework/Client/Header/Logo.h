@@ -7,6 +7,7 @@
 #include "Monster.h"
 #include "BlueBeatle.h"
 #include "TrashBig.h"
+#include "DesertRhino.h"
 #include "Terrain.h"
 #include	"PushStone.h"
 #include "NearReactObj.h"
