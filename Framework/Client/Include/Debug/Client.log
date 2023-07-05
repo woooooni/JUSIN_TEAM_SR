@@ -1,1 +1,42 @@
-﻿  Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Client\Bin\Client.exe
+﻿  unity_129DAWAKU2W44ZX0.cpp
+  Player_State_Push.cpp
+  Player_State_Rolling.cpp
+  Player_State_Run.cpp
+  Player_State_Swing.cpp
+  Player_State_Walk.cpp
+  unity_2XNWCE7L73IAHPH9.cpp
+  PushableObj.cpp
+  Logo.cpp
+  MainApp.cpp
+  Monster.cpp
+  Player.cpp
+  unity_AN31TVM4XEKLAXRD.cpp
+  PushStone.cpp
+  SkyBox.cpp
+  Stage.cpp
+  Terrain.cpp
+  TrashBig.cpp
+  unity_GHFNRK1OVPE0ZNBM.cpp
+  Client.cpp
+  Scene_Tool.cpp
+  unity_M2XSMLEXPB9DDZGL.cpp
+  GrabbableObj.cpp
+  NearReactObj.cpp
+  OnEventObj.cpp
+  Player_State_Down.cpp
+  Player_State_GameOver.cpp
+  unity_MYLQOI1CQPB7NDTA.cpp
+  AttackableObj.cpp
+  BackGround.cpp
+  BenchObj.cpp
+  BlueBeatle.cpp
+  CUI.cpp
+  unity_ZJM7I30KI29Y84ZH.cpp
+  Player_State.cpp
+  Player_State_Hit.cpp
+  Player_State_Idle.cpp
+  Player_State_Jump.cpp
+  Player_State_Lift.cpp
+  코드를 생성하고 있습니다...
+C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Code\Player_State_Down.cpp(34): warning C4715: 'CPlayer_State_Down::Update_State': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  Client.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Bin\Client.exe
