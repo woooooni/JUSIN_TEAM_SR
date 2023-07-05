@@ -64,6 +64,8 @@ void		Clear_RenderGroup()
 	CRenderer::GetInstance()->Clear_RenderGroup();
 }
 
+// PickingMgr
+
 inline HRESULT Ready_PickingMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 {
 	return CPickingMgr::GetInstance()->Ready_PickingMgr(_pDevice, _hWnd);
@@ -74,11 +76,13 @@ inline void Update_PickingMgr()
 	CPickingMgr::GetInstance()->Update_PickingMgr();
 }
 
+
 inline BOOL IsPicking(CGameObject * _pObj, _vec3 * _vHit)
 {
 	return CPickingMgr::GetInstance()->IsPicking(_pObj, _vHit);
 }
 
+// LightMgr
 HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	const D3DLIGHT9* pLightInfo,
 	const _uint& iIndex)
@@ -86,6 +90,7 @@ HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	return	CLightMgr::GetInstance()->Ready_Light(pGraphicDev, pLightInfo, iIndex);
 }
 
+// KeyMgr
 inline HRESULT Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 {
 	return CKeyMgr::GetInstance()->Ready_KeyMgr(_pDevice, _hWnd);
@@ -94,6 +99,33 @@ inline HRESULT Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 inline void Update_KeyMgr()
 {
 	CKeyMgr::GetInstance()->Update_KeyMgr();
+}
+
+
+// CollisionMgr
+inline void Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState)
+{
+	CCollisionMgr::GetInstance()->Add_CollisionGroup(pCol, pState);
+}
+
+inline HRESULT Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice)
+{
+	return CCollisionMgr::GetInstance()->Ready_CollisionMgr(_pDevice);
+}
+
+inline void Update_Collision()
+{
+	CCollisionMgr::GetInstance()->Update_Collision();
+}
+
+inline void CheckGroupType(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight)
+{
+	CCollisionMgr::GetInstance()->CheckGroupType(_eLeft, _eRight);
+}
+
+inline void Reset()
+{
+	CCollisionMgr::GetInstance()->Reset();
 }
 
 void			Release_Utility()
@@ -108,22 +140,3 @@ void			Release_Utility()
 	CManagement::GetInstance()->DestroyInstance();
 }
 
-inline void Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState)
-{
-	CCollisionMgr::GetInstance()->Add_CollisionGroup(pCol, pState);
-}
-
-inline void Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStateB)
-{
-	CCollisionMgr::GetInstance()->Group_Collide(pStateA, pStateB);
-}
-
-inline COLLISION_DIR Check_Collision(CGameObject* objA, CGameObject* objB)
-{
-	return CCollisionMgr::GetInstance()->Check_Collision(objA, objB);
-}
-
-inline COLLISION_DIR Check_Collision(CCollider* objA, CCollider* objB)
-{
-	return CCollisionMgr::GetInstance()->Check_Collision(objA, objB);
-}

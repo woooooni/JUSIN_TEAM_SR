@@ -31,6 +31,8 @@ _int CPlayer_State_Down::Update_State(const _float& fTimeDelta)
         }
         return 0;
     }
+
+    return 0;
 }
 
 void CPlayer_State_Down::LateUpdate_State(void)

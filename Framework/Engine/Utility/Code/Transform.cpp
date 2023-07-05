@@ -52,6 +52,7 @@ void CTransform::Move_Pos(OBJ_DIR _eDir, const _float& fSpeed, const _float& fTi
 {
 	_vec3 vPos;
 	Get_Info(INFO_POS, &vPos);
+
 	_vec3 vDir;
 	switch(_eDir)
 	{

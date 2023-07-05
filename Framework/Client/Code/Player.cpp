@@ -180,7 +180,8 @@ HRESULT CPlayer::Ready_Object(void)
 Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);
+
 	if (m_bStateChange)
 	{
 		m_eState = m_eChangeState;
@@ -262,6 +263,19 @@ void CPlayer::Player_Move(_float fTimeDelta)
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 10.f);
 	}
 }
+void CPlayer::Collision_Enter(CGameObject* pCollisionObj)
+{
+	MSG_BOX("충돌 Enter");
+}
+void CPlayer::Collision_Stay(CGameObject* pCollisionObj)
+{
+	MSG_BOX("충돌 Stay");
+}
+void CPlayer::Collision_Exit(CGameObject* pCollisionObj)
+{
+	MSG_BOX("충돌 Exit");
+}
+
 void CPlayer::Free()
 {
 	for (_uint i = 0; i < m_vecState.size(); ++i)

@@ -8,6 +8,16 @@
 #include "GameObject.h"
 
 
+union COLLIDER_ID
+{
+	struct
+	{
+		UINT iLeft_id;
+		UINT iRight_id;
+	};
+	ULONGLONG ID;
+};
+
 BEGIN(Engine)
 class ENGINE_DLL CCollisionMgr
 {
@@ -18,19 +28,33 @@ private:
 	virtual ~CCollisionMgr(void);
 
 public:
-	virtual void	Free(void);
+	HRESULT Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice);
+	void Update_Collision();
 
-	void		Add_CollisionGroup(CCollider*		pCol, COLLISION_GROUP pState);
+public:
+	void CheckGroupType(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight);
+	void Reset() { memset(m_arrCheck, 0, sizeof(UINT) * (UINT)COLLISION_GROUP::COLLIDE_END); }
 
-	void		Group_Collide(COLLISION_GROUP pStateA, COLLISION_GROUP pStateB);
+public:
+	void Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState);
 
 
-	COLLISION_DIR			Check_Collision(CGameObject* objA,  CGameObject* objB);
-	COLLISION_DIR			Check_Collision(CCollider* objA, CCollider* objB);
+
+private:
+	void CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight);
+	bool IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol);
 
 
 private:
 	vector<CCollider*> m_vecCol[(_uint)COLLISION_GROUP::COLLIDE_END];
+
+	map<ULONGLONG, _bool> m_mapColInfo;
+	UINT m_arrCheck[(UINT)COLLISION_GROUP::COLLIDE_END];
+
+	LPDIRECT3DDEVICE9 m_pGraphicDev;
+
+public:
+	virtual void	Free(void);
 
 };
 
