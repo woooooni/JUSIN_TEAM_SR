@@ -36,6 +36,7 @@ protected:
 protected:
 	_bool			m_bRender;
 	_bool			m_bEnable;
+	_vec3			m_vOffset;
 
 private:
 	static UINT		g_iNextID;
