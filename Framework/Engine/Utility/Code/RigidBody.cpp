@@ -1,6 +1,6 @@
 #include "Export_Function.h"
 #include "RigidBody.h"
-
+#include <iostream>
 
 
 CRigidBody::CRigidBody()
@@ -90,7 +90,9 @@ _int CRigidBody::Update_Component(const _float& fTimeDelta)
 	if (abs(m_vMaxVelocity.z) < abs(m_vVelocity.z))
 		m_vVelocity.z = (m_vVelocity.z / abs(m_vVelocity.z)) * abs(m_vMaxVelocity.z);
 
-
+	
+	std::cout << "Velocity : " << m_vVelocity.x << "," << m_vVelocity.y << "," << m_vVelocity.z << endl;
+	std::cout << "Accel : " << m_vAccel.x << "," << m_vAccel.y << "," << m_vAccel.z << endl;
 	Move(fTimeDelta);
 
 
@@ -120,7 +122,7 @@ void CRigidBody::SetGround(_bool _bGround)
 
 void CRigidBody::Update_Gravity()
 {
-	SetAccelAlpha(_vec3(0.f, -9.8f, 0.f));
+	SetAccelAlpha(_vec3(0.f, -98.f, 0.f));
 }
 
 void CRigidBody::Move(_float fTimeDelta)
@@ -131,11 +133,12 @@ void CRigidBody::Move(_float fTimeDelta)
 	if (0.f != fSpeed)
 	{
 		_vec3 vDir = m_vVelocity;
-		D3DXVec3Normalize(&m_vVelocity, &m_vVelocity);
+		D3DXVec3Normalize(&vDir, &m_vVelocity);
 
 		CTransform* pOwnerTransform = m_pOwner->Get_TransformCom();
 
 		_vec3 vPos;
+
 		pOwnerTransform->Get_Info(INFO_POS, &vPos);
 		vPos += m_vVelocity * fTimeDelta;
 		pOwnerTransform->Set_Info(INFO_POS, &vPos);

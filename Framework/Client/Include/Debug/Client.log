@@ -1,1 +1,8 @@
-﻿  Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Bin\Client.exe
+﻿  unity_YP5T7FGVF0TYWFRY.cpp
+  Player_State.cpp
+  Player_State_Hit.cpp
+  Player_State_Idle.cpp
+  Player_State_Jump.cpp
+  Player_State_Lift.cpp
+     ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
+  Client.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Client\Bin\Client.exe

@@ -78,12 +78,12 @@ HRESULT CPlayer_State_Jump::Ready_State(void)
 		break;
 	}
 
-	CRigidBody* pRigidBody = m_pOwner->Get_RigidBodyCom();
-	if (nullptr == pRigidBody)
-		return S_OK;
+	//CRigidBody* pRigidBody = m_pOwner->Get_RigidBodyCom();
+	//if (nullptr == pRigidBody)
+	//	return S_OK;
 
-	pRigidBody->AddForce(_vec3{ 0.f, 10.f, 0.f });
-	pRigidBody->SetGround(false);
+	//pRigidBody->AddForce(_vec3{ 0.f, 120.f, 0.f });
+	//pRigidBody->SetGround(false);
 
 	return S_OK;
 }
