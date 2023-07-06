@@ -352,6 +352,9 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 				m_pTransformCom->Set_Pos(&vPos);
 			}
 
+			if (m_eDir == eTargetDir)
+				m_bPush = true;
+
 		}
 	}
 	
