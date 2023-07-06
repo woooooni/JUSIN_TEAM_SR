@@ -30,12 +30,14 @@ public:
 
 private:
 	HRESULT			Ready_Component(void);
-
 public:
 	void			Change_State(PLAYER_STATE _eState)
 	{
-		m_bStateChange = true;
-		m_eChangeState = _eState;
+		if (!m_bStateChange)
+		{
+			m_bStateChange = true;
+			m_eChangeState = _eState;
+		}
 	}
 	void			Player_Move(_float fTimeDelta);
 
@@ -44,6 +46,8 @@ public:
 	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID) override;
 	virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID) override;
 	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID) override;
+
+	CCollider* Get_PlayerCol(COLLIDER_PLAYER _eCollider) { return m_pCollider[(_uint)_eCollider]; }
 
 	bool			Is_GetItem() { return m_bGetItem; }
 	void			Set_GetItem(bool _bGetItem) { m_bGetItem = _bGetItem; }
@@ -56,6 +60,9 @@ public:
 	bool			Is_Push() { return m_bPush; }
 	void			Set_Push(bool _bPush) { m_bPush = _bPush; }
 
+	void			Set_Grab(bool _bGrab) { m_bGrab = _bGrab; }
+	bool			Is_Grab() { return m_bGrab; }
+
 private:
 	_vec3			m_vDir;
 	_float			m_fSpeed;
@@ -67,6 +74,10 @@ private:
 	PLAYER_STATE	m_eChangeState;
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+private:
+	void Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID);
+	void Collision_Stay_Grab(CGameObject* pCollisionObj, UINT _iColliderID);
 
 private:
 	virtual void Free() override;
@@ -85,6 +96,8 @@ private:
 	bool m_bFlying = false;
 
 	bool m_bPush = false;
+
+	bool m_bGrab = false;
 	//
 };
 

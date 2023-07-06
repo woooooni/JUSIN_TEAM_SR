@@ -97,7 +97,8 @@ _int CPlayer_State_Walk::Update_State(const _float& fTimeDelta)
 
 void CPlayer_State_Walk::LateUpdate_State(void)
 {
-
+	if(dynamic_cast<CPlayer*>(m_pOwner)->Is_Push())
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::PUSH);
 }
 
 void CPlayer_State_Walk::Render_State(void)
