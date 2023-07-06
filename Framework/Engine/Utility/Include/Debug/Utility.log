@@ -1,58 +1,10 @@
 ﻿  unity_CY5BDN8688G0VDD0.cpp
-  Utility.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Utility\Bin\Utility.dll
-  .\Engine\Utility\Code\*.h 
-  지정된 파일을 찾을 수 없습니다.
-          0개 파일이 복사되었습니다.
-  .\Engine\Utility\Code\*.hpp 
-          0개 파일이 복사되었습니다.
-  지정된 파일을 찾을 수 없습니다.
-          1개 파일이 복사되었습니다.
-          1개 파일이 복사되었습니다.
-  .\Engine\Header\Animator.h
-  .\Engine\Header\BoxCollider.h
-  .\Engine\Header\Camera.h
-  .\Engine\Header\CameraMgr.h
-  .\Engine\Header\Collider.h
-  .\Engine\Header\CollisionMgr.h
-  .\Engine\Header\Component.h
-  .\Engine\Header\CubeTex.h
-  .\Engine\Header\Engine_Define.h
-  .\Engine\Header\Engine_Enum.h
-  .\Engine\Header\Engine_Function.h
-  .\Engine\Header\Engine_Macro.h
-  .\Engine\Header\Engine_Struct.h
-  .\Engine\Header\Engine_Typedef.h
-  .\Engine\Header\EventMgr.h
-  .\Engine\Header\Export_Function.h
-  .\Engine\Header\Export_System.h
-  .\Engine\Header\Export_Utility.h
-  .\Engine\Header\FontMgr.h
-  .\Engine\Header\Frame.h
-  .\Engine\Header\FrameMgr.h
-  .\Engine\Header\GameObject.h
-  .\Engine\Header\GraphicDev.h
-  .\Engine\Header\ImGuiMgr.h
-  .\Engine\Header\InputDevice.h
-  .\Engine\Header\KeyMgr.h
-  .\Engine\Header\Layer.h
-  .\Engine\Header\Light.h
-  .\Engine\Header\LightMgr.h
-  .\Engine\Header\Management.h
-  .\Engine\Header\PickingMgr.h
-  .\Engine\Header\ProtoMgr.h
-  .\Engine\Header\RcCol.h
-  .\Engine\Header\RcTex.h
-  .\Engine\Header\Renderer.h
-  .\Engine\Header\RigidBody.h
-  .\Engine\Header\Scene.h
-  .\Engine\Header\TerrainTex.h
-  .\Engine\Header\Texture.h
-  .\Engine\Header\Timer.h
-  .\Engine\Header\TimerMgr.h
-  .\Engine\Header\Transform.h
-  .\Engine\Header\TriCol.h
-  .\Engine\Header\VIBuffer.h
-         44개 파일이 복사되었습니다.
-  .\Engine\Header\Export_System.inl
-  .\Engine\Header\Export_Utility.inl
-          2개 파일이 복사되었습니다.
+  LINK : ..\Bin\Utility.dll을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+     ../Bin\Utility.lib 라이브러리 및 ../Bin\Utility.exp 개체를 생성하고 있습니다.
+unity_CY5BDN8688G0VDD0.obj : error LNK2019: "private: virtual __thiscall Engine::CTimer::~CTimer(void)" (??1CTimer@Engine@@EAE@XZ)"private: virtual void * __thiscall Engine::CTimer::`vector deleting destructor'(unsigned int)" (??_ECTimer@Engine@@EAEPAXI@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+unity_CY5BDN8688G0VDD0.obj : error LNK2001: 확인할 수 없는 외부 기호 "private: virtual void __thiscall Engine::CTimer::Free(void)" (?Free@CTimer@Engine@@EAEXXZ)
+unity_CY5BDN8688G0VDD0.obj : error LNK2019: "private: virtual __thiscall Engine::CFrame::~CFrame(void)" (??1CFrame@Engine@@EAE@XZ)"private: virtual void * __thiscall Engine::CFrame::`vector deleting destructor'(unsigned int)" (??_ECFrame@Engine@@EAEPAXI@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+unity_CY5BDN8688G0VDD0.obj : error LNK2001: 확인할 수 없는 외부 기호 "private: virtual void __thiscall Engine::CFrame::Free(void)" (?Free@CFrame@Engine@@EAEXXZ)
+unity_CY5BDN8688G0VDD0.obj : error LNK2019: "public: static class Engine::CInputDevice * __cdecl Engine::CInputDevice::GetInstance(void)" (?GetInstance@CInputDevice@Engine@@SAPAV12@XZ)"long __cdecl Engine::Get_DIMouseMove(enum Engine::MOUSEMOVESTATE)" (?Get_DIMouseMove@Engine@@YAJW4MOUSEMOVESTATE@1@@Z) 함수에서 참조되는 확인할 수 없는 외부 기호
+..\..\..\Reference\Library\System.lib : warning LNK4272: 'x64' 라이브러리 컴퓨터 종류가 'x86' 대상 컴퓨터 종류와 충돌합니다.
+..\Bin\Utility.dll : fatal error LNK1120: 5개의 확인할 수 없는 외부 참조입니다.

@@ -29,5 +29,10 @@ private:
 	_float m_fKeyDelayTime;
 
 	_float m_fLiftTime;
+
+
+	_vec3 m_vTargetDir;
+	_vec3 m_vCurrDir;
+	_vec3 m_vRot;
 };
 

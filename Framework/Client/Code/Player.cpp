@@ -318,7 +318,7 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 	
 	if (_iColliderID == m_pColliderCom->Get_Id())
 	{
-		Collision_Stay_Push(pCollisionObj, _iColliderID);
+		//Collision_Stay_Push(pCollisionObj, _iColliderID);
 	}
 	
 	
@@ -433,6 +433,7 @@ void CPlayer::Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID)
 
 void CPlayer::Collision_Enter_Grab(CGameObject* pCollisionObj, UINT _iColliderID)
 {
+	m_pLiftObj = pCollisionObj;
 	m_bGrab = true;
 }
 

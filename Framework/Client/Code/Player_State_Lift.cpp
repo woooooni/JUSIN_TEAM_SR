@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "KeyMgr.h"
 #include "Collider.h"
+#include "KeyMgr.h"
 
 CPlayer_State_Lift::CPlayer_State_Lift(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f), m_fLiftTime(0.05f)
@@ -103,33 +104,42 @@ _int CPlayer_State_Lift::Update_LiftReady(const _float& fTimeDelta)
 		{
 		case OBJ_DIR::DIR_U:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Up", FALSE);
+			m_vTargetDir = {0.0f, 0.0f, 0.9f};
 			break;
 		case OBJ_DIR::DIR_D:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Down", FALSE);
+			m_vTargetDir = { 0.0f, 0.0f, -0.9f };
 			break;
 		case OBJ_DIR::DIR_L:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Left", FALSE);
+			m_vTargetDir = { -0.9f, 0.0f, 0.0f };
 			break;
 		case OBJ_DIR::DIR_R:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Right", FALSE);
+			m_vTargetDir = { 0.9f, 0.0f, 0.0f };
 			break;
 		case OBJ_DIR::DIR_LD:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftDown", FALSE);
+			m_vTargetDir = { -0.9f, 0.0f, -0.9f };
 			break;
 		case OBJ_DIR::DIR_LU:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftUp", FALSE);
+			m_vTargetDir = { -0.9f, 0.0f, 0.9f };
 			break;
 		case OBJ_DIR::DIR_RU:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightUp", FALSE);
+			m_vTargetDir = { 0.9f, 0.0f, 0.9f };
 			break;
 		case OBJ_DIR::DIR_RD:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightDown", FALSE);
+			m_vTargetDir = { 0.9f, 0.0f, -0.9f };
 			break;
 		}
 
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.0f, 0.0f, 0.0f));
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(false);
 		dynamic_cast<CPlayer*>(m_pOwner)->Set_Grab(false);
+		D3DXVec3Cross(&m_vRot, &_vec3(0.0f, 1.0f, 0.0f), &m_vTargetDir);
 		m_fAccTime = 0.0f;
 	}
 
@@ -151,6 +161,14 @@ _int CPlayer_State_Lift::Update_LiftReady(const _float& fTimeDelta)
 
 _int CPlayer_State_Lift::Update_LiftUp(const _float& fTimeDelta)
 {
+	_uint iIndex = dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Get_Idx();
+	_vec3 vGrabPos;
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_TransformCom()->Get_Info(INFO_POS, &vGrabPos);
+	_vec3 vTargetPos;
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+
+	
+
 	if (dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Is_Finished())
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
@@ -182,12 +200,49 @@ _int CPlayer_State_Lift::Update_LiftUp(const _float& fTimeDelta)
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Lift_RightDown", FALSE);
 			break;
 		}
+
+		vGrabPos += _vec3(0.0f, 0.9f, 0.0f);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
+	}
+	else
+	{
+		if (iIndex < 4)
+		{
+			vGrabPos += m_vTargetDir;
+			D3DXVec3Lerp(&vTargetPos, &vTargetPos, &vGrabPos, 0.25f);
+			dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vTargetPos);
+
+		}
+		else if (iIndex == 4)
+		{
+			vGrabPos += m_vTargetDir;
+			dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
+		}
+		else if (iIndex > 4)
+		{
+			D3DXQUATERNION  qRot;
+			_matrix matRot;
+			m_vTargetDir;
+			D3DXQuaternionRotationAxis(&qRot, &m_vRot, -0.08f);
+			D3DXMatrixRotationQuaternion(&matRot, &qRot);
+			D3DXVec3TransformNormal(&m_vTargetDir, &m_vTargetDir, &matRot);
+
+			vGrabPos += m_vTargetDir;
+			dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
+		}
 	}
 	return 0;
 }
 
 _int CPlayer_State_Lift::Update_LiftIdle(const _float& fTimeDelta)
 {
+	_vec3 vGrabPos;
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_TransformCom()->Get_Info(INFO_POS, &vGrabPos);
+	vGrabPos += _vec3(0.0f, 0.9f, 0.0f);
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
+	
+
+
 	if (GetAsyncKeyState(VK_UP) & 0x8000 ||
 		GetAsyncKeyState(VK_RIGHT) & 0x8000 ||
 		GetAsyncKeyState(VK_DOWN) & 0x8000 ||
@@ -228,7 +283,7 @@ _int CPlayer_State_Lift::Update_LiftIdle(const _float& fTimeDelta)
 		}
 	}
 
-	if (GetAsyncKeyState('G') & 0x8000)
+	if (KEY_TAP(KEY::G))
 	{
 		m_eLiftState = LIFT_STATE::LIFTDOWN;
 
@@ -237,39 +292,68 @@ _int CPlayer_State_Lift::Update_LiftIdle(const _float& fTimeDelta)
 		{
 		case OBJ_DIR::DIR_U:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Up", FALSE);
+			m_vTargetDir = { 0.0f, 0.0f, 0.9f };
 			break;
 		case OBJ_DIR::DIR_D:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Down", FALSE);
+			m_vTargetDir = { 0.0f, 0.0f, -0.9f };
 			break;
 		case OBJ_DIR::DIR_L:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Left", FALSE);
+			m_vTargetDir = { -0.9f, 0.0f, 0.0f };
 			break;
 		case OBJ_DIR::DIR_R:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Right", FALSE);
+			m_vTargetDir = { 0.9f, 0.0f, 0.0f };
 			break;
 		case OBJ_DIR::DIR_LD:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftDown", FALSE);
+			m_vTargetDir = { -0.9f, 0.0f, -0.9f };
 			break;
 		case OBJ_DIR::DIR_LU:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftUp", FALSE);
+			m_vTargetDir = { -0.9f, 0.0f, 0.9f };
 			break;
 		case OBJ_DIR::DIR_RU:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightUp", FALSE);
+			m_vTargetDir = { 0.9f, 0.0f, 0.9f };
 			break;
 		case OBJ_DIR::DIR_RD:
 			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightDown", FALSE);
+			m_vTargetDir = { 0.9f, 0.0f, -0.9f };
 			break;
 		}
+		D3DXVec3Cross(&m_vRot, &_vec3(0.0f, 1.0f, 0.0f), &m_vTargetDir);
+		m_vCurrDir = {0.0f, 1.0f, 0.0f};
 	}
 	return 0;
 }
 
 _int CPlayer_State_Lift::Update_LiftDown(const _float& fTimeDelta)
 {
+	_vec3 vGrabPos;
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_TransformCom()->Get_Info(INFO_POS, &vGrabPos);
+
 	if (dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Is_Finished())
 	{
+		vGrabPos += m_vTargetDir;
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+	}
+	else
+	{
+	
+		
+
+		D3DXQUATERNION  qRot;
+		_matrix matRot;
+		D3DXQuaternionRotationAxis(&qRot, &m_vRot, 0.038f);
+		D3DXMatrixRotationQuaternion(&matRot, &qRot);
+		D3DXVec3TransformNormal(&m_vCurrDir, &m_vCurrDir, &matRot);
+
+		vGrabPos += m_vCurrDir;
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
 	}
 	return 0;
 }
@@ -277,6 +361,10 @@ _int CPlayer_State_Lift::Update_LiftDown(const _float& fTimeDelta)
 _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 {
 	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 2.5f, fTimeDelta);
+	_vec3 vGrabPos;
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_TransformCom()->Get_Info(INFO_POS, &vGrabPos);
+	vGrabPos += _vec3(0.0f, 0.9f, 0.0f);
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
 
 	if (m_fAccTime > m_fKeyDelayTime)
 	{
@@ -345,7 +433,7 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 			}
 		}
 
-		if (KEY_HOLD(KEY::G))
+		if (KEY_TAP(KEY::G))
 		{
 			m_eLiftState = LIFT_STATE::LIFTDOWN;
 
@@ -354,29 +442,39 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 			{
 			case OBJ_DIR::DIR_U:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Up", FALSE);
+				m_vTargetDir = { 0.0f, 0.0f, 0.9f };
 				break;
 			case OBJ_DIR::DIR_D:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Down", FALSE);
+				m_vTargetDir = { 0.0f, 0.0f, -0.9f };
 				break;
 			case OBJ_DIR::DIR_L:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Left", FALSE);
+				m_vTargetDir = { -0.9f, 0.0f, 0.0f };
 				break;
 			case OBJ_DIR::DIR_R:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_Right", FALSE);
+				m_vTargetDir = { 0.9f, 0.0f, 0.0f };
 				break;
 			case OBJ_DIR::DIR_LD:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftDown", FALSE);
+				m_vTargetDir = { -0.9f, 0.0f, -0.9f };
 				break;
 			case OBJ_DIR::DIR_LU:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_LeftUp", FALSE);
+				m_vTargetDir = { -0.9f, 0.0f, 0.9f };
 				break;
 			case OBJ_DIR::DIR_RU:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightUp", FALSE);
+				m_vTargetDir = { 0.9f, 0.0f, 0.9f };
 				break;
 			case OBJ_DIR::DIR_RD:
 				dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftDown_RightDown", FALSE);
+				m_vTargetDir = { 0.9f, 0.0f, -0.9f };
 				break;
 			}
+			D3DXVec3Cross(&m_vRot, &_vec3(0.0f, 1.0f, 0.0f), &m_vTargetDir);
+			m_vCurrDir = { 0.0f, 1.0f, 0.0f };
 		}
 	}
 	else

@@ -1,7 +1,257 @@
-﻿  unity_U0IYMKHIGPJYCZM3.cpp
+﻿  stdafx.cpp
+  unity_JCBA9VE321VP7J77.cpp
+  imgui.cpp
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,23): error C2473: 'operator new': 함수 정의로 보이지만 매개 변수 목록이 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,14): error C7525: 인라인 변수에는 '/std:c++17' 이상이 필요합니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,14): error C2365: 'operator new': 재정의: 이전 정의는 '함수'입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,26): error C2143: 구문 오류: ';'이(가) '(' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C2143: 구문 오류: ')'이(가) ',' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C2377: 'size_t': 재정의. 다른 기호를 사용하여 형식 정의를 오버로드할 수 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Include\predefined C++ types (compiler internal)(16): message : 'size_t' 선언을 참조하십시오.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,47): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,49): error C2062: 예기치 않은 'void' 형식입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,58): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,60): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,60): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1865,37): error C2061: 구문 오류: 식별자 'ImNewWrapper'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1865,14): warning C4595: 'operator delete': 멤버가 아닌 operator new 또는 delete 함수는 인라인으로 선언할 수 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,28): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,28): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,191): error C2146: 구문 오류: ')'이(가) 'size_in_bytes' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,191): error C2146: 구문 오류: ';'이(가) 'size_in_bytes' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,45): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,63): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,92): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,63): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,92): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2924,45): error C2660: 'ImFontGlyphRangesBuilder::SetBit': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,21): message : 'ImFontGlyphRangesBuilder::SetBit' 선언을 참조하십시오.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2064,57): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2064,64): warning C4392: 'void *_bnd_set_ptr_bounds(const void *)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2065,74): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2065,81): warning C4392: 'void *_bnd_narrow_ptr_bounds(const void *,const void *)': 내장 함수의 인수 개수가 잘못되었습니다. '3'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2071,55): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2071,62): warning C4392: 'void _bnd_chk_ptr_bounds(const void *)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2116,53): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2116,69): warning C4392: 'unsigned int _pconfig_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2120,51): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2120,67): warning C4392: 'unsigned int _encls_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2121,51): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2121,67): warning C4392: 'unsigned int _enclu_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2122,51): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2122,67): warning C4392: 'unsigned int _enclv_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(343,54): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(344,53): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(348,45): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(348,156): error C2563: 정식 매개 변수 목록과 일치하지 않는 항목이 있습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(348,177): error C2065: 'size_of_element': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(348,194): error C2065: 'compare_func': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(361,72): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(362,63): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(364,48): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(379,51): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(380,52): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(385,85): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(386,93): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(387,93): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(419,88): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,8): error C7525: 인라인 변수에는 '/std:c++17' 이상이 필요합니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,48): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,8): error C2086: 'int size_t': 재정의
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864): message : 'size_t' 선언을 참조하십시오.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,17): error C2146: 구문 오류: ';'이(가) 'ImBitArrayGetStorageSizeInBytes' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,65): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,75): error C2064: 항은 1개의 인수를 받아들이는 함수로 계산되지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,67): warning C4508: 'ImBitArrayGetStorageSizeInBytes': 함수는 값을 반환해야 하므로 'void' 반환 형식으로 간주됩니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555,111): error C2617: 'ImBitArrayGetStorageSizeInBytes': return 문이 일관성이 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(555): message : 'ImBitArrayGetStorageSizeInBytes' 선언을 참조하십시오.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(596,115): error C2146: 구문 오류: ')'이(가) 'Storage' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(596,115): error C2146: 구문 오류: ';'이(가) 'Storage' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(596,49): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(596,128): warning C4552: '*': 식의 결과가 사용되지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(646,33): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(653): message : 컴파일되는 클래스 템플릿 인스턴스화 'ImSpanAllocator<CHUNKS>'에 대한 참조를 확인하세요.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(704,25): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(713): message : 컴파일되는 클래스 템플릿 인스턴스화 'ImChunkStream<T>'에 대한 참조를 확인하세요.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(1007,17): error C3646: 'Size': 알 수 없는 재정의 지정자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(1007,21): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(2274,60): error C2061: 구문 오류: 식별자 'ImNewWrapper'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(3291,129): error C2660: 'ImHashStr': 함수는 3개의 인수를 사용하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(344,25): message : 'ImHashStr' 선언을 참조하십시오.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1136,37): error C2146: 구문 오류: ')'이(가) 'size' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1136,63): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1136,63): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1142,53): error C2065: 'MallocWrapper': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1764,52): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1767,22): error C2563: 정식 매개 변수 목록과 일치하지 않는 항목이 있습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1767,105): error C2563: 정식 매개 변수 목록과 일치하지 않는 항목이 있습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1771,44): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1773,18): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1775,15): error C2947: template-argument-list을(를) 끝내려면 '>' 기호가 있어야 하는데 '>'이(가) 있습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1775,17): error C2059: 구문 오류: '상수'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1777,18): error C2563: 정식 매개 변수 목록과 일치하지 않는 항목이 있습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1782,12): error C2146: 구문 오류: ';'이(가) 'len' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1782,12): error C2065: 'len': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1783,17): error C2065: 'len': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1784,49): error C2065: 'len': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1784,56): error C2660: 'memcpy': 함수는 2개의 인수를 사용하지 않습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\vcruntime_string.h(43,15): message : 'memcpy' 선언을 참조하십시오.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1787,30): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1789,12): error C2146: 구문 오류: ';'이(가) 'dst_buf_size' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1789,12): error C2065: 'dst_buf_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1789,27): error C2065: 'p_dst_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1789,41): error C2065: 'p_dst_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1790,12): error C2146: 구문 오류: ';'이(가) 'src_size' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1790,12): error C2065: 'src_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1790,30): error C2065: 'src': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1791,9): error C2065: 'dst_buf_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1791,24): error C2065: 'src_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1794,22): error C2065: 'src_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1795,13): error C2065: 'p_dst_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1796,14): error C2065: 'p_dst_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1796,27): error C2065: 'src_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1798,44): error C2065: 'src': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1798,49): error C2065: 'src_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1896,31): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1899,5): error C2065: 'fmt': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1899,5): error C2512: '__vcrt_assert_va_start_is_not_reference': 사용할 수 있는 적절한 기본 생성자가 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1899,5): message : 대상 형식에 생성자가 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1903,28): error C2065: 'buf_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1903,38): error C2065: 'fmt': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1908,30): error C2065: 'buf_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1909,18): error C2065: 'buf_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1914,32): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1919,28): error C2065: 'buf_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1919,38): error C2065: 'fmt': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1919,43): error C2065: 'args': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1923,30): error C2065: 'buf_size': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.cpp(1923,38): fatal error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
+  unity_HFQZTKTJQACEN3XR.cpp
+  imgui_impl_win32.cpp
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,23): error C2473: 'operator new': 함수 정의로 보이지만 매개 변수 목록이 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,14): error C7525: 인라인 변수에는 '/std:c++17' 이상이 필요합니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,14): error C2365: 'operator new': 재정의: 이전 정의는 '함수'입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,26): error C2143: 구문 오류: ';'이(가) '(' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C2143: 구문 오류: ')'이(가) ',' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C2377: 'size_t': 재정의. 다른 기호를 사용하여 형식 정의를 오버로드할 수 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Include\predefined C++ types (compiler internal)(16): message : 'size_t' 선언을 참조하십시오.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,47): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,49): error C2062: 예기치 않은 'void' 형식입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,58): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,60): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,60): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1865,37): error C2061: 구문 오류: 식별자 'ImNewWrapper'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1865,14): warning C4595: 'operator delete': 멤버가 아닌 operator new 또는 delete 함수는 인라인으로 선언할 수 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,28): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,28): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,191): error C2146: 구문 오류: ')'이(가) 'size_in_bytes' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,191): error C2146: 구문 오류: ';'이(가) 'size_in_bytes' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,45): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,63): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,92): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,63): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,92): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2924,45): error C2660: 'ImFontGlyphRangesBuilder::SetBit': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,21): message : 'ImFontGlyphRangesBuilder::SetBit' 선언을 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\commctrl.h(6540,12): error C3646: 'cchName': 알 수 없는 재정의 지정자입니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\commctrl.h(6540,19): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_impl_win32.cpp(138,32): error C2061: 구문 오류: 식별자 'ImNewWrapper'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_impl_win32.cpp(988,40): error C2061: 구문 오류: 식별자 'ImNewWrapper'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_impl_win32.cpp(1272,40): error C2061: 구문 오류: 식별자 'ImNewWrapper'
+  imgui_stdlib.cpp
+  imgui_tables.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2064,57): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2064,64): warning C4392: 'void *_bnd_set_ptr_bounds(const void *)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2065,74): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2065,81): warning C4392: 'void *_bnd_narrow_ptr_bounds(const void *,const void *)': 내장 함수의 인수 개수가 잘못되었습니다. '3'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2071,55): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2071,62): warning C4392: 'void _bnd_chk_ptr_bounds(const void *)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2116,53): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2116,69): warning C4392: 'unsigned int _pconfig_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2120,51): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2120,67): warning C4392: 'unsigned int _encls_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2121,51): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2121,67): warning C4392: 'unsigned int _enclu_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2122,51): error C2061: 구문 오류: 식별자 'size_t'
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.29.30133\include\immintrin.h(2122,67): warning C4392: 'unsigned int _enclv_u32(const int)': 내장 함수의 인수 개수가 잘못되었습니다. '2'개의 인수가 필요합니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui_internal.h(101,1): fatal error C1189: #error:  Please '#define IMGUI_DEFINE_MATH_OPERATORS' _BEFORE_ including imgui.h!
+  unity_MYLQOI1CQPB7NDTA.cpp
+  AttackableObj.cpp
+  BackGround.cpp
+  BenchObj.cpp
+  BlueBeatle.cpp
+  CUI.cpp
+  unity_Q9YOMTQ3OD843PED.cpp
+  FieldObject.cpp
+  DesertRhino.cpp
+  GolemHead.cpp
+  GrabbableObj.cpp
+  ImGuiMgr.cpp
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,23): error C2473: 'operator new': 함수 정의로 보이지만 매개 변수 목록이 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,14): error C7525: 인라인 변수에는 '/std:c++17' 이상이 필요합니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,14): error C2365: 'operator new': 재정의: 이전 정의는 '함수'입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,26): error C2143: 구문 오류: ';'이(가) '(' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C2143: 구문 오류: ')'이(가) ',' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,33): error C2377: 'size_t': 재정의. 다른 기호를 사용하여 형식 정의를 오버로드할 수 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Include\predefined C++ types (compiler internal)(16): message : 'size_t' 선언을 참조하십시오.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,47): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,49): error C2062: 예기치 않은 'void' 형식입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,58): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,60): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1864,60): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1865,37): error C2061: 구문 오류: 식별자 'ImNewWrapper'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(1865,14): warning C4595: 'operator delete': 멤버가 아닌 operator new 또는 delete 함수는 인라인으로 선언할 수 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,28): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,28): error C2061: 구문 오류: 식별자 'size_t'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,191): error C2146: 구문 오류: ')'이(가) 'size_in_bytes' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,191): error C2146: 구문 오류: ';'이(가) 'size_in_bytes' 식별자 앞에 없습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2921,45): error C2059: 구문 오류: ')'
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,63): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2922,92): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,63): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,92): error C2065: 'n': 선언되지 않은 식별자입니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2924,45): error C2660: 'ImFontGlyphRangesBuilder::SetBit': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Users\ghkdd\Desktop\TeamSR\Framework\ThirdParty\imgui.h(2923,21): message : 'ImFontGlyphRangesBuilder::SetBit' 선언을 참조하십시오.
+  unity_9S5OG0908DU2MA9R.cpp
+  NearReactMoonObj.cpp
+  NearReactObj.cpp
+  OnEventObj.cpp
+  Player_State_BallonFly.cpp
+  Player_State_Down.cpp
+  unity_G6Q8HNOZDMQ2BH9H.cpp
+  Player_State_Drawing.cpp
+  Player_State_GameOver.cpp
+  Player_State_GetItem.cpp
+  PushableObj.cpp
+  Logo.cpp
+  unity_LQELQR43X21DTSIK.cpp
+  MainApp.cpp
   Monster.cpp
   Player.cpp
   Player_State.cpp
   Player_State_Hit.cpp
+  unity_HWG8CUGS52Z2FY47.cpp
   Player_State_Idle.cpp
-  Client.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Bin\Client.exe
+  Player_State_Jump.cpp
+  Player_State_Lift.cpp
+  Player_State_Push.cpp
+  Player_State_Rolling.cpp
+  unity_ZK0QIFMB23RCELMI.cpp
+  Player_State_Run.cpp
+  Player_State_Swing.cpp
+  Player_State_Walk.cpp
+  PushStone.cpp
+  SkyBox.cpp
+  unity_4ZA0HC7GA1DRDW6A.cpp
+  Stage.cpp
+  SunGollem.cpp
+  Terrain.cpp
+  TrashBig.cpp
+  unity_4K85CR0D9PODI8PX.cpp
+  BalpanObj.cpp
+  Client.cpp
+  Scene_Tool.cpp
+  코드를 생성하고 있습니다...

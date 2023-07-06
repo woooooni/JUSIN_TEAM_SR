@@ -48,6 +48,7 @@ public:
 	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID) override;
 
 	CCollider* Get_PlayerCol(COLLIDER_PLAYER _eCollider) { return m_pCollider[(_uint)_eCollider]; }
+	CGameObject* Get_LiftObj() { return m_pLiftObj; }
 
 	bool			Is_GetItem() { return m_bGetItem; }
 	void			Set_GetItem(bool _bGetItem) { m_bGetItem = _bGetItem; }
@@ -85,6 +86,8 @@ private:
 	CCollider* m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_END];
 
 
+
+	CGameObject* m_pLiftObj = nullptr;
 
 	//플레이어 상태
 	vector<CPlayer_State*> m_vecState;
