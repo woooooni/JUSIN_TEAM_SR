@@ -6,7 +6,6 @@ BEGIN(Engine)
 
 class CRcTex;
 class CTransform;
-
 END
 
 class CGolemRightLeg : public Engine::CGameObject
@@ -24,7 +23,6 @@ public:
 
 protected:
 	HRESULT	Add_Component(void);
-
 
 public:
 

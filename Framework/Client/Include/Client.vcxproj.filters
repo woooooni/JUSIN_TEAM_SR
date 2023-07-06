@@ -210,6 +210,18 @@
     <ClInclude Include="..\Header\GolemRightLeg.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. RightLeg</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\GolemLeftArm.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\00. Arm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemRightArm.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\00. Arm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemLeftHand.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\01. Hand</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemRightHand.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\01. Hand</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -308,6 +320,18 @@
     </ClCompile>
     <ClCompile Include="..\Code\GolemRightLeg.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. RightLeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemLeftArm.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\00. Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemRightArm.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\00. Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemLeftHand.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\01. Hand</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemRightHand.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\01. Hand</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -211,15 +211,29 @@ void CSunGollem::Free()
 }
 HRESULT CSunGollem::Ready_Parts(void) 
 {
-	_vec3 vPos;
+	_vec3 vPos, vAxisZ;
+	vAxisZ = {0.f,0.f,1.f};
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vPartPos[HEAD] = { vPos.x,vPos.y + 0.5f,vPos.z - 0.01f };
 	m_vPartPos[UPPERJAW] = { vPos.x,vPos.y + 0.1f,vPos.z - 0.011f };
 	m_vPartPos[LOWERJAW] = { vPos.x,vPos.y - 0.2f,vPos.z - 0.0105f };
 	m_vPartPos[LEFTLEG] = { vPos.x-0.6f,vPos.y - 1.f,vPos.z - 0.01f };
 	m_vPartPos[RIGHTLEG] = { vPos.x + 0.6f,vPos.y - 1.f,vPos.z - 0.01f };
-	//HEAD, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTHAND0, LEFTHAND1, LEFTHAND2,LEFTARM0, LEFTARM1, 
-	//LEFTARM2, RIGHTARM0, RIGHTARM1, RIGHTARM2, RIGHTHAND0, RIGHTHAND1, RIGHTHAND2
+	m_vPartPos[LEFTARM0] = { vPos.x - 1.5f,vPos.y - 0.5f,vPos.z - 0.01f };
+	m_vPartPos[LEFTARM1] = { vPos.x - 1.75f,vPos.y + 0.5f,vPos.z - 0.01f };
+	m_vPartPos[LEFTARM2] = { vPos.x - 1.5f,vPos.y + 1.5f,vPos.z - 0.01f };
+	m_vPartPos[RIGHTARM0] = { vPos.x + 1.5f,vPos.y - 0.5f,vPos.z - 0.01f };
+	m_vPartPos[RIGHTARM1] = { vPos.x + 1.75f,vPos.y + 0.5f,vPos.z - 0.01f };
+	m_vPartPos[RIGHTARM2] = { vPos.x + 1.5f,vPos.y + 1.5f,vPos.z - 0.01f };
+	m_vPartPos[LEFTHAND0] = { vPos.x - 1.9f,vPos.y - 0.5f,vPos.z - 0.01f };
+	m_vPartPos[LEFTHAND1] = { vPos.x - 2.15f,vPos.y + 0.5f,vPos.z - 0.01f };
+	m_vPartPos[LEFTHAND2] = { vPos.x - 1.9f,vPos.y + 1.5f,vPos.z - 0.01f };
+	m_vPartPos[RIGHTHAND0] = { vPos.x + 1.9f,vPos.y - 0.5f,vPos.z - 0.01f };
+	m_vPartPos[RIGHTHAND1] = { vPos.x + 2.15f,vPos.y + 0.5f,vPos.z - 0.01f };
+	m_vPartPos[RIGHTHAND2] = { vPos.x + 1.9f,vPos.y + 1.5f,vPos.z - 0.01f };
+	//	HEAD, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
+	//	LEFTARM2, RIGHTARM0, RIGHTARM1, RIGHTARM2, LEFTHAND0,
+	//	LEFTHAND1, LEFTHAND2, RIGHTHAND0, RIGHTHAND1, RIGHTHAND2
 	m_vecParts.reserve(BODYPARTS::PARTSEND);
 	CGolemHead* pGolemHead = CGolemHead::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGolemHead, E_FAIL);
@@ -241,5 +255,35 @@ HRESULT CSunGollem::Ready_Parts(void)
 	NULL_CHECK_RETURN(pGolemRightLeg, E_FAIL);
 	pGolemRightLeg->Get_TransformCom()->Set_Pos(&m_vPartPos[RIGHTLEG]);
 	m_vecParts.push_back(pGolemRightLeg);
+	for (_int i = LEFTARM0; i < LEFTARM2+1; i++)
+	{
+		CGolemLeftArm* pGolemLeftArm = CGolemLeftArm::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGolemLeftArm, E_FAIL);
+		pGolemLeftArm->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
+		m_vecParts.push_back(pGolemLeftArm);
+	}
+	for (_int i = RIGHTARM0; i < RIGHTARM2 + 1; i++)
+	{
+		CGolemRightArm* pGolemRightArm = CGolemRightArm::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGolemRightArm, E_FAIL);
+		pGolemRightArm->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
+		m_vecParts.push_back(pGolemRightArm);
+	}
+	for (_int i = LEFTHAND0; i < LEFTHAND2 + 1; i++)
+	{
+		CGolemLeftHand* pGolemLeftHand = CGolemLeftHand::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGolemLeftHand, E_FAIL);
+		pGolemLeftHand->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
+		pGolemLeftHand->Get_TransformCom()->RotationAxis(vAxisZ, D3DXToRadian(-90.f));
+		m_vecParts.push_back(pGolemLeftHand);
+	}
+	for (_int i = RIGHTHAND0; i < RIGHTHAND2 + 1; i++)
+	{
+		CGolemRightHand* pGolemRightHand = CGolemRightHand::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pGolemRightHand, E_FAIL);
+		pGolemRightHand->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
+		pGolemRightHand->Get_TransformCom()->RotationAxis(vAxisZ,D3DXToRadian( 90.f));
+		m_vecParts.push_back(pGolemRightHand);
+	}
 	return S_OK;
 }

@@ -4,23 +4,17 @@
 
 BEGIN(Engine)
 
-	class CRcTex;
+class CRcTex;
 class CTransform;
-class CCollider;
 
 END
 
-class CSunGollem : public Engine::CGameObject
+class CGolemRightArm : public Engine::CGameObject
 {
-public:
-	enum BODYPARTS {
-		HEAD=0, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
-		LEFTARM2, RIGHTARM0,RIGHTARM1, RIGHTARM2, LEFTHAND0, 
-		LEFTHAND1, LEFTHAND2,RIGHTHAND0, RIGHTHAND1, RIGHTHAND2,PARTSEND};
 protected:
-	explicit CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CSunGollem(const CSunGollem& rhs);
-	virtual ~CSunGollem();
+	explicit CGolemRightArm(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CGolemRightArm(const CGolemRightArm& rhs);
+	virtual ~CGolemRightArm();
 
 public:
 	virtual HRESULT Ready_Object(void)							override;
@@ -30,12 +24,9 @@ public:
 
 protected:
 	HRESULT	Add_Component(void);
-private:
-	vector<CGameObject*> m_vecParts;
+
 
 public:
-	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
-	_float Get_Speed() { return m_fSpeed; }
 
 	SUNGOLEM_STATE Get_State() { return m_eState; }
 	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
@@ -50,27 +41,17 @@ public:
 	virtual void Update_Die(_float fTimeDelta)	;
 	virtual void Update_Regen(_float fTimeDelta);
 
-	static CSunGollem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CGolemRightArm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
-protected:
-
-	CTransform* m_pTransformCom = nullptr;
-	CCollider* m_pColliderCom = nullptr;
 
 private:
-	_float			m_fSpeed = 5.f;
-	_float			m_fHealth = 5.f;
 	SUNGOLEM_STATE	m_eState;
-	_vec3 m_vPartPos[PARTSEND];
-
+	bool m_bBreath = false;
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
-	bool m_bBreath = false;
 protected:
 	virtual void Free() override;
-
-	HRESULT Ready_Parts(void);
 
 };
