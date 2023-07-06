@@ -1,4 +1,4 @@
-// dear imgui, v1.89.7
+// dear imgui, v1.89.8 WIP
 // (tables and columns code)
 
 /*
@@ -4108,4 +4108,3 @@ void ImGui::Columns(int columns_count, const char* id, bool border)
 //-------------------------------------------------------------------------
 
 #endif // #ifndef IMGUI_DISABLE
-#include "../Client/Include/stdafx.h"

@@ -76,7 +76,6 @@ inline void		Update_Collision();
 inline void		CheckGroupType(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight);
 inline void		Reset();
 
-
 #include "Export_Utility.inl"
 
 END
