@@ -23,11 +23,11 @@ HRESULT CSunGollem::Ready_Object(void)
 {
 	m_fMoveTime = 0.f;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pAnimator->Add_Animation(L"SunGolem_Idle_Body", L"Proto_Texture_SunGolem_Idle_Body", 0.1f);
+	m_pAnimator->Add_Animation(L"SunGolem_Idle_Body", L"Proto_Texture_SunGolem_Idle_Head", 0.1f);
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Body", L"Proto_Texture_SunGolem_Dirty_Body", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
-	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 2,2,2 });
+	m_pTransformCom->Set_Pos(&_vec3(2.f, 2.f, 2.f));
+	m_pTransformCom->Set_Scale({ 2.f, 2.f, 2.f });
 	Set_Speed(5.f);
 	Set_State(SUNGOLEM_STATE::REGEN);
 }
@@ -104,11 +104,11 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 	_vec3 vDir;
 	if (m_fMoveTime > 5.f)
 	{
-		vDir = { 0,5 * fTimeDelta,0 };
+		vDir = { 0.f, 5.f * fTimeDelta, 0.f };
 	}
 	else
 	{
-		vDir = { 0,-5 * fTimeDelta,0 };
+		vDir = { 0.f, -5.f * fTimeDelta, 0.f };
 	}
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 	if (m_fMoveTime > 10.f)
@@ -118,12 +118,8 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 //			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
 			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
 
-
-	
-
-
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CSunGollem::Update_Dirty(_float fTimeDelta)
@@ -131,14 +127,14 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	_vec3 vDir;
 	if (m_fMoveTime > 5.f)
 	{
-		vDir = { 0,5 * fTimeDelta,0 };
+		vDir = { 0.f, 5.f * fTimeDelta, 0.f };
 	}
 	else
 	{
-		vDir = { 0,-5 * fTimeDelta,0 };
+		vDir = { 0.f, -5.f * fTimeDelta, 0.f };
 	}
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
-	vDir = { 0,1 * fTimeDelta,0 };
+	vDir = { 0.f, 1.f * fTimeDelta, 0.f };
 	if (m_fMoveTime > 10.f)
 	{
 
@@ -146,7 +142,7 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 		m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CSunGollem::Update_Move(_float fTimeDelta)
@@ -164,7 +160,7 @@ void CSunGollem::Update_Die(_float fTimeDelta)
 void CSunGollem::Update_Regen(_float fTimeDelta)
 {
 	_vec3 vDir, vPos;
-	vDir = { 0,1 * fTimeDelta,0 };
+	vDir = { 0.f, 1.f * fTimeDelta, 0.f };
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
