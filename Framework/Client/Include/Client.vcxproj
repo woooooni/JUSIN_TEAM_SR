@@ -44,7 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <EnableUnitySupport>false</EnableUnitySupport>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -116,7 +116,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -177,36 +177,18 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\ThirdParty\imconfig.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_internal.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_single_file.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_stdlib.h" />
-    <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h" />
-    <ClInclude Include="..\..\ThirdParty\imstb_textedit.h" />
-    <ClInclude Include="..\..\ThirdParty\imstb_truetype.h" />
     <ClInclude Include="..\Header\AttackableObj.h" />
     <ClInclude Include="..\Header\BackGround.h" />
+    <ClInclude Include="..\Header\BalpanObj.h" />
     <ClInclude Include="..\Header\BenchObj.h" />
+    <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
-    <ClInclude Include="..\Header\GolemFist.h" />
     <ClInclude Include="..\Header\GolemHead.h" />
-    <ClInclude Include="..\Header\GolemLeftArm.h" />
-    <ClInclude Include="..\Header\GolemLeftHand.h" />
-    <ClInclude Include="..\Header\GolemLeftLeg.h" />
-    <ClInclude Include="..\Header\GolemLowerJaw.h" />
-    <ClInclude Include="..\Header\GolemParts.h" />
-    <ClInclude Include="..\Header\GolemRightArm.h" />
-    <ClInclude Include="..\Header\GolemRightHand.h" />
-    <ClInclude Include="..\Header\GolemRightLeg.h" />
-    <ClInclude Include="..\Header\GolemUpperJaw.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
-    <ClInclude Include="..\Header\ImGuiMgr.h" />
+    <ClInclude Include="..\Header\HitObj.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
@@ -237,40 +219,24 @@
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
-    <ClInclude Include="BalpanObj.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\ThirdParty\imgui.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_stdlib.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp" />
     <ClCompile Include="..\Code\AttackableObj.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
+    <ClCompile Include="..\Code\BalpanObj.cpp" />
     <ClCompile Include="..\Code\BenchObj.cpp" />
+    <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
-    <ClCompile Include="..\Code\GolemFist.cpp" />
     <ClCompile Include="..\Code\GolemHead.cpp" />
-    <ClCompile Include="..\Code\GolemLeftArm.cpp" />
-    <ClCompile Include="..\Code\GolemLeftHand.cpp" />
-    <ClCompile Include="..\Code\GolemLeftLeg.cpp" />
-    <ClCompile Include="..\Code\GolemLowerJaw.cpp" />
-    <ClCompile Include="..\Code\GolemRightArm.cpp" />
-    <ClCompile Include="..\Code\GolemRightHand.cpp" />
-    <ClCompile Include="..\Code\GolemRightLeg.cpp" />
-    <ClCompile Include="..\Code\GolemUpperJaw.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
-    <ClCompile Include="..\Code\ImGuiMgr.cpp" />
+    <ClCompile Include="..\Code\HitObj.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />
@@ -300,7 +266,6 @@
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
-    <ClCompile Include="BalpanObj.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -316,13 +281,6 @@
   <ItemGroup>
     <Image Include="Client.ico" />
     <Image Include="small.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\ThirdParty\imgui.gdb" />
-    <None Include="..\..\ThirdParty\imgui.natstepfilter" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="..\..\ThirdParty\imgui.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

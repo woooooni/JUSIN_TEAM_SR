@@ -1,26 +1,38 @@
 #pragma once
+#ifndef EventMgr_h__
+#define	EventMgr_h__
+#endif // !CollisionMgr_h__
+
+
+
 #include "Engine_Define.h"
 #include "Base.h"
 #include "GameObject.h"
 
+
+BEGIN(Engine)
 typedef struct tagEvent
 {
 	_uint iEventNum;
 	list<_uint>		lStartKey;
 	list<_uint>		lEndKey;
 	list<CGameObject*> lSubscribers;
+	bool		m_bIsCanReset = false;
 } EVENT;
 
-class CEventMgr :  public CBase
+
+
+class ENGINE_DLL CEventMgr
 {
 	DECLARE_SINGLETON(CEventMgr)
 
+private:
 	explicit		CEventMgr();
 	~CEventMgr();
 
 
 public:
-	HRESULT		Add_Event(EVENT* pEvent)
+	inline HRESULT		Add_Event(EVENT* pEvent)
 	{
 		auto iter = m_mapEvents.find(pEvent->iEventNum);
 
@@ -32,7 +44,7 @@ public:
 
 	void		Set_Event();
 
-	HRESULT		Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber)
+	inline HRESULT		Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber)
 	{
 		auto iter = m_mapEvents.find(pEventKey);
 
@@ -44,23 +56,30 @@ public:
 		return S_OK;
 	}
 
-	HRESULT		Check_Event_Start(const _uint& pCheckNum)
+	inline HRESULT		Check_Event_Start(const _uint& pCheckNum)
 	{
+		if (pCheckNum == 0)
+			return E_FAIL;
+
 		auto iter = m_mapEvents.find(pCheckNum);
 		if (iter == m_mapEvents.end())
 			return E_FAIL;
-
-		for (auto& iterB : iter->second->lStartKey)
+		if (!iter->second->lStartKey.empty())
 		{
-			if (!m_bEventSwitch[iterB])
-				return E_FAIL;
+			for (auto& iterB : iter->second->lStartKey)
+			{
+				if (!m_bEventSwitch[iterB])
+					return E_FAIL;
+			}
 		}
+
 
 		Start_Event(iter->second);
 		return S_OK;
 
 	}
 
+private:
 	void			Check_Event_End()
 	{
 		for (auto iter = m_listCurActiveEvents.begin(); iter != m_listCurActiveEvents.end();)
@@ -69,7 +88,9 @@ public:
 			{
 				for (auto& iterB : (*iter)->lSubscribers)
 				{
-					//이벤트 종료신호 보내기
+					iterB->Event_End((*iter)->iEventNum);
+					if((*iter)->m_bIsCanReset)
+						m_bEventSwitch[(*iter)->iEventNum] = false;
 				}
 				iter = m_listCurActiveEvents.erase(iter);
 			}
@@ -82,7 +103,7 @@ public:
 	{
 		for (auto& iter : pEvent->lSubscribers)
 		{
-			//이벤트 시작신호 보내기
+			iter->Event_Start(pEvent->iEventNum);
 		}
 		if (!pEvent->lEndKey.empty())
 			m_listCurActiveEvents.push_back(pEvent);
@@ -104,8 +125,8 @@ public:
 
 
 private:
-	// CBase을(를) 통해 상속됨
-	virtual void Free() override;
+
+	void	Free();
 
 	list<EVENT*> m_listCurActiveEvents;
 
@@ -115,3 +136,4 @@ private:
 
 };
 
+END

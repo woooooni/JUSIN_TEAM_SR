@@ -128,6 +128,26 @@ inline void Reset()
 	CCollisionMgr::GetInstance()->Reset();
 }
 
+inline HRESULT Add_Event(EVENT* pEvent)
+{
+	return CEventMgr::GetInstance()->Add_Event(pEvent);
+}
+
+inline void Set_Event()
+{
+	CEventMgr::GetInstance()->Set_Event();
+}
+
+inline HRESULT Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber)
+{
+	return CEventMgr::GetInstance()->Add_Subscribe(pEventKey, pSubscriber);
+}
+
+inline HRESULT Check_Event_Start(const _uint& pCheckNum)
+{
+	return CEventMgr::GetInstance()->Check_Event_Start(pCheckNum);
+}
+
 void			Release_Utility()
 {
 	CKeyMgr::GetInstance()->DestroyInstance();
@@ -138,5 +158,6 @@ void			Release_Utility()
 	CCameraMgr::GetInstance()->DestroyInstance();
 	CProtoMgr::GetInstance()->DestroyInstance();
 	CManagement::GetInstance()->DestroyInstance();
+	CEventMgr::GetInstance()->DestroyInstance();
 }
 
