@@ -134,7 +134,7 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			m_bBreath = false;
 		else
 			m_bBreath = true;
-		if(rand()%10>8)
+		if(rand()%10>7)
 			Set_State(SUNGOLEM_STATE::MOVE);
 		m_fMoveTime = 0.f;
 	}
@@ -256,18 +256,18 @@ HRESULT CSunGollem::Ready_Parts(void)
 	m_vPartPos[LOWERJAW] = { vPos.x,vPos.y - 0.2f,vPos.z - 0.0105f };
 	m_vPartPos[LEFTLEG] = { vPos.x-0.6f,vPos.y - 1.f,vPos.z - 0.01f };
 	m_vPartPos[RIGHTLEG] = { vPos.x + 0.6f,vPos.y - 1.f,vPos.z - 0.01f };
-	m_vPartPos[LEFTARM0] = { vPos.x - 1.5f,vPos.y - 0.5f,vPos.z - 0.01f };
-	m_vPartPos[LEFTARM1] = { vPos.x - 1.75f,vPos.y + 0.5f,vPos.z - 0.01f };
-	m_vPartPos[LEFTARM2] = { vPos.x - 1.5f,vPos.y + 1.5f,vPos.z - 0.01f };
-	m_vPartPos[RIGHTARM0] = { vPos.x + 1.5f,vPos.y - 0.5f,vPos.z - 0.01f };
-	m_vPartPos[RIGHTARM1] = { vPos.x + 1.75f,vPos.y + 0.5f,vPos.z - 0.01f };
-	m_vPartPos[RIGHTARM2] = { vPos.x + 1.5f,vPos.y + 1.5f,vPos.z - 0.01f };
-	m_vPartPos[LEFTHAND0] = { vPos.x - 1.9f,vPos.y - 0.5f,vPos.z - 0.01f };
-	m_vPartPos[LEFTHAND1] = { vPos.x - 2.15f,vPos.y + 0.5f,vPos.z - 0.01f };
-	m_vPartPos[LEFTHAND2] = { vPos.x - 1.9f,vPos.y + 1.5f,vPos.z - 0.01f };
-	m_vPartPos[RIGHTHAND0] = { vPos.x + 1.9f,vPos.y - 0.5f,vPos.z - 0.01f };
-	m_vPartPos[RIGHTHAND1] = { vPos.x + 2.15f,vPos.y + 0.5f,vPos.z - 0.01f };
-	m_vPartPos[RIGHTHAND2] = { vPos.x + 1.9f,vPos.y + 1.5f,vPos.z - 0.01f };
+	m_vPartPos[LEFTARM0] = { vPos.x - 1.5f,vPos.y - 0.5f,vPos.z - 0.0103f };
+	m_vPartPos[LEFTARM1] = { vPos.x - 1.75f,vPos.y + 0.5f,vPos.z - 0.0102f };
+	m_vPartPos[LEFTARM2] = { vPos.x - 1.5f,vPos.y + 1.5f,vPos.z - 0.0101f };
+	m_vPartPos[RIGHTARM0] = { vPos.x + 1.5f,vPos.y - 0.5f,vPos.z - 0.0103f };
+	m_vPartPos[RIGHTARM1] = { vPos.x + 1.75f,vPos.y + 0.5f,vPos.z - 0.0102f };
+	m_vPartPos[RIGHTARM2] = { vPos.x + 1.5f,vPos.y + 1.5f,vPos.z - 0.0101f };
+	m_vPartPos[LEFTHAND0] = { vPos.x - 1.9f,vPos.y - 0.5f,vPos.z - 0.0104f };
+	m_vPartPos[LEFTHAND1] = { vPos.x - 2.15f,vPos.y + 0.5f,vPos.z - 0.0103f };
+	m_vPartPos[LEFTHAND2] = { vPos.x - 1.9f,vPos.y + 1.5f,vPos.z - 0.0102f };
+	m_vPartPos[RIGHTHAND0] = { vPos.x + 1.9f,vPos.y - 0.5f,vPos.z - 0.0104f };
+	m_vPartPos[RIGHTHAND1] = { vPos.x + 2.15f,vPos.y + 0.5f,vPos.z - 0.0103f };
+	m_vPartPos[RIGHTHAND2] = { vPos.x + 1.9f,vPos.y + 1.5f,vPos.z - 0.0102f };
 	//	HEAD, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
 	//	LEFTARM2, RIGHTARM0, RIGHTARM1, RIGHTARM2, LEFTHAND0,
 	//	LEFTHAND1, LEFTHAND2, RIGHTHAND0, RIGHTHAND1, RIGHTHAND2
@@ -297,6 +297,7 @@ HRESULT CSunGollem::Ready_Parts(void)
 		CGolemLeftArm* pGolemLeftArm = CGolemLeftArm::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGolemLeftArm, E_FAIL);
 		pGolemLeftArm->Set_ArmNum(i - LEFTARM0);
+		pGolemLeftArm->Get_TransformCom()->RotationAxis(vAxisZ, D3DXToRadian(-45.f*(i - LEFTARM1)));
 		pGolemLeftArm->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
 		m_vecParts.push_back(pGolemLeftArm);
 	}
@@ -305,6 +306,7 @@ HRESULT CSunGollem::Ready_Parts(void)
 		CGolemRightArm* pGolemRightArm = CGolemRightArm::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGolemRightArm, E_FAIL);
 		pGolemRightArm->Set_ArmNum(i - RIGHTARM0);
+		pGolemRightArm->Get_TransformCom()->RotationAxis(vAxisZ, D3DXToRadian(45.f * (i - RIGHTARM1)));
 		pGolemRightArm->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
 		m_vecParts.push_back(pGolemRightArm);
 	}
