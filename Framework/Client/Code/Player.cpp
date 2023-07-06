@@ -310,6 +310,7 @@ void CPlayer::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 		Collision_Enter_Grab(pCollisionObj, _iColliderID);
 	}
 
+
 }
 void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 {
@@ -318,7 +319,7 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 	
 	if (_iColliderID == m_pColliderCom->Get_Id())
 	{
-		//Collision_Stay_Push(pCollisionObj, _iColliderID);
+		Collision_Stay_Push(pCollisionObj, _iColliderID);
 	}
 	
 	
@@ -401,6 +402,10 @@ void CPlayer::Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID)
 			vTargetPos = { vTargetPos.x, vTargetPos.y, vPos.z - 0.9f };
 			pCollisionObj->Get_TransformCom()->Set_Pos(&vTargetPos);
 		}
+	}
+	else if (pCollisionObj == m_pLiftObj)
+	{
+
 	}
 	else
 	{

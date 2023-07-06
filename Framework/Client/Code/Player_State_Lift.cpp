@@ -340,6 +340,7 @@ _int CPlayer_State_Lift::Update_LiftDown(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Reset_LiftObj();
 	}
 	else
 	{

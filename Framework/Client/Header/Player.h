@@ -63,6 +63,7 @@ public:
 
 	void			Set_Grab(bool _bGrab) { m_bGrab = _bGrab; }
 	bool			Is_Grab() { return m_bGrab; }
+	void			Reset_LiftObj() { m_pLiftObj = nullptr; }
 
 private:
 	_vec3			m_vDir;
