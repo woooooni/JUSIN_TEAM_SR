@@ -93,8 +93,11 @@ void CPlayer_State_Push::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 	}
 
-	if(m_eStartDir != eInputDir)
+	if (m_eStartDir != eInputDir && eInputDir != OBJ_DIR::DIR_END)
+	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::MOVE);
+		m_pOwner->SetObj_Dir(eInputDir);
+	}
 	else
 		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 5.f, fTimeDelta);
 
