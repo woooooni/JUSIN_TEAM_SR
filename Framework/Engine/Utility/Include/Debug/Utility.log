@@ -1,11 +1,11 @@
-﻿  unity_UY23ZHS3WJ9DEL8T.cpp
-  Utility.vcxproj -> C:\SRTeam\Framework\Engine\Utility\Bin\Utility.dll
+﻿  unity_CY5BDN8688G0VDD0.cpp
+  Utility.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Engine\Utility\Bin\Utility.dll
   .\Engine\Utility\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
-  지정된 파일을 찾을 수 없습니다.
   .\Engine\Utility\Code\*.hpp 
           0개 파일이 복사되었습니다.
+  지정된 파일을 찾을 수 없습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
   .\Engine\Header\Animator.h
@@ -22,6 +22,7 @@
   .\Engine\Header\Engine_Macro.h
   .\Engine\Header\Engine_Struct.h
   .\Engine\Header\Engine_Typedef.h
+  .\Engine\Header\EventMgr.h
   .\Engine\Header\Export_Function.h
   .\Engine\Header\Export_System.h
   .\Engine\Header\Export_Utility.h
@@ -51,7 +52,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         43개 파일이 복사되었습니다.
+         44개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

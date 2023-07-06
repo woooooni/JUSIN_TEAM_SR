@@ -68,7 +68,6 @@ namespace Engine
 
 	enum class COLLIDER_PLAYER
 	{
-		COLLIDER_BODY,
 		COLLIDER_ATTACK,
 		COLLIDER_GRAB,
 		COLLIDER_END

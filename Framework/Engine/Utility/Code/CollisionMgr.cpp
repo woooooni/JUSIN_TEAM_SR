@@ -25,6 +25,7 @@ HRESULT CCollisionMgr::Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice)
 
 	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_MONSTER);
 	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_PUSH);
+	CheckGroupType(COLLISION_GROUP::COLLIDE_GRAB, COLLISION_GROUP::COLLIDE_PUSH);
 
 	return S_OK;
 }
@@ -137,10 +138,6 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 			}
 		}
 	}
-
-	for (_uint i = 0; i < (_uint)COLLISION_GROUP::COLLIDE_END; ++i)
-		m_vecCol[i].clear();
-
 }
 
 bool CCollisionMgr::IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol)
