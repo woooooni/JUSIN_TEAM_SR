@@ -100,6 +100,9 @@
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\06. RightLeg">
       <UniqueIdentifier>{bc18721d-c6da-4349-989c-17960e9abf66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\07. Fist">
+      <UniqueIdentifier>{7c0336cc-aa9d-4e51-b728-a551bddba04a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">

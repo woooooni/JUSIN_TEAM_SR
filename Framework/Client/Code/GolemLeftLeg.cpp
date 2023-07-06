@@ -30,6 +30,7 @@ HRESULT CGolemLeftLeg::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 0.227f*3.f, 0.315f*3.f,1.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
+	return S_OK;
 }
 
 _int CGolemLeftLeg::Update_Object(const _float& fTimeDelta)
@@ -99,22 +100,6 @@ HRESULT CGolemLeftLeg::Add_Component(void)
 void CGolemLeftLeg::Update_Idle(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_LeftLeg", true);
-	_vec3 vDir;
-	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
-	{
-		if (m_bBreath)
-			m_bBreath = false;
-		else
-			m_bBreath = true;
-			m_fMoveTime = 0.f;
-	}
-	m_fMoveTime += 10 * fTimeDelta;
 
 
 	

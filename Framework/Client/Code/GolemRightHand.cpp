@@ -30,6 +30,7 @@ HRESULT CGolemRightHand::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 0.7f, 0.7f,0.7f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
+	return S_OK;
 }
 
 _int CGolemRightHand::Update_Object(const _float& fTimeDelta)

@@ -68,6 +68,9 @@ protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
 	bool m_bBreath = false;
+	_vec3 m_vVerticalDir = { 0,0,0 };
+	_vec3 m_vRandomPos[3] = {};
+	_int m_iRand = 1;
 protected:
 	virtual void Free() override;
 

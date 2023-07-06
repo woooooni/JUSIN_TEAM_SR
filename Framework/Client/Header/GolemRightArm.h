@@ -44,8 +44,9 @@ public:
 	static CGolemRightArm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
-
+	void Set_ArmNum(_int _iNum) { m_iArmNum = _iNum; }
 private:
+	_int m_iArmNum = 0;
 	SUNGOLEM_STATE	m_eState;
 	bool m_bBreath = false;
 protected:

@@ -44,10 +44,11 @@ public:
 	static CGolemLeftArm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
-
+	void Set_ArmNum(_int _iNum) { m_iArmNum = _iNum; }
 private:
 	SUNGOLEM_STATE	m_eState;
 	bool m_bBreath = false;
+	_int m_iArmNum = 0;
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;

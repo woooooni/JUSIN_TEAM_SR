@@ -31,7 +31,12 @@ HRESULT CSunGollem::Ready_Object(void)
 	
 		
 	
-	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
+	m_pTransformCom->Set_Pos(&_vec3(4.0f, 2.0f, 4.0f));
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	m_vRandomPos[0] = { vPos.x - 1, vPos.y, vPos.z };
+	m_vRandomPos[1] = { vPos.x , vPos.y, vPos.z };
+	m_vRandomPos[2] = { vPos.x + 1, vPos.y, vPos.z };
 	m_pTransformCom->Set_Scale({ 2,2,2 });
 	Set_Speed(5.f);
 	Set_State(SUNGOLEM_STATE::REGEN);
@@ -129,10 +134,9 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			m_bBreath = false;
 		else
 			m_bBreath = true;
-	
-			Set_State(SUNGOLEM_STATE::DIRTY);
-			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
-			m_fMoveTime = 0.f;
+		if(rand()%10>8)
+			Set_State(SUNGOLEM_STATE::MOVE);
+		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;
 
@@ -151,6 +155,7 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 		vDir = { 0.f,-1.f ,0.f };
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
+
 	if (m_fMoveTime > 10.f)
 	{
 		if (m_bBreath)
@@ -166,6 +171,38 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 
 void CSunGollem::Update_Move(_float fTimeDelta)
 {
+
+	
+
+	m_fSpeed -= m_fMoveTime * m_fMoveTime*0.01f;
+
+
+	_vec3 vPos;
+	_vec3 vDir;
+
+	m_pTransformCom->Move_Pos(&m_vVerticalDir, fTimeDelta, m_fSpeed);
+	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
+		(*iter)->Get_TransformCom()->Move_Pos(&m_vVerticalDir, fTimeDelta, m_fSpeed);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	
+	vDir = m_vRandomPos[m_iRand] - vPos;
+	vDir.y = 0.f;
+
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 1.f);
+	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
+		(*iter)->Get_TransformCom()->Move_Pos(&vDir, fTimeDelta, 1.f);
+
+	if (vPos.y < 2.f&&m_fSpeed<0)
+	{
+			m_vVerticalDir= {0.f, 1.f ,0.f };
+			m_fSpeed = 10.f;
+			Set_State(SUNGOLEM_STATE::DIRTY);
+			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
+			m_iRand = rand() % 3 ;
+		m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10 * fTimeDelta;
+
 }
 
 void CSunGollem::Update_Attack(_float fTimeDelta)
@@ -259,6 +296,7 @@ HRESULT CSunGollem::Ready_Parts(void)
 	{
 		CGolemLeftArm* pGolemLeftArm = CGolemLeftArm::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGolemLeftArm, E_FAIL);
+		pGolemLeftArm->Set_ArmNum(i - LEFTARM0);
 		pGolemLeftArm->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
 		m_vecParts.push_back(pGolemLeftArm);
 	}
@@ -266,6 +304,7 @@ HRESULT CSunGollem::Ready_Parts(void)
 	{
 		CGolemRightArm* pGolemRightArm = CGolemRightArm::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGolemRightArm, E_FAIL);
+		pGolemRightArm->Set_ArmNum(i - RIGHTARM0);
 		pGolemRightArm->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
 		m_vecParts.push_back(pGolemRightArm);
 	}
@@ -273,6 +312,7 @@ HRESULT CSunGollem::Ready_Parts(void)
 	{
 		CGolemLeftHand* pGolemLeftHand = CGolemLeftHand::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGolemLeftHand, E_FAIL);
+		pGolemLeftHand->Set_ArmNum(i - LEFTHAND0);
 		pGolemLeftHand->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
 		pGolemLeftHand->Get_TransformCom()->RotationAxis(vAxisZ, D3DXToRadian(-90.f));
 		m_vecParts.push_back(pGolemLeftHand);
@@ -281,6 +321,7 @@ HRESULT CSunGollem::Ready_Parts(void)
 	{
 		CGolemRightHand* pGolemRightHand = CGolemRightHand::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pGolemRightHand, E_FAIL);
+		pGolemRightHand->Set_ArmNum(i - RIGHTHAND0);
 		pGolemRightHand->Get_TransformCom()->Set_Pos(&m_vPartPos[i]);
 		pGolemRightHand->Get_TransformCom()->RotationAxis(vAxisZ,D3DXToRadian( 90.f));
 		m_vecParts.push_back(pGolemRightHand);
