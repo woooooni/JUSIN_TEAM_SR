@@ -134,8 +134,10 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 			}
 		}
 	}
-
-	m_vecCol->clear();
+	for (auto& iter : m_vecCol)
+	{
+		iter.clear();
+	}
 
 }
 

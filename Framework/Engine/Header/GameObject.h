@@ -59,6 +59,11 @@ public:
 	virtual void Collision_Enter(CGameObject* pCollisionObj) {};
 	virtual void Collision_Stay(CGameObject* pCollisionObj) {};
 	virtual void Collision_Exit(CGameObject* pCollisionObj) {};
+	
+public:
+	//이벤트 호출
+	virtual void Event_Start(_uint iEventNum) {};
+	virtual void Event_End(_uint iEventNum) {};
 
 	
 private:

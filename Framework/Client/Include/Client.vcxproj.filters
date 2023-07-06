@@ -88,6 +88,9 @@
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\02. Head">
       <UniqueIdentifier>{72792338-a1c3-4f6a-b97b-8b6d8a4039a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\03. BalpanObj">
+      <UniqueIdentifier>{b01da0bd-86c5-4ac4-92ff-ab913f16184e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -179,6 +182,13 @@
     <ClInclude Include="..\Header\GolemHead.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\02. Head</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\Player_State_BallonFly.h" />
+    <ClInclude Include="..\Header\Player_State_Drawing.h" />
+    <ClInclude Include="..\Header\Player_State_GetItem.h" />
+    <ClInclude Include="BalpanObj.h">
+      <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -261,6 +271,13 @@
     </ClCompile>
     <ClCompile Include="..\Code\GolemHead.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\02. Head</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />
+    <ClCompile Include="..\Code\Player_State_Drawing.cpp" />
+    <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
+    <ClCompile Include="BalpanObj.cpp">
+      <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
