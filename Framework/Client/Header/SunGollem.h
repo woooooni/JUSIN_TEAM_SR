@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "GolemHead.h"
+
 
 BEGIN(Engine)
 
@@ -14,9 +14,8 @@ class CSunGollem : public Engine::CGameObject
 {
 public:
 	enum BODYPARTS {
-		LEFTARM0 = 0, LEFTARM1, LEFTARM2, RIGHTARM0,
-		RIGHTARM1, RIGHTARM2, RIGHTHAND0, RIGHTHAND1, RIGHTHAND2,
-		HEAD, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, PARTSEND};
+		HEAD=0, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTHAND0, LEFTHAND1, LEFTHAND2,LEFTARM0, LEFTARM1, 
+		LEFTARM2, RIGHTARM0,RIGHTARM1, RIGHTARM2, RIGHTHAND0, RIGHTHAND1, RIGHTHAND2,PARTSEND};
 protected:
 	explicit CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CSunGollem(const CSunGollem& rhs);
@@ -31,7 +30,7 @@ public:
 protected:
 	HRESULT	Add_Component(void);
 private:
-	//vector<CGameObject> vecParts;
+	vector<CGameObject*> m_vecParts;
 
 public:
 	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
@@ -62,17 +61,15 @@ private:
 	_float			m_fSpeed = 5.f;
 	_float			m_fHealth = 5.f;
 	SUNGOLEM_STATE	m_eState;
-	_vec3 m_vLeftArmPos[3];
-	_vec3 m_vRightArmPos[3];
-	_vec3 m_vLeftHandPos[3];
-	_vec3 m_vRightHandPos[3];
-	_vec3 m_vHeadPos, m_vLowerJawPos, m_vUpperJawPos, m_vLeftLegPos, m_vRightLegPos;
-
+	_vec3 m_vPartPos[PARTSEND];
 
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
+	bool m_bBreath = false;
 protected:
 	virtual void Free() override;
+
+	HRESULT Ready_Parts(void);
 
 };

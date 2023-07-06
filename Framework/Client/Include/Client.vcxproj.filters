@@ -82,11 +82,23 @@
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\00. Arm">
       <UniqueIdentifier>{c96512d7-1ca4-4719-abbd-5b4edcef7ed3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\02. Head">
+      <UniqueIdentifier>{72792338-a1c3-4f6a-b97b-8b6d8a4039a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\03. UpperJaw">
+      <UniqueIdentifier>{96d8e28a-e6c5-4808-bff1-678631f1312d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\04. LowerJaw">
+      <UniqueIdentifier>{62308a69-4aac-42e8-a2e5-22d6660b1f1f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\01. Hand">
       <UniqueIdentifier>{b5b08609-5513-4b85-b49d-2425be3215e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\10. Boss\00. SunGolem\02. Head">
-      <UniqueIdentifier>{72792338-a1c3-4f6a-b97b-8b6d8a4039a5}</UniqueIdentifier>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\05. LeftLeg">
+      <UniqueIdentifier>{5cd74ca6-5602-4cd8-859d-5c2efd4b9c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\06. RightLeg">
+      <UniqueIdentifier>{bc18721d-c6da-4349-989c-17960e9abf66}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +191,25 @@
     <ClInclude Include="..\Header\GolemHead.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\02. Head</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\Player_State_BallonFly.h" />
+    <ClInclude Include="..\Header\Player_State_Drawing.h" />
+    <ClInclude Include="..\Header\Player_State_GetItem.h" />
+    <ClInclude Include="..\Header\GolemUpperJaw.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\03. UpperJaw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemLowerJaw.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\04. LowerJaw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemParts.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemLeftLeg.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\05. LeftLeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemRightLeg.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\06. RightLeg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -261,6 +292,22 @@
     </ClCompile>
     <ClCompile Include="..\Code\GolemHead.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\02. Head</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />
+    <ClCompile Include="..\Code\Player_State_Drawing.cpp" />
+    <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
+    <ClCompile Include="..\Code\GolemUpperJaw.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\03. UpperJaw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemLowerJaw.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\04. LowerJaw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemLeftLeg.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\05. LeftLeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemRightLeg.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\06. RightLeg</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
