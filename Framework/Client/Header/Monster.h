@@ -46,11 +46,6 @@ public:
 	virtual void Update_Die(_float fTimeDelta)		PURE;
 	
 
-protected:
-
-	CTransform* m_pTransformCom = nullptr;
-	CCollider* m_pColliderCom = nullptr;
-
 private:
 	_float			m_fSpeed = 5.f;
 	MONSTER_STATE	m_eState;

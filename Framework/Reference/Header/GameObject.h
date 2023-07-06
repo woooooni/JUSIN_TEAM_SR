@@ -51,6 +51,7 @@ public:
 	CAnimator* Get_AnimatorCom() { return m_pAnimator; }
 	CTexture* Get_TextureCom() { return m_pTextureCom; }
 	CRigidBody* Get_RigidBodyCom() { return m_pRigidBodyCom; }
+
 public:
 	void Set_Billboard();
 
