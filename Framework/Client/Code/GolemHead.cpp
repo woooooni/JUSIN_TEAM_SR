@@ -1,6 +1,6 @@
 #include "Export_Function.h"
 #include "GolemHead.h"
-
+#include "SunGollem.h"
 CGolemHead::CGolemHead(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
@@ -21,11 +21,11 @@ HRESULT CGolemHead::Ready_Object(void)
 {
 	m_fMoveTime = 0.f;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pAnimator->Add_Animation(L"SunGolem_Idle_Body", L"Proto_Texture_SunGolem_Idle_Body", 0.1f);
-	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Body", L"Proto_Texture_SunGolem_Dirty_Body", 0.1f);
-	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
+	m_pAnimator->Add_Animation(L"SunGolem_Idle_Head", L"Proto_Texture_SunGolem_Idle_Head", 0.1f);
+	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Head", L"Proto_Texture_SunGolem_Dirty_Head", 0.1f);
+	m_pAnimator->Play_Animation(L"SunGolem_Idle_Head", true);
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 2,2,2 });
+	m_pTransformCom->Set_Scale({ 2.f,2.f,2.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
 }
@@ -33,6 +33,8 @@ HRESULT CGolemHead::Ready_Object(void)
 _int CGolemHead::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"SunGollem");
+	Set_State(dynamic_cast<CSunGollem*>(pTarget)->Get_State());
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (m_eState)
 	{
@@ -61,6 +63,7 @@ _int CGolemHead::Update_Object(const _float& fTimeDelta)
 
 void CGolemHead::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CGolemHead::Render_Object(void)
@@ -94,21 +97,21 @@ HRESULT CGolemHead::Add_Component(void)
 
 void CGolemHead::Update_Idle(_float fTimeDelta)
 {
+	m_pAnimator->Play_Animation(L"SunGolem_Idle_Head", true);
 	_vec3 vDir;
-	if (m_fMoveTime > 5.f)
-	{
-		vDir = { 0,1 ,0 };
-	}
+	if (m_bBreath)
+		vDir = { 0.,1.f ,0.f };
 	else
-	{
-		vDir = { 0,-1 ,0 };
-	}
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
+		vDir = { 0.f,-1.f ,0.f };
+
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
 	if (m_fMoveTime > 10.f)
 	{
-	
-//			Set_State(SUNGOLEM_STATE::DIRTY);
-//			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
+		if (m_bBreath)
+			m_bBreath = false;
+		else
+			m_bBreath = true;
+
 			m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;
@@ -121,21 +124,20 @@ void CGolemHead::Update_Idle(_float fTimeDelta)
 
 void CGolemHead::Update_Dirty(_float fTimeDelta)
 {
+	m_pAnimator->Play_Animation(L"SunGolem_Dirty_Head", true);
 	_vec3 vDir;
-	if (m_fMoveTime > 5.f)
-	{
-		vDir = { 0,1 ,0 };
-	}
+	if (m_bBreath)
+		vDir = { 0.,1.f ,0.f };
 	else
-	{
-		vDir = { 0,-1 ,0 };
-	}
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
+		vDir = { 0.f,-1.f ,0.f };
+
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
 	if (m_fMoveTime > 10.f)
 	{
-
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
+		if (m_bBreath)
+			m_bBreath = false;
+		else
+			m_bBreath = true;
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;

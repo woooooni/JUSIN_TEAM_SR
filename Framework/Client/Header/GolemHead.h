@@ -44,15 +44,13 @@ public:
 	static CGolemHead* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
-protected:
-
-	CTransform* m_pTransformCom = nullptr;
 
 private:
 	SUNGOLEM_STATE	m_eState;
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
+	bool m_bBreath=false;
 protected:
 	virtual void Free() override;
 
