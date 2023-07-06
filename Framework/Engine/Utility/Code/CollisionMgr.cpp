@@ -77,16 +77,9 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 	map<ULONGLONG, _bool>::iterator iter;
 	for (auto& lCollider : m_vecCol[(_uint)_eLeft])
 	{
-		if (!lCollider->Is_Active() || nullptr == lCollider)
-			continue;
 
 		for (auto& rCollider : m_vecCol[(_uint)_eRight])
 		{
-			if (!rCollider->Is_Active() || nullptr == rCollider || lCollider == rCollider)
-				continue;
-
-			if (!lCollider->Is_Active() || !rCollider->Is_Active())
-				continue;
 
 			// gen map key by using union
 			COLLIDER_ID ID;
@@ -142,6 +135,9 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 
 bool CCollisionMgr::IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol)
 {
+	if (!_pLeftCol->Is_Active() || !_pRightCol->Is_Active())
+		return false;
+
 	const _vec3& vLeftScale = ((CBoxCollider*)_pLeftCol)->Get_Scale();
 	const _vec3& vLeftPos =	((CBoxCollider*)_pLeftCol)->Get_Pos();
 	const _vec3& vRightScale = ((CBoxCollider*)_pRightCol)->Get_Scale();
