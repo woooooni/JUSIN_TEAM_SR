@@ -53,6 +53,8 @@ public:
 	bool			Is_Flying() { return m_bFlying; }
 	bool			Is_BalloonFly() { return m_bBalloonFly; }
 
+	bool			Is_Push() { return m_bPush; }
+	void			Set_Push(bool _bPush) { m_bPush = _bPush; }
 
 private:
 	_vec3			m_vDir;
@@ -81,6 +83,8 @@ private:
 
 	bool m_bBalloonFly = false;
 	bool m_bFlying = false;
+
+	bool m_bPush = false;
 	//
 };
 
