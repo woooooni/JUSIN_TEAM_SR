@@ -1,3 +1,4 @@
+#include "../Client/Include/stdafx.h"
 #include "..\Header\Scene_Tool.h"
 #include "Export_Function.h"
 #include "CUI.h"

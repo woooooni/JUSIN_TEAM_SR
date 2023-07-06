@@ -26,10 +26,13 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Idle_Body", L"Proto_Texture_SunGolem_Idle_Head", 0.1f);
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Body", L"Proto_Texture_SunGolem_Dirty_Body", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
+
 	m_pTransformCom->Set_Pos(&_vec3(2.f, 2.f, 2.f));
 	m_pTransformCom->Set_Scale({ 2.f, 2.f, 2.f });
 	Set_Speed(5.f);
 	Set_State(SUNGOLEM_STATE::REGEN);
+	
+	return S_OK;
 }
 
 _int CSunGollem::Update_Object(const _float& fTimeDelta)

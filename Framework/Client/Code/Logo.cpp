@@ -1,6 +1,7 @@
 #include "..\Header\Logo.h"
 #include "Export_Function.h"
 #include "CUI.h"
+#include "../Include/stdafx.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)

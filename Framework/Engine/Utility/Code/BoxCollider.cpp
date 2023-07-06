@@ -34,6 +34,8 @@ _int CBoxCollider::Update_Component(const _float & fTimeDelta)
 {
 	CTransform* pOwnerTransform = (CTransform*)(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
 
+	if (nullptr == pOwnerTransform)
+		return S_OK;
 
 	_vec3 vPos;
 	pOwnerTransform->Get_Info(INFO_POS, &vPos);
