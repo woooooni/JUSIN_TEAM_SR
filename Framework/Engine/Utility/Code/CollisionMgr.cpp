@@ -138,7 +138,12 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 		}
 	}
 
+<<<<<<< HEAD
 	
+=======
+	for (_uint i = 0; i < (_uint)COLLISION_GROUP::COLLIDE_END; ++i)
+		m_vecCol[i].clear();
+>>>>>>> 1a85136651b9699a6b20750286fcec1a835ad25f
 }
 
 bool CCollisionMgr::IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol)

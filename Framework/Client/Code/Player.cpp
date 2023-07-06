@@ -289,12 +289,17 @@ void CPlayer::Player_Move(_float fTimeDelta)
 }
 void CPlayer::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 {
+<<<<<<< HEAD
 	//MSG_BOX("面倒 Enter");
 	
 
+=======
+//	MSG_BOX("面倒 Enter");
+>>>>>>> 1a85136651b9699a6b20750286fcec1a835ad25f
 }
 void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 {
+<<<<<<< HEAD
 	
 	//MSG_BOX("面倒 Stay");
 	
@@ -358,6 +363,9 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 		}
 	}
 	
+=======
+	//MSG_BOX("面倒 Stay");
+>>>>>>> 1a85136651b9699a6b20750286fcec1a835ad25f
 }
 void CPlayer::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
 {
