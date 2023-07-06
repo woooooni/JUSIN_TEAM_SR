@@ -18,7 +18,7 @@ public:
 	void					SetAlpha(_int _iAlpha); // 0 ~ 255
 
 public:
-	static CCubeTex*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CCubeTex*		Create(LPDIRECT3DDEVICE9 pGraphicDev, _float fCX = 1.f, _float fCY = 1.f, _float fCZ = 1.f);
 	virtual CComponent*	Clone(void);
 
 private:
