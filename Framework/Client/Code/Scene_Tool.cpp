@@ -1,7 +1,12 @@
-#include "../Client/Include/stdafx.h"
+#include "../Include/stdafx.h"
 #include "..\Header\Scene_Tool.h"
 #include "Export_Function.h"
-#include "CUI.h"
+#include "Player.h"
+#include "Terrain.h"
+#include "Camera.h"
+#include "CameraMgr.h"
+#include "ImGuiMgr.h"
+
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::TOOL)
@@ -15,7 +20,6 @@ CScene_Tool::~CScene_Tool()
 HRESULT CScene_Tool::Ready_Scene()
 {
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
 
 	D3DVIEWPORT9 vp;
@@ -35,18 +39,19 @@ Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 {
 
 	__super::Update_Scene(fTimeDelta);
-
+	CImGuiMgr::GetInstance()->Update_ImGui();
 	return 0;
 }
 
 void CScene_Tool::LateUpdate_Scene()
 {
 	__super::LateUpdate_Scene();
+	
 }
 
 void CScene_Tool::Render_Scene()
 {
-
+	CImGuiMgr::GetInstance()->Render_ImGui();
 }
 
 void CScene_Tool::Free()

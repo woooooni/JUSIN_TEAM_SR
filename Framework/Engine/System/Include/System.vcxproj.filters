@@ -19,9 +19,6 @@
     <Filter Include="02. Frame\Manager">
       <UniqueIdentifier>{3f2641a0-a958-4db9-ab12-93b39ff210e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98. ImGui">
-      <UniqueIdentifier>{ecb18418-d9ab-4c5c-961f-1a0548abba06}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. InputDevice">
       <UniqueIdentifier>{5c3e7fd6-05db-434e-b76c-9146195c1775}</UniqueIdentifier>
     </Filter>
