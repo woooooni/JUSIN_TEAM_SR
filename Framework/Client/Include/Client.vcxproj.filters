@@ -91,6 +91,12 @@
     <Filter Include="02. GameObject\06. FieldObj\03. BalpanObj">
       <UniqueIdentifier>{b01da0bd-86c5-4ac4-92ff-ab913f16184e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\04. BlockObj">
+      <UniqueIdentifier>{901f1f9d-c075-4b4b-92a9-211ac746dc8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj">
+      <UniqueIdentifier>{934d0182-8db5-460a-8dc1-e5249aa2c5d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -186,8 +192,14 @@
     <ClInclude Include="..\Header\Player_State_BallonFly.h" />
     <ClInclude Include="..\Header\Player_State_Drawing.h" />
     <ClInclude Include="..\Header\Player_State_GetItem.h" />
-    <ClInclude Include="BalpanObj.h">
+    <ClInclude Include="..\Header\BalpanObj.h">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\HitObj.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BlockObj.h">
+      <Filter>02. GameObject\06. FieldObj\04. BlockObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -276,8 +288,14 @@
     <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />
     <ClCompile Include="..\Code\Player_State_Drawing.cpp" />
     <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
-    <ClCompile Include="BalpanObj.cpp">
+    <ClCompile Include="..\Code\BalpanObj.cpp">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\HitObj.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BlockObj.cpp">
+      <Filter>02. GameObject\06. FieldObj\04. BlockObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -179,13 +179,16 @@
   <ItemGroup>
     <ClInclude Include="..\Header\AttackableObj.h" />
     <ClInclude Include="..\Header\BackGround.h" />
+    <ClInclude Include="..\Header\BalpanObj.h" />
     <ClInclude Include="..\Header\BenchObj.h" />
+    <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\GolemHead.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
+    <ClInclude Include="..\Header\HitObj.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
@@ -216,7 +219,6 @@
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
-    <ClInclude Include="BalpanObj.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -225,13 +227,16 @@
   <ItemGroup>
     <ClCompile Include="..\Code\AttackableObj.cpp" />
     <ClCompile Include="..\Code\BackGround.cpp" />
+    <ClCompile Include="..\Code\BalpanObj.cpp" />
     <ClCompile Include="..\Code\BenchObj.cpp" />
+    <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\GolemHead.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
+    <ClCompile Include="..\Code\HitObj.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />
@@ -261,7 +266,6 @@
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
-    <ClCompile Include="BalpanObj.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="stdafx.cpp">

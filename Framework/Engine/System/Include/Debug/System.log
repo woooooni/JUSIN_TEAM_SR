@@ -1,4 +1,6 @@
-﻿  System.vcxproj -> C:\SRTeam\Framework\Engine\System\Bin\System.dll
+﻿  unity_ILL67N7UY4S6NDHT.cpp
+     ../Bin\System.lib 라이브러리 및 ../Bin\System.exp 개체를 생성하고 있습니다.
+  System.vcxproj -> C:\SRTeam\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
@@ -18,6 +20,7 @@
   .\Engine\Header\Engine_Macro.h
   .\Engine\Header\Engine_Struct.h
   .\Engine\Header\Engine_Typedef.h
+  .\Engine\Header\EventMgr.h
   .\Engine\Header\Export_Function.h
   .\Engine\Header\Export_System.h
   .\Engine\Header\Export_Utility.h
@@ -47,7 +50,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         43개 파일이 복사되었습니다.
+         44개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

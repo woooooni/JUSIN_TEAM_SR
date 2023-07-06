@@ -19,6 +19,7 @@ HRESULT CPushStone::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
+
     return S_OK;
 }
 

@@ -97,5 +97,7 @@ CGrabbableObj* CGrabbableObj::Create(LPDIRECT3DDEVICE9 pDev, const _vec3 p_Pos)
 	}
 	ret->Get_TransformCom()->Set_Pos(&p_Pos);
 
+	ret->m_tInfo.m_bIsGrabbable = true;
+
 	return ret;
 }

@@ -9,6 +9,7 @@
 #include "LightMgr.h"
 #include "KeyMgr.h"
 #include "CollisionMgr.h"
+#include "EventMgr.h"
 
 #include "TriCol.h"
 #include "RcCol.h"
@@ -75,6 +76,15 @@ inline HRESULT	Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice);
 inline void		Update_Collision();
 inline void		CheckGroupType(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight);
 inline void		Reset();
+
+// EventMgr
+
+inline HRESULT		Add_Event(EVENT* pEvent);
+inline void		Set_Event();
+inline HRESULT		Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber);
+inline HRESULT		Check_Event_Start(const _uint& pCheckNum);
+
+
 
 
 #include "Export_Utility.inl"
