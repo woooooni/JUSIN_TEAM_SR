@@ -77,7 +77,7 @@ public:
 
 private:
 	void Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID);
-	void Collision_Stay_Grab(CGameObject* pCollisionObj, UINT _iColliderID);
+	void Collision_Enter_Grab(CGameObject* pCollisionObj, UINT _iColliderID);
 
 private:
 	virtual void Free() override;

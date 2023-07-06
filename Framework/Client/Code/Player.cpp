@@ -191,6 +191,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);
+	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], COLLISION_GROUP::COLLIDE_GRAB);
 
 	if (m_bStateChange)
 	{
@@ -264,8 +265,7 @@ HRESULT CPlayer::Ready_Component(void)
 	{
 		m_pCollider[i] = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
-		pComponent->SetOwner(this);
-		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+		m_pCollider[i]->SetOwner(this);
 	}
 	
 
@@ -305,7 +305,10 @@ void CPlayer::Player_Move(_float fTimeDelta)
 void CPlayer::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 {
 	//MSG_BOX("Ãæµ¹ Enter");
-	
+	if (_iColliderID == m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB]->Get_Id())
+	{
+		Collision_Enter_Grab(pCollisionObj, _iColliderID);
+	}
 
 }
 void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
@@ -317,11 +320,8 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 	{
 		Collision_Stay_Push(pCollisionObj, _iColliderID);
 	}
-	else if (_iColliderID == m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB]->Get_Id())
-	{
-		Collision_Stay_Grab(pCollisionObj, _iColliderID);
-	}
-
+	
+	
 	
 }
 void CPlayer::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
@@ -431,7 +431,7 @@ void CPlayer::Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID)
 	}
 }
 
-void CPlayer::Collision_Stay_Grab(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer::Collision_Enter_Grab(CGameObject* pCollisionObj, UINT _iColliderID)
 {
 	m_bGrab = true;
 }

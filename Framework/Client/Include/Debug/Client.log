@@ -1,8 +1,7 @@
-﻿  unity_3C0ZYD3MW3MOATO5.cpp
-  Player_State_Jump.cpp
-  Player_State_Lift.cpp
-  Player_State_Push.cpp
-  Player_State_Rolling.cpp
-  Player_State_Run.cpp
-     ../Bin\Client.lib 라이브러리 및 ../Bin\Client.exp 개체를 생성하고 있습니다.
+﻿  unity_U0IYMKHIGPJYCZM3.cpp
+  Monster.cpp
+  Player.cpp
+  Player_State.cpp
+  Player_State_Hit.cpp
+  Player_State_Idle.cpp
   Client.vcxproj -> C:\Users\ghkdd\Desktop\TeamSR\Framework\Client\Bin\Client.exe

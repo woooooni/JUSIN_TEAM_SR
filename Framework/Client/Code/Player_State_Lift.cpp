@@ -7,7 +7,7 @@
 #include "Collider.h"
 
 CPlayer_State_Lift::CPlayer_State_Lift(CGameObject* _pOwner)
-	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
+	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f), m_fLiftTime(0.05f)
 {
 }
 
@@ -17,40 +17,46 @@ CPlayer_State_Lift::~CPlayer_State_Lift()
 
 HRESULT CPlayer_State_Lift::Ready_State(void)
 {
-	m_eLiftState = LIFT_STATE::LIFTUP;
-
+	m_eLiftState = LIFT_STATE::LIFTREADY;
 
 	switch (m_pOwner->GetObj_Dir())
 	{
 	case OBJ_DIR::DIR_U:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Up", FALSE);
-		//dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.0f, 0.0f, 0.5f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	case OBJ_DIR::DIR_D:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Down", FALSE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.0f, 0.0f, -0.5f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	case OBJ_DIR::DIR_L:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Left", FALSE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(-0.5f, 0.0f, 0.0f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	case OBJ_DIR::DIR_R:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Right", FALSE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.5f, 0.0f, 0.0f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	case OBJ_DIR::DIR_LD:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftDown", FALSE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(-0.5f, 0.0f, -0.5f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	case OBJ_DIR::DIR_LU:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftUp", FALSE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(-0.5f, 0.0f, 0.5f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	case OBJ_DIR::DIR_RU:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightUp", FALSE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.5f, 0.0f, 0.5f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	case OBJ_DIR::DIR_RD:
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightDown", FALSE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.5f, 0.0f, -0.5f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(true);
 		break;
 	}
 
 
-
+	m_fAccTime = 0.0f;
 	return S_OK;
 }
 
@@ -88,6 +94,58 @@ void CPlayer_State_Lift::Render_State(void)
 
 _int CPlayer_State_Lift::Update_LiftReady(const _float& fTimeDelta)
 {
+
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Is_Grab())
+	{
+		m_eLiftState = LIFT_STATE::LIFTUP;
+
+		switch (m_pOwner->GetObj_Dir())
+		{
+		case OBJ_DIR::DIR_U:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Up", FALSE);
+			break;
+		case OBJ_DIR::DIR_D:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Down", FALSE);
+			break;
+		case OBJ_DIR::DIR_L:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Left", FALSE);
+			break;
+		case OBJ_DIR::DIR_R:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Right", FALSE);
+			break;
+		case OBJ_DIR::DIR_LD:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftDown", FALSE);
+			break;
+		case OBJ_DIR::DIR_LU:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_LeftUp", FALSE);
+			break;
+		case OBJ_DIR::DIR_RU:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightUp", FALSE);
+			break;
+		case OBJ_DIR::DIR_RD:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_RightDown", FALSE);
+			break;
+		}
+
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.0f, 0.0f, 0.0f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(false);
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_Grab(false);
+		m_fAccTime = 0.0f;
+	}
+
+	if (m_fAccTime > fTimeDelta)
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Offset(_vec3(0.0f, 0.0f, 0.0f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->Set_Active(false);
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_Grab(false);
+		m_fAccTime = 0.0f;
+	}
+	else
+	{
+		++m_fAccTime += fTimeDelta;
+	}
+
 	return 0;
 }
 
