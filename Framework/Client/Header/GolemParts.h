@@ -8,3 +8,4 @@
 #include "GolemRightArm.h"
 #include "GolemLeftHand.h"
 #include "GolemRightHand.h"
+#include "GolemFist.h"

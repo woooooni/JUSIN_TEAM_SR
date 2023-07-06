@@ -65,6 +65,7 @@ _int CGolemLowerJaw::Update_Object(const _float& fTimeDelta)
 
 void CGolemLowerJaw::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CGolemLowerJaw::Render_Object(void)

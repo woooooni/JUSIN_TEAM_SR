@@ -136,6 +136,8 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			m_bBreath = true;
 		if(rand()%10>7)
 			Set_State(SUNGOLEM_STATE::MOVE);
+		else if(rand() % 10 < 2)
+			Set_State(SUNGOLEM_STATE::ATTACK);
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;
@@ -207,6 +209,24 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 
 void CSunGollem::Update_Attack(_float fTimeDelta)
 {
+	if (m_fMoveTime > 10.f)
+	{
+		for (_int i = 0; i < m_iActiveArm; i++)
+		{
+			if (i >= 2 && 3 <= i)
+			{
+				Create_Fist(true, i);
+			}
+			else
+				Create_Fist(false, i);
+		}
+		m_iActiveArm += 2;
+		if (m_iActiveArm > 6)
+			m_iActiveArm = 2;
+		Set_State(SUNGOLEM_STATE::IDLE);
+		m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10 * fTimeDelta;
 }
 
 void CSunGollem::Update_Die(_float fTimeDelta)
@@ -245,6 +265,19 @@ CSunGollem* CSunGollem::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CSunGollem::Free()
 {
 	__super::Free();
+}
+void CSunGollem::Create_Fist(bool _BummerFist, _int _iSrc)
+{
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vPos += {float(rand() % 33) * 0.1f, (float)_iSrc, float(rand() % 34 - 17) * 0.1f};
+	CGolemFist* pGolemFist = CGolemFist::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGolemFist, );
+	pGolemFist->Get_TransformCom()->Set_Pos(&vPos);
+	pGolemFist->Set_State(m_eState);
+	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+	pLayer->Add_GameObject(L"GolemFist", pGolemFist);
+
 }
 HRESULT CSunGollem::Ready_Parts(void) 
 {

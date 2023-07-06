@@ -184,6 +184,7 @@
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\GolemFist.h" />
     <ClInclude Include="..\Header\GolemHead.h" />
     <ClInclude Include="..\Header\GolemLeftArm.h" />
     <ClInclude Include="..\Header\GolemLeftHand.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\GolemFist.cpp" />
     <ClCompile Include="..\Code\GolemHead.cpp" />
     <ClCompile Include="..\Code\GolemLeftArm.cpp" />
     <ClCompile Include="..\Code\GolemLeftHand.cpp" />

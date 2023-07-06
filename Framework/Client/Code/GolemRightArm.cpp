@@ -66,6 +66,7 @@ _int CGolemRightArm::Update_Object(const _float& fTimeDelta)
 
 void CGolemRightArm::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CGolemRightArm::Render_Object(void)

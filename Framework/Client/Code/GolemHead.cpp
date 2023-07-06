@@ -63,6 +63,7 @@ _int CGolemHead::Update_Object(const _float& fTimeDelta)
 
 void CGolemHead::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CGolemHead::Render_Object(void)

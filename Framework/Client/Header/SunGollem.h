@@ -60,10 +60,11 @@ protected:
 
 private:
 	_float			m_fSpeed = 5.f;
-	_float			m_fHealth = 5.f;
+	_float			m_fHealth = 6.f;
 	SUNGOLEM_STATE	m_eState;
 	_vec3 m_vPartPos[PARTSEND];
-
+private:
+	void Create_Fist(bool _BummerFist, _int _iSrc);
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
@@ -71,9 +72,11 @@ protected:
 	_vec3 m_vVerticalDir = { 0,0,0 };
 	_vec3 m_vRandomPos[3] = {};
 	_int m_iRand = 1;
+	_int m_iActiveArm = 2;
+	bool m_bDirty = false;
 protected:
 	virtual void Free() override;
-
+	
 	HRESULT Ready_Parts(void);
 
 };

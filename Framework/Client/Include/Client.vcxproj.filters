@@ -225,6 +225,9 @@
     <ClInclude Include="..\Header\GolemRightHand.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\01. Hand</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\GolemFist.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\07. Fist</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -335,6 +338,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\GolemRightHand.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\01. Hand</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemFist.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\07. Fist</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
