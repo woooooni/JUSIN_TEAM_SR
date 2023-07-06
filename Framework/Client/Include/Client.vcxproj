@@ -216,6 +216,7 @@
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="BalpanObj.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="BalpanObj.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Scene_Tool.cpp" />
     <ClCompile Include="stdafx.cpp">

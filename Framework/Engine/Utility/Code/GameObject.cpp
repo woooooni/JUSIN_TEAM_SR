@@ -98,6 +98,7 @@ void CGameObject::Set_Billboard()
 	m_pTransformCom->Set_Info(INFO_LOOK, &(vLook));
 
 }
+
 CComponent * CGameObject::Find_Component(COMPONENT_TYPE eType, COMPONENTID eID)
 {
 	auto& iter = m_mapComponent[eID].find(eType);

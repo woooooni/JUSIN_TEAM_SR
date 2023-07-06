@@ -2,7 +2,6 @@
 
 #include "Export_Function.h"
 #include "Bullet.h"
-#include "Collider.h"
 
 #include "Scene.h"
 #include "Terrain.h"
@@ -198,7 +197,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
 	}
-
+	//Add_CollisionGroup(m_pColliderCom);
 	m_vecState[(_uint)m_eState]->Update_State(fTimeDelta);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -241,24 +240,10 @@ HRESULT CPlayer::Ready_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	pComponent = m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_BODY] = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
+	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
-
-	/*for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
-	{
-		m_pCollider[i] = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
-		NULL_CHECK_RETURN(pComponent, E_FAIL);
-		pComponent->SetOwner(this);
-		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
-	}*/
-	
-	m_pColliderCom = m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_BODY];
-
-	//dynamic_cast<CBoxCollider*>(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB])->Set_Scale(_vec3(0.5f, 0.5f, 0.5f));
-	//m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB]->Set_Active(false);
-	//m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK]->Set_Active(false);
 
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
@@ -287,79 +272,15 @@ void CPlayer::Player_Move(_float fTimeDelta)
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 10.f);
 	}
 }
-void CPlayer::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer::Collision_Enter(CGameObject* pCollisionObj)
 {
 	//MSG_BOX("충돌 Enter");
-	
-
 }
-void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer::Collision_Stay(CGameObject* pCollisionObj)
 {
-	
 	//MSG_BOX("충돌 Stay");
-	
-	if (_iColliderID == m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_BODY]->Get_Id())
-	{
-		OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
-		_vec3 vTargetPos;
-		_vec3 vPos;
-		_vec3 vDir;
-		pCollisionObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vDir = vTargetPos - vPos;
-
-		if (vDir.x > 0.0f && fabs(vDir.x) > fabs(vDir.z))
-		{
-			eTargetDir = OBJ_DIR::DIR_R;
-		}
-		else if (vDir.z > 0.0f && fabs(vDir.z) > fabs(vDir.x))
-		{
-			eTargetDir = OBJ_DIR::DIR_U;
-		}
-		else if (vDir.x < 0.0f && fabs(vDir.x) > fabs(vDir.z))
-		{
-			eTargetDir = OBJ_DIR::DIR_L;
-		}
-		else if (vDir.z < 0.0f && fabs(vDir.x) < fabs(vDir.z))
-		{
-			eTargetDir = OBJ_DIR::DIR_D;
-		}
-
-		if (m_eState == PLAYER_STATE::PUSH)
-		{
-			
-		}
-		else
-		{
-			if (eTargetDir == OBJ_DIR::DIR_R && fabs(vDir.x) < 0.9f)
-			{
-				vPos = { vTargetPos.x - 0.9f, vPos.y, vPos.z };
-				m_pTransformCom->Set_Pos(&vPos);
-			}
-			else if (eTargetDir == OBJ_DIR::DIR_L && fabs(vDir.x) < 0.9f)
-			{
-				vPos = { vTargetPos.x + 0.9f, vPos.y, vPos.z };
-				m_pTransformCom->Set_Pos(&vPos);
-			}
-			else if (eTargetDir == OBJ_DIR::DIR_U && fabs(vDir.z) < 0.9f)
-			{
-				vPos = { vPos.x, vPos.y, vTargetPos.z - 0.9f };
-				m_pTransformCom->Set_Pos(&vPos);
-			}
-			else if (eTargetDir == OBJ_DIR::DIR_D && fabs(vDir.z) < 0.9f)
-			{
-				vPos = { vPos.x, vPos.y, vTargetPos.z + 0.9f };
-				m_pTransformCom->Set_Pos(&vPos);
-			}
-
-			if (m_eDir == eTargetDir)
-				m_bPush = true;
-
-		}
-	}
-	
 }
-void CPlayer::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer::Collision_Exit(CGameObject* pCollisionObj)
 {
 	//MSG_BOX("충돌 Exit");
 }
