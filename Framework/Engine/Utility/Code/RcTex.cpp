@@ -80,9 +80,11 @@ void CRcTex::SetAlpha(_int _iAlpha)
 
 }
 
-CRcTex * CRcTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CRcTex * CRcTex::Create(LPDIRECT3DDEVICE9 pGraphicDev, _float fCX, _float fCY)
 {
 	CRcTex *	pInstance = new CRcTex(pGraphicDev);
+	pInstance->Set_Width(fCX);
+	pInstance->Set_Height(fCY);
 
 	if (FAILED(pInstance->Ready_Buffer()))
 	{
