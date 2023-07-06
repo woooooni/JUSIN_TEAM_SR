@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "Player.h"
 #include "KeyMgr.h"
+#include "Collider.h"
 
 CPlayer_State_Lift::CPlayer_State_Lift(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
@@ -23,6 +24,7 @@ HRESULT CPlayer_State_Lift::Ready_State(void)
 	{
 	case OBJ_DIR::DIR_U:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Up", FALSE);
+		//dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_GRAB)->
 		break;
 	case OBJ_DIR::DIR_D:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"LiftUp_Down", FALSE);
@@ -47,6 +49,8 @@ HRESULT CPlayer_State_Lift::Ready_State(void)
 		break;
 	}
 
+
+
 	return S_OK;
 }
 
@@ -54,6 +58,9 @@ _int CPlayer_State_Lift::Update_State(const _float& fTimeDelta)
 {
 	switch (m_eLiftState)
 	{
+	case LIFT_STATE::LIFTREADY:
+		Update_LiftReady(fTimeDelta);
+		break;
 	case LIFT_STATE::LIFTUP:
 		Update_LiftUp(fTimeDelta);
 		break;
@@ -77,6 +84,11 @@ void CPlayer_State_Lift::LateUpdate_State(void)
 
 void CPlayer_State_Lift::Render_State(void)
 {
+}
+
+_int CPlayer_State_Lift::Update_LiftReady(const _float& fTimeDelta)
+{
+	return 0;
 }
 
 _int CPlayer_State_Lift::Update_LiftUp(const _float& fTimeDelta)

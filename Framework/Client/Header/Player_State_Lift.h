@@ -14,6 +14,7 @@ public:
 	virtual void			Render_State(void) override;
 
 private:
+	_int			Update_LiftReady(const _float& fTimeDelta);
 	_int			Update_LiftUp(const _float& fTimeDelta);
 	_int			Update_LiftIdle(const _float& fTimeDelta);
 	_int			Update_LiftDown(const _float& fTimeDelta);
@@ -26,5 +27,7 @@ private:
 
 	_float m_fAccTime;
 	_float m_fKeyDelayTime;
+
+	_float m_fLiftTime;
 };
 
