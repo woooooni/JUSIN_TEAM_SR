@@ -24,12 +24,12 @@ HRESULT CPushStone::Ready_Object(void)
 
 _int CPushStone::Update_Object(const _float& fTimeDelta)
 {
-
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	__super::Update_Object(fTimeDelta);
 
-	//Add_CollisionGroup(m_pColliderCom);
+	
     return 0;
 }
 
