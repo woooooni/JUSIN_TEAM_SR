@@ -1,4 +1,3 @@
-
 #include "BlueBeatle.h"
 #include "Export_Function.h"
 
