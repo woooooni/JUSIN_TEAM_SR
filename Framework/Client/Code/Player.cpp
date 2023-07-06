@@ -192,6 +192,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);
 	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], COLLISION_GROUP::COLLIDE_GRAB);
+	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK], COLLISION_GROUP::COLLIDE_SWING);
 
 	if (m_bStateChange)
 	{
@@ -310,6 +311,11 @@ void CPlayer::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 		Collision_Enter_Grab(pCollisionObj, _iColliderID);
 	}
 
+	if (m_pColliderCom->Get_Id() == _iColliderID && pCollisionObj->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	{
+		Collision_Enter_Hit(pCollisionObj, _iColliderID);
+	}
+
 }
 void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 {
@@ -320,6 +326,8 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 	{
 		Collision_Stay_Push(pCollisionObj, _iColliderID);
 	}
+
+	
 	
 	
 	
@@ -402,6 +410,10 @@ void CPlayer::Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID)
 			pCollisionObj->Get_TransformCom()->Set_Pos(&vTargetPos);
 		}
 	}
+	else if (pCollisionObj == m_pLiftObj)
+	{
+
+	}
 	else
 	{
 		if (eTargetDir == OBJ_DIR::DIR_R && fabs(vDir.x) < 0.9f)
@@ -433,6 +445,72 @@ void CPlayer::Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID)
 
 void CPlayer::Collision_Enter_Grab(CGameObject* pCollisionObj, UINT _iColliderID)
 {
+	m_pLiftObj = pCollisionObj;
 	m_bGrab = true;
+}
+
+void CPlayer::Collision_Enter_Hit(CGameObject* pCollisionObj, UINT _iColliderID)
+{
+	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
+	_vec3 vTargetPos;
+	_vec3 vPos;
+	_vec3 vDir;
+	_vec3 vAxis = {0.0f, 0.0f, 1.0f};
+	pCollisionObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = vTargetPos - vPos;
+	vDir.y = 0.0f;
+	D3DXVec3Normalize(&vDir, &vDir);
+
+	_float fAngle = D3DXVec3Dot(&vDir, &vAxis);
+	fAngle = acosf(fAngle);
+
+	if (vDir.x < 0.0f)
+		fAngle = D3DX_PI * 2 - fAngle;
+
+	
+	fAngle = D3DXToDegree(fAngle);
+	
+
+
+	_uint iDir = fAngle / 22.5f;
+
+	if (iDir == 0 || iDir == 15 || iDir == 16)
+	{
+		eTargetDir = OBJ_DIR::DIR_U;
+	}
+	else if (iDir == 1 || iDir == 2)
+	{
+		eTargetDir = OBJ_DIR::DIR_RU;
+	}
+	else if (iDir == 3 || iDir == 4)
+	{
+		eTargetDir = OBJ_DIR::DIR_R;
+	}
+	else if (iDir == 5 || iDir == 6)
+	{
+		eTargetDir = OBJ_DIR::DIR_RD;
+	}
+	else if (iDir == 7 || iDir == 8)
+	{
+		eTargetDir = OBJ_DIR::DIR_D;
+	}
+	else if (iDir == 9 || iDir == 10)
+	{
+		eTargetDir = OBJ_DIR::DIR_LD;
+	}
+	else if (iDir == 11 || iDir == 12)
+	{
+		eTargetDir = OBJ_DIR::DIR_L;
+	}
+	else if (iDir == 13 || iDir == 14)
+	{
+		eTargetDir = OBJ_DIR::DIR_LU;
+	}
+
+	m_eDir = eTargetDir;
+
+	Change_State(PLAYER_STATE::HIT);
+
 }
 

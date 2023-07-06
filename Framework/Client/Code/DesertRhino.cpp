@@ -36,10 +36,11 @@ void CDesertRhino::Update_Die(_float fTimeDelta)
 
 void CDesertRhino::Update_Regen(_float fTimeDelta)
 {
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = vTargetPos - vPos;
+	/*vDir = vTargetPos - vPos;
 	m_vDir = vTargetPos - vPos;
 	if (m_fMoveTime > 15.f)
 	{
@@ -47,7 +48,7 @@ void CDesertRhino::Update_Regen(_float fTimeDelta)
 		m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10 * fTimeDelta;*/
 }
 
 void CDesertRhino::Update_Move(_float fTimeDelta)
