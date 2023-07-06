@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Player.h"
 #include "Transform.h"
+#include "Collider.h"
 
 CPlayer_State_Swing::CPlayer_State_Swing(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner)
@@ -53,32 +54,41 @@ HRESULT CPlayer_State_Swing::Ready_State(void)
 	{
 	case OBJ_DIR::DIR_U:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Up", FALSE);
+		m_vSwingDir = { 0.0f, 0.0f, 0.5f };
 		break;
 	case OBJ_DIR::DIR_D:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Down", FALSE);
+		m_vSwingDir = { 0.0f, 0.0f, -0.5f };
 		break;
 	case OBJ_DIR::DIR_L:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Left", FALSE);
+		m_vSwingDir = { -0.5f, 0.0f, 0.0f };
 		break;
 	case OBJ_DIR::DIR_R:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Right", FALSE);
+		m_vSwingDir = { 0.5f, 0.0f, 0.0f };
 		break;
 	case OBJ_DIR::DIR_LD:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_LeftDown", FALSE);
+		m_vSwingDir = { -0.5f, 0.0f, -0.5f };
 		break;
 	case OBJ_DIR::DIR_LU:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_LeftUp", FALSE);
+		m_vSwingDir = { -0.5f, 0.0f, 0.5f };
 		break;
 	case OBJ_DIR::DIR_RU:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_RightUp", FALSE);
+		m_vSwingDir = { 0.5f, 0.0f, 0.5f };
 		break;
 	case OBJ_DIR::DIR_RD:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_RightDown", FALSE);
+		m_vSwingDir = { 0.5f, 0.0f, -0.5f };
 		break;
 	}
 
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(2.5f, 2.5f, 2.5f));
-
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Offset(m_vSwingDir);
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Active(true);
 	return S_OK;
 }
 
@@ -93,6 +103,8 @@ void CPlayer_State_Swing::LateUpdate_State(void)
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Offset(_vec3(0.0f,0.0f,0.0f));
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Active(false);
 	}
 }
 

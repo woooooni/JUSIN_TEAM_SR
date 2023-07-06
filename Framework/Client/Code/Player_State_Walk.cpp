@@ -77,6 +77,8 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Walk_RightDown", true);
 		break;
 	}
+
+	m_fAccTime = 0.0f;
 	return S_OK;
 }
 
