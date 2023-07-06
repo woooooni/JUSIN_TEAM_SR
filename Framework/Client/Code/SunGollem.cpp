@@ -1,3 +1,4 @@
+#include "../Include/stdafx.h"
 #include "Export_Function.h"
 #include "SunGollem.h"
 #include "GolemParts.h"
