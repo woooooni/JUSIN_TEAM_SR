@@ -51,8 +51,15 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 
 void CGolemFist::LateUpdate_Object(void)
 {
-
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS,&vPos);
 	__super::LateUpdate_Object();
+	if (vPos.y < -1.f)
+	{
+		if(Is_Active())
+		Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.1f);
+		Set_Active(false);
+	}
 }
 
 void CGolemFist::Render_Object(void)

@@ -30,7 +30,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
 	
 	memset(m_bAttack, 1, sizeof(bool)*6);
-
+	m_vVerticalDir = { 0.f, 1.f ,0.f }; m_vVerticalDir = { 0.f, 1.f ,0.f };
 	m_pTransformCom->Set_Pos(&_vec3(4.0f, 2.0f, 4.0f));
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -38,7 +38,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_vRandomPos[1] = { vPos.x , vPos.y, vPos.z };
 	m_vRandomPos[2] = { vPos.x + 5, vPos.y, vPos.z };
 	m_pTransformCom->Set_Scale({ 2,2,2 });
-	Set_Speed(5.f);
+	m_fSpeed = 5.f;
 	Set_State(SUNGOLEM_STATE::REGEN);
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
 
@@ -144,10 +144,12 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			m_bBreath = false;
 		else
 			m_bBreath = true;
-		if(rand()%10>7)
+	
+		if(rand()%10>4)
 			Set_State(SUNGOLEM_STATE::MOVE);
-		else if(rand() % 10 < 2)
+		else if(rand() % 10 < 5)
 			Set_State(SUNGOLEM_STATE::ATTACK);
+		m_fSpeed = 5.f;
 		m_fMoveTime = 0.f;
 	}
 
@@ -202,11 +204,12 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 
 	if (vPos.y < 2.f&&m_fSpeed<0)
 	{
+		Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.5f);
 			m_vVerticalDir= {0.f, 1.f ,0.f };
-			m_fSpeed = 10.f;
+			m_fSpeed = 15.f;
 			m_iRand = rand() % 3 ;
 		m_fMoveTime = 0.f;
-		Set_State(SUNGOLEM_STATE::IDLE);
+		Set_State(SUNGOLEM_STATE::ATTACK);
 	}
 	m_fMoveTime += 10 * fTimeDelta;
 
@@ -299,7 +302,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 		if (m_fMoveTime > 40.f)
 		{
 			m_fMoveTime = 0.f;
-			Set_State(SUNGOLEM_STATE::MOVE);
+			Set_State(SUNGOLEM_STATE::IDLE);
 			memset(m_bAttack, 1, sizeof(bool) * 6);
 			m_iActiveArm += 2;
 			if (m_iActiveArm > 5)
