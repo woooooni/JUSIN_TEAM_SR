@@ -101,8 +101,7 @@ HRESULT CGolemLeftArm::Add_Component(void)
 
 void CGolemLeftArm::Update_Idle(_float fTimeDelta)
 {
-	m_pAnimator->Play_Animation(L"SunGolem_Idle_LeftArm", true);
-	_vec3 vDir;
+_vec3 vDir;
 	if (m_bBreath)
 		vDir = { 0.,1.f ,0.f };
 	else

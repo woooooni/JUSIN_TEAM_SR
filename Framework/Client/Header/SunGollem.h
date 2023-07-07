@@ -16,7 +16,7 @@ public:
 	enum BODYPARTS {
 		HEAD=0, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
 		LEFTARM2, RIGHTARM0,RIGHTARM1, RIGHTARM2, LEFTHAND0, 
-		LEFTHAND1, LEFTHAND2,RIGHTHAND0, RIGHTHAND1, RIGHTHAND2,PARTSEND};
+		LEFTHAND1, LEFTHAND2,RIGHTHAND0, RIGHTHAND1, RIGHTHAND2,FACE,PARTSEND};
 protected:
 	explicit CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CSunGollem(const CSunGollem& rhs);
@@ -73,6 +73,7 @@ protected:
 	_vec3 m_vRandomPos[3] = {};
 	_int m_iRand = 1;
 	_int m_iActiveArm = 2;
+	bool m_bAttack = true;
 	bool m_bDirty = false;
 protected:
 	virtual void Free() override;

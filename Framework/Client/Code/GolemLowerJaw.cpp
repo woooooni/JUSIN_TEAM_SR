@@ -99,7 +99,6 @@ HRESULT CGolemLowerJaw::Add_Component(void)
 
 void CGolemLowerJaw::Update_Idle(_float fTimeDelta)
 {
-	m_pAnimator->Play_Animation(L"SunGolem_Idle_LowerJaw", true);
 	_vec3 vDir;
 	if (m_bBreath)
 		vDir = { 0.,1.f ,0.f };

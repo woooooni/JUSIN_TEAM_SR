@@ -42,7 +42,7 @@ public:
 	OBJ_DIR GetObj_Dir() { return m_eDir; }
 	void SetObj_Dir(OBJ_DIR _eDir) { m_eDir = _eDir; }
 
-	void Set_Active(_float _bActive) { m_bActive = _bActive; }
+	void Set_Active(_bool _bActive) { m_bActive = _bActive; }
 	_bool Is_Active() { return m_bActive; }
 
 	CVIBuffer* Get_BufferCom() { return m_pBufferCom; }

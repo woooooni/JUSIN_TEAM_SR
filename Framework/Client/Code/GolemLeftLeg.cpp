@@ -100,8 +100,7 @@ HRESULT CGolemLeftLeg::Add_Component(void)
 
 void CGolemLeftLeg::Update_Idle(_float fTimeDelta)
 {
-	m_pAnimator->Play_Animation(L"SunGolem_Idle_LeftLeg", true);
-
+	
 
 	
 

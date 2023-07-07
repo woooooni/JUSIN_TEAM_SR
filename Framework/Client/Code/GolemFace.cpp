@@ -1,40 +1,40 @@
 #include "Export_Function.h"
-#include "GolemRightLeg.h"
+#include "GolemFace.h"
 #include "SunGollem.h"
-
-CGolemRightLeg::CGolemRightLeg(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CGolemFace::CGolemFace(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
 {
 }
-CGolemRightLeg::CGolemRightLeg(const CGolemRightLeg& rhs)
+CGolemFace::CGolemFace(const CGolemFace& rhs)
 	: Engine::CGameObject(rhs)
 	, m_eState(rhs.m_eState)
 {
 
 }
 
-CGolemRightLeg::~CGolemRightLeg()
+CGolemFace::~CGolemFace()
 {
 }
 
-HRESULT CGolemRightLeg::Ready_Object(void)
+HRESULT CGolemFace::Ready_Object(void)
 {
-	//227 / 315
 	m_fMoveTime = 0.f;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pAnimator->Add_Animation(L"SunGolem_Idle_RightLeg", L"Proto_Texture_SunGolem_Idle_RightLeg", 0.1f);
-	m_pAnimator->Add_Animation(L"SunGolem_Dirty_RightLeg", L"Proto_Texture_SunGolem_Dirty_RightLeg", 0.1f);
-	m_pAnimator->Play_Animation(L"SunGolem_Idle_RightLeg", true);
+	m_pAnimator->Add_Animation(L"SunGolem_Dirty_FaceChange", L"Proto_Texture_SunGolem_Dirty_FaceChange", 0.1f);
+	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Face", L"Proto_Texture_SunGolem_Dirty_Face", 0.1f);
+	m_pAnimator->Add_Animation(L"SunGolem_Dirty_FaceDeath", L"Proto_Texture_SunGolem_Dirty_FaceDeath", 0.1f);
+	m_pAnimator->Play_Animation(L"SunGolem_Dirty_FaceChange", false);
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-
-	m_pTransformCom->Set_Scale({ 0.227f*3.f, 0.315f*3.f,1.f });
-
+	m_pTransformCom->Set_Scale({ 2.f,2.f,2.f });
+	Set_Active(false);
+	//	Proto_Texture_SunGolem_Dirty_FaceDeath
 	Set_State(SUNGOLEM_STATE::REGEN);
+
 	return S_OK;
 }
 
-_int CGolemRightLeg::Update_Object(const _float& fTimeDelta)
+_int CGolemFace::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"SunGollem");
@@ -65,12 +65,12 @@ _int CGolemRightLeg::Update_Object(const _float& fTimeDelta)
 	return iExit;
 }
 
-void CGolemRightLeg::LateUpdate_Object(void)
+void CGolemFace::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
 }
 
-void CGolemRightLeg::Render_Object(void)
+void CGolemFace::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -80,7 +80,7 @@ void CGolemRightLeg::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-HRESULT CGolemRightLeg::Add_Component(void)
+HRESULT CGolemFace::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
@@ -99,39 +99,70 @@ HRESULT CGolemRightLeg::Add_Component(void)
 	return S_OK;
 }
 
-void CGolemRightLeg::Update_Idle(_float fTimeDelta)
+void CGolemFace::Update_Idle(_float fTimeDelta)
 {
+	m_pAnimator->Play_Animation(L"SunGolem_Dirty_Face", true);
+	_vec3 vDir;
+	if (m_bBreath)
+		vDir = { 0.,1.f ,0.f };
+	else
+		vDir = { 0.f,-1.f ,0.f };
+
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
+	if (m_fMoveTime > 10.f)
+	{
+		if (m_bBreath)
+			m_bBreath = false;
+		else
+			m_bBreath = true;
+
+			m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10 * fTimeDelta;
+
 
 	
 
 
 }
 
-void CGolemRightLeg::Update_Dirty(_float fTimeDelta)
+void CGolemFace::Update_Dirty(_float fTimeDelta)
 {
-	m_pAnimator->Play_Animation(L"SunGolem_Dirty_RightLeg", true);
-	_vec3 vDir;
+	
 
+	_vec3 vDir;
+	if (m_bBreath)
+		vDir = { 0.,1.f ,0.f };
+	else
+		vDir = { 0.f,-1.f ,0.f };
+
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
 	if (m_fMoveTime > 10.f)
 	{
+		if (m_bBreath)
+			m_bBreath = false;
+		else
+			m_bBreath = true;
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10 * fTimeDelta;
 }
 
-void CGolemRightLeg::Update_Move(_float fTimeDelta)
+void CGolemFace::Update_Move(_float fTimeDelta)
 {
 }
 
-void CGolemRightLeg::Update_Attack(_float fTimeDelta)
+void CGolemFace::Update_Attack(_float fTimeDelta)
 {
 }
 
-void CGolemRightLeg::Update_Die(_float fTimeDelta)
+void CGolemFace::Update_Die(_float fTimeDelta)
 {
+	m_pAnimator->Play_Animation(L"SunGolem_Dirty_FaceDeath", false);
+
 }
 
-void CGolemRightLeg::Update_Regen(_float fTimeDelta)
+void CGolemFace::Update_Regen(_float fTimeDelta)
 {
 	_vec3 vDir, vPos;
 	vDir = { 0,1 ,0 };
@@ -145,21 +176,21 @@ void CGolemRightLeg::Update_Regen(_float fTimeDelta)
 		m_fMoveTime = 0.f;
 	}
 }
-CGolemRightLeg* CGolemRightLeg::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CGolemFace* CGolemFace::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CGolemRightLeg* pInstance = new CGolemRightLeg(pGraphicDev);
+	CGolemFace* pInstance = new CGolemFace(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("GolemRightLeg Create Failed");
+		MSG_BOX("GolemFace Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
-void CGolemRightLeg::Free()
+void CGolemFace::Free()
 {
 	__super::Free();
 }
