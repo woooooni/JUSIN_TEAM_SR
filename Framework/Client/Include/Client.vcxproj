@@ -239,6 +239,9 @@
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="..\Header\UIPages.h" />
+    <ClInclude Include="..\Header\UI_AdventureBook.h" />
+    <ClInclude Include="..\Header\UI_BookBackground.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -304,6 +307,9 @@
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="..\Code\UIPages.cpp" />
+    <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
+    <ClCompile Include="..\Code\UI_BookBackground.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

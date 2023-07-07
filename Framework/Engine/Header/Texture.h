@@ -20,7 +20,7 @@ public:
 	void		Render_Texture(const _uint& iIndex = 0);
 
 public:
-	_uint Get_Size() { return m_vecTexture.size(); }
+	size_t Get_Size() { return m_vecTexture.size(); }
 	LPDIRECT3DBASETEXTURE9	Get_Texture(_uint iTextNum) { return m_vecTexture[iTextNum]; }
 	D3DXIMAGE_INFO	Get_TextureDesc(_uint _iIdx) { return m_vecTextureInfo[_iIdx]; }
 

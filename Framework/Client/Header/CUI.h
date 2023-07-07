@@ -32,7 +32,7 @@ protected:
 //public:
 //	static CUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-private:
+protected:
 	virtual void Free() override;
 };
 
