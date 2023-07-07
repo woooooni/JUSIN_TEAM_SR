@@ -23,7 +23,7 @@ HRESULT CBalpanObj::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Idle", L"Proto_Tex_BalpanNotPressed", 0.2f);
 	m_pAnimator->Add_Animation(L"Pushed", L"Proto_Tex_BalpanPressed", 0.2f);
 
-	m_pAnimator->Play_Animation(L"UnActivate", false);
+	m_pAnimator->Play_Animation(L"Idle", false);
 
 
 	return S_OK;
