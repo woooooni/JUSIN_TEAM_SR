@@ -12,6 +12,7 @@ CRigidBody::CRigidBody()
 	, m_vAccel(_vec3(0.f, 0.f, 0.f))
 	, m_vAccelA(_vec3(0.f, 0.f, 0.f))
 	, m_vForce(_vec3(0.f, 0.f, 0.f))
+	, m_fFricCoeff(100.f)
 {
 }
 
@@ -25,6 +26,7 @@ CRigidBody::CRigidBody(LPDIRECT3DDEVICE9 _pDevice)
 	, m_vAccel(_vec3(0.f, 0.f, 0.f))
 	, m_vAccelA(_vec3(0.f, 0.f, 0.f)) 
 	, m_vForce(_vec3(0.f, 0.f, 0.f))
+	, m_fFricCoeff(100.f)
 {
 }
 
@@ -38,6 +40,7 @@ CRigidBody::CRigidBody(const CRigidBody& rhs)
 	, m_vAccel(_vec3(0.f, 0.f, 0.f))
 	, m_vAccelA(_vec3(0.f, 0.f, 0.f))
 	, m_vForce(_vec3(0.f, 0.f, 0.f))
+	, m_fFricCoeff(rhs.m_fFricCoeff)
 {
 }
 
@@ -80,6 +83,27 @@ _int CRigidBody::Update_Component(const _float& fTimeDelta)
 
 	m_vAccel += m_vAccelA;
 	m_vVelocity += m_vAccel * fTimeDelta;
+
+	if (m_vVelocity.x > 0.f || m_vVelocity.z > 0.f)
+	{
+		_vec3 vFricDir = m_vVelocity * -1.f;
+		D3DXVec3Normalize(&vFricDir, &vFricDir);
+
+		_vec3 vFriction;
+
+		if (IsGround())
+			vFriction = vFricDir * m_fFricCoeff * fTimeDelta;
+		else
+			vFriction = vFricDir * fTimeDelta;
+		if (D3DXVec3Length(&m_vVelocity) <= D3DXVec3Length(&vFriction))
+		{
+			m_vVelocity = _vec3(0.f, 0.f, 0.f);
+		}
+		else
+		{
+			m_vVelocity += vFriction;
+		}
+	}
 
 	if (abs(m_vMaxVelocity.x) < abs(m_vVelocity.x))
 		m_vVelocity.x = (m_vVelocity.x / abs(m_vVelocity.x)) * abs(m_vMaxVelocity.x);

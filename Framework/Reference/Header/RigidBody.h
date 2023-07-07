@@ -39,6 +39,9 @@ public:
 	void SetGround(_bool _bGround);
 	bool IsGround() { return m_bGround; }
 
+	void SetFricCoeff(_float _fFric) { m_fFricCoeff = _fFric; }
+	_float GetFricCoeff() { return m_fFricCoeff; }
+
 private:
 	void Update_Gravity();
 	void Move(_float fTimeDelta);
@@ -54,6 +57,8 @@ private:
 
 	_bool		m_bGravity;		// 중력 적용 여부
 	_bool		m_bGround;		// 현재 땅바닥에 있는지.
+
+	_float		m_fFricCoeff;	// 마찰력
 	
 
 public:
