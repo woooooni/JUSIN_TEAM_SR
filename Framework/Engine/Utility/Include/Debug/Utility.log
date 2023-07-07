@@ -1,13 +1,11 @@
-﻿  unity_WUQBUOE9I8VCT94O.cpp
-C:\SRTeam\Framework\Engine\Header\EventMgr.h(43): warning C4715: 'Engine::CEventMgr::Add_Event': 모든 제어 경로에서 값을 반환하지는 않습니다.
-     ../Bin\Utility.lib 라이브러리 및 ../Bin\Utility.exp 개체를 생성하고 있습니다.
+﻿     ../Bin\Utility.lib 라이브러리 및 ../Bin\Utility.exp 개체를 생성하고 있습니다.
   Utility.vcxproj -> C:\SRTeam\Framework\Engine\Utility\Bin\Utility.dll
   .\Engine\Utility\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
   .\Engine\Utility\Code\*.hpp 
-  지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
+  지정된 파일을 찾을 수 없습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
   .\Engine\Header\Animator.h
@@ -33,7 +31,6 @@ C:\SRTeam\Framework\Engine\Header\EventMgr.h(43): warning C4715: 'Engine::CEvent
   .\Engine\Header\FrameMgr.h
   .\Engine\Header\GameObject.h
   .\Engine\Header\GraphicDev.h
-  .\Engine\Header\ImGuiMgr.h
   .\Engine\Header\InputDevice.h
   .\Engine\Header\KeyMgr.h
   .\Engine\Header\Layer.h
@@ -54,7 +51,7 @@ C:\SRTeam\Framework\Engine\Header\EventMgr.h(43): warning C4715: 'Engine::CEvent
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         44개 파일이 복사되었습니다.
+         43개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

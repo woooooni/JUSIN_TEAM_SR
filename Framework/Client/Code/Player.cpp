@@ -20,6 +20,7 @@
 #include "Player_State_GetItem.h"
 #include "Player_State_BallonFly.h"
 #include "Player_State_Drawing.h"
+#include "FieldObject.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -324,6 +325,8 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 	
 	if (_iColliderID == m_pColliderCom->Get_Id())
 	{
+		CFieldObject* src;
+		if((src = dynamic_cast<CFieldObject*>(pCollisionObj)) && src->Get_ObjInfo().m_bIsPushable)
 		Collision_Stay_Push(pCollisionObj, _iColliderID);
 	}
 

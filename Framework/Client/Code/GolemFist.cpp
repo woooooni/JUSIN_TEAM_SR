@@ -31,6 +31,9 @@ HRESULT CGolemFist::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 1.f, 1.f,1.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
+
+	return S_OK;
+
 }
 
 _int CGolemFist::Update_Object(const _float& fTimeDelta)

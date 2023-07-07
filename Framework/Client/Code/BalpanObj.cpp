@@ -39,6 +39,7 @@ _int CBalpanObj::Update_Object(const _float& fTimeDelta)
 
 
 
+
 	
 
     _int       ret = __super::Update_Object(fTimeDelta);
@@ -47,6 +48,19 @@ _int CBalpanObj::Update_Object(const _float& fTimeDelta)
 
 void CBalpanObj::LateUpdate_Object(void)
 {
+	if (!m_listActivateNum.empty())
+	{
+		for (auto iter = m_listActivateNum.begin(); iter != m_listActivateNum.end();)
+		{
+			if (Check_Event_Start(*iter) == S_OK)
+			{
+				iter = m_listActivateNum.erase(iter);
+			}
+			else
+				++iter;
+		}
+	}
+
 }
 
 void CBalpanObj::Render_Object(void)
@@ -83,7 +97,7 @@ CBalpanObj* CBalpanObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
 
 void CBalpanObj::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 {	
-	if (m_listActivateNum.empty())
+	if (m_listActivateNum.empty() && pCollisionObj->Get_Name() == m_wstrTargName)
 	{
 		if (m_bIsPushed && !m_bIsAutoReset)
 			return;
@@ -103,10 +117,14 @@ void CBalpanObj::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 
 void CBalpanObj::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
 {
-	if (m_bIsAutoReset && m_listActivateNum.empty())
+	if (m_bIsAutoReset && m_bIsPushed && pCollisionObj->Get_Name() == m_wstrTargName)
 	{
 		Reset_Pushed();
 		m_pAnimator->Play_Animation(L"Idle", false);
+		if (m_iPushedEventNum != 0)
+			Engine::Check_Event_Start(m_iPushedEventNum);
+
+
 	}
 }
 
@@ -158,7 +176,7 @@ void CBalpanObj::Add_ActivateState(const _uint& pNum)
 
 	 if (iter != m_listActivateNum.end())
 	 {
-		 m_listActivateNum.erase(iter);
+
 	 }
  }
 

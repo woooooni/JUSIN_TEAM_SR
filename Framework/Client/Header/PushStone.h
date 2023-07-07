@@ -33,6 +33,8 @@ public:
 
     static      CPushStone* Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev);
 
+    virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)override;
+
 private:
     HRESULT                 Ready_Component();
 

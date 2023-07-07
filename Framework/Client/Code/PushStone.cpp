@@ -4,6 +4,7 @@
 
 CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev)
 {
+
 }
 
 CPushStone::CPushStone(const CPushStone& rhs) : CPushableObj(rhs)
@@ -80,6 +81,11 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 
 }
 
+void CPushStone::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+{
+	m_pColliderCom->Update_Component(0.f);
+}
+
 HRESULT CPushStone::Ready_Component()
 {
 	CComponent* pComponent = nullptr;
@@ -103,6 +109,11 @@ HRESULT CPushStone::Ready_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
 	return S_OK;
 

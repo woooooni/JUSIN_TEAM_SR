@@ -28,6 +28,8 @@ HRESULT CGolemHead::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 2.f,2.f,2.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
+
+	return S_OK;
 }
 
 _int CGolemHead::Update_Object(const _float& fTimeDelta)

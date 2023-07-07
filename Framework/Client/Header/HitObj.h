@@ -26,6 +26,7 @@ protected:
 	OBJ_HITTYPE			m_eHitType;
 	HRESULT				Ready_Component();
 	float				m_fEffectTime;
+	float				m_fResetTime;
 	_uint				m_iEventNum;
 	_bool				m_bHitted = false;
 	_vec3				m_vOrigin;

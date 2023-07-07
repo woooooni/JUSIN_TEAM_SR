@@ -36,6 +36,7 @@ Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 
 	__super::Update_Scene(fTimeDelta);
 
+
 	return 0;
 }
 
@@ -148,9 +149,10 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pGrab, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GrabStone", pGrab), E_FAIL);
 
-	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 4, { 13, 1, 15 });
+	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 1, { 13, 1, 15 });
 	NULL_CHECK_RETURN(pBal, E_FAIL);
 	pBal->Set_AutoReset();
+	pBal->Set_TargName(L"Stone");
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
 
 	pBal = CBalpanObj::Create(m_pGraphicDev, 0, { 15, 1, 15 });
@@ -173,6 +175,30 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 15, 1, 20 }, true);
 	NULL_CHECK_RETURN(pBlock, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
+
+	CJellyStone* pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, { 8, 1, 10 });
+	NULL_CHECK_RETURN(pJelly, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
+
+	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, { 5, 1, 10 });
+	NULL_CHECK_RETURN(pJelly, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
+
+	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, { 11, 1, 10 });
+	NULL_CHECK_RETURN(pJelly, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
+
+
+
+	CJellyCombined* pCombine = CJellyCombined::Create(m_pGraphicDev, JELLY_COLLOR_COMBINE::RED, 0, { 5, 1, 13 });
+	NULL_CHECK_RETURN(pCombine, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Combined", pCombine), E_FAIL);
+
+	CCatapult* pCata = CCatapult::Create(m_pGraphicDev, 0, { 5, 1 , 20 });
+	NULL_CHECK_RETURN(pCata, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Catapult", pCata), E_FAIL);
+
+
 
 	// UI
 	//CUI* pUI = CUI::Create(m_pGraphicDev);

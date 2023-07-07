@@ -28,6 +28,8 @@ HRESULT CGolemUpperJaw::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 0.6f,0.6f,0.6f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
+
+	return S_OK;
 }
 
 _int CGolemUpperJaw::Update_Object(const _float& fTimeDelta)

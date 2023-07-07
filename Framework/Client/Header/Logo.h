@@ -17,6 +17,9 @@
 #include "BalpanObj.h"
 #include "HitObj.h"
 #include "BlockObj.h"
+#include "JellyStone.h"
+#include "JellyCombined.h"
+#include	"Catapult.h"
 
 
 class CLogo : public Engine::CScene

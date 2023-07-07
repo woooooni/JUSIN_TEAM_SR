@@ -3,11 +3,11 @@
 #include "Export_Function.h"
 #include <time.h>
 
-CHitObj::CHitObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_eHitType(OBJ_HITTYPE::HIT_ONCE) ,m_fEffectTime(0.f), m_bHitted(false), m_iEventNum(0), m_vOrigin(0, 0, 0), m_vToward(0, 0, 0)
+CHitObj::CHitObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_eHitType(OBJ_HITTYPE::HIT_ONCE) ,m_fEffectTime(0.f), m_bHitted(false), m_iEventNum(0), m_vOrigin(0, 0, 0), m_vToward(0, 0, 0), m_fResetTime(0.f)
 {
 }
 
-CHitObj::CHitObj(const CHitObj& rhs) : CFieldObject(rhs), m_eHitType(rhs.m_eHitType), m_fEffectTime(rhs.m_fEffectTime), m_bHitted(rhs.m_bHitted), m_iEventNum(rhs.m_iEventNum), m_vOrigin(rhs.m_vOrigin), m_vToward(rhs.m_vToward)
+CHitObj::CHitObj(const CHitObj& rhs) : CFieldObject(rhs), m_eHitType(rhs.m_eHitType), m_fEffectTime(rhs.m_fEffectTime), m_bHitted(rhs.m_bHitted), m_iEventNum(rhs.m_iEventNum), m_vOrigin(rhs.m_vOrigin), m_vToward(rhs.m_vToward), m_fResetTime(rhs.m_fResetTime)
 {
 }
 
@@ -33,22 +33,24 @@ _int CHitObj::Update_Object(const _float& fTimeDelta)
 
 	if (m_fEffectTime > 0.f)
 	{
-		_vec3 Targ = m_vOrigin + m_vToward;
-		_vec3 myPos;	
-		m_pTransformCom->Get_Info(INFO_POS, &myPos);
-
-		_vec3 mDir = Targ - myPos;
+		
 
 
-		if (D3DXVec3Length(&mDir) < 0.1f)
-		{
-			Make_Toward();
-		}
-			
-
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&myPos, &myPos), 1.f, fTimeDelta);
+		m_pTransformCom->Move_Pos(&m_vToward, 1.f, fTimeDelta);
 
 		m_fEffectTime -= fTimeDelta;
+		m_fResetTime += fTimeDelta;
+
+		if (m_fResetTime > 0.1f)
+		{
+			_vec3		vPos;
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			D3DXVec3Normalize(&m_vToward, &(m_vOrigin - vPos));
+
+			if (m_vToward == _vec3(0, 0, 0))
+				Make_Toward();
+			m_fResetTime = 0.f;
+		}
 	}
 	else if (m_vToward != _vec3(0, 0, 0))
 	{
@@ -105,7 +107,7 @@ void CHitObj::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 	case Engine::OBJ_HITTYPE::HIT_REPEAT:
 
 		Check_Event_Start(m_iEventNum);
-		m_fEffectTime = 1.f;
+		m_fEffectTime = 0.5f;
 		Make_Toward();
 		
 		break;
@@ -158,6 +160,5 @@ void CHitObj::Make_Toward()
 
 	D3DXVec3Normalize(&m_vToward, &m_vToward);
 
-	m_vToward * 0.1f;
 }
 

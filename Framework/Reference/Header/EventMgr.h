@@ -73,6 +73,8 @@ public:
 			}
 		}
 
+		if (m_bEventSwitch[pCheckNum] && !iter->second->m_bIsCanReset)
+			return S_OK;
 
 		Start_Event(iter->second);
 		return S_OK;
@@ -108,7 +110,7 @@ private:
 		if (!pEvent->lEndKey.empty())
 			m_listCurActiveEvents.push_back(pEvent);
 
-		m_bEventSwitch[pEvent->iEventNum] = true;
+		m_bEventSwitch[pEvent->iEventNum] = !m_bEventSwitch[pEvent->iEventNum];
 		Check_Event_End();
 
 	}
