@@ -91,6 +91,9 @@
     <Filter Include="00. Manager\06. EventMgr">
       <UniqueIdentifier>{238b1654-e1ab-402f-9f3d-41e29a8b9cd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\00. VIBuffer\05. RcPuzzleTer">
+      <UniqueIdentifier>{e9faae54-6c79-41b7-b2bb-ae6a4d3cb3b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Scene.h">
@@ -177,6 +180,9 @@
     <ClInclude Include="..\..\Header\EventMgr.h">
       <Filter>00. Manager\06. EventMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\RcPuzzleBuff.h">
+      <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Scene.cpp">
@@ -259,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\EventMgr.cpp">
       <Filter>00. Manager\06. EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RcPuzzleBuff.cpp">
+      <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

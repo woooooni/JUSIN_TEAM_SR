@@ -20,6 +20,7 @@
 #include "JellyStone.h"
 #include "JellyCombined.h"
 #include	"Catapult.h"
+#include	"LightPuzzleTerrain.h"
 
 
 class CLogo : public Engine::CScene

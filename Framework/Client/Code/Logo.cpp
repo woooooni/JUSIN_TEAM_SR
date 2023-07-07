@@ -198,6 +198,10 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pCata, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Catapult", pCata), E_FAIL);
 
+	CLightPuzzleTerrain* pLTer = CLightPuzzleTerrain::Create(m_pGraphicDev, 5, 4, { 25, 0 , 25 });
+	NULL_CHECK_RETURN(pLTer, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleTer", pLTer), E_FAIL);
+
 
 
 	// UI

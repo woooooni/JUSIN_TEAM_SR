@@ -53,6 +53,11 @@ _int CCatapult::Update_Object(const _float& fTimeDelta)
 		else
 			dst = 0.f;
 
+		if (GetAsyncKeyState('K'))
+		{
+			Throw_Stone();
+		}
+
 	}
 
 	return __super::Update_Object(fTimeDelta);
@@ -96,7 +101,7 @@ void CCatapult::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 	
 	if ((src = dynamic_cast<CPlayer*>(pCollisionObj)))
 	{
-		if ()
+		if (true)
 		{
 
 		}
@@ -132,4 +137,19 @@ void CCatapult::Event_End(_uint iEventNum)
 
 void CCatapult::Set_SubscribeEvent(_uint pEvent)
 {
+}
+
+void CCatapult::Throw_Stone()
+{
+	_vec3 src;
+	m_pThrowingStone->Get_TransformCom()->Get_Info(INFO_POS, &src);
+	src.y = 1.f;
+	m_pThrowingStone->Get_TransformCom()->Set_Pos(&src);
+
+	m_pThrowingStone->Get_RigidBodyCom()->SetVelocity({ 0, 50.f, 10.f });
+	m_pThrowingStone->Set_Active(true);
+	m_pThrowingStone->Get_RigidBodyCom()->SetGravity(true);
+	m_pThrowingStone->Get_RigidBodyCom()->SetGround(false);
+	dynamic_cast<CPushStone*>(m_pThrowingStone)->Fire();
+	m_pThrowingStone = nullptr;
 }

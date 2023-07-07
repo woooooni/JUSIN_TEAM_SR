@@ -32,5 +32,7 @@ protected:
 	CGameObject* m_pThrowingStone;
 	_vec3		m_vStonePos;
 
+	void			Throw_Stone();
+
 };
 
