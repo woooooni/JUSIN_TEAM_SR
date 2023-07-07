@@ -97,7 +97,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
-	
+	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
+
+
 	// BlueBeatle
 	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
