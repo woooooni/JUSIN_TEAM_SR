@@ -4,11 +4,12 @@
 
 
 
-CPushableObj::CPushableObj(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_ENVIRONMENT)
+CPushableObj::CPushableObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev)
 {
+	m_tInfo.m_bIsPushable = true;
 }
 
-CPushableObj::CPushableObj(const CPushableObj& rhs) : CGameObject(rhs)
+CPushableObj::CPushableObj(const CPushableObj& rhs) : CFieldObject(rhs)
 {
 }
 

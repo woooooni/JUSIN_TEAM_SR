@@ -33,8 +33,14 @@ public:
 
     static      CPushStone* Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev);
 
+    virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)override;
+
+    void            Fire() { m_bIsFlying = true; };
+
 private:
     HRESULT                 Ready_Component();
+
+    _bool           m_bIsFlying;
 
     CRcTex* m_pRcTex = nullptr;
     CCubeTex* m_pCubeTex = nullptr;

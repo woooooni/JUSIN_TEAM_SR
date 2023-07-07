@@ -27,6 +27,10 @@ HRESULT CCollisionMgr::Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice)
 	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_PUSH);
 	CheckGroupType(COLLISION_GROUP::COLLIDE_GRAB, COLLISION_GROUP::COLLIDE_PUSH);
 	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_BALPAN);
+	CheckGroupType(COLLISION_GROUP::COLLIDE_SWING, COLLISION_GROUP::COLLIDE_BREAK);
+	CheckGroupType(COLLISION_GROUP::COLLIDE_PUSH, COLLISION_GROUP::COLLIDE_BALPAN);
+	CheckGroupType(COLLISION_GROUP::COLLIDE_PUSH, COLLISION_GROUP::COLLIDE_PUSH);
+
 
 	return S_OK;
 }
@@ -86,6 +90,9 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 			COLLIDER_ID ID;
 			ID.iLeft_id = lCollider->Get_Id();
 			ID.iRight_id = rCollider->Get_Id();
+
+			if (ID.iLeft_id == ID.iRight_id)
+				continue;
 
 			iter = m_mapColInfo.find(ID.ID);
 

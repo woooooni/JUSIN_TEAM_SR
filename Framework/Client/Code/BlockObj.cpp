@@ -38,6 +38,9 @@ _int CBlockObj::Update_Object(const _float& fTimeDelta)
 
 void CBlockObj::LateUpdate_Object(void)
 {
+	if (Check_Event_Start(m_iFollowingEvent) == S_OK)
+	{
+	}
 }
 
 void CBlockObj::Render_Object(void)
@@ -64,6 +67,7 @@ CBlockObj* CBlockObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, c
 	}
 
 	ret->Set_SubscribeEvent(p_EventNum);
+	ret->m_iFollowingEvent = p_EventNum;
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
 	if (p_isFirstBlock)
 		ret->m_pAnimator->Play_Animation(L"Block_Idle", false);
@@ -117,10 +121,7 @@ HRESULT CBlockObj::Ready_Component()
 
 void CBlockObj::Event_Start(_uint iEventNum)
 {
-	if (m_iFollowingEvent == iEventNum)
-	{
-		Change_State();
-	}
+	Change_State();
 }
 
 void CBlockObj::Event_End(_uint iEventNum)

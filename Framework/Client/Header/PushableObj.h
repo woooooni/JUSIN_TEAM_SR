@@ -1,12 +1,12 @@
 #pragma once
-#include "GameObject.h"
+#include "FieldObject.h"
 class CPlayer;
 
 BEGIN(Engine)
 
 
 class CPushableObj :
-    public CGameObject
+    public CFieldObject
 {
 
 protected:

@@ -28,7 +28,7 @@ public:
 	virtual void Event_End(_uint iEventNum)	override;
 
 public:
-	void		Set_SubscribeEvent(_uint pEvent);
+	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
 
 protected:

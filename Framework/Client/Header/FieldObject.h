@@ -11,7 +11,15 @@ public:
 
 	const OBJ_INFO& Get_ObjInfo() { return m_tInfo; }
 
+	virtual void		Set_SubscribeEvent(_uint pEvent) {};
+
+	virtual void		Render_Object() override;
+
+
 protected:
 	OBJ_INFO m_tInfo;
+
+	virtual HRESULT		Ready_Component() ;
+
 };
 

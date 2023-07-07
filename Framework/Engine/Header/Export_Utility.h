@@ -38,7 +38,7 @@ inline void				LateUpdate_Scene();
 inline void				Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 inline CScene*			GetCurrScene();
-inline CLayer*			Get_Layer(const _tchar* pLayerTag);
+inline CLayer* Get_Layer(LAYER_TYPE p_Type);
 
 // ProtoMgr
 inline HRESULT			Ready_Proto(const _tchar* pProtoTag, CComponent* pComponent);

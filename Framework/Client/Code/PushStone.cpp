@@ -2,11 +2,12 @@
 #include "PushStone.h"
 #include "Export_Function.h"
 
-CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev)
+CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev) , m_bIsFlying(false)
 {
+
 }
 
-CPushStone::CPushStone(const CPushStone& rhs) : CPushableObj(rhs)
+CPushStone::CPushStone(const CPushStone& rhs) : CPushableObj(rhs), m_bIsFlying(rhs.m_bIsFlying)
 {
 }
 
@@ -27,6 +28,14 @@ _int CPushStone::Update_Object(const _float& fTimeDelta)
 {
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	_vec3 src;
+	m_pTransformCom->Get_Info(INFO_POS, &src);
+	if (m_bIsFlying && m_pRigidBodyCom->IsGround())
+	{
+		m_bIsFlying = false;
+		m_pRigidBodyCom->SetVelocity({ 0, 0, 0 });
+		m_pRigidBodyCom->SetGround(true);
+	}
 
 	__super::Update_Object(fTimeDelta);
 
@@ -80,6 +89,11 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 
 }
 
+void CPushStone::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+{
+	m_pColliderCom->Update_Component(0.f);
+}
+
 HRESULT CPushStone::Ready_Component()
 {
 	CComponent* pComponent = nullptr;
@@ -103,6 +117,11 @@ HRESULT CPushStone::Ready_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
 	return S_OK;
 
