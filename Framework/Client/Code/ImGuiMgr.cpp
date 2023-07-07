@@ -2,7 +2,7 @@
 #include "imgui.h"
 #include "imgui_impl_dx9.h"
 #include "imgui_impl_win32.h"
-
+#include "Export_Function.h"
 
 IMPLEMENT_SINGLETON(CImGuiMgr)
 CImGuiMgr::CImGuiMgr()
@@ -10,6 +10,8 @@ CImGuiMgr::CImGuiMgr()
 	, m_pGraphicDev(nullptr)
 	, m_hWnd(nullptr)
 	, m_eMode(TOOL_MODE::OBJECT)
+	, m_pToolScene(nullptr)
+	, m_pTargetObject(nullptr)
 {
 
 }
@@ -59,27 +61,7 @@ void CImGuiMgr::Update_ImGui()
 		break;
 	}
 
-	// 芒 积己
-	ImGui::Begin("Object");
 
-	static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_AutoSelectNewTabs | ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyResizeDown;
-	if (ImGui::BeginTabBar("MyTabBar", tab_bar_flags))
-	{
-		if (ImGui::BeginTabItem("AnimObject"))
-		{
-			ImGui::EndTabItem();
-		}
-
-		if (ImGui::BeginTabItem("EditAnimation"))
-		{
-
-			ImGui::EndTabItem();
-		}
-
-		ImGui::EndTabBar();
-	}
-
-	ImGui::End();
 }
 
 void CImGuiMgr::Render_ImGui()
@@ -90,7 +72,47 @@ void CImGuiMgr::Render_ImGui()
 
 void CImGuiMgr::UpdateObjectTool()
 {
-	
+	// 芒 积己
+	ImGui::Begin("Object_Tool");
+
+	static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_AutoSelectNewTabs | ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyResizeDown;
+	if (ImGui::BeginTabBar("MyTabBar1", tab_bar_flags))
+	{
+		if (ImGui::BeginTabItem("Info"))
+		{
+			if (m_pTargetObject != nullptr)
+			{
+				CTransform* pTargetTransform = m_pTargetObject->Get_TransformCom();
+				if (pTargetTransform != nullptr)
+				{
+					_vec3 vPos;
+					pTargetTransform->Get_Info(INFO_POS, &vPos);
+
+					ImGui::Text("Transform");
+					ImGui::Text("x : ");
+					ImGui::SameLine();
+					ImGui::InputFloat("##ObjPosX", &vPos.x, 0.f, 1.f, "%.3f");
+
+					ImGui::Text("y : ");
+					ImGui::SameLine();
+					ImGui::InputFloat("##ObjPosY", &vPos.y, 0.f, 1.f, "%.3f");
+
+					ImGui::Text("z : ");
+					ImGui::SameLine();
+					ImGui::InputFloat("##ObjPosZ", &vPos.z, 0.f, 1.f, "%.3f");
+
+					pTargetTransform->Set_Info(INFO_POS, &vPos);
+				}
+			}
+			
+
+			ImGui::EndTabItem();
+		}
+
+		ImGui::EndTabBar();
+	}
+
+	ImGui::End();
 }
 
 void CImGuiMgr::UpdateTerrainTool()

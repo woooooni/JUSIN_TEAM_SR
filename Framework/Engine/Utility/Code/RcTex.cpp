@@ -50,6 +50,7 @@ HRESULT CRcTex::Ready_Buffer(void)
 
 	m_pVB->Unlock();
 
+
 	INDEX32*			pIndex = nullptr;
 
 	m_pIB->Lock(0, 0, (void**)&pIndex, 0);

@@ -4,6 +4,12 @@
 #include "Engine_Define.h"
 
 
+class CScene_Tool;
+
+BEGIN(Engine)
+class CGameObject;
+END
+
 class CImGuiMgr : public CBase
 {
 	DECLARE_SINGLETON(CImGuiMgr)
@@ -24,6 +30,9 @@ public:
 	TOOL_MODE Get_CurrToolMode() { return m_eMode; }
 	void Set_ToolMode(TOOL_MODE _eMode) { m_eMode = _eMode; }
 
+	void SetToolScene(CScene_Tool* pToolScene) { m_pToolScene = pToolScene; }
+
+	void Set_Target(CGameObject* pGameObject) { m_pTargetObject = pGameObject; }
 
 public:
 	void OnOffImGui() { m_bEnabled = !m_bEnabled; }
@@ -40,7 +49,8 @@ private:
 	HWND m_hWnd;
 	LPDIRECT3DDEVICE9 m_pGraphicDev;
 	TOOL_MODE m_eMode;
-
+	CScene_Tool* m_pToolScene;
+	CGameObject* m_pTargetObject;
 public:
 	virtual void Free() override;
 };
