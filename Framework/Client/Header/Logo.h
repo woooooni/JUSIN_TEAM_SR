@@ -17,6 +17,8 @@
 #include "BalpanObj.h"
 #include "HitObj.h"
 #include "BlockObj.h"
+#include "TutorialNPC.h"
+#include "NPCText.h"
 
 
 class CLogo : public Engine::CScene

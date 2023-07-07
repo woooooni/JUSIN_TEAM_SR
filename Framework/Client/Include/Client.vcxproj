@@ -211,6 +211,8 @@
     <ClInclude Include="..\Header\ImGuiMgr.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
+    <ClInclude Include="..\Header\NPC.h" />
+    <ClInclude Include="..\Header\NPCText.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
     <ClInclude Include="..\Header\Player_State_BallonFly.h" />
     <ClInclude Include="..\Header\Player_State_Down.h" />
@@ -239,6 +241,7 @@
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="..\Header\TutorialNPC.h" />
     <ClInclude Include="..\Header\UIPages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
@@ -279,6 +282,8 @@
     <ClCompile Include="..\Code\ImGuiMgr.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
+    <ClCompile Include="..\Code\NPC.cpp" />
+    <ClCompile Include="..\Code\NPCText.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />
     <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />
     <ClCompile Include="..\Code\Player_State_Down.cpp" />
@@ -307,6 +312,7 @@
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="..\Code\TutorialNPC.cpp" />
     <ClCompile Include="..\Code\UIPages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />

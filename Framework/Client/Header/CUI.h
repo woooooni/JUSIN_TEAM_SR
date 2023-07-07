@@ -19,18 +19,18 @@ protected:
 	explicit CUI(const CUI& rhs);
 	virtual ~CUI();
 
-//public:
-//	virtual HRESULT		Ready_Object(void) override;
-//	virtual _int		Update_Object(const _float& fTimeDelta) override;
-//	virtual void		LateUpdate_Object(void) override;
-//	virtual void		Render_Object(void) override;
-//
+public:
+	virtual HRESULT		Ready_Object(void) override;
+	virtual _int		Update_Object(const _float& fTimeDelta) override;
+	virtual void		LateUpdate_Object(void) override;
+	virtual void		Render_Object(void) override;
+
 protected:
 	_matrix m_matProj;
 	_matrix m_matView;
-//
-//public:
-//	static CUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+public:
+	static CUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
 	virtual void Free() override;

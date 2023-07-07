@@ -178,7 +178,29 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	//CUI* pUI = CUI::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pUI, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
+
+	CNPCText* pTextBox = CNPCText::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTextBox, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
+
+
+	// NPC (Test)
+	CTutorialNPC* pNPCSheep = CTutorialNPC::Create(m_pGraphicDev, { 2, 1, 1 }, NPCTYPE::TUT_SHEEP);
+	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
 	
+	CTutorialNPC* pNPCCow = CTutorialNPC::Create(m_pGraphicDev, { 3, 1, 1 }, NPCTYPE::TUT_COW);
+	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
+
+	CTutorialNPC* pNPCPig = CTutorialNPC::Create(m_pGraphicDev, { 4, 1, 1 }, NPCTYPE::TUT_PIG);
+	NULL_CHECK_RETURN(pNPCPig, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Pig", pNPCPig), E_FAIL);
+
+	CTutorialNPC* pNPCDoogee = CTutorialNPC::Create(m_pGraphicDev, { 5, 1, 1 }, NPCTYPE::TUT_DOOGEE);
+	NULL_CHECK_RETURN(pNPCDoogee, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Doogee", pNPCDoogee), E_FAIL);
+
 	pCamera->Set_TargetObj(pPlayer);
 
 	m_mapLayer.insert({ _eType, pLayer });
