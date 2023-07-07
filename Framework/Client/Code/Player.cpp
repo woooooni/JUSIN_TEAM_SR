@@ -184,6 +184,11 @@ HRESULT CPlayer::Ready_Object(void)
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
+	m_tPlayerStat.iMaxHp = m_tPlayerStat.iHp = 5;
+	m_tPlayerStat.iMaxMp = m_tPlayerStat.iMp = 5;
+	m_tPlayerStat.iAttack = 5;
+
+
 	return S_OK;
 }
 
