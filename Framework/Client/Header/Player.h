@@ -91,6 +91,10 @@ private:
 
 	CGameObject* m_pLiftObj = nullptr;
 
+	//플레이어 스텟
+	
+
+
 	//플레이어 상태
 	vector<CPlayer_State*> m_vecState;
 

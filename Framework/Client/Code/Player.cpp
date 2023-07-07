@@ -451,6 +451,9 @@ void CPlayer::Collision_Enter_Grab(CGameObject* pCollisionObj, UINT _iColliderID
 
 void CPlayer::Collision_Enter_Hit(CGameObject* pCollisionObj, UINT _iColliderID)
 {
+	if (m_eState == PLAYER_STATE::HIT)
+		return;
+
 	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
 	_vec3 vTargetPos;
 	_vec3 vPos;
