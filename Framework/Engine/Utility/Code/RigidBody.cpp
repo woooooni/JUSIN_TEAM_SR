@@ -84,23 +84,26 @@ _int CRigidBody::Update_Component(const _float& fTimeDelta)
 	m_vAccel += m_vAccelA;
 	m_vVelocity += m_vAccel * fTimeDelta;
 
-	if (fabs(m_vVelocity.x) > 0.f || fabs(m_vVelocity.z) > 0.f)
+	if ((fabs(m_vVelocity.x) > 0.f || fabs(m_vVelocity.z) > 0.f))
 	{
-		_vec3 vFricDir = m_vVelocity * -1.f;
-		D3DXVec3Normalize(&vFricDir, &vFricDir);
-
-		_vec3 vFriction;
-
 		if (IsGround())
+		{
+			_vec3 vFricDir = m_vVelocity * -1.f;
+			D3DXVec3Normalize(&vFricDir, &vFricDir);
+
+			_vec3 vFriction;
+
+
 			vFriction = vFricDir * m_fFricCoeff * fTimeDelta;
-		
-		if (D3DXVec3Length(&m_vVelocity) <= D3DXVec3Length(&vFriction))
-		{
-			m_vVelocity = _vec3(0.f, 0.f, 0.f);
-		}
-		else
-		{
-			m_vVelocity += vFriction;
+
+			if (D3DXVec3Length(&m_vVelocity) <= D3DXVec3Length(&vFriction))
+			{
+				m_vVelocity = _vec3(0.f, 0.f, 0.f);
+			}
+			else
+			{
+				m_vVelocity += vFriction;
+			}
 		}
 	}
 

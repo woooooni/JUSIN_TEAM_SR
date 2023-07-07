@@ -83,14 +83,14 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Rolling_RightUp", L"Proto_Texture_Player_Rolling_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"Rolling_RightDown", L"Proto_Texture_Player_Rolling_RightDown", 0.1f);
 
-	m_pAnimator->Add_Animation(L"Jump_Down", L"Proto_Texture_Player_Jump_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"Jump_Up", L"Proto_Texture_Player_Jump_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"Jump_Left", L"Proto_Texture_Player_Jump_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"Jump_Right", L"Proto_Texture_Player_Jump_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"Jump_LeftUp", L"Proto_Texture_Player_Jump_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Jump_LeftDown", L"Proto_Texture_Player_Jump_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"Jump_RightUp", L"Proto_Texture_Player_Jump_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Jump_RightDown", L"Proto_Texture_Player_Jump_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Jump_Down", L"Proto_Texture_Player_Jump_Down", 0.05f);
+	m_pAnimator->Add_Animation(L"Jump_Up", L"Proto_Texture_Player_Jump_Up", 0.05f);
+	m_pAnimator->Add_Animation(L"Jump_Left", L"Proto_Texture_Player_Jump_Left", 0.05f);
+	m_pAnimator->Add_Animation(L"Jump_Right", L"Proto_Texture_Player_Jump_Right", 0.05f);
+	m_pAnimator->Add_Animation(L"Jump_LeftUp", L"Proto_Texture_Player_Jump_LeftUp", 0.05f);
+	m_pAnimator->Add_Animation(L"Jump_LeftDown", L"Proto_Texture_Player_Jump_LeftDown", 0.05f);
+	m_pAnimator->Add_Animation(L"Jump_RightUp", L"Proto_Texture_Player_Jump_RightUp", 0.05f);
+	m_pAnimator->Add_Animation(L"Jump_RightDown", L"Proto_Texture_Player_Jump_RightDown", 0.05f);
 
 	m_pAnimator->Add_Animation(L"Swing_Down", L"Proto_Texture_Player_Swing_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"Swing_Up", L"Proto_Texture_Player_Swing_Up", 0.1f);

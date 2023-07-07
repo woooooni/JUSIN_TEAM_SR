@@ -14,6 +14,8 @@ public:
 	virtual void			Render_State(void) override;
 
 private:
+	_vec3 m_vDir;
 
+	bool m_bJump = false;
 };
 
