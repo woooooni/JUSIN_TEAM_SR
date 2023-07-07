@@ -112,6 +112,7 @@ HRESULT CBlockObj::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
+	return S_OK;
 }
 
 void CBlockObj::Event_Start(_uint iEventNum)
