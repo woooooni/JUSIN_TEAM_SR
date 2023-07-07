@@ -15,8 +15,8 @@ class CImGuiMgr : public CBase
 	DECLARE_SINGLETON(CImGuiMgr)
 
 public:
-	enum class TOOL_MODE{ OBJECT, TERRAIN, MAP, MODE_END };
-
+	enum class TOOL_MODE { OBJECT, TERRAIN, MAP, MODE_END };
+	enum class OBJ_SELECTED { OBJ, SELECTED_END };
 private:
 	explicit CImGuiMgr();
 	virtual ~CImGuiMgr();
@@ -40,6 +40,9 @@ public:
 
 
 private:
+	void Update_Inspector();
+	void Update_Hierachy();
+
 	void UpdateObjectTool();
 	void UpdateTerrainTool();
 	void UpdateMapTool();
@@ -47,10 +50,14 @@ private:
 private:
 	_bool m_bEnabled;
 	HWND m_hWnd;
+
 	LPDIRECT3DDEVICE9 m_pGraphicDev;
 	TOOL_MODE m_eMode;
+
 	CScene_Tool* m_pToolScene;
 	CGameObject* m_pTargetObject;
+	
+	OBJ_SELECTED m_eSelectedObjType;
 public:
 	virtual void Free() override;
 };

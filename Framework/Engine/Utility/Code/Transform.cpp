@@ -103,8 +103,8 @@ _vec3 CTransform::Get_Scale()
 	Get_Info(INFO_LOOK, &vLook);
 
 	return _vec3(D3DXVec3Length(&vRight),
-		D3DXVec3Length(&vUp),
-		D3DXVec3Length(&vLook));
+					D3DXVec3Length(&vUp),
+					D3DXVec3Length(&vLook));
 }
 
 void CTransform::RotationAxis(const _vec3 & vAxis, const _float & fAngle)
