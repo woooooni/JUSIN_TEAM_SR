@@ -54,6 +54,9 @@ namespace Engine
 	enum class BALLOONFLY_STATE { FLYREADY, FLYING, FLYINGEND, END };
 	enum class LIFT_STATE {LIFTREADY, LIFTUP, LIFTDOWN, LIFTIDLE, LIFTWALK, END};
 
+	// Camera
+	enum class CAMERA_STATE {GAME, TOOL, END};
+
 	typedef enum class COLLIDE_STATE
 	{
 		COLLIDE_WALL,

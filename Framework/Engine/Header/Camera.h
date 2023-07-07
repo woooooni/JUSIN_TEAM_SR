@@ -48,15 +48,24 @@ public:
 
 private:
 	HRESULT		Add_Component(void);
-	void		Key_Input(const _float& fTimeDelta);
+	void		Key_Input_Game(const _float& fTimeDelta);
+	void		Key_Input_Tool(const _float& fTimeDelta);
 	void		Mouse_Move(const _float& fTimeDelta);
 	void		Follow(const _float& fTimeDelta);
+
+	void		Update_GameCamera(const _float& fTimeDelta);
+	void		LateUpdate_GameCamera();
+
+	void		Update_ToolCamera(const _float& fTimeDelta);
+	void		LateUpdate_ToolCamera();
 
 public:
 	void		CamShake(float _fDuration);
 	void		FadeIn(float _fTime);
 	void		FadeOut(float _fTime);
 	void		Check_FadeOut();
+
+	void		Set_CameraState(CAMERA_STATE _eState) { m_eState = _eState; }
 
 	//private:
 	//	void		CustomLookAtLH(_matrix* pOut, const _vec3* pEye, const _vec3* pAt, const _vec3* pUp);
@@ -85,6 +94,10 @@ private:
 	_float				m_fAlpha; // 0에서 1까지만 사용
 	CTexture* m_pVeilTex;
 
+
+	CAMERA_STATE m_eState;
+	_float m_fMoveSpeed;
+	bool m_bMouse = true;
 public:
 	static CCamera* Create(HWND _hWnd, LPDIRECT3DDEVICE9 pGraphicDev, _float fNear, _float fFar);
 	virtual void		Free()	override;
