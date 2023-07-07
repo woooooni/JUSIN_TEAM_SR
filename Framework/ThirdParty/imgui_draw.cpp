@@ -1,4 +1,4 @@
-// dear imgui, v1.89.7 WIP
+// dear imgui, v1.89.8 WIP
 // (drawing and font code)
 
 /*
@@ -38,7 +38,6 @@ Index of this file:
 #endif
 
 #include <stdio.h>      // vsnprintf, sscanf, printf
-
 
 // Visual Studio warnings
 #ifdef _MSC_VER

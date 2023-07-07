@@ -38,16 +38,16 @@ HRESULT CCubeTex::Ready_Buffer(void)
 	VTXCUBE*		pVertices = nullptr;
 
 	m_pVB->Lock(0, /*m_iStride * m_iNumVertices*/0, (void**)&pVertices, 0);
-	pVertices[0].vPosition = pVertices[0].vTexUV = _vec3(-0.5f, 0.5f, -0.5f);
-	pVertices[1].vPosition = pVertices[1].vTexUV = _vec3(0.5f, 0.5f, -0.5f);
-	pVertices[2].vPosition = pVertices[2].vTexUV = _vec3(0.5f, -0.5f, -0.5f);
-	pVertices[3].vPosition = pVertices[3].vTexUV = _vec3(-0.5f, -0.5f, -0.5f);
+	pVertices[0].vPosition = pVertices[0].vTexUV = _vec3(-m_fCX * 0.5f, m_fCY * 0.5f, -m_fCZ * 0.5f);
+	pVertices[1].vPosition = pVertices[1].vTexUV = _vec3(m_fCX * 0.5f, m_fCY * 0.5f, -m_fCZ * 0.5f);
+	pVertices[2].vPosition = pVertices[2].vTexUV = _vec3(m_fCX * 0.5f, -m_fCY * 0.5f, -m_fCZ * 0.5f);
+	pVertices[3].vPosition = pVertices[3].vTexUV = _vec3(-m_fCX * 0.5f, -m_fCY * 0.5f, -m_fCZ * 0.5f);
 
 
-	pVertices[4].vPosition = pVertices[4].vTexUV = _vec3(-0.5f, 0.5f, 0.5f);
-	pVertices[5].vPosition = pVertices[5].vTexUV = _vec3(0.5f, 0.5f, 0.5f);
-	pVertices[6].vPosition = pVertices[6].vTexUV = _vec3(0.5f, -0.5f, 0.5f);
-	pVertices[7].vPosition = pVertices[7].vTexUV = _vec3(-0.5f, -0.5f, 0.5f);
+	pVertices[4].vPosition = pVertices[4].vTexUV = _vec3(-m_fCX * 0.5f, m_fCY * 0.5f, m_fCZ * 0.5f);
+	pVertices[5].vPosition = pVertices[5].vTexUV = _vec3(m_fCX * 0.5f, m_fCY * 0.5f, m_fCZ * 0.5f);
+	pVertices[6].vPosition = pVertices[6].vTexUV = _vec3(m_fCX * 0.5f, -m_fCY * 0.5f, m_fCZ * 0.5f);
+	pVertices[7].vPosition = pVertices[7].vTexUV = _vec3(-m_fCX * 0.5f, -m_fCY * 0.5f, m_fCZ * 0.5f);
 	
 	m_pVB->Unlock();
 
@@ -95,9 +95,13 @@ void CCubeTex::SetAlpha(_int _iAlpha)
 
 }
 
-CCubeTex * CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CCubeTex * CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev , _float fCX, _float fCY, _float fCZ)
 {
 	CCubeTex *	pInstance = new CCubeTex(pGraphicDev);
+
+	pInstance->Set_Width(fCX);
+	pInstance->Set_Height(fCY);
+	pInstance->Set_Depth(fCZ);
 
 	if (FAILED(pInstance->Ready_Buffer()))
 	{

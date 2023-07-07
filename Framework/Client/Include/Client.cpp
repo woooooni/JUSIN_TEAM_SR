@@ -4,9 +4,9 @@
 #include "stdafx.h"
 #include "Client.h"
 #include "MainApp.h"
+#include "ImGuiMgr.h"
 #include "Export_Function.h"
 
-using namespace Engine;
 
 #define MAX_LOADSTRING 100
 
@@ -57,8 +57,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	FAILED_CHECK_RETURN(Engine::Ready_Timer(L"Timer_Immediate"), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Timer(L"Timer_FPS60"), E_FAIL);
-
 	FAILED_CHECK_RETURN(Engine::Ready_Frame(L"Frame60", 60.f), E_FAIL);
+    
 
     // 기본 메시지 루프입니다.
     while (true)
@@ -179,8 +179,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        return true;
+
     switch (message)
     {
     case WM_COMMAND:

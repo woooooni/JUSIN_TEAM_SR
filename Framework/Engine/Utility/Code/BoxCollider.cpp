@@ -34,8 +34,15 @@ _int CBoxCollider::Update_Component(const _float & fTimeDelta)
 {
 	CTransform* pOwnerTransform = (CTransform*)(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
 
+	if (nullptr == pOwnerTransform)
+		return S_OK;
 
-	pOwnerTransform->Get_Info(INFO_POS, &m_vCenterPos);
+	_vec3 vPos;
+	pOwnerTransform->Get_Info(INFO_POS, &vPos);
+	vPos += m_vOffset;
+	
+	m_vCenterPos = vPos;
+
 	const D3DXMATRIX& matWorld = *pOwnerTransform->Get_WorldMatrix();
 
 	InputCollider();
@@ -114,15 +121,15 @@ void CBoxCollider::InputCollider()
 
 void CBoxCollider::OnCollisionEnter(CCollider * _pOther)
 {
-	m_pOwner->Collision_Enter(_pOther->GetOwner());
+	m_pOwner->Collision_Enter(_pOther->GetOwner(), Get_Id());
 }
 
 void CBoxCollider::OnCollisionStay(CCollider * _pOther)
 {
-	m_pOwner->Collision_Stay(_pOther->GetOwner());
+	m_pOwner->Collision_Stay(_pOther->GetOwner(), Get_Id());
 }
 
 void CBoxCollider::OnCollisionExit(CCollider * _pOther)
 {
-	m_pOwner->Collision_Exit(_pOther->GetOwner());
+	m_pOwner->Collision_Exit(_pOther->GetOwner(), Get_Id());
 }

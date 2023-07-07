@@ -1,0 +1,11 @@
+#pragma once
+#include "GolemUpperJaw.h"
+#include "GolemHead.h"
+#include "GolemLowerJaw.h"
+#include "GolemLeftLeg.h"
+#include "GolemRightLeg.h"
+#include "GolemLeftArm.h"
+#include "GolemRightArm.h"
+#include "GolemLeftHand.h"
+#include "GolemRightHand.h"
+#include "GolemFist.h"

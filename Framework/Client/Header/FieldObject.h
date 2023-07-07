@@ -9,8 +9,7 @@ public:
 	virtual ~CFieldObject();
 
 
-	virtual void	OnAttacked() {};
-	
+	const OBJ_INFO& Get_ObjInfo() { return m_tInfo; }
 
 protected:
 	OBJ_INFO m_tInfo;

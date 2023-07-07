@@ -1,11 +1,6 @@
 #pragma once
 
 #include "Scene.h"
-#include "BackGround.h"
-
-#include "Player.h"
-#include "Monster.h"
-#include "Terrain.h"
 
 class CScene_Tool : public Engine::CScene
 {

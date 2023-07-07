@@ -1,4 +1,3 @@
-
 #include "TrashBig.h"
 #include "Export_Function.h"
 
@@ -62,7 +61,7 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 
 void CTrashBig::Update_Attack(_float fTimeDelta)
 {
-	Trace(fTimeDelta);
+	//Trace(fTimeDelta);
 }
 
 HRESULT CTrashBig::Ready_Object(void)

@@ -1,6 +1,7 @@
 #include "..\Header\Logo.h"
 #include "Export_Function.h"
 #include "CUI.h"
+#include "../Include/stdafx.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -40,7 +41,7 @@ Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 
 void CLogo::LateUpdate_Scene()
 {
-	//Group_Collide();
+
 
 	__super::LateUpdate_Scene();
 }
@@ -102,9 +103,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
 	
-	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
+	/*CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);*/
 
 	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
@@ -147,6 +148,31 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pGrab, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GrabStone", pGrab), E_FAIL);
 
+	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 4, { 13, 1, 15 });
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+	pBal->Set_AutoReset();
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
+
+	pBal = CBalpanObj::Create(m_pGraphicDev, 0, { 15, 1, 15 });
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+	pBal->Add_ActivateState(3);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
+
+	pBal = CBalpanObj::Create(m_pGraphicDev, 0, { 17, 1, 15 });
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+	pBal->Add_ActivateState(3);
+	pBal->Set_AutoReset();
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
+
+
+	CHitObj* pHit = CHitObj::Create(m_pGraphicDev, 0, { 17, 1, 17 });
+	NULL_CHECK_RETURN(pHit, E_FAIL);
+	pHit->Set_Event(2);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugDongsang", pHit), E_FAIL);
+
+	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 15, 1, 20 }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
 
 	// UI
 	//CUI* pUI = CUI::Create(m_pGraphicDev);

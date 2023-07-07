@@ -24,6 +24,9 @@ HRESULT CCollisionMgr::Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice)
 	_pDevice->AddRef();
 
 	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_MONSTER);
+	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_PUSH);
+	CheckGroupType(COLLISION_GROUP::COLLIDE_GRAB, COLLISION_GROUP::COLLIDE_PUSH);
+	CheckGroupType(COLLISION_GROUP::COLLIDE_PLAYER, COLLISION_GROUP::COLLIDE_BALPAN);
 
 	return S_OK;
 }
@@ -40,6 +43,8 @@ void CCollisionMgr::Update_Collision()
 			}
 		}
 	}
+	for (_uint i = 0; i < (_uint)COLLISION_GROUP::COLLIDE_END; ++i)
+		m_vecCol[i].clear();
 }
 
 void CCollisionMgr::Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP _eGroup)
@@ -73,16 +78,9 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 	map<ULONGLONG, _bool>::iterator iter;
 	for (auto& lCollider : m_vecCol[(_uint)_eLeft])
 	{
-		if (!lCollider->Is_Active() || nullptr == lCollider)
-			continue;
 
 		for (auto& rCollider : m_vecCol[(_uint)_eRight])
 		{
-			if (!rCollider->Is_Active() || nullptr == rCollider || lCollider == rCollider)
-				continue;
-
-			if (!lCollider->Is_Active() || !rCollider->Is_Active())
-				continue;
 
 			// gen map key by using union
 			COLLIDER_ID ID;
@@ -134,13 +132,13 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 			}
 		}
 	}
-
-	m_vecCol->clear();
-
 }
 
 bool CCollisionMgr::IsCollision(CCollider* _pLeftCol, CCollider* _pRightCol)
 {
+	if (!_pLeftCol->Is_Active() || !_pRightCol->Is_Active())
+		return false;
+
 	const _vec3& vLeftScale = ((CBoxCollider*)_pLeftCol)->Get_Scale();
 	const _vec3& vLeftPos =	((CBoxCollider*)_pLeftCol)->Get_Pos();
 	const _vec3& vRightScale = ((CBoxCollider*)_pRightCol)->Get_Scale();

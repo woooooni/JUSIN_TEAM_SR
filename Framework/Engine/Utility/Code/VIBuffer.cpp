@@ -7,7 +7,7 @@ CVIBuffer::CVIBuffer()
 
 CVIBuffer::CVIBuffer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev, COMPONENT_TYPE::COM_BUFFER), m_pVB(nullptr), m_pIB(nullptr)
-	, m_dwVtxCnt(0), m_dwVtxSize(0), m_dwTriCnt(0), m_dwFVF(0), m_dwIdxSize(0), m_IdxFmt(D3DFMT_UNKNOWN)
+	, m_dwVtxCnt(0), m_dwVtxSize(0), m_dwTriCnt(0), m_dwFVF(0), m_dwIdxSize(0), m_IdxFmt(D3DFMT_UNKNOWN), m_fCX(1.f), m_fCY(1.f), m_fCZ(1.f)
 {
 
 }
@@ -22,6 +22,10 @@ CVIBuffer::CVIBuffer(const CVIBuffer & rhs)
 	, m_dwFVF(rhs.m_dwFVF)
 	, m_dwIdxSize(rhs.m_dwIdxSize)
 	, m_IdxFmt(rhs.m_IdxFmt)
+	, m_fCX(rhs.m_fCX)
+	, m_fCY(rhs.m_fCY)
+	, m_fCZ(rhs.m_fCZ)
+
 {
 	m_pVB->AddRef();
 	m_pIB->AddRef();

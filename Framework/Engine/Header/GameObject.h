@@ -42,7 +42,7 @@ public:
 	OBJ_DIR GetObj_Dir() { return m_eDir; }
 	void SetObj_Dir(OBJ_DIR _eDir) { m_eDir = _eDir; }
 
-	void Set_Active(_float _bActive) { m_bActive = _bActive; }
+	void Set_Active(_bool _bActive) { m_bActive = _bActive; }
 	_bool Is_Active() { return m_bActive; }
 
 	CVIBuffer* Get_BufferCom() { return m_pBufferCom; }
@@ -51,14 +51,20 @@ public:
 	CAnimator* Get_AnimatorCom() { return m_pAnimator; }
 	CTexture* Get_TextureCom() { return m_pTextureCom; }
 	CRigidBody* Get_RigidBodyCom() { return m_pRigidBodyCom; }
+
 public:
 	void Set_Billboard();
 
 public:
 	// 충돌 호출
-	virtual void Collision_Enter(CGameObject* pCollisionObj) {};
-	virtual void Collision_Stay(CGameObject* pCollisionObj) {};
-	virtual void Collision_Exit(CGameObject* pCollisionObj) {};
+	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID) {};
+	virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)	{};
+	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)	{};
+	
+public:
+	//이벤트 호출
+	virtual void Event_Start(_uint iEventNum) {};
+	virtual void Event_End(_uint iEventNum) {};
 
 	
 private:
@@ -68,6 +74,9 @@ private:
 protected:
 	map<COMPONENT_TYPE, CComponent*>		m_mapComponent[ID_END];		
 	LPDIRECT3DDEVICE9						m_pGraphicDev;
+
+public:
+	_float Get_ViewZ() { return m_fViewZ; }
 
 protected:
 	CVIBuffer*		m_pBufferCom = nullptr;
@@ -81,6 +90,8 @@ protected:
 	wstring		m_strName;
 	OBJ_TYPE	m_eType;
 	OBJ_DIR		m_eDir;
+
+	_float		m_fViewZ;
 
 private:
 	_bool		m_bActive;

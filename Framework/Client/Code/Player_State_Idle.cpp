@@ -84,6 +84,10 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	{
 		if (KEY_HOLD(KEY::SHIFT))
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::RUN);
+		else if (dynamic_cast<CPlayer*>(m_pOwner)->Is_Push())
+		{
+			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::PUSH);
+		}
 		else
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::MOVE);
 	}

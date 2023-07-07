@@ -2,6 +2,7 @@
 
 #include "Export_Function.h"
 #include "Bullet.h"
+#include "Collider.h"
 
 #include "Scene.h"
 #include "Terrain.h"
@@ -183,6 +184,11 @@ HRESULT CPlayer::Ready_Object(void)
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
+	m_tPlayerStat.iMaxHp = m_tPlayerStat.iHp = 5;
+	m_tPlayerStat.iMaxMp = m_tPlayerStat.iMp = 5;
+	m_tPlayerStat.iAttack = 5;
+
+
 	return S_OK;
 }
 
@@ -190,6 +196,8 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);
+	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], COLLISION_GROUP::COLLIDE_GRAB);
+	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK], COLLISION_GROUP::COLLIDE_SWING);
 
 	if (m_bStateChange)
 	{
@@ -197,8 +205,13 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
 	}
-	//Add_CollisionGroup(m_pColliderCom);
+
 	m_vecState[(_uint)m_eState]->Update_State(fTimeDelta);
+
+	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
+	{
+		m_pCollider[i]->Update_Component(fTimeDelta);
+	}
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 
@@ -208,6 +221,10 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 void CPlayer::LateUpdate_Object(void)
 {
 	m_vecState[(_uint)m_eState]->LateUpdate_State();
+	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
+	{
+		m_pCollider[i]->LateUpdate_Component();
+	}
 	__super::LateUpdate_Object();
 }
 
@@ -219,6 +236,11 @@ void CPlayer::Render_Object(void)
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
+
+	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
+	{
+		m_pCollider[i]->Render_Component();
+	}
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
@@ -244,6 +266,20 @@ HRESULT CPlayer::Ready_Component(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+
+	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
+	{
+		m_pCollider[i] = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		m_pCollider[i]->SetOwner(this);
+	}
+	
+
+	dynamic_cast<CBoxCollider*>(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB])->Set_Scale(_vec3(0.5f, 0.5f, 0.5f));
+	m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB]->Set_Active(false);
+	m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK]->Set_Active(false);
+
+
 
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
@@ -272,17 +308,38 @@ void CPlayer::Player_Move(_float fTimeDelta)
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 10.f);
 	}
 }
-void CPlayer::Collision_Enter(CGameObject* pCollisionObj)
+void CPlayer::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 {
-	MSG_BOX("面倒 Enter");
+	//MSG_BOX("面倒 Enter");
+	if (_iColliderID == m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB]->Get_Id())
+	{
+		Collision_Enter_Grab(pCollisionObj, _iColliderID);
+	}
+
+	if (m_pColliderCom->Get_Id() == _iColliderID && pCollisionObj->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	{
+		Collision_Enter_Hit(pCollisionObj, _iColliderID);
+	}
+
 }
-void CPlayer::Collision_Stay(CGameObject* pCollisionObj)
+void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 {
-	MSG_BOX("面倒 Stay");
+	
+	//MSG_BOX("面倒 Stay");
+	
+	if (_iColliderID == m_pColliderCom->Get_Id())
+	{
+		Collision_Stay_Push(pCollisionObj, _iColliderID);
+	}
+
+	
+	
+	
+	
 }
-void CPlayer::Collision_Exit(CGameObject* pCollisionObj)
+void CPlayer::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
 {
-	MSG_BOX("面倒 Exit");
+	//MSG_BOX("面倒 Exit");
 }
 
 void CPlayer::Free()
@@ -307,3 +364,161 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	return pInstance;
 }
+
+void CPlayer::Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID)
+{
+	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
+	_vec3 vTargetPos;
+	_vec3 vPos;
+	_vec3 vDir;
+	pCollisionObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = vTargetPos - vPos;
+
+	if (vDir.x > 0.0f && fabs(vDir.x) > fabs(vDir.z))
+	{
+		eTargetDir = OBJ_DIR::DIR_R;
+	}
+	else if (vDir.z > 0.0f && fabs(vDir.z) > fabs(vDir.x))
+	{
+		eTargetDir = OBJ_DIR::DIR_U;
+	}
+	else if (vDir.x < 0.0f && fabs(vDir.x) > fabs(vDir.z))
+	{
+		eTargetDir = OBJ_DIR::DIR_L;
+	}
+	else if (vDir.z < 0.0f && fabs(vDir.x) < fabs(vDir.z))
+	{
+		eTargetDir = OBJ_DIR::DIR_D;
+	}
+
+	if (m_eState == PLAYER_STATE::PUSH)
+	{
+		if (eTargetDir == OBJ_DIR::DIR_R && fabs(vDir.x) < 0.9f)
+		{
+			vTargetPos = { vPos.x + 0.9f, vTargetPos.y, vTargetPos.z };
+			pCollisionObj->Get_TransformCom()->Set_Pos(&vTargetPos);
+		}
+		else if (eTargetDir == OBJ_DIR::DIR_L && fabs(vDir.x) < 0.9f)
+		{
+			vTargetPos = { vPos.x - 0.9f, vTargetPos.y, vTargetPos.z };
+			pCollisionObj->Get_TransformCom()->Set_Pos(&vTargetPos);
+		}
+		else if (eTargetDir == OBJ_DIR::DIR_U && fabs(vDir.z) < 0.9f)
+		{
+			vTargetPos = { vTargetPos.x, vTargetPos.y, vPos.z + 0.9f };
+			pCollisionObj->Get_TransformCom()->Set_Pos(&vTargetPos);
+		}
+		else if (eTargetDir == OBJ_DIR::DIR_D && fabs(vDir.z) < 0.9f)
+		{
+			vTargetPos = { vTargetPos.x, vTargetPos.y, vPos.z - 0.9f };
+			pCollisionObj->Get_TransformCom()->Set_Pos(&vTargetPos);
+		}
+	}
+	else if (pCollisionObj == m_pLiftObj)
+	{
+
+	}
+	else
+	{
+		if (eTargetDir == OBJ_DIR::DIR_R && fabs(vDir.x) < 0.9f)
+		{
+			vPos = { vTargetPos.x - 0.9f, vPos.y, vPos.z };
+			m_pTransformCom->Set_Pos(&vPos);
+		}
+		else if (eTargetDir == OBJ_DIR::DIR_L && fabs(vDir.x) < 0.9f)
+		{
+			vPos = { vTargetPos.x + 0.9f, vPos.y, vPos.z };
+			m_pTransformCom->Set_Pos(&vPos);
+		}
+		else if (eTargetDir == OBJ_DIR::DIR_U && fabs(vDir.z) < 0.9f)
+		{
+			vPos = { vPos.x, vPos.y, vTargetPos.z - 0.9f };
+			m_pTransformCom->Set_Pos(&vPos);
+		}
+		else if (eTargetDir == OBJ_DIR::DIR_D && fabs(vDir.z) < 0.9f)
+		{
+			vPos = { vPos.x, vPos.y, vTargetPos.z + 0.9f };
+			m_pTransformCom->Set_Pos(&vPos);
+		}
+
+		if (m_eDir == eTargetDir)
+			m_bPush = true;
+
+	}
+}
+
+void CPlayer::Collision_Enter_Grab(CGameObject* pCollisionObj, UINT _iColliderID)
+{
+	m_pLiftObj = pCollisionObj;
+	m_bGrab = true;
+}
+
+void CPlayer::Collision_Enter_Hit(CGameObject* pCollisionObj, UINT _iColliderID)
+{
+	if (m_eState == PLAYER_STATE::HIT)
+		return;
+
+	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
+	_vec3 vTargetPos;
+	_vec3 vPos;
+	_vec3 vDir;
+	_vec3 vAxis = {0.0f, 0.0f, 1.0f};
+	pCollisionObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = vTargetPos - vPos;
+	vDir.y = 0.0f;
+	D3DXVec3Normalize(&vDir, &vDir);
+
+	_float fAngle = D3DXVec3Dot(&vDir, &vAxis);
+	fAngle = acosf(fAngle);
+
+	if (vDir.x < 0.0f)
+		fAngle = D3DX_PI * 2 - fAngle;
+
+	
+	fAngle = D3DXToDegree(fAngle);
+	
+
+
+	_uint iDir = fAngle / 22.5f;
+
+	if (iDir == 0 || iDir == 15 || iDir == 16)
+	{
+		eTargetDir = OBJ_DIR::DIR_U;
+	}
+	else if (iDir == 1 || iDir == 2)
+	{
+		eTargetDir = OBJ_DIR::DIR_RU;
+	}
+	else if (iDir == 3 || iDir == 4)
+	{
+		eTargetDir = OBJ_DIR::DIR_R;
+	}
+	else if (iDir == 5 || iDir == 6)
+	{
+		eTargetDir = OBJ_DIR::DIR_RD;
+	}
+	else if (iDir == 7 || iDir == 8)
+	{
+		eTargetDir = OBJ_DIR::DIR_D;
+	}
+	else if (iDir == 9 || iDir == 10)
+	{
+		eTargetDir = OBJ_DIR::DIR_LD;
+	}
+	else if (iDir == 11 || iDir == 12)
+	{
+		eTargetDir = OBJ_DIR::DIR_L;
+	}
+	else if (iDir == 13 || iDir == 14)
+	{
+		eTargetDir = OBJ_DIR::DIR_LU;
+	}
+
+	m_eDir = eTargetDir;
+
+	Change_State(PLAYER_STATE::HIT);
+
+}
+

@@ -14,6 +14,9 @@
 #include "NearReactObj.h"
 #include "GrabbableObj.h"
 #include "NearReactMoonObj.h"
+#include "BalpanObj.h"
+#include "HitObj.h"
+#include "BlockObj.h"
 
 
 class CLogo : public Engine::CScene

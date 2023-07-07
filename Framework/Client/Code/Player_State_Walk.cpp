@@ -77,6 +77,8 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Walk_RightDown", true);
 		break;
 	}
+
+	m_fAccTime = 0.0f;
 	return S_OK;
 }
 
@@ -97,7 +99,8 @@ _int CPlayer_State_Walk::Update_State(const _float& fTimeDelta)
 
 void CPlayer_State_Walk::LateUpdate_State(void)
 {
-
+	if(dynamic_cast<CPlayer*>(m_pOwner)->Is_Push())
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::PUSH);
 }
 
 void CPlayer_State_Walk::Render_State(void)

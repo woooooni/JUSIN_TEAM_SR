@@ -7,6 +7,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	, m_eType(_eType)
 	, m_eDir(OBJ_DIR::DIR_D)
 	, m_bActive(true)
+	, m_fViewZ(0.f)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -16,6 +17,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_eType(rhs.m_eType)
 	, m_eDir(rhs.m_eDir)
 	, m_bActive(true)
+	, m_fViewZ(rhs.m_fViewZ)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -96,6 +98,7 @@ void CGameObject::Set_Billboard()
 	m_pTransformCom->Set_Info(INFO_LOOK, &(vLook));
 
 }
+
 CComponent * CGameObject::Find_Component(COMPONENT_TYPE eType, COMPONENTID eID)
 {
 	auto& iter = m_mapComponent[eID].find(eType);

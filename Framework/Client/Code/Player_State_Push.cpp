@@ -33,19 +33,13 @@ HRESULT CPlayer_State_Push::Ready_State(void)
 	}
 
 	m_eStartDir = m_pOwner->GetObj_Dir();
+	dynamic_cast<CPlayer*>(m_pOwner)->Set_Push(false);
 	return S_OK;
 }
 
 _int CPlayer_State_Push::Update_State(const _float& fTimeDelta)
 {
-	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 5.f, fTimeDelta);
-	if (m_fAccTime > m_fKeyDelayTime)
-	{
-		Key_Input(fTimeDelta);
-		m_fAccTime = 0.0f;
-	}
-	else
-		m_fAccTime += fTimeDelta;
+	Key_Input(fTimeDelta);
 	return 0;
 }
 
@@ -62,7 +56,23 @@ void CPlayer_State_Push::Key_Input(const _float& fTimeDelta)
 {
 	OBJ_DIR eInputDir = OBJ_DIR::DIR_END;
 
-	if (KEY_HOLD(KEY::UP_ARROW))
+	if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::LEFT_ARROW))
+	{
+		eInputDir = OBJ_DIR::DIR_LU;
+	}
+	else if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::RIGHT_ARROW))
+	{
+		eInputDir = OBJ_DIR::DIR_RU;
+	}
+	else if (KEY_HOLD(KEY::DOWN_ARROW) && KEY_HOLD(KEY::RIGHT_ARROW))
+	{
+		eInputDir = OBJ_DIR::DIR_RD;
+	}
+	else if (KEY_HOLD(KEY::LEFT_ARROW) && KEY_HOLD(KEY::DOWN_ARROW))
+	{
+		eInputDir = OBJ_DIR::DIR_LD;
+	}
+	else if (KEY_HOLD(KEY::UP_ARROW))
 	{
 		eInputDir = OBJ_DIR::DIR_U;
 	}
@@ -83,7 +93,12 @@ void CPlayer_State_Push::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 	}
 
-	if(m_eStartDir != eInputDir)
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+	if (m_eStartDir != eInputDir && eInputDir != OBJ_DIR::DIR_END)
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::MOVE);
+		m_pOwner->SetObj_Dir(eInputDir);
+	}
+	else
+		dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 5.f, fTimeDelta);
 
 }
