@@ -29,15 +29,15 @@ HRESULT CScene_Tool::Ready_Scene()
 	vp.Height = WINCY;
 	vp.MinZ = 0.0f;
 	vp.MaxZ = 1.0f;
-
 	m_pGraphicDev->SetViewport(&vp);
+
+	CImGuiMgr::GetInstance()->SetToolScene(this);
 
 	return S_OK;
 }
 
 Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 {
-
 	__super::Update_Scene(fTimeDelta);
 	CImGuiMgr::GetInstance()->Update_ImGui();
 	return 0;
@@ -57,6 +57,14 @@ void CScene_Tool::Render_Scene()
 void CScene_Tool::Free()
 {
 	__super::Free();
+}
+
+void CScene_Tool::Save_Data()
+{
+}
+
+void CScene_Tool::Load_Data()
+{
 }
 
 CScene_Tool* CScene_Tool::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -105,6 +113,8 @@ HRESULT CScene_Tool::Ready_Layer_Environment(LAYER_TYPE _eType)
 	//CUI* pUI = CUI::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pUI, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
+
+	CImGuiMgr::GetInstance()->Set_Target(pPlayer);
 
 	pCamera->Set_TargetObj(pPlayer);
 

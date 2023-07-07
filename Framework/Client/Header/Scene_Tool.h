@@ -20,6 +20,10 @@ private:
 	HRESULT			Ready_Layer_GameLogic(const _tchar* pLayerTag) { return S_OK; }
 	HRESULT			Ready_Layer_UI(const _tchar* pLayerTag) { return S_OK; }
 
+
+public:
+	void Save_Data();
+	void Load_Data();
 public:
 	static CScene_Tool* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

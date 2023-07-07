@@ -2,6 +2,7 @@
 #include "Export_Function.h"
 #include "CUI.h"
 #include "../Include/stdafx.h"
+#include "SkyBox.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -174,10 +175,10 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pBlock, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
 
-	// UI
-	//CUI* pUI = CUI::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pUI, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
+	// SkyBox
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pSkyBox, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pSkyBox), E_FAIL);
 	
 	pCamera->Set_TargetObj(pPlayer);
 
