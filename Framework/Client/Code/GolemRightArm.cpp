@@ -100,7 +100,6 @@ HRESULT CGolemRightArm::Add_Component(void)
 
 void CGolemRightArm::Update_Idle(_float fTimeDelta)
 {
-	m_pAnimator->Play_Animation(L"SunGolem_Idle_RightArm", true);
 	_vec3 vDir;
 	if (m_bBreath)
 		vDir = { 0.,1.f ,0.f };

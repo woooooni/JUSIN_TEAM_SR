@@ -9,12 +9,12 @@ class CTransform;
 
 END
 
-class CGolemFist : public Engine::CGameObject
+class CGolemFace : public Engine::CGameObject
 {
 protected:
-	explicit CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CGolemFist(const CGolemFist& rhs);
-	virtual ~CGolemFist();
+	explicit CGolemFace(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CGolemFace(const CGolemFace& rhs);
+	virtual ~CGolemFace();
 
 public:
 	virtual HRESULT Ready_Object(void)							override;
@@ -24,34 +24,33 @@ public:
 
 protected:
 	HRESULT	Add_Component(void);
-	virtual void Update_Idle(_float fTimeDelta)	;
-	virtual void Update_Dirty(_float fTimeDelta);
 
 
 public:
 
 	SUNGOLEM_STATE Get_State() { return m_eState; }
 	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
-	void Set_Dirty(_bool _bDirty) { if (m_bDirty == _bDirty) return; m_bDirty = _bDirty; }
-	void Set_Bummer(_bool _bBummer) { if (m_bBummer == _bBummer) return; m_bBummer = _bBummer; }
 
 public:
 	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
+public:
+	virtual void Update_Idle(_float fTimeDelta)	;
+	virtual void Update_Dirty(_float fTimeDelta);
+	virtual void Update_Move(_float fTimeDelta)	;
+	virtual void Update_Attack(_float fTimeDelta);
+	virtual void Update_Die(_float fTimeDelta)	;
+	virtual void Update_Regen(_float fTimeDelta);
 
-	static CGolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CGolemFace* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-	void Set_ArmNum(_int _iNum) { m_iArmNum = _iNum; }
+
 
 private:
 	SUNGOLEM_STATE	m_eState;
-	bool m_bBreath = false;
-	_int m_iArmNum = 0;
-	_bool	m_bBummer = false;
-	_bool	m_bDirty = false;
-
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
+	bool m_bBreath=false;
 protected:
 	virtual void Free() override;
 

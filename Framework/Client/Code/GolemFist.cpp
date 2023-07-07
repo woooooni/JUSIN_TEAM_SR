@@ -2,7 +2,7 @@
 #include "GolemFist.h"
 #include "SunGollem.h"
 
-CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
 {
@@ -28,7 +28,7 @@ HRESULT CGolemFist::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_BummerFist", L"Proto_Texture_SunGolem_Dirty_BummerFist", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Fist", true);
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 1.f, 1.f,1.f });
+	m_pTransformCom->Set_Scale({ 0.6f, 1.f,1.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
 
@@ -45,13 +45,13 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 	else
 		Update_Dirty(fTimeDelta);
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta,2.f);
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta,20.f);
 	return iExit;
 }
 
 void CGolemFist::LateUpdate_Object(void)
 {
-	
+
 	__super::LateUpdate_Object();
 }
 
@@ -86,15 +86,18 @@ HRESULT CGolemFist::Add_Component(void)
 
 void CGolemFist::Update_Idle(_float fTimeDelta)
 {
-	m_pAnimator->Play_Animation(L"SunGolem_Idle_Fist", true);
+	if (m_bDirty == true)
+	{
+		if (m_bBummer == true)
+			m_pAnimator->Play_Animation(L"SunGolem_Dirty_BummerFist", true);
+		else
+			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Fist", true);
+	}
 }
 
 void CGolemFist::Update_Dirty(_float fTimeDelta)
 {
-	if(m_bBummer=true)
-		m_pAnimator->Play_Animation(L"SunGolem_Dirty_BummerFist", true);
-	else
-	m_pAnimator->Play_Animation(L"SunGolem_Dirty_Fist", true);
+
 	
 }
 

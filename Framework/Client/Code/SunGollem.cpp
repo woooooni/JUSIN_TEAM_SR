@@ -29,14 +29,14 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Body", L"Proto_Texture_SunGolem_Dirty_Body", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
 	
-		
-	
+	memset(m_bAttack, 1, sizeof(bool)*6);
+
 	m_pTransformCom->Set_Pos(&_vec3(4.0f, 2.0f, 4.0f));
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	m_vRandomPos[0] = { vPos.x - 1, vPos.y, vPos.z };
+	m_vRandomPos[0] = { vPos.x - 5, vPos.y, vPos.z };
 	m_vRandomPos[1] = { vPos.x , vPos.y, vPos.z };
-	m_vRandomPos[2] = { vPos.x + 1, vPos.y, vPos.z };
+	m_vRandomPos[2] = { vPos.x + 5, vPos.y, vPos.z };
 	m_pTransformCom->Set_Scale({ 2,2,2 });
 	Set_Speed(5.f);
 	Set_State(SUNGOLEM_STATE::REGEN);
@@ -73,6 +73,7 @@ _int CSunGollem::Update_Object(const _float& fTimeDelta)
 
 	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
 	{
+		if ((*iter)->Is_Active())
 		(*iter)->Update_Object(fTimeDelta);
 	}
 	return iExit;
@@ -81,7 +82,10 @@ _int CSunGollem::Update_Object(const _float& fTimeDelta)
 void CSunGollem::LateUpdate_Object(void)
 {
 	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
-		(*iter)->LateUpdate_Object();
+	{
+		if ((*iter)->Is_Active())
+			(*iter)->LateUpdate_Object();
+	}
 }
 
 void CSunGollem::Render_Object(void)
@@ -93,7 +97,11 @@ void CSunGollem::Render_Object(void)
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
-		(*iter)->Render_Object();
+	{
+		if((*iter)->Is_Active())
+		(*iter)->Render_Object(); 
+	}
+		
 }
 
 HRESULT CSunGollem::Add_Component(void)
@@ -164,7 +172,6 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 		else
 			m_bBreath = true;
 		Set_State(SUNGOLEM_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -197,10 +204,9 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 	{
 			m_vVerticalDir= {0.f, 1.f ,0.f };
 			m_fSpeed = 10.f;
-			Set_State(SUNGOLEM_STATE::DIRTY);
-			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
 			m_iRand = rand() % 3 ;
 		m_fMoveTime = 0.f;
+		Set_State(SUNGOLEM_STATE::IDLE);
 	}
 	m_fMoveTime += 10 * fTimeDelta;
 
@@ -208,24 +214,128 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 
 void CSunGollem::Update_Attack(_float fTimeDelta)
 {
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+	NULL_CHECK_RETURN(pTarget, );
+	Set_Target(pTarget);
+	_vec3 vTargetPos, vDir;
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	if (m_bLockon == false)
+	{
+		m_vTargetPos = vTargetPos;
+		m_bLockon = true;
+	}
+	else
+	{
+		vDir = vTargetPos - m_vTargetPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+		m_vTargetPos += vDir * fTimeDelta * 5.f;
+	}
+	if (m_iActiveArm > 5)
+	{
+		m_vecParts[LEFTARM0]->Set_Active(false);
+		m_vecParts[RIGHTARM0]->Set_Active(false);
+		m_vecParts[LEFTHAND0]->Set_Active(false);
+		m_vecParts[RIGHTHAND0]->Set_Active(false);
+	}
+	if (m_iActiveArm > 3)
+	{
+		m_vecParts[LEFTARM1]->Set_Active(false);
+		m_vecParts[RIGHTARM1]->Set_Active(false);
+		m_vecParts[LEFTHAND1]->Set_Active(false);
+		m_vecParts[RIGHTHAND1]->Set_Active(false);
+	}
+	if (m_iActiveArm > 1)
+	{
+		m_vecParts[LEFTARM2]->Set_Active(false);
+		m_vecParts[RIGHTARM2]->Set_Active(false);
+		m_vecParts[LEFTHAND2]->Set_Active(false);
+		m_vecParts[RIGHTHAND2]->Set_Active(false);
+	}
 	if (m_fMoveTime > 10.f)
 	{
-		for (_int i = 0; i < m_iActiveArm; i++)
+
+	
+		if (m_iActiveArm > 1)
 		{
-			if (i >= 2 && 3 <= i)
+			if (m_bAttack[0]&&m_fMoveTime > 10.f)
 			{
-				Create_Fist(true, i);
+				Create_Fist(false, 5);
+				m_bAttack[0] = false;
 			}
-			else
-				Create_Fist(false, i);
+			if (m_bAttack[1] && m_fMoveTime > 15.f)
+			{
+				Create_Fist(false, 5);
+				m_bAttack[1] = false;
+			}
 		}
-		m_iActiveArm += 2;
-		if (m_iActiveArm > 6)
-			m_iActiveArm = 2;
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
+			if (m_iActiveArm > 3)
+			{
+				if (m_bAttack[2] && m_fMoveTime > 20.f)
+				{
+					Create_Fist(true, 5);
+					m_bAttack[2] = false;
+				}
+				if (m_bAttack[3] && m_fMoveTime > 25.f)
+				{
+					Create_Fist(true, 5);
+					m_bAttack[3] = false;
+				}
+			}
+			if (m_iActiveArm > 5 && m_fMoveTime > 30.f)
+			{
+				if (m_bAttack[4])
+				{
+					Create_Fist(false, 5) ;
+					m_bAttack[4] = false;
+				}
+				if (m_bAttack[5] && m_fMoveTime > 35.f)
+				{
+					Create_Fist(false, 5);
+					m_bAttack[5] = false;
+				}
+			}
+			
+		
+		if (m_fMoveTime > 40.f)
+		{
+			m_fMoveTime = 0.f;
+			Set_State(SUNGOLEM_STATE::MOVE);
+			memset(m_bAttack, 1, sizeof(bool) * 6);
+			m_iActiveArm += 2;
+			if (m_iActiveArm > 5)
+			{
+				m_vecParts[LEFTARM0]->Set_Active(true);
+				m_vecParts[RIGHTARM0]->Set_Active(true);
+				m_vecParts[LEFTHAND0]->Set_Active(true);
+				m_vecParts[RIGHTHAND0]->Set_Active(true);
+			}
+			if (m_iActiveArm > 3)
+			{
+				m_vecParts[LEFTARM1]->Set_Active(true);
+				m_vecParts[RIGHTARM1]->Set_Active(true);
+				m_vecParts[LEFTHAND1]->Set_Active(true);
+				m_vecParts[RIGHTHAND1]->Set_Active(true);
+			}
+			if (m_iActiveArm > 1)
+			{
+				m_vecParts[LEFTARM2]->Set_Active(true);
+				m_vecParts[RIGHTARM2]->Set_Active(true);
+				m_vecParts[LEFTHAND2]->Set_Active(true);
+				m_vecParts[RIGHTHAND2]->Set_Active(true);
+
+			}
+			if (m_iActiveArm > 6)
+			{
+				m_iActiveArm = 2;
+				Set_State(SUNGOLEM_STATE::DIRTY);
+				m_bDirty = true;
+				m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
+				m_vecParts[FACE]->Set_Active(true);
+				m_bLockon = false;
+			}
+		}
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CSunGollem::Update_Die(_float fTimeDelta)
@@ -267,13 +377,13 @@ void CSunGollem::Free()
 }
 void CSunGollem::Create_Fist(bool _BummerFist, _int _iSrc)
 {
-	_vec3 vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos += {float(rand() % 33) * 0.1f, (float)_iSrc, float(rand() % 34 - 17) * 0.1f};
 	CGolemFist* pGolemFist = CGolemFist::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGolemFist, );
-	pGolemFist->Get_TransformCom()->Set_Pos(&vPos);
-	pGolemFist->Set_State(m_eState);
+	m_vTargetPos.y = 7.f;
+	pGolemFist->Get_TransformCom()->Set_Pos(&m_vTargetPos);
+	pGolemFist->Set_Dirty(m_bDirty);
+	pGolemFist->Set_Bummer(_BummerFist);
+
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 	pLayer->Add_GameObject(L"GolemFist", pGolemFist);
 
@@ -300,6 +410,7 @@ HRESULT CSunGollem::Ready_Parts(void)
 	m_vPartPos[RIGHTHAND0] = { vPos.x + 1.9f,vPos.y - 0.5f,vPos.z - 0.0104f };
 	m_vPartPos[RIGHTHAND1] = { vPos.x + 2.15f,vPos.y + 0.5f,vPos.z - 0.0103f };
 	m_vPartPos[RIGHTHAND2] = { vPos.x + 1.9f,vPos.y + 1.5f,vPos.z - 0.0102f };
+	m_vPartPos[FACE] = { vPos.x,vPos.y + 0.5f,vPos.z - 0.012f };
 	//	HEAD, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
 	//	LEFTARM2, RIGHTARM0, RIGHTARM1, RIGHTARM2, LEFTHAND0,
 	//	LEFTHAND1, LEFTHAND2, RIGHTHAND0, RIGHTHAND1, RIGHTHAND2
@@ -360,5 +471,9 @@ HRESULT CSunGollem::Ready_Parts(void)
 		pGolemRightHand->Get_TransformCom()->RotationAxis(vAxisZ,D3DXToRadian( 90.f));
 		m_vecParts.push_back(pGolemRightHand);
 	}
+	CGolemFace* pGolemFace = CGolemFace::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pGolemFace, E_FAIL);
+	pGolemFace->Get_TransformCom()->Set_Pos(&m_vPartPos[FACE]);
+	m_vecParts.push_back(pGolemFace);
 	return S_OK;
 }
