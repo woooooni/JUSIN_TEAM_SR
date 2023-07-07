@@ -2,7 +2,7 @@
 #include "GolemFist.h"
 #include "SunGollem.h"
 
-CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
 {
@@ -45,13 +45,13 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 	else
 		Update_Dirty(fTimeDelta);
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta,2.f);
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta,20.f);
 	return iExit;
 }
 
 void CGolemFist::LateUpdate_Object(void)
 {
-	
+
 	__super::LateUpdate_Object();
 }
 

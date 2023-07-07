@@ -71,9 +71,11 @@ protected:
 	bool m_bBreath = false;
 	_vec3 m_vVerticalDir = { 0,0,0 };
 	_vec3 m_vRandomPos[3] = {};
+	_vec3 m_vTargetPos = {};
 	_int m_iRand = 1;
 	_int m_iActiveArm = 2;
-	bool m_bAttack = true;
+	bool m_bAttack[6];
+	bool m_bLockon = false;
 	bool m_bDirty = false;
 protected:
 	virtual void Free() override;
