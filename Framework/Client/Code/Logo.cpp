@@ -2,7 +2,6 @@
 #include "Export_Function.h"
 #include "CUI.h"
 #include "../Include/stdafx.h"
-#include "SkyBox.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -36,7 +35,6 @@ Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
 
 	__super::Update_Scene(fTimeDelta);
-
 
 	return 0;
 }
@@ -99,9 +97,7 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
-	pCamera->Set_CameraState(CAMERA_STATE::GAME);
-
-
+	
 	// BlueBeatle
 	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
@@ -152,10 +148,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pGrab, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GrabStone", pGrab), E_FAIL);
 
-	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 1, { 13, 1, 15 });
+	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 4, { 13, 1, 15 });
 	NULL_CHECK_RETURN(pBal, E_FAIL);
 	pBal->Set_AutoReset();
-	pBal->Set_TargName(L"Stone");
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
 
 	pBal = CBalpanObj::Create(m_pGraphicDev, 0, { 15, 1, 15 });
@@ -179,46 +174,33 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pBlock, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
 
-
-	// SkyBox
-	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSkyBox, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pSkyBox), E_FAIL);
-
-	CJellyStone* pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, { 8, 1, 10 });
-	NULL_CHECK_RETURN(pJelly, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
-
-	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, { 5, 1, 10 });
-	NULL_CHECK_RETURN(pJelly, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
-
-	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, { 11, 1, 10 });
-	NULL_CHECK_RETURN(pJelly, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
-
-
-
-	CJellyCombined* pCombine = CJellyCombined::Create(m_pGraphicDev, JELLY_COLLOR_COMBINE::RED, 0, { 5, 1, 13 });
-	NULL_CHECK_RETURN(pCombine, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Combined", pCombine), E_FAIL);
-
-	CCatapult* pCata = CCatapult::Create(m_pGraphicDev, 0, { 5, 1 , 20 });
-	NULL_CHECK_RETURN(pCata, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Catapult", pCata), E_FAIL);
-
-	CLightPuzzleTerrain* pLTer = CLightPuzzleTerrain::Create(m_pGraphicDev, 5, 4, { 25, 0 , 25 });
-	NULL_CHECK_RETURN(pLTer, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleTer", pLTer), E_FAIL);
-
-
-
 	// UI
 	//CUI* pUI = CUI::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pUI, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
 
+	CNPCText* pTextBox = CNPCText::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTextBox, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
+
+
+	// NPC (Test)
+	CTutorialNPC* pNPCSheep = CTutorialNPC::Create(m_pGraphicDev, { 2, 1, 1 }, NPCTYPE::TUT_SHEEP);
+	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
 	
+	CTutorialNPC* pNPCCow = CTutorialNPC::Create(m_pGraphicDev, { 3, 1, 1 }, NPCTYPE::TUT_COW);
+	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
+
+	CTutorialNPC* pNPCPig = CTutorialNPC::Create(m_pGraphicDev, { 4, 1, 1 }, NPCTYPE::TUT_PIG);
+	NULL_CHECK_RETURN(pNPCPig, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Pig", pNPCPig), E_FAIL);
+
+	CTutorialNPC* pNPCDoogee = CTutorialNPC::Create(m_pGraphicDev, { 5, 1, 1 }, NPCTYPE::TUT_DOOGEE);
+	NULL_CHECK_RETURN(pNPCDoogee, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Doogee", pNPCDoogee), E_FAIL);
+
 	pCamera->Set_TargetObj(pPlayer);
 
 	m_mapLayer.insert({ _eType, pLayer });

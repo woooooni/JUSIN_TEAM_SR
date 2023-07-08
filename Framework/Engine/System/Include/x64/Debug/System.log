@@ -1,5 +1,4 @@
-﻿  unity_X74SGK72G564F8Z7.cpp
-  System.vcxproj -> C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\System\Bin\System.dll
+﻿  System.vcxproj -> C:\Users\Wonhye\Documents\JUSIN_TEAM_SR\Framework\Engine\System\Bin\System.dll
   .\Engine\System\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
@@ -37,7 +36,6 @@
   .\Engine\Header\PickingMgr.h
   .\Engine\Header\ProtoMgr.h
   .\Engine\Header\RcCol.h
-  .\Engine\Header\RcPuzzleBuff.h
   .\Engine\Header\RcTex.h
   .\Engine\Header\Renderer.h
   .\Engine\Header\RigidBody.h
@@ -49,7 +47,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         44개 파일이 복사되었습니다.
+         43개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

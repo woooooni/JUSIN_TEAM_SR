@@ -10,7 +10,7 @@
 #include "DesertRhino.h"
 #include "SunGollem.h"
 #include "Terrain.h"
-#include	"PushStone.h"
+#include "PushStone.h"
 #include "NearReactObj.h"
 #include "GrabbableObj.h"
 #include "NearReactMoonObj.h"
@@ -19,8 +19,10 @@
 #include "BlockObj.h"
 #include "JellyStone.h"
 #include "JellyCombined.h"
-#include	"Catapult.h"
-#include	"LightPuzzleTerrain.h"
+#include "Catapult.h"
+#include "LightPuzzleTerrain.h"
+#include "TutorialNPC.h"
+#include "NPCText.h"
 
 
 class CLogo : public Engine::CScene
