@@ -3,6 +3,8 @@
 
 class CTextBox : public CUI
 {
+	CLONE(CTextBox)
+
 protected:
 	explicit CTextBox(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTextBox(const CTextBox& rhs);

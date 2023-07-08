@@ -2,6 +2,8 @@
 #include "LightPuzzle.h"
 class CLightPuzzlePiece :    public CLightPuzzle
 {
+	CLONE(CLightPuzzlePiece)
+
 protected:
 	CLightPuzzlePiece(LPDIRECT3DDEVICE9 pGraphicDev);
 	CLightPuzzlePiece(const CLightPuzzlePiece& rhs);

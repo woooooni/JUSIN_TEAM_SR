@@ -14,6 +14,7 @@ END
 
 class CPlayer_Skill_Aim : public CGameObject
 {
+	CLONE(CPlayer_Skill_Aim)
 private:
 	explicit CPlayer_Skill_Aim(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CPlayer_Skill_Aim(const CPlayer_Skill_Aim& rhs);

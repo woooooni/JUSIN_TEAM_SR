@@ -11,6 +11,8 @@ END
 class CCoin :
     public CItem
 {
+	CLONE(CCoin)
+
 protected:
 	explicit CCoin(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CCoin(const CCoin& rhs);

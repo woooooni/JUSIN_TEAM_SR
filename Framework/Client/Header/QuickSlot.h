@@ -11,6 +11,7 @@ END
 
 class CQuickSlot : public CUI
 {
+	CLONE(CQuickSlot)
 protected:
 	explicit CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CQuickSlot(const CQuickSlot& rhs);

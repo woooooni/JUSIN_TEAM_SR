@@ -14,6 +14,7 @@ END
 
 class CPlayer_Skill_Range : public Engine::CGameObject
 {
+	CLONE(CPlayer_Skill_Range)
 private:
 	explicit CPlayer_Skill_Range(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CPlayer_Skill_Range(const CPlayer_Skill_Range& rhs);

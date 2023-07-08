@@ -14,6 +14,7 @@ END
 class CNPC
 	: public CGameObject
 {
+	CLONE(CNPC)
 protected:
 	explicit CNPC(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CNPC(const CNPC& rhs);

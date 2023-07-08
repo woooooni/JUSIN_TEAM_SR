@@ -13,6 +13,7 @@ END
 
 class CUI : public CGameObject
 {
+	CLONE(CUI)
 
 protected:
 	explicit CUI(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -29,6 +29,7 @@ struct tagIconInfo
 
 class CIcon : public CUI
 {
+	CLONE(CIcon)
 private:
 	CIcon(LPDIRECT3DDEVICE9 pGraphicDev);
 	CIcon(const CIcon& rhs);

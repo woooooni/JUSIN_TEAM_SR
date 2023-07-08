@@ -38,6 +38,8 @@ struct tagNPCInfo
 class CTutorialNPC :
     public CNPC
 {
+	CLONE(CTutorialNPC)
+
 protected:
 	explicit CTutorialNPC(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTutorialNPC(const CTutorialNPC& rhs);

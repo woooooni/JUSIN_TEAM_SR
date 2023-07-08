@@ -14,6 +14,7 @@ END
 
 class CPlayer_Bullet_GolemFist : public CGameObject
 {
+	CLONE(CPlayer_Bullet_GolemFist)
 private:
 	explicit CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CPlayer_Bullet_GolemFist(const CPlayer_Bullet_GolemFist& rhs);

@@ -12,6 +12,7 @@ END
 
 class CNPCText : public CUI
 {
+	CLONE(CNPCText)
 private:
 	CNPCText(LPDIRECT3DDEVICE9 pGraphicDev);
 	CNPCText(const CNPCText& rhs);

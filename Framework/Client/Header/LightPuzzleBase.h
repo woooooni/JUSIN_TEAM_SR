@@ -2,6 +2,7 @@
 #include "LightPuzzle.h"
 class CLightPuzzleBase :    public CLightPuzzle
 {
+	CLONE(CLightPuzzleBase)
 protected:
 	CLightPuzzleBase(LPDIRECT3DDEVICE9 pGraphicDev);
 	CLightPuzzleBase(const CLightPuzzleBase& rhs);
