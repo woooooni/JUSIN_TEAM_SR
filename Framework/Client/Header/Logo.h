@@ -21,6 +21,8 @@
 #include "JellyCombined.h"
 #include	"Catapult.h"
 #include	"LightPuzzleTerrain.h"
+#include	"LightPuzzleBase.h"
+#include	"LightPuzzlePiece.h"
 
 
 class CLogo : public Engine::CScene

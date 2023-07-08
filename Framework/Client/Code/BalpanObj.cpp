@@ -61,6 +61,7 @@ void CBalpanObj::LateUpdate_Object(void)
 		}
 	}
 
+
 }
 
 void CBalpanObj::Render_Object(void)
@@ -136,6 +137,7 @@ void CBalpanObj::Add_ActivateState(const _uint& pNum)
  {
 	 m_listActivateNum.push_back(pNum);
 	 Engine::Add_Subscribe(pNum, this);
+	 m_pAnimator->Play_Animation(L"UnActivate", false);
  }
 
  HRESULT CBalpanObj::Ready_Component()
