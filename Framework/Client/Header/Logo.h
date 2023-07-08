@@ -36,6 +36,7 @@
 #include "Player_Skill_Aim.h"
 
 #include "TrashSlime.h"
+#include "Item_Hat_Monkey.h"
 
 class CLogo : public Engine::CScene
 {

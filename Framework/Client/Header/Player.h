@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Player_State.h"
 #include "Player_State_Skill.h"
+#include "Item_Hat.h"
 
 BEGIN(Engine)
 
@@ -111,6 +112,10 @@ public:
 		if (m_tPlayerStat.iMoney < 0)
 			m_tPlayerStat.iMoney = 0;
 	}
+	//아이템
+	void			Set_Hat(CGameObject* _pHat) { m_pHat = _pHat; }
+	CItem_Hat*		Get_Hat() { return dynamic_cast<CItem_Hat*>(m_pHat); }
+
 
 	//스킬
 	void			Add_Skill(PLAYER_SKILL _eSkill) 
@@ -173,6 +178,7 @@ private:
 	CGameObject* m_pLiftObj = nullptr;
 	CGameObject* m_pSkillRange = nullptr;
 	CGameObject* m_pAim = nullptr;
+	CGameObject* m_pHat = nullptr;
 
 	//플레이어 스텟
 	STAT m_tPlayerStat;
