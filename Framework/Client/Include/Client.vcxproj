@@ -217,6 +217,8 @@
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
     <ClInclude Include="..\Header\LightPuzzle.h" />
+    <ClInclude Include="..\Header\LightPuzzleBase.h" />
+    <ClInclude Include="..\Header\LightPuzzlePiece.h" />
     <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
@@ -300,6 +302,8 @@
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
     <ClCompile Include="..\Code\LightPuzzle.cpp" />
+    <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
+    <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
     <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />

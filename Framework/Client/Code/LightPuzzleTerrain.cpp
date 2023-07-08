@@ -2,11 +2,11 @@
 #include	"Export_Function.h"
 #include	"RcPuzzleBuff.h"
 
-CLightPuzzleTerrain::CLightPuzzleTerrain(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_BACKGROUND), m_vTileCenterPos(nullptr)
+CLightPuzzleTerrain::CLightPuzzleTerrain(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_BACKGROUND), m_vTileCenterPos(nullptr), m_pSubBuffer(nullptr)
 {
 }
 
-CLightPuzzleTerrain::CLightPuzzleTerrain(const CLightPuzzleTerrain& rhs) : CGameObject(rhs), m_vTileCenterPos(nullptr)
+CLightPuzzleTerrain::CLightPuzzleTerrain(const CLightPuzzleTerrain& rhs) : CGameObject(rhs), m_vTileCenterPos(nullptr), m_pSubBuffer(rhs.m_pSubBuffer)
 {
 }
 
@@ -37,9 +37,27 @@ void CLightPuzzleTerrain::LateUpdate_Object(void)
 
 void CLightPuzzleTerrain::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	_matrix mat = *m_pTransformCom->Get_WorldMatrix();
+
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
 	m_pAnimator->Render_Component();
+	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+
+	
+
+	/*for (size_t i = 0; i < m_vecLightMap.size(); i++)
+	{
+		_matrix src = mat;
+		src.m[3][0] += m_vTileCenterPos[i].x;
+		src.m[3][1] += m_vTileCenterPos[i].y;
+		src.m[3][2] += m_vTileCenterPos[i].z;
+
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, &src);
+		m_pTextureCom->Render_Texture();
+		m_pSubBuffer->Render_Buffer();
+
+	}*/
 
 }
 
@@ -66,35 +84,15 @@ CLightPuzzleTerrain* CLightPuzzleTerrain::Create(LPDIRECT3DDEVICE9 p_Dev, const 
 	{
 		for (size_t j = 0; j < tileX; j++)
 		{
-			ret->m_vTileCenterPos[tileY * i + j] = _vec3(j + 0.5f, 0, i + 0.5f);
+			ret->m_vTileCenterPos[tileX * i + j] = _vec3(j + 0.5f, 0, i + 0.5f);
 			ret->m_vecLightMap.push_back(new LIGHT_INFO);
 		}
 	}
 	
-	_vec2 src;
 
-	if (tileX % 2 == 0)
-	{
-		src.x = (tileX / 2);
-	}
-	else
-	{
-		src.x = (tileX / 2);
-		src.x += 0.5f;
-	}
+	ret->m_pColliderCom->Set_Offset({(_float)tileX * 0.5f , 0, (_float)tileY * 0.5f});
 
-	if (tileY % 2 == 0)
-	{
-		src.y = (tileY / 2);
-	}
-	else
-	{
-		src.y = (tileY / 2);
-		src.y += 0.5f;
-	}
-
-	ret->m_pColliderCom->Set_Offset({ src.x , 0, src.y });
-	dynamic_cast<CBoxCollider*>(ret->m_pColliderCom)->Set_Scale({ (float)tileX * 0.5f, 1.f, (float)tileY * 0.5f });
+	dynamic_cast<CBoxCollider*>(ret->m_pColliderCom)->Set_Scale({ (float)tileX, 1.f, (float)tileY });
 	ret->m_pTransformCom->Set_Pos(& _vec3( p_Pos.x, 0.001f, p_Pos.z ));
 
 	return ret;
@@ -149,6 +147,15 @@ HRESULT CLightPuzzleTerrain::Ready_Compnent()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_MoonPuzzleBase"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	pComponent = m_pSubBuffer = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
 
 
 	return S_OK;

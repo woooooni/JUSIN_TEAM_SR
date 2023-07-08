@@ -202,11 +202,19 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pCata, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Catapult", pCata), E_FAIL);
 
-	CLightPuzzleTerrain* pLTer = CLightPuzzleTerrain::Create(m_pGraphicDev, 5, 4, { 25, 0 , 25 });
+	CLightPuzzleTerrain* pLTer = CLightPuzzleTerrain::Create(m_pGraphicDev, 4, 5, { 25, 0 , 25 });
 	NULL_CHECK_RETURN(pLTer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleTer", pLTer), E_FAIL);
 
-	//Coin
+	CLightPuzzleBase* pLBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, {25, 1, 25});
+	NULL_CHECK_RETURN(pLBase, E_FAIL);
+	pLBase->Reverse_Puzzle(true);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLBase), E_FAIL);
+
+	CLightPuzzlePiece* pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 28, 1, 28 });
+	NULL_CHECK_RETURN(pLPiece, E_FAIL);
+	pLBase->Reverse_Puzzle(true);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLPiece), E_FAIL);
 
 
 	CCoin* pCoin = CCoin::Create(m_pGraphicDev);

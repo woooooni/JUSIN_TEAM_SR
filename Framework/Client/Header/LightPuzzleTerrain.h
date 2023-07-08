@@ -1,6 +1,10 @@
 #pragma once
 #include "GameObject.h"
+#include "Engine_Define.h"
 
+BEGIN(Engine)
+class CRcTex;
+END
 struct LIGHT_INFO
 {
 	_bool		m_bIsOnTile = false;
@@ -41,6 +45,7 @@ protected:
 	HRESULT		Ready_Compnent();
 	_vec3* m_vTileCenterPos;
 	vector<LIGHT_INFO*>		m_vecLightMap;
+	CRcTex* m_pSubBuffer;
 
 };
 
