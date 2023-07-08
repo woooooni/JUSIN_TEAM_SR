@@ -10,6 +10,8 @@ END
 
 class CNearReactObj : public CGameObject
 {
+	CLONE(CNearReactObj)
+
 protected:
 	CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev);
 	CNearReactObj(const CNearReactObj& rhs);

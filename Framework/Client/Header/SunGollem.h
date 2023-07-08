@@ -12,6 +12,7 @@ END
 
 class CSunGollem : public Engine::CGameObject
 {
+	CLONE(CSunGollem)
 public:
 	enum BODYPARTS {
 		HEAD=0, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,

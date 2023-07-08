@@ -2,6 +2,7 @@
 #include "FieldObject.h"
 class CHitObj : public CFieldObject
 {
+	CLONE(CHitObj)
 protected:
 	CHitObj(LPDIRECT3DDEVICE9 p_Dev);
 	CHitObj(const CHitObj& rhs);

@@ -34,5 +34,5 @@ CCamera * CCameraMgr::GetCamera(_uint _iIdx)
 
 void CCameraMgr::Free()
 {
-	for_each(m_vecCamera.begin(), m_vecCamera.end(), CDeleteObj());
+	
 }

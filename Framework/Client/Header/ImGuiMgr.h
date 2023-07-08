@@ -16,16 +16,16 @@ class CImGuiMgr : public CBase
 
 public:
 	enum class TOOL_MODE { OBJECT, TERRAIN, MAP, MODE_END };
-	enum class OBJ_SELECTED { OBJ, SELECTED_END };
+	enum class OBJ_SELECTED { BLUE_BEATLE };
 private:
 	explicit CImGuiMgr();
 	virtual ~CImGuiMgr();
 
 public:
 	HRESULT Ready_ImGuiMgr(HWND _hWnd, LPDIRECT3DDEVICE9 _pGraphicDev);
-	void	Update_ImGui();
+	void	Update_ImGui(const _float& fTimeDelta);
 	void	Render_ImGui();
-	
+
 public:
 	TOOL_MODE Get_CurrToolMode() { return m_eMode; }
 	void Set_ToolMode(TOOL_MODE _eMode) { m_eMode = _eMode; }
@@ -40,12 +40,15 @@ public:
 
 
 private:
-	void Update_Inspector();
-	void Update_Hierachy();
+	void Update_Inspector(const _float& fTimeDelta);
+	void Update_Hierachy(const _float& fTimeDelta);
 
-	void UpdateObjectTool();
-	void UpdateTerrainTool();
-	void UpdateMapTool();
+	void UpdateObjectTool(const _float& fTimeDelta);
+	void UpdateTerrainTool(const _float& fTimeDelta);
+	void UpdateMapTool(const _float& fTimeDelta);
+
+	void CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit);
+	void DeleteObj();
 
 private:
 	_bool m_bEnabled;
@@ -56,8 +59,11 @@ private:
 
 	CScene_Tool* m_pToolScene;
 	CGameObject* m_pTargetObject;
+	CGameObject* m_pSelectedObject;
 	
+	wstring		m_strObjNaming;
 	OBJ_SELECTED m_eSelectedObjType;
+
 public:
 	virtual void Free() override;
 };

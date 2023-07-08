@@ -11,6 +11,7 @@ END
 
 class CGolemRightArm : public Engine::CGameObject
 {
+	CLONE(CGolemRightArm)
 protected:
 	explicit CGolemRightArm(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CGolemRightArm(const CGolemRightArm& rhs);

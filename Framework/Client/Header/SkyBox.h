@@ -11,6 +11,7 @@ END
 
 class CSkyBox : public Engine::CGameObject
 {
+	CLONE(CSkyBox)
 private:
 	explicit CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CSkyBox(const CSkyBox& rhs);

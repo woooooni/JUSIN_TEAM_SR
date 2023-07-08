@@ -2,6 +2,8 @@
 #include "FieldObject.h"
 class CBalpanObj : public CFieldObject
 {
+	CLONE(CBalpanObj)
+
 protected:
 	CBalpanObj(LPDIRECT3DDEVICE9 p_Dev);
 	CBalpanObj(const CBalpanObj& rhs);

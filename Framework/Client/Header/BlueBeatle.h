@@ -6,6 +6,7 @@ END
 class CBlueBeatle :
     public CMonster
 {
+    CLONE(CBlueBeatle)
 private:
     explicit CBlueBeatle(LPDIRECT3DDEVICE9 pGraphicDev);
     explicit CBlueBeatle(const CBlueBeatle& rhs);

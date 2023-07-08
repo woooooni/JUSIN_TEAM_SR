@@ -20,7 +20,12 @@ CScene_Tool::~CScene_Tool()
 HRESULT CScene_Tool::Ready_Scene()
 {
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
+	
+	for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
+		Ready_Layer_Tool((LAYER_TYPE)i);
+
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
+	
 
 	D3DVIEWPORT9 vp;
 	vp.X = 0;
@@ -31,15 +36,15 @@ HRESULT CScene_Tool::Ready_Scene()
 	vp.MaxZ = 1.0f;
 	m_pGraphicDev->SetViewport(&vp);
 
-	CImGuiMgr::GetInstance()->SetToolScene(this);
+	CImGuiMgr::GetInstance()->SetToolScene(this);    
 
 	return S_OK;
 }
 
 Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 {
-	__super::Update_Scene(fTimeDelta);
-	CImGuiMgr::GetInstance()->Update_ImGui();
+	__super::Update_Scene(0.f);
+	CImGuiMgr::GetInstance()->Update_ImGui(fTimeDelta);
 	return 0;
 }
 
@@ -89,7 +94,7 @@ HRESULT CScene_Tool::Ready_Prototype()
 
 HRESULT CScene_Tool::Ready_Layer_Environment(LAYER_TYPE _eType)
 {
-	Engine::CLayer* pLayer = Engine::CLayer::Create();
+	Engine::CLayer* pLayer = m_mapLayer.find(_eType)->second;
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
 	Engine::CGameObject* pGameObject = nullptr;
@@ -109,16 +114,20 @@ HRESULT CScene_Tool::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 
-	// UI
-	//CUI* pUI = CUI::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pUI, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
 
 	CImGuiMgr::GetInstance()->Set_Target(pPlayer);
-
+	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 	pCamera->Set_TargetObj(pPlayer);
 
-	m_mapLayer.insert({ _eType, pLayer });
+	return S_OK;
+}
 
+HRESULT CScene_Tool::Ready_Layer_Tool(LAYER_TYPE _eType)
+{
+	Engine::CLayer* pLayer = Engine::CLayer::Create();
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+
+	m_mapLayer.insert({ _eType, pLayer });
 	return S_OK;
 }

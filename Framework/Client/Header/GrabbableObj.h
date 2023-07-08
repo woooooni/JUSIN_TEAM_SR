@@ -5,6 +5,9 @@
 
 class CGrabbableObj : public CFieldObject
 {
+	CLONE(CGrabbableObj)
+
+private:
 	CGrabbableObj(LPDIRECT3DDEVICE9 pGraphicDev);
 	CGrabbableObj(const CGrabbableObj& rhs);
 	virtual ~CGrabbableObj();

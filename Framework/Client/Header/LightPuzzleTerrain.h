@@ -15,6 +15,8 @@ struct LIGHT_INFO
 
 class CLightPuzzleTerrain : public CGameObject
 {
+	CLONE(CLightPuzzleTerrain)
+
 protected:
 	CLightPuzzleTerrain(LPDIRECT3DDEVICE9 p_Dev);
 	CLightPuzzleTerrain(const CLightPuzzleTerrain& rhs);

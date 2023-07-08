@@ -17,6 +17,7 @@ END
 
 class CPlayer : public Engine::CGameObject
 {
+	CLONE(CPlayer)
 	typedef struct Player_stats
 	{
 		_uint iMaxHp = 0;

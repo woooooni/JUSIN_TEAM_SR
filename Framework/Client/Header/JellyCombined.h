@@ -2,6 +2,7 @@
 #include "FieldObject.h"
 class CJellyCombined :    public CFieldObject
 {
+	CLONE(CJellyCombined)
 
 protected:
 	CJellyCombined(LPDIRECT3DDEVICE9 p_Dev);

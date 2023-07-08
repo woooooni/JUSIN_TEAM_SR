@@ -24,6 +24,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CCamera : public CGameObject
 {
+	CLONE(CCamera)
 protected:
 	explicit CCamera(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CCamera(const CCamera& rhs);
@@ -65,7 +66,7 @@ public:
 	void		FadeOut(float _fTime);
 	void		Check_FadeOut();
 
-	void		Set_CameraState(CAMERA_STATE _eState) { m_eState = _eState; }
+	void		Set_CameraState(CAMERA_STATE _eState) { m_eState = _eState; if (_eState == CAMERA_STATE::TOOL) m_fMoveSpeed = 30.f; }
 
 	//private:
 	//	void		CustomLookAtLH(_matrix* pOut, const _vec3* pEye, const _vec3* pAt, const _vec3* pUp);
@@ -98,6 +99,7 @@ private:
 	CAMERA_STATE m_eState;
 	_float m_fMoveSpeed;
 	bool m_bMouse = true;
+
 public:
 	static CCamera* Create(HWND _hWnd, LPDIRECT3DDEVICE9 pGraphicDev, _float fNear, _float fFar);
 	virtual void		Free()	override;
