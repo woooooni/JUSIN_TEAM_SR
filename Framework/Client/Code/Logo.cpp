@@ -101,14 +101,18 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 
 	//pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 
-	// BlueBeatle
+	// Monster
 	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
 	
-	/*CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
+	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);*/
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
+
+	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashSlime), E_FAIL);
 
 	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);

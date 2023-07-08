@@ -24,7 +24,7 @@ void CTrashBig::Update_Idle(_float fTimeDelta)
 		}
 			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CTrashBig::Update_Die(_float fTimeDelta)
@@ -38,30 +38,46 @@ void CTrashBig::Update_Regen(_float fTimeDelta)
 void CTrashBig::Update_Move(_float fTimeDelta)
 {
 	_vec3 vDir, vPos, vDst;
-	if (m_fMoveTime > 5.f)
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_pRigidBodyCom->IsGround())
 	{
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::IDLE);
 			m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
 		}
-		vDst = { float(rand() % 10)-5.f,0.f,float(rand() % 10)-5.f };
+		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
 		if (vDst != m_vDst)
 			m_vDst = vDst;
-		m_fMoveTime = 0.f;
+		m_bJump = false;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
-
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst;
+	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
+	if (!m_bJump && m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
+	{
+		m_pRigidBodyCom->AddForce(vDir * 40.0f);
+		m_pRigidBodyCom->AddForce(_vec3(0.0f, 80.0f, 0.0f));
+		m_pRigidBodyCom->SetGround(false);
+		m_bJump = true;
+	}
+
+	if (m_pRigidBodyCom->GetVelocity().y > 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() >2)
+	{
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
+	}
+	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 2)
+	{
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
+	}
+	
+
 	m_pTarget = nullptr;
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 }
 
 void CTrashBig::Update_Attack(_float fTimeDelta)
 {
-	//Trace(fTimeDelta);
+	Trace(fTimeDelta);
 }
 
 HRESULT CTrashBig::Ready_Object(void)
@@ -106,12 +122,13 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
-		if (D3DXVec3Length(&vDir) < 5)
+		if (D3DXVec3Length(&vDir) < 5.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
 			m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
 		}
-	}
+	}	
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -153,6 +170,10 @@ HRESULT CTrashBig::Add_Component(void)
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+	
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 	return S_OK;
 }
 
@@ -178,13 +199,52 @@ void CTrashBig::Trace(_float fTimeDelta)
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = vTargetPos - vPos;
-	if (D3DXVec3Length(&vDir) > 5)
+	vDir.y = 0.f;
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_pRigidBodyCom->IsGround())
+	{
+		if (D3DXVec3Length(&vDir) > 5.f)
+		{
+			Set_State(MONSTER_STATE::IDLE);
+			m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
+			return;
+		}
+		m_bJump = false;
+	}
+	if (D3DXVec3Length(&vDir) > 5.f)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
 		return;
 	}
 	D3DXVec3Normalize(&vDir, &vDir);
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
+	if (!m_bJump && m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
+	{
+		m_pRigidBodyCom->AddForce(vDir * 40.0f);
+		m_pRigidBodyCom->AddForce(_vec3(0.0f, 80.0f, 0.0f));
+		m_pRigidBodyCom->SetGround(false);
+		m_bJump = true;
+	}
 
+	if (m_pRigidBodyCom->GetVelocity().y > 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() > 2)
+	{
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
+	}
+	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 2)
+	{
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
+	}
+}
+void CTrashBig::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (Get_State() == MONSTER_STATE::ATTACK || Get_State() == MONSTER_STATE::DIE)
+		return;
+	//	if(pCollider->GetOwner()->)
+	//if (dynamic_cast<CPushStone*>(pCollider->GetOwner()))
+	//{
+	//	if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
+	//	{
+	//		m_tStat.iHp -= 1.f;
+	//		//MSG_BOX("보스 피격");
+	//	}
+	//}
 }

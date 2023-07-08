@@ -38,6 +38,7 @@ public:
 
     void            Fire() { m_bIsFlying = true; };
 
+    _bool Is_Flying() { return m_bIsFlying; }
 private:
     HRESULT                 Ready_Component();
 

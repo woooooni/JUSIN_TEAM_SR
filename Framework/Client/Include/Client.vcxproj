@@ -259,6 +259,7 @@
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\Text.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="..\Header\TrashSlime.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
     <ClInclude Include="..\Header\UIPages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
@@ -350,6 +351,7 @@
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\Text.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="..\Code\TrashSlime.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
     <ClCompile Include="..\Code\UIPages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />

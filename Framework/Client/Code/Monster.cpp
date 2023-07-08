@@ -12,7 +12,7 @@ CMonster::CMonster(const CMonster& rhs)
 	: Engine::CGameObject(rhs)
 	, m_fSpeed(rhs.m_fSpeed)
 	, m_eState(MONSTER_STATE::REGEN)
-	, m_pTarget(nullptr)
+	, m_pTarget(nullptr), m_tStat(rhs.m_tStat)
 {
 
 }
@@ -66,26 +66,6 @@ void CMonster::Render_Object(void)
 
 HRESULT CMonster::Add_Component(void)
 {
-	CComponent* pComponent = nullptr;
-
-	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_CRcTex"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
-
-	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
-
-	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
-
-	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 	return S_OK;
 }
 

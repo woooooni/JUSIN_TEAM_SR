@@ -64,10 +64,7 @@ namespace Engine
 	typedef struct tagMonsterstats
 	{
 		_uint iMaxHp = 0;
-		_uint iMaxMp = 0;
 		_uint iHp = 0;
-		_uint iMp = 0;
-		_uint iMoney = 0;
 		_uint iAttack = 0;
 	}MONSTERSTAT;
 }

@@ -64,6 +64,7 @@ private:
 	_float			m_fHealth = 6.f;
 	SUNGOLEM_STATE	m_eState;
 	_vec3 m_vPartPos[PARTSEND];
+	MONSTERSTAT m_tStat;
 private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);
 protected:
@@ -82,5 +83,7 @@ protected:
 	virtual void Free() override;
 	
 	HRESULT Ready_Parts(void);
+
+	void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 
 };

@@ -102,28 +102,6 @@ HRESULT CGolemFace::Add_Component(void)
 void CGolemFace::Update_Idle(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_Face", true);
-	_vec3 vDir;
-	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
-	{
-		if (m_bBreath)
-			m_bBreath = false;
-		else
-			m_bBreath = true;
-
-			m_fMoveTime = 0.f;
-	}
-	m_fMoveTime += 10 * fTimeDelta;
-
-
-	
-
-
 }
 
 void CGolemFace::Update_Dirty(_float fTimeDelta)
@@ -132,7 +110,7 @@ void CGolemFace::Update_Dirty(_float fTimeDelta)
 
 	_vec3 vDir;
 	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
+		vDir = { 0.f,1.f ,0.f };
 	else
 		vDir = { 0.f,-1.f ,0.f };
 
@@ -165,7 +143,7 @@ void CGolemFace::Update_Die(_float fTimeDelta)
 void CGolemFace::Update_Regen(_float fTimeDelta)
 {
 	_vec3 vDir, vPos;
-	vDir = { 0,1 ,0 };
+	vDir = { 0.f,1.f ,0.f };
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 

@@ -35,7 +35,7 @@
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"
 
-
+#include "TrashSlime.h"
 
 class CLogo : public Engine::CScene
 {
