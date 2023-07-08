@@ -323,6 +323,8 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			Set_State(SUNGOLEM_STATE::IDLE);
 			memset(m_bAttack, 1, sizeof(bool) * 6);
 			m_iActiveArm += 2;
+			m_bLockon = false;
+			m_tStat.iHp -= 2;
 			if (m_iActiveArm > 5)
 			{
 				m_vecParts[LEFTARM0]->Set_Active(true);
@@ -348,7 +350,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			if (m_iActiveArm > 6)
 			{
 				m_iActiveArm = 2;
-				m_bLockon = false;
+
 			}
 		}
 	}
