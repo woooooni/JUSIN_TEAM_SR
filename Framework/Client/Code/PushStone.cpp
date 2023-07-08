@@ -89,7 +89,7 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 
 }
 
-void CPushStone::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	m_pColliderCom->Update_Component(0.f);
 }

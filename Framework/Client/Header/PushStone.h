@@ -34,7 +34,7 @@ public:
 
     static      CPushStone* Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev);
 
-    virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)override;
+    virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 
     void            Fire() { m_bIsFlying = true; };
 

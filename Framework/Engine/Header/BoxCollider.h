@@ -20,9 +20,9 @@ public:
 
 public:
 	// CCollider을(를) 통해 상속됨
-	virtual void	OnCollisionEnter(CCollider * _pOther) override;
-	virtual void	OnCollisionStay(CCollider * _pOther) override;
-	virtual void	OnCollisionExit(CCollider * _pOther) override;
+	virtual void	OnCollisionEnter(CCollider * _pOther, COLLISION_GROUP _eGroup) override;
+	virtual void	OnCollisionStay(CCollider * _pOther, COLLISION_GROUP _eGroup) override;
+	virtual void	OnCollisionExit(CCollider * _pOther, COLLISION_GROUP _eGroup) override;
 
 public:
 	static CBoxCollider*	Create(LPDIRECT3DDEVICE9 _pDevice);

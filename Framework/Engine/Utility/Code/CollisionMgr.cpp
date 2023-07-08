@@ -108,22 +108,22 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 				{
 					if (!lCollider->GetOwner()->Is_Active() || !rCollider->GetOwner()->Is_Active())
 					{
-						lCollider->OnCollisionExit(rCollider);
-						rCollider->OnCollisionExit(lCollider);
+						lCollider->OnCollisionExit(rCollider, _eRight);
+						rCollider->OnCollisionExit(lCollider, _eLeft);
 						iter->second = false;
 					}
 					else
 					{
-						lCollider->OnCollisionStay(rCollider);
-						rCollider->OnCollisionStay(lCollider);
+						lCollider->OnCollisionStay(rCollider, _eRight);
+						rCollider->OnCollisionStay(lCollider, _eLeft);
 					}
 				}
 				else
 				{
 					if (lCollider->GetOwner()->Is_Active() && rCollider->GetOwner()->Is_Active())
 					{
-						lCollider->OnCollisionEnter(rCollider);
-						rCollider->OnCollisionEnter(lCollider);
+						lCollider->OnCollisionEnter(rCollider, _eRight);
+						rCollider->OnCollisionEnter(lCollider, _eLeft);
 						iter->second = true;
 					}
 				}
@@ -132,8 +132,8 @@ void CCollisionMgr::CollisionUpdate(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRi
 			{
 				if (iter->second)
 				{
-					lCollider->OnCollisionExit(rCollider);
-					rCollider->OnCollisionExit(lCollider);
+					lCollider->OnCollisionExit(rCollider, _eRight);
+					rCollider->OnCollisionExit(lCollider, _eLeft);
 					iter->second = false;
 				}
 			}

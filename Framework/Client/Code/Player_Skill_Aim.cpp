@@ -102,15 +102,15 @@ HRESULT CPlayer_Skill_Aim::Ready_Component(void)
 	return S_OK;
 }
 
-void CPlayer_Skill_Aim::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Skill_Aim::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CPlayer_Skill_Aim::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Skill_Aim::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CPlayer_Skill_Aim::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Skill_Aim::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

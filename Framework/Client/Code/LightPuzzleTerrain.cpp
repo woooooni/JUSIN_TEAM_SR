@@ -98,15 +98,15 @@ CLightPuzzleTerrain* CLightPuzzleTerrain::Create(LPDIRECT3DDEVICE9 p_Dev, const 
 	return ret;
 }
 
-void CLightPuzzleTerrain::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CLightPuzzleTerrain::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CLightPuzzleTerrain::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CLightPuzzleTerrain::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CLightPuzzleTerrain::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CLightPuzzleTerrain::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

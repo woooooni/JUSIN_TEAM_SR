@@ -94,12 +94,12 @@ CCatapult* CCatapult::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, c
 	return ret;
 }
 
-void CCatapult::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CCatapult::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	CPlayer* src;
 	CPushStone*	tmp;
 	
-	if ((src = dynamic_cast<CPlayer*>(pCollisionObj)))
+	if ((src = dynamic_cast<CPlayer*>(pCollider->GetOwner())))
 	{
 		if (true)
 		{
@@ -110,18 +110,18 @@ void CCatapult::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 
 		}
 	}
-	else if (tmp = dynamic_cast<CPushStone*>(pCollisionObj))
+	else if (tmp = dynamic_cast<CPushStone*>(pCollider->GetOwner()))
 	{
 		m_pThrowingStone = tmp;
 		m_pThrowingStone->Set_Active(false);
 	}
 }
 
-void CCatapult::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CCatapult::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CCatapult::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CCatapult::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

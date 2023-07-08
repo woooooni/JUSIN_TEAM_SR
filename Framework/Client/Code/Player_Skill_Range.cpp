@@ -119,15 +119,15 @@ HRESULT CPlayer_Skill_Range::Ready_Component(void)
 	return S_OK;
 }
 
-void CPlayer_Skill_Range::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Skill_Range::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CPlayer_Skill_Range::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Skill_Range::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CPlayer_Skill_Range::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Skill_Range::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

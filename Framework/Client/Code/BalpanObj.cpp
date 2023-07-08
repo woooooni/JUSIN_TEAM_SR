@@ -96,9 +96,9 @@ CBalpanObj* CBalpanObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
     return ret;
 }
 
-void CBalpanObj::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CBalpanObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {	
-	if (m_listActivateNum.empty() && pCollisionObj->Get_Name() == m_wstrTargName)
+	if (m_listActivateNum.empty() && pCollider->GetOwner()->Get_Name() == m_wstrTargName)
 	{
 		if (m_bIsPushed && !m_bIsAutoReset)
 			return;
@@ -112,13 +112,13 @@ void CBalpanObj::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 		
 }
 
-void CBalpanObj::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CBalpanObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CBalpanObj::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CBalpanObj::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (m_bIsAutoReset && m_bIsPushed && pCollisionObj->Get_Name() == m_wstrTargName)
+	if (m_bIsAutoReset && m_bIsPushed && pCollider->GetOwner()->Get_Name() == m_wstrTargName)
 	{
 		Reset_Pushed();
 		m_pAnimator->Play_Animation(L"Idle", false);

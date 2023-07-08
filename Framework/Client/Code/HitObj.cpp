@@ -99,7 +99,7 @@ CHitObj* CHitObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const
     return ret;
 }
 
-void CHitObj::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CHitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	switch (m_eHitType)
 	{

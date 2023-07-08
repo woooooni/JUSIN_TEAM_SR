@@ -19,7 +19,7 @@ public:
 	static			CHitObj* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos = { 0, 0, 0 });
 
 public:
-	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)override;
+	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 
 public:
 	void			Set_Event(const _uint& pI) { m_iEventNum = pI; }

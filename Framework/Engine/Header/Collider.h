@@ -25,9 +25,9 @@ public:
 	const _vec3& Get_Offset() { return m_vOffset; }
 
 public:
-	virtual void	OnCollisionEnter(CCollider* _pOther)		PURE;
-	virtual void	OnCollisionStay(CCollider* _pOther)			PURE;
-	virtual void	OnCollisionExit(CCollider* _pOther)			PURE;
+	virtual void	OnCollisionEnter(CCollider* _pOther, COLLISION_GROUP _eGroup)		PURE;
+	virtual void	OnCollisionStay(CCollider* _pOther, COLLISION_GROUP _eGroup)			PURE;
+	virtual void	OnCollisionExit(CCollider* _pOther, COLLISION_GROUP _eGroup)			PURE;
 
 
 

@@ -19,9 +19,9 @@ public:
 	static			CJellyStone* Create(LPDIRECT3DDEVICE9 p_Dev, JELLY_COLLOR_NORMAL p_Color,const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
 
 public:
-	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)override;
-	virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID) override;
-	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID) override;
+	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
+	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
 	virtual HRESULT		Ready_Component();
 	virtual void Event_Start(_uint iEventNum) override;

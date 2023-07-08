@@ -33,9 +33,9 @@ public:
 
 public:
 	// 충돌 호출
-	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID) override;
-	virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID) override;
-	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID) override;
+	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
 
 

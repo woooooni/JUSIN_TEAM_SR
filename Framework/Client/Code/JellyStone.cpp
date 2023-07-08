@@ -102,10 +102,10 @@ CJellyStone* CJellyStone::Create(LPDIRECT3DDEVICE9 p_Dev,JELLY_COLLOR_NORMAL p_C
     return ret;
 }
 
-void CJellyStone::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	CJellyStone* src;
-	if ((src = dynamic_cast<CJellyStone*>(pCollisionObj)) && src->m_eColor != m_eColor)
+	if ((src = dynamic_cast<CJellyStone*>(pCollider->GetOwner())) && src->m_eColor != m_eColor)
 	{
 		if (m_bCreatedCombine || src->m_bCreatedCombine)
 		{
@@ -135,11 +135,11 @@ void CJellyStone::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 	}
 }
 
-void CJellyStone::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CJellyStone::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyStone::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

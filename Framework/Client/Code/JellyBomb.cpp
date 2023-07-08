@@ -61,9 +61,9 @@ CJellyBomb* CJellyBomb::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
     return ret;
 }
 
-void CJellyBomb::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyBomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-    CPlayer* src = dynamic_cast<CPlayer*>(pCollisionObj);
+    CPlayer* src = dynamic_cast<CPlayer*>(pCollider->GetOwner());
 
     if (src)
     {
@@ -75,11 +75,11 @@ void CJellyBomb::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 
 }
 
-void CJellyBomb::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyBomb::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CJellyBomb::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyBomb::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

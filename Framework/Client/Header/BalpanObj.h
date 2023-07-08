@@ -20,9 +20,9 @@ public:
 	static			CBalpanObj* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,const _vec3 p_Pos = { 0, 0, 0 });
 
 public:
-	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)override;
-	virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID) override;
-	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID) override;
+	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
+	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
 
 public:

@@ -79,15 +79,15 @@ CBlockObj* CBlockObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, c
 	return ret;
 }
 
-void CBlockObj::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CBlockObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CBlockObj::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CBlockObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CBlockObj::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CBlockObj::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

@@ -90,16 +90,16 @@ CJellyCombined* CJellyCombined::Create(LPDIRECT3DDEVICE9 p_Dev, JELLY_COLLOR_COM
 	return ret;
 }
 
-void CJellyCombined::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyCombined::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 
 }
 
-void CJellyCombined::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyCombined::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CJellyCombined::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CJellyCombined::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

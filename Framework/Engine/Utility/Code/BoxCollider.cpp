@@ -119,17 +119,17 @@ void CBoxCollider::InputCollider()
 
 }
 
-void CBoxCollider::OnCollisionEnter(CCollider * _pOther)
+void CBoxCollider::OnCollisionEnter(CCollider * _pOther, COLLISION_GROUP _eGroup)
 {
-	m_pOwner->Collision_Enter(_pOther->GetOwner(), Get_Id());
+	m_pOwner->Collision_Enter(_pOther, _eGroup, Get_Id());
 }
 
-void CBoxCollider::OnCollisionStay(CCollider * _pOther)
+void CBoxCollider::OnCollisionStay(CCollider * _pOther, COLLISION_GROUP _eGroup)
 {
-	m_pOwner->Collision_Stay(_pOther->GetOwner(), Get_Id());
+	m_pOwner->Collision_Stay(_pOther, _eGroup, Get_Id());
 }
 
-void CBoxCollider::OnCollisionExit(CCollider * _pOther)
+void CBoxCollider::OnCollisionExit(CCollider * _pOther, COLLISION_GROUP _eGroup)
 {
-	m_pOwner->Collision_Exit(_pOther->GetOwner(), Get_Id());
+	m_pOwner->Collision_Exit(_pOther, _eGroup, Get_Id());
 }

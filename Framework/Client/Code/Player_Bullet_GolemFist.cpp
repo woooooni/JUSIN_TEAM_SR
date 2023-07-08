@@ -120,15 +120,15 @@ HRESULT CPlayer_Bullet_GolemFist::Ready_Component(void)
 	return S_OK;
 }
 
-void CPlayer_Bullet_GolemFist::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Bullet_GolemFist::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CPlayer_Bullet_GolemFist::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Bullet_GolemFist::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 
-void CPlayer_Bullet_GolemFist::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
+void CPlayer_Bullet_GolemFist::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
 

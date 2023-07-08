@@ -61,9 +61,9 @@ public:
 
 public:
 	// 충돌 호출
-	virtual void Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID) override;
-	virtual void Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID) override;
-	virtual void Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID) override;
+	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
 	CCollider* Get_PlayerCol(COLLIDER_PLAYER _eCollider) { return m_pCollider[(_uint)_eCollider]; }
 	CGameObject* Get_LiftObj() { return m_pLiftObj; }
@@ -159,9 +159,9 @@ public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	void Collision_Stay_Push(CGameObject* pCollisionObj, UINT _iColliderID);
-	void Collision_Enter_Grab(CGameObject* pCollisionObj, UINT _iColliderID);
-	void Collision_Enter_Hit(CGameObject* pCollisionObj, UINT _iColliderID);
+	void Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+	void Collision_Enter_Grab(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+	void Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 
 private:
 	virtual void Free() override;
