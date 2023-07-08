@@ -13,6 +13,7 @@ END
 class CPushStone :
     public CPushableObj
 {
+    CLONE(CPushStone)
 private:
     CPushStone(LPDIRECT3DDEVICE9 pDev);
     CPushStone(const CPushStone& rhs);

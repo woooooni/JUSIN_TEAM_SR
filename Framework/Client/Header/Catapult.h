@@ -2,6 +2,8 @@
 #include "FieldObject.h"
 class CCatapult :    public CFieldObject
 {
+	CLONE(CCatapult)
+
 protected:
 	CCatapult(LPDIRECT3DDEVICE9 p_Dev);
 	CCatapult(const CCatapult& rhs);

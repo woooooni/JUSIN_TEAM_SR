@@ -11,6 +11,8 @@ END
 
 class CGolemUpperJaw : public Engine::CGameObject
 {
+	CLONE(CGolemUpperJaw)
+
 protected:
 	explicit CGolemUpperJaw(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CGolemUpperJaw(const CGolemUpperJaw& rhs);

@@ -2,6 +2,7 @@
 #include "FieldObject.h"
 class CJellyStone :	public CFieldObject
 {
+	CLONE(CJellyStone)
 protected:
 	CJellyStone(LPDIRECT3DDEVICE9 p_Dev);
 	CJellyStone(const CJellyStone& rhs);

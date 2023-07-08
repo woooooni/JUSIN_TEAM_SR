@@ -11,6 +11,8 @@ END
 
 class CGolemFace : public Engine::CGameObject
 {
+	CLONE(CGolemFace)
+
 protected:
 	explicit CGolemFace(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CGolemFace(const CGolemFace& rhs);

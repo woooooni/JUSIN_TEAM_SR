@@ -1,6 +1,11 @@
 #include "..\..\Header\GameObject.h"
 #include "Component.h"
 #include "Transform.h"
+#include "VIBuffer.h"
+#include "Collider.h"
+#include "Animator.h"
+#include "Texture.h"
+#include "RigidBody.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	: m_pGraphicDev(pGraphicDev)
@@ -8,6 +13,12 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	, m_eDir(OBJ_DIR::DIR_D)
 	, m_bActive(true)
 	, m_fViewZ(0.f)
+	, m_pBufferCom(nullptr)
+	, m_pTransformCom(nullptr)
+	, m_pColliderCom(nullptr)
+	, m_pAnimator(nullptr)
+	, m_pTextureCom(nullptr)
+	, m_pRigidBodyCom(nullptr)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -18,8 +29,34 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_eDir(rhs.m_eDir)
 	, m_bActive(true)
 	, m_fViewZ(rhs.m_fViewZ)
+	, m_pBufferCom(rhs.m_pBufferCom)
+	, m_pTransformCom(rhs.m_pTransformCom)
+	, m_pColliderCom(rhs.m_pColliderCom)
+	, m_pAnimator(rhs.m_pAnimator)
+	, m_pTextureCom(rhs.m_pTextureCom)
+	, m_pRigidBodyCom(rhs.m_pRigidBodyCom)
+	
 {
 	m_pGraphicDev->AddRef();
+	if (nullptr != m_pBufferCom)
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, m_pBufferCom);
+		
+	if (nullptr != m_pTransformCom)
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, m_pTransformCom);
+
+	if (nullptr != m_pTextureCom)
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, m_pTextureCom);
+
+
+	if (nullptr != m_pColliderCom)
+		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, m_pColliderCom);
+
+	if (nullptr != m_pAnimator)
+		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);	
+
+	if (nullptr != m_pRigidBodyCom)
+		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);
+
 }
 
 CGameObject::~CGameObject()

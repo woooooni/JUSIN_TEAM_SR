@@ -10,6 +10,8 @@ END
 
 class CGolemRightLeg : public Engine::CGameObject
 {
+	CLONE(CGolemRightLeg)
+
 protected:
 	explicit CGolemRightLeg(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CGolemRightLeg(const CGolemRightLeg& rhs);

@@ -18,7 +18,6 @@ CBlueBeatle::~CBlueBeatle()
 
 void CBlueBeatle::Update_Idle(_float fTimeDelta)
 {
-
 	if (m_fMoveTime > 10.f)
 	{
 		if (rand() % 10 > 8)

@@ -97,6 +97,7 @@ private:
 	_bool		m_bActive;
 
 public:
+	virtual CGameObject* Clone(void)		PURE;
 	virtual void		Free();
 };
 

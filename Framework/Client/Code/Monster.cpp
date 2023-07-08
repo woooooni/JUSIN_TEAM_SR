@@ -12,6 +12,7 @@ CMonster::CMonster(const CMonster& rhs)
 	: Engine::CGameObject(rhs)
 	, m_fSpeed(rhs.m_fSpeed)
 	, m_eState(MONSTER_STATE::REGEN)
+	, m_pTarget(nullptr)
 {
 
 }

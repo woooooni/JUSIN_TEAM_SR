@@ -3,6 +3,8 @@
 
 class CBlockObj : public CFieldObject
 {
+	CLONE(CBlockObj)
+
 protected:
 	CBlockObj(LPDIRECT3DDEVICE9 p_Dev);
 	CBlockObj(const CBlockObj& rhs);

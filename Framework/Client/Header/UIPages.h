@@ -12,6 +12,8 @@ END
 
 class CUIPages : public CUI
 {
+	CLONE(CUIPages)
+
 private:
     CUIPages(LPDIRECT3DDEVICE9 pGraphicDev);
     CUIPages(const CUIPages& rhs);

@@ -149,7 +149,9 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Down", true);
 		}
 	}
+
 	_int iExit = __super::Update_Object(fTimeDelta);
+
 	return iExit;
 }
 

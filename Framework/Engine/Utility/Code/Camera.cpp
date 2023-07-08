@@ -17,6 +17,7 @@ CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_pVeilTex(nullptr)
 	, m_fNear(1.0f)
 	, m_fFar(1000.0f)
+	, m_fMoveSpeed(10.f)
 {
 
 }
@@ -30,6 +31,7 @@ CCamera::CCamera(const CCamera& rhs)
 	, m_fShakeForce(rhs.m_fShakeForce)
 	, m_fAlpha(rhs.m_fAlpha)
 	, m_pVeilTex(rhs.m_pVeilTex)
+	, m_fMoveSpeed(10.f)
 {
 
 }
@@ -321,7 +323,7 @@ void CCamera::Key_Input_Game(const _float& fTimeDelta)
 void CCamera::Key_Input_Tool(const _float& fTimeDelta)
 {
 
-	if (!m_bMouse)
+	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
 	{
 		_long		dwMouseMove = 0;
 		if (dwMouseMove = Engine::Get_DIMouseMove(DIMS_Y))
@@ -404,7 +406,19 @@ void CCamera::Key_Input_Tool(const _float& fTimeDelta)
 		}
 	}
 
+	if (KEY_HOLD(KEY::Q))
+	{
+		_vec3 vDir;
+		m_pTransformCom->Get_Info(INFO_UP, &vDir);
+		m_pTransformCom->Move_Pos(&vDir, m_fMoveSpeed, fTimeDelta);
+	}
 
+	if (KEY_HOLD(KEY::E))
+	{
+		_vec3 vDir;
+		m_pTransformCom->Get_Info(INFO_UP, &vDir);
+		m_pTransformCom->Move_Pos(&vDir, -m_fMoveSpeed, fTimeDelta);
+	}
 }
 
 void CCamera::Mouse_Move(const _float& fTimeDelta)

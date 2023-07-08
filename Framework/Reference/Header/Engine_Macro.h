@@ -92,6 +92,8 @@ namespace Engine
 							~type();
 
 
+#define CLONE(type) type* Clone() { return new type(*this); }
+
 // FOR KEY MANAGER
 #define KEY_CHECK(key, state) CKeyMgr::GetInstance()->GetKeyState(key) == state
 #define KEY_HOLD(key) KEY_CHECK(key, KEY_STATE::HOLD)

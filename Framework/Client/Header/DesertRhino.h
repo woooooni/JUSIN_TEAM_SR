@@ -6,6 +6,7 @@ END
 class CDesertRhino :
     public CMonster
 {
+    CLONE(CDesertRhino)
 private:
     explicit CDesertRhino(LPDIRECT3DDEVICE9 pGraphicDev);
     explicit CDesertRhino(const CDesertRhino& rhs);

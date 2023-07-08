@@ -6,6 +6,7 @@ END
 class CTrashBig :
     public CMonster
 {
+    CLONE(CTrashBig)
     private:
         explicit CTrashBig(LPDIRECT3DDEVICE9 pGraphicDev);
         explicit CTrashBig(const CTrashBig& rhs);

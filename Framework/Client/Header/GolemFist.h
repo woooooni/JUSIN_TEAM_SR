@@ -11,6 +11,8 @@ END
 
 class CGolemFist : public Engine::CGameObject
 {
+	CLONE(CGolemFist)
+
 protected:
 	explicit CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CGolemFist(const CGolemFist& rhs);

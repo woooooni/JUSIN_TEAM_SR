@@ -4,6 +4,8 @@
 
 class CBackGround : public Engine::CGameObject
 {
+	CLONE(CBackGround)
+
 private:
 	explicit CBackGround(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CBackGround(const CBackGround& rhs);
