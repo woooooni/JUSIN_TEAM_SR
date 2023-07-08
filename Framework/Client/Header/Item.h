@@ -27,7 +27,7 @@ public:
 	virtual void	Render_Object(void)							override;
 
 protected:
-	HRESULT	Add_Component(void);
+	virtual HRESULT	Add_Component(void);
 
 
 
