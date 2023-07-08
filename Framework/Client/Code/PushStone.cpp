@@ -26,15 +26,19 @@ HRESULT CPushStone::Ready_Object(void)
 
 _int CPushStone::Update_Object(const _float& fTimeDelta)
 {
-	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	_vec3 src;
-	m_pTransformCom->Get_Info(INFO_POS, &src);
-	if (m_bIsFlying && m_pRigidBodyCom->IsGround())
+	if (Is_Active())
 	{
-		m_bIsFlying = false;
-		m_pRigidBodyCom->SetVelocity({ 0, 0, 0 });
-		m_pRigidBodyCom->SetGround(true);
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
+		Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+		_vec3 src;
+		m_pTransformCom->Get_Info(INFO_POS, &src);
+		if (m_bIsFlying && m_pRigidBodyCom->IsGround())
+		{
+			m_bIsFlying = false;
+			m_pRigidBodyCom->SetVelocity({ 0, 0, 0 });
+			m_pRigidBodyCom->SetGround(true);
+		}
+
 	}
 
 	__super::Update_Object(fTimeDelta);

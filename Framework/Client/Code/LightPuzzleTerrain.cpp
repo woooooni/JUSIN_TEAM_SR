@@ -1,12 +1,14 @@
 #include "LightPuzzleTerrain.h"
 #include	"Export_Function.h"
 #include	"RcPuzzleBuff.h"
+#include	"LightPuzzleBase.h"
+#include	"LightPuzzlePiece.h"
 
-CLightPuzzleTerrain::CLightPuzzleTerrain(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_BACKGROUND), m_vTileCenterPos(nullptr), m_pSubBuffer(nullptr)
+CLightPuzzleTerrain::CLightPuzzleTerrain(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_BACKGROUND), m_vTileCenterPos(nullptr), m_pSubBuffer(nullptr), tileX(0), tileY(0), m_bIsCanUpdate(true)
 {
 }
 
-CLightPuzzleTerrain::CLightPuzzleTerrain(const CLightPuzzleTerrain& rhs) : CGameObject(rhs), m_vTileCenterPos(nullptr), m_pSubBuffer(rhs.m_pSubBuffer)
+CLightPuzzleTerrain::CLightPuzzleTerrain(const CLightPuzzleTerrain& rhs) : CGameObject(rhs), m_vTileCenterPos(nullptr), m_pSubBuffer(rhs.m_pSubBuffer), tileX(rhs.tileX), tileY(rhs.tileY), m_bIsCanUpdate(rhs.m_bIsCanUpdate)
 {
 }
 
@@ -26,13 +28,36 @@ HRESULT CLightPuzzleTerrain::Ready_Object(void)
 
 _int CLightPuzzleTerrain::Update_Object(const _float& fTimeDelta)
 {
-	Add_RenderGroup(RENDER_ALPHA, this);
+	if (m_bIsCanUpdate)
+	{
+		
+
+
+
+		Add_RenderGroup(RENDER_ALPHA, this);
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_TRIGGER);
+
+	}
+
+
+
 
 	return __super::Update_Object(fTimeDelta);
 }
 
 void CLightPuzzleTerrain::LateUpdate_Object(void)
 {
+	for (auto& iter : m_vecLightMap)
+	{
+		if (iter->m_bIsOnTile && !iter->m_pOnTileObj)
+		{
+			iter->m_bIsOnTile = false;
+		}
+	}
+
+	Make_LightRoute();
+
+	m_bIsCanUpdate = true;
 }
 
 void CLightPuzzleTerrain::Render_Object(void)
@@ -80,16 +105,21 @@ CLightPuzzleTerrain* CLightPuzzleTerrain::Create(LPDIRECT3DDEVICE9 p_Dev, const 
 
 	ret->m_vTileCenterPos = new _vec3[(tileX * tileY)];
 
+
 	for (size_t i = 0; i < tileY; i++)
 	{
 		for (size_t j = 0; j < tileX; j++)
 		{
 			ret->m_vTileCenterPos[tileX * i + j] = _vec3(j + 0.5f, 0, i + 0.5f);
 			ret->m_vecLightMap.push_back(new LIGHT_INFO);
+			ret->m_vecLightMap.back()->iIndexX = j;
+			ret->m_vecLightMap.back()->iIndexY = i;
+
 		}
 	}
 	
-
+	ret->tileX = tileX;
+	ret->tileY = tileY;
 	ret->m_pColliderCom->Set_Offset({(_float)tileX * 0.5f , 0, (_float)tileY * 0.5f});
 
 	dynamic_cast<CBoxCollider*>(ret->m_pColliderCom)->Set_Scale({ (float)tileX, 1.f, (float)tileY });
@@ -104,10 +134,74 @@ void CLightPuzzleTerrain::Collision_Enter(CCollider* pCollider, COLLISION_GROUP 
 
 void CLightPuzzleTerrain::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+	CLightPuzzle* src;
+
+
+
+	if (src = dynamic_cast<CLightPuzzle*>(pCollider->GetOwner()))
+	{
+		CLightPuzzleBase* puzzleBase = dynamic_cast<CLightPuzzleBase*>(src);
+
+		_uint iIndex;
+		_vec3 tmp, myPos;
+
+		src->Get_TransformCom()->Get_Info(INFO_POS, &tmp);
+		m_pTransformCom->Get_Info(INFO_POS, &myPos);
+
+		for (size_t i = 0; i < m_vecLightMap.size(); i++)
+		{
+			if (i == 0)
+			{
+				iIndex = i;
+				continue;
+			}
+
+
+			if (D3DXVec3Length(&(myPos + m_vTileCenterPos[iIndex] - tmp)) > D3DXVec3Length(&(myPos + m_vTileCenterPos[i] - tmp)))
+				iIndex = i;
+		}
+
+		_vec3 dst = myPos + m_vTileCenterPos[iIndex] - tmp;
+		dst.y = 0;
+
+		if (D3DXVec3Length(&dst) > 0.02f/*수치조정 필요*/ && D3DXVec3Length(&dst) < 0.35f)
+		{
+			src->Get_TransformCom()->Move_Pos(D3DXVec3Normalize(&dst, &dst), 0.3f, Get_TimeDelta(L"Timer_FPS60"));
+		}
+		else if (D3DXVec3Length(&dst) < 0.1f)
+		{
+			m_vecLightMap[iIndex]->m_bIsOnTile = true;
+
+			m_vecLightMap[iIndex]->m_pOnTileObj = src;
+			m_vecLightMap[iIndex]->m_listLightDir.clear();
+			for (auto& iter : src->Get_LightDir())
+			{
+				m_vecLightMap[iIndex]->m_listLightDir.push_back(iter);
+				
+			}
+			if (puzzleBase && puzzleBase->Get_MakeLight())
+			{
+				m_vecLightMap[iIndex]->m_bIsLighting = true;
+			}
+
+			for (size_t i = 0; i < m_vecLightMap.size(); i++)
+			{
+				if (m_vecLightMap[i]->m_pOnTileObj == src && i != iIndex)
+					m_vecLightMap[i]->m_pOnTileObj = nullptr;
+			}
+			
+		}
+
+	}
 }
 
 void CLightPuzzleTerrain::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+	for (auto& iter :m_vecLightMap)
+	{
+		if (iter->m_pOnTileObj == pCollider->GetOwner())
+			iter->m_pOnTileObj = nullptr;
+	}
 }
 
 void CLightPuzzleTerrain::Event_Start(_uint iEventNum)
@@ -120,6 +214,15 @@ void CLightPuzzleTerrain::Event_End(_uint iEventNum)
 
 void CLightPuzzleTerrain::Set_SubscribeEvent(_uint pEvent)
 {
+}
+
+const _vec3& CLightPuzzleTerrain::Get_TilePos(_uint indexX, _uint indexY)
+{
+	if (indexX >= tileX || indexY >= tileY)
+		return { 0, 0, 0 };
+	_vec3 src;
+	m_pTransformCom->Get_Info(INFO_POS, &src);
+	return src + m_vTileCenterPos[indexY * tileX + indexX];
 }
 
 HRESULT CLightPuzzleTerrain::Ready_Compnent()
@@ -157,6 +260,121 @@ HRESULT CLightPuzzleTerrain::Ready_Compnent()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 
+
+	return S_OK;
+}
+
+HRESULT CLightPuzzleTerrain::Make_LightRoute()
+{
+	list<LIGHT_INFO*>	roundingList;
+
+	for (auto& iter : m_vecLightMap)
+	{
+		iter->m_bIsLighting = false;
+		if (iter->m_pOnTileObj)
+			iter->m_pOnTileObj->Set_Lighting(false);
+	}
+
+	for (auto& iter : m_vecLightMap)
+	{
+		if (iter->m_pOnTileObj && dynamic_cast<CLightPuzzleBase*>(iter->m_pOnTileObj) && dynamic_cast<CLightPuzzleBase*>(iter->m_pOnTileObj)->Get_MakeLight())
+		{
+			roundingList.push_back(iter);
+			break;
+		}
+	}
+
+	if (roundingList.empty())
+		return E_FAIL;
+
+	while (!roundingList.empty())
+	{
+		LIGHT_INFO* src = roundingList.front();
+		roundingList.pop_front();
+
+		for (auto& iter : src->m_listLightDir)
+		{
+			if (iter == _vec2(1, 0) && src->iIndexX < tileX)
+			{
+				LIGHT_INFO* tmp = m_vecLightMap[tileX * src->iIndexY + src->iIndexX + 1];
+
+				if (tmp->m_bIsLighting || !tmp->m_pOnTileObj)
+					continue;
+
+				for (auto& iter2 : tmp->m_listLightDir)
+				{
+					if (iter2 == _vec2(-1, 0))
+					{
+						tmp->m_pOnTileObj->Set_Lighting(true);
+						tmp->m_bIsLighting = true;
+						roundingList.push_back(tmp);
+						break;
+					}
+				}
+			}
+			else if (iter == _vec2(-1, 0) && src->iIndexX > 0)
+			{
+				LIGHT_INFO* tmp = m_vecLightMap[tileX * src->iIndexY + src->iIndexX - 1];
+
+				if (tmp->m_bIsLighting || !tmp->m_pOnTileObj)
+					continue;
+
+				for (auto& iter2 : tmp->m_listLightDir)
+				{
+					if (iter2 == _vec2(1, 0))
+					{
+						tmp->m_pOnTileObj->Set_Lighting(true);
+						tmp->m_bIsLighting = true;
+						roundingList.push_back(tmp);
+						break;
+					}
+				}
+
+			}
+			else if (iter == _vec2(0, 1) && src->iIndexY < tileY)
+			{
+				LIGHT_INFO* tmp = m_vecLightMap[tileX * (src->iIndexY + 1) + src->iIndexX];
+
+				if (tmp->m_bIsLighting || !tmp->m_pOnTileObj)
+					continue;
+
+				for (auto& iter2 : tmp->m_listLightDir)
+				{
+					if (iter2 == _vec2(0, -1))
+					{
+						tmp->m_pOnTileObj->Set_Lighting(true);
+						tmp->m_bIsLighting = true;
+						roundingList.push_back(tmp);
+						break;
+					}
+				}
+
+			}
+			else if (iter == _vec2(0, -1) && src->iIndexY > 0)
+			{
+				LIGHT_INFO* tmp = m_vecLightMap[tileX * (src->iIndexY - 1) + src->iIndexX];
+
+				if (tmp->m_bIsLighting || !tmp->m_pOnTileObj)
+					continue;
+
+				for (auto& iter2 : tmp->m_listLightDir)
+				{
+					if (iter2 == _vec2(0, 1))
+					{
+						tmp->m_pOnTileObj->Set_Lighting(true);
+						tmp->m_bIsLighting = true;
+						roundingList.push_back(tmp);
+						break;
+					}
+				}
+
+			}
+
+		}
+
+
+
+	}
 
 	return S_OK;
 }

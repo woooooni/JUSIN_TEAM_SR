@@ -113,7 +113,7 @@ void CCatapult::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 	else if (tmp = dynamic_cast<CPushStone*>(pCollider->GetOwner()))
 	{
 		m_pThrowingStone = tmp;
-		m_pThrowingStone->Set_Active(false);
+		m_pThrowingStone->Get_ColliderCom()->Set_Active(false);
 	}
 }
 
@@ -146,8 +146,8 @@ void CCatapult::Throw_Stone()
 	src.y = 1.f;
 	m_pThrowingStone->Get_TransformCom()->Set_Pos(&src);
 
-	m_pThrowingStone->Get_RigidBodyCom()->SetVelocity({ 0, 50.f, 10.f });
-	m_pThrowingStone->Set_Active(true);
+	m_pThrowingStone->Get_RigidBodyCom()->AddForce({ 0, 65, 40.f });
+	m_pThrowingStone->Get_ColliderCom()->Set_Active(true);
 	m_pThrowingStone->Get_RigidBodyCom()->SetGravity(true);
 	m_pThrowingStone->Get_RigidBodyCom()->SetGround(false);
 	dynamic_cast<CPushStone*>(m_pThrowingStone)->Fire();

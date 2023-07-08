@@ -1,11 +1,11 @@
 #include "LightPuzzle.h"
 #include "Export_Function.h"
 
-CLightPuzzle::CLightPuzzle(LPDIRECT3DDEVICE9 pGraphicDev) : CFieldObject(pGraphicDev)
+CLightPuzzle::CLightPuzzle(LPDIRECT3DDEVICE9 pGraphicDev) : CFieldObject(pGraphicDev), m_bIsLighting(false)
 {
 }
 
-CLightPuzzle::CLightPuzzle(const CLightPuzzle& rhs) : CFieldObject(rhs)
+CLightPuzzle::CLightPuzzle(const CLightPuzzle& rhs) : CFieldObject(rhs), m_bIsLighting(rhs.m_bIsLighting)
 {
 }
 

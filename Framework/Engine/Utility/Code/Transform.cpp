@@ -90,9 +90,24 @@ void CTransform::Move_Pos(OBJ_DIR _eDir, const _float& fSpeed, const _float& fTi
 
 void CTransform::Set_Scale(_vec3 _vScale)
 {
-	m_matWorld._11 = _vScale.x;
-	m_matWorld._22 = _vScale.y;
-	m_matWorld._33 = _vScale.z;
+	_vec3 vRight, vUp, vLook;
+	Get_Info(INFO_RIGHT, &vRight);
+	Get_Info(INFO_UP, &vUp);
+	Get_Info(INFO_LOOK, &vLook);
+
+	D3DXVec3Normalize(&vRight, &vRight);
+	D3DXVec3Normalize(&vUp, &vUp);
+	D3DXVec3Normalize(&vLook, &vLook);
+
+	vRight *= _vScale.x;
+	vUp *= _vScale.y;
+	vLook *= _vScale.z;
+
+	Set_Info(INFO_RIGHT, &vRight);
+	Set_Info(INFO_UP, &vUp);
+	Set_Info(INFO_LOOK, &vLook);
+
+
 }
 
 _vec3 CTransform::Get_Scale()

@@ -151,9 +151,10 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pGrab, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GrabStone", pGrab), E_FAIL);
 
-	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 4, { 13, 1, 15 });
+	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 1, { 13, 1, 15 });
 	NULL_CHECK_RETURN(pBal, E_FAIL);
 	pBal->Set_AutoReset();
+	pBal->Set_TargName(L"Stone");
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
 
 	pBal = CBalpanObj::Create(m_pGraphicDev, 0, { 15, 1, 15 });
@@ -209,14 +210,22 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pLTer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleTer", pLTer), E_FAIL);
 
-	CLightPuzzleBase* pLBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, {25, 1, 25});
-	NULL_CHECK_RETURN(pLBase, E_FAIL);
+	CLightPuzzleBase* pLBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(0, 0), L"Corner");
 	pLBase->Reverse_Puzzle(true);
+	pLBase->Reverse_Puzzle(false);
+	pLBase->Set_MakeLight();
+	NULL_CHECK_RETURN(pLBase, E_FAIL);
+
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLBase), E_FAIL);
 
-	CLightPuzzlePiece* pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 28, 1, 28 });
+	CLightPuzzlePiece* pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(3, 3));
 	NULL_CHECK_RETURN(pLPiece, E_FAIL);
-	pLBase->Reverse_Puzzle(true);
+	pLPiece->Reverse_Puzzle(true);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLPiece), E_FAIL);
+
+	pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(3, 0), L"Corner");
+	NULL_CHECK_RETURN(pLPiece, E_FAIL);
+	pLPiece->Reverse_Puzzle(false);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLPiece), E_FAIL);
 
 

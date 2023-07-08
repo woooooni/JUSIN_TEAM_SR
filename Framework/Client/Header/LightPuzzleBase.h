@@ -16,7 +16,7 @@ public:
 
 	virtual void    Free() override;
 
-	static			CLightPuzzleBase* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
+	static			CLightPuzzleBase* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 }, const _tchar* p_Type = L"Base");
 
 public:
 	void		Set_MakeLight() { m_bMakeLight = true; }

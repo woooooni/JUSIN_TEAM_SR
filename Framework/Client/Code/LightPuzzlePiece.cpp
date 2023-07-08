@@ -19,8 +19,9 @@ HRESULT CLightPuzzlePiece::Ready_Object(void)
 	FAILED_CHECK(Ready_Component());
 
 	m_pAnimator->Add_Animation(L"Base", L"Proto_Tex_MoonPuzzleTile", 0.f);
+	m_pAnimator->Add_Animation(L"Horizon", L"Proto_Tex_MoonPuzzleTile_Hor", 0.f);
+	m_pAnimator->Add_Animation(L"Corner", L"Proto_Tex_MoonPuzzleTile_Corner", 0.f);
 
-	m_pAnimator->Play_Animation(L"Base", false);
 	
 
 	return S_OK;
@@ -40,17 +41,35 @@ void CLightPuzzlePiece::LateUpdate_Object(void)
 
 void CLightPuzzlePiece::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	_matrix world = *(m_pTransformCom->Get_WorldMatrix());
+
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, &world);
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+	world._42 += 0.05f;
+
+
+	if (m_bIsLighting)
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, &world);
+		m_pTextureCom->Render_Texture();
+		m_pBufferCom->Render_Buffer();
+
+	}
+
+
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
 }
 
 void CLightPuzzlePiece::Free()
 {
 }
 
-CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos)
+CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos, const _tchar* p_FirstName)
 {
+
 	CLightPuzzlePiece* ret = new CLightPuzzlePiece(p_Dev);
 	NULL_CHECK_RETURN(ret, nullptr);
 	if (FAILED(ret->Ready_Object()))
@@ -59,7 +78,44 @@ CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uin
 		MSG_BOX("LightPuzzlePiece Create Failed");
 		return nullptr;
 	}
-	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.001f, p_Pos.z));
+	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.01f, p_Pos.z));
+
+
+	if (p_FirstName == L"Base")
+	{
+		ret->m_lightDir.push_back({ -1, 0, });
+		ret->m_lightDir.push_back({ 0, -1 });
+		ret->m_lightDir.push_back({ 0, 1 });
+
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Base"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	}
+	else if (p_FirstName == L"Horizon")
+	{
+		ret->m_lightDir.push_back({ -1, 0, });
+		ret->m_lightDir.push_back({ 1, 0 });
+
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Hor"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	}
+	else if (p_FirstName == L"Corner")
+	{
+		ret->m_lightDir.push_back({ -1, 0, });
+		ret->m_lightDir.push_back({ 0, -1 });
+
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Corner"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	}
+	ret->m_pAnimator->Play_Animation(p_FirstName, false);
 	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 	return ret;
 }

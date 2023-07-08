@@ -232,6 +232,12 @@
     <Filter Include="02. GameObject\04. UI\01. NPCText\02. NameTag">
       <UniqueIdentifier>{758e7ecd-66b0-43c1-89bb-bb2f3fe13859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\06. JellyObj">
+      <UniqueIdentifier>{e6ee0063-0891-4b6d-bde2-1f5dc44a2fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\07. LightPuzzleObj">
+      <UniqueIdentifier>{650f921d-e57d-4ea5-a172-9dd1222ec683}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -459,6 +465,36 @@
     <ClInclude Include="..\Header\UI_NameTag.h">
       <Filter>02. GameObject\04. UI\01. NPCText\02. NameTag</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Coin.h" />
+    <ClInclude Include="..\Header\GolemFace.h" />
+    <ClInclude Include="..\Header\Item.h" />
+    <ClInclude Include="..\Header\JellyBomb.h" />
+    <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Skill_Aim.h" />
+    <ClInclude Include="..\Header\Player_Skill_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Skill_Range.h" />
+    <ClInclude Include="..\Header\Player_State_Skill.h" />
+    <ClInclude Include="..\Header\JellyCombined.h">
+      <Filter>02. GameObject\06. FieldObj\06. JellyObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\JellyStone.h">
+      <Filter>02. GameObject\06. FieldObj\06. JellyObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LightPuzzle.h">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LightPuzzleBase.h">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LightPuzzlePiece.h">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\LightPuzzleTerrain.h">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Catapult.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -669,6 +705,36 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_NameTag.cpp">
       <Filter>02. GameObject\04. UI\01. NPCText\02. NameTag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Coin.cpp" />
+    <ClCompile Include="..\Code\GolemFace.cpp" />
+    <ClCompile Include="..\Code\Item.cpp" />
+    <ClCompile Include="..\Code\JellyBomb.cpp" />
+    <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Aim.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
+    <ClCompile Include="..\Code\Player_State_Skill.cpp" />
+    <ClCompile Include="..\Code\JellyCombined.cpp">
+      <Filter>02. GameObject\06. FieldObj\06. JellyObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\JellyStone.cpp">
+      <Filter>02. GameObject\06. FieldObj\06. JellyObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LightPuzzle.cpp">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LightPuzzleBase.cpp">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LightPuzzlePiece.cpp">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\LightPuzzleTerrain.cpp">
+      <Filter>02. GameObject\06. FieldObj\07. LightPuzzleObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Catapult.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
