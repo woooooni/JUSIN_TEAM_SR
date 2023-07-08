@@ -38,7 +38,6 @@ struct tagNPCInfo
 class CTutorialNPC :
     public CNPC
 {
-private:
 protected:
 	explicit CTutorialNPC(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CTutorialNPC(const CTutorialNPC& rhs);

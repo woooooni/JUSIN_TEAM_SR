@@ -174,6 +174,7 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pBlock, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
 
+
 	// UI
 	//CUI* pUI = CUI::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pUI, E_FAIL);
@@ -182,6 +183,34 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CNPCText* pTextBox = CNPCText::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTextBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
+
+	CTextBox* pText = CTextBox::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pText, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pText), E_FAIL);
+
+	CIcon* pIconHeart = CIcon::Create(m_pGraphicDev, ICONTYPE::HEART);
+	NULL_CHECK_RETURN(pIconHeart, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconHeart), E_FAIL);
+
+	CIcon* pIconKeyboard = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBOARD);
+	NULL_CHECK_RETURN(pIconKeyboard, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Keyboard", pIconKeyboard), E_FAIL);
+
+	CIcon* pIconQuest = CIcon::Create(m_pGraphicDev, ICONTYPE::QUEST);
+	NULL_CHECK_RETURN(pIconQuest, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconQuest), E_FAIL);
+
+	CIcon* pIconHPFrame = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP_FRAME);
+	NULL_CHECK_RETURN(pIconHPFrame, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_HPFrame", pIconHPFrame), E_FAIL);
+
+	CIcon* pIconKeyButton = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON);
+	NULL_CHECK_RETURN(pIconKeyButton, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton", pIconKeyButton), E_FAIL);
+
+	CQuickSlot* pQuickSlot = CQuickSlot::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pQuickSlot, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot", pQuickSlot), E_FAIL);
 
 
 	// NPC (Test)

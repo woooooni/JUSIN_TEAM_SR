@@ -48,34 +48,35 @@ void CUI::LateUpdate_Object(void)
 void CUI::Render_Object(void)
 {
 	CGameObject::Render_Object();
-	_matrix matPreView, matPreProj;
 
-	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-	
-	//_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) *  (1 / m_matProj._11) , ((-2 * (WINCY / 2)) / WINCY + 1)  * (1 / m_matProj._22), 0.f };
-	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) ,
-		((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
-
-	m_pTransformCom->Set_Pos(&vPos);
-
-	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-
-	_float fRatio = _float(WINCY) / _float(WINCX);
-	//_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
-	_vec3 vScale = _vec3(fWidth * fRatio * 0.8, fHeight * fRatio, 0.f);
-
-	m_pTransformCom->Set_Scale(vScale);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetTransform(D3DTS_VIEW,	&m_matView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-
-	m_pTextureCom->Render_Texture(0);
-	m_pBufferCom->Render_Buffer();
-
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+//	_matrix matPreView, matPreProj;
+//
+//	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+//	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+//	
+//	//_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) *  (1 / m_matProj._11) , ((-2 * (WINCY / 2)) / WINCY + 1)  * (1 / m_matProj._22), 0.f };
+//	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) ,
+//		((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
+//
+//	m_pTransformCom->Set_Pos(&vPos);
+//
+//	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+//	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+//
+//	_float fRatio = _float(WINCY) / _float(WINCX);
+//	//_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
+//	_vec3 vScale = _vec3(fWidth * fRatio * 0.8, fHeight * fRatio, 0.f);
+//
+//	m_pTransformCom->Set_Scale(vScale);
+//	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+//	m_pGraphicDev->SetTransform(D3DTS_VIEW,	&m_matView);
+//	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+//
+//	m_pTextureCom->Render_Texture(0);
+//	m_pBufferCom->Render_Buffer();
+//
+//	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+//	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 }
 
 CUI* CUI::Create(LPDIRECT3DDEVICE9 pGraphicDev)

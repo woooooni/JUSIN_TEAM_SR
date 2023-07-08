@@ -1,4 +1,10 @@
 #include "Export_System.h"
+//////////////
+inline LPD3DXFONT Get_Font()
+{
+	return CGraphicDev::GetInstance()->Get_Font();
+}
+//////////////
 HRESULT		Ready_GraphicDev(HWND hWnd, WINMODE eMode, const _uint& iSizeX, const _uint& iSizeY, CGraphicDev** ppGraphicDev)
 {
 	return CGraphicDev::GetInstance()->Ready_GraphicDev(hWnd, eMode, iSizeX, iSizeY, ppGraphicDev);

@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CRcTex;
 class CTransform;
 class CTexture;
+class CText;
 
 END
 
@@ -27,6 +28,5 @@ public:
 
 private:
 	virtual void		Free() override;
-   
 };
 

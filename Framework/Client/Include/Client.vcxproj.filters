@@ -193,23 +193,38 @@
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj">
       <UniqueIdentifier>{defce098-2cbd-46ea-9f5e-1439e1f65076}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\00. AdventureBook">
-      <UniqueIdentifier>{4295009d-bbed-49af-be78-83404f7e0dfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. UI\00. AdventureBook\00. Background">
-      <UniqueIdentifier>{09bc8756-f762-4582-9d13-2f0618ed54d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\99. NPC">
       <UniqueIdentifier>{90d7681b-34b9-4ce9-adfd-aa397b8596cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\99. NPC\00. Tutorial">
       <UniqueIdentifier>{72e16abb-9044-4958-9999-738721d1c00d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\00. AdventureBook\01. Pages">
-      <UniqueIdentifier>{b523e7fc-8d1b-4c14-aa22-a2ae5525fdde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\01. NPCText">
       <UniqueIdentifier>{9ebf1511-d022-4236-bcea-0cc7e49ceb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\99. ETC">
+      <UniqueIdentifier>{cff99704-51e7-4561-9703-aca208e9d29c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook">
+      <UniqueIdentifier>{4295009d-bbed-49af-be78-83404f7e0dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background">
+      <UniqueIdentifier>{09bc8756-f762-4582-9d13-2f0618ed54d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages">
+      <UniqueIdentifier>{b523e7fc-8d1b-4c14-aa22-a2ae5525fdde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo">
+      <UniqueIdentifier>{bb0d5990-dc39-43a4-83d9-66f88c7745c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\99. ETC\01. Icon">
+      <UniqueIdentifier>{52a116df-b0d1-49a0-bddd-79286103269a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\01. NPCText\00. Text">
+      <UniqueIdentifier>{a9d46f61-e263-4fd5-a5e5-f456e47dac41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot">
+      <UniqueIdentifier>{f24af292-0652-4de7-b3fc-936fc5c0259b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -409,22 +424,31 @@
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UIPages.h">
-      <Filter>02. GameObject\04. UI\00. AdventureBook\01. Pages</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\NPC.h">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UI_AdventureBook.h">
-      <Filter>02. GameObject\04. UI\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UI_BookBackground.h">
-      <Filter>02. GameObject\04. UI\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TutorialNPC.h">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\NPCText.h">
       <Filter>02. GameObject\04. UI\01. NPCText</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Icon.h">
+      <Filter>02. GameObject\04. UI\99. ETC\01. Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\QuickSlot.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Text.h">
+      <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,22 +632,31 @@
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UIPages.cpp">
-      <Filter>02. GameObject\04. UI\00. AdventureBook\01. Pages</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\NPC.cpp">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_AdventureBook.cpp">
-      <Filter>02. GameObject\04. UI\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_BookBackground.cpp">
-      <Filter>02. GameObject\04. UI\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TutorialNPC.cpp">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\NPCText.cpp">
       <Filter>02. GameObject\04. UI\01. NPCText</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Icon.cpp">
+      <Filter>02. GameObject\04. UI\99. ETC\01. Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuickSlot.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Text.cpp">
+      <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

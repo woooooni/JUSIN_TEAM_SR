@@ -28,7 +28,7 @@ _int CTutorialNPC::Update_Object(const _float& fTimeDelta)
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 
-	return _int();
+	return iExit;
 }
 
 void CTutorialNPC::LateUpdate_Object(void)
@@ -153,7 +153,7 @@ CTutorialNPC* CTutorialNPC::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vP
 		MSG_BOX("Tutorial NPC Create Failed");
 		return nullptr;
 	}
-
+	
 	pInstance->Get_TransformCom()->Set_Pos(&vPos);
 
 	return pInstance;
