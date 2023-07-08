@@ -109,6 +109,7 @@ HRESULT CBlueBeatle::Add_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 	return S_OK;
+
 }
 CBlueBeatle* CBlueBeatle::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

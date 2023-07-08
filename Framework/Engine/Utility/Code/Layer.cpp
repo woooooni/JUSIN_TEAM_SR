@@ -44,9 +44,10 @@ _int CLayer::Update_Layer(const _float & fTimeDelta)
 
 	for (auto& iter : m_vecObject)
 	{	
-		iResult = iter->Update_Object(fTimeDelta);
+		if(iter->Is_Active())
+			iResult = iter->Update_Object(fTimeDelta);
 
-		if (iResult & 0x80000000)
+		if (iResult & 0x80000000) 
 			return iResult;
 	}
 	
@@ -56,7 +57,8 @@ _int CLayer::Update_Layer(const _float & fTimeDelta)
 void CLayer::LateUpdate_Layer()
 {
 	for (auto& iter : m_vecObject)
-		iter->LateUpdate_Object();
+		if(iter->Is_Active())
+			iter->LateUpdate_Object();
 }
 
 CLayer * CLayer::Create()

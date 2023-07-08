@@ -16,12 +16,11 @@ public:
 public:
 	HRESULT			Add_GameObject(const wstring& _strObjName, CGameObject* pGameObject);
 	CGameObject*	Find_GameObject(const wstring& _strObjName);
-	const vector<CGameObject*>& Get_GameObjectVec() { return m_vecObject; }
+	vector<CGameObject*>& Get_GameObjectVec() { return m_vecObject; }
 public:
 	HRESULT			Ready_Layer();
 	_int			Update_Layer(const _float& fTimeDelta);
 	void			LateUpdate_Layer();
-	//void			Render_Layer();
 
 private:
 	vector<CGameObject*> m_vecObject;

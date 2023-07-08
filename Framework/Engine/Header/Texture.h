@@ -21,13 +21,14 @@ public:
 
 public:
 	size_t Get_Size() { return m_vecTexture.size(); }
-	LPDIRECT3DBASETEXTURE9	Get_Texture(_uint iTextNum) { return m_vecTexture[iTextNum]; }
+	LPDIRECT3DBASETEXTURE9	Get_Texture(_uint _iIdx) { return m_vecTexture[_iIdx]; }
 	D3DXIMAGE_INFO	Get_TextureDesc(_uint _iIdx) { return m_vecTextureInfo[_iIdx]; }
 
 	void Set_Idx(_uint _iIdx);
 	_uint Get_Idx() { return m_iIdx; }
 
 	vector<D3DXIMAGE_INFO>& Get_TextureDescVec() { return m_vecTextureInfo; }
+	const vector<LPDIRECT3DBASETEXTURE9>& Get_TextureVec() { return m_vecTexture; }
 
 	_bool Is_Finished() { return m_bFinished; }
 	void Set_Finished(_bool _bFinished) { m_bFinished = _bFinished; }

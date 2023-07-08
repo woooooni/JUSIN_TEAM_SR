@@ -15,8 +15,8 @@ CLogo::~CLogo()
 
 HRESULT CLogo::Ready_Scene()
 {
+	__super::Ready_AllLayer();
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
 
 	D3DVIEWPORT9 vp;
@@ -79,7 +79,7 @@ HRESULT CLogo::Ready_Prototype()
 
 HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 {
-	Engine::CLayer*		pLayer = Engine::CLayer::Create();
+	Engine::CLayer* pLayer = m_mapLayer.find(_eType)->second;
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
 	Engine::CGameObject*		pGameObject = nullptr;

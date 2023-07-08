@@ -2,6 +2,10 @@
 
 #include "Scene.h"
 
+BEGIN(Engine)
+class CCamera;
+END
+class CPlayer;
 class CScene_Tool : public Engine::CScene
 {
 private:
@@ -17,12 +21,16 @@ public:
 private:
 	HRESULT			Ready_Prototype();
 	HRESULT			Ready_Layer_Environment(LAYER_TYPE _eType);
-	HRESULT			Ready_Layer_Tool(LAYER_TYPE _eType);
-
+	
 
 public:
 	void Save_Data();
 	void Load_Data();
+	CCamera* Get_MainCamera() { return m_pCamera; }
+	CPlayer* Get_Player() { return m_pPlayer; }
+private:
+	Engine::CCamera* m_pCamera;
+	CPlayer* m_pPlayer;
 public:
 	static CScene_Tool* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

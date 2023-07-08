@@ -16,7 +16,7 @@ class CImGuiMgr : public CBase
 
 public:
 	enum class TOOL_MODE { OBJECT, TERRAIN, MAP, MODE_END };
-	enum class OBJ_SELECTED { BLUE_BEATLE };
+	enum class OBJ_SELECTED { BLUE_BEATLE, DESERT_RHINO, TRASH_BIG };
 private:
 	explicit CImGuiMgr();
 	virtual ~CImGuiMgr();
