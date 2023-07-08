@@ -24,6 +24,9 @@
 #include "TutorialNPC.h"
 #include "NPCText.h"
 #include "Coin.h"
+#include "QuickSlot.h"
+#include "Text.h"
+#include "Icon.h"
 
 
 class CLogo : public Engine::CScene

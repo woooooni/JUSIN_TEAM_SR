@@ -210,6 +210,7 @@
     <ClInclude Include="..\Header\GolemUpperJaw.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
     <ClInclude Include="..\Header\HitObj.h" />
+    <ClInclude Include="..\Header\Icon.h" />
     <ClInclude Include="..\Header\ImGuiMgr.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\JellyBomb.h" />
@@ -243,11 +244,13 @@
     <ClInclude Include="..\Header\Player_State_Swing.h" />
     <ClInclude Include="..\Header\Player_State_Walk.h" />
     <ClInclude Include="..\Header\PushStone.h" />
+    <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Scene_Tool.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\Stage.h" />
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
+    <ClInclude Include="..\Header\Text.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
     <ClInclude Include="..\Header\UIPages.h" />
@@ -290,6 +293,7 @@
     <ClCompile Include="..\Code\GolemUpperJaw.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
     <ClCompile Include="..\Code\HitObj.cpp" />
+    <ClCompile Include="..\Code\Icon.cpp" />
     <ClCompile Include="..\Code\ImGuiMgr.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
     <ClCompile Include="..\Code\JellyBomb.cpp" />
@@ -323,11 +327,13 @@
     <ClCompile Include="..\Code\Player_State_Swing.cpp" />
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
     <ClCompile Include="..\Code\PushStone.cpp" />
+    <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Scene_Tool.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
+    <ClCompile Include="..\Code\Text.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
     <ClCompile Include="..\Code\UIPages.cpp" />

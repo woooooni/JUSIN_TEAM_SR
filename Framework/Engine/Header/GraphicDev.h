@@ -15,11 +15,17 @@ private:
 
 public:
 	LPDIRECT3DDEVICE9		Get_GraphicDev() { return m_pGraphicDev; }
-	
+
 	HRESULT			Ready_GraphicDev(HWND hWnd, WINMODE eMode, const _uint& iSizeX, const _uint& iSizeY, CGraphicDev** ppGraphicDev);
 	void			Render_Begin(D3DXCOLOR Color);
-	
 	void			Render_End();
+
+
+//////////////////
+	LPD3DXFONT				Get_Font(void) { return m_pFont; }
+private:
+	LPD3DXFONT			m_pFont;
+//////////////////
 
 private:
 	LPDIRECT3D9			m_pSDK;
