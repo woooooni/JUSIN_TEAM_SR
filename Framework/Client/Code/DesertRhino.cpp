@@ -27,7 +27,7 @@ void CDesertRhino::Update_Idle(_float fTimeDelta)
 	
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CDesertRhino::Update_Die(_float fTimeDelta)
@@ -38,17 +38,17 @@ void CDesertRhino::Update_Regen(_float fTimeDelta)
 {
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	_vec3 vTargetPos, vPos, vDir;
-	//m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-	//m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	//vDir = vTargetPos - vPos;
-	//m_vDir = vTargetPos - vPos;
-	//if (m_fMoveTime > 15.f)
-	//{
-	//	Set_State(MONSTER_STATE::ATTACK);
-	//	m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
-	//	m_fMoveTime = 0.f;
-	//}
-	//m_fMoveTime += 10 * fTimeDelta;
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = vTargetPos - vPos;
+	m_vDir = vTargetPos - vPos;
+	if (m_fMoveTime > 15.f)
+	{
+		Set_State(MONSTER_STATE::ATTACK);
+		m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
+		m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CDesertRhino::Update_Move(_float fTimeDelta)
@@ -67,7 +67,7 @@ void CDesertRhino::Update_Move(_float fTimeDelta)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
 	}	
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst;
@@ -143,7 +143,7 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
-		if (D3DXVec3Length(&vDir) < 5)
+		if (D3DXVec3Length(&vDir) < 5.f)
 		{
 			Set_State(MONSTER_STATE::REGEN);
 			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Down", true);
@@ -223,5 +223,5 @@ void CDesertRhino::Trace(_float fTimeDelta)
 			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
 			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }

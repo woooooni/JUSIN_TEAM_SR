@@ -101,7 +101,7 @@ void CGolemLowerJaw::Update_Idle(_float fTimeDelta)
 {
 	_vec3 vDir;
 	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
+		vDir = { 0.f,1.f ,0.f };
 	else
 		vDir = { 0.f,-1.f ,0.f };
 
@@ -114,7 +114,7 @@ void CGolemLowerJaw::Update_Idle(_float fTimeDelta)
 			m_bBreath = true;
 			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 
 
 	
@@ -127,7 +127,7 @@ void CGolemLowerJaw::Update_Dirty(_float fTimeDelta)
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_LowerJaw", true);
 	_vec3 vDir;
 	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
+		vDir = { 0.f,1.f ,0.f };
 	else
 		vDir = { 0.f,-1.f ,0.f };
 
@@ -140,7 +140,7 @@ void CGolemLowerJaw::Update_Dirty(_float fTimeDelta)
 			m_bBreath = true;
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CGolemLowerJaw::Update_Move(_float fTimeDelta)
@@ -158,7 +158,7 @@ void CGolemLowerJaw::Update_Die(_float fTimeDelta)
 void CGolemLowerJaw::Update_Regen(_float fTimeDelta)
 {
 	_vec3 vDir, vPos;
-	vDir = { 0,1 ,0 };
+	vDir = { 0.f,1.f ,0.f };
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 

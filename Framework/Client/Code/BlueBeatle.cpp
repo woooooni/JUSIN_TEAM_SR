@@ -28,7 +28,7 @@ void CBlueBeatle::Update_Idle(_float fTimeDelta)
 	
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 void CBlueBeatle::Update_Move(_float fTimeDelta)
 {
@@ -46,7 +46,7 @@ void CBlueBeatle::Update_Move(_float fTimeDelta)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst - vPos;

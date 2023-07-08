@@ -40,7 +40,7 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	_vec3 vDir = {0, -1, 0};
+	_vec3 vDir = {0.f, -1.f, 0.f };
 
 	if (m_eState != SUNGOLEM_STATE::DIRTY)
 		Update_Idle(fTimeDelta);

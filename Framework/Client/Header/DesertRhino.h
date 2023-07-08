@@ -28,8 +28,8 @@ public:
     static  CDesertRhino* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:
     _float m_fMoveTime;
-    _vec3 m_vDst = { 0,0,0 };
-    _vec3 m_vDir = { 0,0,0 };
+    _vec3 m_vDst = { 0.f,0.f,0.f };
+    _vec3 m_vDir = { 0.f,0.f,0.f };
 
     virtual void Trace(_float fTimeDelta) override;
 

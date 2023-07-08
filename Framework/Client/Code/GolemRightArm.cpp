@@ -102,7 +102,7 @@ void CGolemRightArm::Update_Idle(_float fTimeDelta)
 {
 	_vec3 vDir;
 	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
+		vDir = { 0.f , 1.f ,0.f };
 	else
 		vDir = { 0.f,-1.f ,0.f };
 
@@ -115,7 +115,7 @@ void CGolemRightArm::Update_Idle(_float fTimeDelta)
 			m_bBreath = true;
 			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 
 
 	
@@ -141,7 +141,7 @@ void CGolemRightArm::Update_Dirty(_float fTimeDelta)
 			m_bBreath = true;
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CGolemRightArm::Update_Move(_float fTimeDelta)

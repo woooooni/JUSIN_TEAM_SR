@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include "SunGollem.h"
 #include "GolemParts.h"
-
+#include "PushStone.h"
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
 	, m_eState(SUNGOLEM_STATE::REGEN)
@@ -28,7 +28,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Idle_Body", L"Proto_Texture_SunGolem_Idle_Head", 0.1f);
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Body", L"Proto_Texture_SunGolem_Dirty_Body", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
-	
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({2.f, 2.f, 2.f });
 	memset(m_bAttack, 1, sizeof(bool)*6);
 	m_vVerticalDir = { 0.f, 1.f ,0.f }; m_vVerticalDir = { 0.f, 1.f ,0.f };
 	m_pTransformCom->Set_Pos(&_vec3(4.0f, 2.0f, 4.0f));
@@ -40,6 +40,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 2,2,2 });
 	m_fSpeed = 5.f;
 	Set_State(SUNGOLEM_STATE::REGEN);
+	m_tStat = { 6,6,1 };
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
 
 	return S_OK;
@@ -49,6 +50,7 @@ _int CSunGollem::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
 	switch (m_eState)
 	{
 	case SUNGOLEM_STATE::IDLE:
@@ -81,6 +83,7 @@ _int CSunGollem::Update_Object(const _float& fTimeDelta)
 
 void CSunGollem::LateUpdate_Object(void)
 {
+	
 	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
 	{
 		if ((*iter)->Is_Active())
@@ -149,8 +152,23 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			Set_State(SUNGOLEM_STATE::MOVE);
 		else if(rand() % 10 < 5)
 			Set_State(SUNGOLEM_STATE::ATTACK);
+		if (m_tStat.iHp < 1)
+		{
+			if (!m_bDirty)
+			{
+				Set_State(SUNGOLEM_STATE::DIRTY);
+				m_bDirty = true;
+				m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
+				m_vecParts[FACE]->Set_Active(true);
+			}
+			else
+			{
+				Set_State(SUNGOLEM_STATE::DIE);
+			}
+		}
 		m_fSpeed = 5.f;
 		m_fMoveTime = 0.f;
+
 	}
 
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -166,7 +184,7 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 		vDir = { 0.f,-1.f ,0.f };
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-
+	m_tStat = { 8 ,8 ,2 };
 	if (m_fMoveTime > 10.f)
 	{
 		if (m_bBreath)
@@ -299,7 +317,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			}
 			
 		
-		if (m_fMoveTime > 40.f)
+		if (m_fMoveTime > 20.f +5.f* (float)m_iActiveArm)
 		{
 			m_fMoveTime = 0.f;
 			Set_State(SUNGOLEM_STATE::IDLE);
@@ -330,10 +348,6 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			if (m_iActiveArm > 6)
 			{
 				m_iActiveArm = 2;
-				Set_State(SUNGOLEM_STATE::DIRTY);
-				m_bDirty = true;
-				m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
-				m_vecParts[FACE]->Set_Active(true);
 				m_bLockon = false;
 			}
 		}
@@ -343,6 +357,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 
 void CSunGollem::Update_Die(_float fTimeDelta)
 {
+	Set_Active(false);
 }
 
 void CSunGollem::Update_Regen(_float fTimeDelta)
@@ -479,4 +494,21 @@ HRESULT CSunGollem::Ready_Parts(void)
 	pGolemFace->Get_TransformCom()->Set_Pos(&m_vPartPos[FACE]);
 	m_vecParts.push_back(pGolemFace);
 	return S_OK;
+}
+void CSunGollem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+
+	if (m_eState == SUNGOLEM_STATE::MOVE|| m_eState == SUNGOLEM_STATE::DIRTY)
+		return;
+	if (dynamic_cast<CPushStone*>(pCollider->GetOwner()))
+	{
+		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
+		{
+			m_tStat.iHp -= 1.f;
+			//MSG_BOX("보스 피격");
+		}
+	}
+
+
+
 }

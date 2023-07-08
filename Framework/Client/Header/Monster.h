@@ -52,7 +52,7 @@ private:
 
 protected:
 	CGameObject* m_pTarget;
-
+	MONSTERSTAT m_tStat;
 protected:
 	virtual void Free() override;
 

@@ -24,7 +24,7 @@ void CTrashBig::Update_Idle(_float fTimeDelta)
 		}
 			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CTrashBig::Update_Die(_float fTimeDelta)
@@ -50,7 +50,7 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
+	m_fMoveTime += 10.f* fTimeDelta;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst;
@@ -106,7 +106,7 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
-		if (D3DXVec3Length(&vDir) < 5)
+		if (D3DXVec3Length(&vDir) < 5.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
 			m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
@@ -178,7 +178,7 @@ void CTrashBig::Trace(_float fTimeDelta)
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = vTargetPos - vPos;
-	if (D3DXVec3Length(&vDir) > 5)
+	if (D3DXVec3Length(&vDir) > 5.f)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashBig_Idle_Down", true);
