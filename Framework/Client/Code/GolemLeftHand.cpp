@@ -106,7 +106,7 @@ void CGolemLeftHand::Update_Idle(_float fTimeDelta)
 	if (m_bBreath)
 		vDir = { 0.,1.f ,0.f };
 	else
-		vDir = { 0.f,-1.f ,0.f };
+		vDir = { 0.f, -1.f, 0.f };
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
 	if (m_fMoveTime > 10.f)
