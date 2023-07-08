@@ -37,7 +37,7 @@ _int CLayer::Update_Layer(const _float & fTimeDelta)
 	_int		iResult = 0;
 
 	for (auto& iter : m_vecObject)
-	{
+	{	
 		iResult = iter->Update_Object(fTimeDelta);
 
 		if (iResult & 0x80000000)

@@ -16,6 +16,7 @@
 #include "RcTex.h"
 #include "TerrainTex.h"
 #include "CubeTex.h"
+#include "RcPuzzleBuff.h"
 
 #include "Transform.h"
 #include "Collider.h"

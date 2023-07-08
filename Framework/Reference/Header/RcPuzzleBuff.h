@@ -1,10 +1,11 @@
+#pragma once
 #include	"VIBuffer.h"
 
-
 BEGIN(Engine)
+
 class ENGINE_DLL CRcPuzzleBuff : public CVIBuffer
 {
-public:
+private:
 	explicit CRcPuzzleBuff();
 	explicit CRcPuzzleBuff(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CRcPuzzleBuff(const CRcPuzzleBuff& rhs);
@@ -18,7 +19,7 @@ public:
 	void			Render_Buffer(void);
 
 private:
-	HANDLE			m_hFile;
+	HANDLE				m_hFile;
 	BITMAPFILEHEADER	m_fH;
 	BITMAPINFOHEADER	m_iH;
 	_vec3* m_pPos;

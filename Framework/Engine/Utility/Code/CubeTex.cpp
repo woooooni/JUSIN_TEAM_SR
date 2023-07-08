@@ -105,7 +105,8 @@ CCubeTex * CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev , _float fCX, _float f
 
 	if (FAILED(pInstance->Ready_Buffer()))
 	{
-		Safe_Release(pInstance);
+		
+		(pInstance);
 		MSG_BOX("CubeTex Create Failed");
 		return nullptr;
 	}

@@ -23,10 +23,12 @@ HRESULT CGolemRightHand::Ready_Object(void)
 	//227 / 315
 	m_fMoveTime = 0.f;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+
 	m_pAnimator->Add_Animation(L"SunGolem_Idle_RightHand", L"Proto_Texture_SunGolem_Idle_RightHand", 0.1f);
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_RightHand", L"Proto_Texture_SunGolem_Dirty_RightHand", 0.1f);
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_BummerRightHand", L"Proto_Texture_SunGolem_Dirty_BummerRightHand", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_RightHand", true);
+
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 0.7f, 0.7f,0.7f });
 
@@ -40,6 +42,7 @@ _int CGolemRightHand::Update_Object(const _float& fTimeDelta)
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"SunGollem");
 	Set_State(dynamic_cast<CSunGollem*>(pTarget)->Get_State());
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+
 	switch (m_eState)
 	{
 	case SUNGOLEM_STATE::IDLE:

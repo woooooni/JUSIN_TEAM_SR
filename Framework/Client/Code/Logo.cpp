@@ -178,6 +178,7 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
 
 	// SkyBox
+
 	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSkyBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pSkyBox), E_FAIL);

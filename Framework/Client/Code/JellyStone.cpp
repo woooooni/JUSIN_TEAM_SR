@@ -125,8 +125,6 @@ void CJellyStone::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 		CJellyCombined* jelly = CJellyCombined::Create(m_pGraphicDev, static_cast<JELLY_COLLOR_COMBINE>((_uint)m_eColor + (_uint)src->m_eColor), 0, 0.5f * (dst + tmp));
 
 		NULL_CHECK(jelly);
-
-
 		if (FAILED(Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Jelly_Combined", jelly)))
 		{
 			Safe_Release(jelly);
@@ -134,7 +132,6 @@ void CJellyStone::Collision_Enter(CGameObject* pCollisionObj, UINT _iColliderID)
 		}
 		m_bCreatedCombine = true;
 		Set_Active(false);
-
 	}
 }
 

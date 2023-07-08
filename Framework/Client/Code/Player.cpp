@@ -348,7 +348,7 @@ void CPlayer::Collision_Stay(CGameObject* pCollisionObj, UINT _iColliderID)
 }
 void CPlayer::Collision_Exit(CGameObject* pCollisionObj, UINT _iColliderID)
 {
-	//MSG_BOX("Ãæµ¹ Exit");
+	
 }
 
 void CPlayer::Free()
