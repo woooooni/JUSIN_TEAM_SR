@@ -66,21 +66,47 @@ void CQuickSlot::Render_Object(void)
 	//	_float fPos = _float(i * 0.03);
 
 		_matrix matPreView, matPreProj;
+		_vec3 vPos;
 
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
 	//	_vec3 vPos = { (WINCX / WINCX - (fX + i)) * (1 / m_matProj._11) ,
 	//			 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
-		_vec3 vPos = { (WINCX / WINCX - 1.86f) * (1 / m_matProj._11) ,
-		 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
+
+		switch (m_tInfo.eType)
+		{
+		case SLOTNUM::SLOT_ONE:
+			vPos = { (WINCX / WINCX - 1.84f) * (1 / m_matProj._11) ,
+					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+			break;
+
+		case SLOTNUM::SLOT_TWO:
+			vPos = { (WINCX / WINCX - 1.72f) * (1 / m_matProj._11) ,
+					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+			break;
+
+		case SLOTNUM::SLOT_THREE:
+			vPos = { (WINCX / WINCX - 1.6f) * (1 / m_matProj._11) ,
+					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+			break;
+
+		case SLOTNUM::SLOT_FOUR:
+			vPos = { (WINCX / WINCX - 1.48f) * (1 / m_matProj._11) ,
+					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+			break;
+
+		default:
+			break;
+		}
+
 		m_pTransformCom->Set_Pos(&vPos);
 
 		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		_float fRatio = _float(WINCY) / _float(WINCX);
 
-		_vec3 vScale = _vec3(fWidth * fRatio * 0.8, fHeight * 0.8 * fRatio, 0.f);
+		_vec3 vScale = _vec3(fWidth * fRatio * 0.85, fHeight * 0.85 * fRatio, 0.f);
 
 		m_pTransformCom->Set_Scale(vScale);
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -97,14 +123,21 @@ void CQuickSlot::Render_Object(void)
 	__super::Render_Object();
 }
 
-//HRESULT CQuickSlot::Add_Component(void)
-//{
-//	return S_OK;
-//}
+HRESULT CQuickSlot::Add_Component(void)
+{
+	return S_OK;
+}
 
-CQuickSlot* CQuickSlot::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+void CQuickSlot::Set_Type(SLOTNUM eType)
+{
+	m_tInfo.eType = eType;
+}
+
+CQuickSlot* CQuickSlot::Create(LPDIRECT3DDEVICE9 pGraphicDev, SLOTNUM eType)
 {
 	CQuickSlot* pInstance = new CQuickSlot(pGraphicDev);
+
+	pInstance->Set_Type(eType);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

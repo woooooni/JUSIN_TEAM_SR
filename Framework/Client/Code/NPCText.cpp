@@ -18,6 +18,15 @@ CNPCText::~CNPCText()
 
 HRESULT CNPCText::Ready_Object(void)
 {	
+	// NameTag Ãß°¡
+//	Engine::CLayer* pLayer = Engine::CLayer::Create();
+//	NULL_CHECK_RETURN(pLayer, E_FAIL);
+//
+//	CUI_NameTag* pNameTag = CUI_NameTag::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pNameTag, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_NameTag", pNameTag), E_FAIL);
+	//
+
 	CComponent* pComponent = nullptr;
 
 	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);

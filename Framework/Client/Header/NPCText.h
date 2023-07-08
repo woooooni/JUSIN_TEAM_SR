@@ -1,5 +1,6 @@
 #pragma once
 #include "CUI.h"
+#include "UI_NameTag.h"
 
 BEGIN(Engine)
 

@@ -208,9 +208,25 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pIconKeyButton, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton", pIconKeyButton), E_FAIL);
 
-	CQuickSlot* pQuickSlot = CQuickSlot::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pQuickSlot, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot", pQuickSlot), E_FAIL);
+	CQuickSlot* pQuickSlot1 = CQuickSlot::Create(m_pGraphicDev, SLOTNUM::SLOT_ONE);
+	NULL_CHECK_RETURN(pQuickSlot1, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot_First", pQuickSlot1), E_FAIL);
+
+	CQuickSlot* pQuickSlot2 = CQuickSlot::Create(m_pGraphicDev, SLOTNUM::SLOT_TWO);
+	NULL_CHECK_RETURN(pQuickSlot2, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot_Second", pQuickSlot2), E_FAIL);
+
+	CQuickSlot* pQuickSlot3 = CQuickSlot::Create(m_pGraphicDev, SLOTNUM::SLOT_THREE);
+	NULL_CHECK_RETURN(pQuickSlot3, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot_Third", pQuickSlot3), E_FAIL);
+
+	CQuickSlot* pQuickSlot4 = CQuickSlot::Create(m_pGraphicDev, SLOTNUM::SLOT_FOUR);
+	NULL_CHECK_RETURN(pQuickSlot4, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot_Fourth", pQuickSlot4), E_FAIL);
+
+//	CUI_NameTag* pNameTag = CUI_NameTag::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pNameTag, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_NameTag", pNameTag), E_FAIL);
 
 
 	// NPC (Test)
