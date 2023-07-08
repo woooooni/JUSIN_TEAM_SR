@@ -226,6 +226,12 @@
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot">
       <UniqueIdentifier>{f24af292-0652-4de7-b3fc-936fc5c0259b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\01. NPCText\01. TextBox">
+      <UniqueIdentifier>{84f83924-954d-4b48-b772-4c20a3608ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\01. NPCText\02. NameTag">
+      <UniqueIdentifier>{758e7ecd-66b0-43c1-89bb-bb2f3fe13859}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -438,9 +444,6 @@
     <ClInclude Include="..\Header\TutorialNPC.h">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\NPCText.h">
-      <Filter>02. GameObject\04. UI\01. NPCText</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Icon.h">
       <Filter>02. GameObject\04. UI\99. ETC\01. Icon</Filter>
     </ClInclude>
@@ -449,6 +452,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\Text.h">
       <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\NPCText.h">
+      <Filter>02. GameObject\04. UI\01. NPCText\01. TextBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_NameTag.h">
+      <Filter>02. GameObject\04. UI\01. NPCText\02. NameTag</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -646,9 +655,6 @@
     <ClCompile Include="..\Code\TutorialNPC.cpp">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\NPCText.cpp">
-      <Filter>02. GameObject\04. UI\01. NPCText</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Icon.cpp">
       <Filter>02. GameObject\04. UI\99. ETC\01. Icon</Filter>
     </ClCompile>
@@ -657,6 +663,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\Text.cpp">
       <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NPCText.cpp">
+      <Filter>02. GameObject\04. UI\01. NPCText\01. TextBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_NameTag.cpp">
+      <Filter>02. GameObject\04. UI\01. NPCText\02. NameTag</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

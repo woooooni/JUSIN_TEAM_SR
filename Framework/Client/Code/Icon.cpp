@@ -49,14 +49,14 @@ void CIcon::Render_Object(void)
 	{
 		// 메인 컴포넌트 첫번째 줄
 	case ICONTYPE::PLAYERHP_FRAME:
-		vPos = { (WINCX / WINCX - 1.72f) * (1 / m_matProj._11) ,
+		vPos = { (WINCX / WINCX - 1.66f) * (1 / m_matProj._11) ,
 		 ((-1 * WINCY) / WINCY + 1.93f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(fWidth * fRatio * 2, fHeight * fRatio * 1.2, 0.f);
+		vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
 		break;
 
 	case ICONTYPE::HEART:
@@ -67,24 +67,24 @@ void CIcon::Render_Object(void)
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(fWidth * fRatio * 1.1f, fHeight * fRatio, 0.f);
+		vScale = _vec3(fWidth * fRatio * 1.6f, fHeight * 1.5 * fRatio, 0.f);
 		break;
 
 	case ICONTYPE::QUEST:
-		vPos = { (WINCX / WINCX - 1.485f) * (1 / m_matProj._11) ,
+		vPos = { (WINCX / WINCX - 1.37f) * (1 / m_matProj._11) , // 1.485
 				 ((-1 * WINCY) / WINCY + 1.93f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(fWidth * fRatio * 0.85f, fHeight * fRatio * 0.85f, 0.f);
+		vScale = _vec3(fWidth * fRatio, fHeight * fRatio , 0.f);
 		break;
 
 		// 메인 컴포넌트 두번째 줄
 	case ICONTYPE::KEYBOARD:
 		vPos = { (WINCX / WINCX - 1.95f) * (1 / m_matProj._11) ,
-				 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
+				 ((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -94,15 +94,15 @@ void CIcon::Render_Object(void)
 		break;
 
 		// ETC.
-	case ICONTYPE::KEYBUTTON: // 퀵슬롯 4개는 for문 돌려서 생성할 것
-		vPos = { (WINCX / WINCX - 1.468f) * (1 / m_matProj._11) ,
+	case ICONTYPE::KEYBUTTON:
+		vPos = { (WINCX / WINCX - 1.353f) * (1 / m_matProj._11) ,
 				 ((-1 * WINCY) / WINCY + 1.9f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(fWidth * fRatio * 0.25f, fHeight * fRatio * 0.25f, 0.f);
+		vScale = _vec3(fWidth * fRatio * 0.3f, fHeight * fRatio * 0.3f, 0.f);
 		break;
 
 	default:

@@ -264,6 +264,7 @@
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
     <ClInclude Include="..\Header\Catapult.h" />
+    <ClInclude Include="..\Header\UI_NameTag.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -354,6 +355,7 @@
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />
+    <ClCompile Include="..\Code\UI_NameTag.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

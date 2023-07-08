@@ -1,23 +1,12 @@
 #pragma once
 #include "CUI.h"
-#include "UI_NameTag.h"
 
-BEGIN(Engine)
-
-class CRcTex;
-class CTransform;
-class CTexture;
-class CText;
-
-END
-
-class CNPCText : public CUI
+class CUI_NameTag : public CUI
 {
-	CLONE(CNPCText)
 private:
-	CNPCText(LPDIRECT3DDEVICE9 pGraphicDev);
-	CNPCText(const CNPCText& rhs);
-	virtual ~CNPCText();
+	CUI_NameTag(LPDIRECT3DDEVICE9 pGraphicDev);
+	CUI_NameTag(const CUI_NameTag& rhs);
+	virtual ~CUI_NameTag();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -26,7 +15,7 @@ public:
 	virtual void		Render_Object(void) override;
 
 public:
-	static  CNPCText*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CUI_NameTag* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;

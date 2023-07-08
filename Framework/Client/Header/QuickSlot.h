@@ -9,6 +9,18 @@ class CTexture;
 
 END
 
+typedef enum class SlotNum
+{
+	SLOT_ONE, SLOT_TWO, SLOT_THREE, SLOT_FOUR,
+	SLOT_END
+
+}SLOTNUM;
+
+struct tagSlotInfo
+{
+	SLOTNUM		eType;
+};
+
 class CQuickSlot : public CUI
 {
 	CLONE(CQuickSlot)
@@ -23,11 +35,15 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-//private:
-//	HRESULT			Add_Component(void);
+private:
+	HRESULT			Add_Component(void);
+	void			Set_Type(SLOTNUM eType);
+
+private:
+	tagSlotInfo		m_tInfo;
 
 public:
-	static  CQuickSlot* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CQuickSlot* Create(LPDIRECT3DDEVICE9 pGraphicDev, SLOTNUM eType);
 
 private:
 	virtual void		Free() override;
