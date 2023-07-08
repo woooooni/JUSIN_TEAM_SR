@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "KeyMgr.h"
 #include "Transform.h"
+#include "Player_State_Skill.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -120,7 +121,7 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_HOLD(KEY::D))
 	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DOWN);
+		//dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DOWN);
 	}
 
 	if (KEY_TAP(KEY::R))
@@ -137,11 +138,23 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::W))
 	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(true);
+		//dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(true);
 	}
 
 	if (KEY_TAP(KEY::E))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DRAWING);
+	}
+
+	if (KEY_TAP(KEY::K))
+	{
+		if(dynamic_cast<CPlayer*>(m_pOwner)->Is_HaveSkill())
+			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SKILL);
+	}
+
+	if (KEY_TAP(KEY::J))
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Add_Skill(PLAYER_SKILL::GOLEMFIST);
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_Skill(PLAYER_SKILL::GOLEMFIST);
 	}
 }

@@ -17,6 +17,7 @@
 #include "BalpanObj.h"
 #include "HitObj.h"
 #include "BlockObj.h"
+
 #include "JellyStone.h"
 #include "JellyCombined.h"
 #include "Catapult.h"
@@ -30,6 +31,9 @@
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"
 #include "LightPuzzlePiece.h"
+
+#include "Player_Skill_Range.h"
+#include "Player_Skill_Aim.h"
 
 
 
