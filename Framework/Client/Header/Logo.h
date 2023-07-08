@@ -23,6 +23,7 @@
 #include "LightPuzzleTerrain.h"
 #include "TutorialNPC.h"
 #include "NPCText.h"
+#include "Coin.h"
 
 
 class CLogo : public Engine::CScene

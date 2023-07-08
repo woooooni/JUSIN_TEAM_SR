@@ -65,7 +65,7 @@ void CMonster::Render_Object(void)
 
 HRESULT CMonster::Add_Component(void)
 {
-	CComponent*			pComponent = nullptr;
+	CComponent* pComponent = nullptr;
 
 	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_CRcTex"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
