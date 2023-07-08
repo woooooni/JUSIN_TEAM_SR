@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 #include "Player_State.h"
+#include "Player_State_Skill.h"
 
 BEGIN(Engine)
 
@@ -36,6 +37,8 @@ public:
 	virtual _int		Update_Object(const _float& fTimeDelta) override;
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
+	
+
 
 private:
 	HRESULT			Ready_Component(void);
@@ -108,8 +111,23 @@ public:
 			m_tPlayerStat.iMoney = 0;
 	}
 
+	//스킬
+	void			Add_Skill(PLAYER_SKILL _eSkill) 
+	{
+		dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Add_Skill(_eSkill);
+	};
+	void			Set_Skill(PLAYER_SKILL _eSkill) 
+	{
+		dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Set_Skill(_eSkill);
+	};
 
+	bool			Is_HaveSkill() { return dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Is_HaveSkill(); }
 
+	void			Set_SkillRange(CGameObject* _pObj) { m_pSkillRange = _pObj; }
+	CGameObject*	Get_SkillRange() { return m_pSkillRange; }
+
+	CGameObject*	Get_Aim() { return m_pAim; }
+	void			Set_Aim(CGameObject* _pObj) { m_pAim = _pObj; }
 
 	//상태
 	bool			Is_GetItem() { return m_bGetItem; }
@@ -152,6 +170,8 @@ private:
 
 
 	CGameObject* m_pLiftObj = nullptr;
+	CGameObject* m_pSkillRange = nullptr;
+	CGameObject* m_pAim = nullptr;
 
 	//플레이어 스텟
 	STAT m_tPlayerStat;

@@ -20,6 +20,7 @@
 #include "Player_State_GetItem.h"
 #include "Player_State_BallonFly.h"
 #include "Player_State_Drawing.h"
+#include "Player_State_Skill.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
@@ -181,12 +182,15 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_GetItem(this));
 	m_vecState.push_back(new Player_State_BallonFly(this));
 	m_vecState.push_back(new CPlayer_State_Drawing(this));
+	m_vecState.push_back(new CPlayer_State_Skill(this));
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
 
 	m_tPlayerStat.iMaxHp = m_tPlayerStat.iHp = 5;
 	m_tPlayerStat.iMaxMp = m_tPlayerStat.iMp = 5;
 	m_tPlayerStat.iAttack = 5;
+
+	
 
 
 	return S_OK;
@@ -198,6 +202,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);
 	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], COLLISION_GROUP::COLLIDE_GRAB);
 	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK], COLLISION_GROUP::COLLIDE_SWING);
+
 
 	if (m_bStateChange)
 	{
@@ -246,6 +251,7 @@ void CPlayer::Render_Object(void)
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
+
 
 HRESULT CPlayer::Ready_Component(void)
 {

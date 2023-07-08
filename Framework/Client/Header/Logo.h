@@ -17,6 +17,8 @@
 #include "BalpanObj.h"
 #include "HitObj.h"
 #include "BlockObj.h"
+#include "Player_Skill_Range.h"
+#include "Player_Skill_Aim.h"
 
 
 class CLogo : public Engine::CScene

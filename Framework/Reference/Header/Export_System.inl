@@ -12,6 +12,11 @@ void			Render_End()
 	CGraphicDev::GetInstance()->Render_End();
 }
 
+inline LPDIRECT3DDEVICE9 Get_Device()
+{
+	return CGraphicDev::GetInstance()->Get_GraphicDev();
+}
+
 _float		Get_TimeDelta(const _tchar* pTimerTag)
 {
 	return CTimerMgr::GetInstance()->Get_TimeDelta(pTimerTag);

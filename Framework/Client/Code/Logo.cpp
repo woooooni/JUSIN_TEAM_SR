@@ -97,7 +97,7 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
-	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
+	//pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 
 
 	// BlueBeatle
@@ -175,6 +175,16 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 15, 1, 20 }, true);
 	NULL_CHECK_RETURN(pBlock, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
+
+	CPlayer_Skill_Range* pPlayerSkillRange = CPlayer_Skill_Range::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlayerSkillRange, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player_Skill_Range", pPlayerSkillRange), E_FAIL);
+	pPlayer->Set_SkillRange(pPlayerSkillRange);
+
+	CPlayer_Skill_Aim* pPlayerSkillAim = CPlayer_Skill_Aim::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlayerSkillAim, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player_Skill_Aim", pPlayerSkillAim), E_FAIL);
+	pPlayer->Set_Aim(pPlayerSkillAim);
 
 	// UI
 	//CUI* pUI = CUI::Create(m_pGraphicDev);

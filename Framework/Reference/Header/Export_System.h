@@ -12,6 +12,7 @@ BEGIN(Engine)
 inline HRESULT		Ready_GraphicDev(HWND hWnd, WINMODE eMode, const _uint& iSizeX, const _uint& iSizeY, CGraphicDev** ppGraphicDev);
 inline void			Render_Begin(D3DXCOLOR Color);
 inline void			Render_End();
+inline LPDIRECT3DDEVICE9 Get_Device();
 
 // TimerMgr
 inline _float		Get_TimeDelta(const _tchar* pTimerTag);
