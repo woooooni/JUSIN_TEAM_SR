@@ -21,7 +21,7 @@
 #include "JellyCombined.h"
 #include	"Catapult.h"
 #include	"LightPuzzleTerrain.h"
-
+#include "Coin.h"
 
 class CLogo : public Engine::CScene
 {

@@ -211,6 +211,13 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pLTer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleTer", pLTer), E_FAIL);
 
+	//Coin
+
+
+	CCoin* pCoin = CCoin::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pCoin, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Coin", pCoin), E_FAIL);
+
 
 
 	// UI
