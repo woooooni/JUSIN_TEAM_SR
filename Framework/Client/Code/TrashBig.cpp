@@ -62,13 +62,13 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 		m_bJump = true;
 	}
 
-	if (m_pRigidBodyCom->GetVelocity().y > 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() > 4)
+	if (m_pRigidBodyCom->GetVelocity().y > 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() >2)
 	{
-		m_pAnimator->GetCurrAnimation()->Set_Idx(4);
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 	}
-	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 4)
+	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 2)
 	{
-		m_pAnimator->GetCurrAnimation()->Set_Idx(4);
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 	}
 	
 
@@ -225,13 +225,13 @@ void CTrashBig::Trace(_float fTimeDelta)
 		m_bJump = true;
 	}
 
-	if (m_pRigidBodyCom->GetVelocity().y > 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() > 4)
+	if (m_pRigidBodyCom->GetVelocity().y > 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() > 2)
 	{
-		m_pAnimator->GetCurrAnimation()->Set_Idx(4);
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 	}
-	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 4)
+	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 2)
 	{
-		m_pAnimator->GetCurrAnimation()->Set_Idx(4);
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 	}
 }
 void CTrashBig::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
