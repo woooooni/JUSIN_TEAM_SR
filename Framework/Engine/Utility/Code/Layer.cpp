@@ -2,7 +2,8 @@
 
 CLayer::CLayer()
 {
-	m_vecObject.reserve(100);
+	m_vecObject.reserve(5);
+	m_vecReserveObj.reserve(100);
 }
 
 CLayer::~CLayer()
@@ -12,7 +13,7 @@ CLayer::~CLayer()
 HRESULT CLayer::Add_GameObject(const wstring & _strObjName, CGameObject * pGameObject)
 {
 	pGameObject->Set_Name(_strObjName);
-	m_vecObject.push_back(pGameObject);
+	m_vecReserveObj.push_back(pGameObject);
 	return S_OK;
 }
 
@@ -35,6 +36,11 @@ HRESULT CLayer::Ready_Layer()
 _int CLayer::Update_Layer(const _float & fTimeDelta)
 {
 	_int		iResult = 0;
+
+	for (auto& iter : m_vecReserveObj)
+		m_vecObject.push_back(iter);
+
+	m_vecReserveObj.clear();
 
 	for (auto& iter : m_vecObject)
 	{	

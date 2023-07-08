@@ -24,8 +24,8 @@ public:
 	//void			Render_Layer();
 
 private:
-	vector<CGameObject*>		m_vecObject;
-
+	vector<CGameObject*> m_vecObject;
+	vector<CGameObject*> m_vecReserveObj;
 public:
 	static		CLayer*		Create();
 	virtual		void		Free();
