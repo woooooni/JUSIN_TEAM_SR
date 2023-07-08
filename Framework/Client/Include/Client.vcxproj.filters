@@ -193,12 +193,6 @@
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj">
       <UniqueIdentifier>{defce098-2cbd-46ea-9f5e-1439e1f65076}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. NPC">
-      <UniqueIdentifier>{90d7681b-34b9-4ce9-adfd-aa397b8596cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\99. NPC\00. Tutorial">
-      <UniqueIdentifier>{72e16abb-9044-4958-9999-738721d1c00d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\01. NPCText">
       <UniqueIdentifier>{9ebf1511-d022-4236-bcea-0cc7e49ceb8d}</UniqueIdentifier>
     </Filter>
@@ -228,6 +222,15 @@
     </Filter>
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\06. Face">
       <UniqueIdentifier>{47a025c7-cba3-4ff3-adc3-700be9d73b0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\99. NPC">
+      <UniqueIdentifier>{90d7681b-34b9-4ce9-adfd-aa397b8596cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\99. NPC\00. Tutorial">
+      <UniqueIdentifier>{72e16abb-9044-4958-9999-738721d1c00d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\03. TrashSlime">
+      <UniqueIdentifier>{5f0d4df8-4468-4572-b416-ecc491994d22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -430,7 +433,7 @@
       <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\NPC.h">
-      <Filter>02. GameObject\99. NPC</Filter>
+      <Filter>02. GameObject\10. Boss\99. NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UI_AdventureBook.h">
       <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
@@ -439,7 +442,7 @@
       <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TutorialNPC.h">
-      <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
+      <Filter>02. GameObject\10. Boss\99. NPC\00. Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\NPCText.h">
       <Filter>02. GameObject\04. UI\01. NPCText</Filter>
@@ -470,6 +473,9 @@
     <ClInclude Include="..\Header\Catapult.h" />
     <ClInclude Include="..\Header\GolemFace.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TrashSlime.h">
+      <Filter>02. GameObject\02. Monster\03. TrashSlime</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -656,7 +662,7 @@
       <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\NPC.cpp">
-      <Filter>02. GameObject\99. NPC</Filter>
+      <Filter>02. GameObject\10. Boss\99. NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_AdventureBook.cpp">
       <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
@@ -665,7 +671,7 @@
       <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TutorialNPC.cpp">
-      <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
+      <Filter>02. GameObject\10. Boss\99. NPC\00. Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\NPCText.cpp">
       <Filter>02. GameObject\04. UI\01. NPCText</Filter>
@@ -696,6 +702,9 @@
     <ClCompile Include="..\Code\Catapult.cpp" />
     <ClCompile Include="..\Code\GolemFace.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashSlime.cpp">
+      <Filter>02. GameObject\02. Monster\03. TrashSlime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

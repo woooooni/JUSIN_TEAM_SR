@@ -2,7 +2,9 @@
 #include "Monster.h"
 BEGIN(Engine)
 class RcCol;
+class CCollider;
 END
+
 class CTrashBig :
     public CMonster
 {
@@ -30,6 +32,8 @@ class CTrashBig :
         _float m_fMoveTime;
         _vec3 m_vDst = { 0.f,0.f,0.f };
         virtual void Trace(_float fTimeDelta) override;
+        _bool m_bJump = false;
+        void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 
 
 };

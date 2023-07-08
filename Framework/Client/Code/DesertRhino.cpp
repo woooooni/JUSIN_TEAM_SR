@@ -225,3 +225,17 @@ void CDesertRhino::Trace(_float fTimeDelta)
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
 }
+void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+		if (Get_State() == MONSTER_STATE::ATTACK|| Get_State() == MONSTER_STATE::DIE)
+		return;
+	//	if(pCollider->GetOwner()->)
+	//if (dynamic_cast<CPushStone*>(pCollider->GetOwner()))
+	//{
+	//	if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
+	//	{
+	//		m_tStat.iHp -= 1.f;
+	//		//MSG_BOX("보스 피격");
+	//	}
+	//}
+}
