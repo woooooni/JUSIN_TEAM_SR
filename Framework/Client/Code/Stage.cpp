@@ -13,8 +13,8 @@ CStage::~CStage()
 
 HRESULT CStage::Ready_Scene()
 {
+	__super::Ready_AllLayer();
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
 	
 

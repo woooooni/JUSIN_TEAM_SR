@@ -52,7 +52,6 @@ private:
 	void		Key_Input_Game(const _float& fTimeDelta);
 	void		Key_Input_Tool(const _float& fTimeDelta);
 	void		Mouse_Move(const _float& fTimeDelta);
-	void		Follow(const _float& fTimeDelta);
 
 	void		Update_GameCamera(const _float& fTimeDelta);
 	void		LateUpdate_GameCamera();
@@ -61,6 +60,7 @@ private:
 	void		LateUpdate_ToolCamera();
 
 public:
+	void		Follow(const _float& fTimeDelta);
 	void		CamShake(float _fDuration);
 	void		FadeIn(float _fTime);
 	void		FadeOut(float _fTime);

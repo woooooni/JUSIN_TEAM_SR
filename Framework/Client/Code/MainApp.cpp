@@ -108,13 +108,19 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 
 	// Initialize Textures
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Terrain", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain_%d.png", 3)), E_FAIL);
-	
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Test.png")), E_FAIL);
+	Ready_Player_Texture(pGraphicDev);
+	Ready_Monster_Texture(pGraphicDev);
+	Ready_Boss_Texture(pGraphicDev);
+	Ready_UI_Texture(pGraphicDev);
+	Ready_Item_Texture(pGraphicDev);
+	Ready_InteractionObj_Texture(pGraphicDev);
+	Ready_Environment_Texture(pGraphicDev);
+	Ready_Terrain_Texture(pGraphicDev);
+	Ready_NPC_Texture(pGraphicDev);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Terrain", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain_Test.png")), E_FAIL);
-	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player_Test/Player_%d.png", 4)), E_FAIL);
-	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Test.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Terrain", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain_%d.png", 3)), E_FAIL);
+
+
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Stone", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StonePushable.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BalpanUnactivate", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_PressBlock_PressBlockDeactivated.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BalpanNotPressed", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_PressBlock_PressBlockIdle.png")), E_FAIL);
@@ -361,7 +367,6 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	// UI
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TextBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/Test_UITextBox_TextBox.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_HPFrame", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_HP_Frame.png")), E_FAIL);
-	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NameTag", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/ThumbnailNameTag.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_QuickSlot", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_SlotFrame.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_Heart", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_Icon_HeartSymbol.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_Quest", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_Icon_Quest.png")), E_FAIL);
@@ -372,11 +377,16 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Aim", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_Aim_%d.png", 1)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/SkyBox/SkyBox_%d.png", 1)), E_FAIL);
-
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Coin", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/FieldObject/Item/Coin/Coin_%d.png", 4)), E_FAIL);
 
 	return S_OK;
 
+}
+
+HRESULT CMainApp::Ready_Proto_Object(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+
+	return S_OK;
 }
 
 
@@ -387,9 +397,8 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CLogo::Create(pGraphicDev);
+	pScene = CScene_Tool::Create(pGraphicDev);
 	NULL_CHECK_RETURN(pScene, E_FAIL);
-
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);
 
 	return S_OK;
@@ -424,6 +433,51 @@ HRESULT CMainApp::Ready_Proto_Event()
 	FAILED_CHECK(Add_Event(event));
 
 
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Terrain_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	return S_OK;
+}
+
+HRESULT CMainApp::Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
 	return S_OK;
 }
 

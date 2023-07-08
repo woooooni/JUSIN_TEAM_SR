@@ -38,17 +38,21 @@ void CDesertRhino::Update_Regen(_float fTimeDelta)
 {
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	_vec3 vTargetPos, vPos, vDir;
-	//m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-	//m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	//vDir = vTargetPos - vPos;
-	//m_vDir = vTargetPos - vPos;
-	//if (m_fMoveTime > 15.f)
-	//{
-	//	Set_State(MONSTER_STATE::ATTACK);
-	//	m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
-	//	m_fMoveTime = 0.f;
-	//}
-	//m_fMoveTime += 10 * fTimeDelta;
+
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	vDir = vTargetPos - vPos;
+	m_vDir = vTargetPos - vPos;
+
+	if (m_fMoveTime > 15.f)
+	{
+		Set_State(MONSTER_STATE::ATTACK);
+		m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
+		m_fMoveTime = 0.f;
+	}
+
+	m_fMoveTime += 10 * fTimeDelta;
 }
 
 void CDesertRhino::Update_Move(_float fTimeDelta)
@@ -122,7 +126,7 @@ HRESULT CDesertRhino::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"DesertRhino_Attack_LeftDown", L"Proto_Texture_DesertRhino_Attack_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"DesertRhino_Attack_LeftUp", L"Proto_Texture_DesertRhino_Attack_LeftUp", 0.1f);
 
-	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
+	m_pTransformCom->Set_Info(INFO_POS, &_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
 	m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
@@ -136,13 +140,17 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, -1);
+		NULL_CHECK_RETURN(pTarget, E_FAIL);
+
 		Set_Target(pTarget);
 		_vec3 vTargetPos, vPos, vDir;
+
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
+
 		if (D3DXVec3Length(&vDir) < 5)
 		{
 			Set_State(MONSTER_STATE::REGEN);
@@ -159,6 +167,7 @@ void CDesertRhino::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
@@ -192,6 +201,7 @@ HRESULT CDesertRhino::Add_Component(void)
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
 	return S_OK;
 }
 
@@ -216,7 +226,9 @@ void CDesertRhino::Trace(_float fTimeDelta)
 	vDir = m_vDir;
 	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
+
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 2 * Get_Speed());
+
 	if (m_fMoveTime > 10.f)
 	{
 			Set_State(MONSTER_STATE::IDLE);

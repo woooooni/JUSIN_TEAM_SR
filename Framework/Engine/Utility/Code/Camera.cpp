@@ -10,7 +10,7 @@ CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_CAMERA)
 	, m_fFov(4.f)
 	, m_pTargetObj(nullptr)
-	, m_fDist(10.f)
+	, m_fDist(1.f)
 	, m_fFollowSpeed(5.f)
 	, m_fShakeForce(2.f)
 	, m_fAlpha(0.f)
@@ -242,6 +242,28 @@ void CCamera::Update_ToolCamera(const _float& fTimeDelta)
 
 	Key_Input_Tool(fTimeDelta);
 
+	_vec3 vPos, vLook, vRight, vUp;
+
+	
+
+	ZeroMemory(&vPos, sizeof(_vec3));
+	ZeroMemory(&vLook, sizeof(_vec3));
+	ZeroMemory(&vUp, sizeof(_vec3));
+
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_POS, &vPos);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_RIGHT, &vRight);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_UP, &vUp);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_LOOK, &vLook);
+
+	vUp = { 0.0f, 1.0f, 0.0f };
+	vLook = vPos + vLook;
+
+	D3DXMatrixLookAtLH(&m_matView, &vPos, &vLook, &vUp);
+	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DX_PI / m_fFov, WINCX / WINCY, m_fNear, m_fFar);
+
+	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+
 	if (!m_bMouse)
 	{
 		POINT Mouse = {WINCX * 0.5f, WINCY * 0.5f};
@@ -252,19 +274,7 @@ void CCamera::Update_ToolCamera(const _float& fTimeDelta)
 
 void CCamera::LateUpdate_ToolCamera()
 {
-	_vec3 vPos, vEye, vAt, vLook, vUp;
-
-	vUp = { 0.0f, 1.0f, 0.0f };
-
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
-
-	vEye = vPos;
-	vAt = vPos + vLook;
-
-	D3DXMatrixLookAtLH(&m_matView, &vEye, &vAt, &vUp);
-
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+	
 }
 
 void CCamera::CamShake(float _fDuration)

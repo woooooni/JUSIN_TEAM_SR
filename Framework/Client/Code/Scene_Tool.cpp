@@ -10,6 +10,8 @@
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::TOOL)
+	, m_pCamera(nullptr)
+	, m_pPlayer(nullptr)
 {
 }
 
@@ -19,11 +21,8 @@ CScene_Tool::~CScene_Tool()
 
 HRESULT CScene_Tool::Ready_Scene()
 {
+	__super::Ready_AllLayer();
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-	
-	for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
-		Ready_Layer_Tool((LAYER_TYPE)i);
-
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
 	
 
@@ -43,7 +42,21 @@ HRESULT CScene_Tool::Ready_Scene()
 
 Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 {
-	__super::Update_Scene(0.f);
+	_int		iResult = 0;
+	for (auto& iter : m_mapLayer)
+	{
+		if (iter.first == LAYER_TYPE::MONSTER)
+		{
+			for (_uint i = 0; i < iter.second->Get_GameObjectVec().size(); ++i)
+				iter.second->Get_GameObjectVec()[i]->Set_Billboard();
+			iResult = iter.second->Update_Layer(0.f);
+		}	
+		else
+			iResult = iter.second->Update_Layer(fTimeDelta);
+
+		if (iResult & 0x80000000)
+			return iResult;
+	}
 	CImGuiMgr::GetInstance()->Update_ImGui(fTimeDelta);
 	return 0;
 }
@@ -108,11 +121,13 @@ HRESULT CScene_Tool::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pPlayer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
+	m_pPlayer = pPlayer;
 
 	// Camera
-	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
+	Engine::CCamera * pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
+	m_pCamera = pCamera;
 
 
 	CImGuiMgr::GetInstance()->Set_Target(pPlayer);
@@ -122,12 +137,4 @@ HRESULT CScene_Tool::Ready_Layer_Environment(LAYER_TYPE _eType)
 	return S_OK;
 }
 
-HRESULT CScene_Tool::Ready_Layer_Tool(LAYER_TYPE _eType)
-{
-	Engine::CLayer* pLayer = Engine::CLayer::Create();
-	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-
-	m_mapLayer.insert({ _eType, pLayer });
-	return S_OK;
-}

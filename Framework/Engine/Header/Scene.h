@@ -20,6 +20,18 @@ public:
 	virtual void		Render_Scene() PURE;
 
 protected:
+	HRESULT Ready_AllLayer()
+	{
+		for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
+		{
+			Engine::CLayer* pLayer = Engine::CLayer::Create();
+			NULL_CHECK_RETURN(pLayer, E_FAIL);
+			m_mapLayer.insert({ (LAYER_TYPE)i, pLayer });
+		}
+		return S_OK;
+	}
+
+protected:
 	LPDIRECT3DDEVICE9					m_pGraphicDev;
 	map<LAYER_TYPE, CLayer*>			m_mapLayer;
 	SCENE_TYPE							m_eType;

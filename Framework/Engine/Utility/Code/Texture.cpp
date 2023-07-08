@@ -47,7 +47,7 @@ _int CTexture::Update_Component(const _float& fTimeDelta)
 		m_iIdx++;
 		
 		if (m_iIdx >= m_vecTexture.size())
-		{
+		{           
 			m_bLoop ? m_iIdx = 0 : m_iIdx = m_vecTexture.size() - 1;
 			m_bFinished = true;
 		}
