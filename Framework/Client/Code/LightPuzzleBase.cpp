@@ -3,6 +3,7 @@
 
 CLightPuzzleBase::CLightPuzzleBase(LPDIRECT3DDEVICE9 pGraphicDev) : CLightPuzzle(pGraphicDev), m_bMakeLight(false)
 {
+	
 }
 
 CLightPuzzleBase::CLightPuzzleBase(const CLightPuzzleBase& rhs) : CLightPuzzle(rhs), m_bMakeLight(rhs.m_bMakeLight)
@@ -18,7 +19,9 @@ HRESULT CLightPuzzleBase::Ready_Object(void)
 	FAILED_CHECK(Ready_Component());
 
 	m_pAnimator->Add_Animation(L"Base", L"Proto_Tex_MoonPuzzleBaseTile", 0.1f);
-	m_pAnimator->Play_Animation(L"Base", false);
+	m_pAnimator->Add_Animation(L"Corner", L"Proto_Tex_MoonPuzzleBaseTileCorner", 0.1f);
+
+	FAILED_CHECK( m_pAnimator->Play_Animation(L"Base", false));
 
 	return S_OK;
 }
@@ -43,6 +46,7 @@ void CLightPuzzleBase::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
+
 }
 
 void CLightPuzzleBase::Free()
@@ -50,7 +54,7 @@ void CLightPuzzleBase::Free()
 	__super::Free();
 }
 
-CLightPuzzleBase* CLightPuzzleBase::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos)
+CLightPuzzleBase* CLightPuzzleBase::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos, const _tchar* p_Type)
 {
 	CLightPuzzleBase* ret = new CLightPuzzleBase(p_Dev);
 	NULL_CHECK_RETURN(ret, nullptr);
@@ -61,7 +65,19 @@ CLightPuzzleBase* CLightPuzzleBase::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint&
 		return nullptr;
 	}
 
-	ret->m_pTransformCom->Set_Pos(&p_Pos);
+	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.01f, p_Pos.z));
+	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
+	ret->m_pAnimator->Play_Animation(p_Type, false);
+	ret->m_pTransformCom->m_vAngle = {90.f, 0, 0};
+
+	if (p_Type == L"Base")
+	{
+		ret->Add_LightDir({ 1, 0 });
+	}
+	else if (p_Type == L"Corner")
+	{
+		ret->Add_LightDir({ 0, -1 });
+	}
 
 	return ret;
 }

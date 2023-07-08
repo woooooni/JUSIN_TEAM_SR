@@ -1,16 +1,20 @@
 #pragma once
 #include "GameObject.h"
 #include "Engine_Define.h"
+#include	"LightPuzzle.h"
 
 BEGIN(Engine)
 class CRcTex;
 END
 struct LIGHT_INFO
 {
+	_uint		iIndexX;
+	_uint		iIndexY;
 	_bool		m_bIsOnTile = false;
 	_bool		m_bIsLighting = false;
+	CLightPuzzle* m_pOnTileObj = nullptr;
 
-	list<_vec3> m_listLightDir;
+	list<_vec2> m_listLightDir;
 };
 
 class CLightPuzzleTerrain : public CGameObject
@@ -42,12 +46,18 @@ public:
 
 public:
 	void		Set_SubscribeEvent(_uint pEvent);
+	const _vec3& Get_TilePos(_uint indexX, _uint indexY);
 
 protected:
 	HRESULT		Ready_Compnent();
+	HRESULT		Make_LightRoute();
+
+	_bool		m_bIsCanUpdate;
 	_vec3* m_vTileCenterPos;
 	vector<LIGHT_INFO*>		m_vecLightMap;
 	CRcTex* m_pSubBuffer;
+	_uint		tileX, tileY;
+	
 
 };
 

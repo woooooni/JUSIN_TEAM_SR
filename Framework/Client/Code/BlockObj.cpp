@@ -121,7 +121,8 @@ HRESULT CBlockObj::Ready_Component()
 
 void CBlockObj::Event_Start(_uint iEventNum)
 {
-	Change_State();
+	if(iEventNum == m_iFollowingEvent)
+		Change_State();
 }
 
 void CBlockObj::Event_End(_uint iEventNum)

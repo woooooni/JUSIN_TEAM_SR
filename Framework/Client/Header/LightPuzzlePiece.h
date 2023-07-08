@@ -17,7 +17,7 @@ public:
 
 	virtual void    Free() override;
 
-	static			CLightPuzzlePiece* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
+	static			CLightPuzzlePiece* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 }, const _tchar* p_FirstName = L"Base");
 
 };
 
