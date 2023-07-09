@@ -2,7 +2,7 @@
 #include "NPC.h"
 
 CNPC::CNPC(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BACKGROUND) // OBJ_NPC
+	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION) // OBJ_NPC
 {
 }
 

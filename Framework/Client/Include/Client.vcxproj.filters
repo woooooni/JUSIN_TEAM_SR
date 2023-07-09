@@ -238,6 +238,9 @@
     <Filter Include="02. GameObject\06. FieldObj\07. LightPuzzleObj">
       <UniqueIdentifier>{650f921d-e57d-4ea5-a172-9dd1222ec683}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. Tile">
+      <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -495,6 +498,10 @@
     <ClInclude Include="..\Header\Catapult.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\Tile.h">
+      <Filter>02. GameObject\11. Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -735,6 +742,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\Catapult.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Header\Tile.cpp">
+      <Filter>02. GameObject\11. Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

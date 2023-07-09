@@ -113,13 +113,14 @@ void CTransform::Set_Scale(_vec3 _vScale)
 _vec3 CTransform::Get_Scale()
 {
 	_vec3 vRight, vUp, vLook;
+
 	Get_Info(INFO_RIGHT, &vRight);
 	Get_Info(INFO_UP, &vUp);
 	Get_Info(INFO_LOOK, &vLook);
 
 	return _vec3(D3DXVec3Length(&vRight),
-					D3DXVec3Length(&vUp),
-					D3DXVec3Length(&vLook));
+				D3DXVec3Length(&vUp),
+				D3DXVec3Length(&vLook));
 }
 
 void CTransform::RotationAxis(const _vec3 & vAxis, const _float & fAngle)

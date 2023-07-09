@@ -49,6 +49,7 @@ Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 		{
 			for (_uint i = 0; i < iter.second->Get_GameObjectVec().size(); ++i)
 				iter.second->Get_GameObjectVec()[i]->Set_Billboard();
+
 			iResult = iter.second->Update_Layer(0.f);
 		}	
 		else

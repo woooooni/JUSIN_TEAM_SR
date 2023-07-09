@@ -8,7 +8,7 @@
 #include "BlueBeatle.h"
 #include "DesertRhino.h"
 #include "TrashBig.h"
-
+#include "Tile.h"
 IMPLEMENT_SINGLETON(CImGuiMgr)
 CImGuiMgr::CImGuiMgr()
 	: m_bEnabled(true)
@@ -143,12 +143,16 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 			m_pSelectedObject->LateUpdate_Object();
 			m_pSelectedObject->Render_Object();
 			CGameObject* pTerrain = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Terrain");
+
 			if (pTerrain == nullptr)
 				return;
 
-			_vec3 vHit;
+			_vec3 vHit, vPos;
 			if (Engine::IsPicking(pTerrain, &vHit))
 			{
+				m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+				vHit.y = vPos.y;
 				m_pSelectedObject->Get_TransformCom()->Set_Info(INFO_POS, &vHit);
 				if (KEY_TAP(KEY::LBTN))
 					CreateObj(m_eSelectedObjType, vHit);
@@ -159,7 +163,6 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 					m_pSelectedObject = nullptr;
 				}
 			}
-				
 		}
 	}
 
@@ -205,8 +208,31 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 
 		ImGui::EndTabItem();
 	}
-	if (ImGui::BeginTabItem("Environment"))
+	if (ImGui::BeginTabItem("Tile"))
 	{
+		CTexture* pTileTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Tile"));
+		if (pTileTex != nullptr)
+		{
+			for (size_t i = 0; i < pTileTex->Get_Size(); ++i)
+			{
+				if (i % 4 != 0)
+					ImGui::SameLine();
+
+				if (ImGui::ImageButton(pTileTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
+				{
+					if (m_pSelectedObject)
+					{
+						Safe_Release(m_pSelectedObject);
+						m_pSelectedObject = nullptr;
+					}
+					m_pTargetObject = nullptr;
+					m_pSelectedObject = CTile::Create(m_pGraphicDev);
+					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
+					m_eSelectedObjType = OBJ_SELECTED::TILE;
+				}
+			}
+		}
+			
 		ImGui::EndTabItem();
 	}
 	if (ImGui::BeginTabItem("Interaction"))
@@ -227,9 +253,9 @@ void CImGuiMgr::UpdateTerrainTool(const _float& fTimeDelta)
 	static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_AutoSelectNewTabs | ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyResizeDown;
 	ImGui::BeginTabBar("Tab", tab_bar_flags);
 	
-	if (ImGui::BeginTabItem("Monster"))
+	if (ImGui::BeginTabItem("Terrain"))
 	{
-		const vector<LPDIRECT3DBASETEXTURE9> vecTexture = pTerrain->Get_TextureCom()->Get_TextureVec();
+		const vector<LPDIRECT3DBASETEXTURE9>& vecTexture = pTerrain->Get_TextureCom()->Get_TextureVec();
 		for (_uint i = 0; i < vecTexture.size(); ++i)
 		{
 			if (i > 0)
@@ -246,6 +272,10 @@ void CImGuiMgr::UpdateTerrainTool(const _float& fTimeDelta)
 void CImGuiMgr::UpdateMapTool(const _float& fTimeDelta)
 {
 
+}
+
+void CImGuiMgr::UpdateTileTool(const _float& fTimeDelta)
+{
 }
 
 void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
@@ -267,6 +297,11 @@ void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 	case OBJ_SELECTED::TRASH_BIG:
 		pCloneObj = CTrashBig::Create(m_pGraphicDev);
 		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(m_strObjNaming, pCloneObj);
+		break;
+
+	case OBJ_SELECTED::TILE:
+		pCloneObj = CTile::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(m_strObjNaming, pCloneObj);
 		break;
 	}
 

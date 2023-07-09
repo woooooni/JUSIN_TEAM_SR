@@ -16,7 +16,7 @@ class CImGuiMgr : public CBase
 
 public:
 	enum class TOOL_MODE { OBJECT, TERRAIN, MAP, MODE_END };
-	enum class OBJ_SELECTED { BLUE_BEATLE, DESERT_RHINO, TRASH_BIG };
+	enum class OBJ_SELECTED { BLUE_BEATLE, DESERT_RHINO, TRASH_BIG, TILE };
 private:
 	explicit CImGuiMgr();
 	virtual ~CImGuiMgr();
@@ -46,15 +46,17 @@ private:
 	void UpdateObjectTool(const _float& fTimeDelta);
 	void UpdateTerrainTool(const _float& fTimeDelta);
 	void UpdateMapTool(const _float& fTimeDelta);
+	void UpdateTileTool(const _float& fTimeDelta);
 
 	void CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit);
 	void DeleteObj();
 
 private:
 	_bool m_bEnabled;
+	
 	HWND m_hWnd;
-
 	LPDIRECT3DDEVICE9 m_pGraphicDev;
+	
 	TOOL_MODE m_eMode;
 
 	CScene_Tool* m_pToolScene;
@@ -62,6 +64,7 @@ private:
 	CGameObject* m_pSelectedObject;
 	
 	wstring		m_strObjNaming;
+	
 	OBJ_SELECTED m_eSelectedObjType;
 
 public:
