@@ -49,8 +49,12 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(1.0f);
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(1.0f);
+	}
+	
 
 	return S_OK;
 
@@ -59,11 +63,18 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 
 _int CPlayer_State_Idle::Update_State(const _float& fTimeDelta)
 {
-	_vec3 vPos;
-	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+	{
+		_vec3 vPos;
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		vPos.y += 0.3f;
+		vPos.z -= 0.0001f;
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
+	}
+	
+
+
+
 	Key_Input(fTimeDelta);
 	return 0;
 }

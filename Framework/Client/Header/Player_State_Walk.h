@@ -23,5 +23,6 @@ private:
 
 	vector<_vec3> m_vecHatPos[(_uint)OBJ_DIR::DIR_END];
 	float m_fAngle[(_uint)OBJ_DIR::DIR_END][10];
+	float m_fScale[(_uint)OBJ_DIR::DIR_END][10];
 };
 
