@@ -84,10 +84,7 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 		break;
 	}
 
-	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
-	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(0.9f);
-	}
+
 
 	m_fAccTime = 0.0f;
 	return S_OK;
@@ -118,9 +115,6 @@ _int CPlayer_State_Walk::Update_State(const _float& fTimeDelta)
 
 void CPlayer_State_Walk::LateUpdate_State(void)
 {
-	//
-	m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Set_Loop(false);
-	m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Set_Idx(2);
 
 	if(dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
 		Update_Hat();
@@ -215,95 +209,95 @@ void CPlayer_State_Walk::Set_Hat()
 	//포지션
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][0] = { 0.0f, 0.0f, 0.0f };
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][1] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][2] = { -0.01f, 0.02f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][5] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][9] = { 0.0f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][2] = { -0.01f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][3] = { -0.01f, 0.1f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][4] = { 0.0f, 0.12f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][5] = { 0.0f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][6] = { 0.0f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][7] = { 0.01f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][8] = { 0.01f, 0.1f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][9] = { 0.01f, 0.09f, 0.0f };
 
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][0] = { 0.0f, 0.0f, 0.0f };
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][1] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][2] = { 0.0f, 0.02f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][5] = { 0.0f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][2] = { 0.02f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][3] = { -0.01f, 0.07f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][4] = { 0.0f, 0.07f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][5] = { -0.01f, 0.01f, 0.0f };
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][9] = { 0.0f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][7] = { -0.02f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][8] = { 0.0f, 0.08f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_D][9] = { 0.0f, 0.08f, 0.0f };
 
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][0] = { 0.15f, 0.05f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][1] = { 0.10f, 0.05f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][2] = { 0.05f, 0.05f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][5] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][9] = { 0.0f, 0.0f, 0.0f };
-
-
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][0] = { -0.15f, 0.05f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][1] = { -0.10f, 0.05f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][2] = { -0.05f, 0.05f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][5] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][9] = { 0.0f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][0] = { 0.10f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][1] = { 0.06f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][2] = { 0.01f, 0.00f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][3] = { 0.03f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][4] = { 0.09f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][5] = { 0.05f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][6] = { 0.03f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][7] = { 0.06f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][8] = { 0.06f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_L][9] = { 0.09f, 0.02f, 0.0f };
 
 
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][0] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][1] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][2] = { 0.03f, 0.01f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][5] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][9] = { 0.0f, 0.0f, 0.0f };
-
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][0] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][1] = { 0.0f, 0.01f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][2] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][5] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][9] = { 0.0f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][0] = { -0.10f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][1] = { -0.06f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][2] = { -0.01f, 0.00f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][3] = { -0.03f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][4] = { -0.09f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][5] = { -0.05f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][6] = { -0.03f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][7] = { -0.06f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][8] = { -0.06f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_R][9] = { -0.09f, 0.02f, 0.0f };
 
 
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][0] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][1] = { 0.0f, 0.01f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][2] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][5] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][9] = { 0.0f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][0] = { -0.02f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][1] = { 0.02f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][2] = { 0.035f, 0.01f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][3] = { 0.04f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][4] = { 0.05f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][5] = { 0.02f, 0.01f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][6] = { -0.01f, 0.01f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][7] = { -0.01f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][8] = { -0.01f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LD][9] = { -0.01f, 0.02f, 0.0f };
+
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][0] = { -0.01f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][1] = { -0.03f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][2] = { -0.03f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][3] = { -0.02f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][4] = { -0.01f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][5] = { -0.03f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][6] = { -0.01f, 0.1f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][7] = { 0.02f, 0.09f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][8] = { -0.01f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_LU][9] = { -0.01f, 0.04f, 0.0f };
 
 
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][0] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][1] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][2] = { -0.03f, 0.01f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][3] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][4] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][5] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][6] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][7] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][8] = { 0.0f, 0.0f, 0.0f };
-	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][9] = { 0.0f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][0] = { 0.01f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][1] = { 0.03f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][2] = { 0.03f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][3] = { 0.02f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][4] = { 0.01f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][5] = { 0.03f, 0.04f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][6] = { 0.01f, 0.1f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][7] = { -0.02f, 0.09f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][8] = { 0.01f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RU][9] = { 0.01f, 0.04f, 0.0f };
+
+
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][0] = { 0.02f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][1] = { -0.02f, 0.0f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][2] = { -0.035f, 0.01f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][3] = { -0.04f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][4] = { -0.05f, 0.03f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][5] = { -0.02f, 0.01f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][6] = { 0.01f, 0.01f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][7] = { 0.01f, 0.02f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][8] = { 0.01f, 0.05f, 0.0f };
+	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][9] = { 0.01f, 0.02f, 0.0f };
 
 	
 
@@ -330,27 +324,27 @@ void CPlayer_State_Walk::Set_Hat()
 	m_fAngle[(_uint)OBJ_DIR::DIR_D][8] = 0.0f;
 	m_fAngle[(_uint)OBJ_DIR::DIR_D][9] = 0.0f;
 
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][0] = -25.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][1] = -25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][0] = -35.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][1] = -30.0f;
 	m_fAngle[(_uint)OBJ_DIR::DIR_L][2] = -25.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][3] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][4] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][5] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][6] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][7] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][8] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_L][9] = 0.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][3] = -35.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][4] = -25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][5] = -20.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][6] = -30.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][7] = -25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][8] = -25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_L][9] = -30.0f;
 
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][0] = 25.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][1] = 25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][0] = 35.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][1] = 30.0f;
 	m_fAngle[(_uint)OBJ_DIR::DIR_R][2] = 25.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][3] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][4] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][5] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][6] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][7] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][8] = 0.0f;
-	m_fAngle[(_uint)OBJ_DIR::DIR_R][9] = 0.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][3] = 35.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][4] = 25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][5] = 20.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][6] = 30.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][7] = 25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][8] = 25.0f;
+	m_fAngle[(_uint)OBJ_DIR::DIR_R][9] = 30.0f;
 
 	m_fAngle[(_uint)OBJ_DIR::DIR_LU][0] = 0.0f;
 	m_fAngle[(_uint)OBJ_DIR::DIR_LU][1] = 0.0f;
@@ -398,91 +392,91 @@ void CPlayer_State_Walk::Set_Hat()
 
 
 	//스케일
-	m_fScale[(_uint)OBJ_DIR::DIR_U][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_U][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][0] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][1] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][2] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][3] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][4] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][5] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][6] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][7] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][8] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][9] = 0.98f;
 
-	m_fScale[(_uint)OBJ_DIR::DIR_D][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_D][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][0] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][1] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][2] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][3] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][4] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][5] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][6] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][7] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][8] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][9] = 0.98f;
 
-	m_fScale[(_uint)OBJ_DIR::DIR_L][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_L][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][0] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][1] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][2] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][3] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][4] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][5] = 0.85f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][6] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][7] = 0.73f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][8] = 0.7f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][9] = 0.7f;
 
-	m_fScale[(_uint)OBJ_DIR::DIR_R][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_R][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][0] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][1] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][2] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][3] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][4] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][5] = 0.85f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][6] = 0.8f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][7] = 0.73f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][8] = 0.7f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][9] = 0.7f;
 
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LU][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][0] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][1] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][2] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][3] = 0.95f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][4] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][5] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][6] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][7] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][8] = 0.95f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][9] = 0.98f;
 
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_LD][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][0] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][1] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][2] = 0.85f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][3] = 0.85f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][4] = 0.90f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][5] = 0.90f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][6] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][7] = 0.90f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][8] = 0.95f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][9] = 0.98f;
 
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RU][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][0] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][1] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][2] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][3] = 0.95f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][4] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][5] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][6] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][7] = 0.91f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][8] = 0.95f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][9] = 0.98f;
 
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][0] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][1] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][2] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][3] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][4] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][5] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][6] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][7] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][8] = 1.0f;
-	m_fScale[(_uint)OBJ_DIR::DIR_RD][9] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][0] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][1] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][2] = 0.85f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][3] = 0.85f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][4] = 0.90f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][5] = 0.90f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][6] = 0.98f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][7] = 0.90f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][8] = 0.95f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][9] = 0.98f;
 }
