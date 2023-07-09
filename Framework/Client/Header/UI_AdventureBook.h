@@ -1,7 +1,7 @@
 #pragma once
 #include "CUI.h"
 
-class CUIPages;
+class CUI_Pages;
 class CUI_BookBackground;
 
 class CUI_AdventureBook :
@@ -14,11 +14,17 @@ private:
     virtual ~CUI_AdventureBook();
 
 public:
-    CUIPages* m_pUIPages;
+    HRESULT		Ready_Object(LPDIRECT3DDEVICE9 pGraphicDev);
+    virtual _int Update_Object(const _float& fTimeDelta) override;
+    virtual void LateUpdate_Object(void) override;
+    virtual void Render_Object(void) override;
+
+private:
+    CUI_Pages* m_pUIPages;
     CUI_BookBackground* m_pUIBackGround;
 
 public:
-    static  CUIPages*   Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    static  CUI_AdventureBook*   Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
     virtual void		Free() override;

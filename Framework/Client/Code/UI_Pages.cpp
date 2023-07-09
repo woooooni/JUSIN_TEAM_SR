@@ -1,22 +1,22 @@
 #include  "../Include/stdafx.h"
-#include "UIPages.h"
+#include "UI_Pages.h"
 #include "Export_Function.h"
 
-CUIPages::CUIPages(LPDIRECT3DDEVICE9 pGraphicDev)
+CUI_Pages::CUI_Pages(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
 {
 }
 
-CUIPages::CUIPages(const CUIPages& rhs)
+CUI_Pages::CUI_Pages(const CUI_Pages& rhs)
 	: CUI(rhs)
 {
 }
 
-CUIPages::~CUIPages()
+CUI_Pages::~CUI_Pages()
 {
 }
 
-HRESULT CUIPages::Ready_Object(void)
+HRESULT CUI_Pages::Ready_Object(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -49,7 +49,7 @@ HRESULT CUIPages::Ready_Object(void)
 	return S_OK;
 }
 
-_int CUIPages::Update_Object(const _float& fTimeDelta)
+_int CUI_Pages::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
@@ -58,11 +58,11 @@ _int CUIPages::Update_Object(const _float& fTimeDelta)
 	return S_OK;
 }
 
-void CUIPages::LateUpdate_Object(void)
+void CUI_Pages::LateUpdate_Object(void)
 {
 }
 
-void CUIPages::Render_Object(void)
+void CUI_Pages::Render_Object(void)
 {
 	
 	// 없어도 되는 부분인데.. 없애면 애니메이션이 이상해짐 ^-^..
@@ -101,34 +101,23 @@ void CUIPages::Render_Object(void)
 	__super::Render_Object();
 }
 
-//bool CUIPages::Move_Frame(float fTimeDelta)
-//{
-//	m_fFrameCnt += m_fFrameSpeed * fTimeDelta;
-//	if (m_fFrameCnt >= m_fEndFrame)
-//	{
-//		m_fFrameCnt = m_fEndFrame;
-//		return true;
-//	}
-//
-//	return false;
-//}
 
-CUIPages* CUIPages::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CUI_Pages* CUI_Pages::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CUIPages* pInstance = new CUIPages(pGraphicDev);
+	CUI_Pages* pInstance = new CUI_Pages(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("CUIPages Create Failed");
+		MSG_BOX("CUI_Pages Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
 
-void CUIPages::Free()
+void CUI_Pages::Free()
 {
-	
+	__super::Free();
 }

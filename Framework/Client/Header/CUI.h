@@ -1,15 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-BEGIN(Engine)
-
-class CRcTex;
-class CTransform;
-class CCollider;
-class CTexture;
-class CAnimator;
-
-END
 
 class CUI : public CGameObject
 {

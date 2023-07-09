@@ -23,7 +23,9 @@ public:
     virtual void    Render_Object(void)                         override;
     virtual void	LateUpdate_Object(void)						override;
 
+private:
     HRESULT	Add_Component(void);
+
 public:
   static  CBlueBeatle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:

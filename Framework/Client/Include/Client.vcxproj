@@ -265,7 +265,7 @@
     <ClInclude Include="..\Header\TrashBig.h" />
     <ClInclude Include="..\Header\TrashSlime.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
-    <ClInclude Include="..\Header\UIPages.h" />
+    <ClInclude Include="..\Header\UI_Pages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
     <ClInclude Include="..\Header\Catapult.h" />
@@ -360,7 +360,7 @@
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="..\Code\TrashSlime.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
-    <ClCompile Include="..\Code\UIPages.cpp" />
+    <ClCompile Include="..\Code\UI_Pages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />

@@ -1,23 +1,14 @@
 #pragma once
 #include "CUI.h"
 
-BEGIN(Engine)
-
-class CRcTex;
-class CTransform;
-class CTexture;
-class CAnimator;
-
-END
-
-class CUIPages : public CUI
+class CUI_Pages : public CUI
 {
-	CLONE(CUIPages)
+	CLONE(CUI_Pages)
 
 private:
-    CUIPages(LPDIRECT3DDEVICE9 pGraphicDev);
-    CUIPages(const CUIPages& rhs);
-    virtual ~CUIPages();
+    explicit CUI_Pages(LPDIRECT3DDEVICE9 pGraphicDev);
+    explicit CUI_Pages(const CUI_Pages& rhs);
+    virtual ~CUI_Pages();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -26,7 +17,7 @@ public:
 	virtual void		Render_Object(void) override;
 
 public:
-	static  CUIPages*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CUI_Pages*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;

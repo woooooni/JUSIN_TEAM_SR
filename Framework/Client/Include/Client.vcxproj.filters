@@ -205,15 +205,6 @@
     <Filter Include="02. GameObject\04. UI\99. ETC">
       <UniqueIdentifier>{cff99704-51e7-4561-9703-aca208e9d29c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook">
-      <UniqueIdentifier>{4295009d-bbed-49af-be78-83404f7e0dfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background">
-      <UniqueIdentifier>{09bc8756-f762-4582-9d13-2f0618ed54d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages">
-      <UniqueIdentifier>{b523e7fc-8d1b-4c14-aa22-a2ae5525fdde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo">
       <UniqueIdentifier>{bb0d5990-dc39-43a4-83d9-66f88c7745c1}</UniqueIdentifier>
     </Filter>
@@ -234,6 +225,18 @@
     </Filter>
     <Filter Include="02. GameObject\12. Tile">
       <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\02. NameTag">
+      <UniqueIdentifier>{d3993eef-4535-4cc1-b2e6-bbb3e3b4c820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\05. AdventureBook">
+      <UniqueIdentifier>{4295009d-bbed-49af-be78-83404f7e0dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\05. AdventureBook\00. Background">
+      <UniqueIdentifier>{09bc8756-f762-4582-9d13-2f0618ed54d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\05. AdventureBook\01. Pages">
+      <UniqueIdentifier>{b523e7fc-8d1b-4c14-aa22-a2ae5525fdde}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -432,17 +435,14 @@
     <ClInclude Include="..\Header\HitObj.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UIPages.h">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
+    <ClInclude Include="..\Header\UI_Pages.h">
+      <Filter>02. GameObject\04. UI\05. AdventureBook\01. Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\NPC.h">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_AdventureBook.h">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\UI_BookBackground.h">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\05. AdventureBook\00. Background</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TutorialNPC.h">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
@@ -473,9 +473,6 @@
     <ClInclude Include="..\Header\Player_Skill_Range.h" />
     <ClInclude Include="..\Header\Player_State_Skill.h" />
     <ClInclude Include="..\Header\Catapult.h" />
-    <ClInclude Include="..\Header\Item.h">
-      <Filter>02. GameObject\11. Item</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Item_Hat.h">
       <Filter>02. GameObject\11. Item</Filter>
     </ClInclude>
@@ -508,7 +505,15 @@
     <ClInclude Include="..\Header\UI_ShortCutKey.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_NameTag.h" />
+    <ClInclude Include="..\Header\UI_NameTag.h">
+      <Filter>02. GameObject\04. UI\02. NameTag</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Item.h">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_AdventureBook.h">
+      <Filter>02. GameObject\04. UI\05. AdventureBook</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -690,17 +695,14 @@
     <ClCompile Include="..\Code\HitObj.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UIPages.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
+    <ClCompile Include="..\Code\UI_Pages.cpp">
+      <Filter>02. GameObject\04. UI\05. AdventureBook\01. Pages</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\NPC.cpp">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_AdventureBook.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\UI_BookBackground.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\05. AdventureBook\00. Background</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TutorialNPC.cpp">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
@@ -731,9 +733,6 @@
     <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
     <ClCompile Include="..\Code\Player_State_Skill.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />
-    <ClCompile Include="..\Code\Item.cpp">
-      <Filter>02. GameObject\11. Item</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Item_Hat.cpp">
       <Filter>02. GameObject\11. Item</Filter>
     </ClCompile>
@@ -766,7 +765,15 @@
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_NameTag.cpp" />
+    <ClCompile Include="..\Code\UI_NameTag.cpp">
+      <Filter>02. GameObject\04. UI\02. NameTag</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Item.cpp">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_AdventureBook.cpp">
+      <Filter>02. GameObject\04. UI\05. AdventureBook</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
