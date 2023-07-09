@@ -29,6 +29,7 @@ public:
 private:
     // CMonster을(를) 통해 상속됨
     virtual void Trace(_float fTimeDelta) override;
+    void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
     _bool m_bPoison;
     _bool m_bShoot;
 };

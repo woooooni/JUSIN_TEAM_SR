@@ -192,6 +192,7 @@
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\BugBall.h" />
     <ClInclude Include="..\Header\CactusNeedle.h" />
     <ClInclude Include="..\Header\Coin.h" />
     <ClInclude Include="..\Header\CUI.h" />
@@ -223,6 +224,8 @@
     <ClInclude Include="..\Header\LightPuzzleBase.h" />
     <ClInclude Include="..\Header\LightPuzzlePiece.h" />
     <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
+    <ClInclude Include="..\Header\MothMage.h" />
+    <ClInclude Include="..\Header\MothOrb.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\NPC.h" />
@@ -289,6 +292,7 @@
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\BugBall.cpp" />
     <ClCompile Include="..\Code\CactusNeedle.cpp" />
     <ClCompile Include="..\Code\Coin.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
@@ -319,6 +323,8 @@
     <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
     <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
     <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
+    <ClCompile Include="..\Code\MothMage.cpp" />
+    <ClCompile Include="..\Code\MothOrb.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\NPC.cpp" />

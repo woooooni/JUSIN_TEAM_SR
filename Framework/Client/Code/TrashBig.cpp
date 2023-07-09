@@ -38,13 +38,14 @@ HRESULT CTrashBig::Ready_Object(void)
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
 	m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
-
+	m_tStat = { 3,3,1 };
 	return S_OK;
 }
 
 
 _int CTrashBig::Update_Object(const _float& fTimeDelta)
 {
+	_int iExit = __super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
@@ -62,7 +63,6 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 		}
 	}	
 
-	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
 
@@ -91,6 +91,8 @@ void CTrashBig::Update_Idle(_float fTimeDelta)
 
 void CTrashBig::Update_Die(_float fTimeDelta)
 {
+	if (Is_Active())
+		Set_Active(false);
 }
 
 void CTrashBig::Update_Regen(_float fTimeDelta)
@@ -237,15 +239,24 @@ void CTrashBig::Trace(_float fTimeDelta)
 }
 void CTrashBig::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (Get_State() == MONSTER_STATE::ATTACK || Get_State() == MONSTER_STATE::DIE)
+	if (Get_State() == MONSTER_STATE::DIE)
 		return;
-	//	if(pCollider->GetOwner()->)
-	//if (dynamic_cast<CPushStone*>(pCollider->GetOwner()))
-	//{
-	//	if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
-	//	{
-	//		m_tStat.iHp -= 1.f;
-	//		//MSG_BOX("보스 피격");
-	//	}
-	//}
+
+
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = vPos - vTargetPos;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		m_pRigidBodyCom->AddForce(vDir * 80.0f);
+		m_tStat.iHp -= 1.f;
+		if (m_tStat.iHp < 1.f)
+			Set_State(MONSTER_STATE::DIE);
+	}
 }

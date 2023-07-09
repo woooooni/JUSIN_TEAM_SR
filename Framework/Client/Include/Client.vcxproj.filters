@@ -235,6 +235,15 @@
     <Filter Include="02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle">
       <UniqueIdentifier>{fc0a1e9b-eaff-4379-bd4c-1302fb46fd43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. Monster\04. MothMage">
+      <UniqueIdentifier>{79633507-c75a-49a6-87db-817e83cbdc1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\04. MothMage\Orb">
+      <UniqueIdentifier>{99ce2f59-473e-48da-9820-d937415a7e56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\04. MothMage\BugBall">
+      <UniqueIdentifier>{b5e637f9-0223-4c76-aeca-fcf98f0f070b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -493,6 +502,15 @@
     <ClInclude Include="..\Header\CactusNeedle.h">
       <Filter>02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\MothMage.h">
+      <Filter>02. GameObject\02. Monster\04. MothMage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MothOrb.h">
+      <Filter>02. GameObject\02. Monster\04. MothMage\Orb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BugBall.h">
+      <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -734,6 +752,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CactusNeedle.cpp">
       <Filter>02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MothMage.cpp">
+      <Filter>02. GameObject\02. Monster\04. MothMage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MothOrb.cpp">
+      <Filter>02. GameObject\02. Monster\04. MothMage\Orb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BugBall.cpp">
+      <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

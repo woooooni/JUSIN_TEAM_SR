@@ -27,13 +27,15 @@ HRESULT CBlueBeatle::Ready_Object(void)
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
 	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
-
+	m_tStat = { 2,2,0 };
 	return S_OK;
 }
 
 _int CBlueBeatle::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
+
 	return iExit;
 }
 
@@ -65,6 +67,15 @@ void CBlueBeatle::Update_Idle(_float fTimeDelta)
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
 }
+void CBlueBeatle::Update_Regen(_float fTimeDelta)
+{
+}
+
+
+void CBlueBeatle::Update_Attack(_float fTimeDelta)
+{
+}
+
 void CBlueBeatle::Update_Move(_float fTimeDelta)
 {
 
@@ -92,7 +103,8 @@ void CBlueBeatle::Update_Move(_float fTimeDelta)
 }
 void CBlueBeatle::Update_Die(_float fTimeDelta)
 {
-
+	if (Is_Active())
+		Set_Active(false);
 }
 
 HRESULT CBlueBeatle::Add_Component(void)
@@ -116,6 +128,11 @@ HRESULT CBlueBeatle::Add_Component(void)
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
+
 	return S_OK;
 
 }
@@ -138,11 +155,26 @@ void CBlueBeatle::Trace(_float fTimeDelta)
 {
 }
 
-void CBlueBeatle::Update_Regen(_float fTimeDelta)
+void CBlueBeatle::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-}
+	if (Get_State() == MONSTER_STATE::DIE)
+		return;
 
 
-void CBlueBeatle::Update_Attack(_float fTimeDelta)
-{
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = vPos - vTargetPos;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		m_pRigidBodyCom->AddForce(vDir * 80.0f);
+		m_tStat.iHp -= 1.f;
+		if (m_tStat.iHp < 1.f)
+			Set_State(MONSTER_STATE::DIE);
+	}
 }
