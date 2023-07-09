@@ -229,6 +229,9 @@
     <Filter Include="02. GameObject\11. Item">
       <UniqueIdentifier>{219aa164-f041-43c3-b8e9-cd77000de277}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. Tile">
+      <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -479,6 +482,10 @@
     <ClInclude Include="..\Header\Item_Hat_Monkey.h">
       <Filter>02. GameObject\11. Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\Tile.h">
+      <Filter>02. GameObject\11. Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -712,6 +719,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\Item_Hat_Monkey.cpp">
       <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Header\Tile.cpp">
+      <Filter>02. GameObject\11. Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
