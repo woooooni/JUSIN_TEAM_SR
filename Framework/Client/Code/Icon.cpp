@@ -50,7 +50,7 @@ void CIcon::Render_Object(void)
 		// 메인 컴포넌트 첫번째 줄
 	case ICONTYPE::PLAYERHP_FRAME:
 		vPos = { (WINCX / WINCX - 1.66f) * (1 / m_matProj._11) ,
-		 ((-1 * WINCY) / WINCY + 1.93f) * (1 / m_matProj._22), 0.f };
+		 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -61,7 +61,7 @@ void CIcon::Render_Object(void)
 
 	case ICONTYPE::HEART:
 		vPos = { (WINCX / WINCX - 1.95f) * (1 / m_matProj._11) ,
-				 ((-1 * WINCY) / WINCY + 1.93f) * (1 / m_matProj._22), 0.f };
+				 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f }; // y좌표 -0.2
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -72,7 +72,7 @@ void CIcon::Render_Object(void)
 
 	case ICONTYPE::QUEST:
 		vPos = { (WINCX / WINCX - 1.37f) * (1 / m_matProj._11) , // 1.485
-				 ((-1 * WINCY) / WINCY + 1.93f) * (1 / m_matProj._22), 0.f };
+				 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -84,7 +84,7 @@ void CIcon::Render_Object(void)
 		// 메인 컴포넌트 두번째 줄
 	case ICONTYPE::KEYBOARD:
 		vPos = { (WINCX / WINCX - 1.95f) * (1 / m_matProj._11) ,
-				 ((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+				 ((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -96,7 +96,7 @@ void CIcon::Render_Object(void)
 		// ETC.
 	case ICONTYPE::KEYBUTTON:
 		vPos = { (WINCX / WINCX - 1.353f) * (1 / m_matProj._11) ,
-				 ((-1 * WINCY) / WINCY + 1.9f) * (1 / m_matProj._22), 0.f };
+				 ((-1 * WINCY) / WINCY + 1.88f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);

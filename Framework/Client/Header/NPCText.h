@@ -26,6 +26,13 @@ public:
 	virtual void		Render_Object(void) override;
 
 public:
+	void	Set_Shown(bool _bShown) { m_bShown = _bShown; }
+	bool	Get_Shown()				{ return m_bShown; }
+
+private:
+	bool	m_bShown = false;
+
+public:
 	static  CNPCText*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:

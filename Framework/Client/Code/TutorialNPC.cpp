@@ -26,13 +26,68 @@ _int CTutorialNPC::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	_int iExit = __super::Update_Object(fTimeDelta);
+	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
 
+	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"UI_ShortCutKey_Info");
+	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_TextBox");
+
+	_vec3 vPlayerPos, vNPCPos;
+	bool bShown = dynamic_cast<CNPCText*>(pUIBox)->Get_Shown();
+
+	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vNPCPos);
+	_float fLength = D3DXVec3Length(&(vPlayerPos - vNPCPos));
+
+	if (fLength <= 2.5f)
+	{
+		m_tInfo.bCollision = true;
+		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(true);
+
+		if (bShown)
+			dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
+	}
+	else if (fLength > 2.5f)
+	{
+		m_tInfo.bCollision = false;
+		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
+	}
+
+	Engine::CLayer* pLayer = Engine::CLayer::Create();
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
 
 void CTutorialNPC::LateUpdate_Object(void)
 {
+	// Test
+	//Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
+
+	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"UI_ShortCutKey_Info");
+	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_TextBox");
+	CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_Text");
+
+	bool bShown = dynamic_cast<CUI_ShortCutKey*>(pUI)->Get_Shown();
+
+	if (m_tInfo.bCollision)
+	{
+		if (GetAsyncKeyState('Z') & 0x8000)
+		{
+			dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(true);
+			dynamic_cast<CTextBox*>(pUIText)->Set_Shown(true);
+			//dynamic_cast<CNPCText*>(pUIText)->
+
+		//	if (bShown)
+		//		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
+		}
+	}
+	else
+	{
+		dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(false);
+		dynamic_cast<CTextBox*>(pUIText)->Set_Shown(false);
+	}
+
 	__super::LateUpdate_Object();
 }
 
@@ -73,7 +128,7 @@ HRESULT CTutorialNPC::Add_Component(void)
 	switch (m_tInfo.eType)
 	{
 	case NPCTYPE::TUT_SHEEP:
-		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_NPC_Sheep_Idle"));
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_NPC_Sheep_Idle"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
@@ -87,7 +142,7 @@ HRESULT CTutorialNPC::Add_Component(void)
 	case NPCTYPE::TUT_PIG:
 		m_tInfo.eState = NPCSTATE::NPC_IDLE;
 
-		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_NPC_Pig_Idle"));
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_NPC_Pig_Idle"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
@@ -101,7 +156,7 @@ HRESULT CTutorialNPC::Add_Component(void)
 	case NPCTYPE::TUT_COW:
 		m_tInfo.eState = NPCSTATE::NPC_IDLE;
 
-		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_NPC_Cow_Idle"));
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_NPC_Cow_Idle"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
@@ -115,7 +170,7 @@ HRESULT CTutorialNPC::Add_Component(void)
 	case NPCTYPE::TUT_DOOGEE:
 		m_tInfo.eState = NPCSTATE::NPC_IDLE;
 
-		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_NPC_Cow_Idle"));
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_NPC_Cow_Idle"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
@@ -132,12 +187,23 @@ HRESULT CTutorialNPC::Add_Component(void)
 		break;
 	}
 
+	// 대화하기 Z 단축기 안내UI
+	//pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_ShortKey"));
+	//NULL_CHECK_RETURN(pComponent, E_FAIL);
+	//pComponent->SetOwner(this);
+	//m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
 	return S_OK;
 }
 
 void CTutorialNPC::Set_Type(NPCTYPE eType)
 {
 	m_tInfo.eType = eType;
+}
+
+void CTutorialNPC::Set_State(NPCSTATE eState)
+{
+	m_tInfo.eState = eState;
 }
 
 CTutorialNPC* CTutorialNPC::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos, NPCTYPE eType)

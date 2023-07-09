@@ -14,16 +14,35 @@ CTextBox::CTextBox(const CTextBox& rhs)
 CTextBox::~CTextBox()
 {
 }
+
 HRESULT CTextBox::Ready_Object(void)
 {
+	/*
+	1. NPC정보 받기
+	2. NPC에 맞는 대화내용 푸시
+	3. Text출력 (오구 못움직이게 할 것)
+	4. 대화 끝나면 Text, TextBox 모두 종료, 오구 움직일 수 있음.
+
+	+
+
+	5. 타이핑 하듯 Text 출력
+	*/
+	
+	//m_vecText.push_back(L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~");
+	//m_vecText.push_back(L"조심히 놀다 오렴~");
+
 	return S_OK;
 }
 
 _int CTextBox::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	__super::Update_Object(fTimeDelta);
+//	m_fAccTime += fTimeDelta * m_fTextSpeed;
+	
+//	if (KEY_TAP(KEY::Z))
+//		Next_Text();
 
+	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }
 
@@ -34,20 +53,80 @@ void CTextBox::LateUpdate_Object(void)
 
 void CTextBox::Render_Object(void)
 {
-	RECT rc = { 0, WINCY / 2, WINCX, WINCY };
-	//GetClientRect(g_hWnd, &rc);
+	if (m_bShown)
+	{
+		switch (m_tInfo.eType)
+		{
+		case TEXTTYPE::SHEEP:
+			break;
 
-	TCHAR szBuf[256] = L"";
-	swprintf_s(szBuf, L"Hello Ogu World!");
-	CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
-		szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(100, 255, 255, 255));
-	// NULL, 출력할 Text, Text길이(혹은 -1 -> 자동으로 문자열 길이 계산),
-	// 글꼴 출력 사각 영역, 출력 서식, 색상
+		case TEXTTYPE::PIG:
+			break;
+
+		case TEXTTYPE::COW:
+			break;
+
+		case TEXTTYPE::DOOGEE:
+			break;
+
+		default:
+			break;
+
+		}
+		
+		// Name Tag
+		RECT rcName = { -1 * (WINCX / 4) + 70, (WINCY / 4) - 50, 3 * (WINCX / 4), WINCY };
+		TCHAR szNameBuf[128] = L"양 아줌마";
+		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			szNameBuf, lstrlen(szNameBuf), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+			D3DCOLOR_ARGB(100, 0, 0, 0));
+
+		// 대화창
+		RECT rc = { 0, WINCY / 2, WINCX, WINCY };
+		//GetClientRect(g_hWnd, &rc);
+		TCHAR szBuf[256] = L"";
+		swprintf_s(szBuf, L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~\n줄 바꿈 테스트");
+		
+		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		
+		/*
+		RECT rc = { 0, WINCY / 2, WINCX, WINCY };
+		TCHAR szBuf[256] = L"";
+		TCHAR szTemp[256] = L"";
+		CHAR* szScript = "놀러 나가는 건 좋지만,";
+		int iLength = strlen(szScript);
+
+		for (int i = 0; i < iLength; i++)
+		{
+			CHAR temp = szScript[i];
+			//szTemp = szScript[i]
+			//swprintf_s(szBuf, szScript[i]);
+			fflush(stdout);
+		}
+
+		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		*/
+	}
 }
 
-CTextBox* CTextBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+void CTextBox::Set_Type(TEXTTYPE eType)
+{
+	m_tInfo.eType = eType;
+}
+
+void CTextBox::Next_Text()
+{
+//	m_fAccTime = 0.f;
+//	m_strCurrDesc = L"";
+}
+
+CTextBox* CTextBox::Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType)
 {
 	CTextBox* pInstance = new CTextBox(pGraphicDev);
+
+	pInstance->Set_Type(eType);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
@@ -63,3 +142,130 @@ CTextBox* CTextBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CTextBox::Free()
 {
 }
+
+/*
+_int CTextBox::Split_String(LPCTSTR lpszTemp, TCHAR szSep, CStringArray& strArr)
+{
+	// 하나의 문자에 대해 분할할 때 사용함.
+
+	int iCount = 0;
+	CString strTemp;
+
+	// 개별 부분 문자열을 CString 받을 개체에 대한 참조
+	// 추출할 문자열의 전체 텍스트를 포함하는 문자열
+	// 추출할부분 문자열의 인덱스
+	// 부분 문자열을 구분하는 데 사용되는 구분 기호 문자
+	while (AfxExtractSubString(strTemp, lpszTemp, iCount++, szSep))
+	{
+		strTemp.TrimLeft();
+		strTemp.TrimRight();
+		strArr.Add(strTemp);
+	}
+
+	//CStringArray strArray;
+	//m_util.Split_String(card_confirm_protocol, "*", strArray);
+
+	return iCount; // 분할된 개수
+}
+
+_int CTextBox::Splits_String(CString strTemp, CString strSep, CStringArray& strArr)
+{
+	// 문자열을 분할할 때 사용함.
+
+	int iCount = 0;
+
+	while (strTemp.GetLength() > 0)
+	{
+		int iPos = strTemp.Find(strSep);
+
+		if (iPos != -1)
+		{
+			strArr.Add(strTemp.Left(iPos));
+			strTemp = strTemp.Mid(iPos + strSep.GetLength());
+			iCount++;
+
+			if (strTemp.IsEmpty())
+			{
+				strArr.Add("");
+				iCount++;
+			}
+		}
+
+		else
+		{
+			strArr.Add(strTemp);
+			strTemp = "";
+			iCount++;
+		}
+	}
+
+	//CStringArray strArray;
+	//m_util.Splits_String(is_parm, "|||", strArray);
+
+	return iCount;
+}
+*/
+
+/*
+static const wchar_t wcCho[] =
+{ L'ㄱ', L'ㄲ', L'ㄴ', L'ㄷ', L'ㄸ',
+L'ㄹ', L'ㅁ', L'ㅂ', L'ㅃ', L'ㅅ',
+L'ㅆ', L'ㅇ', L'ㅈ', L'ㅉ', L'ㅊ',
+L'ㅋ', L'ㅌ', L'ㅍ', L'ㅎ' };
+
+static const wchar_t wcJung[] =
+{ L'ㅏ', L'ㅐ', L'ㅑ', L'ㅒ', L'ㅓ',
+L'ㅔ', L'ㅕ', L'ㅖ', L'ㅗ', L'ㅘ',
+L'ㅙ', L'ㅚ', L'ㅛ', L'ㅜ', L'ㅝ',
+L'ㅞ', L'ㅟ', L'ㅠ', L'ㅡ', L'ㅢ', L'ㅣ' };
+
+static const wchar_t wcJungMix[][3] =
+{ {L'ㅗ', L'ㅏ', L'ㅘ'}, {L'ㅗ', L'ㅐ', L'ㅙ'},
+	{L'ㅗ', L'ㅑ', L'ㅚ'}, {L'ㅜ', L'ㅓ', L'ㅝ'},
+	{L'ㅜ', L'ㅔ', L'ㅞ'}, {L'ㅜ', L'ㅣ', L'ㅟ'},
+	{L'ㅡ', L'ㅣ', L'ㅢ'}, };
+
+BOOL CTextBox::IsMidMix(wchar_t wc, __out wchar_t& pFirst, __out wchar_t& pSeconde)
+{
+	for (int i = 0; i < sizeof(wcMidMix) / sizeof(*wcMidMix); i++)
+	{
+		if (wcMidMix[i][2] == wc)
+		{
+			pFirst = wcMidMix[i][0]; pSeconde = wcMidMix[i][1];
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+static const wchar_t wcjong[] =
+{ L' ', L'ㄱ', L'ㄲ', L'ㄳ', L'ㄴ',
+L'ㄵ', L'ㄶ', L'ㄷ', L'ㄹ', L'ㄺ',
+L'ㄻ', L'ㄼ', L'ㄽ', L'ㄾ', L'ㄿ',
+L'ㅀ', L'ㅁ', L'ㅂ', L'ㅄ', L'ㅅ',
+L'ㅆ', L'ㅇ', L'ㅈ', L'ㅊ', L'ㅋ',
+L'ㅌ', L'ㅍ', L'ㅎ' };
+
+static const wchar_t wcjongMix[][3] =
+{ {L'ㄱ', L'ㅅ', L'ㄳ'}, {L'ㄴ', L'ㅈ', L'ㄵ'},
+	{L'ㄴ', L'ㅎ', L'ㄶ'}, {L'ㄹ', L'ㄱ', L'ㄺ'},
+	{L'ㄹ', L'ㅁ', L'ㄻ'}, {L'ㄹ', L'ㅂ', L'ㄼ'},
+	{L'ㄹ', L'ㅅ', L'ㄽ'}, {L'ㄹ', L'ㅌ', L'ㄾ'},
+	{L'ㄹ', L'ㅍ', L'ㄿ'}, {L'ㄹ', L'ㅎ', L'ㅀ'},
+	{L'ㅂ', L'ㅅ', L'ㅄ'}, };
+
+// Index
+{
+	for (int i = 0; i < sizeof(wcCho) / sizeof(wchar_t); i++)
+	{
+		if (wcCho[i] == ch)
+			return i;
+	}  
+
+	return -1;
+}
+
+//한글 분해
+//타이핑 하듯이 해체
+
+*/
