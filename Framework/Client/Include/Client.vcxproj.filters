@@ -229,6 +229,12 @@
     <Filter Include="02. GameObject\11. Item">
       <UniqueIdentifier>{219aa164-f041-43c3-b8e9-cd77000de277}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. Monster\03. SpitCactus">
+      <UniqueIdentifier>{f1d5b3c5-7614-40bb-8620-fab70fdc017a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle">
+      <UniqueIdentifier>{fc0a1e9b-eaff-4379-bd4c-1302fb46fd43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -479,6 +485,14 @@
     <ClInclude Include="..\Header\Item_Hat_Monkey.h">
       <Filter>02. GameObject\11. Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\UI_NameTag.h" />
+    <ClInclude Include="..\Header\SpitCactus.h">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CactusNeedle.h">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -712,6 +726,14 @@
     </ClCompile>
     <ClCompile Include="..\Code\Item_Hat_Monkey.cpp">
       <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Code\UI_NameTag.cpp" />
+    <ClCompile Include="..\Code\SpitCactus.cpp">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CactusNeedle.cpp">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

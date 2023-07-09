@@ -16,6 +16,41 @@ CBlueBeatle::~CBlueBeatle()
 }
 
 
+
+HRESULT CBlueBeatle::Ready_Object(void)
+{
+	Set_State(MONSTER_STATE::IDLE);
+	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+	m_pAnimator->Add_Animation(L"BlueBeatle_Idle_Down", L"Proto_Texture_BlueBeatle_Idle_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"BlueBeatle_Move_Down", L"Proto_Texture_BlueBeatle_Move_Down", 0.1f);
+
+	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
+	Set_Speed(5.f);
+	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+
+	return S_OK;
+}
+
+_int CBlueBeatle::Update_Object(const _float& fTimeDelta)
+{
+	_int iExit = __super::Update_Object(fTimeDelta);
+	return iExit;
+}
+
+void CBlueBeatle::LateUpdate_Object(void)
+{
+	__super::LateUpdate_Object();
+}
+
+void CBlueBeatle::Render_Object(void)
+{
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	__super::Render_Object();
+	m_pBufferCom->Render_Buffer();
+
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+}
 void CBlueBeatle::Update_Idle(_float fTimeDelta)
 {
 	if (m_fMoveTime > 10.f)
@@ -25,7 +60,7 @@ void CBlueBeatle::Update_Idle(_float fTimeDelta)
 			Set_State(MONSTER_STATE::MOVE);
 			m_pAnimator->Play_Animation(L"BlueBeatle_Move_Down", true);
 		}
-	
+
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -57,36 +92,7 @@ void CBlueBeatle::Update_Move(_float fTimeDelta)
 }
 void CBlueBeatle::Update_Die(_float fTimeDelta)
 {
-}
 
-HRESULT CBlueBeatle::Ready_Object(void)
-{
-	Set_State(MONSTER_STATE::IDLE);
-	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pAnimator->Add_Animation(L"BlueBeatle_Idle_Down", L"Proto_Texture_BlueBeatle_Idle_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"BlueBeatle_Move_Down", L"Proto_Texture_BlueBeatle_Move_Down", 0.1f);
-
-	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
-	Set_Speed(5.f);
-	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
-
-	return S_OK;
-}
-
-
-void CBlueBeatle::LateUpdate_Object(void)
-{
-	__super::LateUpdate_Object();
-}
-
-void CBlueBeatle::Render_Object(void)
-{
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
-
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 HRESULT CBlueBeatle::Add_Component(void)

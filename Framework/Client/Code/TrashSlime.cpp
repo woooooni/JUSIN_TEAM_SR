@@ -113,7 +113,7 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, -1 );
+		NULL_CHECK_RETURN(pTarget, S_OK );
 		Set_Target(pTarget);
 		_vec3 vTargetPos, vPos, vDir;
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
