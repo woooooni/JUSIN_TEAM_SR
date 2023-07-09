@@ -3,6 +3,7 @@
 #include "Export_Function.h"
 #include	"JellyCombined.h"
 
+
 CJellyStone::CJellyStone(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_eColor(JELLY_COLLOR_NORMAL::JELLY_NORMALEND), m_bCreatedCombine(false)
 {
 	m_tInfo.m_bIsPushable = true;
@@ -122,13 +123,30 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		tmp.y = 1;
 		dst.y = 1;
 
-		CJellyCombined* jelly = CJellyCombined::Create(m_pGraphicDev, static_cast<JELLY_COLLOR_COMBINE>((_uint)m_eColor + (_uint)src->m_eColor), 0, 0.5f * (dst + tmp));
+		vector<CGameObject*>& iter = Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+		CJellyCombined* jCom;
 
-		NULL_CHECK(jelly);
-		if (FAILED(Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Jelly_Combined", jelly)))
+		auto finder = find_if(iter.begin(), iter.end(), [&](CGameObject* A)
+			{				
+				return (jCom = dynamic_cast<CJellyCombined*>(A)) && !jCom->Is_Active() && ((_uint)jCom->Get_JellyColor() == (_uint)m_eColor + (_uint)src->m_eColor);
+			});
+
+		if (finder == iter.end())
 		{
-			Safe_Release(jelly);
-			return;
+			CJellyCombined* jelly = CJellyCombined::Create(m_pGraphicDev, static_cast<JELLY_COLLOR_COMBINE>((_uint)m_eColor + (_uint)src->m_eColor), 0, 0.5f * (dst + tmp));
+
+			NULL_CHECK(jelly);
+			if (FAILED(Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Jelly_Combined", jelly)))
+			{
+				Safe_Release(jelly);
+				return;
+			}
+
+		}
+		else
+		{
+			(*finder)->Get_TransformCom()->Set_Pos(&(0.5f * (dst + tmp)));
+			(*finder)->Set_Active(true);
 		}
 		m_bCreatedCombine = true;
 		Set_Active(false);

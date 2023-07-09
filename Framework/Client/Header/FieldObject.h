@@ -15,6 +15,8 @@ public:
 
 	virtual void		Render_Object() override;
 
+	virtual CGameObject* Get_GrabObj() { return this; }
+
 
 protected:
 	OBJ_INFO m_tInfo;

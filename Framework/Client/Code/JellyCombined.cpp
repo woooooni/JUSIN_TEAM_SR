@@ -1,5 +1,6 @@
 #include "JellyCombined.h"
 #include "Export_Function.h"
+#include	"JellyStone.h"
 
 CJellyCombined::CJellyCombined(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_eColor(JELLY_COLLOR_COMBINE::JELLY_COMBINEEND)
 {
@@ -25,10 +26,13 @@ HRESULT CJellyCombined::Ready_Object(void)
 
 _int CJellyCombined::Update_Object(const _float& fTimeDelta)
 {
+	if (Is_Active())
+	{
+		Add_RenderGroup(RENDER_ALPHA, this);
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_GRAB);
 
-	Add_RenderGroup(RENDER_ALPHA, this);
-	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
-	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_GRAB);
+	}
 
 
 	return __super::Update_Object(fTimeDelta);
@@ -92,7 +96,6 @@ CJellyCombined* CJellyCombined::Create(LPDIRECT3DDEVICE9 p_Dev, JELLY_COLLOR_COM
 
 void CJellyCombined::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-
 }
 
 void CJellyCombined::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
@@ -143,7 +146,74 @@ void CJellyCombined::Event_End(_uint iEventNum)
 {
 }
 
+CGameObject* CJellyCombined::Get_GrabObj()
+{
+	
+	vector<CGameObject*>& src = Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+
+	auto iter = find_if(src.begin(), src.end(), [&](auto A)->bool
+		{
+			CJellyStone* src;
+			return ((src = dynamic_cast<CJellyStone*>(A)) && Check_Child(src->Get_JellyColor()) && !src->Is_Active());
+		});
+
+	if (iter == src.end())
+		return nullptr;
+
+	auto tmp = find_if(src.begin(), src.end(), [&](auto A)->bool
+		{
+			CJellyStone* src;
+			return ((src = dynamic_cast<CJellyStone*>(A)) && (src->Get_JellyColor() == (m_eColor - dynamic_cast<CJellyStone*>(*iter)->Get_JellyColor())) && !src->Is_Active())
+		});
+
+	_vec3	dst;
+
+	if (tmp == src.end())
+		return nullptr;
+
+	m_pTransformCom->Get_Info(INFO_POS, &dst);
+
+	(*iter)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.y));
+	(*tmp)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.y));
+	(*iter)->Set_Active(true);
+	(*tmp)->Set_Active(true);
+
+	Set_Active(false);
+
+	return *iter;
+
+}
+
 void CJellyCombined::Set_SubscribeEvent(_uint pEvent)
 {
 	Add_Subscribe(pEvent, this);
+}
+
+bool CJellyCombined::Check_Child(const JELLY_COLLOR_NORMAL& pColor)
+{
+	switch (m_eColor)
+	{
+	case Engine::JELLY_COLLOR_COMBINE::BLUE:
+		if (pColor != JELLY_COLLOR_NORMAL::YELLOW)
+			return false;
+		else
+			return true;
+		break;
+	case Engine::JELLY_COLLOR_COMBINE::GREEN:
+		if (pColor != JELLY_COLLOR_NORMAL::MAGENTA)
+			return false;
+		else
+			return true;
+		break;
+	case Engine::JELLY_COLLOR_COMBINE::RED:
+		if (pColor != JELLY_COLLOR_NORMAL::CYAN)
+			return false;
+		else
+			return true;
+		break;
+
+	default:
+		return false;
+		break;
+	}
 }

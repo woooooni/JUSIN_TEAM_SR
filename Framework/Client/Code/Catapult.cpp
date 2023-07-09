@@ -99,7 +99,7 @@ void CCatapult::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 	CPlayer* src;
 	CPushStone*	tmp;
 	
-	if ((src = dynamic_cast<CPlayer*>(pCollider->GetOwner())))
+	if ((_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING))
 	{
 		if (true)
 		{

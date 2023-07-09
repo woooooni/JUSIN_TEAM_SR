@@ -21,6 +21,8 @@ HRESULT CLightPuzzlePiece::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Base", L"Proto_Tex_MoonPuzzleTile", 0.f);
 	m_pAnimator->Add_Animation(L"Horizon", L"Proto_Tex_MoonPuzzleTile_Hor", 0.f);
 	m_pAnimator->Add_Animation(L"Corner", L"Proto_Tex_MoonPuzzleTile_Corner", 0.f);
+	m_pAnimator->Add_Animation(L"Vertical", L"Proto_Tex_MoonPuzzleTile_Vert", 0.f);
+	m_pAnimator->Add_Animation(L"Base_Up", L"Proto_Tex_MoonPuzzleTile_Up", 0.f);
 
 	
 
@@ -110,6 +112,30 @@ CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uin
 		ret->m_lightDir.push_back({ 0, -1 });
 
 		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Corner"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	}
+	else if (p_FirstName == L"Vertical")
+	{
+		ret->m_lightDir.push_back({ 0, 1 });
+		ret->m_lightDir.push_back({ 0, -1 });
+
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Vert"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	}
+	else if (p_FirstName == L"Base_Up")
+	{
+		ret->m_lightDir.push_back({ 0, 1 });
+		ret->m_lightDir.push_back({ 1, 0 });
+		ret->m_lightDir.push_back({ -1, 0 });
+
+
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Base_Up"));
 		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
 		pComponent->SetOwner(ret);
 		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);

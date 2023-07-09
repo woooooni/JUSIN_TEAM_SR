@@ -28,11 +28,16 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
+	virtual	CGameObject* Get_GrabObj() override;
+
 public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
+	const JELLY_COLLOR_COMBINE& Get_JellyColor() { return m_eColor; }
+
 protected:
 	JELLY_COLLOR_COMBINE	m_eColor;
+	bool		Check_Child(const JELLY_COLLOR_NORMAL& pColor);
 
 };
 

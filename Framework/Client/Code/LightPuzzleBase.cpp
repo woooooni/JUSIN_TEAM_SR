@@ -19,6 +19,7 @@ HRESULT CLightPuzzleBase::Ready_Object(void)
 	FAILED_CHECK(Ready_Component());
 
 	m_pAnimator->Add_Animation(L"Base", L"Proto_Tex_MoonPuzzleBaseTile", 0.1f);
+	m_pAnimator->Add_Animation(L"Vertical", L"Proto_Tex_MoonPuzzleBaseTile_Vert", 0.1f);
 	m_pAnimator->Add_Animation(L"Corner", L"Proto_Tex_MoonPuzzleBaseTileCorner", 0.1f);
 
 	FAILED_CHECK( m_pAnimator->Play_Animation(L"Base", false));
@@ -40,10 +41,20 @@ void CLightPuzzleBase::LateUpdate_Object(void)
 
 void CLightPuzzleBase::Render_Object(void)
 {
+	_matrix mat = *m_pTransformCom->Get_WorldMatrix();
+
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+	if (m_bIsLighting)
+	{
+		mat._42 += 0.01f;
+		m_pTextureCom->Render_Texture();
+		m_pBufferCom->Render_Buffer();
+
+	}
+
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 
@@ -73,10 +84,30 @@ CLightPuzzleBase* CLightPuzzleBase::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint&
 	if (p_Type == L"Base")
 	{
 		ret->Add_LightDir({ 1, 0 });
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Start_Hor"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		
 	}
 	else if (p_Type == L"Corner")
 	{
 		ret->Add_LightDir({ 0, -1 });
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Start"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	}
+	else if (p_Type == L"Vertical")
+	{
+		ret->Add_LightDir({ 0, -1 });
+		CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_LightEffect_Start"));
+		NULL_CHECK_RETURN_MSG(pComponent, nullptr, L"LightPuzzleEffect Create Failed");
+		pComponent->SetOwner(ret);
+		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
 	}
 
 	return ret;
