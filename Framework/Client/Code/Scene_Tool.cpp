@@ -108,26 +108,32 @@ HRESULT CScene_Tool::Ready_Prototype()
 
 HRESULT CScene_Tool::Ready_Layer_Environment(LAYER_TYPE _eType)
 {
-	Engine::CLayer* pLayer = m_mapLayer.find(_eType)->second;
-	NULL_CHECK_RETURN(pLayer, E_FAIL);
+	Engine::CLayer* pLayerCamera = m_mapLayer.find(LAYER_TYPE::CAMERA)->second;
+	Engine::CLayer* pLayerPlayer = m_mapLayer.find(LAYER_TYPE::PLAYER)->second;
+	Engine::CLayer* pLayerEnv = m_mapLayer.find(LAYER_TYPE::ENVIRONMENT)->second;
+	Engine::CLayer* pLayerTerrain = m_mapLayer.find(LAYER_TYPE::TERRAIN)->second;
+
+	NULL_CHECK_RETURN(pLayerPlayer, E_FAIL);
+	NULL_CHECK_RETURN(pLayerEnv, E_FAIL);
+	NULL_CHECK_RETURN(pLayerTerrain, E_FAIL);
 
 	Engine::CGameObject* pGameObject = nullptr;
 
 	//Terrain
 	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTerrain, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
+	FAILED_CHECK_RETURN(pLayerTerrain->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
 
 	// Player
 	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pPlayer, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
+	FAILED_CHECK_RETURN(pLayerPlayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
 	m_pPlayer = pPlayer;
 
 	// Camera
 	Engine::CCamera * pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
+	FAILED_CHECK_RETURN(pLayerCamera->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 	m_pCamera = pCamera;
 
 

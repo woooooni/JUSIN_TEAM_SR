@@ -91,8 +91,8 @@ private:
 	_bool				m_bFadeOut = false;
 	_float				m_fFadeInAmount = 0.f;
 	//////////////////////////////////////////
-	_float				m_fShakeForce;
-	_float				m_fAlpha; // 0에서 1까지만 사용
+	_float		m_fShakeForce;
+	_float		m_fAlpha; // 0에서 1까지만 사용
 	CTexture* m_pVeilTex;
 
 

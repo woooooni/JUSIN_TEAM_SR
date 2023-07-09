@@ -51,6 +51,9 @@ private:
 	void CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit);
 	void DeleteObj();
 
+
+	void Input();
+
 private:
 	_bool m_bEnabled;
 	
@@ -66,6 +69,7 @@ private:
 	wstring		m_strObjNaming;
 	
 	OBJ_SELECTED m_eSelectedObjType;
+	_vec3 m_vObjScale;
 
 public:
 	virtual void Free() override;

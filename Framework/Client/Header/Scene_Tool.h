@@ -28,6 +28,7 @@ public:
 	void Load_Data();
 	CCamera* Get_MainCamera() { return m_pCamera; }
 	CPlayer* Get_Player() { return m_pPlayer; }
+
 private:
 	Engine::CCamera* m_pCamera;
 	CPlayer* m_pPlayer;
