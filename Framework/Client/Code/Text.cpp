@@ -2,12 +2,12 @@
 #include "Export_Function.h"
 
 CTextBox::CTextBox(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CUI(pGraphicDev)
+	: CUI(pGraphicDev), m_tInfo{}
 {
 }
 
 CTextBox::CTextBox(const CTextBox& rhs)
-	: CUI(rhs)
+	: CUI(rhs), m_tInfo(rhs.m_tInfo)
 {
 }
 
@@ -17,6 +17,7 @@ CTextBox::~CTextBox()
 
 HRESULT CTextBox::Ready_Object(void)
 {
+	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	/*
 	1. NPC정보 받기
 	2. NPC에 맞는 대화내용 푸시
@@ -28,8 +29,6 @@ HRESULT CTextBox::Ready_Object(void)
 	5. 타이핑 하듯 Text 출력
 	*/
 	
-	//m_vecText.push_back(L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~");
-	//m_vecText.push_back(L"조심히 놀다 오렴~");
 
 	return S_OK;
 }
@@ -37,10 +36,11 @@ HRESULT CTextBox::Ready_Object(void)
 _int CTextBox::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-//	m_fAccTime += fTimeDelta * m_fTextSpeed;
+
+	m_fAccTime += fTimeDelta * m_fTextSpeed;
 	
-//	if (KEY_TAP(KEY::Z))
-//		Next_Text();
+	if (KEY_TAP(KEY::Z))
+		Next_Text();
 
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
@@ -53,8 +53,9 @@ void CTextBox::LateUpdate_Object(void)
 
 void CTextBox::Render_Object(void)
 {
-	if (m_bShown)
-	{
+	//if (m_bShown)
+	//{
+		/*
 		switch (m_tInfo.eType)
 		{
 		case TEXTTYPE::SHEEP:
@@ -73,22 +74,30 @@ void CTextBox::Render_Object(void)
 			break;
 
 		}
-		
+		*/
 		// Name Tag
 		RECT rcName = { -1 * (WINCX / 4) + 70, (WINCY / 4) - 50, 3 * (WINCX / 4), WINCY };
+
+		
 		TCHAR szNameBuf[128] = L"양 아줌마";
+		//CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+		//	szNameBuf, lstrlen(szNameBuf), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+		//	D3DCOLOR_ARGB(100, 0, 0, 0));
+
+		//TCHAR szNameBuf[128] = L"소 아저씨";
+		
 		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
 			szNameBuf, lstrlen(szNameBuf), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 			D3DCOLOR_ARGB(100, 0, 0, 0));
 
 		// 대화창
 		RECT rc = { 0, WINCY / 2, WINCX, WINCY };
-		//GetClientRect(g_hWnd, &rc);
-		TCHAR szBuf[256] = L"";
-		swprintf_s(szBuf, L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~\n줄 바꿈 테스트");
+			//GetClientRect(g_hWnd, &rc);
+		//TCHAR szBuf[256] = L"";
+		//swprintf_s(szBuf, L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~\n줄 바꿈 테스트");
 		
-		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
-			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		//CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+		//	szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 		
 		/*
 		RECT rc = { 0, WINCY / 2, WINCX, WINCY };
@@ -108,18 +117,67 @@ void CTextBox::Render_Object(void)
 		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
 			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 		*/
-	}
+
+		// 구조체가 들어간 벡터
+		if ((_uint)m_fAccTime < m_vecText[m_iIndex].strDesc.size())
+		{
+			m_strCurrDesc = L"";
+			for (_uint i = 0; i < (_uint)m_fAccTime; ++i)
+				m_strCurrDesc += m_vecText[m_iIndex].strDesc[i];
+		}
+
+		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			m_strCurrDesc.c_str(), m_strCurrDesc.size(), &rc,
+			DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+	//}
 }
 
 void CTextBox::Set_Type(TEXTTYPE eType)
 {
-	m_tInfo.eType = eType;
+	//m_tInfo.eType = eType;
 }
 
 void CTextBox::Next_Text()
 {
-//	m_fAccTime = 0.f;
-//	m_strCurrDesc = L"";
+	m_fAccTime = 0.f;
+	m_strCurrDesc = L"";
+
+	if (m_vecText.size() - 1 == m_iIndex)
+	{
+
+	}
+	else
+		++m_iIndex;
+}
+
+HRESULT CTextBox::Add_Component(void)
+{
+	switch (m_tInfo.eType)
+	{
+	case TEXTTYPE::COW:
+		m_vecText.push_back({ L"오늘도 날씨가 따스하고 좋네\n이런 날은 놀러 나가야 하는데..." });
+		break;
+
+	case TEXTTYPE::SHEEP:
+		m_vecText.push_back({ L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~" });
+		m_vecText.push_back({ L"조심히 놀다 오렴~" });
+		break;
+
+	case TEXTTYPE::PIG:
+		m_vecText.push_back({ L"어린아이라면 자고로 열심히 뛰고\n열심히 먹고 열심히 놀아야지." });
+		break;
+
+	case TEXTTYPE::DOOGEE:
+		m_vecText.push_back({ L"안녕, 아기 오구야, 어디 가 ?" });
+		m_vecText.push_back({ L"오늘도 모험을 떠나는 거니 ?" });
+		m_vecText.push_back({ L"몸조심하고 무슨 일 있으면 나를 부르도록 해!" });
+		break;
+
+	default:
+		break;
+	}
+
+	return S_OK;
 }
 
 CTextBox* CTextBox::Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType)

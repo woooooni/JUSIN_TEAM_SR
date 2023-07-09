@@ -258,9 +258,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pTextBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
 
-	CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::SHEEP);
-	NULL_CHECK_RETURN(pText, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Text", pText), E_FAIL);
+//	CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::COW);
+//	NULL_CHECK_RETURN(pText, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Text", pText), E_FAIL);
 
 	CIcon* pIconHeart = CIcon::Create(m_pGraphicDev, ICONTYPE::HEART);
 	NULL_CHECK_RETURN(pIconHeart, E_FAIL);
@@ -274,9 +274,25 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pIconQuest, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconQuest), E_FAIL);
 
+//	CIcon* pTotem1 = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP);
+//	NULL_CHECK_RETURN(pTotem1, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Totem1", pTotem1), E_FAIL);
+
+	CUI_HPBar* pHPBar = CUI_HPBar::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pHPBar, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_HPBar", pHPBar), E_FAIL);
+
 	CIcon* pIconHPFrame = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP_FRAME);
 	NULL_CHECK_RETURN(pIconHPFrame, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_HPFrame", pIconHPFrame), E_FAIL);
+
+	CUI_Totem* pTotem_Cur = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::CURR);
+	NULL_CHECK_RETURN(pTotem_Cur, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Cur", pTotem_Cur), E_FAIL);
+
+	CUI_Totem* pTotem_Max = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::MAX);
+	NULL_CHECK_RETURN(pTotem_Max, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Max", pTotem_Max), E_FAIL);
 
 	CIcon* pIconKeyButton = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON);
 	NULL_CHECK_RETURN(pIconKeyButton, E_FAIL);
@@ -309,13 +325,13 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 
 
 	// NPC (Test)
-	CTutorialNPC* pNPCSheep = CTutorialNPC::Create(m_pGraphicDev, { 2, 1, 1 }, NPCTYPE::TUT_SHEEP);
-	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
+//	CTutorialNPC* pNPCSheep = CTutorialNPC::Create(m_pGraphicDev, { 4, 1, 1 }, NPCTYPE::TUT_SHEEP);
+//	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
 	
-//	CTutorialNPC* pNPCCow = CTutorialNPC::Create(m_pGraphicDev, { 6, 1, 1 }, NPCTYPE::TUT_COW);
-//	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
+	CNPCCow* pNPCCow = CNPCCow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
+	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
 //
 //	CTutorialNPC* pNPCPig = CTutorialNPC::Create(m_pGraphicDev, { 10, 1, 1 }, NPCTYPE::TUT_PIG);
 //	NULL_CHECK_RETURN(pNPCPig, E_FAIL);

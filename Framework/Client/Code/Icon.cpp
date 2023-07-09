@@ -24,7 +24,6 @@ HRESULT CIcon::Ready_Object(void)
 
 _int CIcon::Update_Object(const _float& fTimeDelta)
 {
-//	Engine::Add_RenderGroup(RENDERID::RENDER_NONALPHA, this);
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -78,7 +77,7 @@ void CIcon::Render_Object(void)
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(fWidth * fRatio, fHeight * fRatio , 0.f);
+		vScale = _vec3(fWidth * fRatio * 1.3, fHeight * fRatio * 1.3 , 0.f);
 		break;
 
 		// 메인 컴포넌트 두번째 줄

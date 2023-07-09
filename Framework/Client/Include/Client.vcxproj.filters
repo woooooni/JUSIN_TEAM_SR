@@ -235,6 +235,18 @@
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo">
       <UniqueIdentifier>{06e6b61b-6c49-4cc0-83b9-4b440d06159a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\02. HPBar">
+      <UniqueIdentifier>{ffe042d4-d1b4-4523-a2da-da1f8a7684d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\03. Totem">
+      <UniqueIdentifier>{47b4d849-4cf4-4f97-8b74-a231b48ddda9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. NPC\00. Tutorial\00. Sheep">
+      <UniqueIdentifier>{24798c90-035e-4aa2-be19-d4d1deb6f9f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. NPC\00. Tutorial\01. Cow">
+      <UniqueIdentifier>{29610b7a-997a-441b-9d77-c14ed066ade9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -508,6 +520,19 @@
     <ClInclude Include="..\Header\UI_ShortCutKey.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_NameTag.h" />
+    <ClInclude Include="..\Header\UI_HPBar.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HPBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_Totem.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\03. Totem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\NPCSheep.h">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\00. Sheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\NPCCow.h">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\01. Cow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -764,6 +789,19 @@
     <ClCompile Include="..\Code\Catapult.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_NameTag.cpp" />
+    <ClCompile Include="..\Code\UI_HPBar.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HPBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Totem.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\03. Totem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NPCCow.cpp">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\01. Cow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NPCSheep.cpp">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\00. Sheep</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

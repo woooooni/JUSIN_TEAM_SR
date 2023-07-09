@@ -225,6 +225,8 @@
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\NPC.h" />
+    <ClInclude Include="..\Header\NPCCow.h" />
+    <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\NPCText.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
@@ -268,8 +270,10 @@
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
     <ClInclude Include="..\Header\Catapult.h" />
+    <ClInclude Include="..\Header\UI_HPBar.h" />
     <ClInclude Include="..\Header\UI_NameTag.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
+    <ClInclude Include="..\Header\UI_Totem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -321,6 +325,8 @@
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\NPC.cpp" />
+    <ClCompile Include="..\Code\NPCCow.cpp" />
+    <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\NPCText.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
@@ -363,7 +369,9 @@
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />
+    <ClCompile Include="..\Code\UI_HPBar.cpp" />
     <ClCompile Include="..\Code\UI_NameTag.cpp" />
+    <ClCompile Include="..\Code\UI_Totem.cpp" />
     <ClCompile Include="..\Header\Tile.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
     <ClCompile Include="Client.cpp" />
