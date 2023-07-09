@@ -28,8 +28,6 @@ public:
 
 	void			Reset()
 	{
-		_vec3 vScale = m_pTransformCom->Get_Scale();
-
 		_matrix matWorld;
 		D3DXMatrixIdentity(&matWorld);
 
@@ -39,8 +37,6 @@ public:
 			memcpy(&vInfo, &matWorld.m[i][0], sizeof(_vec3));
 			m_pTransformCom->Set_Info((MATRIX_INFO)i, &vInfo);
 		}
-
-		m_pTransformCom->Set_Scale(vScale);
 	}
 
 	void			Set_Angle(float _fAngle) { m_pTransformCom->RotationAxis(_vec3(0.0f, 0.0f, 1.0f), _fAngle); }

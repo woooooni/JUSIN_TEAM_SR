@@ -84,8 +84,10 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 		break;
 	}
 
-
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(0.9f);
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(0.9f);
+	}
 
 	m_fAccTime = 0.0f;
 	return S_OK;
@@ -120,7 +122,8 @@ void CPlayer_State_Walk::LateUpdate_State(void)
 	m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Set_Loop(false);
 	m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Set_Idx(2);
 
-	Update_Hat();
+	if(dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+		Update_Hat();
 
 
 	if(dynamic_cast<CPlayer*>(m_pOwner)->Is_Push())
@@ -201,6 +204,7 @@ void CPlayer_State_Walk::Update_Hat()
 	vPos.z -= 0.0001f;
 	vPos += m_vecHatPos[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(m_fScale[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()]);
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Angle(D3DXToRadian(m_fAngle[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()]));
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
 
@@ -208,6 +212,7 @@ void CPlayer_State_Walk::Update_Hat()
 
 void CPlayer_State_Walk::Set_Hat()
 {
+	//포지션
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][0] = { 0.0f, 0.0f, 0.0f };
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][1] = { 0.0f, 0.0f, 0.0f };
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_U][2] = { -0.01f, 0.02f, 0.0f };
@@ -301,6 +306,8 @@ void CPlayer_State_Walk::Set_Hat()
 	m_vecHatPos[(_uint)OBJ_DIR::DIR_RD][9] = { 0.0f, 0.0f, 0.0f };
 
 	
+
+	//각도
 	m_fAngle[(_uint)OBJ_DIR::DIR_U][0] = 0.0f;
 	m_fAngle[(_uint)OBJ_DIR::DIR_U][1] = 0.0f;
 	m_fAngle[(_uint)OBJ_DIR::DIR_U][2] = 0.0f;
@@ -389,4 +396,93 @@ void CPlayer_State_Walk::Set_Hat()
 	m_fAngle[(_uint)OBJ_DIR::DIR_RD][8] = 0.0f;
 	m_fAngle[(_uint)OBJ_DIR::DIR_RD][9] = 0.0f;
 
+
+	//스케일
+	m_fScale[(_uint)OBJ_DIR::DIR_U][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_U][9] = 1.0f;
+
+	m_fScale[(_uint)OBJ_DIR::DIR_D][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_D][9] = 1.0f;
+
+	m_fScale[(_uint)OBJ_DIR::DIR_L][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_L][9] = 1.0f;
+
+	m_fScale[(_uint)OBJ_DIR::DIR_R][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_R][9] = 1.0f;
+
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LU][9] = 1.0f;
+
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_LD][9] = 1.0f;
+
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RU][9] = 1.0f;
+
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][0] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][1] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][2] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][3] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][4] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][5] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][6] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][7] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][8] = 1.0f;
+	m_fScale[(_uint)OBJ_DIR::DIR_RD][9] = 1.0f;
 }
