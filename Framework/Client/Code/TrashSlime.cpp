@@ -109,6 +109,7 @@ HRESULT CTrashSlime::Ready_Object(void)
 
 _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 {
+	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{

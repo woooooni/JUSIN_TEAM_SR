@@ -112,11 +112,14 @@ HRESULT CTrashBig::Ready_Object(void)
 
 _int CTrashBig::Update_Object(const _float& fTimeDelta)
 {
+	_int iExit = __super::Update_Object(fTimeDelta);
+	
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, -1 );
+		NULL_CHECK_RETURN(pTarget, S_OK);
+
 		Set_Target(pTarget);
 		_vec3 vTargetPos, vPos, vDir;
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
@@ -129,7 +132,7 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 		}
 	}	
 
-	_int iExit = __super::Update_Object(fTimeDelta);
+
 	return iExit;
 }
 

@@ -40,6 +40,7 @@ public:
 
 
 private:
+	void Update_Help(const _float& fTimeDelta);
 	void Update_Inspector(const _float& fTimeDelta);
 	void Update_Hierachy(const _float& fTimeDelta);
 
@@ -48,11 +49,14 @@ private:
 	void UpdateMapTool(const _float& fTimeDelta);
 	void UpdateTileTool(const _float& fTimeDelta);
 
+	void ResetSelectTarget();
+
 	void CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit);
 	void DeleteObj();
 
 
-	void Input();
+	void Input(const _float& fTimeDelta);
+	void ObjPicking();
 
 private:
 	_bool m_bEnabled;
@@ -70,6 +74,7 @@ private:
 	
 	OBJ_SELECTED m_eSelectedObjType;
 	_vec3 m_vObjScale;
+	_uint m_iObjNum;
 
 public:
 	virtual void Free() override;

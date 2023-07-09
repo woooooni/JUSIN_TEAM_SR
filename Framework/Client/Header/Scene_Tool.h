@@ -20,7 +20,7 @@ public:
 
 private:
 	HRESULT			Ready_Prototype();
-	HRESULT			Ready_Layer_Environment(LAYER_TYPE _eType);
+	HRESULT			Ready_Layer(LAYER_TYPE _eType);
 	
 
 public:

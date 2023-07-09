@@ -23,7 +23,7 @@ HRESULT CScene_Tool::Ready_Scene()
 {
 	__super::Ready_AllLayer();
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer(LAYER_TYPE::ENVIRONMENT), E_FAIL);
 	
 
 	D3DVIEWPORT9 vp;
@@ -43,6 +43,7 @@ HRESULT CScene_Tool::Ready_Scene()
 Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 {
 	_int		iResult = 0;
+	CImGuiMgr::GetInstance()->Update_ImGui(fTimeDelta);
 	for (auto& iter : m_mapLayer)
 	{
 		if (iter.first == LAYER_TYPE::MONSTER)
@@ -51,14 +52,13 @@ Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 				iter.second->Get_GameObjectVec()[i]->Set_Billboard();
 
 			iResult = iter.second->Update_Layer(0.f);
-		}	
+		}
 		else
 			iResult = iter.second->Update_Layer(fTimeDelta);
 
 		if (iResult & 0x80000000)
 			return iResult;
 	}
-	CImGuiMgr::GetInstance()->Update_ImGui(fTimeDelta);
 	return 0;
 }
 
@@ -106,13 +106,14 @@ HRESULT CScene_Tool::Ready_Prototype()
 	return S_OK;
 }
 
-HRESULT CScene_Tool::Ready_Layer_Environment(LAYER_TYPE _eType)
+HRESULT CScene_Tool::Ready_Layer(LAYER_TYPE _eType)
 {
 	Engine::CLayer* pLayerCamera = m_mapLayer.find(LAYER_TYPE::CAMERA)->second;
 	Engine::CLayer* pLayerPlayer = m_mapLayer.find(LAYER_TYPE::PLAYER)->second;
 	Engine::CLayer* pLayerEnv = m_mapLayer.find(LAYER_TYPE::ENVIRONMENT)->second;
 	Engine::CLayer* pLayerTerrain = m_mapLayer.find(LAYER_TYPE::TERRAIN)->second;
 
+	NULL_CHECK_RETURN(pLayerCamera, E_FAIL);
 	NULL_CHECK_RETURN(pLayerPlayer, E_FAIL);
 	NULL_CHECK_RETURN(pLayerEnv, E_FAIL);
 	NULL_CHECK_RETURN(pLayerTerrain, E_FAIL);

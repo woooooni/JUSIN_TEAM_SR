@@ -28,9 +28,10 @@ HRESULT CMonster::Ready_Object(void)
 	return S_OK;
 }
 
-Engine::_int CMonster::Update_Object(const _float& fTimeDelta)
+_int CMonster::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
+
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (m_eState)
 	{

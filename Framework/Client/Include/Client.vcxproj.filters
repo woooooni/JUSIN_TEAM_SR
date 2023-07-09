@@ -229,11 +229,11 @@
     <Filter Include="02. GameObject\11. Item">
       <UniqueIdentifier>{219aa164-f041-43c3-b8e9-cd77000de277}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\11. Tile">
-      <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo">
       <UniqueIdentifier>{06e6b61b-6c49-4cc0-83b9-4b440d06159a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. Tile">
+      <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -487,7 +487,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\TrashSlime.h" />
     <ClInclude Include="..\Header\Tile.h">
-      <Filter>02. GameObject\11. Tile</Filter>
+      <Filter>02. GameObject\12. Tile</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Coin.h" />
     <ClInclude Include="..\Header\GolemFace.h" />
@@ -508,6 +508,7 @@
     <ClInclude Include="..\Header\UI_ShortCutKey.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_NameTag.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -744,7 +745,7 @@
     </ClCompile>
     <ClCompile Include="..\Code\TrashSlime.cpp" />
     <ClCompile Include="..\Header\Tile.cpp">
-      <Filter>02. GameObject\11. Tile</Filter>
+      <Filter>02. GameObject\12. Tile</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Coin.cpp" />
     <ClCompile Include="..\Code\GolemFace.cpp" />
@@ -765,6 +766,7 @@
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\UI_NameTag.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

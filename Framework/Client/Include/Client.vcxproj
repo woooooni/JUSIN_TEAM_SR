@@ -126,6 +126,7 @@
       <MaxFilesInUnityFile>5</MaxFilesInUnityFile>
       <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

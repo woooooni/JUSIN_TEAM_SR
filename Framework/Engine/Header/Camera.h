@@ -44,6 +44,7 @@ public:
 	void		Set_Near(_float _f) { m_fNear = _f; }
 	void		Set_Far(_float _f) { m_fFar = _f; }
 	void		Set_Fov(_float _f) { m_fFov = _f; }
+	_float		Get_Fov() { return m_fFov; }
 
 	void		Set_TargetObj(CGameObject* _pTarget) { m_pTargetObj = _pTarget; }
 
