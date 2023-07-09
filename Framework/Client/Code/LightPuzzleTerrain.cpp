@@ -30,12 +30,27 @@ _int CLightPuzzleTerrain::Update_Object(const _float& fTimeDelta)
 {
 	if (m_bIsCanUpdate)
 	{
-		
-
-
-
 		Add_RenderGroup(RENDER_ALPHA, this);
 		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_TRIGGER);
+
+		for (size_t i = 0; i < m_vecLightMap.size(); i++)
+		{
+			if (m_vecLightMap[i]->m_pOnTileObj)
+			{
+				_vec3 src, tmp;
+				m_vecLightMap[i]->m_pOnTileObj->Get_TransformCom()->Get_Info(INFO_POS, &src);
+				m_pTransformCom->Get_Info(INFO_POS, &tmp);
+				src.y = 0;
+				if (D3DXVec3Length(&(src - (tmp + m_vTileCenterPos[i]))) > 0.35f)
+				{
+					m_vecLightMap[i]->m_bIsOnTile = false;
+					m_vecLightMap[i]->m_bIsLighting = false;
+					m_vecLightMap[i]->m_pOnTileObj->Set_Lighting(false);
+					m_vecLightMap[i]->m_pOnTileObj = nullptr;
+					Make_LightRoute();
+				}
+			}
+		}
 
 	}
 
@@ -179,10 +194,7 @@ void CLightPuzzleTerrain::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _
 				m_vecLightMap[iIndex]->m_listLightDir.push_back(iter);
 				
 			}
-			if (puzzleBase && puzzleBase->Get_MakeLight())
-			{
-				m_vecLightMap[iIndex]->m_bIsLighting = true;
-			}
+
 
 			for (size_t i = 0; i < m_vecLightMap.size(); i++)
 			{
@@ -190,6 +202,7 @@ void CLightPuzzleTerrain::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _
 					m_vecLightMap[i]->m_pOnTileObj = nullptr;
 			}
 			
+
 		}
 
 	}
@@ -279,6 +292,8 @@ HRESULT CLightPuzzleTerrain::Make_LightRoute()
 	{
 		if (iter->m_pOnTileObj && dynamic_cast<CLightPuzzleBase*>(iter->m_pOnTileObj) && dynamic_cast<CLightPuzzleBase*>(iter->m_pOnTileObj)->Get_MakeLight())
 		{
+			iter->m_pOnTileObj->Set_Lighting(true);
+			iter->m_bIsLighting = true;
 			roundingList.push_back(iter);
 			break;
 		}

@@ -215,10 +215,13 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pLTer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleTer", pLTer), E_FAIL);
 
-	CLightPuzzleBase* pLBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(0, 0), L"Corner");
-	pLBase->Reverse_Puzzle(true);
-	pLBase->Reverse_Puzzle(false);
+	CLightPuzzleBase* pLBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(0, 0), L"Base");
 	pLBase->Set_MakeLight();
+	NULL_CHECK_RETURN(pLBase, E_FAIL);
+
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLBase), E_FAIL);
+
+	pLBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(3, 4), L"Vertical");
 	NULL_CHECK_RETURN(pLBase, E_FAIL);
 
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLBase), E_FAIL);
@@ -226,12 +229,33 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CLightPuzzlePiece* pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(3, 3));
 	NULL_CHECK_RETURN(pLPiece, E_FAIL);
 	pLPiece->Reverse_Puzzle(true);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLPiece), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
 
 	pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(3, 0), L"Corner");
 	NULL_CHECK_RETURN(pLPiece, E_FAIL);
 	pLPiece->Reverse_Puzzle(false);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzleBase", pLPiece), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
+
+	pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(3, 1), L"Horizon");
+	NULL_CHECK_RETURN(pLPiece, E_FAIL);
+	pLPiece->Reverse_Puzzle(false);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
+
+	pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(0, 3), L"Vertical");
+	NULL_CHECK_RETURN(pLPiece, E_FAIL);
+	pLPiece->Reverse_Puzzle(false);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
+	pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(1, 1), L"Base_Up");
+	NULL_CHECK_RETURN(pLPiece, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
+
+
+
+	pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(1, 3));
+	NULL_CHECK_RETURN(pLPiece, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
+
+
 
 
 	CCoin* pCoin = CCoin::Create(m_pGraphicDev);

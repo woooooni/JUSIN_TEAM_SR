@@ -30,6 +30,8 @@ public:
 public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
+	const JELLY_COLLOR_NORMAL& Get_JellyColor() { return m_eColor; }
+
 
 protected:
 	JELLY_COLLOR_NORMAL			m_eColor;
