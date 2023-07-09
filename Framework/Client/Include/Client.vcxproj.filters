@@ -232,6 +232,9 @@
     <Filter Include="02. GameObject\11. Tile">
       <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo">
+      <UniqueIdentifier>{06e6b61b-6c49-4cc0-83b9-4b440d06159a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -486,6 +489,25 @@
     <ClInclude Include="..\Header\Tile.h">
       <Filter>02. GameObject\11. Tile</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Coin.h" />
+    <ClInclude Include="..\Header\GolemFace.h" />
+    <ClInclude Include="..\Header\Item.h" />
+    <ClInclude Include="..\Header\JellyBomb.h" />
+    <ClInclude Include="..\Header\JellyCombined.h" />
+    <ClInclude Include="..\Header\JellyStone.h" />
+    <ClInclude Include="..\Header\LightPuzzle.h" />
+    <ClInclude Include="..\Header\LightPuzzleBase.h" />
+    <ClInclude Include="..\Header\LightPuzzlePiece.h" />
+    <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
+    <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Skill_Aim.h" />
+    <ClInclude Include="..\Header\Player_Skill_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Skill_Range.h" />
+    <ClInclude Include="..\Header\Player_State_Skill.h" />
+    <ClInclude Include="..\Header\Catapult.h" />
+    <ClInclude Include="..\Header\UI_ShortCutKey.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -723,6 +745,25 @@
     <ClCompile Include="..\Code\TrashSlime.cpp" />
     <ClCompile Include="..\Header\Tile.cpp">
       <Filter>02. GameObject\11. Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Coin.cpp" />
+    <ClCompile Include="..\Code\GolemFace.cpp" />
+    <ClCompile Include="..\Code\Item.cpp" />
+    <ClCompile Include="..\Code\JellyBomb.cpp" />
+    <ClCompile Include="..\Code\JellyCombined.cpp" />
+    <ClCompile Include="..\Code\JellyStone.cpp" />
+    <ClCompile Include="..\Code\LightPuzzle.cpp" />
+    <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
+    <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
+    <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
+    <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Aim.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
+    <ClCompile Include="..\Code\Player_State_Skill.cpp" />
+    <ClCompile Include="..\Code\Catapult.cpp" />
+    <ClCompile Include="..\Code\UI_ShortCutKey.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

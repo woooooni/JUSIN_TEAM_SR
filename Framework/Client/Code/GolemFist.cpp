@@ -60,7 +60,7 @@ void CGolemFist::LateUpdate_Object(void)
 	if (vPos.y < -1.f)
 	{
 		if(Is_Active())
-		Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.1f);
+		//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.1f);
 		Set_Active(false);
 	}
 }

@@ -28,6 +28,7 @@
 #include "QuickSlot.h"
 #include "Text.h"
 #include "Icon.h"
+#include "UI_ShortCutKey.h"
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"
 #include "LightPuzzlePiece.h"

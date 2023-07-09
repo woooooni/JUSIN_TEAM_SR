@@ -1,5 +1,8 @@
 #pragma once
 #include "NPC.h"
+#include "UI_ShortCutKey.h"
+#include "NPCText.h"
+#include "Text.h"
 
 // NPC 대화창 : PNG파일 / NPC 대화 : TEXT (UI)
 // 대화 끝나면 NPC STATE -> REACT로
@@ -31,8 +34,9 @@ typedef enum class NPCState
 
 struct tagNPCInfo
 {
-	NPCTYPE		eType;
-	NPCSTATE	eState;
+	NPCTYPE		eType = NPCTYPE::NPCTYPE_END;
+	NPCSTATE	eState = NPCSTATE::NPC_IDLE;
+	bool		bCollision = false;
 };
 
 class CTutorialNPC :
@@ -54,8 +58,10 @@ public:
 private:
 	HRESULT		Add_Component(void);
 	void		Set_Type(NPCTYPE eType);
+	void		Set_State(NPCSTATE eState);
 
 private:
+	CUI_ShortCutKey*	m_pKeyInfo = nullptr;
 	tagNPCInfo			m_tInfo;
 
 public:

@@ -78,22 +78,22 @@ void CQuickSlot::Render_Object(void)
 		{
 		case SLOTNUM::SLOT_ONE:
 			vPos = { (WINCX / WINCX - 1.84f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_TWO:
 			vPos = { (WINCX / WINCX - 1.72f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_THREE:
 			vPos = { (WINCX / WINCX - 1.6f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_FOUR:
 			vPos = { (WINCX / WINCX - 1.48f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.77f) * (1 / m_matProj._22), 0.f };
+					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
 			break;
 
 		default:

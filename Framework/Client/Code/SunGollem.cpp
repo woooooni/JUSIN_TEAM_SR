@@ -222,7 +222,7 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 
 	if (vPos.y < 2.f&&m_fSpeed<0)
 	{
-		Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.5f);
+		//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.5f);
 			m_vVerticalDir= {0.f, 1.f ,0.f };
 			m_fSpeed = 15.f;
 			m_iRand = rand() % 3 ;
