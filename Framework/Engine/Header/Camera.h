@@ -44,6 +44,7 @@ public:
 	void		Set_Near(_float _f) { m_fNear = _f; }
 	void		Set_Far(_float _f) { m_fFar = _f; }
 	void		Set_Fov(_float _f) { m_fFov = _f; }
+	_float		Get_Fov() { return m_fFov; }
 
 	void		Set_TargetObj(CGameObject* _pTarget) { m_pTargetObj = _pTarget; }
 
@@ -67,10 +68,8 @@ public:
 	void		Check_FadeOut();
 
 	void		Set_CameraState(CAMERA_STATE _eState) { m_eState = _eState; if (_eState == CAMERA_STATE::TOOL) m_fMoveSpeed = 30.f; }
+	CAMERA_STATE Get_CameraState() { return m_eState; }
 
-	//private:
-	//	void		CustomLookAtLH(_matrix* pOut, const _vec3* pEye, const _vec3* pAt, const _vec3* pUp);
-	//	void		CustomPerspectiveLH(_matrix* pOut, const _float _fov, const _float _fAspect, const _float _fNear, const _float _fFar);
 
 private:
 	_matrix		m_matView;
@@ -91,8 +90,8 @@ private:
 	_bool				m_bFadeOut = false;
 	_float				m_fFadeInAmount = 0.f;
 	//////////////////////////////////////////
-	_float				m_fShakeForce;
-	_float				m_fAlpha; // 0에서 1까지만 사용
+	_float		m_fShakeForce;
+	_float		m_fAlpha; // 0에서 1까지만 사용
 	CTexture* m_pVeilTex;
 
 

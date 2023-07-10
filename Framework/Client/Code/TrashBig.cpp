@@ -75,6 +75,7 @@ void CTrashBig::Render_Object(void)
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
+
 void CTrashBig::Update_Idle(_float fTimeDelta)
 {
 	if (m_fMoveTime > 10.f)
@@ -144,13 +145,6 @@ void CTrashBig::Update_Attack(_float fTimeDelta)
 	Trace(fTimeDelta);
 }
 
-
-
-void CTrashBig::LateUpdate_Object(void)
-{
-
-		__super::LateUpdate_Object();
-}
 
 HRESULT CTrashBig::Add_Component(void)
 {
@@ -237,6 +231,7 @@ void CTrashBig::Trace(_float fTimeDelta)
 		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 	}
 }
+
 void CTrashBig::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (Get_State() == MONSTER_STATE::DIE)

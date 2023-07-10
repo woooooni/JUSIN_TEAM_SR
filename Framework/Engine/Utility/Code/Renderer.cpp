@@ -4,7 +4,12 @@ IMPLEMENT_SINGLETON(CRenderer)
 
 CRenderer::CRenderer()
 {
+	D3DXMatrixOrthoLH(&m_matOrthoProj, WINCX, WINCY, 0, 1);
+	D3DXMatrixIdentity(&m_matUIView);
 
+	D3DXMatrixIdentity(&m_matPerspectiveProj);
+	D3DXMatrixIdentity(&m_matGameView);
+	
 }
 
 CRenderer::~CRenderer()
@@ -78,8 +83,26 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+
+	pGraphicDev->GetTransform(D3DTS_VIEW, &m_matGameView);
+	pGraphicDev->GetTransform(D3DTS_PROJECTION, &m_matPerspectiveProj);
+
+	pGraphicDev->SetTransform(D3DTS_VIEW, &m_matUIView);
+	pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matOrthoProj);
+
 	for (auto iter : m_RenderGroup[RENDER_UI])
 		iter->Render_Object();
+
+	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
+
+	pGraphicDev->SetTransform(D3DTS_VIEW, &m_matGameView);
+	pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matPerspectiveProj);
 }
 
 void CRenderer::Free()

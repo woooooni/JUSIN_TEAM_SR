@@ -17,13 +17,16 @@ public:
     virtual void Update_Regen(_float fTimeDelta) override;
     virtual void Update_Move(_float fTimeDelta) override;
     virtual void Update_Attack(_float fTimeDelta) override;
+
 public:
     virtual HRESULT Ready_Object(void)							override;
     virtual _int	Update_Object(const _float& fTimeDelta)		override;
     virtual void    Render_Object(void)                         override;
     virtual void	LateUpdate_Object(void)						override;
 
+private:
     HRESULT	Add_Component(void);
+
 public:
   static  CBlueBeatle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:

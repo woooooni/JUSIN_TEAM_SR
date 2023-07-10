@@ -16,7 +16,7 @@ class CImGuiMgr : public CBase
 
 public:
 	enum class TOOL_MODE { OBJECT, TERRAIN, MAP, MODE_END };
-	enum class OBJ_SELECTED { BLUE_BEATLE, DESERT_RHINO, TRASH_BIG, TILE };
+	enum class OBJ_SELECTED { BLUE_BEATLE, DESERT_RHINO, TRASH_BIG, TILE, TREE, SELECTED_END  };
 private:
 	explicit CImGuiMgr();
 	virtual ~CImGuiMgr();
@@ -29,10 +29,7 @@ public:
 public:
 	TOOL_MODE Get_CurrToolMode() { return m_eMode; }
 	void Set_ToolMode(TOOL_MODE _eMode) { m_eMode = _eMode; }
-
 	void SetToolScene(CScene_Tool* pToolScene) { m_pToolScene = pToolScene; }
-
-	void Set_Target(CGameObject* pGameObject) { m_pTargetObject = pGameObject; }
 
 public:
 	void OnOffImGui() { m_bEnabled = !m_bEnabled; }
@@ -40,6 +37,7 @@ public:
 
 
 private:
+	void Update_Help(const _float& fTimeDelta);
 	void Update_Inspector(const _float& fTimeDelta);
 	void Update_Hierachy(const _float& fTimeDelta);
 
@@ -48,8 +46,18 @@ private:
 	void UpdateMapTool(const _float& fTimeDelta);
 	void UpdateTileTool(const _float& fTimeDelta);
 
+private:
+	void ResetSelectTarget();
+	void PasteObj();
+
+
+private:
 	void CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit);
 	void DeleteObj();
+
+private:
+	void Input(const _float& fTimeDelta);
+	void ObjPicking();
 
 private:
 	_bool m_bEnabled;
@@ -66,6 +74,8 @@ private:
 	wstring		m_strObjNaming;
 	
 	OBJ_SELECTED m_eSelectedObjType;
+	_vec3 m_vObjScale;
+	_uint m_iObjNum;
 
 public:
 	virtual void Free() override;

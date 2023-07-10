@@ -26,6 +26,13 @@ public:
 private:
 	list<CGameObject*>			m_RenderGroup[RENDER_END];
 
+
+
+	_matrix	m_matOrthoProj;
+	_matrix m_matUIView;
+
+	_matrix m_matPerspectiveProj;
+	_matrix m_matGameView;
 private:
 	virtual void		Free();
 };

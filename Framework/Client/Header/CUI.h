@@ -1,15 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-BEGIN(Engine)
-
-class CRcTex;
-class CTransform;
-class CCollider;
-class CTexture;
-class CAnimator;
-
-END
 
 class CUI : public CGameObject
 {
@@ -30,8 +21,6 @@ protected:
 	_matrix		m_matProj;
 	_matrix		m_matView;
 
-public:
-	static CUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
 	virtual void Free() override;
