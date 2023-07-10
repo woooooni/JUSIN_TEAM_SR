@@ -29,6 +29,9 @@ HRESULT CTextBox::Ready_Object(void)
 	5. 타이핑 하듯 Text 출력
 	*/
 	
+	m_vecText.push_back({ L"" });
+	m_vecText.push_back({ L"오늘도 날씨가 따스하고 좋네\n이런 날은 놀러 나가야 하는데... " });
+
 
 	return S_OK;
 }
@@ -53,8 +56,8 @@ void CTextBox::LateUpdate_Object(void)
 
 void CTextBox::Render_Object(void)
 {
-	//if (m_bShown)
-	//{
+	if (m_bShown)
+	{
 		/*
 		switch (m_tInfo.eType)
 		{
@@ -79,12 +82,12 @@ void CTextBox::Render_Object(void)
 		RECT rcName = { -1 * (WINCX / 4) + 70, (WINCY / 4) - 50, 3 * (WINCX / 4), WINCY };
 
 		
-		TCHAR szNameBuf[128] = L"양 아줌마";
+		//TCHAR szNameBuf[128] = L"양 아줌마";
 		//CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
 		//	szNameBuf, lstrlen(szNameBuf), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 		//	D3DCOLOR_ARGB(100, 0, 0, 0));
 
-		//TCHAR szNameBuf[128] = L"소 아저씨";
+		TCHAR szNameBuf[128] = L"소 아저씨";
 		
 		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
 			szNameBuf, lstrlen(szNameBuf), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
@@ -92,7 +95,7 @@ void CTextBox::Render_Object(void)
 
 		// 대화창
 		RECT rc = { 0, WINCY / 2, WINCX, WINCY };
-			//GetClientRect(g_hWnd, &rc);
+		//GetClientRect(g_hWnd, &rc);
 		//TCHAR szBuf[256] = L"";
 		//swprintf_s(szBuf, L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~\n줄 바꿈 테스트");
 		
@@ -129,7 +132,7 @@ void CTextBox::Render_Object(void)
 		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
 			m_strCurrDesc.c_str(), m_strCurrDesc.size(), &rc,
 			DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-	//}
+	}
 }
 
 void CTextBox::Set_Type(TEXTTYPE eType)
@@ -144,7 +147,7 @@ void CTextBox::Next_Text()
 
 	if (m_vecText.size() - 1 == m_iIndex)
 	{
-
+		//
 	}
 	else
 		++m_iIndex;
@@ -152,30 +155,30 @@ void CTextBox::Next_Text()
 
 HRESULT CTextBox::Add_Component(void)
 {
-	switch (m_tInfo.eType)
-	{
-	case TEXTTYPE::COW:
-		m_vecText.push_back({ L"오늘도 날씨가 따스하고 좋네\n이런 날은 놀러 나가야 하는데..." });
-		break;
-
-	case TEXTTYPE::SHEEP:
-		m_vecText.push_back({ L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~" });
-		m_vecText.push_back({ L"조심히 놀다 오렴~" });
-		break;
-
-	case TEXTTYPE::PIG:
-		m_vecText.push_back({ L"어린아이라면 자고로 열심히 뛰고\n열심히 먹고 열심히 놀아야지." });
-		break;
-
-	case TEXTTYPE::DOOGEE:
-		m_vecText.push_back({ L"안녕, 아기 오구야, 어디 가 ?" });
-		m_vecText.push_back({ L"오늘도 모험을 떠나는 거니 ?" });
-		m_vecText.push_back({ L"몸조심하고 무슨 일 있으면 나를 부르도록 해!" });
-		break;
-
-	default:
-		break;
-	}
+//	switch (m_tInfo.eType)
+//	{
+//	case TEXTTYPE::COW:
+//		m_vecText.push_back({ L"오늘도 날씨가 따스하고 좋네\n이런 날은 놀러 나가야 하는데..." });
+//		break;
+//
+//	case TEXTTYPE::SHEEP:
+//		m_vecText.push_back({ L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~" });
+//		m_vecText.push_back({ L"조심히 놀다 오렴~" });
+//		break;
+//
+//	case TEXTTYPE::PIG:
+//		m_vecText.push_back({ L"어린아이라면 자고로 열심히 뛰고\n열심히 먹고 열심히 놀아야지." });
+//		break;
+//
+//	case TEXTTYPE::DOOGEE:
+//		m_vecText.push_back({ L"안녕, 아기 오구야, 어디 가 ?" });
+//		m_vecText.push_back({ L"오늘도 모험을 떠나는 거니 ?" });
+//		m_vecText.push_back({ L"몸조심하고 무슨 일 있으면 나를 부르도록 해!" });
+//		break;
+//
+//	default:
+//		break;
+//	}
 
 	return S_OK;
 }

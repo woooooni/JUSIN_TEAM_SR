@@ -92,9 +92,53 @@ void CIcon::Render_Object(void)
 		vScale = _vec3(fWidth * fRatio * 0.9, fHeight * fRatio, 0.f);
 		break;
 
+	case ICONTYPE::KEYBUTTON_1:
+		vPos = { (WINCX / WINCX - 1.8f) * (1 / m_matProj._11) ,
+				 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
+		m_pTransformCom->Set_Pos(&vPos);
+
+		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+		fRatio = _float(WINCY) / _float(WINCX);
+		vScale = _vec3(fWidth * fRatio * 0.4f, fHeight * fRatio * 0.4f, 0.f);
+		break;
+
+	case ICONTYPE::KEYBUTTON_2:
+		vPos = { (WINCX / WINCX - 1.68f) * (1 / m_matProj._11) ,
+				 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
+		m_pTransformCom->Set_Pos(&vPos);
+
+		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+		fRatio = _float(WINCY) / _float(WINCX);
+		vScale = _vec3(fWidth * fRatio * 0.4f, fHeight * fRatio * 0.4f, 0.f);
+		break;
+
+	case ICONTYPE::KEYBUTTON_3:
+		vPos = { (WINCX / WINCX - 1.56f) * (1 / m_matProj._11) ,
+				 ((-1 * WINCY) / WINCY + 1.8f)* (1 / m_matProj._22), 0.f };
+		m_pTransformCom->Set_Pos(&vPos);
+
+		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+		fRatio = _float(WINCY) / _float(WINCX);
+		vScale = _vec3(fWidth * fRatio * 0.4f, fHeight * fRatio * 0.4f, 0.f);
+		break;
+
+	case ICONTYPE::KEYBUTTON_4:
+		vPos = { (WINCX / WINCX - 1.44f) * (1 / m_matProj._11) ,
+				 ((-1 * WINCY) / WINCY + 1.8f)* (1 / m_matProj._22), 0.f };
+		m_pTransformCom->Set_Pos(&vPos);
+
+		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+		fRatio = _float(WINCY) / _float(WINCX);
+		vScale = _vec3(fWidth * fRatio * 0.4f, fHeight * fRatio * 0.4f, 0.f);
+		break;
+
 		// ETC.
-	case ICONTYPE::KEYBUTTON:
-		vPos = { (WINCX / WINCX - 1.353f) * (1 / m_matProj._11) ,
+	case ICONTYPE::KEYBUTTON_L:
+		vPos = { (WINCX / WINCX - 1.34f) * (1 / m_matProj._11) , // - 1.353f
 				 ((-1 * WINCY) / WINCY + 1.88f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
@@ -181,8 +225,36 @@ HRESULT CIcon::Add_Component(void)
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 		break;
 
-	case ICONTYPE::KEYBUTTON:
-		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_KeyButton"));
+	case ICONTYPE::KEYBUTTON_L:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_KeyButton_L"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		pComponent->SetOwner(this);
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+		break;
+
+	case ICONTYPE::KEYBUTTON_1:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_KeyButton_1"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		pComponent->SetOwner(this);
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+		break;
+
+	case ICONTYPE::KEYBUTTON_2:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_KeyButton_2"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		pComponent->SetOwner(this);
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+		break;
+
+	case ICONTYPE::KEYBUTTON_3:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_KeyButton_3"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		pComponent->SetOwner(this);
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+		break;
+
+	case ICONTYPE::KEYBUTTON_4:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_KeyButton_4"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);

@@ -258,9 +258,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pTextBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
 
-//	CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::COW);
-//	NULL_CHECK_RETURN(pText, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Text", pText), E_FAIL);
+	CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::COW);
+	NULL_CHECK_RETURN(pText, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Text", pText), E_FAIL);
 
 	CIcon* pIconHeart = CIcon::Create(m_pGraphicDev, ICONTYPE::HEART);
 	NULL_CHECK_RETURN(pIconHeart, E_FAIL);
@@ -294,9 +294,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pTotem_Max, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Max", pTotem_Max), E_FAIL);
 
-	CIcon* pIconKeyButton = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON);
+	CIcon* pIconKeyButton = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_L);
 	NULL_CHECK_RETURN(pIconKeyButton, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton", pIconKeyButton), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_L", pIconKeyButton), E_FAIL);
 
 	CQuickSlot* pQuickSlot1 = CQuickSlot::Create(m_pGraphicDev, SLOTNUM::SLOT_ONE);
 	NULL_CHECK_RETURN(pQuickSlot1, E_FAIL);
@@ -313,6 +313,22 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CQuickSlot* pQuickSlot4 = CQuickSlot::Create(m_pGraphicDev, SLOTNUM::SLOT_FOUR);
 	NULL_CHECK_RETURN(pQuickSlot4, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot_Fourth", pQuickSlot4), E_FAIL);
+
+	CIcon* pIconKeyButton1 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_1);
+	NULL_CHECK_RETURN(pIconKeyButton1, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_1", pIconKeyButton1), E_FAIL);
+
+	CIcon* pIconKeyButton2 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_2);
+	NULL_CHECK_RETURN(pIconKeyButton2, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_2", pIconKeyButton2), E_FAIL);
+
+	CIcon* pIconKeyButton3 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_3);
+	NULL_CHECK_RETURN(pIconKeyButton3, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_3", pIconKeyButton3), E_FAIL);
+
+	CIcon* pIconKeyButton4 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_4);
+	NULL_CHECK_RETURN(pIconKeyButton4, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_4", pIconKeyButton4), E_FAIL);
 
 	CUI_ShortCutKey* pKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pKeyInfo, E_FAIL);
