@@ -32,6 +32,7 @@ public:
 
 protected:
 	_bool		m_bHitted;
+	_uint		m_iExplodeEvent;
 	_float		m_fExplodeTime;
 	CTexture* m_pBlurTex;
 

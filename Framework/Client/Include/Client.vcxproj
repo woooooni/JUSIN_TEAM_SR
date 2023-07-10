@@ -222,6 +222,7 @@
     <ClInclude Include="..\Header\Item_Hat.h" />
     <ClInclude Include="..\Header\Item_Hat_Monkey.h" />
     <ClInclude Include="..\Header\JellyBomb.h" />
+    <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
@@ -331,6 +332,7 @@
     <ClCompile Include="..\Code\Item_Hat.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Monkey.cpp" />
     <ClCompile Include="..\Code\JellyBomb.cpp" />
+    <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />

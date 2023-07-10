@@ -2,14 +2,14 @@
 #include    "Export_Function.h"
 #include    "Player.h"
 
-CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f)
+CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0)
 {
     m_tInfo.m_bIsAttackable = true;
     m_tInfo.m_bIsGrabbable = true;
     m_tInfo.m_bIsPushable = true;
 }
 
-CJellyBomb::CJellyBomb(const CJellyBomb& rhs) : CFieldObject(rhs), m_pBlurTex(rhs.m_pBlurTex), m_bHitted(rhs.m_bHitted), m_fExplodeTime(rhs.m_fExplodeTime)
+CJellyBomb::CJellyBomb(const CJellyBomb& rhs) : CFieldObject(rhs), m_pBlurTex(rhs.m_pBlurTex), m_bHitted(rhs.m_bHitted), m_fExplodeTime(rhs.m_fExplodeTime), m_iExplodeEvent(rhs.m_iExplodeEvent)
 {
 }
 
@@ -105,7 +105,6 @@ CJellyBomb* CJellyBomb::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
         return nullptr;
     }
 
-    Add_Subscribe(p_EventNum, ret);
     ret->m_pTransformCom->Set_Pos(&p_Pos);
 
     return ret;
