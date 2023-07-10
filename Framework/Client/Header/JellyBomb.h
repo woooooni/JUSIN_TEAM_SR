@@ -30,5 +30,10 @@ public:
 public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
+protected:
+	_bool		m_bHitted;
+	_float		m_fExplodeTime;
+	CTexture* m_pBlurTex;
+
 };
 

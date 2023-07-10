@@ -173,6 +173,20 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	pBal->Set_AutoReset();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
 
+	pBal = CBalpanObj::Create(m_pGraphicDev, 5, { 10, 1, 3 });
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+	pBal->Set_TargName(L"Jelly");
+	pBal->Set_Static();
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
+
+	CLightFlower* pLF = CLightFlower::Create(m_pGraphicDev, pBal, 0, { 10, 1, 5 });
+	NULL_CHECK_RETURN(pLF, E_FAIL);
+	pLF->Add_Subscribe(5);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightFlower", pLF), E_FAIL);
+
+
+	
+
 
 	CHitObj* pHit = CHitObj::Create(m_pGraphicDev, 0, { 17, 1, 17 });
 	NULL_CHECK_RETURN(pHit, E_FAIL);
@@ -255,6 +269,17 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pLPiece, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
 
+	CTurret* pTurret = CTurret::Create(m_pGraphicDev, 0, { 0, 1, 2 });
+	NULL_CHECK_RETURN(pTurret, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Turret", pTurret), E_FAIL);
+
+	CButterFly* pBut = CButterFly::Create(m_pGraphicDev, 0, { 20, 1, 20 });
+	NULL_CHECK_RETURN(pBut, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ButterFly", pBut), E_FAIL);
+
+	CJellyBomb* pJelBomb = CJellyBomb::Create(m_pGraphicDev, 0, { 5, 1, 3 });
+	NULL_CHECK_RETURN(pJelBomb, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb", pJelBomb), E_FAIL);
 
 
 

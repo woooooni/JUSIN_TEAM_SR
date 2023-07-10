@@ -37,7 +37,7 @@ protected:
 	_uint	m_iEventNum = 0;
 	_uint	m_iFollowingEvent = 0;
 	bool    m_bIsBlocking = false;
-
+	_vec3	m_vBlockPos;
 
 	void		Change_State();
 

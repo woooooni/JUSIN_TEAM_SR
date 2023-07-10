@@ -100,6 +100,11 @@ void CJellyCombined::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCol
 
 void CJellyCombined::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER)
+		return;
+
+
+	Push_Me(pCollider);
 }
 
 void CJellyCombined::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
@@ -163,7 +168,7 @@ CGameObject* CJellyCombined::Get_GrabObj()
 	auto tmp = find_if(src.begin(), src.end(), [&](auto A)->bool
 		{
 			CJellyStone* src;
-			return ((src = dynamic_cast<CJellyStone*>(A)) && (src->Get_JellyColor() == (m_eColor - dynamic_cast<CJellyStone*>(*iter)->Get_JellyColor())) && !src->Is_Active())
+			return ((src = dynamic_cast<CJellyStone*>(A)) && ((_uint)src->Get_JellyColor() == ((_uint)m_eColor - (_uint)dynamic_cast<CJellyStone*>(*iter)->Get_JellyColor())) && !src->Is_Active());
 		});
 
 	_vec3	dst;

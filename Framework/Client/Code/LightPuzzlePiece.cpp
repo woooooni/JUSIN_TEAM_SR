@@ -39,6 +39,7 @@ _int CLightPuzzlePiece::Update_Object(const _float& fTimeDelta)
 
 void CLightPuzzlePiece::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CLightPuzzlePiece::Render_Object(void)
@@ -46,9 +47,7 @@ void CLightPuzzlePiece::Render_Object(void)
 	_matrix world = *(m_pTransformCom->Get_WorldMatrix());
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, &world);
 	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 	world._42 += 0.05f;
 
 
@@ -65,8 +64,18 @@ void CLightPuzzlePiece::Render_Object(void)
 
 }
 
+void CLightPuzzlePiece::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER)
+		return;
+
+	Push_Me(pCollider);
+
+}
+
 void CLightPuzzlePiece::Free()
 {
+	__super::Free();
 }
 
 CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos, const _tchar* p_FirstName)

@@ -49,6 +49,7 @@ _int CPushStone::Update_Object(const _float& fTimeDelta)
 
 void CPushStone::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CPushStone::Render_Object(void)
@@ -61,7 +62,7 @@ void CPushStone::Render_Object(void)
 
 	m_pBufferCom->Render_Buffer();
 
-	__super::Render_Object();
+	m_pColliderCom->Render_Component();
 }
 
 
@@ -95,6 +96,11 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 
 void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER)
+		return;
+
+	if(!m_bIsFlying)
+		Push_Me(pCollider);
 	m_pColliderCom->Update_Component(0.f);
 }
 

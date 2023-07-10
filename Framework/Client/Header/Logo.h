@@ -32,6 +32,10 @@
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"
 #include "LightPuzzlePiece.h"
+#include	"LightFlower.h"
+#include	"Turret.h"
+#include	"ButterFly.h"
+#include	"JellyBomb.h"
 
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"
