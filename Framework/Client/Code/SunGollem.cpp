@@ -360,6 +360,11 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 
 void CSunGollem::Update_Die(_float fTimeDelta)
 {
+	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
+	{
+		if ((*iter)->Is_Active())
+			(*iter)->Set_Active(false);
+	}
 	Set_Active(false);
 }
 

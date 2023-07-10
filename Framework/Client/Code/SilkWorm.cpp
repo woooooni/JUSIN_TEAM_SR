@@ -111,12 +111,23 @@ void CSilkWorm::Update_Idle(_float fTimeDelta)
 			Set_State(SILKWORM_STATE::READY);
 		m_fMoveTime = 0.f;
 	}
-
+	
 	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CSilkWorm::Update_Die(_float fTimeDelta)
 {
+	m_fMoveTime += 10.f * fTimeDelta;
+	if (m_fMoveTime > 30.f)
+	{
+		if (Is_Active())
+			Set_Active(false);
+	}
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+	{
+		m_pAnimator->GetCurrAnimation()->Set_Idx(1);
+	}
+	
 
 }
 
@@ -324,6 +335,9 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 			m_iHit++;
 			m_tStat.iHp -= 1;
 			if (m_tStat.iHp < 1.f)
+			{
+				m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", true);
 				Set_State(SILKWORM_STATE::DIE);
+			}
 		}
 }
