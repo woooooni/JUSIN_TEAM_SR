@@ -254,6 +254,7 @@ void CMothMage::Trace(_float fTimeDelta)
 			BulletPos.z -= 0.01f;
 			pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 			pBugBall->Set_Dir(vDir);
+			pBugBall->Set_Shooter(this);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"BugBall", pBugBall);
 			Set_State(MONSTER_STATE::IDLE);
@@ -271,24 +272,40 @@ void CMothMage::Trace(_float fTimeDelta)
 }
 void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-		if (Get_State() == MONSTER_STATE::DIE)
+	if (Get_State() == MONSTER_STATE::DIE)
 		return;
-		
 
-		if(_eCollisionGroup==COLLISION_GROUP::COLLIDE_SWING  &&pCollider->GetOwner()->GetObj_Type()==OBJ_TYPE::OBJ_PLAYER)
-		{
-			m_tStat.iHp -= 1;
-			_vec3 vTargetPos;
-			_vec3 vPos;
-			_vec3 vDir;
-			pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-			m_pTransformCom->Get_Info(INFO_POS, &vPos);
-			vDir = vPos - vTargetPos;
-			vDir.y = 0.0f;
-			D3DXVec3Normalize(&vDir, &vDir);
 
-			m_pRigidBodyCom ->AddForce(vDir * 80.0f);
-			if (m_tStat.iHp < 1.f)
-				Set_State(MONSTER_STATE::DIE);
-		}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		m_tStat.iHp -= 1;
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = vPos - vTargetPos;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		m_pRigidBodyCom->AddForce(vDir * 80.0f);
+		if (m_tStat.iHp < 1.f)
+			Set_State(MONSTER_STATE::DIE);
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		m_tStat.iHp -= 1;
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = vPos - vTargetPos;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		m_pRigidBodyCom->AddForce(vDir * 30.0f);
+		if (m_tStat.iHp < 1.f)
+			Set_State(MONSTER_STATE::DIE);
+	}
 }

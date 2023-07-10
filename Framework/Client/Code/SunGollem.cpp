@@ -506,7 +506,7 @@ void CSunGollem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 	{
 		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
 		{
-			m_tStat.iHp -= 1.f;
+			m_tStat.iHp -= 1;
 			//MSG_BOX("보스 피격");
 		}
 	}

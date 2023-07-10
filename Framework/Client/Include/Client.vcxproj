@@ -259,6 +259,7 @@
     <ClInclude Include="..\Header\PushStone.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Scene_Tool.h" />
+    <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SpitCactus.h" />
     <ClInclude Include="..\Header\Stage.h" />
@@ -358,6 +359,7 @@
     <ClCompile Include="..\Code\PushStone.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Scene_Tool.cpp" />
+    <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SpitCactus.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />

@@ -175,8 +175,8 @@ void CSpitCactus::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		vDir = vPos - vTargetPos;
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
-		m_tStat.iHp -= 1.f;
-		if (m_tStat.iHp < 1.f)
+		m_tStat.iHp -= 1;
+		if (m_tStat.iHp < 1)
 			Set_State(MONSTER_STATE::DIE);
 	}
 }

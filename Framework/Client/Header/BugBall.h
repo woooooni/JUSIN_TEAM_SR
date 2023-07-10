@@ -20,7 +20,7 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
-protected:
+private:
 	HRESULT	Add_Component(void);
 
 
@@ -31,15 +31,20 @@ public:
 	_bool Is_Poison() { return m_bPoison; }
 	void Set_Dir(_vec3 _Dir) { m_vDir = _Dir; }
 	static CBugBall* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void Set_Shooter(CGameObject* _pShooter) { if (m_pShooter == _pShooter) return; m_pShooter = _pShooter; }
+	CGameObject*  Get_Shooter() { return  m_pShooter; }
 
 private:
 	OBJ_DIR m_eDir;
 	_vec3 m_vDir;
 	_bool	m_bPoison = false;
-
-protected:
+	CGameObject* m_pShooter;
+	
+private:
 	_float m_fMoveTime=20.f;
-protected:
+private:
 	virtual void Free() override;
+
+	void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 
 };

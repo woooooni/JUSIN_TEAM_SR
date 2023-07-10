@@ -238,11 +238,14 @@
     <Filter Include="02. GameObject\02. Monster\04. MothMage">
       <UniqueIdentifier>{79633507-c75a-49a6-87db-817e83cbdc1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\04. MothMage\Orb">
-      <UniqueIdentifier>{99ce2f59-473e-48da-9820-d937415a7e56}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\02. Monster\04. MothMage\BugBall">
       <UniqueIdentifier>{b5e637f9-0223-4c76-aeca-fcf98f0f070b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\01. SilkWorm">
+      <UniqueIdentifier>{649b6e3d-43ab-4e96-9a86-16bc76e0464e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\04. MothMage\Orb">
+      <UniqueIdentifier>{99ce2f59-473e-48da-9820-d937415a7e56}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -511,6 +514,9 @@
     <ClInclude Include="..\Header\BugBall.h">
       <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\SilkWorm.h">
+      <Filter>02. GameObject\10. Boss\01. SilkWorm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -761,6 +767,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\BugBall.cpp">
       <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SilkWorm.cpp">
+      <Filter>02. GameObject\10. Boss\01. SilkWorm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

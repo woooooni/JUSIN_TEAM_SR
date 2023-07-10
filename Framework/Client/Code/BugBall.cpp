@@ -23,8 +23,8 @@ HRESULT CBugBall::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"BugBall", true);
 	m_vDir = { 1,0,0 };
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 1.f, 1.f, 1.f }); 
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.2f, 0.2f, 0.2f });
+	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.5f, 0.5f, 0.5f });
 
 	return S_OK;
 }
@@ -33,7 +33,7 @@ _int CBugBall::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
 		m_pAnimator->Play_Animation(L"BugBall", true);
 
 	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 5.f);
@@ -113,4 +113,33 @@ CBugBall* CBugBall::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CBugBall::Free()
 {
 	__super::Free();
+}
+void CBugBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+
+
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	{
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = vPos - vTargetPos;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+		Set_Shooter(pCollider->GetOwner());
+		m_vDir = vDir;
+
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	{
+		if (Is_Active())
+			Set_Active(false);
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		if (Is_Active())
+			Set_Active(false);
+	}
 }
