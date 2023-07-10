@@ -17,6 +17,7 @@ public:
 	HRESULT			Add_GameObject(const wstring& _strObjName, CGameObject* pGameObject);
 	CGameObject*	Find_GameObject(const wstring& _strObjName);
 	vector<CGameObject*>& Get_GameObjectVec() { return m_vecObject; }
+
 public:
 	HRESULT			Ready_Layer();
 	_int			Update_Layer(const _float& fTimeDelta);
@@ -25,9 +26,10 @@ public:
 private:
 	vector<CGameObject*> m_vecObject;
 	vector<CGameObject*> m_vecReserveObj;
+
 public:
 	static		CLayer*		Create();
-	virtual		void		Free();
+	virtual		void		Free() override;
 };
 
 END

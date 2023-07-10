@@ -238,6 +238,18 @@
     <Filter Include="02. GameObject\04. UI\05. AdventureBook\01. Pages">
       <UniqueIdentifier>{b523e7fc-8d1b-4c14-aa22-a2ae5525fdde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. FixedObj">
+      <UniqueIdentifier>{1400c409-cd37-4da9-a362-ff8aeda2b8c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\00. Tree">
+      <UniqueIdentifier>{62005b34-123e-4894-a14d-170910e8b36e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\01. House">
+      <UniqueIdentifier>{3f579f9d-b300-4702-a470-1987ee2e9a74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\02. Forest">
+      <UniqueIdentifier>{bc2b82f2-2feb-4d9a-9296-a8b7a979f2c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -514,6 +526,15 @@
     <ClInclude Include="..\Header\UI_AdventureBook.h">
       <Filter>02. GameObject\04. UI\05. AdventureBook</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\FixedObj.h">
+      <Filter>02. GameObject\13. FixedObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Tree.h">
+      <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\House.h">
+      <Filter>02. GameObject\13. FixedObj\01. House</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -775,6 +796,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <Filter>01. Scene\99. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FixedObj.cpp">
+      <Filter>02. GameObject\13. FixedObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Tree.cpp">
+      <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\House.cpp">
+      <Filter>02. GameObject\13. FixedObj\01. House</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -39,6 +39,7 @@ _int CLayer::Update_Layer(const _float & fTimeDelta)
 
 	for (auto iter : m_vecReserveObj)
 		m_vecObject.push_back(iter);
+
 	m_vecReserveObj.clear();
 
 	for (auto& iter : m_vecObject)

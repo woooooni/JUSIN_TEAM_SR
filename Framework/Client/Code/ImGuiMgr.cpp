@@ -9,6 +9,8 @@
 #include "DesertRhino.h"
 #include "TrashBig.h"
 #include "Tile.h"
+#include "Tree.h"
+
 IMPLEMENT_SINGLETON(CImGuiMgr)
 CImGuiMgr::CImGuiMgr()
 	: m_bEnabled(true)
@@ -138,11 +140,6 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 	{
 		if (m_pSelectedObject != nullptr)
 		{
-			CBoxCollider* pBoxCol = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
-
-			if (pBoxCol != nullptr)
-				pBoxCol->Set_Scale(m_vObjScale);
-
 			CGameObject* pTerrain = Engine::Get_Layer(LAYER_TYPE::TERRAIN)->Find_GameObject(L"Terrain");
 
 			if (pTerrain == nullptr)
@@ -175,7 +172,7 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 				}
 			}
 
-			m_pSelectedObject->Update_Object(fTimeDelta);
+			m_pSelectedObject->Update_Object(0.f);
 			m_pSelectedObject->LateUpdate_Object();
 			m_pSelectedObject->Render_Object();
 		}
@@ -284,6 +281,10 @@ void CImGuiMgr::ResetSelectTarget()
 	m_pTargetObject = nullptr;
 }
 
+void CImGuiMgr::PasteObj()
+{
+}
+
 void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 {
 	CGameObject* pCloneObj = nullptr;
@@ -296,26 +297,34 @@ void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 	{
 	case OBJ_SELECTED::BLUE_BEATLE :
 		pCloneObj = CBlueBeatle::Create(m_pGraphicDev);
-		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(m_strObjNaming + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"Monster" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
 	case OBJ_SELECTED::DESERT_RHINO:
 		pCloneObj = CDesertRhino::Create(m_pGraphicDev);
-		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(m_strObjNaming + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"Monster" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
 	case OBJ_SELECTED::TRASH_BIG:
 		pCloneObj = CTrashBig::Create(m_pGraphicDev);
-		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(m_strObjNaming + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"Monster" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
 	case OBJ_SELECTED::TILE:
 		pCloneObj = CTile::Create(m_pGraphicDev);
 		pCloneObj->Get_TransformCom()->Set_Scale(m_vObjScale);
 		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
-		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(m_strObjNaming + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Tile_" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_SELECTED::TREE:
+		pCloneObj = CTree::Create(m_pGraphicDev);
+		pCloneObj->Get_TransformCom()->Set_Scale(m_vObjScale);
+		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Tree_" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 	}
+
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
@@ -411,7 +420,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
 		}
 
-		if (KEY_TAP(KEY::O))
+		if (KEY_HOLD(KEY::O))
 		{
 			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
@@ -422,7 +431,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
 		}
 
-		if (KEY_TAP(KEY::P))
+		if (KEY_HOLD(KEY::P))
 		{
 			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
@@ -466,12 +475,12 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::F))
 		{
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
-			vScale.z *= -1.f;
+			vScale.x *= -1.f;
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
 		}
 
 
-		if (KEY_TAP(KEY::O))
+		if (KEY_HOLD(KEY::O))
 		{
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
@@ -480,9 +489,13 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			vScale.z += 1.f;
 
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+
+			CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
+			if(nullptr != pCollider)
+				pCollider->Set_Scale(vScale);
 		}
 
-		if (KEY_TAP(KEY::P))
+		if (KEY_HOLD(KEY::P))
 		{
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
@@ -498,9 +511,28 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 				vScale.z = 1.f;
 
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+
+			CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
+			if (nullptr != pCollider)
+				pCollider->Set_Scale(vScale);
 		}
 	}
 
+	if (KEY_TAP(KEY::F1))
+	{
+		if (CAMERA_STATE::GAME == m_pToolScene->Get_MainCamera()->Get_CameraState())
+		{
+			m_pToolScene->Get_MainCamera()->Set_TargetObj(nullptr);
+			m_pToolScene->Get_MainCamera()->Set_CameraState(CAMERA_STATE::TOOL);
+			ResetSelectTarget();
+		}
+		else
+		{
+			m_pToolScene->Get_MainCamera()->Set_TargetObj((CGameObject*)m_pToolScene->Get_Player());
+			m_pToolScene->Get_MainCamera()->Set_CameraState(CAMERA_STATE::GAME);
+			ResetSelectTarget();
+		}
+	}
 
 	
 	_long		dwMouseMove = 0;
@@ -569,6 +601,7 @@ void CImGuiMgr::Update_Help(const _float& fTimeDelta)
 	ImGui::Text(u8"S : 뒤");
 	ImGui::SameLine();
 	ImGui::Text(u8"D : 우");
+	ImGui::Text(u8"O, P : 확대 / 축소");
 
 	ImGui::Text("");
 	ImGui::Text("");
@@ -624,15 +657,26 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			ImGui::Text("Scale");
 			ImGui::Text("x\t\t\ty\t\t\tz");
 
-			ImGui::DragFloat3("##ObjScale", fScale, 0.1f, 1.f);
+			ImGui::DragFloat3("##ObjScale", fScale, 0.1f, 1.f, 100.f);
 
 			vPos.x = fPos[0];
 			vPos.y = fPos[1];
 			vPos.z = fPos[2];
 
+
+
 			vScale.x = fScale[0];
 			vScale.y = fScale[1];
 			vScale.z = fScale[2];
+
+			if (vScale.x < 0.1f)
+				vScale.x = 1.f;
+
+			if (vScale.y < 0.1f)
+				vScale.y = 1.f;
+
+			if (vScale.z < 0.1f)
+				vScale.z = 1.f;
 
 			pTargetTransform->Set_Info(INFO_POS, &vPos);
 			pTargetTransform->Set_Scale(vScale);

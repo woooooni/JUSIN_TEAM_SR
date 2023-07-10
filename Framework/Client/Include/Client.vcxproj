@@ -197,6 +197,7 @@
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\FixedObj.h" />
     <ClInclude Include="..\Header\GolemFace.h" />
     <ClInclude Include="..\Header\GolemFist.h" />
     <ClInclude Include="..\Header\GolemHead.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="..\Header\GolemUpperJaw.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
     <ClInclude Include="..\Header\HitObj.h" />
+    <ClInclude Include="..\Header\House.h" />
     <ClInclude Include="..\Header\Icon.h" />
     <ClInclude Include="..\Header\ImGuiMgr.h" />
     <ClInclude Include="..\Header\Item.h" />
@@ -264,6 +266,7 @@
     <ClInclude Include="..\Header\Tile.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
     <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\Tree.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
     <ClInclude Include="..\Header\UI_Pages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
@@ -294,6 +297,7 @@
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\FixedObj.cpp" />
     <ClCompile Include="..\Code\GolemFace.cpp" />
     <ClCompile Include="..\Code\GolemFist.cpp" />
     <ClCompile Include="..\Code\GolemHead.cpp" />
@@ -307,6 +311,7 @@
     <ClCompile Include="..\Code\GolemUpperJaw.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
     <ClCompile Include="..\Code\HitObj.cpp" />
+    <ClCompile Include="..\Code\House.cpp" />
     <ClCompile Include="..\Code\Icon.cpp" />
     <ClCompile Include="..\Code\ImGuiMgr.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
@@ -359,6 +364,7 @@
     <ClCompile Include="..\Code\Text.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Code\Tree.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
     <ClCompile Include="..\Code\UI_Pages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />

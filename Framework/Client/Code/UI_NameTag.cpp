@@ -43,7 +43,7 @@ HRESULT CUI_NameTag::Ready_Object(void)
 
 _int CUI_NameTag::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	__super::Update_Object(fTimeDelta);
 
@@ -57,14 +57,7 @@ void CUI_NameTag::LateUpdate_Object(void)
 
 void CUI_NameTag::Render_Object(void)
 {
-	_matrix matPreView, matPreProj;
-
-	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-
-	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) ,
-		((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
-
+	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
 	m_pTransformCom->Set_Pos(&vPos);
 
 	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -75,14 +68,9 @@ void CUI_NameTag::Render_Object(void)
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 	m_pTextureCom->Render_Texture(0);
 	m_pBufferCom->Render_Buffer();
-
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
 	__super::Render_Object();
 }

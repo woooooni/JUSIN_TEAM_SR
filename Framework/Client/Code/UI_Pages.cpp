@@ -51,7 +51,7 @@ HRESULT CUI_Pages::Ready_Object(void)
 
 _int CUI_Pages::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	__super::Update_Object(fTimeDelta);
 
@@ -64,41 +64,24 @@ void CUI_Pages::LateUpdate_Object(void)
 
 void CUI_Pages::Render_Object(void)
 {
-	
-	// 없어도 되는 부분인데.. 없애면 애니메이션이 이상해짐 ^-^..
-	_matrix matPreView, matPreProj;
-
-	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-
-	_vec3 vPos = { ((WINCX) * (1 / m_matProj._11)),
-				  ((WINCY) * (1 / m_matProj._22)), 0.f };
-	
-	m_pTransformCom->Set_Pos(&vPos);
-
 	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+
+	// WINCX / 2 -> pos.x
+	// WINCY / 2 -> pos.y
+
+	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
+	m_pTransformCom->Set_Pos(&vPos);
 
 	_float fRatio = _float(WINCY) / _float(WINCX);
 	_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-	/////////////////////////////////////
-
-
-	m_pAnimator->Render_Component();
-	m_pBufferCom->Render_Buffer();
-
-
-	/////////////////////////////////////
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
-	/// /////////////////////////////////
 
 	__super::Render_Object();
+	m_pBufferCom->Render_Buffer();
+
 }
 
 

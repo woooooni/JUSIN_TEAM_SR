@@ -21,8 +21,6 @@ protected:
 	_matrix		m_matProj;
 	_matrix		m_matView;
 
-public:
-	static CUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
 	virtual void Free() override;

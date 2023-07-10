@@ -6,6 +6,8 @@
 #include "Camera.h"
 #include "CameraMgr.h"
 #include "ImGuiMgr.h"
+#include "UI_Pages.h"
+#include "Tree.h"
 
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -47,12 +49,7 @@ Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 	for (auto& iter : m_mapLayer)
 	{
 		if (iter.first == LAYER_TYPE::MONSTER)
-		{
-			for (_uint i = 0; i < iter.second->Get_GameObjectVec().size(); ++i)
-				iter.second->Get_GameObjectVec()[i]->Set_Billboard();
-
 			iResult = iter.second->Update_Layer(0.f);
-		}
 		else
 			iResult = iter.second->Update_Layer(fTimeDelta);
 
@@ -315,11 +312,13 @@ HRESULT CScene_Tool::Ready_Layer(LAYER_TYPE _eType)
 	Engine::CLayer* pLayerPlayer = m_mapLayer.find(LAYER_TYPE::PLAYER)->second;
 	Engine::CLayer* pLayerEnv = m_mapLayer.find(LAYER_TYPE::ENVIRONMENT)->second;
 	Engine::CLayer* pLayerTerrain = m_mapLayer.find(LAYER_TYPE::TERRAIN)->second;
+	Engine::CLayer* pLayerUI = m_mapLayer.find(LAYER_TYPE::UI)->second;
 
 	NULL_CHECK_RETURN(pLayerCamera, E_FAIL);
 	NULL_CHECK_RETURN(pLayerPlayer, E_FAIL);
 	NULL_CHECK_RETURN(pLayerEnv, E_FAIL);
 	NULL_CHECK_RETURN(pLayerTerrain, E_FAIL);
+	NULL_CHECK_RETURN(pLayerUI, E_FAIL);
 
 	Engine::CGameObject* pGameObject = nullptr;
 
@@ -340,8 +339,10 @@ HRESULT CScene_Tool::Ready_Layer(LAYER_TYPE _eType)
 	FAILED_CHECK_RETURN(pLayerCamera->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 	m_pCamera = pCamera;
 
+	CTree* pTree = CTree::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTree, E_FAIL);
+	FAILED_CHECK_RETURN(pLayerEnv->Add_GameObject(L"Tree", pTree), E_FAIL);
 
-	CImGuiMgr::GetInstance()->Set_Target(pPlayer);
 	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 	pCamera->Set_TargetObj(pPlayer);
 

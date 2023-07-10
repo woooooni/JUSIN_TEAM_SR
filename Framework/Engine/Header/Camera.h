@@ -68,10 +68,8 @@ public:
 	void		Check_FadeOut();
 
 	void		Set_CameraState(CAMERA_STATE _eState) { m_eState = _eState; if (_eState == CAMERA_STATE::TOOL) m_fMoveSpeed = 30.f; }
+	CAMERA_STATE Get_CameraState() { return m_eState; }
 
-	//private:
-	//	void		CustomLookAtLH(_matrix* pOut, const _vec3* pEye, const _vec3* pAt, const _vec3* pUp);
-	//	void		CustomPerspectiveLH(_matrix* pOut, const _float _fov, const _float _fAspect, const _float _fNear, const _float _fFar);
 
 private:
 	_matrix		m_matView;
