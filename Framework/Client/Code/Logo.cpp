@@ -173,6 +173,20 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	pBal->Set_AutoReset();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
 
+	pBal = CBalpanObj::Create(m_pGraphicDev, 5, { 10, 1, 3 });
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+	pBal->Set_TargName(L"Jelly");
+	pBal->Set_Static();
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
+
+	CLightFlower* pLF = CLightFlower::Create(m_pGraphicDev, pBal, 0, { 10, 1, 5 });
+	NULL_CHECK_RETURN(pLF, E_FAIL);
+	pLF->Add_Subscribe(5);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightFlower", pLF), E_FAIL);
+
+
+	
+
 
 	CHitObj* pHit = CHitObj::Create(m_pGraphicDev, 0, { 17, 1, 17 });
 	NULL_CHECK_RETURN(pHit, E_FAIL);

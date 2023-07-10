@@ -14,6 +14,7 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+
 	virtual void    Free() override;
 
 	static			CLightPuzzleBase* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 }, const _tchar* p_Type = L"Base");

@@ -33,6 +33,10 @@ public:
 protected:
 	CGameObject* m_pThrowingStone;
 	_vec3		m_vStonePos;
+	CTexture* m_pRevTexture;
+	_vec3		m_vCenterPos;
+	_float		m_fThrowAngle;
+	_bool		m_bIsThrowing;
 
 	void			Throw_Stone();
 

@@ -39,6 +39,7 @@ _int CLightPuzzlePiece::Update_Object(const _float& fTimeDelta)
 
 void CLightPuzzlePiece::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CLightPuzzlePiece::Render_Object(void)
@@ -65,8 +66,18 @@ void CLightPuzzlePiece::Render_Object(void)
 
 }
 
+void CLightPuzzlePiece::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER)
+		return;
+
+	Push_Me(pCollider);
+
+}
+
 void CLightPuzzlePiece::Free()
 {
+	__super::Free();
 }
 
 CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos, const _tchar* p_FirstName)

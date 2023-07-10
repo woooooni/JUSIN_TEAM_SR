@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 
-CBlockObj::CBlockObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_iEventNum(0), m_bIsBlocking(false), m_iFollowingEvent(0)
+CBlockObj::CBlockObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_iEventNum(0), m_bIsBlocking(false), m_iFollowingEvent(0), m_vBlockPos(0, 0.5f, -0.4f)
 {
 }
 
@@ -23,6 +23,7 @@ HRESULT CBlockObj::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Block_Idle", L"Proto_Tex_Block_Block_Idle", 0.1f);
 	m_pAnimator->Add_Animation(L"UnBlocking", L"Proto_Tex_Block_UnBlocking", 0.1f);
 	m_pAnimator->Add_Animation(L"Blocking", L"Proto_Tex_Block_Blocking", 0.1f);
+	m_pAnimator->Add_Animation(L"Unblock_Idle", L"Proto_Tex_Block_Unblock_Idle", 0.1f);
 
 
 	return S_OK;
@@ -31,8 +32,31 @@ HRESULT CBlockObj::Ready_Object(void)
 _int CBlockObj::Update_Object(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
-	if(m_bIsBlocking)
+	if (!m_bIsBlocking)
+	{
 		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
+		if (m_vBlockPos.y > 0.f)
+			m_vBlockPos.y -= fTimeDelta;
+		else
+		{
+			m_pAnimator->Play_Animation(L"Unblock_Idle", false);
+			if (m_vBlockPos.y != 0.f)
+				m_vBlockPos.y = 0.f;
+		}
+
+	}
+	else
+	{
+		m_pAnimator->Play_Animation(L"Idle", false);
+
+		if (m_vBlockPos.y < 0.5f)
+		{
+			m_vBlockPos.y += fTimeDelta;
+		}
+		else if (m_vBlockPos.y != 0.5f)
+			m_vBlockPos.y = 0.5f;
+	}
+	
 	return __super::Update_Object(fTimeDelta);
 }
 
@@ -48,6 +72,23 @@ void CBlockObj::Render_Object(void)
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+
+	if (m_vBlockPos.y > 0.f)
+	{
+		_matrix mat;
+		_vec3 pos;
+		m_pTransformCom->Get_Info(INFO_POS, &pos);
+		pos += m_vBlockPos;
+		D3DXMatrixScaling(&mat, 0.8f, 0.8f, 0.8f);
+		mat._41 += pos.x;
+		mat._42 += pos.y - 0.1f;
+		mat._43 += pos.z;
+
+
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
+		m_pTextureCom->Render_Texture();
+		m_pBufferCom->Render_Buffer();
+	}
 }
 
 void CBlockObj::Free()
@@ -68,13 +109,14 @@ CBlockObj* CBlockObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, c
 
 	ret->Set_SubscribeEvent(p_EventNum);
 	ret->m_iFollowingEvent = p_EventNum;
-	ret->m_pTransformCom->Set_Pos(&p_Pos);
 	if (p_isFirstBlock)
-		ret->m_pAnimator->Play_Animation(L"Block_Idle", false);
+		ret->m_pAnimator->Play_Animation(L"Unblock_Idle", false);
 	else
 		ret->m_pAnimator->Play_Animation(L"Idle", false);
 
 	ret->m_bIsBlocking = p_isFirstBlock;
+	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
+	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.01f, p_Pos.z));
 
 	return ret;
 }
@@ -116,6 +158,11 @@ HRESULT CBlockObj::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_Block_Moving"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
 	return S_OK;
 }
 
@@ -137,22 +184,5 @@ void CBlockObj::Set_SubscribeEvent(_uint pEvent)
 
 void CBlockObj::Change_State()
 {
-	_uint MaxFrame = m_pAnimator->GetCurrAnimation()->Get_Size();
-	_uint Frame = m_pAnimator->GetCurrAnimation()->Get_Idx();
-
-	if (m_bIsBlocking)
-	{
-		m_pAnimator->Play_Animation(L"UnBlocking", false);
-	}
-	else
-	{
-		m_pAnimator->Play_Animation(L"Blocking", false);
-	}
-
-	if (MaxFrame != 1)
-	{
-		m_pAnimator->GetCurrAnimation()->Set_Idx(MaxFrame - 1 - Frame);
-	}
-
 	m_bIsBlocking = !m_bIsBlocking;
 }

@@ -13,13 +13,22 @@ public:
 
 	virtual void		Set_SubscribeEvent(_uint pEvent) {};
 
+	virtual _int		Update_Object(const _float& pFtimeDelta) override;
+
+	virtual void		LateUpdate_Object()	override;
+
 	virtual void		Render_Object() override;
 
 	virtual CGameObject* Get_GrabObj() { return this; }
 
 
+
+
 protected:
 	OBJ_INFO m_tInfo;
+
+	void	Push_Me(CCollider* other);
+	map<CCollider*, _vec3>	m_vMovingPos;
 
 	virtual HRESULT		Ready_Component() ;
 

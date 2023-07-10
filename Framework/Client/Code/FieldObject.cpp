@@ -15,11 +15,75 @@ CFieldObject::~CFieldObject()
 {
 }
 
+_int CFieldObject::Update_Object(const _float& pFtimeDelta)
+{
+	return __super::Update_Object(pFtimeDelta);
+}
+
+void CFieldObject::LateUpdate_Object()
+{
+	_vec3  src, myPos;
+
+	src = { 0, 0, 0 };
+
+	for (auto& iter : m_vMovingPos)
+	{
+		src += iter.second;
+	}
+	m_pTransformCom->Get_Info(INFO_POS, &myPos);
+	m_pTransformCom->Set_Pos(&(myPos + src));
+
+	m_vMovingPos.clear();
+
+	m_pColliderCom->LateUpdate_Component();
+	
+	__super::LateUpdate_Object();
+}
+
 void CFieldObject::Render_Object()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+
+}
+
+void CFieldObject::Push_Me(CCollider* other)
+{
+	if (!other->Is_Active() || !m_pColliderCom->Is_Active())
+		return;
+
+
+	const _vec3& vLeftScale = ((CBoxCollider*)m_pColliderCom)->Get_Scale();
+	const _vec3& vLeftPos = ((CBoxCollider*)m_pColliderCom)->Get_Pos();
+	const _vec3& vRightScale = ((CBoxCollider*)other)->Get_Scale();
+	const _vec3& vRightPos = ((CBoxCollider*)other)->Get_Pos();
+
+	if (fabs(vRightPos.x - vLeftPos.x) < 0.5f * (vLeftScale.x + vRightScale.x)
+		&& fabs(vRightPos.y - vLeftPos.y) < 0.5f * (vLeftScale.y + vRightScale.y)
+		&& fabs(vRightPos.z - vLeftPos.z) < 0.5f * (vLeftScale.z + vRightScale.z))
+	{
+		float colX = 0.5f * (vLeftScale.x + vRightScale.x) - fabs(vRightPos.x - vLeftPos.x);
+		float colY = 0.5f * (vLeftScale.y + vRightScale.y) - fabs(vRightPos.y - vLeftPos.y);
+		float colZ = 0.5f * (vLeftScale.z + vRightScale.z) - fabs(vRightPos.z - vLeftPos.z);
+
+		if (colX < colZ)
+		{
+			if (vLeftPos.x > vRightPos.x)
+				m_vMovingPos.insert({ other,_vec3(colX * 0.5f, 0, 0) });
+			else
+				m_vMovingPos.insert({ other,_vec3(colX * -0.5f, 0, 0) });
+		}
+
+		else if (colZ < colX)
+		{
+			if (vLeftPos.z > vRightPos.z)
+				m_vMovingPos.insert({ other, _vec3(0, 0, 0.5f * colZ) });			
+			else
+				m_vMovingPos.insert({ other, _vec3(0, 0, -0.5f * colZ) });
+
+		}
+	}
 
 }
 

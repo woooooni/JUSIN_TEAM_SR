@@ -155,6 +155,11 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 void CJellyStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER)
+		return;
+
+
+	Push_Me(pCollider);
 }
 
 void CJellyStone::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)

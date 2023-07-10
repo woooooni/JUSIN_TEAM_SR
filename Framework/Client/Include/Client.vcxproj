@@ -218,6 +218,7 @@
     <ClInclude Include="..\Header\JellyBomb.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
+    <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\LightPuzzle.h" />
     <ClInclude Include="..\Header\LightPuzzleBase.h" />
     <ClInclude Include="..\Header\LightPuzzlePiece.h" />
@@ -263,6 +264,7 @@
     <ClInclude Include="..\Header\Tile.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
     <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\Turret.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
     <ClInclude Include="..\Header\UIPages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
@@ -314,6 +316,7 @@
     <ClCompile Include="..\Code\JellyBomb.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
+    <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\LightPuzzle.cpp" />
     <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
     <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
@@ -358,6 +361,7 @@
     <ClCompile Include="..\Code\Text.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Code\Turret.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
     <ClCompile Include="..\Code\UIPages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />

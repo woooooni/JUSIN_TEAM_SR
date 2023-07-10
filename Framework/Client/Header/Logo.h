@@ -32,6 +32,7 @@
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"
 #include "LightPuzzlePiece.h"
+#include	"LightFlower.h"
 
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"

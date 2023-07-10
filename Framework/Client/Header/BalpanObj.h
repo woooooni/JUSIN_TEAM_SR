@@ -35,12 +35,19 @@ public:
 	void		Set_EventNum(const _uint& pNum) { m_iPushedEventNum = pNum; }
 	void		Add_ActivateState(const _uint& pNum);
 
+	void		Set_Static();
+
+	const	JELLY_COLOR& Get_JellyColor() { return m_eColor; }
+
 protected:
 	virtual HRESULT		Ready_Component();
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
+	void		Collide(CCollider* pCollider);
 
+	JELLY_COLOR		m_eColor;
+	_bool			m_bIsStoneSwitch;
 	_uint		m_iPushedEventNum;
 	list<_uint>	m_listActivateNum;
 	bool		m_bIsPushed = false;
