@@ -138,7 +138,6 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 	{
 		if (m_pSelectedObject != nullptr)
 		{
-			m_pSelectedObject->Get_TransformCom()->Set_Scale(m_vObjScale);
 			CBoxCollider* pBoxCol = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
 
 			if (pBoxCol != nullptr)
@@ -231,6 +230,7 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 			
 		ImGui::EndTabItem();
 	}
+
 	if (ImGui::BeginTabItem("Interaction"))
 	{
 		ImGui::EndTabItem();
@@ -288,6 +288,10 @@ void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 {
 	CGameObject* pCloneObj = nullptr;
 	_vec3 vPos;
+	_vec3 vRight, vUp, vLook;
+	_vec3 vScale;
+	
+
 	switch (_eSelected)
 	{
 	case OBJ_SELECTED::BLUE_BEATLE :
@@ -312,15 +316,24 @@ void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(m_strObjNaming + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 	}
+	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+	vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
-	CBoxCollider* pBoxCol = dynamic_cast<CBoxCollider*>(pCloneObj->Get_ColliderCom());
-
-	if (pBoxCol != nullptr)
-		pBoxCol->Set_Scale(m_vObjScale);
+	pCloneObj->Get_TransformCom()->Set_Info(INFO_RIGHT, &vRight);
+	pCloneObj->Get_TransformCom()->Set_Info(INFO_UP, &vUp);
+	pCloneObj->Get_TransformCom()->Set_Info(INFO_LOOK, &vLook);
 
 	pCloneObj->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos = _vec3(vHit.x, vPos.y, vHit.z);
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+	pCloneObj->Get_TransformCom()->Set_Scale(vScale);
+
+	CBoxCollider* pBoxCol = dynamic_cast<CBoxCollider*>(pCloneObj->Get_ColliderCom());
+	pBoxCol->Set_Scale(vScale);
+
+
 }
 
 void CImGuiMgr::DeleteObj()
@@ -393,10 +406,101 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 
 		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::F))
 		{
-			m_vObjScale.z *= -1.f;
+			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
+			vScale.z *= -1.f;
+			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
 		}
+
+		if (KEY_TAP(KEY::O))
+		{
+			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x += 1.f;
+			vScale.y += 1.f;
+			vScale.z += 1.f;
+
+			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
+		}
+
+		if (KEY_TAP(KEY::P))
+		{
+			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x -= 1.f;
+			vScale.y -= 1.f;
+			vScale.z -= 1.f;
+
+			if (vScale.x < 1.f)
+				vScale.x = 1.f;
+			if (vScale.y < 1.f)
+				vScale.y = 1.f;
+			if (vScale.z < 1.f)
+				vScale.z = 1.f;
+
+			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
+		}
+
 		m_pTargetObject->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 	}
+	else if (m_pSelectedObject)
+	{
+		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::Q))
+		{
+			_vec3 vLook, vRight, vUp;
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+
+			m_pSelectedObject->Get_TransformCom()->RotationAxis(vLook, D3DXToRadian(90.f));
+		}
+		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::E))
+		{
+			_vec3 vLook, vRight, vUp;
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+
+			m_pSelectedObject->Get_TransformCom()->RotationAxis(vLook, D3DXToRadian(-90.f));
+		}
+
+		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::F))
+		{
+			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
+			vScale.z *= -1.f;
+			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+		}
+
+
+		if (KEY_TAP(KEY::O))
+		{
+			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x += 1.f;
+			vScale.y += 1.f;
+			vScale.z += 1.f;
+
+			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+		}
+
+		if (KEY_TAP(KEY::P))
+		{
+			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x -= 1.f;
+			vScale.y -= 1.f;
+			vScale.z -= 1.f;
+
+			if (vScale.x < 1.f)
+				vScale.x = 1.f;
+			if (vScale.y < 1.f)
+				vScale.y = 1.f;
+			if (vScale.z < 1.f)
+				vScale.z = 1.f;
+
+			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+		}
+	}
+
 
 	
 	_long		dwMouseMove = 0;
@@ -420,26 +524,6 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 		}	
 	}
 
-	if (KEY_TAP(KEY::O))
-	{
-		m_vObjScale.x += 1.f;
-		m_vObjScale.y += 1.f;
-		m_vObjScale.z += 1.f;
-	}
-
-	if (KEY_TAP(KEY::P))
-	{
-		m_vObjScale.x -= 1.f;
-		m_vObjScale.y -= 1.f;
-		m_vObjScale.z -= 1.f;
-
-		if(m_vObjScale.x < 1.f)
-			m_vObjScale.x = 1.f;
-		if (m_vObjScale.y < 1.f)
-			m_vObjScale.y = 1.f;
-		if (m_vObjScale.z < 1.f)
-			m_vObjScale.z = 1.f;
-	}
 	ObjPicking();
 }
 
@@ -458,17 +542,8 @@ void CImGuiMgr::ObjPicking()
 				_vec3 vHit;
 				if (Engine::IsPicking(vecObj[j], &vHit))
 				{	
-					if (m_pSelectedObject != nullptr)
-					{
-						Safe_Release(m_pSelectedObject);
-						m_pSelectedObject = nullptr;
-					}
-
-					if (m_pTargetObject != nullptr)
-						m_pTargetObject = nullptr;
-
+					ResetSelectTarget();
 					m_pTargetObject = vecObj[j];
-					m_vObjScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
 					return;
 				}
@@ -521,7 +596,10 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 		{
 			_vec3 vPos, vScale;
 			pTargetTransform->Get_Info(INFO_POS, &vPos);
-			vScale = pTargetTransform->Get_Scale();
+			vScale = pTargetTransform->Get_Scale(); pTargetTransform->Get_Scale();
+
+			_float fPos[3] = { vPos.x, vPos.y, vPos.z };
+			_float fScale[3] = { vScale.x, vScale.y, vScale.z };
 
 			ImGui::SameLine();
 
@@ -536,36 +614,32 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			// Position
 			ImGui::Text("");
 			ImGui::Text("Position");
-			ImGui::Text("x : ");
-			ImGui::SameLine();
-			ImGui::InputFloat("##ObjPosX", &vPos.x, 0.f, 1.f, "%.3f");
+			ImGui::Text("x\t\t\ty\t\t\tz");
 
-			ImGui::Text("y : ");
-			ImGui::SameLine();
-			ImGui::InputFloat("##ObjPosY", &vPos.y, 0.f, 1.f, "%.3f");
-
-			ImGui::Text("z : ");
-			ImGui::SameLine();
-			ImGui::InputFloat("##ObjPosZ", &vPos.z, 0.f, 1.f, "%.3f");
+			ImGui::DragFloat3("##ObjPos", fPos, 0.1f);
 
 			// Scale
+			// Position
 			ImGui::Text("");
 			ImGui::Text("Scale");
+			ImGui::Text("x\t\t\ty\t\t\tz");
 
-			ImGui::Text("x : ");
-			ImGui::SameLine();
-			ImGui::InputFloat("##ScaleX", &m_vObjScale.x, 0.f, 0.5f, "%.3f");
+			ImGui::DragFloat3("##ObjScale", fScale, 0.1f, 1.f);
 
-			ImGui::Text("y : ");
-			ImGui::SameLine();
-			ImGui::InputFloat("##ScaleY", &m_vObjScale.y, 0.f, 0.5f, "%.3f");
+			vPos.x = fPos[0];
+			vPos.y = fPos[1];
+			vPos.z = fPos[2];
 
-			ImGui::Text("z : ");
-			ImGui::SameLine();
-			ImGui::InputFloat("##ScaleZ", &m_vObjScale.z, 0.f, 0.5f, "%.3f");
+			vScale.x = fScale[0];
+			vScale.y = fScale[1];
+			vScale.z = fScale[2];
 
 			pTargetTransform->Set_Info(INFO_POS, &vPos);
-			pTargetTransform->Set_Scale(m_vObjScale);
+			pTargetTransform->Set_Scale(vScale);
+
+			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
+			if (nullptr != pBoxCollider)
+				pBoxCollider->Set_Scale(vScale);
 		}
 	}
 	ImGui::End();
@@ -591,7 +665,6 @@ void CImGuiMgr::Update_Hierachy(const _float& fTimeDelta)
 				if (ImGui::Selectable((strName).c_str(), iter == m_pTargetObject))
 				{
 					m_pTargetObject = iter;
-					m_vObjScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
 					CCamera* pCamera = m_pToolScene->Get_MainCamera();
 

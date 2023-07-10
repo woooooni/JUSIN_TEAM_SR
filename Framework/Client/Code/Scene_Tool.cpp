@@ -167,29 +167,56 @@ void CScene_Tool::Save_Obj_Data(wstring _strFolderPath)
 	{
 		if (LAYER_TYPE(i) == LAYER_TYPE::BACK_GROUND 
 			|| LAYER_TYPE(i) == LAYER_TYPE::CAMERA 
-			|| LAYER_TYPE(i) == LAYER_TYPE::EFFECT)
+			|| LAYER_TYPE(i) == LAYER_TYPE::EFFECT
+			|| LAYER_TYPE(i) == LAYER_TYPE::TERRAIN)
 			continue;
 
 		const vector<CGameObject*> vecObj = m_mapLayer[(LAYER_TYPE)i]->Get_GameObjectVec();
+
 		for (size_t idx = 0; idx < vecObj.size(); ++idx)
 		{
+			wstring strObjName = vecObj[idx]->Get_Name();
+			_uint iNameSize = strObjName.size();
+
 			CTransform* pTransform = vecObj[idx]->Get_TransformCom();
-			if (pTransform != nullptr)
+			CTexture* pTexture = vecObj[idx]->Get_TextureCom();
+			CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(vecObj[idx]->Get_ColliderCom());
+
+			// ObjectName
+			WriteFile(hObjFile, &iNameSize, sizeof(_uint), &dwByte, nullptr);
+			WriteFile(hObjFile, strObjName.c_str(), iNameSize, &dwByte, nullptr);
+
+			// Transform
+			_vec3 vRight, vUp, vLook, vPos, vScale;
+
+			pTransform->Get_Info(INFO_RIGHT, &vRight);
+			pTransform->Get_Info(INFO_UP, &vUp);
+			pTransform->Get_Info(INFO_LOOK, &vLook);
+			pTransform->Get_Info(INFO_POS, &vPos);
+			vScale = pTransform->Get_Scale();
+
+			WriteFile(hObjFile, &vRight, sizeof(_vec3), &dwByte, nullptr);
+			WriteFile(hObjFile, &vUp, sizeof(_vec3), &dwByte, nullptr);
+			WriteFile(hObjFile, &vLook, sizeof(_vec3), &dwByte, nullptr);
+			WriteFile(hObjFile, &vPos, sizeof(_vec3), &dwByte, nullptr);
+			WriteFile(hObjFile, &vScale, sizeof(_vec3), &dwByte, nullptr);
+			
+			// Collider
+			_vec3 vColliderScale = pCollider->Get_Scale();
+			WriteFile(hObjFile, &pCollider, sizeof(_vec3), &dwByte, nullptr);
+			
+			// Texture
+			_bool bTextureExist = (pTexture != nullptr);
+			WriteFile(hObjFile, &bTextureExist, sizeof(_bool), &dwByte, nullptr);
+
+			if (bTextureExist)
 			{
-				_vec3 vRight, vUp, vLook, vPos, vScale;
-				pTransform->Get_Info(INFO_RIGHT, &vRight);
-				pTransform->Get_Info(INFO_UP, &vUp);
-				pTransform->Get_Info(INFO_LOOK, &vLook);
-				pTransform->Get_Info(INFO_POS, &vPos);
-				vScale = pTransform->Get_Scale();
-
-
+				_uint iTextureIdx = pTexture->Get_Idx();
+				WriteFile(hObjFile, &iTextureIdx, sizeof(_uint), &dwByte, nullptr);
 			}
+
 		}
 	}
-
-
-
 
 	CloseHandle(hObjFile);
 	MessageBox(g_hWnd, _T("Save success"), L"Success", MB_OK);
@@ -274,6 +301,7 @@ void CScene_Tool::Load_Terrain_Data(wstring _strFolderPath)
 
 void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 {
+		
 }
 
 void CScene_Tool::Clear_Layer()
