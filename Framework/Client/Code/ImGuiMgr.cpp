@@ -108,12 +108,12 @@ void CImGuiMgr::Update_ImGui(const _float& fTimeDelta)
 
 	if (ImGui::Button("Save"))
 	{
-
+		m_pToolScene->Save_Data(L"../Bin/Data");
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Load"))
 	{
-
+		m_pToolScene->Load_Data(L"../Bin/Data");
 	}
 	ImGui::EndTabBar();
 	ImGui::End();
@@ -242,7 +242,7 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 void CImGuiMgr::UpdateTerrainTool(const _float& fTimeDelta)
 {
 
-	CGameObject* pTerrain = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Terrain");
+	CGameObject* pTerrain = Engine::Get_Layer(LAYER_TYPE::TERRAIN)->Find_GameObject(L"Terrain");
 	if (nullptr == pTerrain)
 		return;
 

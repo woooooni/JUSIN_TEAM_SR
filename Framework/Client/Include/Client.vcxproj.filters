@@ -658,7 +658,6 @@
     <ClCompile Include="..\Code\BlueBeatle.cpp">
       <Filter>02. GameObject\02. Monster\02. BlueBeatle</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Scene_Tool.cpp" />
     <ClCompile Include="..\Code\BalpanObj.cpp">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
     </ClCompile>
@@ -773,6 +772,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_AdventureBook.cpp">
       <Filter>02. GameObject\04. UI\05. AdventureBook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_Tool.cpp">
+      <Filter>01. Scene\99. Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

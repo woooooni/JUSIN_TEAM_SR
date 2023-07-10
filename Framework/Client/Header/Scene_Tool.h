@@ -24,10 +24,22 @@ private:
 	
 
 public:
-	void Save_Data();
-	void Load_Data();
+	void Save_Data(wstring _strFolderPath);
+	void Load_Data(wstring _strFolderPath);
+
+public:
 	CCamera* Get_MainCamera() { return m_pCamera; }
 	CPlayer* Get_Player() { return m_pPlayer; }
+
+
+private:
+	void Save_Terrain_Data(wstring _strFolderPath);
+	void Save_Obj_Data(wstring _strFolderPath);
+	void Load_Terrain_Data(wstring _strFolderPath);
+	void Load_Obj_Data(wstring _strFolderPath);
+
+private:
+	void Clear_Layer();
 
 private:
 	Engine::CCamera* m_pCamera;
