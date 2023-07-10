@@ -40,7 +40,7 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	_vec3 vDir = {0.f, -1.f, 0.f };
+	_vec3 vDir = { 0.f, -1.f, 0.f };
 
 	if (m_eState != SUNGOLEM_STATE::DIRTY)
 		Update_Idle(fTimeDelta);
@@ -55,13 +55,13 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 void CGolemFist::LateUpdate_Object(void)
 {
 	_vec3 vPos;
-	m_pTransformCom->Get_Info(INFO_POS,&vPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	__super::LateUpdate_Object();
 	if (vPos.y < -1.f)
 	{
-		if(Is_Active())
-		//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.1f);
-		Set_Active(false);
+		if (Is_Active())
+			//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.1f);
+			Set_Active(false);
 	}
 }
 
@@ -108,7 +108,7 @@ void CGolemFist::Update_Idle(_float fTimeDelta)
 void CGolemFist::Update_Dirty(_float fTimeDelta)
 {
 
-	
+
 }
 
 CGolemFist* CGolemFist::Create(LPDIRECT3DDEVICE9 pGraphicDev)

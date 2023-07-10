@@ -43,6 +43,9 @@
 #include "TrashSlime.h"
 #include "Item_Hat_Monkey.h"
 
+#include "SpitCactus.h"
+#include "MothMage.h"
+
 class CLogo : public Engine::CScene
 {
 private:

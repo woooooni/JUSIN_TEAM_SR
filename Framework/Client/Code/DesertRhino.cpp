@@ -15,77 +15,6 @@ CDesertRhino::~CDesertRhino()
 {
 }
 
-void CDesertRhino::Update_Idle(_float fTimeDelta)
-{
-	if (m_fMoveTime > 10.f)
-	{
-		if (rand() % 10 > 8)
-		{
-			Set_State(MONSTER_STATE::MOVE);
-			m_pAnimator->Play_Animation(L"DesertRhino_Move_Down", true);
-		}
-	
-		m_fMoveTime = 0.f;
-	}
-	m_fMoveTime += 10.f * fTimeDelta;
-}
-
-void CDesertRhino::Update_Die(_float fTimeDelta)
-{
-}
-
-void CDesertRhino::Update_Regen(_float fTimeDelta)
-{
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
-	_vec3 vTargetPos, vPos, vDir;
-
-	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-	vDir = vTargetPos - vPos;
-	m_vDir = vTargetPos - vPos;
-
-	if (m_fMoveTime > 15.f)
-	{
-		Set_State(MONSTER_STATE::ATTACK);
-		m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
-		m_fMoveTime = 0.f;
-	}
-
-	m_fMoveTime += 10.f * fTimeDelta;
-
-}
-
-void CDesertRhino::Update_Move(_float fTimeDelta)
-{
-	_vec3 vDir, vPos, vDst;
-	if (m_fMoveTime > 5.f)
-	{
-		if (rand() % 10 > 8)
-		{
-			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
-		}
-
-		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
-		if (vDst != m_vDst)
-			m_vDst = vDst;
-		m_fMoveTime = 0.f;
-	}	
-	m_fMoveTime += 10.f * fTimeDelta;
-
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = m_vDst;
-	vDir.y = 0.f;
-	D3DXVec3Normalize(&vDir, &vDir);
-	m_pTarget = nullptr;
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
-}
-
-void CDesertRhino::Update_Attack(_float fTimeDelta)
-{
-	Trace(fTimeDelta);
-}
 
 HRESULT CDesertRhino::Ready_Object(void)
 {
@@ -138,10 +67,11 @@ HRESULT CDesertRhino::Ready_Object(void)
 _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 {
 
+	_int iExit = __super::Update_Object(fTimeDelta);
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, E_FAIL);
+		NULL_CHECK_RETURN(pTarget, S_OK);
 
 		Set_Target(pTarget);
 		_vec3 vTargetPos, vPos, vDir;
@@ -159,11 +89,15 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		}
 	}
 
-	_int iExit = __super::Update_Object(fTimeDelta);
 
 	return iExit;
 }
 
+void CDesertRhino::LateUpdate_Object(void)
+{
+
+	__super::LateUpdate_Object();
+}
 void CDesertRhino::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -175,10 +109,79 @@ void CDesertRhino::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
-void CDesertRhino::LateUpdate_Object(void)
+void CDesertRhino::Update_Idle(_float fTimeDelta)
 {
+	if (m_fMoveTime > 10.f)
+	{
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::MOVE);
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Down", true);
+		}
 
-	__super::LateUpdate_Object();
+		m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10.f * fTimeDelta;
+}
+
+void CDesertRhino::Update_Die(_float fTimeDelta)
+{
+	if (Is_Active())
+		Set_Active(false);
+}
+
+void CDesertRhino::Update_Regen(_float fTimeDelta)
+{
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
+	_vec3 vTargetPos, vPos, vDir;
+
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	vDir = vTargetPos - vPos;
+	m_vDir = vTargetPos - vPos;
+
+	if (m_fMoveTime > 15.f)
+	{
+		Set_State(MONSTER_STATE::ATTACK);
+		m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
+		m_fMoveTime = 0.f;
+	}
+
+	m_fMoveTime += 10.f * fTimeDelta;
+
+}
+
+void CDesertRhino::Update_Move(_float fTimeDelta)
+{
+	_vec3 vDir, vPos, vDst;
+	if (m_fMoveTime > 5.f)
+	{
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::IDLE);
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
+		}
+
+		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
+		if (vDst != m_vDst)
+			m_vDst = vDst;
+		m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10.f * fTimeDelta;
+	m_tStat = { 3,3,1 };
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = m_vDst;
+	vDir.y = 0.f;
+	D3DXVec3Normalize(&vDir, &vDir);
+	m_pTarget = nullptr;
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
+}
+
+void CDesertRhino::Update_Attack(_float fTimeDelta)
+{
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
+	Trace(fTimeDelta);
 }
 
 HRESULT CDesertRhino::Add_Component(void)
@@ -202,6 +205,10 @@ HRESULT CDesertRhino::Add_Component(void)
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
 	return S_OK;
 }
@@ -240,15 +247,25 @@ void CDesertRhino::Trace(_float fTimeDelta)
 }
 void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-		if (Get_State() == MONSTER_STATE::ATTACK|| Get_State() == MONSTER_STATE::DIE)
+	if (Get_State() == MONSTER_STATE::DIE)
 		return;
-	//	if(pCollider->GetOwner()->)
-	//if (dynamic_cast<CPushStone*>(pCollider->GetOwner()))
-	//{
-	//	if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
-	//	{
-	//		m_tStat.iHp -= 1.f;
-	//		//MSG_BOX("보스 피격");
-	//	}
-	//}
+
+
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = vPos - vTargetPos;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		m_pRigidBodyCom->AddForce(vDir * 80.0f);
+		m_tStat.iHp -= 1.f;
+		if (m_tStat.iHp < 1.f)
+			Set_State(MONSTER_STATE::DIE);
+
+	}
 }

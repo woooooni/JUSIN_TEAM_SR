@@ -555,6 +555,45 @@ HRESULT CMainApp::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	// SpitCactus
+  	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SpitCactus_Regen_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/SpitCactus/Regen/Down/SpitCactus_%d.png",10)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SpitCactus_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/SpitCactus/Idle/Down/SpitCactus_%d.png", 1)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SpitCactus_Attack_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/SpitCactus/Attack/Down/SpitCactus_%d.png", 12)), E_FAIL);
+	//Needle
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_CactusNeedle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/Needle/CactusNeedle_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_CactusNeedlePoison", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/Needle/CactusNeedlePoison_%d.png", 1)), E_FAIL);
+
+	//MothMage
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/Down/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/Up/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/Left/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/Right/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_LeftUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/LeftUp/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/LeftDown/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/RightDown/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Idle_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Idle/RightUp/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/Down/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/Up/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/Left/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/Right/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_LeftUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/LeftUp/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/LeftDown/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/RightDown/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Move_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Movement/RightUp/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/Down/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/Up/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/Left/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/Right/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_LeftUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/LeftUp/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/LeftDown/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/RightDown/MothMage_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMage_Attack_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Attack/RightUp/MothMage_%d.png", 6)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MothMageOrb", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MothMage/Orb/MothMageOrb_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBall", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/BugBall/BugBall_%d.png", 12)), E_FAIL);
+
 	return S_OK;
 }
 

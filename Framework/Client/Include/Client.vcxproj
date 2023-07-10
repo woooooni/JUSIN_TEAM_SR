@@ -193,6 +193,8 @@
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
     <ClInclude Include="..\Header\ButterFly.h" />
+    <ClInclude Include="..\Header\BugBall.h" />
+    <ClInclude Include="..\Header\CactusNeedle.h" />
     <ClInclude Include="..\Header\Coin.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
@@ -224,6 +226,8 @@
     <ClInclude Include="..\Header\LightPuzzleBase.h" />
     <ClInclude Include="..\Header\LightPuzzlePiece.h" />
     <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
+    <ClInclude Include="..\Header\MothMage.h" />
+    <ClInclude Include="..\Header\MothOrb.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\NPC.h" />
@@ -257,7 +261,9 @@
     <ClInclude Include="..\Header\PushStone.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\Scene_Tool.h" />
+    <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
+    <ClInclude Include="..\Header\SpitCactus.h" />
     <ClInclude Include="..\Header\Stage.h" />
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
@@ -294,6 +300,8 @@
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
     <ClCompile Include="..\Code\ButterFly.cpp" />
+    <ClCompile Include="..\Code\BugBall.cpp" />
+    <ClCompile Include="..\Code\CactusNeedle.cpp" />
     <ClCompile Include="..\Code\Coin.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
@@ -324,6 +332,8 @@
     <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
     <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
     <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
+    <ClCompile Include="..\Code\MothMage.cpp" />
+    <ClCompile Include="..\Code\MothOrb.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\NPC.cpp" />
@@ -357,7 +367,9 @@
     <ClCompile Include="..\Code\PushStone.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\Scene_Tool.cpp" />
+    <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
+    <ClCompile Include="..\Code\SpitCactus.cpp" />
     <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
