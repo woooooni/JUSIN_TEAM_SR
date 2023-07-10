@@ -40,7 +40,7 @@ HRESULT CMothMage::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"MothMage_Move_LeftDown", L"Proto_Texture_MothMage_Move_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Move_LeftUp", L"Proto_Texture_MothMage_Move_LeftUp", 0.1f);
 
-	m_pAnimator->Add_Animation(L"MothMage_Attack_Down", L"Proto_Texture_MothMage_Attack_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"MothMage_Attack_Down", L"Proto_Texture_MothMage_Attack_Down", 0.4f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_Up", L"Proto_Texture_MothMage_Attack_Up", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_Left", L"Proto_Texture_MothMage_Attack_Left", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_Right", L"Proto_Texture_MothMage_Attack_Right", 0.1f);
@@ -255,7 +255,10 @@ void CMothMage::Trace(_float fTimeDelta)
 			pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 			pBugBall->Set_Dir(vDir);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
-			pLayer->Add_GameObject(L"CactusNeedle", pBugBall);
+			pLayer->Add_GameObject(L"BugBall", pBugBall);
+			Set_State(MONSTER_STATE::IDLE);
+			m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
+
 			m_bShoot = false;
 		}
 
