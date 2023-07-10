@@ -47,9 +47,7 @@ void CLightPuzzlePiece::Render_Object(void)
 	_matrix world = *(m_pTransformCom->Get_WorldMatrix());
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, &world);
 	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 	world._42 += 0.05f;
 
 

@@ -192,6 +192,7 @@
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\ButterFly.h" />
     <ClInclude Include="..\Header\Coin.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
@@ -273,6 +274,7 @@
     <ClInclude Include="..\Header\UI_NameTag.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="Grass.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -291,6 +293,7 @@
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\ButterFly.cpp" />
     <ClCompile Include="..\Code\Coin.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
@@ -371,6 +374,7 @@
     <ClCompile Include="..\Header\Tile.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -69,9 +69,7 @@ void CBlockObj::LateUpdate_Object(void)
 
 void CBlockObj::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 
 	if (m_vBlockPos.y > 0.f)
 	{

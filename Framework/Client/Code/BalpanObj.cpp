@@ -70,9 +70,7 @@ void CBalpanObj::LateUpdate_Object(void)
 
 void CBalpanObj::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 }
 
 void CBalpanObj::Free()

@@ -44,12 +44,11 @@ void CLightPuzzleBase::Render_Object(void)
 	_matrix mat = *m_pTransformCom->Get_WorldMatrix();
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
 	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 	if (m_bIsLighting)
 	{
 		mat._42 += 0.01f;
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
 		m_pTextureCom->Render_Texture();
 		m_pBufferCom->Render_Buffer();
 

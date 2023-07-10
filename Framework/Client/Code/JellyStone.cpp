@@ -48,9 +48,7 @@ void CJellyStone::LateUpdate_Object(void)
 
 void CJellyStone::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 
 
 }

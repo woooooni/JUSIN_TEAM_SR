@@ -62,7 +62,7 @@ void CPushStone::Render_Object(void)
 
 	m_pBufferCom->Render_Buffer();
 
-	__super::Render_Object();
+	m_pColliderCom->Render_Component();
 }
 
 

@@ -56,9 +56,7 @@ void CLightFlower::Render_Object(void)
 {
     const _matrix* world = m_pTransformCom->Get_WorldMatrix();
 
-    m_pGraphicDev->SetTransform(D3DTS_WORLD, world);
     __super::Render_Object();
-    m_pBufferCom->Render_Buffer();
 
     if (m_bIsOpened && m_pAnimator->GetCurrAnimation()->Get_Idx() == m_pAnimator->GetCurrAnimation()->Get_Size() - 1)
     {

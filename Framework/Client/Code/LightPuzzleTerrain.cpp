@@ -80,11 +80,10 @@ void CLightPuzzleTerrain::Render_Object(void)
 	_matrix mat = *m_pTransformCom->Get_WorldMatrix();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
-	m_pAnimator->Render_Component();
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 
-	
+	__super::Render_Object();
+
+	m_pBufferCom->Render_Buffer();
 
 	/*for (size_t i = 0; i < m_vecLightMap.size(); i++)
 	{
@@ -262,7 +261,7 @@ HRESULT CLightPuzzleTerrain::Ready_Compnent()
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Tex_MoonPuzzleBase"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

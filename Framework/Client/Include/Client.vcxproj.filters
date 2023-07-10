@@ -99,6 +99,12 @@
     <ClCompile Include="..\Code\Turret.cpp">
       <Filter>Turret</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\ButterFly.cpp">
+      <Filter>ButterFly</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Grass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\ThirdParty\imconfig.h" />
@@ -203,6 +209,12 @@
     <ClInclude Include="..\Header\Turret.h">
       <Filter>Turret</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\ButterFly.h">
+      <Filter>ButterFly</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Grass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
@@ -220,6 +232,12 @@
     </Filter>
     <Filter Include="Turret">
       <UniqueIdentifier>{821ff933-3273-4740-b810-47e67100495c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ButterFly">
+      <UniqueIdentifier>{4d42b948-5450-4f9b-8360-5c6d8e4b921a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Grass">
+      <UniqueIdentifier>{c07af71c-c05b-4bbd-a64b-8bef7acba39c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

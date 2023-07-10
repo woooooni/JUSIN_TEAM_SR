@@ -30,5 +30,14 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
+protected:
+	wstring		m_wstrCurState;
+	CGameObject* m_pTarget;
+	void		Set_Idle();
+	void		Find_Enemy();
+	wstring		Get_Direction(const _vec3& dir);
+	_vec3		Get_Direction(const wstring& dir);
+	_float		m_fEnergy;
+
 };
 
