@@ -76,6 +76,10 @@ void CTrashBig::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
+void CTrashBig::LateUpdate_Object(void)
+{
+}
+
 void CTrashBig::Update_Idle(_float fTimeDelta)
 {
 	if (m_fMoveTime > 10.f)
