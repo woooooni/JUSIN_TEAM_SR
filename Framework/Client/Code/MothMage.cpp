@@ -255,6 +255,7 @@ void CMothMage::Trace(_float fTimeDelta)
 			pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 			pBugBall->Set_Dir(vDir);
 			pBugBall->Set_Shooter(this);
+			pBugBall->Set_Atk(m_tStat.iAttack);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"BugBall", pBugBall);
 			Set_State(MONSTER_STATE::IDLE);

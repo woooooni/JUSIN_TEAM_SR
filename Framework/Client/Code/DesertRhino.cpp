@@ -263,7 +263,7 @@ void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 		D3DXVec3Normalize(&vDir, &vDir);
 
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
-		m_tStat.iHp -= 1.f;
+		m_tStat.iHp -= 1;
 		if (m_tStat.iHp < 1.f)
 			Set_State(MONSTER_STATE::DIE);
 

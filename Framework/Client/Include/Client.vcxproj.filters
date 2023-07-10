@@ -247,6 +247,9 @@
     <Filter Include="02. GameObject\02. Monster\04. MothMage\Orb">
       <UniqueIdentifier>{99ce2f59-473e-48da-9820-d937415a7e56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\06. Face">
+      <UniqueIdentifier>{a00df816-fc45-4dc9-ab2c-41c6339597cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -471,7 +474,6 @@
     <ClInclude Include="..\Header\Text.h">
       <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\GolemFace.h" />
     <ClInclude Include="..\Header\JellyBomb.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
@@ -516,6 +518,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\SilkWorm.h">
       <Filter>02. GameObject\10. Boss\01. SilkWorm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemFace.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -725,7 +730,6 @@
     <ClCompile Include="..\Code\Text.cpp">
       <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\GolemFace.cpp" />
     <ClCompile Include="..\Code\JellyBomb.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
@@ -770,6 +774,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\SilkWorm.cpp">
       <Filter>02. GameObject\10. Boss\01. SilkWorm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemFace.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

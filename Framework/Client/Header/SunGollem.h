@@ -79,6 +79,7 @@ protected:
 	bool m_bAttack[6];
 	bool m_bLockon = false;
 	bool m_bDirty = false;
+
 protected:
 	virtual void Free() override;
 	

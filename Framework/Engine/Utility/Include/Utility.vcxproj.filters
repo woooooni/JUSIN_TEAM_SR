@@ -49,9 +49,6 @@
     <Filter Include="05. Component\02. Collider\BoxCollider">
       <UniqueIdentifier>{2a497733-a43f-4cdf-836d-c8f923f69e93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Component\02. Collider\SphereCollider">
-      <UniqueIdentifier>{e65e3f5e-aa93-423c-b6e2-64869a3873b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Component\03. Texture">
       <UniqueIdentifier>{832ff2e2-37a5-40b5-b58e-c396606f19a7}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,9 @@
     </Filter>
     <Filter Include="05. Component\00. VIBuffer\05. RcPuzzleTer">
       <UniqueIdentifier>{e9faae54-6c79-41b7-b2bb-ae6a4d3cb3b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\02. Collider\SphereCollider">
+      <UniqueIdentifier>{e65e3f5e-aa93-423c-b6e2-64869a3873b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

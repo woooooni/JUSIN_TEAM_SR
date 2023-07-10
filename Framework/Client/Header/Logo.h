@@ -40,6 +40,7 @@
 
 #include "SpitCactus.h"
 #include "MothMage.h"
+#include "SilkWorm.h"
 
 class CLogo : public Engine::CScene
 {
