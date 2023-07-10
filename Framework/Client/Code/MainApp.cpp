@@ -418,7 +418,6 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SunGolem_Dirty_BummerLeftHand", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/SunGolem/Dirty/BummerLeftHand/SunGolem_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SunGolem_Dirty_BummerRightHand", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/SunGolem/Dirty/BummerRightHand/SunGolem_%d.png", 1)), E_FAIL);
-
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SunGolem_Dirty_BummerFist", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/SunGolem/Dirty/BummerFist/SunGolem_%d.png", 1)), E_FAIL);
 
 

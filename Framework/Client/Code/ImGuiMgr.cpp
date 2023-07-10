@@ -228,8 +228,26 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		ImGui::EndTabItem();
 	}
 
-	if (ImGui::BeginTabItem("Interaction"))
+	if (ImGui::BeginTabItem("Tree"))
 	{
+		CTexture* pTileTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Tree"));
+		if (pTileTex != nullptr)
+		{
+			for (size_t i = 0; i < pTileTex->Get_Size(); ++i)
+			{
+				if (i % 4 != 0)
+					ImGui::SameLine();
+
+				if (ImGui::ImageButton(pTileTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
+				{
+					ResetSelectTarget();
+					m_pSelectedObject = CTree::Create(m_pGraphicDev);
+					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
+					m_eSelectedObjType = OBJ_SELECTED::TREE;
+				}
+			}
+		}
+
 		ImGui::EndTabItem();
 	}
 	
@@ -328,6 +346,7 @@ void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+
 	vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_RIGHT, &vRight);
@@ -339,10 +358,10 @@ void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 	pCloneObj->Get_TransformCom()->Set_Scale(vScale);
 
+
 	CBoxCollider* pBoxCol = dynamic_cast<CBoxCollider*>(pCloneObj->Get_ColliderCom());
-	pBoxCol->Set_Scale(vScale);
-
-
+	if(nullptr != pBoxCol)
+		pBoxCol->Set_Scale(vScale);
 }
 
 void CImGuiMgr::DeleteObj()
