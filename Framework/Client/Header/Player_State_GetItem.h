@@ -16,5 +16,14 @@ public:
 private:
 	bool	m_bFinished = false;
 	_vec3	m_vStartPos;
+
+
+	void					Update_Hat();
+	void					Set_Hat();
+
+
+	vector<_vec3> m_vecHatPos;
+	float m_fAngle[6];
+	float m_fScale[6];
 };
 
