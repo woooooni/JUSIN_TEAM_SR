@@ -21,5 +21,7 @@ private:
 
 	bool	m_bFinished = false;
 	BALLOONFLY_STATE m_eFlyState;
+
+
 };
 

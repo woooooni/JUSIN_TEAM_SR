@@ -15,5 +15,11 @@ public:
 
 private:
 
+	void					Update_Hat();
+	void					Set_Hat();
+
+	vector<_vec3> m_vecHatPos[(_uint)OBJ_DIR::DIR_END];
+	float m_fAngle[(_uint)OBJ_DIR::DIR_END][3];
+	float m_fScale[(_uint)OBJ_DIR::DIR_END][3];
 };
 
