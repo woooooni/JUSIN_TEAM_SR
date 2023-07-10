@@ -39,6 +39,8 @@
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"
 
+#include "Cupa.h"
+#include "RollingBug.h"
 #include "TrashSlime.h"
 #include "Item_Hat_Monkey.h"
 

@@ -4,7 +4,7 @@
 
 typedef enum class TotemType
 {
-	CURR, MAX,
+	CURR, MAX, DECO,
 	TOTEM_END
 
 }TOTEMTYPE;

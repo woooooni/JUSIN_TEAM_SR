@@ -151,9 +151,6 @@
     <Filter Include="02. GameObject\02. Monster\01. TrashBig">
       <UniqueIdentifier>{d649abb9-e5e4-4226-a35b-934833a4a34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\02. BlueBeatle">
-      <UniqueIdentifier>{acb6a898-326f-4b16-b957-6ee1b5c2a9ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\06. FieldObj\04. BlockObj">
       <UniqueIdentifier>{eb083604-df06-4e23-8da7-a728ca901716}</UniqueIdentifier>
     </Filter>
@@ -246,6 +243,18 @@
     </Filter>
     <Filter Include="02. GameObject\99. NPC\00. Tutorial\01. Cow">
       <UniqueIdentifier>{29610b7a-997a-441b-9d77-c14ed066ade9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\02. Beatle">
+      <UniqueIdentifier>{85bb9007-5f22-4b16-ad15-fae8f0f7b972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\02. Beatle\00. BlueBeatle">
+      <UniqueIdentifier>{acb6a898-326f-4b16-b957-6ee1b5c2a9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\03. Cupa">
+      <UniqueIdentifier>{2cfbdaae-9c2f-4135-8d2c-4caf0ef5b507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\04. RollingBug">
+      <UniqueIdentifier>{d6c5f1b6-83fb-476f-ba8a-f642c3d4e2e0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -403,7 +412,7 @@
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BlueBeatle.h">
-      <Filter>02. GameObject\02. Monster\02. BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\02. Beatle\00. BlueBeatle</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BalpanObj.h">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
@@ -532,6 +541,12 @@
     </ClInclude>
     <ClInclude Include="..\Header\NPCCow.h">
       <Filter>02. GameObject\99. NPC\00. Tutorial\01. Cow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Cupa.h">
+      <Filter>02. GameObject\02. Monster\03. Cupa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RollingBug.h">
+      <Filter>02. GameObject\02. Monster\04. RollingBug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -675,7 +690,7 @@
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BlueBeatle.cpp">
-      <Filter>02. GameObject\02. Monster\02. BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\02. Beatle\00. BlueBeatle</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Scene_Tool.cpp" />
     <ClCompile Include="..\Code\BalpanObj.cpp">
@@ -802,6 +817,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\NPCSheep.cpp">
       <Filter>02. GameObject\99. NPC\00. Tutorial\00. Sheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Cupa.cpp">
+      <Filter>02. GameObject\02. Monster\03. Cupa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RollingBug.cpp">
+      <Filter>02. GameObject\02. Monster\04. RollingBug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
