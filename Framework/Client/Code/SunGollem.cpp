@@ -28,7 +28,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Idle_Body", L"Proto_Texture_SunGolem_Idle_Head", 0.1f);
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Body", L"Proto_Texture_SunGolem_Dirty_Body", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({2.f, 2.f, 2.f });
+
 	memset(m_bAttack, 1, sizeof(bool)*6);
 	m_vVerticalDir = { 0.f, 1.f ,0.f }; m_vVerticalDir = { 0.f, 1.f ,0.f };
 	m_pTransformCom->Set_Pos(&_vec3(4.0f, 2.0f, 4.0f));
@@ -37,7 +37,8 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_vRandomPos[0] = { vPos.x - 5, vPos.y, vPos.z };
 	m_vRandomPos[1] = { vPos.x , vPos.y, vPos.z };
 	m_vRandomPos[2] = { vPos.x + 5, vPos.y, vPos.z };
-	m_pTransformCom->Set_Scale({ 2,2,2 });
+	m_pTransformCom->Set_Scale({ 2,2,2 });	
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({2.f, 2.f, 2.f });
 	m_fSpeed = 5.f;
 	Set_State(SUNGOLEM_STATE::REGEN);
 	m_tStat = { 6,6,1 };
@@ -324,7 +325,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			memset(m_bAttack, 1, sizeof(bool) * 6);
 			m_iActiveArm += 2;
 			m_bLockon = false;
-			m_tStat.iHp -= 2;
+			//m_tStat.iHp -= 2;
 			if (m_iActiveArm > 5)
 			{
 				m_vecParts[LEFTARM0]->Set_Active(true);
@@ -359,6 +360,11 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 
 void CSunGollem::Update_Die(_float fTimeDelta)
 {
+	for (auto iter = m_vecParts.begin(); iter != m_vecParts.end(); iter++)
+	{
+		if ((*iter)->Is_Active())
+			(*iter)->Set_Active(false);
+	}
 	Set_Active(false);
 }
 
@@ -507,7 +513,6 @@ void CSunGollem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
 		{
 			m_tStat.iHp -= 1;
-			//MSG_BOX("보스 피격");
 		}
 	}
 

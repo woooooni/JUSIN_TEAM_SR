@@ -125,12 +125,13 @@ void CBugBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 		_vec3 vDir;
 		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vDir = vPos - vTargetPos;
+		vDir = m_vDir;
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
+		vDir *= -1;
 		Set_Shooter(pCollider->GetOwner());
 		m_vDir = vDir;
-
+		m_fMoveTime = 20.f;
 	}
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
 	{
@@ -138,6 +139,11 @@ void CBugBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 			Set_Active(false);
 	}
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		if (Is_Active())
+			Set_Active(false);
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
 		if (Is_Active())
 			Set_Active(false);
