@@ -113,15 +113,19 @@ public:
 			m_tPlayerStat.iMoney = 0;
 	}
 	//아이템
-	void			Set_Hat(CGameObject* _pHat) { m_pHat = _pHat; }
+	void			Set_Hat(CGameObject* _pHat) 
+	{ 
+		m_pHat = _pHat; 
+		if (m_pHat)
+			dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Set_Skill(dynamic_cast<CItem_Hat*>(m_pHat)->Get_Skill());
+		else
+			dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Set_Skill(PLAYER_SKILL::NONE);
+	}
 	CItem_Hat*		Get_Hat() { return dynamic_cast<CItem_Hat*>(m_pHat); }
 
 
 	//스킬
-	void			Add_Skill(PLAYER_SKILL _eSkill) 
-	{
-		dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Add_Skill(_eSkill);
-	};
+	
 	void			Set_Skill(PLAYER_SKILL _eSkill) 
 	{
 		dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Set_Skill(_eSkill);

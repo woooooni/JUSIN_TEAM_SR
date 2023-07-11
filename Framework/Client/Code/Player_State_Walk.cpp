@@ -84,7 +84,7 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 		break;
 	}
 
-
+	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 
 	m_fAccTime = 0.0f;
 	return S_OK;

@@ -391,8 +391,29 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CItem_Hat_Monkey* pItemMonkeyHat = CItem_Hat_Monkey::Create(m_pGraphicDev, pPlayer);
 	NULL_CHECK_RETURN(pItemMonkeyHat, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MonkeyHat", pItemMonkeyHat), E_FAIL);
-	pPlayer->Set_Hat(pItemMonkeyHat);
 
+
+	CItem_Hat_Turtle* pItemTurtleHat = CItem_Hat_Turtle::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemTurtleHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_TurtleHat", pItemTurtleHat), E_FAIL);
+
+
+	CItem_Hat_Drill* pItemDrillHat = CItem_Hat_Drill::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemDrillHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_DrillHat", pItemDrillHat), E_FAIL);
+
+	CItem_Hat_Light* pItemLightHat = CItem_Hat_Light::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemLightHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_LightHat", pItemLightHat), E_FAIL);
+
+
+	CItem_Hat_Mask* pItemMaskHat = CItem_Hat_Mask::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
+
+
+
+	pPlayer->Set_Hat(pItemDrillHat);
 
 	pCamera->Set_TargetObj(pPlayer);
 

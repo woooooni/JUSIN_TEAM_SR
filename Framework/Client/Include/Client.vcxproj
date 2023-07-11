@@ -220,7 +220,11 @@
     <ClInclude Include="..\Header\ImGuiMgr.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\Item_Hat.h" />
+    <ClInclude Include="..\Header\Item_Hat_Drill.h" />
+    <ClInclude Include="..\Header\Item_Hat_Light.h" />
+    <ClInclude Include="..\Header\Item_Hat_Mask.h" />
     <ClInclude Include="..\Header\Item_Hat_Monkey.h" />
+    <ClInclude Include="..\Header\Item_Hat_Turtle.h" />
     <ClInclude Include="..\Header\JellyBomb.h" />
     <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
@@ -239,8 +243,11 @@
     <ClInclude Include="..\Header\OnEventObj.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Skill_Aim.h" />
+    <ClInclude Include="..\Header\Player_Skill_Barrier.h" />
+    <ClInclude Include="..\Header\Player_Skill_Drill.h" />
     <ClInclude Include="..\Header\Player_Skill_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Skill_Range.h" />
+    <ClInclude Include="..\Header\Player_Skill_Turtle.h" />
     <ClInclude Include="..\Header\Player_State_BallonFly.h" />
     <ClInclude Include="..\Header\Player_State_Down.h" />
     <ClInclude Include="..\Header\Player_State_Drawing.h" />
@@ -330,7 +337,11 @@
     <ClCompile Include="..\Code\ImGuiMgr.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
     <ClCompile Include="..\Code\Item_Hat.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Drill.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Light.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Mask.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Monkey.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Turtle.cpp" />
     <ClCompile Include="..\Code\JellyBomb.cpp" />
     <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
@@ -349,8 +360,11 @@
     <ClCompile Include="..\Code\OnEventObj.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Aim.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Barrier.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Drill.cpp" />
     <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Turtle.cpp" />
     <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />
     <ClCompile Include="..\Code\Player_State_Down.cpp" />
     <ClCompile Include="..\Code\Player_State_Drawing.cpp" />

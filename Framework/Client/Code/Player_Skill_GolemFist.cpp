@@ -10,9 +10,7 @@
 CPlayer_Skill_GolemFist::CPlayer_Skill_GolemFist(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner), m_vPlusScale(_vec3(0.1f,0.1f,0.0f)), m_fAimMoveSpeed(5.0f)
 {
-	CPlayer_Bullet_GolemFist* pGolemFist = CPlayer_Bullet_GolemFist::Create(Engine::Get_Device());
-	Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Player_Skill_GolemFist", pGolemFist);
-	m_pGolemFist = pGolemFist;
+	
 }
 
 CPlayer_Skill_GolemFist::~CPlayer_Skill_GolemFist()
@@ -22,6 +20,14 @@ CPlayer_Skill_GolemFist::~CPlayer_Skill_GolemFist()
 
 HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 {
+	if (!m_pGolemFist)
+	{
+		CPlayer_Bullet_GolemFist* pGolemFist = CPlayer_Bullet_GolemFist::Create(Engine::Get_Device());
+		Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Player_Skill_GolemFist", pGolemFist);
+		m_pGolemFist = pGolemFist;
+	}
+
+
 	switch (m_pOwner->GetObj_Dir())
 	{
 	case OBJ_DIR::DIR_U:
