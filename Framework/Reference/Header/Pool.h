@@ -28,9 +28,9 @@ public:
 	~CPool() { Free();  __super::Free(); }
 
 public:
-	static HRESULT Ready_Pool(LPDIRECT3DDEVICE9 pGraphicDev, const _int& _iSize)
+	static HRESULT Ready_Pool(LPDIRECT3DDEVICE9 pGraphicDev, const _uint& _iSize)
 	{
-		for (_int i = 0; i < _iSize; ++i)
+		for (_uint i = 0; i < _iSize; ++i)
 		{
 			CGameObject* pObj = T::Create(pGraphicDev);
 			NULL_CHECK_RETURN(pObj, E_FAIL);
@@ -40,7 +40,7 @@ public:
 		return S_OK;
 	}
 
-	static CGameObject* Pop_Obj()
+	static CGameObject* Get_Obj()
 	{
 		if (g_ObjQueue.empty()) return nullptr;
 
