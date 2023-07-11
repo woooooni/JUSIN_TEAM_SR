@@ -67,6 +67,36 @@ namespace Engine
 		_uint iHp = 0;
 		_uint iAttack = 0;
 	}MONSTERSTAT;
+
+	typedef struct tMaterial
+	{
+		void	Set_Material(D3DMATERIAL9& _material, D3DCOLORVALUE _color, _float _fPower = 100.f)
+		{
+			_material.Ambient = _color;
+			_material.Diffuse = _color;
+			_material.Specular = _color;
+			_material.Emissive = _color;
+			_material.Power = _fPower;
+		}
+
+		const D3DMATERIAL9 Get_Meretial(D3DCOLORVALUE _color, _float _fPower = 100.f)
+		{
+			D3DMATERIAL9 mat;
+
+			mat.Ambient = _color;
+			mat.Diffuse = _color;
+			mat.Specular = _color;
+			mat.Emissive = _color;
+			mat.Power = _fPower;
+
+			return mat;
+		}
+
+		D3DMATERIAL9 material;
+
+	} CUSTOM_MATERIAL;
+	static CUSTOM_MATERIAL MATERIAL;
+
 }
 
 

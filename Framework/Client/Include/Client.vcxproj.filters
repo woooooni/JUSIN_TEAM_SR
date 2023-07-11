@@ -250,6 +250,21 @@
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\06. Face">
       <UniqueIdentifier>{a00df816-fc45-4dc9-ab2c-41c6339597cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. FixedObj">
+      <UniqueIdentifier>{5de803c5-82d7-4586-9ed4-2e2de49c9531}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\98. Effect">
+      <UniqueIdentifier>{949fa1cf-fe2d-4f87-a9e6-e98c9ab0402d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\00. Tree">
+      <UniqueIdentifier>{dd098577-767a-4f2d-92d6-ae6ebb1488d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\01.">
+      <UniqueIdentifier>{1b18d9ea-8f5d-4c79-a808-a4047c32b98c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\14. Tile">
+      <UniqueIdentifier>{17d996c8-d91c-4860-b76a-282f2a6080cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -447,9 +462,6 @@
     <ClInclude Include="..\Header\HitObj.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UIPages.h">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\NPC.h">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClInclude>
@@ -521,6 +533,26 @@
     </ClInclude>
     <ClInclude Include="..\Header\GolemFace.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ButterFly.h" />
+    <ClInclude Include="..\Header\House.h" />
+    <ClInclude Include="..\Header\JellyBombCreator.h" />
+    <ClInclude Include="..\Header\LightFlower.h" />
+    <ClInclude Include="..\Header\Turret.h" />
+    <ClInclude Include="..\Header\UI_Pages.h" />
+    <ClInclude Include="..\Header\UI_ShortCutKey.h" />
+    <ClInclude Include="Grass.h" />
+    <ClInclude Include="..\Header\Effect.h">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FixedObj.h">
+      <Filter>02. GameObject\13. FixedObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Tree.h">
+      <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Tile.h">
+      <Filter>02. GameObject\14. Tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -703,9 +735,6 @@
     <ClCompile Include="..\Code\HitObj.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UIPages.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\NPC.cpp">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClCompile>
@@ -777,6 +806,26 @@
     </ClCompile>
     <ClCompile Include="..\Code\GolemFace.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ButterFly.cpp" />
+    <ClCompile Include="..\Code\House.cpp" />
+    <ClCompile Include="..\Code\JellyBombCreator.cpp" />
+    <ClCompile Include="..\Code\LightFlower.cpp" />
+    <ClCompile Include="..\Code\Turret.cpp" />
+    <ClCompile Include="..\Code\UI_Pages.cpp" />
+    <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
+    <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="..\Code\Effect.cpp">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FixedObj.cpp">
+      <Filter>02. GameObject\13. FixedObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Tree.cpp">
+      <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Header\Tile.cpp">
+      <Filter>02. GameObject\14. Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

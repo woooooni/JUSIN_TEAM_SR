@@ -130,6 +130,7 @@ namespace Engine
 		TILE,
 		TREE,
 		TURRET,
+		ID_END
 	};
 	
 	// KeyBoard

@@ -77,7 +77,7 @@ void CPlayer_Bullet_GolemFist::Render_Object(void)
 	if (!Is_Active())
 		return;
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -86,7 +86,7 @@ void CPlayer_Bullet_GolemFist::Render_Object(void)
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 }
 
 HRESULT CPlayer_Bullet_GolemFist::Ready_Component(void)

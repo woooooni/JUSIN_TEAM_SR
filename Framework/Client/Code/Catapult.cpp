@@ -92,7 +92,7 @@ void CCatapult::LateUpdate_Object(void)
 
 void CCatapult::Render_Object(void)
 {
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	__super::Render_Object();
 
 	_matrix	mat;
@@ -125,7 +125,7 @@ void CCatapult::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 
 
 }
