@@ -59,9 +59,9 @@ _int CRigidBody::Update_Component(const _float& fTimeDelta)
 	_vec3 vPos;
 	pOwnerTransform->Get_Info(INFO_POS, &vPos);
 
-	if (vPos.y < 1.f)
+	if (vPos.y < m_pOwner->Get_MinHeight())
 	{
-		vPos.y = 1.f;
+		vPos.y = m_pOwner->Get_MinHeight();
 		pOwnerTransform->Set_Info(INFO_POS, &vPos);
 		SetGround(true);
 	}

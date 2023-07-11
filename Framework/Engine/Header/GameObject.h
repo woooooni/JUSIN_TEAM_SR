@@ -45,6 +45,10 @@ public:
 	void Set_Active(_bool _bActive) { m_bActive = _bActive; }
 	_bool Is_Active() { return m_bActive; }
 
+	void Set_MinHeight(_float _fHeight) { m_fMinHeight = _fHeight; }
+	_float Get_MinHeight() { return m_fMinHeight; }
+
+public:
 	CVIBuffer* Get_BufferCom() { return m_pBufferCom; }
 	CTransform* Get_TransformCom() { return m_pTransformCom; }
 	CCollider* Get_ColliderCom() { return m_pColliderCom; }
@@ -92,6 +96,7 @@ protected:
 	OBJ_DIR		m_eDir;
 
 	_float		m_fViewZ;
+	_float		m_fMinHeight;
 
 private:
 	_bool		m_bActive;
