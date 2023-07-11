@@ -24,12 +24,12 @@ public:
 
 public:
 	KEY_STATE GetKeyState(KEY _eKey) { return m_vecKey[(int)_eKey].eState; }
-
+	const POINT& GetMousePos() { return m_tMousePos; }
 private:
 	vector<tKeyInfo> m_vecKey;
 	HWND	m_hWnd;
 	LPDIRECT3DDEVICE9 m_pGraphicDev;
-
+	POINT m_tMousePos;
 public:
 	virtual void Free() override;
 };

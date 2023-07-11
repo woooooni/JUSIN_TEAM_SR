@@ -46,6 +46,8 @@ HRESULT CKeyMgr::Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 		m_vecKey.push_back(tKeyInfo{ KEY_STATE::NONE, false });
 
 
+	ZeroMemory(&m_tMousePos, sizeof(POINT));
+
 	return S_OK;
 }
 
@@ -94,6 +96,9 @@ void CKeyMgr::Update_KeyMgr()
 			}
 		}
 	}
+
+	GetCursorPos(&m_tMousePos);
+	ScreenToClient(m_hWnd, &m_tMousePos);
 }
 
 
