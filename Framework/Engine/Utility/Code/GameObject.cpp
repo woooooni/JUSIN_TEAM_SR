@@ -19,6 +19,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	, m_pAnimator(nullptr)
 	, m_pTextureCom(nullptr)
 	, m_pRigidBodyCom(nullptr)
+	, m_fMinHeight(0.006f)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -35,6 +36,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_pAnimator(rhs.m_pAnimator)
 	, m_pTextureCom(rhs.m_pTextureCom)
 	, m_pRigidBodyCom(rhs.m_pRigidBodyCom)
+	, m_fMinHeight(rhs.m_fMinHeight)
 	
 {
 	m_pGraphicDev->AddRef();

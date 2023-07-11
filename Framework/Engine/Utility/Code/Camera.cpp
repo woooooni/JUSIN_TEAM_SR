@@ -418,16 +418,12 @@ void CCamera::Key_Input_Tool(const _float& fTimeDelta)
 
 	if (KEY_HOLD(KEY::Q) && KEY_NONE(KEY::CTRL))
 	{
-		_vec3 vDir;
-		m_pTransformCom->Get_Info(INFO_UP, &vDir);
-		m_pTransformCom->Move_Pos(&vDir, m_fMoveSpeed, fTimeDelta);
+		m_pTransformCom->Move_Pos(&_vec3{0.f, 1.f, 0.f}, m_fMoveSpeed, fTimeDelta);
 	}
 
 	if (KEY_HOLD(KEY::E) && KEY_NONE(KEY::CTRL))
 	{
-		_vec3 vDir;
-		m_pTransformCom->Get_Info(INFO_UP, &vDir);
-		m_pTransformCom->Move_Pos(&vDir, -m_fMoveSpeed, fTimeDelta);
+		m_pTransformCom->Move_Pos(&_vec3{ 0.f, 1.f, 0.f }, -m_fMoveSpeed, fTimeDelta);
 	}
 }
 

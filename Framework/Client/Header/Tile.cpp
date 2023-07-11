@@ -76,8 +76,6 @@ HRESULT CTile::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
-	
-
 	return S_OK;
 }
 
