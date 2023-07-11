@@ -13,6 +13,8 @@ public:
 	virtual void			LateUpdate_State(void) override;
 	virtual void			Render_State(void) override;
 
+	
+
 	bool					Is_HaveSkill() 
 	{
 		if (m_eSkill == PLAYER_SKILL::SKILLEND || !m_vecSkillState[(_uint)m_eSkill])
@@ -21,8 +23,10 @@ public:
 		}
 		return true;
 	}
-	void					Add_Skill(PLAYER_SKILL Player_Skill);
+
+	PLAYER_SKILL			Get_Skill() { return m_eSkill; }
 	void					Set_Skill(PLAYER_SKILL Player_Skill) { m_eSkill = Player_Skill; }
+
 private:
 	vector<CPlayer_State*>	m_vecSkillState;
 	PLAYER_SKILL			m_eSkill;

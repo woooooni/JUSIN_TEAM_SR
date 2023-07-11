@@ -161,6 +161,7 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"BalloonFly", L"Proto_Texture_Player_BalloonFly", 0.1f);
 	m_pAnimator->Add_Animation(L"Drawing", L"Proto_Texture_Player_Drawing", 0.1f);
 
+	m_pAnimator->Add_Animation(L"Drill", L"Proto_Texture_Player_Drill", 0.1f);
 
 	m_pAnimator->Play_Animation(L"Idle_Down", true);
 
@@ -186,6 +187,7 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_Skill(this));
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
+	m_fMinHeight = 1.0f;
 
 	m_tPlayerStat.iMaxHp = m_tPlayerStat.iHp = 5;
 	m_tPlayerStat.iMaxMp = m_tPlayerStat.iMp = 5;
@@ -454,8 +456,9 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 void CPlayer::Collision_Enter_Grab(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	m_pLiftObj = pCollider->GetOwner();
-	m_bGrab = true;
+	m_pLiftObj = dynamic_cast<CFieldObject*>(pCollider->GetOwner())->Get_GrabObj();
+	if(m_pLiftObj != nullptr)
+		m_bGrab = true;
 }
 
 void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
@@ -522,7 +525,13 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 	m_eDir = eTargetDir;
 
-	Change_State(PLAYER_STATE::HIT);
+
+	if (m_eState == PLAYER_STATE::SKILL && dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Get_Skill() == PLAYER_SKILL::TURTLE)
+	{
+
+	}
+	else
+		Change_State(PLAYER_STATE::HIT);
 
 }
 

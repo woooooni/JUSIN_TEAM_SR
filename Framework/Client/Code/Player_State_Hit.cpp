@@ -59,6 +59,8 @@ HRESULT CPlayer_State_Hit::Ready_State(void)
 		break;
 	}
 
+	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
+
 	D3DXVec3Normalize(&vDir, &vDir);
 
 	m_pOwner->Get_RigidBodyCom()->AddForce(vDir * 80.0f);

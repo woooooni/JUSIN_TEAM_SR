@@ -2,14 +2,18 @@
 #include "Engine_Enum.h"
 #include "Player_State.h"
 #include "Player_Skill_GolemFist.h"
+#include "Player_Skill_Turtle.h"
+#include "Player_Skill_Drill.h"
 
 CPlayer_State_Skill::CPlayer_State_Skill(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
 {
-	for (_uint i = 0; (_uint)PLAYER_SKILL::SKILLEND > i; ++i)
-		m_vecSkillState.push_back(nullptr);
+	m_vecSkillState.push_back(nullptr);
+	m_vecSkillState.push_back(new CPlayer_Skill_GolemFist(m_pOwner));
+	m_vecSkillState.push_back(new CPlayer_Skill_Turtle(m_pOwner));
+	m_vecSkillState.push_back(new CPlayer_Skill_Drill(m_pOwner));
 
-	m_eSkill = PLAYER_SKILL::SKILLEND;
+	m_eSkill = PLAYER_SKILL::NONE;
 }
 
 CPlayer_State_Skill::~CPlayer_State_Skill()
@@ -49,16 +53,5 @@ void CPlayer_State_Skill::Render_State(void)
 	if (m_vecSkillState[(_uint)m_eSkill])
 	{
 		m_vecSkillState[(_uint)m_eSkill]->Render_State();
-	}
-}
-
-void CPlayer_State_Skill::Add_Skill(PLAYER_SKILL Player_Skill)
-{
-	switch (Player_Skill)
-	{
-	case PLAYER_SKILL::GOLEMFIST:
-		if(!m_vecSkillState[(_uint)PLAYER_SKILL::GOLEMFIST])
-			m_vecSkillState[(_uint)PLAYER_SKILL::GOLEMFIST] = new CPlayer_Skill_GolemFist(m_pOwner);
-		break;
 	}
 }

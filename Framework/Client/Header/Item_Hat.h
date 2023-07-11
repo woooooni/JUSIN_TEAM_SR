@@ -17,6 +17,8 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
+	PLAYER_SKILL	Get_Skill() { return m_eSkill; }
+
 
 	void			Set_Offset(OBJ_DIR _eDir ,_vec3& _vOffset) {m_vecOffset[(_uint)_eDir] = _vOffset; }
 	void			Set_Pos(_vec3& _vPos)
@@ -56,6 +58,7 @@ protected:
 
 	bool	m_bLoop = false;
 
+	PLAYER_SKILL m_eSkill;
 private:
 	void	Set_Hat(void);
 };

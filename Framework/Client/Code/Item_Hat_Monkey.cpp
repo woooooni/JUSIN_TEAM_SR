@@ -54,6 +54,8 @@ HRESULT CItem_Hat_Monkey::Ready_Object(void)
 
 	m_bLoop = true;
 
+	m_eSkill = PLAYER_SKILL::GOLEMFIST;
+
 	return S_OK;
 }
 

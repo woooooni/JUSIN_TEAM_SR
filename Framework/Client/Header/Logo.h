@@ -47,6 +47,11 @@
 #include "MothMage.h"
 #include "SilkWorm.h"
 
+#include "Item_Hat_Turtle.h"
+#include "Item_Hat_Drill.h"
+#include "Item_Hat_Light.h"
+#include "Item_Hat_Mask.h"
+
 class CLogo : public Engine::CScene
 {
 private:
