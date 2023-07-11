@@ -81,15 +81,15 @@ namespace Engine
 
 		const D3DMATERIAL9 Get_Meretial(D3DCOLORVALUE _color, _float _fPower = 100.f)
 		{
-			D3DMATERIAL9 mat;
+			D3DMATERIAL9 tMat;
 
-			mat.Ambient = _color;
-			mat.Diffuse = _color;
-			mat.Specular = _color;
-			mat.Emissive = _color;
-			mat.Power = _fPower;
+			tMat.Ambient = _color;
+			tMat.Diffuse = _color;
+			tMat.Specular = _color;
+			tMat.Emissive = _color;
+			tMat.Power = _fPower;
 
-			return mat;
+			return tMat;
 		}
 
 		D3DMATERIAL9 material;

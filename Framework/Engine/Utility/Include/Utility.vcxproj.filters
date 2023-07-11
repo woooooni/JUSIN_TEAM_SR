@@ -70,9 +70,6 @@
     <Filter Include="00. Manager\03. PickingMgr">
       <UniqueIdentifier>{c593a441-d9f5-457b-8504-bba9c55b2751}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Light">
-      <UniqueIdentifier>{28a1cc40-f85d-4d6b-a753-ca2718b8f91b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. Manager\04. LightMgr">
       <UniqueIdentifier>{52fcbec9-7e73-4a87-ba23-cc6f7ce59fee}</UniqueIdentifier>
     </Filter>
@@ -93,6 +90,12 @@
     </Filter>
     <Filter Include="05. Component\02. Collider\SphereCollider">
       <UniqueIdentifier>{e65e3f5e-aa93-423c-b6e2-64869a3873b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Light">
+      <UniqueIdentifier>{28a1cc40-f85d-4d6b-a753-ca2718b8f91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Pool">
+      <UniqueIdentifier>{19788ce9-d5bd-44b0-8bae-c79d30c92236}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +185,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Header\RcPuzzleBuff.h">
       <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\Pool.h">
+      <Filter>98. Pool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

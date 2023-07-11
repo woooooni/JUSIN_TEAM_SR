@@ -44,6 +44,7 @@ C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\EventMgr.h(43): warn
   .\Engine\Header\LightMgr.h
   .\Engine\Header\Management.h
   .\Engine\Header\PickingMgr.h
+  .\Engine\Header\Pool.h
   .\Engine\Header\ProtoMgr.h
   .\Engine\Header\RcCol.h
   .\Engine\Header\RcPuzzleBuff.h
@@ -58,7 +59,7 @@ C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Engine\Header\EventMgr.h(43): warn
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         44개 파일이 복사되었습니다.
+         45개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

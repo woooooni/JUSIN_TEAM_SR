@@ -259,11 +259,11 @@
     <Filter Include="02. GameObject\13. FixedObj\00. Tree">
       <UniqueIdentifier>{dd098577-767a-4f2d-92d6-ae6ebb1488d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\13. FixedObj\01.">
-      <UniqueIdentifier>{1b18d9ea-8f5d-4c79-a808-a4047c32b98c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\14. Tile">
       <UniqueIdentifier>{17d996c8-d91c-4860-b76a-282f2a6080cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\01. House">
+      <UniqueIdentifier>{1b18d9ea-8f5d-4c79-a808-a4047c32b98c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -535,7 +535,6 @@
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ButterFly.h" />
-    <ClInclude Include="..\Header\House.h" />
     <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\Turret.h" />
@@ -553,6 +552,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\Tile.h">
       <Filter>02. GameObject\14. Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\House.h">
+      <Filter>02. GameObject\13. FixedObj\01. House</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -808,7 +810,6 @@
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ButterFly.cpp" />
-    <ClCompile Include="..\Code\House.cpp" />
     <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\Turret.cpp" />
@@ -826,6 +827,9 @@
     </ClCompile>
     <ClCompile Include="..\Header\Tile.cpp">
       <Filter>02. GameObject\14. Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\House.cpp">
+      <Filter>02. GameObject\13. FixedObj\01. House</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
