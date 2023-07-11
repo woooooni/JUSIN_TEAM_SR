@@ -219,6 +219,7 @@
     <ClInclude Include="..\Header\House.h" />
     <ClInclude Include="..\Header\Icon.h" />
     <ClInclude Include="..\Header\ImGuiMgr.h" />
+    <ClInclude Include="..\Header\InventoryMgr.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\Item_Hat.h" />
     <ClInclude Include="..\Header\Item_Hat_Monkey.h" />
@@ -279,6 +280,7 @@
     <ClInclude Include="..\Header\Turret.h" />
     <ClInclude Include="..\Header\Tree.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
+    <ClInclude Include="..\Header\UIMgr.h" />
     <ClInclude Include="..\Header\UI_Pages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
@@ -330,6 +332,7 @@
     <ClCompile Include="..\Code\House.cpp" />
     <ClCompile Include="..\Code\Icon.cpp" />
     <ClCompile Include="..\Code\ImGuiMgr.cpp" />
+    <ClCompile Include="..\Code\InventoryMgr.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
     <ClCompile Include="..\Code\Item_Hat.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Monkey.cpp" />
@@ -389,6 +392,7 @@
     <ClCompile Include="..\Code\Turret.cpp" />
     <ClCompile Include="..\Code\Tree.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
+    <ClCompile Include="..\Code\UIMgr.cpp" />
     <ClCompile Include="..\Code\UI_Pages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />

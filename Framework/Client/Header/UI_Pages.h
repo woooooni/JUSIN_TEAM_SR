@@ -16,6 +16,8 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+private:
+	HRESULT Ready_Component();
 public:
 	static  CUI_Pages*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

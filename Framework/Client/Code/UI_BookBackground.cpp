@@ -20,11 +20,19 @@ HRESULT CUI_BookBackground::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
+	m_tInfo.fX = WINCX / 2.f;
+	m_tInfo.fY = WINCY / 2.f;
+
+	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
+	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
+
     return S_OK;
 }
 
 _int CUI_BookBackground::Update_Object(const _float& fTimeDelta)
 {
+	// Debug_Input();
+	Add_RenderGroup(RENDERID::RENDER_UI, this);
 	CUI::Update_Object(fTimeDelta);
     return S_OK;
 }
@@ -42,7 +50,7 @@ void CUI_BookBackground::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 	
-	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) *  (1 / m_matProj._11) , ((-2 * (WINCY / 2)) / WINCY + 1)  * (1 / m_matProj._22), 0.f };
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) *  (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1)  * (1 / m_matProj._22), 0.f };
 
 	m_pTransformCom->Set_Pos(&vPos);
 
@@ -50,19 +58,13 @@ void CUI_BookBackground::Render_Object(void)
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
 	_float fRatio = _float(WINCY) / _float(WINCX);
-	//_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
-	_vec3 vScale = _vec3(fWidth * fRatio * 0.8, fHeight * fRatio, 0.f);
+	_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetTransform(D3DTS_VIEW,	&m_matView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 	m_pTextureCom->Render_Texture(0);
 	m_pBufferCom->Render_Buffer();
-
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 }
 
 HRESULT CUI_BookBackground::Ready_Component()
@@ -82,7 +84,7 @@ HRESULT CUI_BookBackground::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_Page"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_AdventureBook_Background"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);

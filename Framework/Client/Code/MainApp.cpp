@@ -633,6 +633,7 @@ HRESULT CMainApp::Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CMainApp::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Page", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/AdventureBook/Page/N_Page_%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_AdventureBook_Background", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/AdventureBook/Background/Background.png")), E_FAIL);
 	return S_OK;
 }
 

@@ -37,6 +37,9 @@ HRESULT CUI_AdventureBook::Ready_Object(LPDIRECT3DDEVICE9 pGraphicDev)
 
 _int CUI_AdventureBook::Update_Object(const _float& fTimeDelta)
 {
+	Debug_Input();
+	m_pUIBackGround->Update_Object(fTimeDelta);
+	m_pUIPages->Update_Object(fTimeDelta);
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }

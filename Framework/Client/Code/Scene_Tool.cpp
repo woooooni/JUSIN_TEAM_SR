@@ -8,6 +8,7 @@
 #include "ImGuiMgr.h"
 #include "UI_Pages.h"
 #include "Tree.h"
+#include "UI_AdventureBook.h"
 
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -342,6 +343,10 @@ HRESULT CScene_Tool::Ready_Layer(LAYER_TYPE _eType)
 	CTree* pTree = CTree::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTree, E_FAIL);
 	FAILED_CHECK_RETURN(pLayerEnv->Add_GameObject(L"Tree", pTree), E_FAIL);
+
+	CUI_AdventureBook* pUIBook = CUI_AdventureBook::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pUIBook, E_FAIL);
+	FAILED_CHECK_RETURN(pLayerUI->Add_GameObject(L"Adventure_Book", pUIBook), E_FAIL);
 
 	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 	pCamera->Set_TargetObj(pPlayer);

@@ -25,9 +25,6 @@ namespace Engine
 	}VTXTEX;
 	const _ulong	FVF_TEX = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1;
 
-
-
-
 	typedef struct tagVertexCubeTexture
 	{
 		_vec3		vPosition;
@@ -67,6 +64,15 @@ namespace Engine
 		_uint iHp = 0;
 		_uint iAttack = 0;
 	}MONSTERSTAT;
+
+
+	typedef struct tUI_INFO
+	{
+		_float fX;
+		_float fY;
+		_float fCX;
+		_float fCY;
+	}UI_INFO;
 
 	typedef struct tMaterial
 	{
