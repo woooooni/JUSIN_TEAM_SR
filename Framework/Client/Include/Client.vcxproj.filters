@@ -313,6 +313,12 @@
     <Filter Include="02. GameObject\02. Monster\06. Cupa">
       <UniqueIdentifier>{0a523cb1-ae9c-491b-8e63-3777e23b205b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97. Util">
+      <UniqueIdentifier>{2bd5d4f2-60da-4fe3-ac55-179bbcd25909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. Util\00. Pool">
+      <UniqueIdentifier>{bc94a776-1511-4e3d-94ff-f263b7ad6739}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -654,6 +660,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
     <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
+    <ClInclude Include="..\Header\Pool.h">
+      <Filter>97. Util\00. Pool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">

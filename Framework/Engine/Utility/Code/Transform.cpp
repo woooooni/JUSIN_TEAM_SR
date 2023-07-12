@@ -106,8 +106,6 @@ void CTransform::Set_Scale(_vec3 _vScale)
 	Set_Info(INFO_RIGHT, &vRight);
 	Set_Info(INFO_UP, &vUp);
 	Set_Info(INFO_LOOK, &vLook);
-
-
 }
 
 _vec3 CTransform::Get_Scale()

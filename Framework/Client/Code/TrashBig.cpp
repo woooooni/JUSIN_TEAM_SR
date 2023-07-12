@@ -1,11 +1,11 @@
 #include "TrashBig.h"
 #include "Export_Function.h"
 
-CTrashBig::CTrashBig(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_BIG)
+CTrashBig::CTrashBig(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_BIG), m_fMoveTime(0.f)
 {
 }
 
-CTrashBig::CTrashBig(const CTrashBig& rhs) : CMonster(rhs)
+CTrashBig::CTrashBig(const CTrashBig& rhs) : CMonster(rhs), m_fMoveTime(0.f)
 {
 }
 

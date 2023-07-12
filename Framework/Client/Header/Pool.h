@@ -1,17 +1,4 @@
 #pragma once
-/*
-
-	* 주의사항
-
-	* 함수 호출시 포인터 타입이 아닌 '비 포인터' 타입을 넘겨주어야 한다.
-
-	* ex)
-			C
-			<CDamageUI>::Init(OBJ_TYPE::UI, 50);
-
-			CDamageUI* pUI = static_cast<CDamageUI*>(CPool<CDamageUI>::Get_Obj());
-
-*/
 
 #include "Engine_Define.h"
 #include "Base.h"
@@ -20,8 +7,7 @@
 BEGIN(Engine)
 
 template <typename T>
-
-class ENGINE_DLL CPool : public CBase
+class CPool : public CBase
 {
 public:
 	CPool() {}
@@ -58,7 +44,7 @@ public:
 	{
 		NULL_CHECK_RETURN(pObj, E_FAIL);
 		_pObj->Set_Active(false);
-		g_ObjQueue.push(_pObj);
+		g_objQueue.push(_pObj);
 
 		return TRUE;
 	}

@@ -3,11 +3,15 @@
 
 #include "Export_Function.h"
 
-CDesertRhino::CDesertRhino(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::DESERT_RHINO)
+CDesertRhino::CDesertRhino(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: CMonster(pGraphicDev, OBJ_ID::DESERT_RHINO)
+	, m_fMoveTime(0.f)
 {
 }
 
-CDesertRhino::CDesertRhino(const CDesertRhino& rhs) : CMonster(rhs)
+CDesertRhino::CDesertRhino(const CDesertRhino& rhs) 
+	: CMonster(rhs)
+	, m_fMoveTime(0.f)
 {
 }
 
