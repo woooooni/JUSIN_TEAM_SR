@@ -232,6 +232,7 @@ void CDesertRhino::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
 	vDir = m_vDir;
+	vDir = m_vDir;
 	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
 

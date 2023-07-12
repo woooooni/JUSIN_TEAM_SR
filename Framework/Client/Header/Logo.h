@@ -28,6 +28,9 @@
 #include "QuickSlot.h"
 #include "Text.h"
 #include "Icon.h"
+#include "NPCCow.h"
+#include "UI_HPBar.h"
+#include "UI_Totem.h"
 #include "UI_ShortCutKey.h"
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"
@@ -41,6 +44,8 @@
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"
 
+#include "Cupa.h"
+#include "RollingBug.h"
 #include "TrashSlime.h"
 #include "Item_Hat_Monkey.h"
 

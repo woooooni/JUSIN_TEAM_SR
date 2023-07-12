@@ -1,9 +1,9 @@
 #pragma once
 #include "CUI.h"
+#include "TutorialNPC.h"
 
 typedef enum class TextType
 {
-	//TUT_OGUMOM,
 	COW, SHEEP, PIG, DOOGEE,
 
 	TEXTTYPE_END
@@ -12,9 +12,8 @@ typedef enum class TextType
 
 struct tagTextInfo
 {
-	wstring		strDesc;
+	wstring			strDesc;
 	TEXTTYPE		eType;
-	//CAM_EFFECT  eCamEffect;
 };
 
 class CTextBox : public CUI
@@ -40,17 +39,19 @@ public:
 //public:
 //	_int	Split_String(LPCTSTR lpszTemp, TCHAR szSep, CStringArray& strArr);
 //	_int	Splits_String(CString strTemp, CString strSep, CStringArray& strArr);
+private:
+	HRESULT			Add_Component(void);
 
 private:
 	tagTextInfo m_tInfo = {};
-	bool		m_bShown = false;
+	bool		m_bShown = true;
 	UINT		m_iIndex = 0;
 	float		m_fAccTime = 0.f;
-	float		m_fTextSpeed = 2.f;
+	float		m_fTextSpeed = 5.f;
 	wstring		m_strCurrDesc = L"";
 
 private:
-	vector<wstring>		m_vecText;
+	vector<tagTextInfo>		m_vecText;
 
 public:
 	static  CTextBox* Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType);

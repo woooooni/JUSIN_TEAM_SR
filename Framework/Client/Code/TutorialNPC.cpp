@@ -26,14 +26,18 @@ _int CTutorialNPC::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+//	m_tInfo.eState = NPCSTATE::NPC_IDLE;
+//	m_tInfo.bCollision = false;
 
+//	m_vecNPC.push_back({ m_tInfo.eType , m_tInfo.eState, m_tInfo.bCollision });
+
+	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
 	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"UI_ShortCutKey_Info");
 	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_TextBox");
 
 	_vec3 vPlayerPos, vNPCPos;
 	bool bShown = dynamic_cast<CNPCText*>(pUIBox)->Get_Shown();
-
+	
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vNPCPos);
 	_float fLength = D3DXVec3Length(&(vPlayerPos - vNPCPos));
@@ -153,19 +157,19 @@ HRESULT CTutorialNPC::Add_Component(void)
 		FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Tutorial_Pig_Idle", TRUE), E_FAIL);
 		break;
 
-	case NPCTYPE::TUT_COW:
-		m_tInfo.eState = NPCSTATE::NPC_IDLE;
-
-		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_NPC_Cow_Idle"));
-		NULL_CHECK_RETURN(pComponent, E_FAIL);
-		pComponent->SetOwner(this);
-		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
-
-		FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Cow_Idle", L"Proto_Texture_NPC_Cow_Idle", 0.5f), E_FAIL);
-		FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Cow_React", L"Proto_Texture_NPC_Cow_React", 0.5f), E_FAIL);
-
-		FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Tutorial_Cow_Idle", TRUE), E_FAIL);
-		break;
+//	case NPCTYPE::TUT_COW:
+//		m_tInfo.eState = NPCSTATE::NPC_IDLE;
+//
+//		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_NPC_Cow_Idle"));
+//		NULL_CHECK_RETURN(pComponent, E_FAIL);
+//		pComponent->SetOwner(this);
+//		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+//
+//		FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Cow_Idle", L"Proto_Texture_NPC_Cow_Idle", 0.5f), E_FAIL);
+//		FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Cow_React", L"Proto_Texture_NPC_Cow_React", 0.5f), E_FAIL);
+//
+//		FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Tutorial_Cow_Idle", TRUE), E_FAIL);
+//		break;
 
 	case NPCTYPE::TUT_DOOGEE:
 		m_tInfo.eState = NPCSTATE::NPC_IDLE;
@@ -211,6 +215,7 @@ CTutorialNPC* CTutorialNPC::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vP
 	CTutorialNPC* pInstance = new CTutorialNPC(pGraphicDev);
 
 	pInstance->Set_Type(eType);
+	
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

@@ -56,13 +56,15 @@ public:
 	virtual void		Render_Object(void) override;
 
 private:
-	HRESULT		Add_Component(void);
-	void		Set_Type(NPCTYPE eType);
-	void		Set_State(NPCSTATE eState);
+	HRESULT			Add_Component(void);
+	void			Set_Type(NPCTYPE eType);
+	tagNPCInfo		Get_Type() { return m_tInfo; }
+	void			Set_State(NPCSTATE eState);
 
 private:
 	CUI_ShortCutKey*	m_pKeyInfo = nullptr;
 	tagNPCInfo			m_tInfo;
+	vector<tagNPCInfo>	m_vecNPC;
 
 public:
 	static  CTutorialNPC* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos, NPCTYPE eType);

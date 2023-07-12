@@ -103,10 +103,35 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	//pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 
 	// Monster
-	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
+
+	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(3.f, 1.f, 1.f), BUGCOLORTYPE::PINK);
+	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Pink", pMonRolling_Pink), E_FAIL);
+
+	CRollingBug* pMonRolling_Blue = CRollingBug::Create(m_pGraphicDev, _vec3(6.f, 1.f, 4.f), BUGCOLORTYPE::BLUE);
+	NULL_CHECK_RETURN(pMonRolling_Blue, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Blue", pMonRolling_Blue), E_FAIL);
+
+	CRollingBug* pMonRolling_Yellow = CRollingBug::Create(m_pGraphicDev, _vec3(8.f, 1.f, 2.f), BUGCOLORTYPE::YELLOW);
+	NULL_CHECK_RETURN(pMonRolling_Yellow, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Yellow", pMonRolling_Yellow), E_FAIL);
+
+	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
+
+	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::BLUEBEATLE);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
 	
+	CBlueBeatle* pRedBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::REDBEATLE);
+	NULL_CHECK_RETURN(pRedBeatle, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"RedBeatle", pRedBeatle), E_FAIL);
+
+	CBlueBeatle* pGreenBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::GREENBEATLE);
+	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
+
 	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
@@ -325,7 +350,7 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pTextBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
 
-	CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::SHEEP);
+	CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::COW);
 	NULL_CHECK_RETURN(pText, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Text", pText), E_FAIL);
 
@@ -341,13 +366,29 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pIconQuest, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconQuest), E_FAIL);
 
+//	CIcon* pTotem1 = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP);
+//	NULL_CHECK_RETURN(pTotem1, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Totem1", pTotem1), E_FAIL);
+
+	CUI_HPBar* pHPBar = CUI_HPBar::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pHPBar, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_HPBar", pHPBar), E_FAIL);
+
 	CIcon* pIconHPFrame = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP_FRAME);
 	NULL_CHECK_RETURN(pIconHPFrame, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_HPFrame", pIconHPFrame), E_FAIL);
 
-	CIcon* pIconKeyButton = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON);
+	CUI_Totem* pTotem_Cur = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::CURR);
+	NULL_CHECK_RETURN(pTotem_Cur, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Cur", pTotem_Cur), E_FAIL);
+
+	CUI_Totem* pTotem_Max = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::MAX);
+	NULL_CHECK_RETURN(pTotem_Max, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Max", pTotem_Max), E_FAIL);
+
+	CIcon* pIconKeyButton = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_L);
 	NULL_CHECK_RETURN(pIconKeyButton, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton", pIconKeyButton), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_L", pIconKeyButton), E_FAIL);
 
 	CQuickSlot* pQuickSlot1 = CQuickSlot::Create(m_pGraphicDev, SLOTNUM::SLOT_ONE);
 	NULL_CHECK_RETURN(pQuickSlot1, E_FAIL);
@@ -365,6 +406,22 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pQuickSlot4, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_QuickSlot_Fourth", pQuickSlot4), E_FAIL);
 
+	CIcon* pIconKeyButton1 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_1);
+	NULL_CHECK_RETURN(pIconKeyButton1, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_1", pIconKeyButton1), E_FAIL);
+
+	CIcon* pIconKeyButton2 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_2);
+	NULL_CHECK_RETURN(pIconKeyButton2, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_2", pIconKeyButton2), E_FAIL);
+
+	CIcon* pIconKeyButton3 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_3);
+	NULL_CHECK_RETURN(pIconKeyButton3, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_3", pIconKeyButton3), E_FAIL);
+
+	CIcon* pIconKeyButton4 = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_4);
+	NULL_CHECK_RETURN(pIconKeyButton4, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_4", pIconKeyButton4), E_FAIL);
+
 	CUI_ShortCutKey* pKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pKeyInfo, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pKeyInfo), E_FAIL);
@@ -376,13 +433,13 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 
 
 	// NPC (Test)
-	CTutorialNPC* pNPCSheep = CTutorialNPC::Create(m_pGraphicDev, { 2, 1, 1 }, NPCTYPE::TUT_SHEEP);
-	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
+//	CTutorialNPC* pNPCSheep = CTutorialNPC::Create(m_pGraphicDev, { 4, 1, 1 }, NPCTYPE::TUT_SHEEP);
+//	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
 	
-//	CTutorialNPC* pNPCCow = CTutorialNPC::Create(m_pGraphicDev, { 6, 1, 1 }, NPCTYPE::TUT_COW);
-//	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
+	CNPCCow* pNPCCow = CNPCCow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
+	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
 //
 //	CTutorialNPC* pNPCPig = CTutorialNPC::Create(m_pGraphicDev, { 10, 1, 1 }, NPCTYPE::TUT_PIG);
 //	NULL_CHECK_RETURN(pNPCPig, E_FAIL);
