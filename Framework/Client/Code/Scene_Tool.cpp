@@ -9,6 +9,8 @@
 #include "UI_Pages.h"
 #include "UI_AdventureBook.h"
 #include "BlueBeatle.h"
+#include "RedBeatle.h"
+#include "GreenBeatle.h"
 #include "DesertRhino.h"
 #include "TrashBig.h"
 #include "Tile.h"
@@ -332,18 +334,7 @@ void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 		return;
 	}
 
-
-	for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
-	{
-		if (LAYER_TYPE(i) == LAYER_TYPE::PLAYER
-			|| LAYER_TYPE(i) == LAYER_TYPE::CAMERA
-			|| LAYER_TYPE(i) == LAYER_TYPE::EFFECT
-			|| LAYER_TYPE(i) == LAYER_TYPE::TERRAIN
-			|| LAYER_TYPE(i) == LAYER_TYPE::UI)
-			continue;
-
-		m_mapLayer[(LAYER_TYPE)i]->Free();
-	}
+	Clear_Layer();
 
 
 	DWORD	dwByte = 0;
@@ -379,6 +370,14 @@ void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 		{
 		case OBJ_ID::BLUE_BEATLE:
 			pObj = CBlueBeatle::Create(m_pGraphicDev);
+			break;
+
+		case OBJ_ID::RED_BEATLE:
+			pObj = CRedBeatle::Create(m_pGraphicDev);
+			break;
+
+		case OBJ_ID::GREEN_BEATLE:
+			pObj = CGreenBeatle::Create(m_pGraphicDev);
 			break;
 
 		case OBJ_ID::DESERT_RHINO:
@@ -450,6 +449,17 @@ void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 
 void CScene_Tool::Clear_Layer()
 {
+	for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
+	{
+		if (LAYER_TYPE(i) == LAYER_TYPE::PLAYER
+			|| LAYER_TYPE(i) == LAYER_TYPE::CAMERA
+			|| LAYER_TYPE(i) == LAYER_TYPE::EFFECT
+			|| LAYER_TYPE(i) == LAYER_TYPE::TERRAIN
+			|| LAYER_TYPE(i) == LAYER_TYPE::UI)
+			continue;
+
+		m_mapLayer[(LAYER_TYPE)i]->Free();
+	}
 }
 
 

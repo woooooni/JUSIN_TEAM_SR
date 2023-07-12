@@ -667,6 +667,9 @@
     <ClInclude Include="..\Header\FistEffect.h">
       <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Loading.h">
+      <Filter>03. Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -996,6 +999,8 @@
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp">
       <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
+    <ClCompile Include="..\Code\Loading.cpp">
+      <Filter>03. Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
