@@ -6,6 +6,8 @@
 #include "Scene_Tool.h"
 #include "GameObject.h"
 #include "BlueBeatle.h"
+#include "RedBeatle.h"
+#include "GreenBeatle.h"
 #include "DesertRhino.h"
 #include "TrashBig.h"
 #include "Tile.h"
@@ -128,6 +130,12 @@ void CImGuiMgr::Update_ImGui(const _float& fTimeDelta)
 	{
 		m_pToolScene->Load_Data(m_strFolderPath);
 	}
+	ImGui::SameLine();
+	if (ImGui::Button("Clear"))
+	{
+		ResetSelectTarget();
+		m_pToolScene->Clear_Layer();
+	}
 	ImGui::EndTabBar();
 	ImGui::End();
 }
@@ -177,6 +185,7 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		m_pSelectedObject->Render_Object();
 
 		OBJ_TYPE eObjType = m_pSelectedObject->GetObj_Type();
+
 		if (eObjType == OBJ_TYPE::OBJ_MONSTER || eObjType == OBJ_TYPE::OBJ_ENVIRONMENT)
 			SetAutoY(m_pSelectedObject);
 	}
@@ -189,6 +198,18 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CBlueBeatle::Create(m_pGraphicDev);
+		}
+
+		if (ImGui::Button("Red_Beatle"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CRedBeatle::Create(m_pGraphicDev);
+		}
+
+		if (ImGui::Button("Green_Beatle"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CGreenBeatle::Create(m_pGraphicDev);
 		}
 
 		if (ImGui::Button("Desert_Rino"))
@@ -387,6 +408,16 @@ void CImGuiMgr::CreateObj(_vec3& vHit)
 		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"BlueBeatle" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
+	case OBJ_ID::RED_BEATLE:
+		pCloneObj = CRedBeatle::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"RedBeatle" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::GREEN_BEATLE:
+		pCloneObj = CGreenBeatle::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"GreenBeatle" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
 	case OBJ_ID::DESERT_RHINO:
 		pCloneObj = CDesertRhino::Create(m_pGraphicDev);
 		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"DesertRhino" + to_wstring(m_iObjNum++), pCloneObj);
@@ -466,6 +497,8 @@ void CImGuiMgr::CreateObj(_vec3& vHit)
 	// 포지션 적용.
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+
+	pCloneObj->Set_MinHeight(m_pSelectedObject->Get_MinHeight());
 
 	// 스케일 적용
 	pCloneObj->Get_TransformCom()->Set_Scale(vScale);
@@ -553,23 +586,58 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 
 		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::F))
 		{
-			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
-			vScale.z *= -1.f;
-			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
+			_vec3 vLook, vRight, vUp;
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+
+			m_pTargetObject->Get_TransformCom()->RotationAxis(vUp, D3DXToRadian(180.f));
 		}
 
-		if (KEY_HOLD(KEY::O))
+		if (KEY_TAP(KEY::OPEN_SQUARE_BRACKET)) // '['
 		{
 			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
-			vScale.x += 1.f;
-			vScale.y += 1.f;
-			vScale.z += 1.f;
+			vScale.x -= 1.f;
+			vScale.y -= 1.f;
+			vScale.z -= 1.f;
+
+			if (vScale.x < 1.f)
+				vScale.x = 1.f;
+			if (vScale.y < 1.f)
+				vScale.y = 1.f;
+			if (vScale.z < 1.f)
+				vScale.z = 1.f;
+
+			vScale.x = _int(vScale.x);
+			vScale.y = _int(vScale.y);
+			vScale.z = _int(vScale.z);
 
 			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
+			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
+			if (nullptr != pBoxCollider)
+				pBoxCollider->Set_Scale(vScale);
 		}
 
-		if (KEY_HOLD(KEY::P))
+		if (KEY_TAP(KEY::CLOSE_SQUARE_BRACKET)) // ']'
+		{
+			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x += 1.1f;
+			vScale.y += 1.1f;
+			vScale.z += 1.1f;
+
+			vScale.x = _int(vScale.x);
+			vScale.y = _int(vScale.y);
+			vScale.z = _int(vScale.z);
+
+			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
+			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
+			if(nullptr != pBoxCollider)
+				pBoxCollider->Set_Scale(vScale);
+		}
+
+		if (KEY_HOLD(KEY::O))
 		{
 			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
@@ -585,6 +653,23 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 				vScale.z = 1.f;
 
 			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
+			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
+			if (nullptr != pBoxCollider)
+				pBoxCollider->Set_Scale(vScale);
+		}
+
+		if (KEY_HOLD(KEY::P))
+		{
+			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x += 1.f;
+			vScale.y += 1.f;
+			vScale.z += 1.f;
+
+			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
+			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
+			if (nullptr != pBoxCollider)
+				pBoxCollider->Set_Scale(vScale);
 		}
 
 		m_pTargetObject->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
@@ -623,23 +708,51 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
 		}
 
-
-		if (KEY_HOLD(KEY::O))
+		if (KEY_TAP(KEY::OPEN_SQUARE_BRACKET)) // '['
 		{
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
-			vScale.x += 1.f;
-			vScale.y += 1.f;
-			vScale.z += 1.f;
+			vScale.x -= 1.f;
+			vScale.y -= 1.f;
+			vScale.z -= 1.f;
+
+			if (vScale.x < 1.f)
+				vScale.x = 1.f;
+			if (vScale.y < 1.f)
+				vScale.y = 1.f;
+			if (vScale.z < 1.f)
+				vScale.z = 1.f;
+
+			vScale.x = _int(vScale.x);
+			vScale.y = _int(vScale.y);
+			vScale.z = _int(vScale.z);
 
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
-
-			CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
-			if(nullptr != pCollider)
-				pCollider->Set_Scale(vScale);
+			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
+			if (nullptr != pBoxCollider)
+				pBoxCollider->Set_Scale(vScale);
 		}
 
-		if (KEY_HOLD(KEY::P))
+		if (KEY_TAP(KEY::CLOSE_SQUARE_BRACKET)) // ']'
+		{
+			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x += 1.1f;
+			vScale.y += 1.1f;
+			vScale.z += 1.1f;
+
+			vScale.x = _int(vScale.x);
+			vScale.y = _int(vScale.y);
+			vScale.z = _int(vScale.z);
+
+			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
+			if (nullptr != pBoxCollider)
+				pBoxCollider->Set_Scale(vScale);
+		}
+
+
+		if (KEY_HOLD(KEY::O))
 		{
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
@@ -660,6 +773,22 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pCollider)
 				pCollider->Set_Scale(vScale);
 		}
+
+		if (KEY_HOLD(KEY::P))
+		{
+			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
+
+			vScale.x += 1.f;
+			vScale.y += 1.f;
+			vScale.z += 1.f;
+
+			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+
+			CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
+			if(nullptr != pCollider)
+				pCollider->Set_Scale(vScale);
+		}
+
 	}
 
 	if (KEY_TAP(KEY::F1))
@@ -746,6 +875,7 @@ void CImGuiMgr::Update_Help(const _float& fTimeDelta)
 	ImGui::SameLine();
 	ImGui::Text(u8"D : 우");
 	ImGui::Text(u8"O, P : 확대 / 축소");
+	ImGui::Text(u8"[ , ] : 세부 크기 조정");
 
 	ImGui::Text("");
 	ImGui::Text("");
@@ -753,6 +883,7 @@ void CImGuiMgr::Update_Help(const _float& fTimeDelta)
 	ImGui::Text(u8"Ctrl + F : Flip");
 	ImGui::Text(u8"Ctrl + E : Rotation CW");
 	ImGui::Text(u8"Ctrl + 휠 : ZoomIn, ZoomOut");
+
 	ImGui::Text("");
 	ImGui::Text("");
 	ImGui::Text(u8"1. L_BUTTON : 배치");
@@ -838,6 +969,8 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 
 void CImGuiMgr::Update_Hierachy(const _float& fTimeDelta)
 {
+	const string STR_LAYER_TYPE[(_uint)LAYER_TYPE::LAYER_END]{ "CAMERA", "PLAYER", "TERRAIN", "ENVIRONMENT", "SPAWNER", "MONSTER", "EFFECT", "UI" };
+
 	// 창 생성
 	ImGui::Begin("Hierachy");
 	if (nullptr != m_pToolScene)
@@ -847,9 +980,8 @@ void CImGuiMgr::Update_Hierachy(const _float& fTimeDelta)
 		{
 			if (nullptr == m_pToolScene->Get_Layer((LAYER_TYPE)i))
 				continue;
-
+			ImGui::SeparatorText(STR_LAYER_TYPE[i].c_str());
 			const vector<CGameObject*>& vecObjects = m_pToolScene->Get_Layer((LAYER_TYPE)i)->Get_GameObjectVec();
-
 			for (auto& iter : vecObjects)
 			{
 				string strName = std::string().assign(iter->Get_Name().begin(), iter->Get_Name().end());
@@ -883,6 +1015,8 @@ void CImGuiMgr::Update_Hierachy(const _float& fTimeDelta)
 					pCamera->Get_TransformCom()->Set_Info(INFO_POS, &vCameraPos);
 				}
 			}
+			ImGui::SeparatorText("");
+			ImGui::Text("");
 		}
 		ImGui::EndListBox();
 	}

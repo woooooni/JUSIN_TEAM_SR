@@ -26,6 +26,7 @@ private:
 public:
 	void Save_Data(wstring _strFolderPath);
 	void Load_Data(wstring _strFolderPath);
+	void Clear_Layer();
 
 public:
 	CCamera* Get_MainCamera() { return m_pCamera; }
@@ -37,9 +38,7 @@ private:
 	void Save_Obj_Data(wstring _strFolderPath);
 	void Load_Terrain_Data(wstring _strFolderPath);
 	void Load_Obj_Data(wstring _strFolderPath);
-
-private:
-	void Clear_Layer();
+	
 
 private:
 	Engine::CCamera* m_pCamera;

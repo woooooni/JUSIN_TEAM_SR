@@ -28,6 +28,7 @@ protected:
 			NULL_CHECK_RETURN(pLayer, E_FAIL);
 			m_mapLayer.insert({ (LAYER_TYPE)i, pLayer });
 		}
+
 		return S_OK;
 	}
 
