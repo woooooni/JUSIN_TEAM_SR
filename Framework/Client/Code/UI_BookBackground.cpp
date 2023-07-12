@@ -45,7 +45,7 @@ void CUI_BookBackground::LateUpdate_Object(void)
 void CUI_BookBackground::Render_Object(void)
 {
     CUI::Render_Object();
-		_matrix matPreView, matPreProj;
+	_matrix matPreView, matPreProj;
 
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);

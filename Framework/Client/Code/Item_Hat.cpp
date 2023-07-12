@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CItem_Hat::CItem_Hat(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
-    :CItem(pGraphicDev), m_pPlayer(_pPlayer)
+    :CItem(pGraphicDev, ITEM_TYPE::EQUIPMENT), m_pPlayer(_pPlayer)
 {
 }
 

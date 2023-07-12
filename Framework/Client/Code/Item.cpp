@@ -1,14 +1,17 @@
 #include "Item.h"
 #include "Export_Function.h"
 
-CItem::CItem(LPDIRECT3DDEVICE9 pGraphicDev)
+CItem::CItem(LPDIRECT3DDEVICE9 pGraphicDev, ITEM_TYPE _eItemType)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ITEM)
+	, m_eItemType(_eItemType)
 
 {
 
 }
+
 CItem::CItem(const CItem& rhs)
 	: Engine::CGameObject(rhs)
+	, m_eItemType(rhs.m_eItemType)
 {
 
 }
