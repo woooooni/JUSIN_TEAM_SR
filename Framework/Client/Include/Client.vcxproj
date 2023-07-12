@@ -249,10 +249,12 @@
     <ClInclude Include="..\Header\NPCText.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
     <ClInclude Include="..\Header\Player_Skill_Aim.h" />
     <ClInclude Include="..\Header\Player_Skill_Barrier.h" />
     <ClInclude Include="..\Header\Player_Skill_Drill.h" />
     <ClInclude Include="..\Header\Player_Skill_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
     <ClInclude Include="..\Header\Player_Skill_Range.h" />
     <ClInclude Include="..\Header\Player_Skill_Turtle.h" />
     <ClInclude Include="..\Header\Player_State_BallonFly.h" />
@@ -380,10 +382,12 @@
     <ClCompile Include="..\Code\NPCText.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Aim.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Barrier.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Drill.cpp" />
     <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Turtle.cpp" />
     <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />

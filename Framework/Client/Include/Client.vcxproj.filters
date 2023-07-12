@@ -652,6 +652,8 @@
     <ClInclude Include="..\Header\Cupa.h">
       <Filter>02. GameObject\02. Monster\06. Cupa</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
+    <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -977,6 +979,8 @@
     <ClCompile Include="..\Code\Cupa.cpp">
       <Filter>02. GameObject\02. Monster\06. Cupa</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

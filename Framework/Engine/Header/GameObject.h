@@ -17,7 +17,7 @@ class CRigidBody;
 class ENGINE_DLL CGameObject : public CBase
 {
 protected:
-	explicit CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType, OBJ_ID _eID);
+	explicit CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType);
 	explicit CGameObject(const CGameObject& rhs);
 	virtual ~CGameObject();
 

@@ -71,7 +71,7 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange()->Set_Active(true);
 
-	m_vPos.y -= 0.5f;
+	m_vPos.y -= m_pOwner->Get_MinHeight() - 0.001f;
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange()->Get_TransformCom()->Set_Pos(&m_vPos);
 
 	m_vScale = { 1.0f,1.0f,1.0f };
