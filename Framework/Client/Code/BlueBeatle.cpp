@@ -23,13 +23,31 @@ void CBlueBeatle::Update_Idle(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::MOVE);
-			m_pAnimator->Play_Animation(L"BlueBeatle_Move_Down", true);
+
+			switch (m_tInfo.eType)
+			{
+			case(BEATLETYPE::REDBEATLE):
+				m_pAnimator->Play_Animation(L"RedBeatle_Move_Down", true);
+				break;
+
+			case(BEATLETYPE::BLUEBEATLE):
+				m_pAnimator->Play_Animation(L"BlueBeatle_Move_Down", true);
+				break;
+
+			case(BEATLETYPE::GREENBEATLE):
+				m_pAnimator->Play_Animation(L"GreenBeatle_Move_Down", true);
+				break;
+
+			default:
+				break;
+			}
 		}
 	
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
 }
+
 void CBlueBeatle::Update_Move(_float fTimeDelta)
 {
 
@@ -39,7 +57,24 @@ void CBlueBeatle::Update_Move(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+
+			switch (m_tInfo.eType)
+			{
+			case(BEATLETYPE::REDBEATLE):
+				m_pAnimator->Play_Animation(L"RedBeatle_Idle_Down", true);
+				break;
+
+			case(BEATLETYPE::BLUEBEATLE):
+				m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+				break;
+
+			case(BEATLETYPE::GREENBEATLE):
+				m_pAnimator->Play_Animation(L"GreenBeatle_Idle_Down", true);
+				break;
+
+			default:
+				break;
+			}
 		}
 		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
 		if (vDst != m_vDst)
@@ -65,10 +100,32 @@ HRESULT CBlueBeatle::Ready_Object(void)
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pAnimator->Add_Animation(L"BlueBeatle_Idle_Down", L"Proto_Texture_BlueBeatle_Idle_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"BlueBeatle_Move_Down", L"Proto_Texture_BlueBeatle_Move_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"RedBeatle_Idle_Down", L"Proto_Texture_RedBeatle_Idle_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"RedBeatle_Move_Down", L"Proto_Texture_RedBeatle_Move_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"GreenBeatle_Idle_Down", L"Proto_Texture_GreenBeatle_Idle_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"GreenBeatle_Move_Down", L"Proto_Texture_GreenBeatle_Move_Down", 0.1f);
 
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
-	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+
+	switch(m_tInfo.eType)
+	{
+	case(BEATLETYPE::REDBEATLE):
+		m_pAnimator->Play_Animation(L"RedBeatle_Idle_Down", true);
+		break;
+
+	case(BEATLETYPE::BLUEBEATLE):
+		m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+		break;
+
+	case(BEATLETYPE::GREENBEATLE):
+		m_pAnimator->Play_Animation(L"GreenBeatle_Idle_Down", true);
+		break;
+
+	default:
+		break;
+	}
+//	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
 
 	return S_OK;
 }
@@ -113,9 +170,17 @@ HRESULT CBlueBeatle::Add_Component(void)
 	return S_OK;
 
 }
-CBlueBeatle* CBlueBeatle::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+
+void CBlueBeatle::Set_Type(BEATLETYPE eType)
+{
+	m_tInfo.eType = eType;
+}
+
+CBlueBeatle* CBlueBeatle::Create(LPDIRECT3DDEVICE9 pGraphicDev, BEATLETYPE eType)
 {
 	CBlueBeatle* pInstance = new CBlueBeatle(pGraphicDev);
+
+	pInstance->Set_Type(eType);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

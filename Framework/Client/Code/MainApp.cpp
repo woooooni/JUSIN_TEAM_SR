@@ -554,6 +554,12 @@ HRESULT CMainApp::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Blue_Attack_UpDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Blue/Attack/Up/RollingBug_%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Yellow_Attack_LeftRight", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Yellow/Attack/Left/RollingBug_%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Yellow_Attack_UpDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Yellow/Attack/Up/RollingBug_%d.png", 5)), E_FAIL);
+	
+	// Monster Beatle(Red, Green)
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_GreenBeatle_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/GreenBeatle/Idle/Down/GreenBeatle_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_GreenBeatle_Move_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/GreenBeatle/Idle/Down/GreenBeatle_%d.png", 3)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RedBeatle_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RedBeatle/Idle/Down/RedBeatle_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RedBeatle_Move_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RedBeatle/Idle/Down/RedBeatle_%d.png", 3)), E_FAIL);
 
 	return S_OK;
 }

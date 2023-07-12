@@ -1,6 +1,8 @@
 #pragma once
 #include "Monster.h"
 
+// 패턴 수정 필요 //
+
 BEGIN(Engine)
 
 class RcCol;
@@ -10,7 +12,7 @@ END
 typedef enum class BugColorType
 {
     YELLOW, BLUE, PINK,
-    COLOR_END
+    BUGCOLOR_END
 
 }BUGCOLORTYPE;
 

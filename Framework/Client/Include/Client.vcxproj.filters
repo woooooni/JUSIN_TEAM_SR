@@ -229,9 +229,6 @@
     <Filter Include="02. GameObject\11. Tile">
       <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo">
-      <UniqueIdentifier>{06e6b61b-6c49-4cc0-83b9-4b440d06159a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\02. HPBar">
       <UniqueIdentifier>{ffe042d4-d1b4-4523-a2da-da1f8a7684d4}</UniqueIdentifier>
     </Filter>
@@ -255,6 +252,12 @@
     </Filter>
     <Filter Include="02. GameObject\02. Monster\04. RollingBug">
       <UniqueIdentifier>{d6c5f1b6-83fb-476f-ba8a-f642c3d4e2e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo">
+      <UniqueIdentifier>{06e6b61b-6c49-4cc0-83b9-4b440d06159a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\02. Shop">
+      <UniqueIdentifier>{848f5b3b-79ba-46ca-95e5-da8660c476d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -548,6 +551,9 @@
     <ClInclude Include="..\Header\RollingBug.h">
       <Filter>02. GameObject\02. Monster\04. RollingBug</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_Shop.h">
+      <Filter>02. GameObject\04. UI\02. Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -823,6 +829,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\RollingBug.cpp">
       <Filter>02. GameObject\02. Monster\04. RollingBug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Shop.cpp">
+      <Filter>02. GameObject\04. UI\02. Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

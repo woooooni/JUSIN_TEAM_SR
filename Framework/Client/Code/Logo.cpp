@@ -120,10 +120,18 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
 
-	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
+	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::BLUEBEATLE);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
 	
+	CBlueBeatle* pRedBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::REDBEATLE);
+	NULL_CHECK_RETURN(pRedBeatle, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"RedBeatle", pRedBeatle), E_FAIL);
+
+	CBlueBeatle* pGreenBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::GREENBEATLE);
+	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
+
 	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);

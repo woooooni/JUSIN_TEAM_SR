@@ -1,6 +1,8 @@
 #pragma once
 #include "Monster.h"
 
+// ¹Ì¿Ï¼º //
+
 BEGIN(Engine)
 
 class RcCol;
