@@ -475,7 +475,7 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 
 
 
-	pPlayer->Set_Hat(pItemTurtleHat);
+	pPlayer->Set_Hat(pItemMonkeyHat);
 
 	pCamera->Set_TargetObj(pPlayer);
 

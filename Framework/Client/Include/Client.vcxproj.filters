@@ -599,6 +599,8 @@
     <ClInclude Include="..\Header\Grass.h">
       <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
+    <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -904,6 +906,8 @@
     <ClCompile Include="..\Code\Grass.cpp">
       <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

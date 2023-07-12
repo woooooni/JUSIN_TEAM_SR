@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\Users\xodnj\Desktop\Jusin_TeamSR\Framework\Reference\Header\GameObject.h"
+#include "GameObject.h"
 class CEffect :
     public CGameObject
 {

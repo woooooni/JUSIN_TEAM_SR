@@ -35,19 +35,19 @@ public:
 			CGameObject* pObj = T::Create(pGraphicDev);
 			NULL_CHECK_RETURN(pObj, E_FAIL);
 			pObj->Set_Active(false);
-			g_ObjQueue.push(pObj);
+			g_objQueue.push(pObj);
 		}
 		return S_OK;
 	}
 
 	static CGameObject* Get_Obj()
 	{
-		if (g_ObjQueue.empty()) return nullptr;
+		if (g_objQueue.empty()) return nullptr;
 
-		CGameObject* pObj = g_ObjQueue.front();
+		CGameObject* pObj = g_objQueue.front();
 		NULL_CHECK_RETURN(pObj, E_FAIL);
 
-		g_ObjQueue.pop();
+		g_objQueue.pop();
 
 		pObj->Set_Active(true);
 
@@ -65,15 +65,15 @@ public:
 
 	void Free()
 	{
-		if (g_ObjQueue.empty()) return;
+		if (g_objQueue.empty()) return;
 
-		_int iSize = g_ObjQueue.size();
+		_int iSize = g_objQueue.size();
 
 		for (_int i = 0; i < iSize; ++i)
 		{
-			CGameObject* pObj = g_ObjQueue.front();
+			CGameObject* pObj = g_objQueue.front();
 			Safe_Release(pObj);
-			g_ObjQueue.pop();
+			g_objQueue.pop();
 		}
 	}
 

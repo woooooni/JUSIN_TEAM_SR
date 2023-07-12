@@ -8,12 +8,12 @@
 #include "Terrain.h"
 
 CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev)
-    : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER), m_fStopTime(0.1f), m_fAccTime(0.0f)
+    : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET), m_fStopTime(0.1f), m_fAccTime(0.0f)
 {
 }
 
 CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(const CPlayer_Bullet_GolemFist& rhs)
-    : Engine::CGameObject(rhs)
+    : Engine::CGameObject(rhs), m_fStopTime(rhs.m_fStopTime), m_fAccTime(rhs.m_fAccTime)
 {
 }
 
@@ -26,13 +26,15 @@ HRESULT CPlayer_Bullet_GolemFist::Ready_Object(void)
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
 
-	m_pTransformCom->Set_Scale(_vec3(0.8f, 0.8f, 0.8f));
+	m_pTransformCom->Set_Scale(_vec3(1.2f, 1.5f, 0.8f));
 
 	m_pAnimator->Add_Animation(L"Fist", L"Proto_Texture_SunGolem_Idle_Fist", 0.1f);
 
 	m_pAnimator->Play_Animation(L"Fist", false);
 
 	Set_Active(false);
+
+	m_fMinHeight = 0.73f;
 
 	return S_OK;
 }
@@ -85,8 +87,6 @@ void CPlayer_Bullet_GolemFist::Render_Object(void)
 
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
-
-	
 }
 
 HRESULT CPlayer_Bullet_GolemFist::Ready_Component(void)

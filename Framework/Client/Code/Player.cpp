@@ -186,8 +186,8 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new CPlayer_State_Drawing(this));
 	m_vecState.push_back(new CPlayer_State_Skill(this));
 
-	m_pTransformCom->Set_Pos(&_vec3(0.0f, 1.0f, 0.0f));
-	m_fMinHeight = 1.0f;
+	m_pTransformCom->Set_Pos(&_vec3(0.0f, 0.5f, 0.0f));
+	m_fMinHeight = 0.5f;
 
 	m_tPlayerStat.iMaxHp = m_tPlayerStat.iHp = 5;
 	m_tPlayerStat.iMaxMp = m_tPlayerStat.iMp = 5;

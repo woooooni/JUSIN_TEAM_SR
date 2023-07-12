@@ -6,6 +6,8 @@
 #include "Logo.h"
 #include "Scene_Tool.h"
 #include "ImGuiMgr.h"
+#include "Player_Bullet_Lightning.h"
+
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr)
 {
@@ -510,6 +512,8 @@ HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Proto_Object(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	//CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 200);
+
 
 	return S_OK;
 }
@@ -612,7 +616,9 @@ HRESULT CMainApp::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Drill", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Drill/Player_Drill_%d.png", 23)), E_FAIL);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Lightning", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Lightning/Player_Skill_Lightning_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Lightning", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Lightning/Player_Skill_Lightning_%d.png", 6)), E_FAIL);
+
+
 
 
 	return S_OK;
