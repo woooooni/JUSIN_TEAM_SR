@@ -339,6 +339,18 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pUI_Shop, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Background", pUI_Shop), E_FAIL);
 
+	CUI_ItemInfo* pUI_Branch = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_BRANCH);
+	NULL_CHECK_RETURN(pUI_Branch, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Branch", pUI_Branch), E_FAIL);
+
+	CUI_ItemInfo* pUI_Cloth = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_CLOTH);
+	NULL_CHECK_RETURN(pUI_Cloth, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cloth", pUI_Cloth), E_FAIL);
+
+	CUI_ItemInfo* pUI_Leaf = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_LEAF);
+	NULL_CHECK_RETURN(pUI_Leaf, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Leaf", pUI_Leaf), E_FAIL);
+
 	CUI_Cursor* pUI_Cursor = CUI_Cursor::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pUI_Cursor, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cursor", pUI_Cursor), E_FAIL);
@@ -424,9 +436,13 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pIconKeyButton4, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_4", pIconKeyButton4), E_FAIL);
 
-	CUI_ShortCutKey* pKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pKeyInfo, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pKeyInfo), E_FAIL);
+	CUI_ShortCutKey* pZKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pZKeyInfo, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pZKeyInfo), E_FAIL);
+
+	CUI_ItemInfo* pLKeyInfo = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOPKEY_L);
+	NULL_CHECK_RETURN(pLKeyInfo, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Close", pLKeyInfo), E_FAIL);
 
 //	CUI_NameTag* pNameTag = CUI_NameTag::Create(m_pGraphicDev);
 //	NULL_CHECK_RETURN(pNameTag, E_FAIL);

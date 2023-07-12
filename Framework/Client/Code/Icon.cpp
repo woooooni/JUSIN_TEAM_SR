@@ -26,6 +26,8 @@ _int CIcon::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
+	Key_Input();
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -176,6 +178,18 @@ void CIcon::Render_Object(void)
 void CIcon::Set_Type(ICONTYPE eType)
 {
 	m_tInfo.eType = eType;
+}
+
+void CIcon::Key_Input()
+{
+	if (KEY_TAP(KEY::L))
+	{
+		if (!m_bShown)
+			m_bShown = TRUE;
+
+		else
+			m_bShown = FALSE;
+	}
 }
 
 HRESULT CIcon::Add_Component(void)

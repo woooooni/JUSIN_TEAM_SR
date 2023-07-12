@@ -17,7 +17,7 @@ typedef enum class IconType
 	PLAYERHP_FRAME,
 	HEART, KEYBOARD, QUEST,
 	KEYBUTTON_L, KEYBUTTON_1, KEYBUTTON_2, KEYBUTTON_3, KEYBUTTON_4,
-	PLAYERHP, PLAYERMAXHP,
+	PLAYERHP, PLAYERMAXHP, SHOP_LKEY,
 
 	ICONTYPE_END
 
@@ -45,9 +45,11 @@ public:
 private:
 	HRESULT			Add_Component(void);
 	void			Set_Type(ICONTYPE eType);
+	void			Key_Input();
 
 private:
 	tagIconInfo			m_tInfo;
+	_bool				m_bShown = FALSE;
 
 public:
 	static  CIcon* Create(LPDIRECT3DDEVICE9 pGraphicDev, ICONTYPE eType);
