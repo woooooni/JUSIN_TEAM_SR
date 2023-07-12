@@ -33,6 +33,7 @@
 #include "UI_Cursor.h"
 #include "UI_HPBar.h"
 #include "UI_Totem.h"
+#include "UI_ItemInfo.h"
 #include "UI_ShortCutKey.h"
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"

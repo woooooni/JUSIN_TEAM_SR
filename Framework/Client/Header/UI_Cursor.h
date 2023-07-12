@@ -31,7 +31,10 @@ private:
 	_bool	m_bShown = FALSE;
 	_vec3	m_vDefaultPos;
 	_uint	m_iCursorX = 0; // X축으로 이동하는 Cursor
-	_uint	m_iCursorY = 0; // Y축으로 이동하는 Cursor
+	_int	m_iCursorY = 0; // Y축으로 이동하는 Cursor
+
+	_vec3	m_vOriginPos, m_vMovePos;
+	_matrix m_matPreView, m_matPreProj;
 
 public:
 	static  CUI_Cursor* Create(LPDIRECT3DDEVICE9 pGraphicDev);

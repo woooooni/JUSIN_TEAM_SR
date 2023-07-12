@@ -54,16 +54,16 @@ void CUI_Cursor::LateUpdate_Object(void)
 
 void CUI_Cursor::Render_Object(void)
 {
+	_matrix matPreView, matPreProj;
+
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+
+	_vec3 vOriginPos, vMovePos;
+	Get_TransformCom()->Get_Info(MATRIX_INFO::INFO_POS, &vOriginPos);
+
 	if(m_bShown)
 	{
-		_matrix matPreView, matPreProj;
-
-		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-
-		_vec3 vOriginPos, vMovePos;
-		Get_TransformCom()->Get_Info(MATRIX_INFO::INFO_POS, &vOriginPos);
-
 		if ((GetAsyncKeyState(VK_LEFT) & 0x8000) && m_iCursorX > 0)
 		{
 			m_iCursorX--;
