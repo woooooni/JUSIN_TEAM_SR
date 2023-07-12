@@ -277,6 +277,9 @@
     <Filter Include="02. GameObject\13. FixedObj\02. Glass">
       <UniqueIdentifier>{b9c23f31-194a-4f2e-9582-070b905d60a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\98. Effect\00. FistEffect">
+      <UniqueIdentifier>{63ecafbc-ea58-49dd-ae2b-c83c93737e14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -590,6 +593,9 @@
     <ClInclude Include="..\Header\Grass.h">
       <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\FistEffect.h">
+      <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -888,6 +894,9 @@
     <ClCompile Include="..\Code\UI_Totem.cpp" />
     <ClCompile Include="..\Code\Grass.cpp">
       <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FistEffect.cpp">
+      <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

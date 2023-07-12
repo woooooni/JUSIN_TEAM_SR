@@ -201,6 +201,7 @@
     <ClInclude Include="..\Header\Effect.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\FistEffect.h" />
     <ClInclude Include="..\Header\FixedObj.h" />
     <ClInclude Include="..\Header\GolemFace.h" />
     <ClInclude Include="..\Header\GolemFist.h" />
@@ -327,6 +328,7 @@
     <ClCompile Include="..\Code\Effect.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\FistEffect.cpp" />
     <ClCompile Include="..\Code\FixedObj.cpp" />
     <ClCompile Include="..\Code\GolemFace.cpp" />
     <ClCompile Include="..\Code\GolemFist.cpp" />

@@ -56,6 +56,7 @@
 #include "Item_Hat_Light.h"
 #include "Item_Hat_Mask.h"
 
+#include "FistEffect.h"
 class CLogo : public Engine::CScene
 {
 private:

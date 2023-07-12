@@ -126,6 +126,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	Ready_Environment_Texture(pGraphicDev);
 	Ready_Terrain_Texture(pGraphicDev);
 	Ready_NPC_Texture(pGraphicDev);
+	Ready_Effect_Texture(pGraphicDev);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Terrain", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain_%d.png", 3)), E_FAIL);
 
@@ -771,6 +772,12 @@ HRESULT CMainApp::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	return S_OK;
+}
+HRESULT CMainApp::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_FistEffect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/FistEffect/FistEffect_%d.png", 9)), E_FAIL);
+
 	return S_OK;
 }
 
