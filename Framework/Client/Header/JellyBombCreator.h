@@ -33,6 +33,7 @@ public:
 
 protected:
 	CJellyBomb* m_pJellyBomb;
+	_bool		m_bIsCreate;
 
 };
 

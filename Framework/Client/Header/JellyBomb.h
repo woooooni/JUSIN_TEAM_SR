@@ -30,6 +30,15 @@ public:
 public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
+	void	Reset() 
+	{ 
+		m_bHitted = false;
+		m_fExplodeTime = 0.f;
+		Set_Active(true);
+	}
+	const	_uint& Get_EventNum() { return m_iExplodeEvent; }
+
+
 protected:
 	_bool		m_bHitted;
 	_uint		m_iExplodeEvent;
