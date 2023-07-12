@@ -7,7 +7,7 @@
 #include "Texture.h"
 #include "RigidBody.h"
 
-CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
+CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType, OBJ_ID _eID)
 	: m_pGraphicDev(pGraphicDev)
 	, m_eType(_eType)
 	, m_eDir(OBJ_DIR::DIR_D)
@@ -20,7 +20,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	, m_pTextureCom(nullptr)
 	, m_pRigidBodyCom(nullptr)
 	, m_fMinHeight(0.006f)
-	, m_eID(OBJ_ID::ID_END)
+	, m_eID(_eID)
 {
 	m_pGraphicDev->AddRef();
 }
