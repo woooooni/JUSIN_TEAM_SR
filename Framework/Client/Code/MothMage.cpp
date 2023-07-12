@@ -57,7 +57,7 @@ HRESULT CMothMage::Ready_Object(void)
 	Set_State(MONSTER_STATE::IDLE);
 	m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
 	m_tStat = { 3,3,1 };
-
+	m_fMinHeight = 1.0f;
 	return S_OK;
 }
 
