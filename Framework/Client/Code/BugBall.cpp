@@ -25,7 +25,7 @@ HRESULT CBugBall::Ready_Object(void)
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.5f, 0.5f, 0.5f });
-
+	Set_Active(true);
 	return S_OK;
 }
 
@@ -51,11 +51,12 @@ void CBugBall::LateUpdate_Object(void)
 {
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if(vPos.y <1.f)
-	{if (Is_Active())
-		Set_Active(false);
-	m_fMoveTime = 0.f;
-}
+	if (vPos.y < 1.f)
+	{
+		if (Is_Active())
+			Set_Active(false);
+		m_fMoveTime = 0.f;
+	}
 	__super::LateUpdate_Object();
 
 

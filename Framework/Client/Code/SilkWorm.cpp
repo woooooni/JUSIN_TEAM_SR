@@ -24,11 +24,11 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"BugBoss_Phase1_Idle", L"Proto_Texture_BugBoss_Phase1_Idle", 0.15f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase1_Regen", L"Proto_Texture_BugBoss_Phase1_Regen", 0.15f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase1_Ready", L"Proto_Texture_BugBoss_Phase1_Ready", 0.1f);
-	m_pAnimator->Add_Animation(L"BugBoss_Phase1_Attack", L"Proto_Texture_BugBoss_Phase1_Attack", 0.1f);
+	m_pAnimator->Add_Animation(L"BugBoss_Phase1_Attack", L"Proto_Texture_BugBoss_Phase1_Attack", 0.15f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Death", L"Proto_Texture_BugBoss_Phase2_Death", 0.1f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Regen", L"Proto_Texture_BugBoss_Phase2_Regen", 0.1f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Down", L"Proto_Texture_BugBoss_Phase2_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Attack", L"Proto_Texture_BugBoss_Phase2_Attack", 0.1f);
+	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Attack", L"Proto_Texture_BugBoss_Phase2_Attack", 0.15f);
 
 	m_pTransformCom->Set_Scale({ 3,3,3 });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({3.f, 3.f, 3.f });
@@ -36,6 +36,8 @@ HRESULT CSilkWorm::Ready_Object(void)
 
 	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Regen", false);
 	Set_State(SILKWORM_STATE::IDLE);
+	//m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", false);
+	//Set_State(SILKWORM_STATE::DIE);
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vOrigin = vPos;
@@ -47,7 +49,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_vRandomPos[5] = { vPos.x + 5, vPos.y, vPos.z -5};
 	m_vRandomPos[6] = { vPos.x , vPos.y, vPos.z + 5 };
 	m_vRandomPos[7] = { vPos.x , vPos.y, vPos.z -5};
-
+	m_fMinHeight = 2.0f;
 
 	m_tStat = { 25,25,1 };
 
@@ -117,18 +119,18 @@ void CSilkWorm::Update_Idle(_float fTimeDelta)
 
 void CSilkWorm::Update_Die(_float fTimeDelta)
 {
-	m_fMoveTime += 10.f * fTimeDelta;
-	if (m_fMoveTime > 30.f)
+	m_fMoveTime += 20.f * fTimeDelta;
+	if (m_fMoveTime > 100.f)
 	{
 		if (Is_Active())
 			Set_Active(false);
 	}
-	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+	if ((int)(m_fMoveTime*0.1f)%2==0)
 	{
-		m_pAnimator->GetCurrAnimation()->Set_Idx(1);
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 	}
-	
-
+	else
+		m_pAnimator->GetCurrAnimation()->Set_Idx(3);
 }
 
 void CSilkWorm::Update_Regen(_float fTimeDelta)
@@ -179,6 +181,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				NULL_CHECK_RETURN(pBugBall, );
 				_vec3 BulletPos;
 				m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
+				BulletPos.y -= 0.5f;
 				pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 				pBugBall->Set_Dir(vDir);
 				pBugBall->Set_Shooter(this);
@@ -321,7 +324,7 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 			D3DXVec3Normalize(&vDir, &vDir);
 			
 			
-			if (m_tStat.iHp < 24.f)
+			if (m_tStat.iHp < 24.f && m_bPhase2 == false)
 			{
 				Set_State(SILKWORM_STATE::REGEN);
 				m_bPhase2 = true;
@@ -329,7 +332,9 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 				m_iHit = 0;
 			}
 		}
-		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER && m_bPhase2)
+		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING &&
+			pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER && m_bPhase2&&
+			m_eState == SILKWORM_STATE::DOWN)
 		{
 
 			m_iHit++;

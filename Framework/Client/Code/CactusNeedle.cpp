@@ -29,7 +29,6 @@ HRESULT CCactusNeedle::Ready_Object(void)
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.2f, 0.2f, 0.2f });
 	_vec3 AxisX = { 1,0,0 };
 	m_pTransformCom->RotationAxis(AxisX, D3DXToRadian(90.f));
-
 	return S_OK;
 }
 

@@ -25,7 +25,7 @@ HRESULT CSpitCactus::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SpitCactus_Idle_Down", L"Proto_Texture_SpitCactus_Idle_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"SpitCactus_Attack_Down", L"Proto_Texture_SpitCactus_Attack_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"SpitCactus_Regen_Down", L"Proto_Texture_SpitCactus_Regen_Down", 0.1f);
-
+	m_fMinHeight = 1.0f;
 	m_pTransformCom->Set_Pos(&_vec3(1.0f, 1.0f, 9.0f));
 	Set_Speed(5.f);
 	m_pAnimator->Play_Animation(L"SpitCactus_Regen_Down", true);

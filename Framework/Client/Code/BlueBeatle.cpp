@@ -27,7 +27,7 @@ HRESULT CBlueBeatle::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"RedBeatle_Move_Down", L"Proto_Texture_RedBeatle_Move_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"GreenBeatle_Idle_Down", L"Proto_Texture_GreenBeatle_Idle_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"GreenBeatle_Move_Down", L"Proto_Texture_GreenBeatle_Move_Down", 0.1f);
-
+	m_fMinHeight = 1.0f;
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
 
