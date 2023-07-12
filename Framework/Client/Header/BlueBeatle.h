@@ -5,18 +5,6 @@ BEGIN(Engine)
 class RcCol;
 END
 
-typedef enum class BeatleColorType
-{
-    REDBEATLE, GREENBEATLE, BLUEBEATLE,
-    BEATLECOLOR_END
-
-}BEATLETYPE;
-
-struct tagBeatleInfo
-{
-    BEATLETYPE  eType;
-};
-
 class CBlueBeatle :
     public CMonster
 {
@@ -42,13 +30,11 @@ public:
 
 private:
     HRESULT	Add_Component(void);
-    void    Set_Type(BEATLETYPE eType);
 
 public:
-  static  CBlueBeatle* Create(LPDIRECT3DDEVICE9 pGraphicDev, BEATLETYPE eType = BEATLETYPE::BLUEBEATLE);
+  static  CBlueBeatle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-    tagBeatleInfo   m_tInfo = {};
     _float          m_fMoveTime;
     _vec3           m_vDst = { 0,1,0 };
     // CMonster을(를) 통해 상속됨
