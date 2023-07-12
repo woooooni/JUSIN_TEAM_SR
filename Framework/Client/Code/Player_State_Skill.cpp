@@ -5,6 +5,7 @@
 #include "Player_Skill_Turtle.h"
 #include "Player_Skill_Drill.h"
 #include "Player_Skill_Lightning.h"
+#include "Player_Skill_Missile.h"
 
 CPlayer_State_Skill::CPlayer_State_Skill(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -14,6 +15,7 @@ CPlayer_State_Skill::CPlayer_State_Skill(CGameObject* _pOwner)
 	m_vecSkillState.push_back(new CPlayer_Skill_Turtle(m_pOwner));
 	m_vecSkillState.push_back(new CPlayer_Skill_Drill(m_pOwner));
 	m_vecSkillState.push_back(new CPlayer_Skill_Lightning(m_pOwner));
+	m_vecSkillState.push_back(new CPlayer_Skill_Missile(m_pOwner));
 
 	m_eSkill = PLAYER_SKILL::NONE;
 }

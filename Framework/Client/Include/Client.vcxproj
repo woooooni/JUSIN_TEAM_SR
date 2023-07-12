@@ -227,6 +227,7 @@
     <ClInclude Include="..\Header\Item_Hat_Drill.h" />
     <ClInclude Include="..\Header\Item_Hat_Light.h" />
     <ClInclude Include="..\Header\Item_Hat_Mask.h" />
+    <ClInclude Include="..\Header\Item_Hat_Missile.h" />
     <ClInclude Include="..\Header\Item_Hat_Monkey.h" />
     <ClInclude Include="..\Header\Item_Hat_Turtle.h" />
     <ClInclude Include="..\Header\JellyBomb.h" />
@@ -247,6 +248,7 @@
     <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\NPCText.h" />
     <ClInclude Include="..\Header\OnEventObj.h" />
+    <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
     <ClInclude Include="..\Header\Player_Skill_Aim.h" />
@@ -254,6 +256,7 @@
     <ClInclude Include="..\Header\Player_Skill_Drill.h" />
     <ClInclude Include="..\Header\Player_Skill_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
+    <ClInclude Include="..\Header\Player_Skill_Missile.h" />
     <ClInclude Include="..\Header\Player_Skill_Range.h" />
     <ClInclude Include="..\Header\Player_Skill_Turtle.h" />
     <ClInclude Include="..\Header\Player_State_BallonFly.h" />
@@ -356,6 +359,7 @@
     <ClCompile Include="..\Code\Item_Hat_Drill.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Light.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Mask.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Missile.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Monkey.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Turtle.cpp" />
     <ClCompile Include="..\Code\JellyBomb.cpp" />
@@ -376,6 +380,7 @@
     <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\NPCText.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp" />
+    <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Aim.cpp" />
@@ -383,6 +388,7 @@
     <ClCompile Include="..\Code\Player_Skill_Drill.cpp" />
     <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Missile.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Turtle.cpp" />
     <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />

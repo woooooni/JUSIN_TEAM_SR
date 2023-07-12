@@ -619,7 +619,10 @@ HRESULT CMainApp::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Lightning", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Lightning/Player_Skill_Lightning_%d.png", 6)), E_FAIL);
 
 
-
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Bomb_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Bomb/Up/Player_Skill_Bomb_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Bomb_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Bomb/Down/Player_Skill_Bomb_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Bomb_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Bomb/Right/Player_Skill_Bomb_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Bomb_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Bomb/Left/Player_Skill_Bomb_%d.png", 8)), E_FAIL);
 
 	return S_OK;
 }

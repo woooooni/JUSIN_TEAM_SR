@@ -583,10 +583,6 @@
       <Filter>98. Manager\03. Inventory</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Cupa.h" />
-    <ClInclude Include="..\Header\Item_Hat_Drill.h" />
-    <ClInclude Include="..\Header\Item_Hat_Light.h" />
-    <ClInclude Include="..\Header\Item_Hat_Mask.h" />
-    <ClInclude Include="..\Header\Item_Hat_Turtle.h" />
     <ClInclude Include="..\Header\NPCCow.h" />
     <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\Player_Skill_Barrier.h" />
@@ -601,6 +597,23 @@
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
     <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
+    <ClInclude Include="..\Header\Item_Hat_Drill.h">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Item_Hat_Light.h">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Item_Hat_Mask.h">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Item_Hat_Turtle.h">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Item_Hat_Missile.h">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
+    <ClInclude Include="..\Header\Player_Skill_Missile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -890,10 +903,6 @@
       <Filter>01. Scene\99. Tool</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Cupa.cpp" />
-    <ClCompile Include="..\Code\Item_Hat_Drill.cpp" />
-    <ClCompile Include="..\Code\Item_Hat_Light.cpp" />
-    <ClCompile Include="..\Code\Item_Hat_Mask.cpp" />
-    <ClCompile Include="..\Code\Item_Hat_Turtle.cpp" />
     <ClCompile Include="..\Code\NPCCow.cpp" />
     <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Barrier.cpp" />
@@ -908,6 +917,23 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Drill.cpp">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Item_Hat_Light.cpp">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Item_Hat_Mask.cpp">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Item_Hat_Turtle.cpp">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Item_Hat_Missile.cpp">
+      <Filter>02. GameObject\11. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Missile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
