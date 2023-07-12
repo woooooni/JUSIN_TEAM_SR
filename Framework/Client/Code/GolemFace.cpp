@@ -73,11 +73,11 @@ void CGolemFace::LateUpdate_Object(void)
 void CGolemFace::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 }
 
 HRESULT CGolemFace::Add_Component(void)

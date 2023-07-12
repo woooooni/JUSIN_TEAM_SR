@@ -43,7 +43,7 @@ void CLightPuzzleBase::Render_Object(void)
 {
 	_matrix mat = *m_pTransformCom->Get_WorldMatrix();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	__super::Render_Object();
 	if (m_bIsLighting)
 	{
@@ -54,7 +54,7 @@ void CLightPuzzleBase::Render_Object(void)
 
 	}
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 
 
 }

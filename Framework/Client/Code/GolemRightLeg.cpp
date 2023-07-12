@@ -73,11 +73,11 @@ void CGolemRightLeg::LateUpdate_Object(void)
 void CGolemRightLeg::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 }
 
 HRESULT CGolemRightLeg::Add_Component(void)

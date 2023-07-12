@@ -72,9 +72,9 @@ void CButterFly::LateUpdate_Object(void)
 
 void CButterFly::Render_Object(void)
 {
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	__super::Render_Object();
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 
 }
 

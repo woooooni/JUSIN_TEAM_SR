@@ -65,6 +65,16 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 
 	FAILED_CHECK_RETURN(Engine::Ready_InputDev(g_hInstance, g_hWnd), E_FAIL);
+	
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_TFACTOR);
+
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
 	return S_OK;
 }
 
@@ -462,6 +472,15 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_MonkeyHat_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/RightDown/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_MonkeyHat_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/RightUp/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/Down/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/Up/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/Right/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/Left/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_LeftUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/LeftUp/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/LeftDown/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/RightDown/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Hat_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Monkey/RightUp/Player_Hat_Monkey_%d.png", 2)), E_FAIL);
+
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_MissileHat_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Missile/Down/Player_Hat_Missile_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_MissileHat_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Missile/Up/Player_Hat_Missile_%d.png", 1)), E_FAIL);
@@ -714,10 +733,12 @@ HRESULT CMainApp::Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase1_Ready", CTexture::Create(m_pGraphicDev,		TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase1/Ready/BugBoss_%d.png", 3)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase1_Attack", CTexture::Create(m_pGraphicDev,		TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase1/Attack/BugBoss_%d.png", 6)), E_FAIL);
 	
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Death", CTexture::Create(m_pGraphicDev,	TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Death/BugBoss_%d.png", 4)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Regen", CTexture::Create(m_pGraphicDev,	TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Regen/BugBoss_%d.png", 8)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Down", CTexture::Create(m_pGraphicDev,	TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Down/BugBoss_%d.png", 7)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Attack", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Attack/BugBoss_%d.png", 5)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Death", CTexture::Create(m_pGraphicDev,	TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Death/Bugboss_%d.png", 4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Regen", CTexture::Create(m_pGraphicDev,	TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Regen/Bugboss_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Down", CTexture::Create(m_pGraphicDev,	TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Down/Bugboss_%d.png", 7)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Attack", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Attack/Bugboss_%d.png", 5)), E_FAIL);
+
 
 	return S_OK;
 }
@@ -738,6 +759,8 @@ HRESULT CMainApp::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_KeyButton_2", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_KeyButton_2.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_KeyButton_3", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_KeyButton_3.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_KeyButton_4", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_KeyButton_4.png")), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_AdventureBook_Background", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/AdventureBook/Background/Background.png")), E_FAIL);
 
 	return S_OK;
 }

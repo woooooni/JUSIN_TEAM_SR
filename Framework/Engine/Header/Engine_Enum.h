@@ -63,7 +63,7 @@ namespace Engine
 	enum class LIFT_STATE {LIFTREADY, LIFTUP, LIFTDOWN, LIFTIDLE, LIFTWALK, LIFTEND};
 
 	// Camera
-	enum class CAMERA_STATE {GAME, TOOL, END};
+	enum class CAMERA_STATE { GAME, TOOL, END };
 
 	typedef enum class COLLIDE_STATE
 	{
@@ -131,6 +131,16 @@ namespace Engine
 		TILE,
 		TREE,
 		TURRET,
+		ID_END
+	};
+
+	enum class ITEM_TYPE
+	{
+		EQUIPMENT,
+		CONSUMPTION,
+		ETC,
+		COIN,
+		TYPE_END
 	};
 	
 	// KeyBoard

@@ -4,11 +4,13 @@
 CUI::CUI(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_UI)
 {
+	ZeroMemory(&m_tInfo, sizeof(UI_INFO));
 }
 
 CUI::CUI(const CUI& rhs)
 	: CGameObject(rhs)
 {
+	m_tInfo = rhs.m_tInfo;
 }
 
 CUI::~CUI()
@@ -48,6 +50,29 @@ void CUI::LateUpdate_Object(void)
 void CUI::Render_Object(void)
 {
 	CGameObject::Render_Object();
+}
+
+void CUI::Debug_Input()
+{
+	if (KEY_TAP(KEY::UP_ARROW))
+	{
+		m_tInfo.fY -= 1.f;
+	}
+
+	if (KEY_TAP(KEY::DOWN_ARROW))
+	{
+		m_tInfo.fY += 1.f;
+	}
+
+	if (KEY_TAP(KEY::LEFT_ARROW))
+	{
+		m_tInfo.fX -= 1.f;
+	}
+
+	if (KEY_TAP(KEY::RIGHT_ARROW))
+	{
+		m_tInfo.fX += 1.f;
+	}
 }
 
 void CUI::Free()

@@ -20,6 +20,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType)
 	, m_pTextureCom(nullptr)
 	, m_pRigidBodyCom(nullptr)
 	, m_fMinHeight(0.006f)
+	, m_eID(OBJ_ID::ID_END)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -37,6 +38,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_pTextureCom(rhs.m_pTextureCom)
 	, m_pRigidBodyCom(rhs.m_pRigidBodyCom)
 	, m_fMinHeight(rhs.m_fMinHeight)
+	, m_eID(rhs.m_eID)
 	
 {
 	m_pGraphicDev->AddRef();

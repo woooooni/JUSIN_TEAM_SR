@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CItem_Hat::CItem_Hat(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
-    :CItem(pGraphicDev), m_pPlayer(_pPlayer)
+    :CItem(pGraphicDev, ITEM_TYPE::EQUIPMENT), m_pPlayer(_pPlayer)
 {
 }
 
@@ -62,11 +62,11 @@ void CItem_Hat::LateUpdate_Object(void)
 void CItem_Hat::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 }
 
 HRESULT CItem_Hat::Add_Component(void)

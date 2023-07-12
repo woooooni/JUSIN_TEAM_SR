@@ -142,14 +142,11 @@
     <Filter Include="01. Scene\99. Tool">
       <UniqueIdentifier>{7cf087fe-bf53-4afe-9d21-9c25d1930ed1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98. ImGui">
-      <UniqueIdentifier>{ee1f8b2c-dc81-407f-9927-5606613f56e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. ImGui\Lib">
-      <UniqueIdentifier>{2e155ec3-a416-474d-927c-997f236cad7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\02. Monster\01. TrashBig">
       <UniqueIdentifier>{d649abb9-e5e4-4226-a35b-934833a4a34f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\02. BlueBeatle">
+      <UniqueIdentifier>{acb6a898-326f-4b16-b957-6ee1b5c2a9ee}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\06. FieldObj\04. BlockObj">
       <UniqueIdentifier>{eb083604-df06-4e23-8da7-a728ca901716}</UniqueIdentifier>
@@ -196,29 +193,11 @@
     <Filter Include="02. GameObject\99. NPC\00. Tutorial">
       <UniqueIdentifier>{72e16abb-9044-4958-9999-738721d1c00d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\01. NPCText">
-      <UniqueIdentifier>{9ebf1511-d022-4236-bcea-0cc7e49ceb8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\99. ETC">
       <UniqueIdentifier>{cff99704-51e7-4561-9703-aca208e9d29c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook">
-      <UniqueIdentifier>{4295009d-bbed-49af-be78-83404f7e0dfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background">
-      <UniqueIdentifier>{09bc8756-f762-4582-9d13-2f0618ed54d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages">
-      <UniqueIdentifier>{b523e7fc-8d1b-4c14-aa22-a2ae5525fdde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo">
       <UniqueIdentifier>{bb0d5990-dc39-43a4-83d9-66f88c7745c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. UI\99. ETC\01. Icon">
-      <UniqueIdentifier>{52a116df-b0d1-49a0-bddd-79286103269a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\04. UI\01. NPCText\00. Text">
-      <UniqueIdentifier>{a9d46f61-e263-4fd5-a5e5-f456e47dac41}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot">
       <UniqueIdentifier>{f24af292-0652-4de7-b3fc-936fc5c0259b}</UniqueIdentifier>
@@ -226,38 +205,77 @@
     <Filter Include="02. GameObject\11. Item">
       <UniqueIdentifier>{219aa164-f041-43c3-b8e9-cd77000de277}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\11. Tile">
-      <UniqueIdentifier>{011bdbe7-1e32-4f96-b4bf-f6d3c6919866}</UniqueIdentifier>
+    <Filter Include="02. GameObject\02. Monster\03. SpitCactus">
+      <UniqueIdentifier>{f1d5b3c5-7614-40bb-8620-fab70fdc017a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\02. HPBar">
-      <UniqueIdentifier>{ffe042d4-d1b4-4523-a2da-da1f8a7684d4}</UniqueIdentifier>
+    <Filter Include="02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle">
+      <UniqueIdentifier>{fc0a1e9b-eaff-4379-bd4c-1302fb46fd43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\03. Totem">
-      <UniqueIdentifier>{47b4d849-4cf4-4f97-8b74-a231b48ddda9}</UniqueIdentifier>
+    <Filter Include="02. GameObject\02. Monster\04. MothMage">
+      <UniqueIdentifier>{79633507-c75a-49a6-87db-817e83cbdc1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. NPC\00. Tutorial\00. Sheep">
-      <UniqueIdentifier>{24798c90-035e-4aa2-be19-d4d1deb6f9f8}</UniqueIdentifier>
+    <Filter Include="02. GameObject\02. Monster\04. MothMage\BugBall">
+      <UniqueIdentifier>{b5e637f9-0223-4c76-aeca-fcf98f0f070b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\99. NPC\00. Tutorial\01. Cow">
-      <UniqueIdentifier>{29610b7a-997a-441b-9d77-c14ed066ade9}</UniqueIdentifier>
+    <Filter Include="02. GameObject\10. Boss\01. SilkWorm">
+      <UniqueIdentifier>{649b6e3d-43ab-4e96-9a86-16bc76e0464e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\02. Beatle">
-      <UniqueIdentifier>{85bb9007-5f22-4b16-ad15-fae8f0f7b972}</UniqueIdentifier>
+    <Filter Include="02. GameObject\02. Monster\04. MothMage\Orb">
+      <UniqueIdentifier>{99ce2f59-473e-48da-9820-d937415a7e56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\02. Beatle\00. BlueBeatle">
-      <UniqueIdentifier>{acb6a898-326f-4b16-b957-6ee1b5c2a9ee}</UniqueIdentifier>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\06. Face">
+      <UniqueIdentifier>{a00df816-fc45-4dc9-ab2c-41c6339597cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\03. Cupa">
-      <UniqueIdentifier>{2cfbdaae-9c2f-4135-8d2c-4caf0ef5b507}</UniqueIdentifier>
+    <Filter Include="02. GameObject\13. FixedObj">
+      <UniqueIdentifier>{5de803c5-82d7-4586-9ed4-2e2de49c9531}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\04. RollingBug">
-      <UniqueIdentifier>{d6c5f1b6-83fb-476f-ba8a-f642c3d4e2e0}</UniqueIdentifier>
+    <Filter Include="02. GameObject\98. Effect">
+      <UniqueIdentifier>{949fa1cf-fe2d-4f87-a9e6-e98c9ab0402d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo">
-      <UniqueIdentifier>{06e6b61b-6c49-4cc0-83b9-4b440d06159a}</UniqueIdentifier>
+    <Filter Include="02. GameObject\13. FixedObj\00. Tree">
+      <UniqueIdentifier>{dd098577-767a-4f2d-92d6-ae6ebb1488d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\04. UI\02. Shop">
-      <UniqueIdentifier>{848f5b3b-79ba-46ca-95e5-da8660c476d3}</UniqueIdentifier>
+    <Filter Include="02. GameObject\14. Tile">
+      <UniqueIdentifier>{17d996c8-d91c-4860-b76a-282f2a6080cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\01. House">
+      <UniqueIdentifier>{1b18d9ea-8f5d-4c79-a808-a4047c32b98c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager">
+      <UniqueIdentifier>{d3ea15ca-2d7c-47b8-8c2f-d26d0779445f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\99. ImGui">
+      <UniqueIdentifier>{ee1f8b2c-dc81-407f-9927-5606613f56e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\99. ImGui\Lib">
+      <UniqueIdentifier>{2e155ec3-a416-474d-927c-997f236cad7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\01. Game">
+      <UniqueIdentifier>{addd15ce-37d3-4983-a363-35b0dab12fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\02. UI">
+      <UniqueIdentifier>{96a58e6b-a18d-405b-8e5a-bbc85249e196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\03. AdventureBook">
+      <UniqueIdentifier>{4295009d-bbed-49af-be78-83404f7e0dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\03. AdventureBook\00. Background">
+      <UniqueIdentifier>{09bc8756-f762-4582-9d13-2f0618ed54d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\03. AdventureBook\01. Pages">
+      <UniqueIdentifier>{b523e7fc-8d1b-4c14-aa22-a2ae5525fdde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\01. Icon">
+      <UniqueIdentifier>{52a116df-b0d1-49a0-bddd-79286103269a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\02. NPCText">
+      <UniqueIdentifier>{9ebf1511-d022-4236-bcea-0cc7e49ceb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\02. NPCText\00. Text">
+      <UniqueIdentifier>{a9d46f61-e263-4fd5-a5e5-f456e47dac41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\03. Inventory">
+      <UniqueIdentifier>{09146d52-6d44-40ef-8ce3-981c8bfc7d6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -385,37 +403,37 @@
       <Filter>01. Scene\99. Tool</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ImGuiMgr.h">
-      <Filter>98. ImGui</Filter>
+      <Filter>98. Manager\99. ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imconfig.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui_internal.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imstb_textedit.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imstb_truetype.h">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TrashBig.h">
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BlueBeatle.h">
-      <Filter>02. GameObject\02. Monster\02. Beatle\00. BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\02. BlueBeatle</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BalpanObj.h">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
@@ -456,34 +474,27 @@
     <ClInclude Include="..\Header\HitObj.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UIPages.h">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\NPC.h">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_AdventureBook.h">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\UI_BookBackground.h">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\03. AdventureBook\00. Background</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TutorialNPC.h">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\NPCText.h">
-      <Filter>02. GameObject\04. UI\01. NPCText</Filter>
+      <Filter>02. GameObject\04. UI\02. NPCText</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Icon.h">
-      <Filter>02. GameObject\04. UI\99. ETC\01. Icon</Filter>
+      <Filter>02. GameObject\04. UI\01. Icon</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\QuickSlot.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Text.h">
-      <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
+      <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\GolemFace.h" />
     <ClInclude Include="..\Header\JellyBomb.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
@@ -510,49 +521,64 @@
       <Filter>02. GameObject\11. Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\SpitCactus.h">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CactusNeedle.h">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MothMage.h">
+      <Filter>02. GameObject\02. Monster\04. MothMage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MothOrb.h">
+      <Filter>02. GameObject\02. Monster\04. MothMage\Orb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BugBall.h">
+      <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SilkWorm.h">
+      <Filter>02. GameObject\10. Boss\01. SilkWorm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GolemFace.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ButterFly.h" />
+    <ClInclude Include="..\Header\JellyBombCreator.h" />
+    <ClInclude Include="..\Header\LightFlower.h" />
+    <ClInclude Include="..\Header\Turret.h" />
+    <ClInclude Include="Grass.h" />
+    <ClInclude Include="..\Header\Effect.h">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FixedObj.h">
+      <Filter>02. GameObject\13. FixedObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Tree.h">
+      <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\Tile.h">
-      <Filter>02. GameObject\11. Tile</Filter>
+      <Filter>02. GameObject\14. Tile</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Coin.h" />
-    <ClInclude Include="..\Header\GolemFace.h" />
-    <ClInclude Include="..\Header\Item.h" />
-    <ClInclude Include="..\Header\JellyBomb.h" />
-    <ClInclude Include="..\Header\JellyCombined.h" />
-    <ClInclude Include="..\Header\JellyStone.h" />
-    <ClInclude Include="..\Header\LightPuzzle.h" />
-    <ClInclude Include="..\Header\LightPuzzleBase.h" />
-    <ClInclude Include="..\Header\LightPuzzlePiece.h" />
-    <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
-    <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
-    <ClInclude Include="..\Header\Player_Skill_Aim.h" />
-    <ClInclude Include="..\Header\Player_Skill_GolemFist.h" />
-    <ClInclude Include="..\Header\Player_Skill_Range.h" />
-    <ClInclude Include="..\Header\Player_State_Skill.h" />
-    <ClInclude Include="..\Header\Catapult.h" />
+    <ClInclude Include="..\Header\House.h">
+      <Filter>02. GameObject\13. FixedObj\01. House</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_AdventureBook.h">
+      <Filter>02. GameObject\04. UI\03. AdventureBook</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UIMgr.h">
+      <Filter>98. Manager\02. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_NameTag.h">
+      <Filter>02. GameObject\04. UI\99. ETC</Filter>
+    </ClInclude>
     <ClInclude Include="..\Header\UI_ShortCutKey.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_NameTag.h" />
-    <ClInclude Include="..\Header\UI_HPBar.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HPBar</Filter>
+    <ClInclude Include="..\Header\UI_Pages.h">
+      <Filter>02. GameObject\04. UI\03. AdventureBook\01. Pages</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_Totem.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\03. Totem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\NPCSheep.h">
-      <Filter>02. GameObject\99. NPC\00. Tutorial\00. Sheep</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\NPCCow.h">
-      <Filter>02. GameObject\99. NPC\00. Tutorial\01. Cow</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Cupa.h">
-      <Filter>02. GameObject\02. Monster\03. Cupa</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\RollingBug.h">
-      <Filter>02. GameObject\02. Monster\04. RollingBug</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\UI_Shop.h">
-      <Filter>02. GameObject\04. UI\02. Shop</Filter>
+    <ClInclude Include="..\Header\InventoryMgr.h">
+      <Filter>98. Manager\03. Inventory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -669,36 +695,35 @@
       <Filter>02. GameObject\01. Player\State\13. GameOver</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ImGuiMgr.cpp">
-      <Filter>98. ImGui</Filter>
+      <Filter>98. Manager\99. ImGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui.cpp">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
-      <Filter>98. ImGui\Lib</Filter>
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TrashBig.cpp">
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BlueBeatle.cpp">
-      <Filter>02. GameObject\02. Monster\02. Beatle\00. BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\02. BlueBeatle</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Scene_Tool.cpp" />
     <ClCompile Include="..\Code\BalpanObj.cpp">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
     </ClCompile>
@@ -735,34 +760,27 @@
     <ClCompile Include="..\Code\HitObj.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UIPages.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\01. Pages</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\NPC.cpp">
       <Filter>02. GameObject\99. NPC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_AdventureBook.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\UI_BookBackground.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\00. AdventureBook\00. Background</Filter>
+      <Filter>02. GameObject\04. UI\03. AdventureBook\00. Background</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TutorialNPC.cpp">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\NPCText.cpp">
-      <Filter>02. GameObject\04. UI\01. NPCText</Filter>
+      <Filter>02. GameObject\04. UI\02. NPCText</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Icon.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC\01. Icon</Filter>
+      <Filter>02. GameObject\04. UI\01. Icon</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\QuickSlot.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Text.cpp">
-      <Filter>02. GameObject\04. UI\01. NPCText\00. Text</Filter>
+      <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\GolemFace.cpp" />
     <ClCompile Include="..\Code\JellyBomb.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
@@ -789,49 +807,67 @@
       <Filter>02. GameObject\11. Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Code\SpitCactus.cpp">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CactusNeedle.cpp">
+      <Filter>02. GameObject\02. Monster\03. SpitCactus\00. CactusNeedle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MothMage.cpp">
+      <Filter>02. GameObject\02. Monster\04. MothMage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MothOrb.cpp">
+      <Filter>02. GameObject\02. Monster\04. MothMage\Orb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BugBall.cpp">
+      <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SilkWorm.cpp">
+      <Filter>02. GameObject\10. Boss\01. SilkWorm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GolemFace.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ButterFly.cpp" />
+    <ClCompile Include="..\Code\JellyBombCreator.cpp" />
+    <ClCompile Include="..\Code\LightFlower.cpp" />
+    <ClCompile Include="..\Code\Turret.cpp" />
+    <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="..\Code\Effect.cpp">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FixedObj.cpp">
+      <Filter>02. GameObject\13. FixedObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Tree.cpp">
+      <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
+    </ClCompile>
     <ClCompile Include="..\Header\Tile.cpp">
-      <Filter>02. GameObject\11. Tile</Filter>
+      <Filter>02. GameObject\14. Tile</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Coin.cpp" />
-    <ClCompile Include="..\Code\GolemFace.cpp" />
-    <ClCompile Include="..\Code\Item.cpp" />
-    <ClCompile Include="..\Code\JellyBomb.cpp" />
-    <ClCompile Include="..\Code\JellyCombined.cpp" />
-    <ClCompile Include="..\Code\JellyStone.cpp" />
-    <ClCompile Include="..\Code\LightPuzzle.cpp" />
-    <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
-    <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
-    <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
-    <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
-    <ClCompile Include="..\Code\Player_Skill_Aim.cpp" />
-    <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp" />
-    <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
-    <ClCompile Include="..\Code\Player_State_Skill.cpp" />
-    <ClCompile Include="..\Code\Catapult.cpp" />
+    <ClCompile Include="..\Code\House.cpp">
+      <Filter>02. GameObject\13. FixedObj\01. House</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_AdventureBook.cpp">
+      <Filter>02. GameObject\04. UI\03. AdventureBook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UIMgr.cpp">
+      <Filter>98. Manager\02. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_NameTag.cpp">
+      <Filter>02. GameObject\04. UI\99. ETC</Filter>
+    </ClCompile>
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\99. ShortCutKeyInfo</Filter>
+      <Filter>02. GameObject\04. UI\99. ETC</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_NameTag.cpp" />
-    <ClCompile Include="..\Code\UI_HPBar.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HPBar</Filter>
+    <ClCompile Include="..\Code\UI_Pages.cpp">
+      <Filter>02. GameObject\04. UI\03. AdventureBook\01. Pages</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_Totem.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\03. Totem</Filter>
+    <ClCompile Include="..\Code\InventoryMgr.cpp">
+      <Filter>98. Manager\03. Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\NPCCow.cpp">
-      <Filter>02. GameObject\99. NPC\00. Tutorial\01. Cow</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\NPCSheep.cpp">
-      <Filter>02. GameObject\99. NPC\00. Tutorial\00. Sheep</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Cupa.cpp">
-      <Filter>02. GameObject\02. Monster\03. Cupa</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\RollingBug.cpp">
-      <Filter>02. GameObject\02. Monster\04. RollingBug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\UI_Shop.cpp">
-      <Filter>02. GameObject\04. UI\02. Shop</Filter>
+    <ClCompile Include="..\Code\Scene_Tool.cpp">
+      <Filter>01. Scene\99. Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

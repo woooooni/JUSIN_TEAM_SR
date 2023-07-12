@@ -4,7 +4,7 @@
 #include "Export_Function.h"
 
 CMothOrb::CMothOrb(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CItem(pGraphicDev)
+	: CItem(pGraphicDev, ITEM_TYPE::ETC)
 {
 
 }
@@ -47,10 +47,10 @@ void CMothOrb::LateUpdate_Object(void)
 void CMothOrb::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 }
 
 HRESULT CMothOrb::Add_Component(void)

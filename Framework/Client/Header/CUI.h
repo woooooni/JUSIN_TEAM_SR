@@ -17,9 +17,16 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+public:
+	virtual void Debug_Input();
+
+public:
+	const UI_INFO& Get_UI_Info() { return m_tInfo; }
+
 protected:
 	_matrix		m_matProj;
 	_matrix		m_matView;
+	UI_INFO		m_tInfo;
 
 
 protected:
