@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CRedBeatle::CRedBeatle(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_fMoveTime(0.f)
+	:CMonster(pGraphicDev, OBJ_ID::RED_BEATLE), m_fMoveTime(0.f)
 {
 }
 
@@ -13,6 +13,7 @@ CRedBeatle::CRedBeatle(const CRedBeatle& rhs)
 
 CRedBeatle::~CRedBeatle()
 {
+
 }
 
 HRESULT CRedBeatle::Ready_Object(void)

@@ -8,7 +8,7 @@
 #include "Terrain.h"
 
 CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev)
-    : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET), m_fStopTime(0.1f), m_fAccTime(0.0f)
+    : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::PLAYER_SKILL), m_fStopTime(0.1f), m_fAccTime(0.0f)
 {
 }
 

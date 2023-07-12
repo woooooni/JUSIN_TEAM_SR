@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CGreenBeatle::CGreenBeatle(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_fMoveTime(0.f)
+	:CMonster(pGraphicDev, OBJ_ID::GREEN_BEATLE), m_fMoveTime(0.f)
 {
 }
 

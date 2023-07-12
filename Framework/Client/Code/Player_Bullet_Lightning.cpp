@@ -9,7 +9,7 @@
 
 
 CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET),
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::PLAYER_SKILL),
 	m_fLightningTime(0.1f),
 	m_fAccLightningTime(0.0f),
 	m_fNextTime(0.2f),
