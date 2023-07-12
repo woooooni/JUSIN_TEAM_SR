@@ -94,7 +94,7 @@ HRESULT CUI_Pages::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
-
+	return S_OK;
 }
 
 CUI_Pages* CUI_Pages::Create(LPDIRECT3DDEVICE9 pGraphicDev)

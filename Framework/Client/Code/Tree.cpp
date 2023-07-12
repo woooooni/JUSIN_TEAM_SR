@@ -38,6 +38,7 @@ void CTree::LateUpdate_Object(void)
 
 void CTree::Render_Object(void)
 {
+	Set_Billboard();
 	__super::Render_Object();
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();

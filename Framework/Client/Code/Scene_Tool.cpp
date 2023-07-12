@@ -340,13 +340,13 @@ HRESULT CScene_Tool::Ready_Layer(LAYER_TYPE _eType)
 	FAILED_CHECK_RETURN(pLayerCamera->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 	m_pCamera = pCamera;
 
-	CTree* pTree = CTree::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTree, E_FAIL);
-	FAILED_CHECK_RETURN(pLayerEnv->Add_GameObject(L"Tree", pTree), E_FAIL);
+	//CTree* pTree = CTree::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pTree, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayerEnv->Add_GameObject(L"Tree", pTree), E_FAIL);
 
-	CUI_AdventureBook* pUIBook = CUI_AdventureBook::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pUIBook, E_FAIL);
-	FAILED_CHECK_RETURN(pLayerUI->Add_GameObject(L"Adventure_Book", pUIBook), E_FAIL);
+	//CUI_AdventureBook* pUIBook = CUI_AdventureBook::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pUIBook, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayerUI->Add_GameObject(L"Adventure_Book", pUIBook), E_FAIL);
 
 	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 	pCamera->Set_TargetObj(pPlayer);
