@@ -47,7 +47,10 @@ _int CJellyBomb::Update_Object(const _float& fTimeDelta)
     if (m_bHitted)
     {
         if (m_fExplodeTime <= 0.f)
+        {
             Set_Active(false);
+            Engine::Check_Event_Start(m_iExplodeEvent);
+        }
         else
             m_fExplodeTime -= fTimeDelta;
     }
@@ -104,7 +107,7 @@ CJellyBomb* CJellyBomb::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
         MSG_BOX("Jellybomb Create Failed");
         return nullptr;
     }
-
+    ret->m_iExplodeEvent = p_EventNum;
     ret->m_pTransformCom->Set_Pos(&p_Pos);
 
     return ret;

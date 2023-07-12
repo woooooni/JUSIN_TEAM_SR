@@ -3,7 +3,7 @@
 #include "CUI.h"
 #include "../Include/stdafx.h"
 #include "SkyBox.h"
-
+#include	"JellyBombCreator.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -286,9 +286,14 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pBut, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ButterFly", pBut), E_FAIL);
 
-	CJellyBomb* pJelBomb = CJellyBomb::Create(m_pGraphicDev, 0, { 5, 1, 3 });
+	CJellyBomb* pJelBomb = CJellyBomb::Create(m_pGraphicDev, 6, { 5, 1, 3 });
 	NULL_CHECK_RETURN(pJelBomb, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb", pJelBomb), E_FAIL);
+
+	CJellyBombCreator* pJelCreat = CJellyBombCreator::Create(m_pGraphicDev, pJelBomb, 0, { 3, 1, 2 });
+	NULL_CHECK_RETURN(pJelCreat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pJelCreat), E_FAIL);
+
 
 
 

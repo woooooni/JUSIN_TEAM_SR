@@ -1,13 +1,13 @@
 #include "JellyBombCreator.h"
 #include	"Export_Function.h"
 
-CJellyBombCreator::CJellyBombCreator(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev), m_pJellyBomb(nullptr)
+CJellyBombCreator::CJellyBombCreator(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev), m_pJellyBomb(nullptr), m_bIsCreate(false)
 {
 
 }
 
 
-CJellyBombCreator::CJellyBombCreator(const CJellyBombCreator& rhs) : CFieldObject(rhs), m_pJellyBomb(rhs.m_pJellyBomb)
+CJellyBombCreator::CJellyBombCreator(const CJellyBombCreator& rhs) : CFieldObject(rhs), m_pJellyBomb(rhs.m_pJellyBomb), m_bIsCreate(rhs.m_bIsCreate)
 {
 }
 
@@ -17,24 +17,50 @@ CJellyBombCreator::~CJellyBombCreator()
 
 HRESULT CJellyBombCreator::Ready_Object(void)
 {
-	return E_NOTIMPL;
+
+	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
+
+	m_pAnimator->Add_Animation(L"Base", L"Proto_Tex_JellyBomb_Creator", 0.f);
+	m_pAnimator->Play_Animation(L"Base", false);
+
+	return S_OK;
 }
 
 _int CJellyBombCreator::Update_Object(const _float& fTimeDelta)
 {
-	return _int();
+	if (m_bIsCreate)
+	{
+		m_bIsCreate = false;
+
+		m_pJellyBomb->Reset();
+		_vec3	vec;
+		m_pTransformCom->Get_Info(INFO_POS, &vec);
+		vec.y = 1.f;
+
+		m_pJellyBomb->Get_TransformCom()->Set_Pos(&vec);
+
+	}
+
+	Add_RenderGroup(RENDER_ALPHA, this);
+
+	return __super::Update_Object(fTimeDelta);
 }
 
 void CJellyBombCreator::LateUpdate_Object(void)
 {
+	
+
+	__super::LateUpdate_Object();
 }
 
 void CJellyBombCreator::Render_Object(void)
 {
+	__super::Render_Object();
 }
 
 void CJellyBombCreator::Free()
 {
+	__super::Free();
 }
 
 CJellyBombCreator* CJellyBombCreator::Create(LPDIRECT3DDEVICE9 p_Dev,	CJellyBomb*pBomb, const _uint& p_EventNum, const _vec3& p_Pos)
@@ -50,7 +76,7 @@ CJellyBombCreator* CJellyBombCreator::Create(LPDIRECT3DDEVICE9 p_Dev,	CJellyBomb
 	}
 
 	ret->m_pJellyBomb = pBomb;
-	Add_Subscribe(p_EventNum, ret);
+	Add_Subscribe(pBomb->Get_EventNum(), ret);
 
 	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.005, p_Pos.z));
@@ -72,6 +98,11 @@ void CJellyBombCreator::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eC
 
 void CJellyBombCreator::Event_Start(_uint iEventNum)
 {
+	if (!m_pJellyBomb->Is_Active())
+	{
+		m_bIsCreate = true;
+
+	}
 }
 
 void CJellyBombCreator::Event_End(_uint iEventNum)
