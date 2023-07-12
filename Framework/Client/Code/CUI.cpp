@@ -2,7 +2,7 @@
 #include "CUI.h"
 
 CUI::CUI(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_UI)
+	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_UI, OBJ_ID::UI)
 {
 	ZeroMemory(&m_tInfo, sizeof(UI_INFO));
 }

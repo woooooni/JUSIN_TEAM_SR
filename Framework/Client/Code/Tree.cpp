@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CTree::CTree(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CFixedObj(pGraphicDev)
+    : CFixedObj(pGraphicDev, OBJ_ID::TREE)
 {
 
 }

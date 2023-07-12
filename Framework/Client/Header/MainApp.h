@@ -30,6 +30,7 @@ private:
 	HRESULT Ready_Proto_Object(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT	Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement** ppManagementClass);
 	HRESULT	Ready_Proto_Event();
+	HRESULT Ready_Pool();
 	
 
 private:

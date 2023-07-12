@@ -8,7 +8,7 @@
 #include "Terrain.h"
 
 CPlayer_Skill_Aim::CPlayer_Skill_Aim(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER, OBJ_ID::PLAYER_SKILL)
 {
 }
 

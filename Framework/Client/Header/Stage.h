@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Scene.h"
-#include "BackGround.h"
 
 #include "Player.h"
 #include "BlueBeatle.h"

@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include "CactusNeedle.h"
 CSpitCactus::CSpitCactus(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev)
+	:CMonster(pGraphicDev, OBJ_ID::SPIT_CACTUS)
 {
 }
 

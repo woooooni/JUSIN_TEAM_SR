@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 
-CNearReactObj::CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT)
+CNearReactObj::CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, _eID)
 {
 }
 
@@ -83,7 +83,7 @@ void CNearReactObj::Free()
 
 CNearReactObj* CNearReactObj::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 p_pos)
 {
-	CNearReactObj* ret = new CNearReactObj(pGraphicDev);
+	CNearReactObj* ret = new CNearReactObj(pGraphicDev, OBJ_ID::NEAR_REACT);
 
 	if (ret->Ready_Object() == E_FAIL)
 	{

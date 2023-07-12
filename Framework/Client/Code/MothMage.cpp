@@ -3,7 +3,7 @@
 #include "BugBall.h"
 #include "Export_Function.h"
 
-CMothMage::CMothMage(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev)
+CMothMage::CMothMage(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
 {
 }
 

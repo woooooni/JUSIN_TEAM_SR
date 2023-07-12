@@ -3,7 +3,12 @@
 #include "Export_Function.h"
 
 
-CBlockObj::CBlockObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_iEventNum(0), m_bIsBlocking(false), m_iFollowingEvent(0), m_vBlockPos(0, 0.5f, -0.4f)
+CBlockObj::CBlockObj(LPDIRECT3DDEVICE9 p_Dev) 
+	: CFieldObject(p_Dev, OBJ_ID::BLOCK_OBJ)
+	, m_iEventNum(0)
+	, m_bIsBlocking(false)
+	, m_iFollowingEvent(0)
+	, m_vBlockPos(0, 0.5f, -0.4f)
 {
 }
 

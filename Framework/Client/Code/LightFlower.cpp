@@ -2,7 +2,11 @@
 #include    "Export_Function.h"
 #include    "BalpanObj.h"
 
-CLightFlower::CLightFlower(LPDIRECT3DDEVICE9 pGraphicDev) : CFieldObject(pGraphicDev), m_bIsOpened(false), m_eColor(JELLY_COLOR::JELLY_END), m_pBalPan(nullptr)
+CLightFlower::CLightFlower(LPDIRECT3DDEVICE9 pGraphicDev) 
+    : CFieldObject(pGraphicDev, OBJ_ID::LIGHT_FLOWER)
+    , m_bIsOpened(false)
+    , m_eColor(JELLY_COLOR::JELLY_END)
+    , m_pBalPan(nullptr)
 {
     _matrix scale, rot;
 

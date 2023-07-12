@@ -75,6 +75,7 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
+
 	return S_OK;
 }
 
@@ -577,6 +578,11 @@ HRESULT CMainApp::Ready_Proto_Event()
 
 
 	return S_OK;
+}
+
+HRESULT CMainApp::Ready_Pool()
+{
+	return E_NOTIMPL;
 }
 
 HRESULT CMainApp::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)

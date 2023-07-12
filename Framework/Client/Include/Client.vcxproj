@@ -188,7 +188,6 @@
     <ClInclude Include="..\..\ThirdParty\imstb_textedit.h" />
     <ClInclude Include="..\..\ThirdParty\imstb_truetype.h" />
     <ClInclude Include="..\Header\AttackableObj.h" />
-    <ClInclude Include="..\Header\BackGround.h" />
     <ClInclude Include="..\Header\BalpanObj.h" />
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
@@ -215,7 +214,6 @@
     <ClInclude Include="..\Header\GolemRightHand.h" />
     <ClInclude Include="..\Header\GolemRightLeg.h" />
     <ClInclude Include="..\Header\GolemUpperJaw.h" />
-    <ClInclude Include="..\Header\GrabbableObj.h" />
     <ClInclude Include="..\Header\Grass.h" />
     <ClInclude Include="..\Header\HitObj.h" />
     <ClInclude Include="..\Header\House.h" />
@@ -316,7 +314,6 @@
     <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp" />
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp" />
     <ClCompile Include="..\Code\AttackableObj.cpp" />
-    <ClCompile Include="..\Code\BackGround.cpp" />
     <ClCompile Include="..\Code\BalpanObj.cpp" />
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
@@ -342,7 +339,6 @@
     <ClCompile Include="..\Code\GolemRightHand.cpp" />
     <ClCompile Include="..\Code\GolemRightLeg.cpp" />
     <ClCompile Include="..\Code\GolemUpperJaw.cpp" />
-    <ClCompile Include="..\Code\GrabbableObj.cpp" />
     <ClCompile Include="..\Code\Grass.cpp" />
     <ClCompile Include="..\Code\HitObj.cpp" />
     <ClCompile Include="..\Code\House.cpp" />

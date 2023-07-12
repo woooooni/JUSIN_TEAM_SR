@@ -1,7 +1,7 @@
 #include "Coin.h"
 #include "Export_Function.h"
 CCoin::CCoin(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CItem(pGraphicDev, ITEM_TYPE::COIN)
+	: CItem(pGraphicDev, ITEM_TYPE::COIN, OBJ_ID::ITEM)
 {
 }
 

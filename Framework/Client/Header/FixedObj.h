@@ -14,7 +14,7 @@ class CFixedObj : public Engine::CGameObject
 {
 
 protected:
-	explicit CFixedObj(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CFixedObj(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID);
 	explicit CFixedObj(const CFixedObj& rhs);
 	virtual ~CFixedObj();
 

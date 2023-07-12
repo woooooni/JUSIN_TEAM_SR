@@ -7,7 +7,7 @@
 const float fZoom = 5.0f;
 
 CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_CAMERA)
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_CAMERA, OBJ_ID::CAMERA)
 	, m_fFov(4.f)
 	, m_pTargetObj(nullptr)
 	, m_fDist(1.f)
@@ -18,6 +18,8 @@ CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_fNear(1.0f)
 	, m_fFar(1000.0f)
 	, m_fMoveSpeed(10.f)
+	, m_eState(CAMERA_STATE::GAME)
+	, m_hWnd(nullptr)
 {
 
 }
@@ -32,6 +34,8 @@ CCamera::CCamera(const CCamera& rhs)
 	, m_fAlpha(rhs.m_fAlpha)
 	, m_pVeilTex(rhs.m_pVeilTex)
 	, m_fMoveSpeed(10.f)
+	, m_eState(CAMERA_STATE::GAME)
+	, m_hWnd(rhs.m_hWnd)
 {
 
 }

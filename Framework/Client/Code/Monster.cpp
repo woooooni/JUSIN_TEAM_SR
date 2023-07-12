@@ -1,8 +1,8 @@
 #include "..\Header\Monster.h"
 #include "Export_Function.h"
 
-CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, _eObjId)
 	, m_eState(MONSTER_STATE::REGEN)
 	, m_fSpeed(5.f)
 {

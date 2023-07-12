@@ -1,7 +1,8 @@
 #include "Grass.h"
 #include    "Export_Function.h"
 
-CGrass::CGrass(LPDIRECT3DDEVICE9 pGr) : CFieldObject(pGr){}
+CGrass::CGrass(LPDIRECT3DDEVICE9 pGr) 
+    : CFieldObject(pGr, OBJ_ID::GRASS){}
 
 CGrass::CGrass(const CGrass& rhs) : CFieldObject(rhs), m_vecGrassPos(rhs.m_vecGrassPos), m_vecGrassSize(rhs.m_vecGrassSize)
 {

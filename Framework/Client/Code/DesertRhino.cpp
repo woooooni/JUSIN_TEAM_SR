@@ -3,7 +3,7 @@
 
 #include "Export_Function.h"
 
-CDesertRhino::CDesertRhino(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev)
+CDesertRhino::CDesertRhino(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::DESERT_RHINO)
 {
 }
 

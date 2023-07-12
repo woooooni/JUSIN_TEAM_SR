@@ -2,7 +2,7 @@
 #include "NearReactMoonObj.h"
 #include "Export_Function.h"
 
-CNearReactMoonObj::CNearReactMoonObj(LPDIRECT3DDEVICE9 pGraphicDev) : CNearReactObj(pGraphicDev)
+CNearReactMoonObj::CNearReactMoonObj(LPDIRECT3DDEVICE9 pGraphicDev) : CNearReactObj(pGraphicDev, OBJ_ID::NEAR_REACT_MOON)
 {
 }
 

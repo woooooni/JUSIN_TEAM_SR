@@ -4,7 +4,14 @@
 #include "JellyStone.h"
 #include	"JellyCombined.h"
 
-CBalpanObj::CBalpanObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_bIsPushed(false), m_wstrTargName(L"Player"), m_bIsAutoReset(false), m_iPushedEventNum(0), m_eColor(JELLY_COLOR::JELLY_END), m_bIsStoneSwitch(false)
+CBalpanObj::CBalpanObj(LPDIRECT3DDEVICE9 p_Dev) 
+	:  CFieldObject(p_Dev, OBJ_ID::BALPAN_OBJ)
+	, m_bIsPushed(false)
+	, m_wstrTargName(L"Player")
+	, m_bIsAutoReset(false) 
+	, m_iPushedEventNum(0) 
+	, m_eColor(JELLY_COLOR::JELLY_END)
+	, m_bIsStoneSwitch(false)
 {
 }
 

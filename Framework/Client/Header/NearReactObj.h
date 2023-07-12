@@ -13,7 +13,7 @@ class CNearReactObj : public CGameObject
 	CLONE(CNearReactObj)
 
 protected:
-	CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev);
+	CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID);
 	CNearReactObj(const CNearReactObj& rhs);
 
 	virtual ~CNearReactObj();

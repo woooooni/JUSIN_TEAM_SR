@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CCupa::CCupa(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_fMoveTime(0.f)
+	:CMonster(pGraphicDev, OBJ_ID::CUPA), m_fMoveTime(0.f)
 {
 }
 

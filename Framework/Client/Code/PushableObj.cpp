@@ -4,7 +4,7 @@
 
 
 
-CPushableObj::CPushableObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev)
+CPushableObj::CPushableObj(LPDIRECT3DDEVICE9 p_Dev, OBJ_ID _eID) : CFieldObject(p_Dev, _eID)
 {
 	m_tInfo.m_bIsPushable = true;
 }

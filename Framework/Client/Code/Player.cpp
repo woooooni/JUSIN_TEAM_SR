@@ -24,7 +24,7 @@
 #include "Player_State_Skill.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER, OBJ_ID::PLAYER)
 	, m_fSpeed(5.f)
 	, m_vDest(0.f, 0.f, 0.f)
 	, m_eState(PLAYER_STATE::IDLE)

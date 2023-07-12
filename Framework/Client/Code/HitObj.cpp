@@ -3,7 +3,14 @@
 #include "Export_Function.h"
 #include <time.h>
 
-CHitObj::CHitObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_eHitType(OBJ_HITTYPE::HIT_ONCE) ,m_fEffectTime(0.f), m_bHitted(false), m_iEventNum(0), m_vOrigin(0, 0, 0), m_vToward(0, 0, 0), m_fResetTime(0.f)
+CHitObj::CHitObj(LPDIRECT3DDEVICE9 p_Dev) 
+	: CFieldObject(p_Dev, OBJ_ID::BUG_STATUE)
+	, m_eHitType(OBJ_HITTYPE::HIT_ONCE)
+	, m_fEffectTime(0.f), m_bHitted(false)
+	, m_iEventNum(0)
+	, m_vOrigin(0, 0, 0)
+	, m_vToward(0, 0, 0)
+	, m_fResetTime(0.f)
 {
 }
 

@@ -1,7 +1,7 @@
 #include "JellyBombCreator.h"
 #include	"Export_Function.h"
 
-CJellyBombCreator::CJellyBombCreator(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev), m_pJellyBomb(nullptr), m_bIsCreate(false)
+CJellyBombCreator::CJellyBombCreator(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev, OBJ_ID::JELLY_BOMB_CREATOR), m_pJellyBomb(nullptr), m_bIsCreate(false)
 {
 
 }

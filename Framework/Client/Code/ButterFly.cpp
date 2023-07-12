@@ -2,7 +2,10 @@
 #include	"Export_Function.h"
 #include	<time.h>
 
-CButterFly::CButterFly(LPDIRECT3DDEVICE9	pDev) : CFieldObject(pDev), m_vMovingDir({-1, 0, 0}), m_fChangeTime(1.f)
+CButterFly::CButterFly(LPDIRECT3DDEVICE9 pDev) 
+	: CFieldObject(pDev, OBJ_ID::BUTTERFLY)
+	, m_vMovingDir({-1, 0, 0})
+	, m_fChangeTime(1.f)
 {
 }
 

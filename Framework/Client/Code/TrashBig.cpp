@@ -1,7 +1,7 @@
 #include "TrashBig.h"
 #include "Export_Function.h"
 
-CTrashBig::CTrashBig(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev)
+CTrashBig::CTrashBig(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_BIG)
 {
 }
 

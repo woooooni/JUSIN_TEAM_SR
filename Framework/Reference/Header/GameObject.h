@@ -31,8 +31,6 @@ public:
 	virtual void LateUpdate_Object(void);
 	virtual void Render_Object(void);
 
-
-
 public:
 	CComponent* Get_Component(COMPONENT_TYPE eType, COMPONENTID eID);
 

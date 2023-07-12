@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Scene.h"
-#include "BackGround.h"
 
 #include "Player.h"
 #include "Monster.h"
@@ -12,7 +11,6 @@
 #include "Terrain.h"
 #include "PushStone.h"
 #include "NearReactObj.h"
-#include "GrabbableObj.h"
 #include "NearReactMoonObj.h"
 #include "BalpanObj.h"
 #include "HitObj.h"

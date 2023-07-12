@@ -4,7 +4,7 @@
 #include "Export_Function.h"
 
 CMothOrb::CMothOrb(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CItem(pGraphicDev, ITEM_TYPE::ETC)
+	: CItem(pGraphicDev, ITEM_TYPE::ETC, OBJ_ID::ITEM)
 {
 
 }

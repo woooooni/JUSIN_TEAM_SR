@@ -5,7 +5,7 @@
 
 
 CTerrain::CTerrain(LPDIRECT3DDEVICE9 _pDevice)
-	: CGameObject(_pDevice, OBJ_TYPE::OBJ_ENVIRONMENT)
+	: CGameObject(_pDevice, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::TERRAIN)
 {
 }
 

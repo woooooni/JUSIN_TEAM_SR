@@ -1,7 +1,7 @@
 #include "CactusNeedle.h"
 #include "Export_Function.h"
 
-CCactusNeedle::CCactusNeedle(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET)
+CCactusNeedle::CCactusNeedle(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
 {
 }
 CCactusNeedle::CCactusNeedle(const CCactusNeedle& rhs)

@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include	"JellyStone.h"
 
-CJellyCombined::CJellyCombined(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_eColor(JELLY_COLLOR_COMBINE::JELLY_COMBINEEND)
+CJellyCombined::CJellyCombined(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::JELLY_COMBINED), m_eColor(JELLY_COLLOR_COMBINE::JELLY_COMBINEEND)
 {
 	m_tInfo.m_bIsPushable = true;
 	m_tInfo.m_bIsGrabbable = true;

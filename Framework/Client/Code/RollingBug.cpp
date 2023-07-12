@@ -3,7 +3,7 @@
 
 
 CRollingBug::CRollingBug(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_fMoveTime(0.f)
+	:CMonster(pGraphicDev, OBJ_ID::ROLLING_BUG), m_fMoveTime(0.f)
 {
 }
 

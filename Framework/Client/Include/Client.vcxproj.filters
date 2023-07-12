@@ -19,9 +19,6 @@
     <Filter Include="02. GameObject">
       <UniqueIdentifier>{9c45403b-7aaa-4a2a-b325-b8d24758c2f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\00. BackGround">
-      <UniqueIdentifier>{82461e52-4280-4c90-94fb-6fb6e85c9d17}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\01. Player">
       <UniqueIdentifier>{20823db4-7296-49fd-9b7e-f63ac149528c}</UniqueIdentifier>
     </Filter>
@@ -288,9 +285,6 @@
     <ClInclude Include="..\Header\Logo.h">
       <Filter>01. Scene\00. Logo</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\BackGround.h">
-      <Filter>02. GameObject\00. BackGround</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Player.h">
       <Filter>02. GameObject\01. Player</Filter>
     </ClInclude>
@@ -329,9 +323,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\PushableObj.h">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\GrabbableObj.h">
-      <Filter>02. GameObject\06. FieldObj\01. GrabbableObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\OnEventObj.h">
       <Filter>02. GameObject\08. OnEventObj</Filter>
@@ -607,9 +598,6 @@
     <ClCompile Include="..\Code\Logo.cpp">
       <Filter>01. Scene\00. Logo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\BackGround.cpp">
-      <Filter>02. GameObject\00. BackGround</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Player.cpp">
       <Filter>02. GameObject\01. Player</Filter>
     </ClCompile>
@@ -640,9 +628,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\PushableObj.cpp">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\GrabbableObj.cpp">
-      <Filter>02. GameObject\06. FieldObj\01. GrabbableObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\OnEventObj.cpp">
       <Filter>02. GameObject\08. OnEventObj</Filter>

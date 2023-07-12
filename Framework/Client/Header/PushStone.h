@@ -10,8 +10,8 @@ class CTexture;
 class CCubeTex;
 
 END
-class CPushStone :
-    public CPushableObj
+
+class CPushStone : public CPushableObj
 {
     CLONE(CPushStone)
 private:

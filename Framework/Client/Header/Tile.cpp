@@ -3,7 +3,7 @@
 
 
 CTile::CTile(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_TILE)
+	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_TILE, OBJ_ID::TILE)
 {
 
 }

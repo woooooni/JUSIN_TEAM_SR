@@ -9,7 +9,7 @@
 #include "Terrain.h"
 
 CPlayer_Skill_Range::CPlayer_Skill_Range(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER, OBJ_ID::PLAYER_SKILL)
 {
 }
 

@@ -10,15 +10,12 @@ class CPushableObj :
 {
 
 protected:
-    CPushableObj(LPDIRECT3DDEVICE9 p_Dev);
+    CPushableObj(LPDIRECT3DDEVICE9 p_Dev, OBJ_ID _eID);
     CPushableObj(const CPushableObj& rhs);
     virtual ~CPushableObj();
 
 public:
-
-
     virtual void        Push_Obj(const _vec3& pDirection)      PURE;
-
 
 protected:
     

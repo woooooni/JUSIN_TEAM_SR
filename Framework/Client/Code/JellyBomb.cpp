@@ -2,7 +2,7 @@
 #include    "Export_Function.h"
 #include    "Player.h"
 
-CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0)
+CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::JELLY_BOMB), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0)
 {
     m_tInfo.m_bIsAttackable = true;
     m_tInfo.m_bIsGrabbable = true;

@@ -1,7 +1,7 @@
 #include "TrashSlime.h"
 #include "Export_Function.h"
 
-CTrashSlime::CTrashSlime(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev)
+CTrashSlime::CTrashSlime(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_SLIME)
 {
 }
 

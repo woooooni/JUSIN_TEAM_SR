@@ -2,7 +2,7 @@
 #include "PushStone.h"
 #include "Export_Function.h"
 
-CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev) , m_bIsFlying(false)
+CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev, OBJ_ID::PUSH_STONE) , m_bIsFlying(false)
 {
 
 }

@@ -2,7 +2,7 @@
 #include "GolemLeftHand.h"
 #include "SunGollem.h"
 
-CGolemLeftHand::CGolemLeftHand(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CGolemLeftHand::CGolemLeftHand(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
 {

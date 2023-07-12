@@ -2,7 +2,7 @@
 #include "GolemFist.h"
 #include "SunGollem.h"
 
-CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET), m_eState(SUNGOLEM_STATE::REGEN)
+CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL), m_eState(SUNGOLEM_STATE::REGEN)
 {
 }
 CGolemFist::CGolemFist(const CGolemFist& rhs)

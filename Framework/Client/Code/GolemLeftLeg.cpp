@@ -2,7 +2,7 @@
 #include "GolemLeftLeg.h"
 #include "SunGollem.h"
 
-CGolemLeftLeg::CGolemLeftLeg(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CGolemLeftLeg::CGolemLeftLeg(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
 {

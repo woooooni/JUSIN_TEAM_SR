@@ -3,18 +3,34 @@
 #include	"Player.h"
 #include	"PushStone.h"
 
-CCatapult::CCatapult(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_pThrowingStone(nullptr), m_vStonePos(0.f, -0.f, -0.5f), m_pRevTexture(nullptr), m_vCenterPos(0, 0.5f, 0), m_fThrowAngle(-90.f), m_bIsThrowing(false)
+CCatapult::CCatapult(LPDIRECT3DDEVICE9 p_Dev) 
+	: CFieldObject(p_Dev, OBJ_ID::CATAPULT)
+	, m_pThrowingStone(nullptr)
+	, m_vStonePos(0.f, -0.f, -0.5f)
+	, m_pRevTexture(nullptr)
+	, m_vCenterPos(0, 0.5f, 0)
+	, m_fThrowAngle(-90.f)
+	, m_bIsThrowing(false)
 {
 	m_tInfo.m_bIsPushable = true;
 	m_tInfo.m_bIsBreakable = true;
 }
 
-CCatapult::CCatapult(const CCatapult& rhs) : CFieldObject(rhs), m_pThrowingStone(rhs.m_pThrowingStone), m_vStonePos(rhs.m_vStonePos), m_pRevTexture(rhs.m_pRevTexture), m_vCenterPos(rhs.m_vCenterPos), m_fThrowAngle(rhs.m_fThrowAngle), m_bIsThrowing(rhs.m_bIsThrowing)
+CCatapult::CCatapult(const CCatapult& rhs) 
+	: CFieldObject(rhs)
+	, m_pThrowingStone(rhs.m_pThrowingStone)
+	, m_vStonePos(rhs.m_vStonePos)
+	, m_pRevTexture(rhs.m_pRevTexture)
+	, m_vCenterPos(rhs.m_vCenterPos)
+	, m_fThrowAngle(rhs.m_fThrowAngle)
+	, m_bIsThrowing(rhs.m_bIsThrowing)
 {
+
 }
 
 CCatapult::~CCatapult()
 {
+
 }
 
 HRESULT CCatapult::Ready_Object(void)
@@ -34,7 +50,6 @@ HRESULT CCatapult::Ready_Object(void)
 
 	pComponent = m_pRevTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Catapult_Scoop_Rev"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
-
 
 
 	return S_OK;

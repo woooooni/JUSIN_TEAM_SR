@@ -2,7 +2,7 @@
 #include "GolemLowerJaw.h"
 #include "SunGollem.h"
 
-CGolemLowerJaw::CGolemLowerJaw(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CGolemLowerJaw::CGolemLowerJaw(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
 {

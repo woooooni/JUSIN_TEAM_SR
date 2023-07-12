@@ -2,7 +2,8 @@
 #include "Export_Function.h"
 
 CBlueBeatle::CBlueBeatle(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev), m_fMoveTime(0.f)
+	:CMonster(pGraphicDev, OBJ_ID::BLUE_BEATLE)
+	, m_fMoveTime(0.f)
 {
 }
 

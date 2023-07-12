@@ -187,13 +187,6 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pMoonNear, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DalPul", pMoonNear), E_FAIL);
 
-
-
-
-	CGrabbableObj* pGrab = CGrabbableObj::Create(m_pGraphicDev, { 7, 1, 7 });
-	NULL_CHECK_RETURN(pGrab, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GrabStone", pGrab), E_FAIL);
-
 	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 1, { 13, 1, 15 });
 	NULL_CHECK_RETURN(pBal, E_FAIL);
 	pBal->Set_AutoReset();

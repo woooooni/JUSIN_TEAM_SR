@@ -4,7 +4,7 @@
 class CFieldObject : public CGameObject
 {
 public:
-	CFieldObject(LPDIRECT3DDEVICE9 pGraphicDev);
+	CFieldObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId);
 	CFieldObject(const CFieldObject& rhs);
 	virtual ~CFieldObject();
 

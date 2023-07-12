@@ -2,7 +2,7 @@
 #include "FieldObject.h"
 #include "Export_Function.h"
 
-CFieldObject::CFieldObject(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT)
+CFieldObject::CFieldObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, _eObjId)
 {
 	ZeroMemory(&m_tInfo, sizeof(OBJ_INFO));
 }

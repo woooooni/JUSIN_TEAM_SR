@@ -4,7 +4,7 @@
 #include	"LightPuzzleBase.h"
 #include	"LightPuzzlePiece.h"
 
-CLightPuzzleTerrain::CLightPuzzleTerrain(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_INTERACTION), m_vTileCenterPos(nullptr), m_pSubBuffer(nullptr), tileX(0), tileY(0), m_bIsCanUpdate(true)
+CLightPuzzleTerrain::CLightPuzzleTerrain(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::LIGHT_PUZZLE_TERRAIN), m_vTileCenterPos(nullptr), m_pSubBuffer(nullptr), tileX(0), tileY(0), m_bIsCanUpdate(true)
 {
 }
 

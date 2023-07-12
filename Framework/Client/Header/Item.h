@@ -16,7 +16,7 @@ class CItem :
 {
 
 protected:
-	explicit CItem(LPDIRECT3DDEVICE9 pGraphicDev, ITEM_TYPE _eItemType);
+	explicit CItem(LPDIRECT3DDEVICE9 pGraphicDev, ITEM_TYPE _eItemType, OBJ_ID _eID);
 	explicit CItem(const CItem& rhs);
 	virtual ~CItem();
 

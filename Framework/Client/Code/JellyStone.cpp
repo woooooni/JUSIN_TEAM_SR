@@ -4,7 +4,7 @@
 #include	"JellyCombined.h"
 
 
-CJellyStone::CJellyStone(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev), m_eColor(JELLY_COLLOR_NORMAL::JELLY_NORMALEND), m_bCreatedCombine(false)
+CJellyStone::CJellyStone(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::JELLY_STONE), m_eColor(JELLY_COLLOR_NORMAL::JELLY_NORMALEND), m_bCreatedCombine(false)
 {
 	m_tInfo.m_bIsPushable = true;
 	m_tInfo.m_bIsGrabbable = true;
