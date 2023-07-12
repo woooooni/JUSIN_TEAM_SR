@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::ID_END)
 {
 
 }

@@ -4,7 +4,7 @@
 #include "GolemParts.h"
 #include "PushStone.h"
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN)
 	, m_fSpeed(5.f)
 {

@@ -120,15 +120,15 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
 
-	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::BLUEBEATLE);
+	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
 	
-	CBlueBeatle* pRedBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::REDBEATLE);
+	CRedBeatle* pRedBeatle = CRedBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pRedBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"RedBeatle", pRedBeatle), E_FAIL);
 
-	CBlueBeatle* pGreenBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::GREENBEATLE);
+	CGreenBeatle* pGreenBeatle = CGreenBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
 
@@ -340,6 +340,15 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player_Skill_Aim", pPlayerSkillAim), E_FAIL);
 	pPlayer->Set_Aim(pPlayerSkillAim);
 
+	// UI ( SHOP )
+
+	CUI_Shop* pUI_Shop = CUI_Shop::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pUI_Shop, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Background", pUI_Shop), E_FAIL);
+
+	CUI_Cursor* pUI_Cursor = CUI_Cursor::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pUI_Cursor, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cursor", pUI_Cursor), E_FAIL);
 
 	// UI
 	//CUI* pUI = CUI::Create(m_pGraphicDev);
@@ -425,7 +434,6 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CUI_ShortCutKey* pKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pKeyInfo, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pKeyInfo), E_FAIL);
-
 
 //	CUI_NameTag* pNameTag = CUI_NameTag::Create(m_pGraphicDev);
 //	NULL_CHECK_RETURN(pNameTag, E_FAIL);

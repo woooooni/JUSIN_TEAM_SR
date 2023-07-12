@@ -199,7 +199,9 @@
     <ClInclude Include="..\Header\Coin.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\Cupa.h" />
-    <ClInclude Include="..\Header\Effect.h" />
+    <ClInclude Include="..\Header\Effect.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\FixedObj.h" />
@@ -217,6 +219,7 @@
     <ClInclude Include="..\Header\GolemUpperJaw.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
     <ClInclude Include="..\Header\Grass.h" />
+    <ClInclude Include="..\Header\GreenBeatle.h" />
     <ClInclude Include="..\Header\HitObj.h" />
     <ClInclude Include="..\Header\House.h" />
     <ClInclude Include="..\Header\Icon.h" />
@@ -277,6 +280,7 @@
     <ClInclude Include="..\Header\Player_State_Walk.h" />
     <ClInclude Include="..\Header\PushStone.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
+    <ClInclude Include="..\Header\RedBeatle.h" />
     <ClInclude Include="..\Header\RollingBug.h" />
     <ClInclude Include="..\Header\Scene_Tool.h" />
     <ClInclude Include="..\Header\SilkWorm.h" />
@@ -293,6 +297,8 @@
     <ClInclude Include="..\Header\Tree.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
     <ClInclude Include="..\Header\UIMgr.h" />
+    <ClInclude Include="..\Header\UI_Cursor.h" />
+    <ClInclude Include="..\Header\UI_ItemInfo.h" />
     <ClInclude Include="..\Header\UI_Pages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
@@ -327,7 +333,9 @@
     <ClCompile Include="..\Code\Coin.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\Cupa.cpp" />
-    <ClCompile Include="..\Code\Effect.cpp" />
+    <ClCompile Include="..\Code\Effect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\FixedObj.cpp" />
@@ -344,6 +352,7 @@
     <ClCompile Include="..\Code\GolemUpperJaw.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
     <ClCompile Include="..\Code\Grass.cpp" />
+    <ClCompile Include="..\Code\GreenBeatle.cpp" />
     <ClCompile Include="..\Code\HitObj.cpp" />
     <ClCompile Include="..\Code\House.cpp" />
     <ClCompile Include="..\Code\Icon.cpp" />
@@ -404,6 +413,7 @@
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
     <ClCompile Include="..\Code\PushStone.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
+    <ClCompile Include="..\Code\RedBeatle.cpp" />
     <ClCompile Include="..\Code\RollingBug.cpp" />
     <ClCompile Include="..\Code\Scene_Tool.cpp" />
     <ClCompile Include="..\Code\SilkWorm.cpp" />
@@ -419,6 +429,8 @@
     <ClCompile Include="..\Code\Tree.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
     <ClCompile Include="..\Code\UIMgr.cpp" />
+    <ClCompile Include="..\Code\UI_Cursor.cpp" />
+    <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
     <ClCompile Include="..\Code\UI_Pages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />

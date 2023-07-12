@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 
-CNearReactObj::CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT)
+CNearReactObj::CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::NEAR_REACT)
 {
 }
 

@@ -1,7 +1,7 @@
 #include "Export_Function.h"
 #include "GolemUpperJaw.h"
 #include "SunGollem.h"
-CGolemUpperJaw::CGolemUpperJaw(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER)
+CGolemUpperJaw::CGolemUpperJaw(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 , m_eState(SUNGOLEM_STATE::REGEN)
 
 {

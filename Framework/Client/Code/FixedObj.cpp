@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CFixedObj::CFixedObj(LPDIRECT3DDEVICE9 pGraphicDev)
-    :CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT)
+    :CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::FIXED_OBJ)
 {
 }
 

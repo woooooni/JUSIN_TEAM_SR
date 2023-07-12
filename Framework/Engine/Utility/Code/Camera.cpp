@@ -7,7 +7,7 @@
 const float fZoom = 5.0f;
 
 CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_CAMERA)
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_CAMERA, OBJ_ID::UI)
 	, m_fFov(4.f)
 	, m_pTargetObj(nullptr)
 	, m_fDist(1.f)

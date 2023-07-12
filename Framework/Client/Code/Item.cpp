@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CItem::CItem(LPDIRECT3DDEVICE9 pGraphicDev, ITEM_TYPE _eItemType)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ITEM)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ITEM, OBJ_ID::ID_END)
 	, m_eItemType(_eItemType)
 
 {

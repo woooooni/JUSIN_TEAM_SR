@@ -5,7 +5,9 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "RedBeatle.h"
 #include "BlueBeatle.h"
+#include "GreenBeatle.h"
 #include "TrashBig.h"
 #include "DesertRhino.h"
 #include "SunGollem.h"
@@ -29,6 +31,8 @@
 #include "Text.h"
 #include "Icon.h"
 #include "NPCCow.h"
+#include "UI_Shop.h"
+#include "UI_Cursor.h"
 #include "UI_HPBar.h"
 #include "UI_Totem.h"
 #include "UI_ShortCutKey.h"

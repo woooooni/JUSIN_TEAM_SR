@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_SKYBOX)
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_SKYBOX, OBJ_ID::SKYBOX)
 {
 }
 

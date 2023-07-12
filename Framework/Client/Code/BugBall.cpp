@@ -1,7 +1,7 @@
 #include "BugBall.h"
 #include "Export_Function.h"
 
-CBugBall::CBugBall(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET)
+CBugBall::CBugBall(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::ID_END)
 {
 }
 CBugBall::CBugBall(const CBugBall& rhs)
