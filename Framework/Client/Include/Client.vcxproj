@@ -239,6 +239,7 @@
     <ClInclude Include="..\Header\LightPuzzleBase.h" />
     <ClInclude Include="..\Header\LightPuzzlePiece.h" />
     <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
+    <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\MothMage.h" />
     <ClInclude Include="..\Header\MothOrb.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
@@ -373,6 +374,7 @@
     <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
     <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
     <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
+    <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\MothMage.cpp" />
     <ClCompile Include="..\Code\MothOrb.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />

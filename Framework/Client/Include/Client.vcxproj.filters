@@ -663,6 +663,9 @@
     <ClInclude Include="..\Header\Pool.h">
       <Filter>97. Util\00. Pool</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Loading.h">
+      <Filter>03. Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -990,6 +993,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
+    <ClCompile Include="..\Code\Loading.cpp">
+      <Filter>03. Loading</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
