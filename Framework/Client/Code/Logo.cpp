@@ -474,6 +474,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
 
+	CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pFistEffect, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FistEffect", pFistEffect), E_FAIL);
 
 
 	pPlayer->Set_Hat(pItemMonkeyHat);

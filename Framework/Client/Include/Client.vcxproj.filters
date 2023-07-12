@@ -318,6 +318,8 @@
     </Filter>
     <Filter Include="97. Util\00. Pool">
       <UniqueIdentifier>{bc94a776-1511-4e3d-94ff-f263b7ad6739}</UniqueIdentifier>
+    <Filter Include="02. GameObject\98. Effect\00. FistEffect">
+      <UniqueIdentifier>{63ecafbc-ea58-49dd-ae2b-c83c93737e14}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -662,6 +664,8 @@
     <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
     <ClInclude Include="..\Header\Pool.h">
       <Filter>97. Util\00. Pool</Filter>
+    <ClInclude Include="..\Header\FistEffect.h">
+      <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -990,6 +994,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
+    <ClCompile Include="..\Code\FistEffect.cpp">
+      <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
