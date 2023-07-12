@@ -26,7 +26,7 @@ HRESULT CPlayer_Skill_Barrier::Ready_Object(void)
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
 
-	m_pAnimator->Add_Animation(L"Barrier", L"Proto_Texture_Player_Barrier", 0.1f);
+	m_pAnimator->Add_Animation(L"Barrier", L"Proto_Texture_Player_Skill_Barrier", 0.1f);
 
 	m_pAnimator->Play_Animation(L"Barrier", false);
 
