@@ -277,6 +277,9 @@
     <Filter Include="98. Manager\03. Inventory">
       <UniqueIdentifier>{09146d52-6d44-40ef-8ce3-981c8bfc7d6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. FixedObj\02. Glass">
+      <UniqueIdentifier>{b9c23f31-194a-4f2e-9582-070b905d60a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -546,7 +549,6 @@
     <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\Turret.h" />
-    <ClInclude Include="Grass.h" />
     <ClInclude Include="..\Header\Effect.h">
       <Filter>02. GameObject\98. Effect</Filter>
     </ClInclude>
@@ -579,6 +581,23 @@
     </ClInclude>
     <ClInclude Include="..\Header\InventoryMgr.h">
       <Filter>98. Manager\03. Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Cupa.h" />
+    <ClInclude Include="..\Header\Item_Hat_Drill.h" />
+    <ClInclude Include="..\Header\Item_Hat_Light.h" />
+    <ClInclude Include="..\Header\Item_Hat_Mask.h" />
+    <ClInclude Include="..\Header\Item_Hat_Turtle.h" />
+    <ClInclude Include="..\Header\NPCCow.h" />
+    <ClInclude Include="..\Header\NPCSheep.h" />
+    <ClInclude Include="..\Header\Player_Skill_Barrier.h" />
+    <ClInclude Include="..\Header\Player_Skill_Drill.h" />
+    <ClInclude Include="..\Header\Player_Skill_Turtle.h" />
+    <ClInclude Include="..\Header\RollingBug.h" />
+    <ClInclude Include="..\Header\UI_HPBar.h" />
+    <ClInclude Include="..\Header\UI_Shop.h" />
+    <ClInclude Include="..\Header\UI_Totem.h" />
+    <ClInclude Include="..\Header\Grass.h">
+      <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -832,7 +851,6 @@
     <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\Turret.cpp" />
-    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
       <Filter>02. GameObject\98. Effect</Filter>
     </ClCompile>
@@ -868,6 +886,23 @@
     </ClCompile>
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <Filter>01. Scene\99. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Cupa.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Drill.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Light.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Mask.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Turtle.cpp" />
+    <ClCompile Include="..\Code\NPCCow.cpp" />
+    <ClCompile Include="..\Code\NPCSheep.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Barrier.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Drill.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Turtle.cpp" />
+    <ClCompile Include="..\Code\RollingBug.cpp" />
+    <ClCompile Include="..\Code\UI_HPBar.cpp" />
+    <ClCompile Include="..\Code\UI_Shop.cpp" />
+    <ClCompile Include="..\Code\UI_Totem.cpp" />
+    <ClCompile Include="..\Code\Grass.cpp">
+      <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

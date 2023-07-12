@@ -216,6 +216,7 @@
     <ClInclude Include="..\Header\GolemRightLeg.h" />
     <ClInclude Include="..\Header\GolemUpperJaw.h" />
     <ClInclude Include="..\Header\GrabbableObj.h" />
+    <ClInclude Include="..\Header\Grass.h" />
     <ClInclude Include="..\Header\HitObj.h" />
     <ClInclude Include="..\Header\House.h" />
     <ClInclude Include="..\Header\Icon.h" />
@@ -302,7 +303,6 @@
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="..\Header\UI_Totem.h" />
     <ClInclude Include="Client.h" />
-    <ClInclude Include="Grass.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -343,6 +343,7 @@
     <ClCompile Include="..\Code\GolemRightLeg.cpp" />
     <ClCompile Include="..\Code\GolemUpperJaw.cpp" />
     <ClCompile Include="..\Code\GrabbableObj.cpp" />
+    <ClCompile Include="..\Code\Grass.cpp" />
     <ClCompile Include="..\Code\HitObj.cpp" />
     <ClCompile Include="..\Code\House.cpp" />
     <ClCompile Include="..\Code\Icon.cpp" />
@@ -429,7 +430,6 @@
     <ClCompile Include="..\Header\Tile.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="Grass.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
