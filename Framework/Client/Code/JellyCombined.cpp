@@ -1,6 +1,7 @@
 #include "JellyCombined.h"
 #include "Export_Function.h"
 #include	"JellyStone.h"
+#include	<time.h>
 
 CJellyCombined::CJellyCombined(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::JELLY_COMBINED), m_eColor(JELLY_COLLOR_COMBINE::JELLY_COMBINEEND)
 {
@@ -156,14 +157,80 @@ CGameObject* CJellyCombined::Get_GrabObj()
 	
 	vector<CGameObject*>& src = Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
 
+	_vec3	dst;
+
+	m_pTransformCom->Get_Info(INFO_POS, &dst);
+
+
 	auto iter = find_if(src.begin(), src.end(), [&](auto A)->bool
 		{
 			CJellyStone* src;
+
 			return ((src = dynamic_cast<CJellyStone*>(A)) && Check_Child(src->Get_JellyColor()) && !src->Is_Active());
 		});
 
 	if (iter == src.end())
-		return nullptr;
+	{
+		CJellyStone* tmp;
+		CJellyStone* src;
+
+		srand(unsigned(time(NULL)));
+		switch (m_eColor)
+		{
+		case Engine::JELLY_COLLOR_COMBINE::BLUE:
+
+			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
+			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", tmp);
+
+			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
+			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", src);
+			if (rand() % 2)
+			{
+				return tmp;
+			}
+			else
+				return src;
+
+
+			break;
+		case Engine::JELLY_COLLOR_COMBINE::GREEN:
+			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
+			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", tmp);
+
+			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
+			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", src);
+			if (rand() % 2)
+			{
+				return tmp;
+			}
+			else
+				return src;
+			break;
+		case Engine::JELLY_COLLOR_COMBINE::RED:
+			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
+			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", tmp);
+
+			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
+			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", src);
+			if (rand() % 2)
+			{
+				return tmp;
+			}
+			else
+				return src;
+			break;
+		case Engine::JELLY_COLLOR_COMBINE::JELLY_COMBINEEND:
+			return nullptr;
+		default:
+			return nullptr;
+		}
+	}
 
 	auto tmp = find_if(src.begin(), src.end(), [&](auto A)->bool
 		{
@@ -171,12 +238,71 @@ CGameObject* CJellyCombined::Get_GrabObj()
 			return ((src = dynamic_cast<CJellyStone*>(A)) && ((_uint)src->Get_JellyColor() == ((_uint)m_eColor - (_uint)dynamic_cast<CJellyStone*>(*iter)->Get_JellyColor())) && !src->Is_Active());
 		});
 
-	_vec3	dst;
 
 	if (tmp == src.end())
-		return nullptr;
+	{
+		CJellyStone* jel1;
+		CJellyStone* jel2;
 
-	m_pTransformCom->Get_Info(INFO_POS, &dst);
+		srand(unsigned(time(NULL)));
+		switch (m_eColor)
+		{
+		case Engine::JELLY_COLLOR_COMBINE::BLUE:
+
+			jel1 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
+			NULL_CHECK_RETURN_MSG(jel1, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", jel1);
+
+			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
+			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", jel2);
+			if (rand() % 2)
+			{
+				return jel1;
+			}
+			else
+				return jel2;			
+			break;
+
+		case JELLY_COLLOR_COMBINE::GREEN:
+			jel1 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
+			NULL_CHECK_RETURN_MSG(jel1, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", jel1);
+
+			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
+			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", jel2);
+			if (rand() % 2)
+			{
+				return jel1;
+			}
+			else
+				return jel2;
+
+			break;
+		case Engine::JELLY_COLLOR_COMBINE::RED:
+			jel1 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
+			NULL_CHECK_RETURN_MSG(jel1, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", jel1);
+
+			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
+			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
+			Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"JellyStone", jel2);
+			if (rand() % 2)
+			{
+				return jel1;
+			}
+			else
+				return jel2;
+
+		break;		
+		case Engine::JELLY_COLLOR_COMBINE::JELLY_COMBINEEND:
+			return nullptr;
+		default:
+			return nullptr;
+		}
+
+	}
 
 	(*iter)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.y));
 	(*tmp)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.y));
