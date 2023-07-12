@@ -34,7 +34,6 @@
   .\Engine\Header\LightMgr.h
   .\Engine\Header\Management.h
   .\Engine\Header\PickingMgr.h
-  .\Engine\Header\Pool.h
   .\Engine\Header\ProtoMgr.h
   .\Engine\Header\RcCol.h
   .\Engine\Header\RcPuzzleBuff.h
@@ -49,7 +48,7 @@
   .\Engine\Header\Transform.h
   .\Engine\Header\TriCol.h
   .\Engine\Header\VIBuffer.h
-         45개 파일이 복사되었습니다.
+         44개 파일이 복사되었습니다.
   .\Engine\Header\Export_System.inl
   .\Engine\Header\Export_Utility.inl
           2개 파일이 복사되었습니다.

@@ -258,6 +258,7 @@
     <ClInclude Include="..\Header\Player_State_GameOver.h" />
     <ClInclude Include="..\Header\Player_State_GetItem.h" />
     <ClInclude Include="..\Header\Player_State_Skill.h" />
+    <ClInclude Include="..\Header\Pool.h" />
     <ClInclude Include="..\Header\PushableObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />

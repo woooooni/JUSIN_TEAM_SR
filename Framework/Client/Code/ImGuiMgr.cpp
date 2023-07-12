@@ -10,6 +10,14 @@
 #include "TrashBig.h"
 #include "Tile.h"
 #include "Tree.h"
+#include "TrashSlime.h"
+#include "SpitCactus.h"
+#include "MothMage.h"
+#include "RollingBug.h"
+#include "Cupa.h"
+#include "SunGollem.h"
+#include "SilkWorm.h"
+#include "House.h"
 
 IMPLEMENT_SINGLETON(CImGuiMgr)
 CImGuiMgr::CImGuiMgr()
@@ -20,8 +28,6 @@ CImGuiMgr::CImGuiMgr()
 	, m_pToolScene(nullptr)
 	, m_pTargetObject(nullptr)
 	, m_pSelectedObject(nullptr)
-	, m_strObjNaming(L"Obj_Name_")
-	, m_vObjScale(_vec3(1.f, 1.f, 1.f))
 	, m_iObjNum(0)
 {
 	
@@ -51,6 +57,8 @@ HRESULT CImGuiMgr::Ready_ImGuiMgr(HWND _hWnd, LPDIRECT3DDEVICE9 _pDevice)
 	ImGui_ImplWin32_Init(_hWnd);
 	ImGui_ImplDX9_Init(m_pGraphicDev);
 	
+	// 데이터 저장 경로는 여기를 수정하세요. 반드시 폴더를 먼저 생성해야합니다.
+	m_strFolderPath = L"../Bin/Data/Test";
 
 	return S_OK;
 }
@@ -97,9 +105,11 @@ void CImGuiMgr::Update_ImGui(const _float& fTimeDelta)
 	case TOOL_MODE::OBJECT:
 		UpdateObjectTool(fTimeDelta);
 		break;
+
 	case TOOL_MODE::TERRAIN:
 		UpdateTerrainTool(fTimeDelta);
 		break;
+
 	case TOOL_MODE::MAP:
 		UpdateMapTool(fTimeDelta);
 		break;
@@ -108,14 +118,15 @@ void CImGuiMgr::Update_ImGui(const _float& fTimeDelta)
 	ImGui::Text("");
 	ImGui::Text("");
 
+
 	if (ImGui::Button("Save"))
 	{
-		m_pToolScene->Save_Data(L"../Bin/Data");
+		m_pToolScene->Save_Data(m_strFolderPath);
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Load"))
 	{
-		m_pToolScene->Load_Data(L"../Bin/Data");
+		m_pToolScene->Load_Data(m_strFolderPath);
 	}
 	ImGui::EndTabBar();
 	ImGui::End();
@@ -131,51 +142,43 @@ void CImGuiMgr::Render_ImGui()
 
 void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 {
-	if (m_pTargetObject != nullptr)
+
+	if (m_pSelectedObject != nullptr)
 	{
-		if (KEY_TAP(KEY::DEL))
-			DeleteObj();
-	}
-	else
-	{
-		if (m_pSelectedObject != nullptr)
+		CGameObject* pTerrain = Engine::Get_Layer(LAYER_TYPE::TERRAIN)->Find_GameObject(L"Terrain");
+
+		if (pTerrain == nullptr)
+			return;
+
+		_vec3 vHit, vPos;
+		if (Engine::IsPicking(pTerrain, &vHit))
 		{
-			CGameObject* pTerrain = Engine::Get_Layer(LAYER_TYPE::TERRAIN)->Find_GameObject(L"Terrain");
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+			
+			vHit.x = _int(vHit.x);
+			vHit.y = vPos.y;
+			vHit.z = _int(vHit.z);
 
-			if (pTerrain == nullptr)
-				return;
-
-			_vec3 vHit, vPos;
-			if (Engine::IsPicking(pTerrain, &vHit))
+			m_pSelectedObject->Get_TransformCom()->Set_Info(INFO_POS, &vHit);
+			if (KEY_TAP(KEY::LBTN))
 			{
-				m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-
-				if (m_eSelectedObjType == OBJ_SELECTED::TILE)
-				{
-					vHit.x = _int(vHit.x) + 0.5f;
-					vHit.y = _int(vHit.y) + 0.5f;
-					vHit.z = _int(vHit.z) + 0.5f;
-				}
-					
-
-				vHit.y = vPos.y;
-				m_pSelectedObject->Get_TransformCom()->Set_Info(INFO_POS, &vHit);
-				if (KEY_TAP(KEY::LBTN))
-				{
-					CreateObj(m_eSelectedObjType, vHit);
-				}
-
-				if (KEY_TAP(KEY::RBTN))
-				{
-					ResetSelectTarget();
-					return;
-				}
+				CreateObj(vHit);
 			}
 
-			m_pSelectedObject->Update_Object(0.f);
-			m_pSelectedObject->LateUpdate_Object();
-			m_pSelectedObject->Render_Object();
+			if (KEY_TAP(KEY::RBTN))
+			{
+				ResetSelectTarget();
+				return;
+			}
 		}
+
+		m_pSelectedObject->Update_Object(0.f);
+		m_pSelectedObject->LateUpdate_Object();
+		m_pSelectedObject->Render_Object();
+
+		OBJ_TYPE eObjType = m_pSelectedObject->GetObj_Type();
+		if (eObjType == OBJ_TYPE::OBJ_MONSTER || eObjType == OBJ_TYPE::OBJ_ENVIRONMENT)
+			SetAutoY(m_pSelectedObject);
 	}
 
 	static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_AutoSelectNewTabs | ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyResizeDown;
@@ -184,27 +187,55 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 	{
 		if (ImGui::Button("Blue_Beatle"))
 		{
-			m_eSelectedObjType = OBJ_SELECTED::BLUE_BEATLE;
 			ResetSelectTarget();
 			m_pSelectedObject = CBlueBeatle::Create(m_pGraphicDev);
 		}
 
 		if (ImGui::Button("Desert_Rino"))
 		{
-			m_eSelectedObjType = OBJ_SELECTED::DESERT_RHINO;
 			ResetSelectTarget();
 			m_pSelectedObject = CDesertRhino::Create(m_pGraphicDev);
 		}
 
 		if (ImGui::Button("Trash_Big"))
 		{
-			m_eSelectedObjType = OBJ_SELECTED::TRASH_BIG;
 			ResetSelectTarget();
 			m_pSelectedObject = CTrashBig::Create(m_pGraphicDev);
 		}
 
+		if (ImGui::Button("Trash_Slime"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CTrashSlime::Create(m_pGraphicDev);
+		}
+
+		if (ImGui::Button("Spit_Cactus"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CSpitCactus::Create(m_pGraphicDev);
+		}
+
+		if (ImGui::Button("Moth_Mage"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CMothMage::Create(m_pGraphicDev);
+		}
+
+		if (ImGui::Button("Rolling_Bug"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CRollingBug::Create(m_pGraphicDev, {0.f, 0.f, 0.f}, BUGCOLORTYPE::PINK);
+		}
+
+		if (ImGui::Button("CUPA"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CCupa::Create(m_pGraphicDev);
+		}
+
 		ImGui::EndTabItem();
 	}
+
 	if (ImGui::BeginTabItem("Tile"))
 	{
 		CTexture* pTileTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Tile"));
@@ -220,7 +251,6 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 					ResetSelectTarget();
 					m_pSelectedObject = CTile::Create(m_pGraphicDev);
 					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
-					m_eSelectedObjType = OBJ_SELECTED::TILE;
 				}
 			}
 		}
@@ -243,11 +273,30 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 					ResetSelectTarget();
 					m_pSelectedObject = CTree::Create(m_pGraphicDev);
 					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
-					m_eSelectedObjType = OBJ_SELECTED::TREE;
 				}
 			}
 		}
+		ImGui::EndTabItem();
+	}
 
+	if (ImGui::BeginTabItem("House"))
+	{
+		CTexture* pTileTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_House"));
+		if (pTileTex != nullptr)
+		{
+			for (size_t i = 0; i < pTileTex->Get_Size(); ++i)
+			{
+				if (i % 4 != 0)
+					ImGui::SameLine();
+
+				if (ImGui::ImageButton(pTileTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
+				{
+					ResetSelectTarget();
+					m_pSelectedObject = CHouse::Create(m_pGraphicDev);
+					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
+				}
+			}
+		}
 		ImGui::EndTabItem();
 	}
 	
@@ -303,45 +352,104 @@ void CImGuiMgr::PasteObj()
 {
 }
 
-void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
+void CImGuiMgr::SetAutoY(CGameObject* pObj)
+{
+	if (pObj)
+	{
+		CTransform* pTransform = pObj->Get_TransformCom();
+		CTexture* pTexture = pObj->Get_TextureCom();
+		
+		_vec3 vPos;
+		_vec3 vScale = pTransform->Get_Scale();
+		_float fHeight;
+
+		fHeight = vScale.y / 2.f;
+
+
+		pTransform->Get_Info(INFO_POS, &vPos);
+		vPos.y = fHeight;
+		pTransform->GetOwner()->Set_MinHeight(fHeight);
+		pTransform->Set_Info(INFO_POS, &vPos);
+	}
+}
+
+void CImGuiMgr::CreateObj(_vec3& vHit)
 {
 	CGameObject* pCloneObj = nullptr;
-	_vec3 vPos;
-	_vec3 vRight, vUp, vLook;
-	_vec3 vScale;
-	
 
-	switch (_eSelected)
+	if (nullptr == m_pSelectedObject)
+		return;
+
+	switch (m_pSelectedObject->GetObj_Id())
 	{
-	case OBJ_SELECTED::BLUE_BEATLE :
+	case OBJ_ID::BLUE_BEATLE :
 		pCloneObj = CBlueBeatle::Create(m_pGraphicDev);
-		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"Monster" + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"BlueBeatle" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
-	case OBJ_SELECTED::DESERT_RHINO:
+	case OBJ_ID::DESERT_RHINO:
 		pCloneObj = CDesertRhino::Create(m_pGraphicDev);
-		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"Monster" + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"DesertRhino" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
-	case OBJ_SELECTED::TRASH_BIG:
+	case OBJ_ID::TRASH_BIG:
 		pCloneObj = CTrashBig::Create(m_pGraphicDev);
-		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"Monster" + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"TrashBig" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
-	case OBJ_SELECTED::TILE:
+	case OBJ_ID::TRASH_SLIME:
+		pCloneObj = CTrashSlime::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"TrashSlime" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::SPIT_CACTUS:
+		pCloneObj = CSpitCactus::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"SpitCactus" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::MORTH_MAGE:
+		pCloneObj = CMothMage::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"MorthMage" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::ROLLING_BUG:
+		pCloneObj = CRollingBug::Create(m_pGraphicDev, {0.f, 0.f, 0.f}, BUGCOLORTYPE::BLUE);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"RollingBug" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::CUPA:
+		pCloneObj = CCupa::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"Cupa" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::TILE:
 		pCloneObj = CTile::Create(m_pGraphicDev);
-		pCloneObj->Get_TransformCom()->Set_Scale(m_vObjScale);
+		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
 		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
 		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Tile_" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
-	case OBJ_SELECTED::TREE:
+	case OBJ_ID::TREE:
 		pCloneObj = CTree::Create(m_pGraphicDev);
-		pCloneObj->Get_TransformCom()->Set_Scale(m_vObjScale);
+		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
 		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
 		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Tree_" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
+
+	case OBJ_ID::HOUSE:
+		pCloneObj = CHouse::Create(m_pGraphicDev);
+		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
+		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Tree_" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	default :
+		return;
 	}
+
+	_vec3 vPos;
+	_vec3 vRight, vUp, vLook;
+	_vec3 vScale;
 
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
 	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
@@ -349,13 +457,17 @@ void CImGuiMgr::CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit)
 
 	vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
+
+	// 회전 적용
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_RIGHT, &vRight);
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_UP, &vUp);
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_LOOK, &vLook);
 
-	pCloneObj->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-	vPos = _vec3(vHit.x, vPos.y, vHit.z);
+	// 포지션 적용.
+	m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	pCloneObj->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+
+	// 스케일 적용
 	pCloneObj->Get_TransformCom()->Set_Scale(vScale);
 
 
@@ -395,6 +507,13 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 	
 	if (m_pTargetObject)
 	{
+		if (KEY_TAP(KEY::DEL))
+		{
+			DeleteObj();
+			ResetSelectTarget();
+			return;
+		}
+
 		m_pTargetObject->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 
 		if (KEY_TAP(KEY::UP_ARROW))
@@ -472,6 +591,12 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 	}
 	else if (m_pSelectedObject)
 	{
+		if (KEY_TAP(KEY::ESC))
+		{
+			ResetSelectTarget();
+			return;
+		}
+
 		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::Q))
 		{
 			_vec3 vLook, vRight, vUp;
@@ -648,7 +773,7 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 		{
 			_vec3 vPos, vScale;
 			pTargetTransform->Get_Info(INFO_POS, &vPos);
-			vScale = pTargetTransform->Get_Scale(); pTargetTransform->Get_Scale();
+			vScale = pTargetTransform->Get_Scale();
 
 			_float fPos[3] = { vPos.x, vPos.y, vPos.z };
 			_float fScale[3] = { vScale.x, vScale.y, vScale.z };
@@ -683,7 +808,6 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			vPos.z = fPos[2];
 
 
-
 			vScale.x = fScale[0];
 			vScale.y = fScale[1];
 			vScale.z = fScale[2];
@@ -699,6 +823,10 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 
 			pTargetTransform->Set_Info(INFO_POS, &vPos);
 			pTargetTransform->Set_Scale(vScale);
+
+			OBJ_TYPE eObjType = m_pTargetObject->GetObj_Type();
+			if(eObjType == OBJ_TYPE::OBJ_MONSTER || eObjType == OBJ_TYPE::OBJ_ENVIRONMENT)
+				SetAutoY(m_pTargetObject);
 
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
 			if (nullptr != pBoxCollider)

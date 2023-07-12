@@ -16,7 +16,8 @@ class CImGuiMgr : public CBase
 
 public:
 	enum class TOOL_MODE { OBJECT, TERRAIN, MAP, MODE_END };
-	enum class OBJ_SELECTED { BLUE_BEATLE, DESERT_RHINO, TRASH_BIG, TILE, TREE, SELECTED_END  };
+	
+
 private:
 	explicit CImGuiMgr();
 	virtual ~CImGuiMgr();
@@ -49,10 +50,11 @@ private:
 private:
 	void ResetSelectTarget();
 	void PasteObj();
+	void SetAutoY(CGameObject* pObj);
 
 
 private:
-	void CreateObj(OBJ_SELECTED _eSelected, _vec3& vHit);
+	void CreateObj(_vec3& vHit);
 	void DeleteObj();
 
 private:
@@ -70,13 +72,10 @@ private:
 	CScene_Tool* m_pToolScene;
 	CGameObject* m_pTargetObject;
 	CGameObject* m_pSelectedObject;
-	
-	wstring		m_strObjNaming;
-	
-	OBJ_SELECTED m_eSelectedObjType;
-	_vec3 m_vObjScale;
+
 	_uint m_iObjNum;
 
+	wstring m_strFolderPath;
 public:
 	virtual void Free() override;
 };
