@@ -41,11 +41,11 @@ HRESULT CItem_Hat_Missile::Ready_Object(void)
 	m_vecAnimation[(_uint)OBJ_DIR::DIR_RU] = L"Missile_RightUp";
 	m_vecAnimation[(_uint)OBJ_DIR::DIR_RD] = L"Missile_RightDown";
 
-	m_vScale = { 0.8f, 0.6f, 0.6f };
+	m_vScale = { 0.9f, 0.6f, 0.6f };
 	m_pTransformCom->Set_Scale(m_vScale);
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 0.0f, 0.0f));
 
-	m_vecOffset[(_uint)OBJ_DIR::DIR_D] = { 0.0f, 0.00f, 0.0f };
+	m_vecOffset[(_uint)OBJ_DIR::DIR_D] = { 0.0f, -0.01f, 0.0f };
 	m_vecOffset[(_uint)OBJ_DIR::DIR_U] = { 0.0f, 0.00f, 0.0f };
 	m_vecOffset[(_uint)OBJ_DIR::DIR_L] = { -0.05f, 0.00f, 0.0f };
 	m_vecOffset[(_uint)OBJ_DIR::DIR_R] = { 0.05f, 0.00f, 0.0f };
