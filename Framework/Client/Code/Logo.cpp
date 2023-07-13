@@ -229,15 +229,15 @@ HRESULT CLogo::Ready_Layer_Monster()
 	CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
-
+		*/
 	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pMothMage, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
 
-	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
-	*/
+	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
+	//
 	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);

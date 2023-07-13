@@ -280,6 +280,9 @@
     <Filter Include="02. GameObject\13. Tile">
       <UniqueIdentifier>{17d996c8-d91c-4860-b76a-282f2a6080cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. Monster\05. TrashBummer">
+      <UniqueIdentifier>{1a6eda92-853d-4d34-ae91-df51b339691b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -612,6 +615,9 @@
     <ClInclude Include="..\Header\RedBeatle.h" />
     <ClInclude Include="..\Header\UI_Cursor.h" />
     <ClInclude Include="..\Header\UI_ItemInfo.h" />
+    <ClInclude Include="..\Header\TrashBummer.h">
+      <Filter>02. GameObject\02. Monster\05. TrashBummer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -928,6 +934,9 @@
     <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
     <ClCompile Include="..\Code\Tile.cpp">
       <Filter>02. GameObject\13. Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashBummer.cpp">
+      <Filter>02. GameObject\02. Monster\05. TrashBummer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

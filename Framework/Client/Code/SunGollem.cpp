@@ -44,7 +44,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	Set_State(SUNGOLEM_STATE::REGEN);
 	m_tStat = { 6,6,1 };
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
-
+	m_fMinHeight = 2.0f;
 	return S_OK;
 }
 
@@ -130,6 +130,11 @@ HRESULT CSunGollem::Add_Component(void)
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+	
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
 	return S_OK;
 }
 

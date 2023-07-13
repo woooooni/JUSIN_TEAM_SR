@@ -297,6 +297,7 @@
     <ClInclude Include="..\Header\Text.h" />
     <ClInclude Include="..\Header\Tile.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="..\Header\TrashBummer.h" />
     <ClInclude Include="..\Header\TrashSlime.h" />
     <ClInclude Include="..\Header\Turret.h" />
     <ClInclude Include="..\Header\Tree.h" />
@@ -434,6 +435,7 @@
     <ClCompile Include="..\Code\Text.cpp" />
     <ClCompile Include="..\Code\Tile.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="..\Code\TrashBummer.cpp" />
     <ClCompile Include="..\Code\TrashSlime.cpp" />
     <ClCompile Include="..\Code\Turret.cpp" />
     <ClCompile Include="..\Code\Tree.cpp" />

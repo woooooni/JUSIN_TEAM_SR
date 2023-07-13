@@ -34,22 +34,22 @@ HRESULT CSilkWorm::Ready_Object(void)
 
 	m_pTransformCom->Set_Scale({ 3,3,3 });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({3.f, 3.f, 3.f });
-	m_pTransformCom->Set_Info(INFO_POS, &_vec3(10.0f, 2.0f, 10.f));
+	m_pTransformCom->Set_Info(INFO_POS, &_vec3(0.0f, 2.0f, 0.f));
 	m_bPhase2 = true;
 	m_pAnimator->Play_Animation(L"BugBoss_Phase2_Regen", false);
 	Set_State(SILKWORM_STATE::IDLE);
-	_int iInterval =5;
+	_float fiInterval = 10.f;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vOrigin = vPos;
-	m_vRandomPos[0] = { vPos.x -iInterval, vPos.y, vPos.z - iInterval };
-	m_vRandomPos[1] = { vPos.x -iInterval, vPos.y, vPos.z };
-	m_vRandomPos[2] = { vPos.x -iInterval, vPos.y, vPos.z + iInterval };
-	m_vRandomPos[3] = { vPos.x +iInterval, vPos.y, vPos.z + iInterval };
-	m_vRandomPos[4] = { vPos.x +iInterval, vPos.y, vPos.z };
-	m_vRandomPos[5] = { vPos.x +iInterval, vPos.y, vPos.z - iInterval };
-	m_vRandomPos[6] = { vPos.x , vPos.y, vPos.z + iInterval };
-	m_vRandomPos[7] = { vPos.x , vPos.y, vPos.z - iInterval };
+	m_vRandomPos[0] = { vPos.x -fiInterval, vPos.y, vPos.z - fiInterval };
+	m_vRandomPos[1] = { vPos.x -fiInterval, vPos.y, vPos.z };
+	m_vRandomPos[2] = { vPos.x -fiInterval, vPos.y, vPos.z + fiInterval };
+	m_vRandomPos[3] = { vPos.x +fiInterval, vPos.y, vPos.z + fiInterval };
+	m_vRandomPos[4] = { vPos.x +fiInterval, vPos.y, vPos.z };
+	m_vRandomPos[5] = { vPos.x +fiInterval, vPos.y, vPos.z - fiInterval };
+	m_vRandomPos[6] = { vPos.x , vPos.y, vPos.z + fiInterval };
+	m_vRandomPos[7] = { vPos.x , vPos.y, vPos.z - fiInterval };
 	m_fMinHeight = 2.0f;
 	m_eCOLORPATTERN = COLOR_BLUE;
 	m_tStat = { 25,25,1 };
@@ -319,10 +319,10 @@ void CSilkWorm::Trace(_float fTimeDelta)
 	vDir = m_vDir;
 	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
+	float fAccel = 1.f+ 0.03f*m_fMoveTime* m_fMoveTime;
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, m_fSpeed* fAccel);
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, m_fSpeed*2.f);
-
-	if (m_fMoveTime > 20.f)
+	if (m_fMoveTime > 50.f)
 	{
 		m_pTransformCom->Set_Pos(&m_vRandomPos[rand() % 8]);
 
