@@ -20,6 +20,16 @@ public:
 	virtual void		Render_Scene() PURE;
 
 protected:
+	virtual HRESULT			Ready_Layer_Player() PURE;
+	virtual HRESULT			Ready_Layer_Camera() PURE;
+	virtual HRESULT			Ready_Layer_Terrrain() PURE;
+	virtual HRESULT			Ready_Layer_Environment() PURE;
+	virtual HRESULT			Ready_Layer_Monster() PURE;
+	virtual HRESULT			Ready_Layer_InterationObj() PURE;
+	virtual HRESULT			Ready_Layer_Effect() PURE;
+	virtual HRESULT			Ready_Layer_UI() PURE;
+
+protected:
 	HRESULT Ready_AllLayer()
 	{
 		for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)

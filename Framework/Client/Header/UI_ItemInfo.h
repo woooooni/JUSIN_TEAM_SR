@@ -1,61 +1,8 @@
 #pragma once
 #include "CUI.h"
 
-BEGIN(Engine)
-
-class CRcTex;
-class CTransform;
-class CTexture;
-
-END
-
-typedef enum class UI_ShopItem
-{
-	UISHOP_BRANCH,
-	UISHOP_CLOTH,
-	UISHOP_LEAF,
-
-	SHOPKEY_L,
-	SHOPITEM_END
-
-}SHOPITEMTYPE;
-
-struct tagShopItemInfo
-{
-	SHOPITEMTYPE	eType;
-	_int			iPrice;
-};
-
 class CUI_ItemInfo :
     public CUI
 {
-	CLONE(CUI_ItemInfo)
-
-private:
-	explicit CUI_ItemInfo(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CUI_ItemInfo(const CUI_ItemInfo& rhs);
-	virtual ~CUI_ItemInfo();
-
-public:
-	virtual HRESULT		Ready_Object(void) override;
-	virtual _int		Update_Object(const _float& fTimeDelta) override;
-	virtual void		LateUpdate_Object(void) override;
-	virtual void		Render_Object(void) override;
-
-private:
-	HRESULT			Add_Component(void);
-	void			Set_Type(SHOPITEMTYPE eType);
-	void			Key_Input();
-
-private:
-	tagShopItemInfo		m_tItemInfo;
-	_vec3				m_vDefaultPos;
-	_bool				m_bShown = FALSE;
-
-public:
-	static  CUI_ItemInfo* Create(LPDIRECT3DDEVICE9 pGraphicDev, SHOPITEMTYPE eType);
-
-private:
-	virtual void		Free() override;
 };
 

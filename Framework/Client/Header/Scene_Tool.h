@@ -19,8 +19,15 @@ public:
 	virtual void Render_Scene() override;
 
 private:
-	HRESULT			Ready_Prototype();
-	HRESULT			Ready_Layer(LAYER_TYPE _eType);
+	HRESULT					Ready_Prototype();
+	virtual HRESULT			Ready_Layer_Player() override;
+	virtual HRESULT			Ready_Layer_Camera() override;
+	virtual HRESULT			Ready_Layer_Terrrain() override;
+	virtual HRESULT			Ready_Layer_Environment() override;
+	virtual HRESULT			Ready_Layer_Monster() override;
+	virtual HRESULT			Ready_Layer_InterationObj() override;
+	virtual HRESULT			Ready_Layer_Effect() override;
+	virtual HRESULT			Ready_Layer_UI() override;
 	
 
 public:

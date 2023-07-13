@@ -236,7 +236,7 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 
 void CSunGollem::Update_Attack(_float fTimeDelta)
 {
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
 	NULL_CHECK_RETURN(pTarget, );
 	Set_Target(pTarget);
 	_vec3 vTargetPos, vDir;

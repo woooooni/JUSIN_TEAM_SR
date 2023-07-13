@@ -16,7 +16,6 @@ HRESULT CStage::Ready_Scene()
 	__super::Ready_AllLayer();
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
-	
 
 
 	return S_OK;
@@ -63,6 +62,46 @@ CStage* CStage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CStage::Ready_Prototype()
 {
 	return S_OK;
+}
+
+HRESULT CStage::Ready_Layer_Player()
+{
+	return E_NOTIMPL;
+}
+
+HRESULT CStage::Ready_Layer_Camera()
+{
+	return E_NOTIMPL;
+}
+
+HRESULT CStage::Ready_Layer_Terrrain()
+{
+	return E_NOTIMPL;
+}
+
+HRESULT CStage::Ready_Layer_Environment()
+{
+	return E_NOTIMPL;
+}
+
+HRESULT CStage::Ready_Layer_Monster()
+{
+	return E_NOTIMPL;
+}
+
+HRESULT CStage::Ready_Layer_InterationObj()
+{
+	return E_NOTIMPL;
+}
+
+HRESULT CStage::Ready_Layer_Effect()
+{
+	return E_NOTIMPL;
+}
+
+HRESULT CStage::Ready_Layer_UI()
+{
+	return E_NOTIMPL;
 }
 
 HRESULT CStage::Ready_Layer_Environment(LAYER_TYPE _eType)

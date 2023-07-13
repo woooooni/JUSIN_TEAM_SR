@@ -33,7 +33,6 @@
 #include "UI_Cursor.h"
 #include "UI_HPBar.h"
 #include "UI_Totem.h"
-#include "UI_ItemInfo.h"
 #include "UI_ShortCutKey.h"
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"
@@ -61,7 +60,6 @@
 #include "Item_Hat_Light.h"
 #include "Item_Hat_Mask.h"
 
-#include "FistEffect.h"
 class CLogo : public Engine::CScene
 {
 private:
@@ -75,10 +73,16 @@ public:
 	virtual void Render_Scene() override;
 
 private:
-	HRESULT			Ready_Prototype();
-	HRESULT			Ready_Layer_Environment(LAYER_TYPE _eType);
-	HRESULT			Ready_Layer_GameLogic(const _tchar* pLayerTag) { return S_OK; }
-	HRESULT			Ready_Layer_UI(const _tchar* pLayerTag) { return S_OK; }
+	virtual HRESULT			Ready_Prototype();
+	virtual HRESULT			Ready_Layer_Player()			override;
+	virtual HRESULT			Ready_Layer_Camera()			override;
+	virtual HRESULT			Ready_Layer_Terrrain()			override;
+	virtual HRESULT			Ready_Layer_Environment()		override;
+	virtual HRESULT			Ready_Layer_Monster()			override;
+	virtual HRESULT			Ready_Layer_InterationObj()		override;
+	virtual HRESULT			Ready_Layer_Effect()			override;
+	virtual HRESULT			Ready_Layer_UI()				override;
+
 
 public:
 	static CLogo*		Create(LPDIRECT3DDEVICE9 pGraphicDev);

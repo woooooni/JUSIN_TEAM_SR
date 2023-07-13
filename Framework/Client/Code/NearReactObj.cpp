@@ -33,7 +33,7 @@ _int CNearReactObj::Update_Object(const _float& fTimeDelta)
 
 	_int Ret =  __super::Update_Object(fTimeDelta);
 
-	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
 
 	_vec3 src, tmp;
 

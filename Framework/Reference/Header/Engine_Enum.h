@@ -31,8 +31,7 @@ namespace Engine
 	};
 
 	
-	enum class LAYER_TYPE { CAMERA, PLAYER, TERRAIN, ENVIRONMENT, SPAWNER, MONSTER, EFFECT, UI, LAYER_END };
-
+	enum class LAYER_TYPE { CAMERA, PLAYER, TERRAIN, ENVIRONMENT, MONSTER, INTERACTION_OBJ, EFFECT, UI, LAYER_END };
 	enum class SCENE_TYPE { LOADING, STAGE1, STAGE2, STAGE3, TOOL, SCENE_END };
 
 	//Object
@@ -127,8 +126,7 @@ namespace Engine
 		
 		// UI
 		UI,
-		//EFFECT
-		EFFECT,
+
 		ID_END
 	};
 

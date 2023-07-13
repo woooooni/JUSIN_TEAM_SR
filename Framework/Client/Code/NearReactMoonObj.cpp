@@ -34,7 +34,7 @@ _int CNearReactMoonObj::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 
-	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
 
 	_vec3 src, tmp;
 

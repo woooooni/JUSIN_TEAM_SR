@@ -72,6 +72,7 @@ void CUI_Shop::Render_Object(void)
 		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		_float fRatio = _float(WINCY) / _float(WINCX);
+//		_vec3 vScale = _vec3(fWidth * fRatio * 1.2f, fHeight * fRatio * 0.8f, 0.f);
 		_vec3 vScale = _vec3(fWidth * fRatio * 2.f, fHeight * fRatio * 2.f, 0.f);
 
 		m_pTransformCom->Set_Scale(vScale);

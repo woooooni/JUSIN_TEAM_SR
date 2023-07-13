@@ -39,8 +39,15 @@ CScene_Tool::~CScene_Tool()
 HRESULT CScene_Tool::Ready_Scene()
 {
 	__super::Ready_AllLayer();
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer(LAYER_TYPE::ENVIRONMENT), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 	
 
 	D3DVIEWPORT9 vp;
@@ -463,54 +470,6 @@ void CScene_Tool::Clear_Layer()
 }
 
 
-HRESULT CScene_Tool::Ready_Layer(LAYER_TYPE _eType)
-{
-	Engine::CLayer* pLayerCamera = m_mapLayer.find(LAYER_TYPE::CAMERA)->second;
-	Engine::CLayer* pLayerPlayer = m_mapLayer.find(LAYER_TYPE::PLAYER)->second;
-	Engine::CLayer* pLayerEnv = m_mapLayer.find(LAYER_TYPE::ENVIRONMENT)->second;
-	Engine::CLayer* pLayerTerrain = m_mapLayer.find(LAYER_TYPE::TERRAIN)->second;
-	Engine::CLayer* pLayerUI = m_mapLayer.find(LAYER_TYPE::UI)->second;
-
-	NULL_CHECK_RETURN(pLayerCamera, E_FAIL);
-	NULL_CHECK_RETURN(pLayerPlayer, E_FAIL);
-	NULL_CHECK_RETURN(pLayerEnv, E_FAIL);
-	NULL_CHECK_RETURN(pLayerTerrain, E_FAIL);
-	NULL_CHECK_RETURN(pLayerUI, E_FAIL);
-
-	Engine::CGameObject* pGameObject = nullptr;
-
-	//Terrain
-	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTerrain, E_FAIL);
-	FAILED_CHECK_RETURN(pLayerTerrain->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
-
-	// Player
-	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pPlayer, E_FAIL);
-	FAILED_CHECK_RETURN(pLayerPlayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
-	m_pPlayer = pPlayer;
-
-	// Camera
-	Engine::CCamera * pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
-	NULL_CHECK_RETURN(pCamera, E_FAIL);
-	FAILED_CHECK_RETURN(pLayerCamera->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
-	m_pCamera = pCamera;
-
-	//CTree* pTree = CTree::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pTree, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayerEnv->Add_GameObject(L"Tree", pTree), E_FAIL);
-
-	//CUI_AdventureBook* pUIBook = CUI_AdventureBook::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pUIBook, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayerUI->Add_GameObject(L"Adventure_Book", pUIBook), E_FAIL);
-
-	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
-	pCamera->Set_TargetObj(pPlayer);
-
-	return S_OK;
-}
-
-
 CScene_Tool* CScene_Tool::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CScene_Tool* pInstance = new CScene_Tool(pGraphicDev);
@@ -528,7 +487,80 @@ CScene_Tool* CScene_Tool::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CScene_Tool::Ready_Prototype()
 {
+	return S_OK;
+}
 
+HRESULT CScene_Tool::Ready_Layer_Player()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
+
+	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlayer, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
+	m_pPlayer = pPlayer;
+
+	return S_OK;
+}
+
+HRESULT CScene_Tool::Ready_Layer_Camera()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::CAMERA];
+
+	Engine::CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
+	NULL_CHECK_RETURN(pCamera, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
+	m_pCamera = pCamera;
+
+	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
+	pCamera->Set_TargetObj(m_pPlayer);
+
+	return S_OK;
+}
+
+HRESULT CScene_Tool::Ready_Layer_Terrrain()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::TERRAIN];
+
+	//Terrain
+	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTerrain, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
+
+	return S_OK;
+}
+
+HRESULT CScene_Tool::Ready_Layer_Environment()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
+
+	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTerrain, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
+
+	return S_OK;
+}
+
+HRESULT CScene_Tool::Ready_Layer_Monster()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
+	return S_OK;
+}
+
+HRESULT CScene_Tool::Ready_Layer_InterationObj()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::INTERACTION_OBJ];
+	return S_OK;
+}
+
+HRESULT CScene_Tool::Ready_Layer_Effect()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::EFFECT];
+	return S_OK;
+}
+
+HRESULT CScene_Tool::Ready_Layer_UI()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
 	return S_OK;
 }
 

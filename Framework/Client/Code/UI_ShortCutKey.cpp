@@ -43,8 +43,9 @@ HRESULT CUI_ShortCutKey::Ready_Object(void)
 _int CUI_ShortCutKey::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-
+	// Key_Input 만들어서 넣기 (대화창 닫히게끔)
 	__super::Update_Object(fTimeDelta);
+
 	return S_OK;
 }
 

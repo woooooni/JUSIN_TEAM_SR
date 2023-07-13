@@ -199,11 +199,10 @@
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\Cupa.h" />
     <ClInclude Include="..\Header\Effect.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
-    <ClInclude Include="..\Header\FistEffect.h" />
     <ClInclude Include="..\Header\FixedObj.h" />
     <ClInclude Include="..\Header\GolemFace.h" />
     <ClInclude Include="..\Header\GolemFist.h" />
@@ -289,7 +288,6 @@
     <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SpitCactus.h" />
-    <ClInclude Include="..\Header\Stage.h" />
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\Text.h" />
@@ -336,11 +334,10 @@
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\Cupa.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
-    <ClCompile Include="..\Code\FistEffect.cpp" />
     <ClCompile Include="..\Code\FixedObj.cpp" />
     <ClCompile Include="..\Code\GolemFace.cpp" />
     <ClCompile Include="..\Code\GolemFist.cpp" />
@@ -424,7 +421,6 @@
     <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SpitCactus.cpp" />
-    <ClCompile Include="..\Code\Stage.cpp" />
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\Text.cpp" />

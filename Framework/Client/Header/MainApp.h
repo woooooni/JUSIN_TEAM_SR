@@ -39,7 +39,6 @@ private:
 	HRESULT Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_Terrain_Texture(LPDIRECT3DDEVICE9 pGraphicDev);

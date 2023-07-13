@@ -217,7 +217,7 @@ CMothMage* CMothMage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMothMage::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
 	NULL_CHECK_RETURN(pTarget, );
 
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
