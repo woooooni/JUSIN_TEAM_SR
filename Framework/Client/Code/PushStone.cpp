@@ -2,12 +2,12 @@
 #include "PushStone.h"
 #include "Export_Function.h"
 
-CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev, OBJ_ID::PUSH_STONE) , m_bIsFlying(false)
+CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev, OBJ_ID::PUSH_STONE) , m_bIsFlying(false)
 {
 
 }
 
-CPushStone::CPushStone(const CPushStone& rhs) : CPushableObj(rhs), m_bIsFlying(rhs.m_bIsFlying)
+CPushStone::CPushStone(const CPushStone& rhs) : CFieldObject(rhs), m_bIsFlying(rhs.m_bIsFlying)
 {
 }
 
@@ -41,10 +41,10 @@ _int CPushStone::Update_Object(const _float& fTimeDelta)
 
 	}
 
-	__super::Update_Object(fTimeDelta);
 
 	
-    return 0;
+    return	__super::Update_Object(fTimeDelta);
+	
 }
 
 void CPushStone::LateUpdate_Object(void)
@@ -66,10 +66,6 @@ void CPushStone::Render_Object(void)
 }
 
 
-void CPushStone::Push_Obj(const _vec3& pDirection)
-{
-
-}
 
 void CPushStone::Free()
 {

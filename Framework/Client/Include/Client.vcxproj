@@ -187,7 +187,6 @@
     <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h" />
     <ClInclude Include="..\..\ThirdParty\imstb_textedit.h" />
     <ClInclude Include="..\..\ThirdParty\imstb_truetype.h" />
-    <ClInclude Include="..\Header\AttackableObj.h" />
     <ClInclude Include="..\Header\BalpanObj.h" />
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
@@ -250,7 +249,6 @@
     <ClInclude Include="..\Header\NPCCow.h" />
     <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\NPCText.h" />
-    <ClInclude Include="..\Header\OnEventObj.h" />
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
@@ -269,7 +267,6 @@
     <ClInclude Include="..\Header\Player_State_GetItem.h" />
     <ClInclude Include="..\Header\Player_State_Skill.h" />
     <ClInclude Include="..\Header\Pool.h" />
-    <ClInclude Include="..\Header\PushableObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
     <ClInclude Include="..\Header\Monster.h" />
@@ -326,7 +323,6 @@
     <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp" />
     <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp" />
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp" />
-    <ClCompile Include="..\Code\AttackableObj.cpp" />
     <ClCompile Include="..\Code\BalpanObj.cpp" />
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
@@ -388,7 +384,6 @@
     <ClCompile Include="..\Code\NPCCow.cpp" />
     <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\NPCText.cpp" />
-    <ClCompile Include="..\Code\OnEventObj.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
@@ -406,7 +401,6 @@
     <ClCompile Include="..\Code\Player_State_GameOver.cpp" />
     <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
     <ClCompile Include="..\Code\Player_State_Skill.cpp" />
-    <ClCompile Include="..\Code\PushableObj.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
