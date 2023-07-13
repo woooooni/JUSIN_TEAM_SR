@@ -27,7 +27,7 @@ public:
 	void AddVelocity(_vec3 _velocity) { m_vVelocity += _velocity; }
 	void SetVelocity(_vec3 _velocity) { m_vVelocity = _velocity; }
 	_vec3 GetVelocity() { return m_vVelocity; }
-	void SetMaxVelocity(_vec3 _vVelocity) { m_vMaxVelocity = _vVelocity; }
+	void SetMaxVelocity(_float _fVelocity) { m_fMaxVelocity = _fVelocity; }
 
 	void SetAccelAlpha(_vec3 _vAccel) { m_vAccelA = _vAccel; }
 	_float GetSpeed() { return D3DXVec3Length(&m_vVelocity); }
@@ -51,7 +51,7 @@ private:
 	_vec3		m_vAccel;		// 가속도
 	_vec3		m_vAccelA;		// 가속도
 	_vec3		m_vVelocity;	// 속도
-	_vec3		m_vMaxVelocity;	// 최대 속도
+	_float		m_fMaxVelocity;	// 최대 속도
 
 	_float		m_fMass;		// 무게
 

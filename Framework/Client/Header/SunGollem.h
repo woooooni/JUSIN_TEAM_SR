@@ -56,9 +56,6 @@ public:
 
 protected:
 
-	CTransform* m_pTransformCom = nullptr;
-	CCollider* m_pColliderCom = nullptr;
-
 private:
 	_float			m_fSpeed = 5.f;
 	_float			m_fHealth = 6.f;

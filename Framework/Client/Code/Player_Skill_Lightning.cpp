@@ -143,3 +143,4 @@ HRESULT CPlayer_Skill_Lightning::Shoot(void)
 
 	return 0;
 }
+

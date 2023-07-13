@@ -19,6 +19,8 @@ private:
 	void					Key_Input(const _float& fTimeDelta);
 	HRESULT					Shoot(void);
 
+	
+
 	_matrix					m_matRange;
 	_vec3					m_vPos;
 	_vec3					m_vDir;
