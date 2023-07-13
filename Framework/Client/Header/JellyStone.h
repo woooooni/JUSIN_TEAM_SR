@@ -32,6 +32,7 @@ public:
 
 	const JELLY_COLLOR_NORMAL& Get_JellyColor() { return m_eColor; }
 
+	void		Reset_Created() { m_bCreatedCombine = false; }
 
 protected:
 	JELLY_COLLOR_NORMAL			m_eColor;

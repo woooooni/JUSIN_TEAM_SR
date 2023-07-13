@@ -53,6 +53,9 @@ void CFieldObject::Push_Me(CCollider* other)
 	if (!other->Is_Active() || !m_pColliderCom->Is_Active())
 		return;
 
+	if (other->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		return;
+
 
 	const _vec3& vLeftScale = ((CBoxCollider*)m_pColliderCom)->Get_Scale();
 	const _vec3& vLeftPos = ((CBoxCollider*)m_pColliderCom)->Get_Pos();

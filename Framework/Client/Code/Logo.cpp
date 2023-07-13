@@ -22,7 +22,8 @@ HRESULT CLogo::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
+	//FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
