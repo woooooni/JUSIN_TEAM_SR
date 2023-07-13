@@ -1,10 +1,10 @@
-﻿  Utility.vcxproj -> C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Utility\Bin\Utility.dll
-  .\Engine\Utility\Code\*.h 
+﻿  Utility.vcxproj -> D:\Team\Framework\Engine\Utility\Bin\Utility.dll
   지정된 파일을 찾을 수 없습니다.
+  지정된 파일을 찾을 수 없습니다.
+  .\Engine\Utility\Code\*.h 
           0개 파일이 복사되었습니다.
   .\Engine\Utility\Code\*.hpp 
           0개 파일이 복사되었습니다.
-  지정된 파일을 찾을 수 없습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
   .\Engine\Header\Animator.h
@@ -17,7 +17,6 @@
   .\Engine\Header\CubeTex.h
   .\Engine\Header\Engine_Define.h
   .\Engine\Header\Engine_Enum.h
-  .\Engine\Header\Engine_EnumString.h
   .\Engine\Header\Engine_Function.h
   .\Engine\Header\Engine_Macro.h
   .\Engine\Header\Engine_Struct.h
@@ -38,6 +37,7 @@
   .\Engine\Header\LightMgr.h
   .\Engine\Header\Management.h
   .\Engine\Header\PickingMgr.h
+  .\Engine\Header\Pool.h
   .\Engine\Header\ProtoMgr.h
   .\Engine\Header\RcCol.h
   .\Engine\Header\RcPuzzleBuff.h

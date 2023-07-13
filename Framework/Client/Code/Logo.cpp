@@ -507,6 +507,44 @@ HRESULT CLogo::Ready_Layer_UI()
 	CUI_ShortCutKey* pKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pKeyInfo, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pKeyInfo), E_FAIL);
+	
+	CNPCCow* pNPCCow = CNPCCow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
+	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
+
+	CItem_Hat_Monkey* pItemMonkeyHat = CItem_Hat_Monkey::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemMonkeyHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MonkeyHat", pItemMonkeyHat), E_FAIL);
+
+
+	CItem_Hat_Turtle* pItemTurtleHat = CItem_Hat_Turtle::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemTurtleHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_TurtleHat", pItemTurtleHat), E_FAIL);
+
+
+	CItem_Hat_Drill* pItemDrillHat = CItem_Hat_Drill::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemDrillHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_DrillHat", pItemDrillHat), E_FAIL);
+
+	CItem_Hat_Light* pItemLightHat = CItem_Hat_Light::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemLightHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_LightHat", pItemLightHat), E_FAIL);
+
+
+	CItem_Hat_Mask* pItemMaskHat = CItem_Hat_Mask::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
+
+	CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pFistEffect, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FistEffect", pFistEffect), E_FAIL);
+
+
+	pPlayer->Set_Hat(pItemMonkeyHat);
+
+	pCamera->Set_TargetObj(pPlayer);
+
+	m_mapLayer.insert({ _eType, pLayer });
 
 	return S_OK;
 }

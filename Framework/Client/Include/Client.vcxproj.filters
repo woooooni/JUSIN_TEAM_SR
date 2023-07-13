@@ -13,6 +13,9 @@
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{06dc1b76-8beb-4d64-8e1c-41231208a3d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\01. Stage">
+      <UniqueIdentifier>{4a6f84dc-73b6-43fb-80a1-6b14c92a3ca7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject">
       <UniqueIdentifier>{9c45403b-7aaa-4a2a-b325-b8d24758c2f4}</UniqueIdentifier>
     </Filter>
@@ -27,6 +30,9 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI">
       <UniqueIdentifier>{1dc885c6-a95a-455c-8051-f205df8fbfa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Tutorial">
+      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Loading">
       <UniqueIdentifier>{ed736470-011d-4888-aca8-d5b2a2e61918}</UniqueIdentifier>
@@ -312,6 +318,8 @@
     </Filter>
     <Filter Include="97. Util\00. Pool">
       <UniqueIdentifier>{bc94a776-1511-4e3d-94ff-f263b7ad6739}</UniqueIdentifier>
+    <Filter Include="02. GameObject\98. Effect\00. FistEffect">
+      <UniqueIdentifier>{63ecafbc-ea58-49dd-ae2b-c83c93737e14}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\Terrain.h">
       <Filter>02. GameObject\03. Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Stage.h">
+      <Filter>01. Scene\01. Stage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CUI.h">
       <Filter>02. GameObject\04. UI</Filter>
@@ -653,9 +664,8 @@
     <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
     <ClInclude Include="..\Header\Pool.h">
       <Filter>97. Util\00. Pool</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Loading.h">
-      <Filter>03. Loading</Filter>
+    <ClInclude Include="..\Header\FistEffect.h">
+      <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -673,6 +683,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Terrain.cpp">
       <Filter>02. GameObject\03. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Stage.cpp">
+      <Filter>01. Scene\01. Stage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CUI.cpp">
       <Filter>02. GameObject\04. UI</Filter>
@@ -981,8 +994,8 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
-    <ClCompile Include="..\Code\Loading.cpp">
-      <Filter>03. Loading</Filter>
+    <ClCompile Include="..\Code\FistEffect.cpp">
+      <Filter>02. GameObject\98. Effect\00. FistEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

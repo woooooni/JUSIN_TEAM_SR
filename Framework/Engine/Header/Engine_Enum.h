@@ -126,7 +126,8 @@ namespace Engine
 		
 		// UI
 		UI,
-
+		//EFFECT
+		EFFECT,
 		ID_END
 	};
 

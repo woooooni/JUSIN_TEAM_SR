@@ -32,23 +32,24 @@ HRESULT CSilkWorm::Ready_Object(void)
 
 	m_pTransformCom->Set_Scale({ 3,3,3 });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({3.f, 3.f, 3.f });
-	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 2.0f, 0.5f));
+	m_pTransformCom->Set_Info(INFO_POS, &_vec3(0.0f, 0.0f, 0.f));
 
 	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Regen", false);
 	Set_State(SILKWORM_STATE::IDLE);
 	//m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", false);
 	//Set_State(SILKWORM_STATE::DIE);
+	_int iInterval =5;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vOrigin = vPos;
-	m_vRandomPos[0] = { vPos.x - 5, vPos.y, vPos.z - 5 };
-	m_vRandomPos[1] = { vPos.x - 5, vPos.y, vPos.z };
-	m_vRandomPos[2] = { vPos.x - 5, vPos.y, vPos.z +5 };
-	m_vRandomPos[3] = { vPos.x + 5, vPos.y, vPos.z + 5 };
-	m_vRandomPos[4] = { vPos.x + 5, vPos.y, vPos.z };
-	m_vRandomPos[5] = { vPos.x + 5, vPos.y, vPos.z -5};
-	m_vRandomPos[6] = { vPos.x , vPos.y, vPos.z + 5 };
-	m_vRandomPos[7] = { vPos.x , vPos.y, vPos.z -5};
+	m_vRandomPos[0] = { vPos.x -iInterval, vPos.y, vPos.z - iInterval };
+	m_vRandomPos[1] = { vPos.x -iInterval, vPos.y, vPos.z };
+	m_vRandomPos[2] = { vPos.x -iInterval, vPos.y, vPos.z + iInterval };
+	m_vRandomPos[3] = { vPos.x +iInterval, vPos.y, vPos.z + iInterval };
+	m_vRandomPos[4] = { vPos.x +iInterval, vPos.y, vPos.z };
+	m_vRandomPos[5] = { vPos.x +iInterval, vPos.y, vPos.z - iInterval };
+	m_vRandomPos[6] = { vPos.x , vPos.y, vPos.z + iInterval };
+	m_vRandomPos[7] = { vPos.x , vPos.y, vPos.z - iInterval };
 	m_fMinHeight = 2.0f;
 
 	m_tStat = { 25,25,1 };
