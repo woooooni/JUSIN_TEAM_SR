@@ -533,10 +533,6 @@ HRESULT CScene_Tool::Ready_Layer_Environment()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
 
-	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTerrain, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
-
 	return S_OK;
 }
 

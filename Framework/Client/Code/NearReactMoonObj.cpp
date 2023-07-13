@@ -19,10 +19,7 @@ HRESULT CNearReactMoonObj::Ready_Object(void)
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"Flower_Move", L"Proto_Tex_FlowerMove", 0.1f), E_FAIL);
-
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"Flower_Stop", L"Proto_Tex_FlowerStop", 0.1f), E_FAIL);
-
-
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"Flower_Move", TRUE), E_FAIL);
 
 	return S_OK;
@@ -34,7 +31,7 @@ _int CNearReactMoonObj::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 
-	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 
 	_vec3 src, tmp;
 
