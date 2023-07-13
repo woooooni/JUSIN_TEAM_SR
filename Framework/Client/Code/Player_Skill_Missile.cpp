@@ -170,7 +170,7 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 
 bool CPlayer_Skill_Missile::Find_Target(void)
 {
-	vector<CGameObject*>& vecMonsters = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+	vector<CGameObject*>& vecMonsters = Engine::Get_Layer(LAYER_TYPE::MONSTER)->Get_GameObjectVec();
 
 	_vec3 vPos;
 	_vec3 vDir;

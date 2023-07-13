@@ -119,8 +119,14 @@ HRESULT CLogo::Ready_Layer_Player()
 	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
 
+	CItem_Hat_Missile* pItemMissileHat = CItem_Hat_Missile::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemMissileHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MissileHat", pItemMissileHat), E_FAIL);
 
-	pPlayer->Set_Hat(pItemMonkeyHat);
+
+	pPlayer->Set_Hat(pItemMissileHat);
+
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
@@ -139,6 +145,7 @@ HRESULT CLogo::Ready_Layer_Camera()
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 
 	pCamera->Set_TargetObj(pPlayer);
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
@@ -152,6 +159,8 @@ HRESULT CLogo::Ready_Layer_Terrrain()
 	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTerrain, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
+
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
@@ -169,6 +178,8 @@ HRESULT CLogo::Ready_Layer_Environment()
 	CNPCCow* pNPCCow = CNPCCow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
 	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
+
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
@@ -235,6 +246,7 @@ HRESULT CLogo::Ready_Layer_Monster()
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
 
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
@@ -385,6 +397,8 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pJelCreat, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pJelCreat), E_FAIL);
 
+	pLayer->Ready_Layer();
+
 	return S_OK;
 }
 
@@ -406,6 +420,8 @@ HRESULT CLogo::Ready_Layer_Effect()
 	NULL_CHECK_RETURN(pPlayerSkillAim, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player_Skill_Aim", pPlayerSkillAim), E_FAIL);
 	pPlayer->Set_Aim(pPlayerSkillAim);
+
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
@@ -513,7 +529,7 @@ HRESULT CLogo::Ready_Layer_UI()
 	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
 
-
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }

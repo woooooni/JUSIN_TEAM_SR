@@ -238,9 +238,6 @@ void CPlayer::LateUpdate_Object(void)
 
 void CPlayer::Render_Object(void)
 {
-	Set_Billboard();
-	
-
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 

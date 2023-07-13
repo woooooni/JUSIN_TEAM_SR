@@ -38,7 +38,7 @@ HRESULT CGolemLeftHand::Ready_Object(void)
 _int CGolemLeftHand::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"SunGollem");
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
 	Set_State(dynamic_cast<CSunGollem*>(pTarget)->Get_State());
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (m_eState)

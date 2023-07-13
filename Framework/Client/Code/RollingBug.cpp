@@ -148,10 +148,9 @@ void CRollingBug::Update_Idle(_float fTimeDelta)
 
 	if (m_fMoveTime > 10.f)
 	{
-
 		m_fMoveTime = 0.f;
 	}
-	if (D3DXVec3Length(&vDir) < 1.5f);
+	if (D3DXVec3Length(&vDir) < 1.5f)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 
@@ -201,13 +200,6 @@ void CRollingBug::Update_Move(_float fTimeDelta)
 
 	if (m_fMoveTime > 5.f)
 	{
-		//		if (rand() % 10 > 8)
-		//		{
-		//			Set_State(MONSTER_STATE::MOVE);
-		//			m_pAnimator->Play_Animation(L"RollingBug_Move_Down", TRUE);
-		//		}
-
-				//vDst = { float(rand() % 10) - 5.f, 0.f, float(rand() % 10) - 5.f };
 		vDst = m_vDir;
 
 		if (vDst != m_vDst)
@@ -244,7 +236,7 @@ void CRollingBug::Update_Attack(_float fTimeDelta)
 		//	vDir = vOriginPos - vPos;
 		//	m_vDir = vDir;
 
-		if (D3DXVec3Length(&vDir) < 1.5f);
+		if (D3DXVec3Length(&vDir) < 1.5f)
 		{
 
 			Set_State(MONSTER_STATE::IDLE);

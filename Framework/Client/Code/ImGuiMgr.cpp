@@ -302,15 +302,15 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 
 	if (ImGui::BeginTabItem("House"))
 	{
-		CTexture* pTileTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_House"));
-		if (pTileTex != nullptr)
+		CTexture* pHouseTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_House"));
+		if (pHouseTex != nullptr)
 		{
-			for (size_t i = 0; i < pTileTex->Get_Size(); ++i)
+			for (size_t i = 0; i < pHouseTex->Get_Size(); ++i)
 			{
 				if (i % 4 != 0)
 					ImGui::SameLine();
 
-				if (ImGui::ImageButton(pTileTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
+				if (ImGui::ImageButton(pHouseTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
 				{
 					ResetSelectTarget();
 					m_pSelectedObject = CHouse::Create(m_pGraphicDev);
@@ -471,7 +471,7 @@ void CImGuiMgr::CreateObj(_vec3& vHit)
 		pCloneObj = CHouse::Create(m_pGraphicDev);
 		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
 		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
-		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Tree_" + to_wstring(m_iObjNum++), pCloneObj);
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"House" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
 	default :
@@ -969,7 +969,7 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 
 void CImGuiMgr::Update_Hierachy(const _float& fTimeDelta)
 {
-	const string STR_LAYER_TYPE[(_uint)LAYER_TYPE::LAYER_END]{ "CAMERA", "PLAYER", "TERRAIN", "ENVIRONMENT", "SPAWNER", "MONSTER", "EFFECT", "UI" };
+	const string STR_LAYER_TYPE[(_uint)LAYER_TYPE::LAYER_END]{ "CAMERA", "PLAYER", "TERRAIN", "ENVIRONMENT", "MONSTER", "EFFECT", "UI" };
 
 	// Ã¢ »ý¼º
 	ImGui::Begin("Hierachy");
