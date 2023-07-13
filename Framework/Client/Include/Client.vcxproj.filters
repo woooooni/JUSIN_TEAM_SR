@@ -633,6 +633,7 @@
     <ClInclude Include="..\Header\Turret.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -962,7 +963,11 @@
     <ClCompile Include="..\Code\Turret.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Tile.cpp" />
+    <ClCompile Include="..\Code\Tile.cpp">
+      <Filter>02. GameObject\14. Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Bullet.cpp" />
+
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
