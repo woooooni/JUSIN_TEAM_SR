@@ -410,7 +410,7 @@ void CSunGollem::Create_Fist(bool _BummerFist, _int _iSrc)
 	pGolemFist->Get_TransformCom()->Set_Pos(&m_vTargetPos);
 	pGolemFist->Set_Dirty(m_bDirty);
 	pGolemFist->Set_Bummer(_BummerFist);
-
+	pGolemFist->Set_Atk(m_tStat.iAttack);
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 	pLayer->Add_GameObject(L"GolemFist", pGolemFist);
 
