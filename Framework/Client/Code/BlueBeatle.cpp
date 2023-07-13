@@ -25,10 +25,10 @@ HRESULT CBlueBeatle::Ready_Object(void)
 
 	m_pAnimator->Add_Animation(L"BlueBeatle_Idle_Down", L"Proto_Texture_BlueBeatle_Idle_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"BlueBeatle_Move_Down", L"Proto_Texture_BlueBeatle_Move_Down", 0.1f);
-
+	m_tStat = { 3,3,0 };
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
-
+	m_fMinHeight = 1.0f;
 	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
 	return S_OK;
 }

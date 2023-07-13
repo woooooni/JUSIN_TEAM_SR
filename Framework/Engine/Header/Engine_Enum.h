@@ -66,6 +66,13 @@ namespace Engine
 	// Camera
 	enum class CAMERA_STATE { GAME, TOOL, END };
 
+	enum COLOR_STATE{
+		COLOR_RED=0,
+		COLOR_GREEN,
+		COLOR_BLUE,
+		COLOR_END
+	};
+
 	typedef enum class COLLIDE_STATE
 	{
 		COLLIDE_WALL,

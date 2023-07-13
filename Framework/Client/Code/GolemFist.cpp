@@ -64,7 +64,7 @@ void CGolemFist::LateUpdate_Object(void)
 		{
 			CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
 			NULL_CHECK_RETURN(pFistEffect, );
-			vPos.y = 1.01f;
+			vPos.y = 0.001f;
 			pFistEffect->Get_TransformCom()->Set_Pos(&vPos);
 			pFistEffect->Set_Atk(m_iAtk);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
