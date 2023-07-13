@@ -20,6 +20,11 @@ HRESULT CPushStone::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
+	CComponent* pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent->insert({ COMPONENT_TYPE::COM_RIGIDBODY, pComponent });
+
+	Set_MinHeight(0.5f);
 
     return S_OK;
 }

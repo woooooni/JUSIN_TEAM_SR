@@ -31,8 +31,7 @@ public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
 	const JELLY_COLLOR_NORMAL& Get_JellyColor() { return m_eColor; }
-
-	void		Reset_Created() { m_bCreatedCombine = false; }
+	void		Set_Created_False() { m_bCreatedCombine = false; }
 
 protected:
 	JELLY_COLLOR_NORMAL			m_eColor;

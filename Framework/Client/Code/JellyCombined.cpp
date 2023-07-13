@@ -22,6 +22,12 @@ HRESULT CJellyCombined::Ready_Object(void)
 {
 	FAILED_CHECK(Ready_Component());
 
+	CComponent* pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent->insert({ COMPONENT_TYPE::COM_RIGIDBODY, pComponent });
+
+	Set_MinHeight(0.5f);
+
 	return S_OK;
 }
 
@@ -154,8 +160,9 @@ void CJellyCombined::Event_End(_uint iEventNum)
 
 CGameObject* CJellyCombined::Get_GrabObj()
 {
-	
-	vector<CGameObject*>& src = Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+	Set_Active(false);
+
+	vector<CGameObject*>& src = Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Get_GameObjectVec();
 
 	_vec3	dst;
 
@@ -186,7 +193,6 @@ CGameObject* CJellyCombined::Get_GrabObj()
 			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
 			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
 			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", src);
-			Set_Active(false);
 			if (rand() % 2)
 			{
 				return tmp;
@@ -204,7 +210,6 @@ CGameObject* CJellyCombined::Get_GrabObj()
 			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
 			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
 			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", src);
-			Set_Active(false);
 			if (rand() % 2)
 			{
 				return tmp;
@@ -220,7 +225,6 @@ CGameObject* CJellyCombined::Get_GrabObj()
 			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
 			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
 			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", src);
-			Set_Active(false);
 			if (rand() % 2)
 			{
 				return tmp;
@@ -247,6 +251,7 @@ CGameObject* CJellyCombined::Get_GrabObj()
 		CJellyStone* jel1;
 		CJellyStone* jel2;
 
+		
 		srand(unsigned(time(NULL)));
 		switch (m_eColor)
 		{
@@ -259,7 +264,6 @@ CGameObject* CJellyCombined::Get_GrabObj()
 			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
 			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
 			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel2);
-			Set_Active(false);
 			if (rand() % 2)
 			{
 				return jel1;
@@ -276,7 +280,6 @@ CGameObject* CJellyCombined::Get_GrabObj()
 			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
 			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
 			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel2);
-			Set_Active(false);
 			if (rand() % 2)
 			{
 				return jel1;
@@ -293,7 +296,6 @@ CGameObject* CJellyCombined::Get_GrabObj()
 			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
 			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
 			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel2);
-			Set_Active(false);
 			if (rand() % 2)
 			{
 				return jel1;
@@ -314,11 +316,9 @@ CGameObject* CJellyCombined::Get_GrabObj()
 	(*tmp)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.y));
 	(*iter)->Set_Active(true);
 	(*tmp)->Set_Active(true);
-	dynamic_cast<CJellyStone*>(*iter)->Reset_Created();
-	dynamic_cast<CJellyStone*>(*tmp)->Reset_Created();
+	dynamic_cast<CJellyStone*>(*iter)->Set_Created_False();
+	dynamic_cast<CJellyStone*>(*tmp)->Set_Created_False();
 
-
-	Set_Active(false);
 
 	return *iter;
 
@@ -331,25 +331,22 @@ void CJellyCombined::Set_SubscribeEvent(_uint pEvent)
 
 bool CJellyCombined::Check_Child(const JELLY_COLLOR_NORMAL& pColor)
 {
-	if ((_int)pColor < 0 || pColor >= JELLY_COLLOR_NORMAL::JELLY_NORMALEND)
-		return false;
-
 	switch (m_eColor)
 	{
 	case Engine::JELLY_COLLOR_COMBINE::BLUE:
-		if (pColor == JELLY_COLLOR_NORMAL::YELLOW)
+		if (pColor != JELLY_COLLOR_NORMAL::YELLOW)
 			return false;
 		else
 			return true;
 		break;
 	case Engine::JELLY_COLLOR_COMBINE::GREEN:
-		if (pColor == JELLY_COLLOR_NORMAL::MAGENTA)
+		if (pColor != JELLY_COLLOR_NORMAL::MAGENTA)
 			return false;
 		else
 			return true;
 		break;
 	case Engine::JELLY_COLLOR_COMBINE::RED:
-		if (pColor == JELLY_COLLOR_NORMAL::CYAN)
+		if (pColor != JELLY_COLLOR_NORMAL::CYAN)
 			return false;
 		else
 			return true;
