@@ -10,7 +10,7 @@
 
 
 CPlayer_Bullet_Bomb::CPlayer_Bullet_Bomb(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET),
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::PLAYER_SKILL),
 	m_fMovePower(0.0f)
 {
 }
