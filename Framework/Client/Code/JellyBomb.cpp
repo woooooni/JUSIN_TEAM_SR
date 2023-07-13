@@ -21,11 +21,19 @@ HRESULT CJellyBomb::Ready_Object(void)
 {
     FAILED_CHECK(Ready_Component());
 
+
+
     m_pAnimator->Add_Animation(L"Effect", L"Proto_Tex_JellyBomb_Effect", 0.1f);
 
     CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_JellyBomb"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
     m_mapComponent->insert({ COMPONENT_TYPE::COM_TEXTURE, pComponent });
+
+    pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
+    NULL_CHECK_RETURN(pComponent, E_FAIL);
+    m_mapComponent->insert({ COMPONENT_TYPE::COM_RIGIDBODY, pComponent });
+
+    Set_MinHeight(0.5f);
 
     m_pBlurTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_JellyBomb_Blur"));
     NULL_CHECK_RETURN(m_pBlurTex, E_FAIL);

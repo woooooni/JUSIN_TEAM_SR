@@ -864,9 +864,6 @@
     <ClCompile Include="..\Code\Tree.cpp">
       <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
     </ClCompile>
-    <ClCompile Include="..\Header\Tile.cpp">
-      <Filter>02. GameObject\14. Tile</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\House.cpp">
       <Filter>02. GameObject\13. FixedObj\01. House</Filter>
     </ClCompile>
@@ -965,6 +962,7 @@
     <ClCompile Include="..\Code\Turret.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

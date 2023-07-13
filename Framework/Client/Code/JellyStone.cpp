@@ -22,6 +22,12 @@ HRESULT CJellyStone::Ready_Object(void)
 {
 	FAILED_CHECK(Ready_Component());
 
+	CComponent* pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	m_mapComponent->insert({ COMPONENT_TYPE::COM_RIGIDBODY, pComponent });
+		
+	Set_MinHeight(0.5f);
+
     return S_OK;
 }
 
@@ -106,7 +112,7 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 	CJellyStone* src;
 	if ((src = dynamic_cast<CJellyStone*>(pCollider->GetOwner())) && src->m_eColor != m_eColor)
 	{
-		if (m_bCreatedCombine || src->m_bCreatedCombine)
+		if (src->m_bCreatedCombine || m_bCreatedCombine)
 		{
 			m_bCreatedCombine = true;
 			Set_Active(false);
@@ -118,10 +124,9 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 		m_pTransformCom->Get_Info(INFO_POS, &tmp);
 		src->m_pTransformCom->Get_Info(INFO_POS, &dst);
-		tmp.y = 1;
-		dst.y = 1;
 
-		vector<CGameObject*>& iter = Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+
+		vector<CGameObject*>& iter = Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Get_GameObjectVec();
 		CJellyCombined* jCom;
 
 		auto finder = find_if(iter.begin(), iter.end(), [&](CGameObject* A)
@@ -134,7 +139,7 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 			CJellyCombined* jelly = CJellyCombined::Create(m_pGraphicDev, static_cast<JELLY_COLLOR_COMBINE>((_uint)m_eColor + (_uint)src->m_eColor), 0, 0.5f * (dst + tmp));
 
 			NULL_CHECK(jelly);
-			if (FAILED(Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Jelly_Combined", jelly)))
+			if (FAILED(Engine::Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Combined", jelly)))
 			{
 				Safe_Release(jelly);
 				return;
