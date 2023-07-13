@@ -21,6 +21,7 @@ CSunGollem::~CSunGollem()
 {
 }
 
+
 HRESULT CSunGollem::Ready_Object(void)
 {
 	m_fMoveTime = 0.f;

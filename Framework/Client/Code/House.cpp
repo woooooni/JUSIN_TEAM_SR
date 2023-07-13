@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 
 CHouse::CHouse(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CFixedObj(pGraphicDev, OBJ_ID::TREE)
+	: CFixedObj(pGraphicDev, OBJ_ID::HOUSE)
 {
 
 }
@@ -62,6 +62,7 @@ HRESULT CHouse::Ready_Component(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
 
 	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

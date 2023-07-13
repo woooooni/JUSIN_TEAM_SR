@@ -5,13 +5,12 @@ C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Utility\Code\Camera.cpp(27
 C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Utility\Code\Camera.cpp(273,38): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Utility\Code\Texture.cpp(51,59): warning C4267: '=': 'size_t'에서 'Engine::_uint'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Header\EventMgr.h(43): warning C4715: 'Engine::CEventMgr::Add_Event': 모든 제어 경로에서 값을 반환하지는 않습니다.
-     ../Bin\Utility.lib 라이브러리 및 ../Bin\Utility.exp 개체를 생성하고 있습니다.
   Utility.vcxproj -> C:\Users\xodnj\Desktop\Jusin_Team_SR\Framework\Engine\Utility\Bin\Utility.dll
   .\Engine\Utility\Code\*.h 
   지정된 파일을 찾을 수 없습니다.
+  지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
   .\Engine\Utility\Code\*.hpp 
-  지정된 파일을 찾을 수 없습니다.
           0개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
           1개 파일이 복사되었습니다.
