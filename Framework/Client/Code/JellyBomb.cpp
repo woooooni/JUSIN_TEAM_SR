@@ -136,7 +136,7 @@ void CJellyBomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 
 void CJellyBomb::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-    if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PUSH)
+    if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PUSH || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
         Push_Me(pCollider);
 }
 

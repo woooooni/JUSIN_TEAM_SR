@@ -6,7 +6,7 @@
 CCatapult::CCatapult(LPDIRECT3DDEVICE9 p_Dev) 
 	: CFieldObject(p_Dev, OBJ_ID::CATAPULT)
 	, m_pThrowingStone(nullptr)
-	, m_vStonePos(0.f, -0.f, -0.5f)
+	, m_vStonePos(0.f, 0.5f, -0.5f)
 	, m_pRevTexture(nullptr)
 	, m_vCenterPos(0, 0.5f, 0)
 	, m_fThrowAngle(-90.f)
@@ -46,11 +46,14 @@ HRESULT CCatapult::Ready_Object(void)
 	CComponent* pComponent;
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Catapult_Scoop"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
 	m_mapComponent->insert({ COMPONENT_TYPE::COM_TEXTURE, pComponent });
 
 	pComponent = m_pRevTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Catapult_Scoop_Rev"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
 
+	m_pColliderCom->Set_Offset({ 0, 0.5f, 0 });
 
 	return S_OK;
 }
@@ -189,7 +192,7 @@ void CCatapult::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 
 void CCatapult::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
 		return;
 
 	CPushStone*	tmp; 
@@ -227,7 +230,7 @@ void CCatapult::Throw_Stone()
 	src.y = 1.f;
 	m_pThrowingStone->Get_TransformCom()->Set_Pos(&src);
 
-	m_pThrowingStone->Get_RigidBodyCom()->AddForce({ 0, 100, 40.f });
+	m_pThrowingStone->Get_RigidBodyCom()->AddForce({ 0, 100.f, 100.f });
 	m_pThrowingStone->Get_ColliderCom()->Set_Active(true);
 	m_pThrowingStone->Get_RigidBodyCom()->SetGravity(true);
 	m_pThrowingStone->Get_RigidBodyCom()->SetGround(false);
