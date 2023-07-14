@@ -25,10 +25,9 @@ public:
 	virtual void		Render_Object(void) override;
 
 private:
-	//_uint	m_iMaxHP = 0;
-	//_uint	m_iHP = 0;
-	_uint m_iMaxHP = 3;
-	_uint m_iHP = 2;
+	_vec3	m_vDefaultPos;
+	_int	m_iMaxHP = 3;
+	_int	m_iHP = 1;
 
 public:
 	static  CUI_HPBar* Create(LPDIRECT3DDEVICE9 pGraphicDev);

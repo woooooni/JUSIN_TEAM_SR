@@ -145,9 +145,6 @@
     <Filter Include="02. GameObject\02. Monster\01. TrashBig">
       <UniqueIdentifier>{d649abb9-e5e4-4226-a35b-934833a4a34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\02. BlueBeatle">
-      <UniqueIdentifier>{acb6a898-326f-4b16-b957-6ee1b5c2a9ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\06. FieldObj\04. BlockObj">
       <UniqueIdentifier>{eb083604-df06-4e23-8da7-a728ca901716}</UniqueIdentifier>
     </Filter>
@@ -280,6 +277,36 @@
     <Filter Include="02. GameObject\13. FixedObj\02. Glass">
       <UniqueIdentifier>{b9c23f31-194a-4f2e-9582-070b905d60a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. Monster\02. Beatle">
+      <UniqueIdentifier>{acb6a898-326f-4b16-b957-6ee1b5c2a9ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. NPC\00. Tutorial\00. NPCCow">
+      <UniqueIdentifier>{9db1526a-cd70-4827-befc-b185c87cd029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\99. NPC\00. Tutorial\01. NPCSheep">
+      <UniqueIdentifier>{a8d2101f-5108-4b7c-8e0a-bb13e3f6d61d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\02. HP">
+      <UniqueIdentifier>{4f196d78-e09c-4220-8757-5ae265070826}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\05. RollingBug">
+      <UniqueIdentifier>{60e7ad88-7384-4fa2-8830-792d0ec67085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\04. Shop">
+      <UniqueIdentifier>{a0a278aa-4397-4c80-8206-3129051afed4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\06. Cupa">
+      <UniqueIdentifier>{eecb8d64-49b9-4038-ac3f-18d29b31b076}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\07. TrashFast">
+      <UniqueIdentifier>{73db7e88-077b-4df9-9c17-bf3f8b2636df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\04. Shop\00. Cursor">
+      <UniqueIdentifier>{edf9764b-a4c6-47a4-a297-b06479d34848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\04. Shop\01. ItemInfo">
+      <UniqueIdentifier>{c3216025-b5d4-4c9d-89bb-5580309f0e13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -287,9 +314,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\Logo.h">
       <Filter>01. Scene\00. Logo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\BackGround.h">
-      <Filter>02. GameObject\00. BackGround</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player.h">
       <Filter>02. GameObject\01. Player</Filter>
@@ -299,9 +323,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\Terrain.h">
       <Filter>02. GameObject\03. Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Stage.h">
-      <Filter>01. Scene\01. Stage</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CUI.h">
       <Filter>02. GameObject\04. UI</Filter>
@@ -329,9 +350,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\PushableObj.h">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\GrabbableObj.h">
-      <Filter>02. GameObject\06. FieldObj\01. GrabbableObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\OnEventObj.h">
       <Filter>02. GameObject\08. OnEventObj</Filter>
@@ -436,7 +454,7 @@
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BlueBeatle.h">
-      <Filter>02. GameObject\02. Monster\02. BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BalpanObj.h">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
@@ -485,9 +503,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\TutorialNPC.h">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\NPCText.h">
-      <Filter>02. GameObject\04. UI\02. NPCText</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Icon.h">
       <Filter>02. GameObject\04. UI\01. Icon</Filter>
@@ -570,9 +585,6 @@
     <ClInclude Include="..\Header\UIMgr.h">
       <Filter>98. Manager\02. UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_NameTag.h">
-      <Filter>02. GameObject\04. UI\99. ETC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\UI_ShortCutKey.h">
       <Filter>02. GameObject\04. UI\99. ETC</Filter>
     </ClInclude>
@@ -582,16 +594,9 @@
     <ClInclude Include="..\Header\InventoryMgr.h">
       <Filter>98. Manager\03. Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Cupa.h" />
-    <ClInclude Include="..\Header\NPCCow.h" />
-    <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\Player_Skill_Barrier.h" />
     <ClInclude Include="..\Header\Player_Skill_Drill.h" />
     <ClInclude Include="..\Header\Player_Skill_Turtle.h" />
-    <ClInclude Include="..\Header\RollingBug.h" />
-    <ClInclude Include="..\Header\UI_HPBar.h" />
-    <ClInclude Include="..\Header\UI_Shop.h" />
-    <ClInclude Include="..\Header\UI_Totem.h" />
     <ClInclude Include="..\Header\Grass.h">
       <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
     </ClInclude>
@@ -614,6 +619,48 @@
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Skill_Missile.h" />
+    <ClInclude Include="..\Header\FistEffect.h" />
+    <ClInclude Include="..\Header\Loading.h" />
+    <ClInclude Include="..\Header\Pool.h" />
+    <ClInclude Include="..\Header\Cupa.h">
+      <Filter>02. GameObject\02. Monster\06. Cupa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\NPCCow.h">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\00. NPCCow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\NPCSheep.h">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\01. NPCSheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RedBeatle.h">
+      <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GreenBeatle.h">
+      <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_HPBar.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_Totem.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RollingBug.h">
+      <Filter>02. GameObject\02. Monster\05. RollingBug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_Shop.h">
+      <Filter>02. GameObject\04. UI\04. Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TrashFast.h">
+      <Filter>02. GameObject\02. Monster\07. TrashFast</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_Cursor.h">
+      <Filter>02. GameObject\04. UI\04. Shop\00. Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_ItemInfo.h">
+      <Filter>02. GameObject\04. UI\04. Shop\01. ItemInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\NPCTextBox.h">
+      <Filter>02. GameObject\04. UI\02. NPCText</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -621,9 +668,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\Logo.cpp">
       <Filter>01. Scene\00. Logo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\BackGround.cpp">
-      <Filter>02. GameObject\00. BackGround</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player.cpp">
       <Filter>02. GameObject\01. Player</Filter>
@@ -633,9 +677,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\Terrain.cpp">
       <Filter>02. GameObject\03. Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Stage.cpp">
-      <Filter>01. Scene\01. Stage</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CUI.cpp">
       <Filter>02. GameObject\04. UI</Filter>
@@ -655,9 +696,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\PushableObj.cpp">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\GrabbableObj.cpp">
-      <Filter>02. GameObject\06. FieldObj\01. GrabbableObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\OnEventObj.cpp">
       <Filter>02. GameObject\08. OnEventObj</Filter>
@@ -756,7 +794,7 @@
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BlueBeatle.cpp">
-      <Filter>02. GameObject\02. Monster\02. BlueBeatle</Filter>
+      <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BalpanObj.cpp">
       <Filter>02. GameObject\06. FieldObj\03. BalpanObj</Filter>
@@ -802,9 +840,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\TutorialNPC.cpp">
       <Filter>02. GameObject\99. NPC\00. Tutorial</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\NPCText.cpp">
-      <Filter>02. GameObject\04. UI\02. NPCText</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Icon.cpp">
       <Filter>02. GameObject\04. UI\01. Icon</Filter>
@@ -887,9 +922,6 @@
     <ClCompile Include="..\Code\UIMgr.cpp">
       <Filter>98. Manager\02. UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_NameTag.cpp">
-      <Filter>02. GameObject\04. UI\99. ETC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp">
       <Filter>02. GameObject\04. UI\99. ETC</Filter>
     </ClCompile>
@@ -902,16 +934,9 @@
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <Filter>01. Scene\99. Tool</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Cupa.cpp" />
-    <ClCompile Include="..\Code\NPCCow.cpp" />
-    <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Barrier.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Drill.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Turtle.cpp" />
-    <ClCompile Include="..\Code\RollingBug.cpp" />
-    <ClCompile Include="..\Code\UI_HPBar.cpp" />
-    <ClCompile Include="..\Code\UI_Shop.cpp" />
-    <ClCompile Include="..\Code\UI_Totem.cpp" />
     <ClCompile Include="..\Code\Grass.cpp">
       <Filter>02. GameObject\13. FixedObj\02. Glass</Filter>
     </ClCompile>
@@ -934,6 +959,47 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Skill_Missile.cpp" />
+    <ClCompile Include="..\Code\FistEffect.cpp" />
+    <ClCompile Include="..\Code\Loading.cpp" />
+    <ClCompile Include="..\Code\Cupa.cpp">
+      <Filter>02. GameObject\02. Monster\06. Cupa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NPCCow.cpp">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\00. NPCCow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NPCSheep.cpp">
+      <Filter>02. GameObject\99. NPC\00. Tutorial\01. NPCSheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RedBeatle.cpp">
+      <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GreenBeatle.cpp">
+      <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_HPBar.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Totem.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RollingBug.cpp">
+      <Filter>02. GameObject\02. Monster\05. RollingBug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Shop.cpp">
+      <Filter>02. GameObject\04. UI\04. Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashFast.cpp">
+      <Filter>02. GameObject\02. Monster\07. TrashFast</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Cursor.cpp">
+      <Filter>02. GameObject\04. UI\04. Shop\00. Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_ItemInfo.cpp">
+      <Filter>02. GameObject\04. UI\04. Shop\01. ItemInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NPCTextBox.cpp">
+      <Filter>02. GameObject\04. UI\02. NPCText</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

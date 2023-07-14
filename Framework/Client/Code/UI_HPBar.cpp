@@ -29,6 +29,12 @@ HRESULT CUI_HPBar::Ready_Object(void)
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_HPGauge"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 
+	// 원래 HPBar 가로길이
+	m_tInfo.fX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+
+	m_vDefaultPos = { ((WINCX - (m_tInfo.fX)) / WINCX - 1.52f) * (1 / m_matProj._11),
+					 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f };
+
 	return S_OK;
 }
 
@@ -36,6 +42,8 @@ _int CUI_HPBar::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
+	// 현재 MaxHP, HP 모두 0으로 되어있어 주석처리함. Player 세팅 완료시 사용
+	
 	//CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 	//m_iMaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
 	//m_iHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
@@ -52,29 +60,32 @@ void CUI_HPBar::LateUpdate_Object(void)
 void CUI_HPBar::Render_Object(void)
 {
 	_matrix matPreView, matPreProj;
-	_float fHP = 0.67f; // 현재 Hp / Max Hp로 수정필요
+	_float fCurHP, fMaxHP, fHP;
+	
+	fMaxHP = _float(m_iMaxHP);
+	fCurHP = _float(m_iHP);
+	fHP = fCurHP / fMaxHP;
 	
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
 	// 프레임 맞춰서 Pos 1차 수정필요. Scale.x 줄어든만큼 위치값옮기기
-	_float fOriginWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	_float fOriginWidth = m_tInfo.fX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	_float fWidth = fOriginWidth * fHP; // HPBar 남은 길이
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	_float fRatio = _float(WINCY) / _float(WINCX);
-	//_vec3 vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
 
 	// HPBar 줄어든길이 -> 줄어든 길이만큼 Pos를 옮겨줘야함.
-	_float fX = (fOriginWidth - (fOriginWidth - fWidth)) * 2; // HPBar 줄어든 길이
+	_float fX = fOriginWidth - fWidth; // HPBar 줄어든 길이
 
 	// HP Bar 프레임 키운만큼 같이 확대시킴
 	_vec3 vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
 	m_pTransformCom->Set_Scale(vScale);
 
-	_vec3 vPos = { ((WINCX - (fX / 2)) / (WINCX) - 1.66f) * (1 / m_matProj._11),
-	 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f };
+	_vec3 vMovePos = { m_vDefaultPos.x - fX + 15.f, m_vDefaultPos.y, 0.f };
+	// 15.f = 보정값
 
-	m_pTransformCom->Set_Pos(&vPos);
+	m_pTransformCom->Set_Pos(&vMovePos);
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);

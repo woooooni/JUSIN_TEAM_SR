@@ -1,6 +1,7 @@
 #pragma once
 #include "CUI.h"
 #include "Item.h"
+#include "UI_ItemInfo.h"
 #include "UI_Cursor.h"
 
 BEGIN(Engine)

@@ -19,7 +19,7 @@ HRESULT CUI_Cursor::Ready_Object(void)
 	D3DXMatrixIdentity(&m_matView);
 
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
-
+	// 복붙 수정필요
 	m_tInfo.fX = 656.f;
 	m_tInfo.fY = 372.f;
 
@@ -38,6 +38,9 @@ _int CUI_Cursor::Update_Object(const _float& fTimeDelta)
 
 	Key_Input();
 
+	if (!m_bMoveCursor)
+		m_bMoveCursor = true;
+
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }
@@ -54,51 +57,82 @@ void CUI_Cursor::LateUpdate_Object(void)
 
 void CUI_Cursor::Render_Object(void)
 {
-	if(m_bShown)
+	_matrix matPreView, matPreProj;
+
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+
+	_vec3 vOriginPos, vMovePos;
+	Get_TransformCom()->Get_Info(MATRIX_INFO::INFO_POS, &vOriginPos);
+
+	if (m_bShown && m_bMoveCursor)
 	{
-		_matrix matPreView, matPreProj;
-
-		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-
-		_vec3 vOriginPos, vMovePos;
-		Get_TransformCom()->Get_Info(MATRIX_INFO::INFO_POS, &vOriginPos);
-
-		if ((GetAsyncKeyState(VK_LEFT) & 0x8000) && m_iCursorX > 0)
+		if (KEY_TAP(KEY::LEFT_ARROW) && m_iCursorX > 0)
 		{
 			m_iCursorX--;
-			vMovePos = { vOriginPos.x - 40.f, vOriginPos.y, 0.f };
+			vMovePos = { vOriginPos.x - 154.f, vOriginPos.y, 0.f };
 			Get_TransformCom()->Set_Pos(&vMovePos);
 			vOriginPos = vMovePos;
+			m_bMoveCursor = false;
 		}
-			
-		else if ((GetAsyncKeyState(VK_RIGHT) & 0x8000) && m_iCursorX < 4)
+
+		else if (KEY_TAP(KEY::RIGHT_ARROW) && m_iCursorX < 4)
 		{
 			m_iCursorX++;
-			vMovePos = { vOriginPos.x + 40.f, vOriginPos.y, 0.f };
+			vMovePos = { vOriginPos.x + 154.f, vOriginPos.y, 0.f };
 			Get_TransformCom()->Set_Pos(&vMovePos);
 			vOriginPos = vMovePos;
+			m_bMoveCursor = false;
 		}
 
-		else if ((GetAsyncKeyState(VK_DOWN) & 0x8000) && m_iCursorY < 3)
+		else if (KEY_TAP(KEY::DOWN_ARROW) && m_iCursorY < 2)
 		{
 			m_iCursorY++;
-			vMovePos = { vOriginPos.x, vOriginPos.y - 52.f, 0.f };
+			vMovePos = { vOriginPos.x, vOriginPos.y - 157.f, 0.f };
 			Get_TransformCom()->Set_Pos(&vMovePos);
 			vOriginPos = vMovePos;
+			m_bMoveCursor = false;
 		}
 
-		else if ((GetAsyncKeyState(VK_UP) & 0x8000) && m_iCursorY > 0)
+		else if (KEY_TAP(KEY::UP_ARROW) && m_iCursorY > 0)
 		{
 			m_iCursorY--;
-			vMovePos = { vOriginPos.x, vOriginPos.y + 52.f, 0.f };
+			vMovePos = { vOriginPos.x, vOriginPos.y + 157.f, 0.f };
 			Get_TransformCom()->Set_Pos(&vMovePos);
 			vOriginPos = vMovePos;
+			m_bMoveCursor = false;
 		}
 
-//			if (m_vDefaultPos != vMovePos)
-//				m_vDefaultPos = vMovePos;
-//		}
+		if ((m_iCursorX == 0) && (m_iCursorY == 0))
+		{
+			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+			TCHAR szBuf[256] = L"";
+			swprintf_s(szBuf, L"천조각\n\nTest 1");
+
+			// 아이템 설명 폰트 -> 동일 폰트 사이즈 작은것으로 Font 추가 가능한지
+			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+
+		else if ((m_iCursorX == 1) && (m_iCursorY == 0))
+		{
+			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+			TCHAR szBuf[256] = L"";
+			swprintf_s(szBuf, L"나뭇가지\n\nTest 2");
+
+			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
+
+		else if ((m_iCursorX == 2) && (m_iCursorY == 0))
+		{
+			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+			TCHAR szBuf[256] = L"";
+			swprintf_s(szBuf, L"나뭇잎\n\nTest 3");
+
+			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		}
 
 		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
@@ -113,8 +147,8 @@ void CUI_Cursor::Render_Object(void)
 		m_pBufferCom->Render_Buffer();
 	}
 
-//	else
-//		m_pTransformCom->Set_Pos(&m_vDefaultPos);
+	//	else
+	//		m_pTransformCom->Set_Pos(&m_vDefaultPos);
 }
 
 HRESULT CUI_Cursor::Ready_Component()

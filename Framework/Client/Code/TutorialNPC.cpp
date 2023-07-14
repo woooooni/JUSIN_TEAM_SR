@@ -36,7 +36,7 @@ _int CTutorialNPC::Update_Object(const _float& fTimeDelta)
 	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_TextBox");
 
 	_vec3 vPlayerPos, vNPCPos;
-	bool bShown = dynamic_cast<CNPCText*>(pUIBox)->Get_Shown();
+	bool bShown = dynamic_cast<CNPCTextBox*>(pUIBox)->Get_Shown();
 	
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vNPCPos);
@@ -78,8 +78,8 @@ void CTutorialNPC::LateUpdate_Object(void)
 	{
 		if (GetAsyncKeyState('Z') & 0x8000)
 		{
-			dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(true);
-			dynamic_cast<CTextBox*>(pUIText)->Set_Shown(true);
+			dynamic_cast<CNPCTextBox*>(pUIBox)->Set_Shown(true);
+			dynamic_cast<CNPCText*>(pUIText)->Set_Shown(true);
 			//dynamic_cast<CNPCText*>(pUIText)->
 
 		//	if (bShown)
@@ -88,8 +88,8 @@ void CTutorialNPC::LateUpdate_Object(void)
 	}
 	else
 	{
-		dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(false);
-		dynamic_cast<CTextBox*>(pUIText)->Set_Shown(false);
+		dynamic_cast<CNPCTextBox*>(pUIBox)->Set_Shown(false);
+		dynamic_cast<CNPCText*>(pUIText)->Set_Shown(false);
 	}
 
 	__super::LateUpdate_Object();
@@ -190,12 +190,6 @@ HRESULT CTutorialNPC::Add_Component(void)
 		return E_FAIL;
 		break;
 	}
-
-	// 대화하기 Z 단축기 안내UI
-	//pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_ShortKey"));
-	//NULL_CHECK_RETURN(pComponent, E_FAIL);
-	//pComponent->SetOwner(this);
-	//m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
 	return S_OK;
 }

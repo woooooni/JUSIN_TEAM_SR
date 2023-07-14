@@ -17,8 +17,6 @@ CQuickSlot::~CQuickSlot()
 
 HRESULT CQuickSlot::Ready_Object(void)
 {
-	//FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
 	CComponent* pComponent = nullptr;
 
 	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
@@ -39,14 +37,14 @@ HRESULT CQuickSlot::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
+	m_vDefaultPos = { -0.84f, 0.75f, 0.f };
+
 	return S_OK;
 }
 
 _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-
-	// Key_Input?
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -59,41 +57,31 @@ void CQuickSlot::LateUpdate_Object(void)
 
 void CQuickSlot::Render_Object(void)
 {
-	// for문으로 4개 Render
-	//for (int i = 0; i < 4; i++)
-	//{
-	//	_float fX = 1.86f; // 간격 조절을 위한 X 기본값
-	//	_float fPos = _float(i * 0.03);
-
 		_matrix matPreView, matPreProj;
 		_vec3 vPos;
 
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	//	_vec3 vPos = { (WINCX / WINCX - (fX + i)) * (1 / m_matProj._11) ,
-	//			 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
-
 		switch (m_tInfo.eType)
 		{
 		case SLOTNUM::SLOT_ONE:
-			vPos = { (WINCX / WINCX - 1.84f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
+			vPos = { m_vDefaultPos.x * (1 / m_matProj._11) , m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_TWO:
-			vPos = { (WINCX / WINCX - 1.72f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
+			vPos = { (m_vDefaultPos.x + 0.12f) * (1 / m_matProj._11) ,
+					m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_THREE:
-			vPos = { (WINCX / WINCX - 1.6f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
+			vPos = { (m_vDefaultPos.x + 0.24f) * (1 / m_matProj._11) ,
+					m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_FOUR:
-			vPos = { (WINCX / WINCX - 1.48f) * (1 / m_matProj._11) ,
-					((-1 * WINCY) / WINCY + 1.75f) * (1 / m_matProj._22), 0.f };
+			vPos = { (m_vDefaultPos.x + 0.36f) * (1 / m_matProj._11) ,
+					m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
 			break;
 
 		default:
