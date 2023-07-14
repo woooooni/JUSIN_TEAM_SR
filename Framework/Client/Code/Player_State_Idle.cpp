@@ -14,6 +14,7 @@
 #include "Particle_MovingLeaf.h"
 #include "Pool.h"
 #include "Effect_Leaf.h"
+#include "Effect_Shadow.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -195,4 +196,10 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 			
 	}
 
+	if (KEY_TAP(KEY::J))
+	{
+		CEffect_Shadow* pShadow = CEffect_Shadow::Create(Engine::Get_Device());
+		NULL_CHECK(pShadow, E_FAIL);
+		dynamic_cast<CEffect_Shadow*>(pShadow)->Set_Shadow(m_pOwner, _vec3(0.8f, 0.6f, 1.0f));
+	}
 }

@@ -11,6 +11,7 @@
 #include "Particle_MovingLeaf.h"
 #include "Effect_Leaf.h"
 #include "Pool.h"
+#include "Effect_Shadow.h"
 
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
@@ -226,7 +227,6 @@ HRESULT CMainApp::Ready_Pool()
 	CPool<CParticle_FixedLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CParticle_MovingLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);
-
 
 	return S_OK;
 }
@@ -745,7 +745,7 @@ HRESULT CMainApp::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_FixedLeaf", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Leaf/Leaf_Fixed/Leaf_Fixed_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_LeafFloating", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Leaf/Leaf_Floating/Leaf_Floating_%d.png", 8)), E_FAIL);
 
-
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Shadow", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Shadow/Shadow_%d.png", 1)), E_FAIL);
 
 	return S_OK;
 }

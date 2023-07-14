@@ -610,9 +610,18 @@
     <ClInclude Include="..\Header\TrashBummer.h" />
     <ClInclude Include="JellyPool.h" />
     <ClInclude Include="..\Header\SludgeBall.h" />
-    <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
-    <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
-    <ClInclude Include="..\Header\Effect_Leaf.h" />
+    <ClInclude Include="..\Header\Particle_FixedLeaf.h">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Particle_MovingLeaf.h">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_Shadow.h">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_Leaf.h">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -927,9 +936,18 @@
     <ClCompile Include="..\Code\Bullet.cpp" />
     <ClCompile Include="..\Code\TrashBummer.cpp" />
     <ClCompile Include="..\Code\SludgeBall.cpp" />
-    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
-    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
-    <ClCompile Include="..\Code\Effect_Leaf.cpp" />
+    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_Shadow.cpp">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_Leaf.cpp">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
