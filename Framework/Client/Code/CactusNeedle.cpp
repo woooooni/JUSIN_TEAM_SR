@@ -43,6 +43,7 @@ _int CCactusNeedle::Update_Object(const _float& fTimeDelta)
 		m_pAnimator->Play_Animation(L"CactusNeedle", true);
 
 	_vec3 AxisY = { 0,1,0 };
+	if(m_bSpin)
 	m_pTransformCom->RotationAxis(AxisY, D3DXToRadian(1.f));
 	m_pTransformCom->Get_Info(INFO_UP, &m_vDir);
 	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 5.f);

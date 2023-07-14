@@ -243,6 +243,11 @@ HRESULT CLogo::Ready_Layer_Monster()
 	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pMothMage, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
+	
+	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlantCannon", pPlantCannon), E_FAIL);
+
 
 	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
