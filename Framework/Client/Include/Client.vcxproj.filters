@@ -283,6 +283,9 @@
     <Filter Include="02. GameObject\02. Monster\05. TrashBummer">
       <UniqueIdentifier>{1a6eda92-853d-4d34-ae91-df51b339691b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. Monster\05. TrashBummer\SludgeBall">
+      <UniqueIdentifier>{8532d388-45da-408c-ba9c-81613e8d377b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -618,6 +621,9 @@
     <ClInclude Include="..\Header\TrashBummer.h">
       <Filter>02. GameObject\02. Monster\05. TrashBummer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\SludgeBall.h">
+      <Filter>02. GameObject\02. Monster\05. TrashBummer\SludgeBall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -937,6 +943,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\TrashBummer.cpp">
       <Filter>02. GameObject\02. Monster\05. TrashBummer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SludgeBall.cpp">
+      <Filter>02. GameObject\02. Monster\05. TrashBummer\SludgeBall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

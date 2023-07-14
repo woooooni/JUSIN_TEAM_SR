@@ -364,7 +364,7 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		if (m_eState == SILKWORM_STATE::DIE)
 		return;
 		
-
+		if(dynamic_cast<CBugBall*> (pCollider->GetOwner()))
 		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 		{
 			m_tStat.iHp -= 1;

@@ -1,6 +1,6 @@
 
 #include "TrashBummer.h"
-#include "BugBall.h"
+#include "SludgeBall.h"
 #include "Export_Function.h"
 
 CTrashBummer::CTrashBummer(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
@@ -40,7 +40,7 @@ HRESULT CTrashBummer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashBummer_Move_LeftDown", L"Proto_Texture_TrashBummer_Move_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBummer_Move_LeftUp", L"Proto_Texture_TrashBummer_Move_LeftUp", 0.1f);
 
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Down", L"Proto_Texture_TrashBummer_Attack_Down", 0.4f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Down", L"Proto_Texture_TrashBummer_Attack_Down", 0.3f);
 	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Up", L"Proto_Texture_TrashBummer_Attack_Up", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Left", L"Proto_Texture_TrashBummer_Attack_Left", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Right", L"Proto_Texture_TrashBummer_Attack_Right", 0.1f);
@@ -49,10 +49,12 @@ HRESULT CTrashBummer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftDown", L"Proto_Texture_TrashBummer_Attack_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftUp", L"Proto_Texture_TrashBummer_Attack_LeftUp", 0.1f);
 
+	m_pAnimator->Add_Animation(L"TrashBummer_Regen_Down", L"Proto_Texture_TrashBummer_Regen_Down", 0.4f);
+
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
-	m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
+	m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
 	m_tStat = { 3,3,1 };
 	m_fMinHeight = 1.0f;
 	return S_OK;
@@ -78,7 +80,7 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
 
-		if (D3DXVec3Length(&vDir) < 5.f)
+		if (D3DXVec3Length(&vDir) <= 15.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
 			m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
@@ -160,7 +162,6 @@ void CTrashBummer::Update_Move(_float fTimeDelta)
 
 void CTrashBummer::Update_Attack(_float fTimeDelta)
 {
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	Trace(fTimeDelta);
 
 }
@@ -220,7 +221,7 @@ void CTrashBummer::Trace(_float fTimeDelta)
 	vDir = vTargetPos - vPos;
 	vDir.y = 0.f;
 
-	if (D3DXVec3Length(&vDir) > 7.f && !m_bShoot)
+	if (D3DXVec3Length(&vDir) > 15.f && !m_bShoot)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
@@ -228,30 +229,32 @@ void CTrashBummer::Trace(_float fTimeDelta)
 
 	}
 
-	else if (D3DXVec3Length(&vDir) <4.f && !m_bShoot)
+	else if (D3DXVec3Length(&vDir) <9.f && !m_bShoot)
 	{
 		m_pAnimator->Play_Animation(L"TrashBummer_Attack_Down", true);
 
 		m_bShoot = true;
 
 	}
-	else if (D3DXVec3Length(&vDir) < 4.f|| m_bShoot)
+	else if (D3DXVec3Length(&vDir) < 9.f|| m_bShoot)
 	{
 	
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 3&&m_bShoot)
 		{
 			D3DXVec3Normalize(&vDir, &vDir);
-			CBugBall* pBugBall = CBugBall::Create(m_pGraphicDev);
-			NULL_CHECK_RETURN(pBugBall, );
+			CSludgeBall* pSludgeBall = CSludgeBall::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pSludgeBall, );
 			_vec3 BulletPos= vPos;
 			BulletPos.y += 0.5f;
 			BulletPos.z -= 0.01f;
-			pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
-			pBugBall->Set_Dir(vDir);
-			pBugBall->Set_Shooter(this);
-			pBugBall->Set_Atk(m_tStat.iAttack);
+			pSludgeBall->Get_TransformCom()->Set_Pos(&BulletPos);
+			pSludgeBall->Set_Dst(vTargetPos);
+			pSludgeBall->Set_Shooter(this);
+			pSludgeBall->Set_Atk(m_tStat.iAttack);
+			pSludgeBall->Get_RigidBodyCom()->SetMass(1.f);
+			pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 300.0f, 0.0f));
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
-			pLayer->Add_GameObject(L"BugBall", pBugBall);
+			pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
 			Set_State(MONSTER_STATE::IDLE);
 			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
 
@@ -287,20 +290,5 @@ void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 		if (m_tStat.iHp < 1.f)
 			Set_State(MONSTER_STATE::DIE);
 	}
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
-	{
-		m_tStat.iHp -= 1;
-		_vec3 vTargetPos;
-		_vec3 vPos;
-		_vec3 vDir;
-		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vDir = vPos - vTargetPos;
-		vDir.y = 0.0f;
-		D3DXVec3Normalize(&vDir, &vDir);
-
-		m_pRigidBodyCom->AddForce(vDir * 30.0f);
-		if (m_tStat.iHp < 1.f)
-			Set_State(MONSTER_STATE::DIE);
-	}
+	
 }
