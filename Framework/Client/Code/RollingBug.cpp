@@ -20,56 +20,56 @@ HRESULT CRollingBug::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	/*
-	플레이어를 계속 추격하는 몬스터
-	몬스터 색상에 해당하는 빛이 켜지면 추격을 멈춘다.
-	*/
+	
+	//플레이어를 계속 추격하는 몬스터
+	//몬스터 색상에 해당하는 빛이 켜지면 추격을 멈춘다.
+	
 
 	// 공끼리 겹치지 않게 할 것
 	// 일정거리 이상으로 가면 IDLE상태로 변경 (움직임도 없음 -> 랜덤위치로 움직이게 수정할것)
 
-	Set_State(MONSTER_STATE::IDLE);
-	Set_Speed(1.f);
+Set_State(MONSTER_STATE::IDLE);
+Set_Speed(1.f);
 
-	_vec3 vScale = _vec3(0.8f, 0.8f, 0.8f);
+_vec3 vScale = _vec3(0.8f, 0.8f, 0.8f);
 
-	m_pTransformCom->Set_Scale(vScale);
+m_pTransformCom->Set_Scale(vScale);
 
-	// Texture 일부만 제작 완료
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Pink_Idle_Down", L"Proto_Texture_RollingBug_Pink_Idle_Down", 0.1f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Blue_Idle_Down", L"Proto_Texture_RollingBug_Blue_Idle_Down", 0.1f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Yellow_Idle_Down", L"Proto_Texture_RollingBug_Yellow_Idle_Down", 0.1f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Move_Down", L"Proto_Texture_RollingBug_Move_Down", 0.1f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Pink_Attack_Down", L"Proto_Texture_RollingBug_Pink_Attack_UpDown", 0.08f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Blue_Attack_Down", L"Proto_Texture_RollingBug_Blue_Attack_UpDown", 0.08f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Yellow_Attack_Right", L"Proto_Texture_RollingBug_Yellow_Attack_LeftRight", 0.08f), E_FAIL);
+// Texture 일부만 제작 완료
+FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Pink_Idle_Down", L"Proto_Texture_RollingBug_Pink_Idle_Down", 0.1f), E_FAIL);
+FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Blue_Idle_Down", L"Proto_Texture_RollingBug_Blue_Idle_Down", 0.1f), E_FAIL);
+FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Yellow_Idle_Down", L"Proto_Texture_RollingBug_Yellow_Idle_Down", 0.1f), E_FAIL);
+FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Move_Down", L"Proto_Texture_RollingBug_Move_Down", 0.1f), E_FAIL);
+FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Pink_Attack_Down", L"Proto_Texture_RollingBug_Pink_Attack_UpDown", 0.08f), E_FAIL);
+FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Blue_Attack_Down", L"Proto_Texture_RollingBug_Blue_Attack_UpDown", 0.08f), E_FAIL);
+FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"RollingBug_Yellow_Attack_Right", L"Proto_Texture_RollingBug_Yellow_Attack_LeftRight", 0.08f), E_FAIL);
 
-	switch(m_tBugInfo.eType)
-	{
-	case BUGCOLORTYPE::PINK:
-		FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Down", TRUE), E_FAIL);
-		break;
+switch (m_tBugInfo.eType)
+{
+case BUGCOLORTYPE::PINK:
+	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Down", TRUE), E_FAIL);
+	break;
 
-	case BUGCOLORTYPE::BLUE:
-		FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Down", TRUE), E_FAIL);
-		break;
+case BUGCOLORTYPE::BLUE:
+	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Down", TRUE), E_FAIL);
+	break;
 
-	case BUGCOLORTYPE::YELLOW:
-		FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Down", TRUE), E_FAIL);
-		break;
+case BUGCOLORTYPE::YELLOW:
+	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Down", TRUE), E_FAIL);
+	break;
 
-	default:
-		break;
-	}
+default:
+	break;
+}
 
-	return S_OK;
+return S_OK;
 }
 
 _int CRollingBug::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 	NULL_CHECK_RETURN(pTarget, E_FAIL);
 
 	Set_Target(pTarget);
@@ -81,7 +81,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 
 	vDir = vPlayerPos - vPos; // DIrection Vec
 	m_vDir = vDir;
-	
+
 	if (D3DXVec3Length(&vDir) <= 7.f &&
 		D3DXVec3Length(&vDir) >= 1.5f)
 	{
@@ -148,29 +148,28 @@ void CRollingBug::Update_Idle(_float fTimeDelta)
 
 	if (m_fMoveTime > 10.f)
 	{
-
 		m_fMoveTime = 0.f;
 	}
-	if (D3DXVec3Length(&vDir) < 1.5f);
+	if (D3DXVec3Length(&vDir) < 1.5f)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 
 		switch (m_tBugInfo.eType)
 		{
 		case BUGCOLORTYPE::PINK:
-				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Down", TRUE);
-				break;
+			m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Down", TRUE);
+			break;
 
 		case BUGCOLORTYPE::BLUE:
-				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Down", TRUE);
-				break;
+			m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Down", TRUE);
+			break;
 
 		case BUGCOLORTYPE::YELLOW:
-				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Down", TRUE);
-				break;
+			m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Down", TRUE);
+			break;
 
 		default:
-				break;
+			break;
 		}
 
 		m_fMoveTime = 0.f;
@@ -201,13 +200,6 @@ void CRollingBug::Update_Move(_float fTimeDelta)
 
 	if (m_fMoveTime > 5.f)
 	{
-//		if (rand() % 10 > 8)
-//		{
-//			Set_State(MONSTER_STATE::MOVE);
-//			m_pAnimator->Play_Animation(L"RollingBug_Move_Down", TRUE);
-//		}
-
-		//vDst = { float(rand() % 10) - 5.f, 0.f, float(rand() % 10) - 5.f };
 		vDst = m_vDir;
 
 		if (vDst != m_vDst)
@@ -239,12 +231,12 @@ void CRollingBug::Update_Attack(_float fTimeDelta)
 
 	if (D3DXVec3Length(&vDir) > 7.f)
 	{
-	// 원래 본인 position으로 돌아간다
-	//	_vec3 vOriginPos = m_tBugInfo.vDefaultPos;
-	//	vDir = vOriginPos - vPos;
-	//	m_vDir = vDir;
+		// 원래 본인 position으로 돌아간다
+		//	_vec3 vOriginPos = m_tBugInfo.vDefaultPos;
+		//	vDir = vOriginPos - vPos;
+		//	m_vDir = vDir;
 
-		if (D3DXVec3Length(&vDir) < 1.5f);
+		if (D3DXVec3Length(&vDir) < 1.5f)
 		{
 
 			Set_State(MONSTER_STATE::IDLE);
@@ -365,4 +357,3 @@ CRollingBug* CRollingBug::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos
 
 	return pInstance;
 }
-

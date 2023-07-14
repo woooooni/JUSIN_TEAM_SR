@@ -18,7 +18,13 @@ HRESULT CLogo::Ready_Scene()
 {
 	__super::Ready_AllLayer();
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	D3DVIEWPORT9 vp;
 	vp.X = 0;
@@ -78,31 +84,110 @@ HRESULT CLogo::Ready_Prototype()
 	return S_OK;
 }
 
-HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
+
+
+HRESULT CLogo::Ready_Layer_Player()
 {
-	Engine::CLayer* pLayer = m_mapLayer.find(_eType)->second;
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
-
-	Engine::CGameObject*		pGameObject = nullptr;
-
-	//Terrain
-	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTerrain, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
 
 	// Player
 	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pPlayer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
 
+	CItem_Hat_Monkey* pItemMonkeyHat = CItem_Hat_Monkey::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemMonkeyHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MonkeyHat", pItemMonkeyHat), E_FAIL);
+
+
+	CItem_Hat_Turtle* pItemTurtleHat = CItem_Hat_Turtle::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemTurtleHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_TurtleHat", pItemTurtleHat), E_FAIL);
+
+
+	CItem_Hat_Drill* pItemDrillHat = CItem_Hat_Drill::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemDrillHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_DrillHat", pItemDrillHat), E_FAIL);
+
+	CItem_Hat_Light* pItemLightHat = CItem_Hat_Light::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemLightHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_LightHat", pItemLightHat), E_FAIL);
+
+
+	CItem_Hat_Mask* pItemMaskHat = CItem_Hat_Mask::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
+
+	CItem_Hat_Missile* pItemMissileHat = CItem_Hat_Missile::Create(m_pGraphicDev, pPlayer);
+	NULL_CHECK_RETURN(pItemMissileHat, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MissileHat", pItemMissileHat), E_FAIL);
+
+
+	pPlayer->Set_Hat(pItemMissileHat);
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Camera()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::CAMERA];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+	Engine::CLayer* pPlayerLayer = m_mapLayer[LAYER_TYPE::PLAYER];
+
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(pPlayerLayer->Find_GameObject(L"Player"));
+
 	// Camera
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 
-	//pCamera->Set_CameraState(CAMERA_STATE::TOOL);
+	pCamera->Set_TargetObj(pPlayer);
+	pLayer->Ready_Layer();
 
-	// Monster
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Terrrain()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::TERRAIN];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	//Terrain
+	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTerrain, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Environment()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+
+	CCoin* pCoin = CCoin::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pCoin, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Coin", pCoin), E_FAIL);
+
+	CNPCCow* pNPCCow = CNPCCow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
+	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Monster()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
 	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(3.f, 1.f, 1.f), BUGCOLORTYPE::PINK);
 	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
@@ -120,15 +205,15 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
 
-	CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::BLUEBEATLE);
+	/*CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
-	
-	CBlueBeatle* pRedBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::REDBEATLE);
+
+	CRedBeatle* pRedBeatle = CRedBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pRedBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"RedBeatle", pRedBeatle), E_FAIL);
 
-	CBlueBeatle* pGreenBeatle = CBlueBeatle::Create(m_pGraphicDev, BEATLETYPE::GREENBEATLE);
+	CGreenBeatle* pGreenBeatle = CGreenBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
 
@@ -136,37 +221,47 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
 
-	/*CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
+	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashSlime), E_FAIL);
-	*/
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
+
 
 	CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
-	
+		*/
 	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pMothMage, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
 
-	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
-	
+	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
+	//
 	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
-	
+
 	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_InterationObj()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::INTERACTION_OBJ];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
 	CPushStone* pPush = CPushStone::Create(_vec3(3, 1, 3), m_pGraphicDev);
 	NULL_CHECK_RETURN(pPush, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Stone", pPush), E_FAIL);
 
 
-	CNearReactObj* pNear = CNearReactObj::Create(m_pGraphicDev, {5, 1, 5});
+	CNearReactObj* pNear = CNearReactObj::Create(m_pGraphicDev, { 5, 1, 5 });
 	NULL_CHECK_RETURN(pNear, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Gosari", pNear), E_FAIL);
 
@@ -215,10 +310,6 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	pLF->Add_Subscribe(5);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightFlower", pLF), E_FAIL);
 
-
-	
-
-
 	CHitObj* pHit = CHitObj::Create(m_pGraphicDev, 0, { 17, 1, 17 });
 	NULL_CHECK_RETURN(pHit, E_FAIL);
 	pHit->Set_Event(2);
@@ -227,12 +318,6 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 15, 1, 20 }, true);
 	NULL_CHECK_RETURN(pBlock, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
-
-	// SkyBox
-
-	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSkyBox, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pSkyBox), E_FAIL);
 
 	CJellyStone* pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, { 8, 1, 10 });
 	NULL_CHECK_RETURN(pJelly, E_FAIL);
@@ -245,8 +330,6 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, { 11, 1, 10 });
 	NULL_CHECK_RETURN(pJelly, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
-
-
 
 	CJellyCombined* pCombine = CJellyCombined::Create(m_pGraphicDev, JELLY_COLLOR_COMBINE::RED, 0, { 5, 1, 13 });
 	NULL_CHECK_RETURN(pCombine, E_FAIL);
@@ -294,8 +377,6 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pLPiece, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
 
-
-
 	pLPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, pLTer->Get_TilePos(1, 3));
 	NULL_CHECK_RETURN(pLPiece, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"LightPuzzlePiece", pLPiece), E_FAIL);
@@ -316,12 +397,19 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pJelCreat, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pJelCreat), E_FAIL);
 
+	pLayer->Ready_Layer();
 
+	return S_OK;
+}
 
+HRESULT CLogo::Ready_Layer_Effect()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::EFFECT];
+	Engine::CLayer* pPlayerLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 
-	CCoin* pCoin = CCoin::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pCoin, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Coin", pCoin), E_FAIL);
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(pPlayerLayer->Find_GameObject(L"Player"));
+
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
 	CPlayer_Skill_Range* pPlayerSkillRange = CPlayer_Skill_Range::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pPlayerSkillRange, E_FAIL);
@@ -333,6 +421,24 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player_Skill_Aim", pPlayerSkillAim), E_FAIL);
 	pPlayer->Set_Aim(pPlayerSkillAim);
 
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_UI()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	// UI ( SHOP )
+	CUI_Shop* pUI_Shop = CUI_Shop::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pUI_Shop, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Background", pUI_Shop), E_FAIL);
+
+	CUI_Cursor* pUI_Cursor = CUI_Cursor::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pUI_Cursor, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cursor", pUI_Cursor), E_FAIL);
 
 	// UI
 	//CUI* pUI = CUI::Create(m_pGraphicDev);
@@ -359,9 +465,9 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	NULL_CHECK_RETURN(pIconQuest, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconQuest), E_FAIL);
 
-//	CIcon* pTotem1 = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP);
-//	NULL_CHECK_RETURN(pTotem1, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Totem1", pTotem1), E_FAIL);
+	//	CIcon* pTotem1 = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP);
+	//	NULL_CHECK_RETURN(pTotem1, E_FAIL);
+	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Totem1", pTotem1), E_FAIL);
 
 	CUI_HPBar* pHPBar = CUI_HPBar::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pHPBar, E_FAIL);
@@ -418,64 +524,13 @@ HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
 	CUI_ShortCutKey* pKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pKeyInfo, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pKeyInfo), E_FAIL);
-
-
-//	CUI_NameTag* pNameTag = CUI_NameTag::Create(m_pGraphicDev);
-//	NULL_CHECK_RETURN(pNameTag, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_NameTag", pNameTag), E_FAIL);
-
-
-	// NPC (Test)
-//	CTutorialNPC* pNPCSheep = CTutorialNPC::Create(m_pGraphicDev, { 4, 1, 1 }, NPCTYPE::TUT_SHEEP);
-//	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
 	
 	CNPCCow* pNPCCow = CNPCCow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
 	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
-//
-//	CTutorialNPC* pNPCPig = CTutorialNPC::Create(m_pGraphicDev, { 10, 1, 1 }, NPCTYPE::TUT_PIG);
-//	NULL_CHECK_RETURN(pNPCPig, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Pig", pNPCPig), E_FAIL);
 
-//	CTutorialNPC* pNPCDoogee = CTutorialNPC::Create(m_pGraphicDev, { 5, 1, 1 }, NPCTYPE::TUT_DOOGEE);
-//	NULL_CHECK_RETURN(pNPCDoogee, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Doogee", pNPCDoogee), E_FAIL);
-
-
-	CItem_Hat_Monkey* pItemMonkeyHat = CItem_Hat_Monkey::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemMonkeyHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MonkeyHat", pItemMonkeyHat), E_FAIL);
-
-
-	CItem_Hat_Turtle* pItemTurtleHat = CItem_Hat_Turtle::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemTurtleHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_TurtleHat", pItemTurtleHat), E_FAIL);
-
-
-	CItem_Hat_Drill* pItemDrillHat = CItem_Hat_Drill::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemDrillHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_DrillHat", pItemDrillHat), E_FAIL);
-
-	CItem_Hat_Light* pItemLightHat = CItem_Hat_Light::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemLightHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_LightHat", pItemLightHat), E_FAIL);
-
-
-	CItem_Hat_Mask* pItemMaskHat = CItem_Hat_Mask::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
-
-	CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pFistEffect, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"FistEffect", pFistEffect), E_FAIL);
-
-
-	pPlayer->Set_Hat(pItemTurtleHat);
-
-	pCamera->Set_TargetObj(pPlayer);
-
-	m_mapLayer.insert({ _eType, pLayer });
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
+

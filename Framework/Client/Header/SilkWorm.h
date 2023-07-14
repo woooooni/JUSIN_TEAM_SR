@@ -45,7 +45,9 @@ private:
     _float			m_fSpeed = 5.f;
     _vec3 m_vRandomPos[8] = {};
     _int m_iHit = 0;
-
+    CGameObject* m_pBeatles[COLOR_END];
     _vec3 m_vOrigin;
+    COLOR_STATE m_eCOLORPATTERN=COLOR_END;
+    _bool m_bSpawn=false;
 };
 

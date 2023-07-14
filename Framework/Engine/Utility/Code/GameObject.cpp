@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "RigidBody.h"
 
+
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType, OBJ_ID _eID)
 	: m_pGraphicDev(pGraphicDev)
 	, m_eType(_eType)

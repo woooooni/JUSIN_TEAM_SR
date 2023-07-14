@@ -48,6 +48,8 @@ HRESULT CMothMage::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"MothMage_Attack_RightUp", L"Proto_Texture_MothMage_Attack_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftDown", L"Proto_Texture_MothMage_Attack_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftUp", L"Proto_Texture_MothMage_Attack_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"MothMage_Death_Down", L"Proto_Texture_MothMage_Death_Down", 0.1f);
+
 
 	m_pMothOrb= CMothOrb::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMothOrb, E_FAIL);
@@ -63,13 +65,17 @@ HRESULT CMothMage::Ready_Object(void)
 
 _int CMothMage::Update_Object(const _float& fTimeDelta)
 {
-
+	if (m_tStat.iHp < 1.f && Get_State() != MONSTER_STATE::DIE)
+	{
+		m_pAnimator->Play_Animation(L"MothMage_Death_Down", false);
+		Set_State(MONSTER_STATE::DIE);
+	}
 	_int iExit = __super::Update_Object(fTimeDelta);
 	_vec3  vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
+	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK&& Get_State() != MONSTER_STATE::DIE)
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 		NULL_CHECK_RETURN(pTarget, S_OK);
 
 		Set_Target(pTarget);
@@ -98,6 +104,7 @@ void CMothMage::LateUpdate_Object(void)
 {
 
 	__super::LateUpdate_Object();
+	
 	m_pMothOrb->LateUpdate_Object();
 }
 void CMothMage::Render_Object(void)
@@ -130,8 +137,15 @@ void CMothMage::Update_Idle(_float fTimeDelta)
 
 void CMothMage::Update_Die(_float fTimeDelta)
 {
-	if (Is_Active())
-		Set_Active(false);
+
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+	{
+		if (Is_Active() == true)
+		{
+			Set_Active(false);
+			m_pMothOrb->Set_Active(false);
+		}
+	}
 }
 
 void CMothMage::Update_Regen(_float fTimeDelta)
@@ -217,14 +231,14 @@ CMothMage* CMothMage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMothMage::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 	NULL_CHECK_RETURN(pTarget, );
 
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	vDir = vTargetPos - vPos;
-	vDir.y = 0.f;
+
 
 	if (D3DXVec3Length(&vDir) > 7.f && !m_bShoot)
 	{
@@ -290,8 +304,7 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		D3DXVec3Normalize(&vDir, &vDir);
 
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
-		if (m_tStat.iHp < 1.f)
-			Set_State(MONSTER_STATE::DIE);
+
 	}
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
@@ -305,8 +318,8 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
 
-		m_pRigidBodyCom->AddForce(vDir * 30.0f);
-		if (m_tStat.iHp < 1.f)
-			Set_State(MONSTER_STATE::DIE);
+		m_pRigidBodyCom->AddForce(vDir * 70.0f);
+	
 	}
+
 }

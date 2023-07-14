@@ -21,6 +21,7 @@ CSunGollem::~CSunGollem()
 {
 }
 
+
 HRESULT CSunGollem::Ready_Object(void)
 {
 	m_fMoveTime = 0.f;
@@ -43,7 +44,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	Set_State(SUNGOLEM_STATE::REGEN);
 	m_tStat = { 6,6,1 };
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
-
+	m_fMinHeight = 2.0f;
 	return S_OK;
 }
 
@@ -129,6 +130,11 @@ HRESULT CSunGollem::Add_Component(void)
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+	
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
 	return S_OK;
 }
 
@@ -236,7 +242,7 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 
 void CSunGollem::Update_Attack(_float fTimeDelta)
 {
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 	NULL_CHECK_RETURN(pTarget, );
 	Set_Target(pTarget);
 	_vec3 vTargetPos, vDir;
@@ -409,7 +415,7 @@ void CSunGollem::Create_Fist(bool _BummerFist, _int _iSrc)
 	pGolemFist->Get_TransformCom()->Set_Pos(&m_vTargetPos);
 	pGolemFist->Set_Dirty(m_bDirty);
 	pGolemFist->Set_Bummer(_BummerFist);
-
+	pGolemFist->Set_Atk(m_tStat.iAttack);
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 	pLayer->Add_GameObject(L"GolemFist", pGolemFist);
 

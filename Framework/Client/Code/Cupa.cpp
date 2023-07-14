@@ -49,7 +49,7 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 	if (Get_State() != MONSTER_STATE::REGEN &&
 		Get_State() != MONSTER_STATE::ATTACK)
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 		NULL_CHECK_RETURN(pTarget, E_FAIL);
 
 		// Player를 타켓으로 Set한다.

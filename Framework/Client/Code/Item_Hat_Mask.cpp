@@ -55,6 +55,8 @@ HRESULT CItem_Hat_Mask::Ready_Object(void)
 
 	m_bLoop = true;
 
+	m_eSkill = PLAYER_SKILL::LIGHTNING;
+
 	return S_OK;
 }
 

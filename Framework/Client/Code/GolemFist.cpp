@@ -1,13 +1,12 @@
 #include "Export_Function.h"
 #include "GolemFist.h"
 #include "SunGollem.h"
-
-CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL), m_eState(SUNGOLEM_STATE::REGEN)
+#include "FistEffect.h"
+CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
 {
 }
 CGolemFist::CGolemFist(const CGolemFist& rhs)
 	: Engine::CGameObject(rhs)
-	, m_eState(rhs.m_eState)
 {
 
 }
@@ -29,9 +28,6 @@ HRESULT CGolemFist::Ready_Object(void)
 
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 0.6f, 1.f, 1.f });
-
-	Set_State(SUNGOLEM_STATE::REGEN);
-
 	return S_OK;
 }
 
@@ -42,10 +38,15 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 
 	_vec3 vDir = { 0.f, -1.f, 0.f };
 
-	if (m_eState != SUNGOLEM_STATE::DIRTY)
-		Update_Idle(fTimeDelta);
-	else
-		Update_Dirty(fTimeDelta);
+
+	if (m_bDirty == true)
+	{
+		if (m_bBummer == true)
+			m_pAnimator->Play_Animation(L"SunGolem_Dirty_BummerFist", true);
+		else
+			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Fist", true);
+	}
+
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 20.f);
 
@@ -60,8 +61,16 @@ void CGolemFist::LateUpdate_Object(void)
 	if (vPos.y < -1.f)
 	{
 		if (Is_Active())
-			//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.1f);
+		{
+			CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pFistEffect, );
+			vPos.y = 0.001f;
+			pFistEffect->Get_TransformCom()->Set_Pos(&vPos);
+			pFistEffect->Set_Atk(m_iAtk);
+			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+			pLayer->Add_GameObject(L"GolemFist", pFistEffect);
 			Set_Active(false);
+		}
 	}
 }
 
@@ -94,22 +103,8 @@ HRESULT CGolemFist::Add_Component(void)
 	return S_OK;
 }
 
-void CGolemFist::Update_Idle(_float fTimeDelta)
-{
-	if (m_bDirty == true)
-	{
-		if (m_bBummer == true)
-			m_pAnimator->Play_Animation(L"SunGolem_Dirty_BummerFist", true);
-		else
-			m_pAnimator->Play_Animation(L"SunGolem_Dirty_Fist", true);
-	}
-}
-
-void CGolemFist::Update_Dirty(_float fTimeDelta)
-{
 
 
-}
 
 CGolemFist* CGolemFist::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

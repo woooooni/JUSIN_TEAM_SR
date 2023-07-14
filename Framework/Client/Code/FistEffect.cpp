@@ -23,8 +23,8 @@ HRESULT CFistEffect::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"FistEffect", true);
 
 	m_pTransformCom->Set_Pos(&_vec3(-5.0f, 1.1f, 0.0f));
-	m_pTransformCom->Set_Scale({ 1.f, 1.f, 1.f });
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.f, 1.f, 1.f });
+	m_pTransformCom->Set_Scale({ 2.f, 2.f, 2.f });
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.f, 2.f, 2.f });
 	_vec3 AxisX = { 1,0,0 };
 	m_pTransformCom->RotationAxis(AxisX, D3DXToRadian(90.f));
 	Set_Active(true);
@@ -34,12 +34,13 @@ HRESULT CFistEffect::Ready_Object(void)
 _int CFistEffect::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_EFFECT);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	/*if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
 		if (Is_Active())
 			Set_Active(false);
-	}*/
+	}
 
 	return iExit;
 }

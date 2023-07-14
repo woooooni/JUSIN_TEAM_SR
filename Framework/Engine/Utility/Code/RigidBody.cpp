@@ -5,7 +5,7 @@
 
 CRigidBody::CRigidBody()
 	: m_fMass(1.f)
-	, m_vMaxVelocity(_vec3(1000.f, 1500.f, 1000.f))
+	, m_fMaxVelocity(10.0f)
 	, m_bGravity(true)
 	, m_bGround(false)
 	, m_vVelocity(_vec3(0.f, 0.f, 0.f))
@@ -19,7 +19,7 @@ CRigidBody::CRigidBody()
 CRigidBody::CRigidBody(LPDIRECT3DDEVICE9 _pDevice)
 	: CComponent(_pDevice, COMPONENT_TYPE::COM_RIGIDBODY)
 	, m_fMass(10.f)
-	, m_vMaxVelocity(_vec3(1000.f, 1500.f, 1000.f))
+	, m_fMaxVelocity(10.0f)
 	, m_bGravity(true)
 	, m_bGround(false)
 	, m_vVelocity(_vec3(0.f, 0.f, 0.f))
@@ -33,7 +33,7 @@ CRigidBody::CRigidBody(LPDIRECT3DDEVICE9 _pDevice)
 CRigidBody::CRigidBody(const CRigidBody& rhs)
 	: CComponent(rhs)
 	, m_fMass(rhs.m_fMass)
-	, m_vMaxVelocity(rhs.m_vMaxVelocity)
+	, m_fMaxVelocity(rhs.m_fMaxVelocity)
 	, m_bGravity(true)
 	, m_bGround(false)
 	, m_vVelocity(_vec3(0.f, 0.f, 0.f))
@@ -107,14 +107,11 @@ _int CRigidBody::Update_Component(const _float& fTimeDelta)
 		}
 	}
 
-	if (abs(m_vMaxVelocity.x) < abs(m_vVelocity.x))
-		m_vVelocity.x = (m_vVelocity.x / abs(m_vVelocity.x)) * abs(m_vMaxVelocity.x);
-
-	if (abs(m_vMaxVelocity.y) < abs(m_vVelocity.y))
-		m_vVelocity.y = (m_vVelocity.y / abs(m_vVelocity.y)) * abs(m_vMaxVelocity.y);
-
-	if (abs(m_vMaxVelocity.z) < abs(m_vVelocity.z))
-		m_vVelocity.z = (m_vVelocity.z / abs(m_vVelocity.z)) * abs(m_vMaxVelocity.z);
+	if (D3DXVec3Length(&m_vVelocity) > m_fMaxVelocity)
+	{
+		D3DXVec3Normalize(&m_vVelocity, &m_vVelocity);
+		m_vVelocity *= m_fMaxVelocity;
+	}
 
 	
 	std::cout << "Velocity : " << m_vVelocity.x << "," << m_vVelocity.y << "," << m_vVelocity.z << endl;

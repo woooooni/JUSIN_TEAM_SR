@@ -4,7 +4,9 @@
 
 #include "Player.h"
 #include "Monster.h"
+#include "RedBeatle.h"
 #include "BlueBeatle.h"
+#include "GreenBeatle.h"
 #include "TrashBig.h"
 #include "DesertRhino.h"
 #include "SunGollem.h"
@@ -27,6 +29,8 @@
 #include "Text.h"
 #include "Icon.h"
 #include "NPCCow.h"
+#include "UI_Shop.h"
+#include "UI_Cursor.h"
 #include "UI_HPBar.h"
 #include "UI_Totem.h"
 #include "UI_ShortCutKey.h"
@@ -55,6 +59,7 @@
 #include "Item_Hat_Drill.h"
 #include "Item_Hat_Light.h"
 #include "Item_Hat_Mask.h"
+#include "Item_Hat_Missile.h"
 
 #include "FistEffect.h"
 class CLogo : public Engine::CScene
@@ -70,10 +75,16 @@ public:
 	virtual void Render_Scene() override;
 
 private:
-	HRESULT			Ready_Prototype();
-	HRESULT			Ready_Layer_Environment(LAYER_TYPE _eType);
-	HRESULT			Ready_Layer_GameLogic(const _tchar* pLayerTag) { return S_OK; }
-	HRESULT			Ready_Layer_UI(const _tchar* pLayerTag) { return S_OK; }
+	virtual HRESULT			Ready_Prototype();
+	virtual HRESULT			Ready_Layer_Player()			override;
+	virtual HRESULT			Ready_Layer_Camera()			override;
+	virtual HRESULT			Ready_Layer_Terrrain()			override;
+	virtual HRESULT			Ready_Layer_Environment()		override;
+	virtual HRESULT			Ready_Layer_Monster()			override;
+	virtual HRESULT			Ready_Layer_InterationObj()		override;
+	virtual HRESULT			Ready_Layer_Effect()			override;
+	virtual HRESULT			Ready_Layer_UI()				override;
+
 
 public:
 	static CLogo*		Create(LPDIRECT3DDEVICE9 pGraphicDev);

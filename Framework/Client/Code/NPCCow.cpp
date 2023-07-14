@@ -58,13 +58,10 @@ _int CNPCCow::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	Engine::CLayer* pLayer = Engine::CLayer::Create();
-	NULL_CHECK_RETURN(pLayer, E_FAIL);
-
-	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
-	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"UI_ShortCutKey_Info");
-	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_TextBox");
-	CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_Text");
+	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_ShortCutKey_Info");
+	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_TextBox");
+	CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_Text");
 
 	_vec3 vPlayerPos, vNPCPos;
 	bool bShown = dynamic_cast<CNPCText*>(pUIBox)->Get_Shown();
@@ -89,31 +86,6 @@ _int CNPCCow::Update_Object(const _float& fTimeDelta)
 		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
 	}
 
-	// NPCText가 Text상자, TextBox가 Text
-
-//	if (m_bCollision)
-//	{
-//		if (GetAsyncKeyState('Z') & 0x8000)
-//		{
-//			dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(true);
-//			dynamic_cast<CTextBox*>(pUIText)->Set_Shown(true);
-//
-//			CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::COW);
-//			NULL_CHECK_RETURN(pText, E_FAIL);
-//			FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Text", pText), E_FAIL);
-//
-//
-////			CNPCText* pTextBox = CNPCText::Create(m_pGraphicDev);
-////			NULL_CHECK_RETURN(pTextBox, E_FAIL);
-////			FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
-//		}
-//	}
-//	else
-//	{
-//		//dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(false);
-//		//dynamic_cast<CTextBox*>(pUIText)->Set_Shown(false);
-//	}
-
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -121,9 +93,9 @@ _int CNPCCow::Update_Object(const _float& fTimeDelta)
 void CNPCCow::LateUpdate_Object(void)
 {
 
-	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"UI_ShortCutKey_Info");
-	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_TextBox");
-	CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_Text");
+	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_ShortCutKey_Info");
+	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_TextBox");
+	CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_Text");
 
 	if (m_bCollision)
 	{

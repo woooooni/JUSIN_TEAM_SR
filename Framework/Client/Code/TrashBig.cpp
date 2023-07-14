@@ -1,11 +1,11 @@
 #include "TrashBig.h"
 #include "Export_Function.h"
 
-CTrashBig::CTrashBig(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_BIG)
+CTrashBig::CTrashBig(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_BIG), m_fMoveTime(0.f)
 {
 }
 
-CTrashBig::CTrashBig(const CTrashBig& rhs) : CMonster(rhs)
+CTrashBig::CTrashBig(const CTrashBig& rhs) : CMonster(rhs), m_fMoveTime(0.f)
 {
 }
 
@@ -49,7 +49,7 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 		NULL_CHECK_RETURN(pTarget, S_OK );
 		Set_Target(pTarget);
 		_vec3 vTargetPos, vPos, vDir;

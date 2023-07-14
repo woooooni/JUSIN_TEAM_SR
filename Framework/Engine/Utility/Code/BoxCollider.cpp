@@ -39,11 +39,7 @@ _int CBoxCollider::Update_Component(const _float & fTimeDelta)
 
 	_vec3 vPos;
 	pOwnerTransform->Get_Info(INFO_POS, &vPos);
-	vPos += m_vOffset;
-	
-	m_vCenterPos = vPos;
-
-	const D3DXMATRIX& matWorld = *pOwnerTransform->Get_WorldMatrix();
+	m_vCenterPos = vPos + m_vOffset;
 
 	InputCollider();
 
@@ -64,20 +60,8 @@ void CBoxCollider::Render_Component()
 
 	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
-	_matrix matWorld;
-	D3DXMatrixIdentity(&matWorld);
-
-	for (int i = 0; i < 3; ++i)
-	{
-		memcpy(&matWorld.m[i][i], &(m_vScale[i]), sizeof(float));
-	}
-		
-	memcpy(&matWorld.m[3][0], &m_vCenterPos, sizeof(_vec3));
-
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, &matWorld);
-	m_pBuffer->Render_Buffer();
-
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, pOwnerTransform->Get_WorldMatrix());
+	m_pBuffer->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
@@ -92,10 +76,6 @@ CBoxCollider * CBoxCollider::Create(LPDIRECT3DDEVICE9 _pDevice)
 		MSG_BOX("BoxCollider Create Failed");
 		return nullptr;
 	}
-
-	pInstance->m_vAxisDir[0] = {1, 0, 0};
-	pInstance->m_vAxisDir[0] = { 0, 1, 0 };
-	pInstance->m_vAxisDir[0] = { 0, 0, 1 };
 
 
 	return pInstance;

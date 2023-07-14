@@ -30,6 +30,11 @@ CGameObject * CLayer::Find_GameObject(const wstring& _strObjName)
 
 HRESULT CLayer::Ready_Layer()
 {
+
+	for (auto iter : m_vecReserveObj)
+		m_vecObject.push_back(iter);
+	m_vecReserveObj.clear();
+
 	return S_OK;
 }
 
@@ -80,5 +85,4 @@ void CLayer::Free()
 {
 	for_each(m_vecObject.begin(), m_vecObject.end(), CDeleteObj());
 	m_vecObject.clear();
-	m_vecObject.shrink_to_fit();
 }

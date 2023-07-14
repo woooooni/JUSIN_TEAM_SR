@@ -26,33 +26,22 @@ public:
 
 protected:
 	HRESULT	Add_Component(void);
-	virtual void Update_Idle(_float fTimeDelta)	;
-	virtual void Update_Dirty(_float fTimeDelta);
-
 
 public:
 
-	SUNGOLEM_STATE Get_State() { return m_eState; }
-	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
 	void Set_Dirty(_bool _bDirty) { if (m_bDirty == _bDirty) return; m_bDirty = _bDirty; }
 	void Set_Bummer(_bool _bBummer) { if (m_bBummer == _bBummer) return; m_bBummer = _bBummer; }
 
 public:
-	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
-
+	
 	static CGolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
-	void Set_ArmNum(_int _iNum) { m_iArmNum = _iNum; }
+	void Set_Atk(_int _iAtk) { m_iAtk = _iAtk; }
 
 private:
-	SUNGOLEM_STATE	m_eState;
-	bool m_bBreath = false;
-	_int m_iArmNum = 0;
 	_bool	m_bBummer = false;
 	_bool	m_bDirty = false;
-
+	_int m_iAtk = 0;
 protected:
-	CGameObject* m_pTarget;
 	_float m_fMoveTime;
 protected:
 	virtual void Free() override;

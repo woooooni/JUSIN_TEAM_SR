@@ -94,9 +94,6 @@
     <Filter Include="06. Light">
       <UniqueIdentifier>{28a1cc40-f85d-4d6b-a753-ca2718b8f91b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98. Pool">
-      <UniqueIdentifier>{19788ce9-d5bd-44b0-8bae-c79d30c92236}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Scene.h">
@@ -185,9 +182,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Header\RcPuzzleBuff.h">
       <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Header\Pool.h">
-      <Filter>98. Pool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

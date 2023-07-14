@@ -28,7 +28,6 @@
 #include "GameObject.h"
 
 
-
 BEGIN(Engine)
 
 inline HRESULT			Create_Management(LPDIRECT3DDEVICE9 pGraphicDev, CManagement** ppInstance);

@@ -18,6 +18,7 @@ public:
 
 private:
 	HRESULT Ready_Component();
+
 public:
 	static  CUI_Pages*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

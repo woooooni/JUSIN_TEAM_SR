@@ -37,13 +37,13 @@ HRESULT CTrashSlime::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashSlime_Move_RightUp",	L"Proto_Texture_TrashSlime_Move_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashSlime_Move_LeftDown",	L"Proto_Texture_TrashSlime_Move_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashSlime_Move_LeftUp",		L"Proto_Texture_TrashSlime_Move_LeftUp", 0.1f);
-	
+	m_tStat = { 3,3,1 };
 	m_pAnimator->Add_Animation(L"TrashSlime_Regen_Down", L"Proto_Texture_TrashSlime_Regen_Down", 0.1f);
 	m_pTransformCom->Set_Pos(&_vec3(5.0f, 1.0f, 5.0f));
 	Set_Speed(2.f);
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", false);
-
+	m_fMinHeight = 1.0f;
 	return S_OK;
 }
 
@@ -52,9 +52,10 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	_int iExit = __super::Update_Object(fTimeDelta);
+
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Player");
+		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 		NULL_CHECK_RETURN(pTarget, S_OK );
 		Set_Target(pTarget);
 		_vec3 vTargetPos, vPos, vDir;
