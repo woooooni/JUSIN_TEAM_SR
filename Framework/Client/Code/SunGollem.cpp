@@ -2,7 +2,9 @@
 #include "Export_Function.h"
 #include "SunGollem.h"
 #include "GolemParts.h"
+#include "SludgeWave.h"
 #include "PushStone.h"
+
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN)
@@ -31,6 +33,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Body", true);
 
 	memset(m_bAttack, 1, sizeof(bool)*6);
+	memset(m_bSummon, 1, sizeof(bool) * 3);
 	m_vVerticalDir = { 0.f, 1.f ,0.f }; m_vVerticalDir = { 0.f, 1.f ,0.f };
 	m_pTransformCom->Set_Pos(&_vec3(4.0f, 2.0f, 4.0f));
 	_vec3 vPos;
@@ -80,6 +83,7 @@ _int CSunGollem::Update_Object(const _float& fTimeDelta)
 		if ((*iter)->Is_Active())
 		(*iter)->Update_Object(fTimeDelta);
 	}
+
 	return iExit;
 }
 
@@ -143,7 +147,23 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 		vDir = { 0.f,-1.f ,0.f };
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-
+	if (m_bDirty && m_tStat.iHp < 4) {
+		if(m_fMoveTime > 3.f && m_bSummon[0])
+		{
+			Create_Wave(m_vRandomPos[0]);
+			m_bSummon[0] = false;
+		}
+		else if ( m_fMoveTime > 6.f && m_bSummon[1])
+		{
+			Create_Wave(m_vRandomPos[1]);
+			m_bSummon[1] = false;
+		}
+		else if ( m_fMoveTime >9.f && m_bSummon[2])
+		{
+			Create_Wave(m_vRandomPos[2]);
+			m_bSummon[2] = false;
+		}
+	}
 	if (m_fMoveTime > 10.f)
 	{
 		if (m_bBreath)
@@ -231,6 +251,8 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 			m_iRand = rand() % 3 ;
 		m_fMoveTime = 0.f;
 		Set_State(SUNGOLEM_STATE::ATTACK);
+		if (m_bDirty && m_tStat.iHp < 4)
+			Create_Wave(vPos);
 	}
 	m_fMoveTime += 10 * fTimeDelta;
 
@@ -284,6 +306,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			if (m_bAttack[0]&&m_fMoveTime > 10.f)
 			{
 				Create_Fist(false, 5);
+				Create_Wave(m_vRandomPos[1]);
 				m_bAttack[0] = false;
 			}
 			if (m_bAttack[1] && m_fMoveTime > 15.f)
@@ -327,7 +350,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			memset(m_bAttack, 1, sizeof(bool) * 6);
 			m_iActiveArm += 2;
 			m_bLockon = false;
-			//m_tStat.iHp -= 2;
+			m_tStat.iHp -= 1;
 			if (m_iActiveArm > 5)
 			{
 				m_vecParts[LEFTARM0]->Set_Active(true);
@@ -416,6 +439,18 @@ void CSunGollem::Create_Fist(bool _BummerFist, _int _iSrc)
 	pLayer->Add_GameObject(L"GolemFist", pGolemFist);
 
 }
+void CSunGollem::Create_Wave(_vec3 vPos)
+{
+	vPos.y = 0.01f;
+	CSludgeWave* pSludgeWave = CSludgeWave::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pSludgeWave, );
+	pSludgeWave->Get_TransformCom()->Set_Pos(&vPos);
+	pSludgeWave->Set_Atk(m_tStat.iAttack);
+	pSludgeWave->Set_Wave(10);
+	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+	pLayer->Add_GameObject(L"SludgeWave", pSludgeWave);
+}
+
 HRESULT CSunGollem::Ready_Parts(void) 
 {
 	_vec3 vPos, vAxisZ;

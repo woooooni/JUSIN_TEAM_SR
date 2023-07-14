@@ -253,14 +253,13 @@ HRESULT CLogo::Ready_Layer_Monster()
 	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
 	//
-	/*CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);*/
-
 	pLayer->Ready_Layer();
 
 	return S_OK;

@@ -64,6 +64,7 @@ private:
 	MONSTERSTAT m_tStat;
 private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);
+	void Create_Wave(_vec3 vPos);
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
@@ -73,10 +74,10 @@ protected:
 	_vec3 m_vTargetPos = {};
 	_int m_iRand = 1;
 	_int m_iActiveArm = 2;
+	bool m_bSummon[3];
 	bool m_bAttack[6];
 	bool m_bLockon = false;
 	bool m_bDirty = false;
-
 protected:
 	virtual void Free() override;
 	

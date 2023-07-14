@@ -76,14 +76,9 @@ void CPlantCannon::Update_Attack(_float fTimeDelta)
 			m_bShoot = false;
 		
 	}
-	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+	if (m_pAnimator->GetCurrAnimation()->Get_Idx()==9)
 	{
 		m_bShoot = true;
-		if (m_bRight)
-			Set_Right(false);
-		else
-			Set_Right(true);
-
 	}
 }
 

@@ -63,7 +63,7 @@
 #include "Item_Hat_Mask.h"
 #include "Item_Hat_Missile.h"
 
-#include "FistEffect.h"
+
 #include	"PlantCannon.h"
 
 class CLogo : public Engine::CScene

@@ -286,6 +286,9 @@
     <Filter Include="02. GameObject\02. Monster\05. PlantCannon\PlantBall">
       <UniqueIdentifier>{b64c1e57-5f0e-471b-810c-abd4f3dc77d1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\07. Wave">
+      <UniqueIdentifier>{8d38a460-47ba-48b3-ab55-53fb120be044}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -622,6 +625,9 @@
     <ClInclude Include="..\Header\PlantBall.h">
       <Filter>02. GameObject\02. Monster\05. PlantCannon\PlantBall</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\SludgeWave.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\07. Wave</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -941,6 +947,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\PlantBall.cpp">
       <Filter>02. GameObject\02. Monster\05. PlantCannon\PlantBall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SludgeWave.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\07. Wave</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
