@@ -446,7 +446,7 @@ void CSunGollem::Create_Wave(_vec3 vPos)
 	NULL_CHECK_RETURN(pSludgeWave, );
 	pSludgeWave->Get_TransformCom()->Set_Pos(&vPos);
 	pSludgeWave->Set_Atk(m_tStat.iAttack);
-	pSludgeWave->Set_Wave(10);
+	pSludgeWave->Set_Wave(20);
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 	pLayer->Add_GameObject(L"SludgeWave", pSludgeWave);
 }

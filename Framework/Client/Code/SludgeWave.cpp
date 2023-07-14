@@ -35,7 +35,7 @@ _int CSludgeWave::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	if (m_fMoveTime < 8.f&&m_bDuplicate)
+	if (m_fMoveTime < 9.9f&&m_bDuplicate)
 	{
 		Create_Wave();
 		m_bDuplicate = false;
@@ -46,7 +46,7 @@ _int CSludgeWave::Update_Object(const _float& fTimeDelta)
 			Set_Active(false);
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime -= 10.f * fTimeDelta;
+	m_fMoveTime -= 5.f * fTimeDelta;
 	return iExit;
 }
 
@@ -60,11 +60,12 @@ void CSludgeWave::LateUpdate_Object(void)
 void CSludgeWave::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	
+	_int iAlpha = int(254.f * 0.1f * m_fMoveTime);
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(iAlpha, 255, 255, 255));
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
-	
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 HRESULT CSludgeWave::Add_Component(void)
@@ -115,7 +116,7 @@ void CSludgeWave::Create_Wave()
 		return;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos.z -= 1.f;
+	vPos.z -= 0.5f;
 	CSludgeWave* pSludgeWave = CSludgeWave::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSludgeWave, );
 	pSludgeWave->Get_TransformCom()->Set_Pos(&vPos);
