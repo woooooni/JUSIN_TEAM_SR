@@ -16,6 +16,7 @@ HRESULT Engine::CLightMgr::Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	const D3DLIGHT9* pLightInfo,
 	const _uint& iIndex)
 {
+
 	CLight* pLight = CLight::Create(pGraphicDev, pLightInfo, iIndex);
 	NULL_CHECK_RETURN(pLight, E_FAIL);
 

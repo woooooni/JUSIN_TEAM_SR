@@ -98,7 +98,7 @@ HRESULT CMainApp::Ready_Default_RenderState()
 	if (nullptr == m_pGraphicDev)
 		return E_FAIL;
 
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	return S_OK;
 }
