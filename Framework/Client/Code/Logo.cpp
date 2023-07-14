@@ -4,6 +4,7 @@
 #include "../Include/stdafx.h"
 #include "SkyBox.h"
 #include	"JellyBombCreator.h"
+#include	"Pool.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -36,6 +37,10 @@ HRESULT CLogo::Ready_Scene()
 	vp.MaxZ = 1.0f;
 
 	m_pGraphicDev->SetViewport(&vp);
+
+	CPool<CJellyStone>::Ready_Pool(m_pGraphicDev, 0);
+	CPool<CJellyCombined>::Ready_Pool(m_pGraphicDev, 0);
+	CPool<CJellyBomb>::Ready_Pool(m_pGraphicDev, 0);
 
 	return S_OK;
 }

@@ -2,6 +2,7 @@
 #include "Export_Function.h"
 #include	"JellyStone.h"
 #include	<time.h>
+#include	"Pool.h"
 
 CJellyCombined::CJellyCombined(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::JELLY_COMBINED), m_eColor(JELLY_COLLOR_COMBINE::JELLY_COMBINEEND)
 {
@@ -22,7 +23,11 @@ HRESULT CJellyCombined::Ready_Object(void)
 {
 	FAILED_CHECK(Ready_Component());
 
-	
+	CComponent* pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].insert({ COMPONENT_TYPE::COM_RIGIDBODY, pComponent });
+
 	Set_MinHeight(0.5f);
 
 	return S_OK;
@@ -71,19 +76,21 @@ CJellyCombined* CJellyCombined::Create(LPDIRECT3DDEVICE9 p_Dev, JELLY_COLLOR_COM
 	}
 
 	ret->m_eColor = p_Color;
+	ret->m_pAnimator->Add_Animation(L"Red", L"Proto_Tex_Jelly_Red", 1.f);
+	ret->m_pAnimator->Add_Animation(L"Green", L"Proto_Tex_Jelly_Green", 1.f);
+	ret->m_pAnimator->Add_Animation(L"Blue", L"Proto_Tex_Jelly_Blue", 1.f);
+
+
 	switch (ret->m_eColor)
 	{	
 	case JELLY_COLLOR_COMBINE::RED :
-		ret->m_pAnimator->Add_Animation(L"Red", L"Proto_Tex_Jelly_Red", 1.f);
 		ret->m_pAnimator->Play_Animation(L"Red", false);
 		break;
 	case JELLY_COLLOR_COMBINE::GREEN:
-		ret->m_pAnimator->Add_Animation(L"Green", L"Proto_Tex_Jelly_Green", 1.f);
 		ret->m_pAnimator->Play_Animation(L"Green", false);
 
 		break;
 	case JELLY_COLLOR_COMBINE::BLUE:
-		ret->m_pAnimator->Add_Animation(L"Blue", L"Proto_Tex_Jelly_Blue", 1.f);
 		ret->m_pAnimator->Play_Animation(L"Blue", false);
 
 		break;
@@ -140,10 +147,7 @@ HRESULT CJellyCombined::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
-	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
 
 
 	return S_OK;
@@ -160,173 +164,94 @@ void CJellyCombined::Event_End(_uint iEventNum)
 
 CGameObject* CJellyCombined::Get_GrabObj()
 {
-	Set_Active(false);
+	CPool<CJellyCombined>::Return_Obj(this);
 
-	vector<CGameObject*>& src = Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Get_GameObjectVec();
-
-	_vec3	dst;
+	_vec3 dst;
 
 	m_pTransformCom->Get_Info(INFO_POS, &dst);
 
-
-	auto iter = find_if(src.begin(), src.end(), [&](auto A)->bool
-		{
-			CJellyStone* src;
-
-			return ((src = dynamic_cast<CJellyStone*>(A)) && Check_Child(src->Get_JellyColor()) && !src->Is_Active());
-		});
-
-	if (iter == src.end())
+	CJellyStone* iter = dynamic_cast<CJellyStone*>(CPool<CJellyStone>::Get_Obj());
+	if (iter == nullptr)
 	{
-		CJellyStone* tmp;
-		CJellyStone* src;
-
-		srand(unsigned(time(NULL)));
-		switch (m_eColor)
-		{
-		case Engine::JELLY_COLLOR_COMBINE::BLUE:
-
-			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
-			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", tmp);
-
-			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
-			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", src);
-			if (rand() % 2)
-			{
-				return tmp;
-			}
-			else
-				return src;
-
-
-			break;
-		case Engine::JELLY_COLLOR_COMBINE::GREEN:
-			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
-			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", tmp);
-
-			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
-			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", src);
-			if (rand() % 2)
-			{
-				return tmp;
-			}
-			else
-				return src;
-			break;
-		case Engine::JELLY_COLLOR_COMBINE::RED:
-			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
-			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", tmp);
-
-			src = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
-			NULL_CHECK_RETURN_MSG(src, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", src);
-			if (rand() % 2)
-			{
-				return tmp;
-			}
-			else
-				return src;
-			break;
-		case Engine::JELLY_COLLOR_COMBINE::JELLY_COMBINEEND:
-			return nullptr;
-		default:
-			return nullptr;
-		}
+		iter = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::JELLY_NORMALEND);
+		NULL_CHECK_RETURN_MSG(iter, nullptr, L"JellyGrabFailed");
+		Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Normal", iter);
 	}
 
-	auto tmp = find_if(src.begin(), src.end(), [&](auto A)->bool
+	CJellyStone* tmp = dynamic_cast<CJellyStone*>(CPool<CJellyStone>::Get_Obj());
+	if (tmp == nullptr)
 		{
-			CJellyStone* src;
-			return ((src = dynamic_cast<CJellyStone*>(A)) && ((_uint)src->Get_JellyColor() == ((_uint)m_eColor - (_uint)dynamic_cast<CJellyStone*>(*iter)->Get_JellyColor())) && !src->Is_Active());
-		});
-
-
-	if (tmp == src.end())
-	{
-		CJellyStone* jel1;
-		CJellyStone* jel2;
-
-		
-		srand(unsigned(time(NULL)));
-		switch (m_eColor)
-		{
-		case Engine::JELLY_COLLOR_COMBINE::BLUE:
-
-			jel1 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
-			NULL_CHECK_RETURN_MSG(jel1, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel1);
-
-			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
-			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel2);
-			if (rand() % 2)
-			{
-				return jel1;
-			}
-			else
-				return jel2;			
-			break;
-
-		case JELLY_COLLOR_COMBINE::GREEN:
-			jel1 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, dst);
-			NULL_CHECK_RETURN_MSG(jel1, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel1);
-
-			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
-			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel2);
-			if (rand() % 2)
-			{
-				return jel1;
-			}
-			else
-				return jel2;
-
-			break;
-		case Engine::JELLY_COLLOR_COMBINE::RED:
-			jel1 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, dst);
-			NULL_CHECK_RETURN_MSG(jel1, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel1);
-
-			jel2 = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, dst);
-			NULL_CHECK_RETURN_MSG(jel2, nullptr, L"Jellystone Create Failed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyStone", jel2);
-			if (rand() % 2)
-			{
-				return jel1;
-			}
-			else
-				return jel2;
-
-		break;		
-		case Engine::JELLY_COLLOR_COMBINE::JELLY_COMBINEEND:
-			return nullptr;
-		default:
-			return nullptr;
+			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::JELLY_NORMALEND);
+			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"JellyGrabFailed");
+			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Normal", tmp);
 		}
 
+
+
+	(iter)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.z));
+	(tmp)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.z));
+	(iter)->Set_Active(true);
+	(tmp)->Set_Active(true);
+	iter->Set_Created_False();
+	tmp->Set_Created_False();
+
+	switch (m_eColor)
+	{
+	case Engine::JELLY_COLLOR_COMBINE::BLUE:
+		iter->Set_Color(JELLY_COLLOR_NORMAL::CYAN);
+		tmp->Set_Color(JELLY_COLLOR_NORMAL::MAGENTA);
+		break;
+	case Engine::JELLY_COLLOR_COMBINE::GREEN:
+		iter->Set_Color(JELLY_COLLOR_NORMAL::CYAN);
+		tmp->Set_Color(JELLY_COLLOR_NORMAL::YELLOW);
+
+		break;
+	case Engine::JELLY_COLLOR_COMBINE::RED:
+		iter->Set_Color(JELLY_COLLOR_NORMAL::YELLOW);
+		tmp->Set_Color(JELLY_COLLOR_NORMAL::MAGENTA);
+
+		break;
+	case Engine::JELLY_COLLOR_COMBINE::JELLY_COMBINEEND:
+		MSG_BOX("Grab Failed");
+		return nullptr;
+	default:
+		MSG_BOX("Grab Failed");
+		return nullptr;
 	}
 
-	(*iter)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.y));
-	(*tmp)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.y));
-	(*iter)->Set_Active(true);
-	(*tmp)->Set_Active(true);
-	dynamic_cast<CJellyStone*>(*iter)->Set_Created_False();
-	dynamic_cast<CJellyStone*>(*tmp)->Set_Created_False();
-
-
-	return *iter;
-
+	if (rand() % 2)
+		return iter;
+	else
+		return tmp;
 }
 
 void CJellyCombined::Set_SubscribeEvent(_uint pEvent)
 {
 	Add_Subscribe(pEvent, this);
+}
+
+void CJellyCombined::Set_JellyColor(const JELLY_COLLOR_COMBINE& pColor)
+{
+	m_eColor = pColor;
+
+	switch (m_eColor)
+	{
+	case JELLY_COLLOR_COMBINE::RED:
+
+		m_pAnimator->Play_Animation(L"Red", false);
+		break;
+	case JELLY_COLLOR_COMBINE::GREEN:
+		m_pAnimator->Play_Animation(L"Green", false);
+
+		break;
+	case JELLY_COLLOR_COMBINE::BLUE:
+		m_pAnimator->Play_Animation(L"Blue", false);
+
+	case Engine::JELLY_COLLOR_COMBINE::JELLY_COMBINEEND:
+		break;
+	default:
+		break;
+	}
 }
 
 bool CJellyCombined::Check_Child(const JELLY_COLLOR_NORMAL& pColor)
