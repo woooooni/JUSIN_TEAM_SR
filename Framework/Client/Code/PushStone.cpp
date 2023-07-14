@@ -4,7 +4,7 @@
 
 CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev, OBJ_ID::PUSH_STONE) , m_bIsFlying(false)
 {
-
+	m_tInfo.m_bIsPushable = true;
 }
 
 CPushStone::CPushStone(const CPushStone& rhs) : CFieldObject(rhs), m_bIsFlying(rhs.m_bIsFlying)
@@ -20,12 +20,12 @@ HRESULT CPushStone::Ready_Object(void)
 
 	FAILED_CHECK(Ready_Component());
 
-	CComponent* pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_DYNAMIC].insert({ COMPONENT_TYPE::COM_RIGIDBODY, pComponent });
 
 	Set_MinHeight(0.5f);
+
+	m_pRigidBodyCom->SetMass(10.f);
+	m_pRigidBodyCom->SetMaxVelocity(10000.f);
+	m_pRigidBodyCom->SetFricCoeff(999.f);
 
     return S_OK;
 }
@@ -41,8 +41,6 @@ _int CPushStone::Update_Object(const _float& fTimeDelta)
 		if (m_bIsFlying && m_pRigidBodyCom->IsGround())
 		{
 			m_bIsFlying = false;
-			m_pRigidBodyCom->SetVelocity({ 0, 0, 0 });
-			m_pRigidBodyCom->SetGround(true);
 		}
 
 	}
@@ -98,7 +96,7 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 
 void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
 		return;
 
 	if(!m_bIsFlying)
