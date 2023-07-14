@@ -27,6 +27,7 @@ HRESULT CTree::Ready_Object(void)
 _int CTree::Update_Object(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Set_Billboard();
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }
@@ -38,8 +39,6 @@ void CTree::LateUpdate_Object(void)
 
 void CTree::Render_Object(void)
 {
-	Set_Billboard();
-
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	m_pTextureCom->Render_Texture();

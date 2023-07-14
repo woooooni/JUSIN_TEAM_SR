@@ -241,15 +241,13 @@ void CPlayer::Render_Object(void)
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-
 	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
 	{
 		m_pCollider[i]->Render_Component();
 	}
+
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
-
-	
 }
 
 
