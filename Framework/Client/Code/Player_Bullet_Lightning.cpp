@@ -1,15 +1,14 @@
 #include "Player_Bullet_Lightning.h"
 
 #include "Export_Function.h"
-#include "Bullet.h"
 #include "Collider.h"
 
 #include "Scene.h"
 #include "Terrain.h"
 
 
-CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::PLAYER_SKILL),
+CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
+	: CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL, _pOwner),
 	m_fLightningTime(0.1f),
 	m_fAccLightningTime(0.0f),
 	m_fNextTime(0.2f),
@@ -19,7 +18,7 @@ CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev
 }
 
 CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(const CPlayer_Bullet_Lightning& rhs)
-	: Engine::CGameObject(rhs),
+	: CBullet(rhs),
 	m_fLightningTime(rhs.m_fLightningTime),
 	m_fAccLightningTime(rhs.m_fAccLightningTime),
 	m_fNextTime(rhs.m_fNextTime),
@@ -153,7 +152,7 @@ HRESULT CPlayer_Bullet_Lightning::ShootNext()
 
 	if (!pLightning)
 	{
-		pLightning = Create(m_pGraphicDev);
+		pLightning = Create(m_pGraphicDev, m_pOwner);
 		NULL_CHECK_RETURN(pLightning, E_FAIL);
 		FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Lightning", pLightning), E_FAIL);
 		pLightning->Set_Active(true);
@@ -182,9 +181,9 @@ void CPlayer_Bullet_Lightning::Collision_Exit(CCollider* pCollider, COLLISION_GR
 {
 }
 
-CPlayer_Bullet_Lightning* CPlayer_Bullet_Lightning::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CPlayer_Bullet_Lightning* CPlayer_Bullet_Lightning::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
 {
-	CPlayer_Bullet_Lightning* pInstance = new CPlayer_Bullet_Lightning(pGraphicDev);
+	CPlayer_Bullet_Lightning* pInstance = new CPlayer_Bullet_Lightning(pGraphicDev, _pOwner);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

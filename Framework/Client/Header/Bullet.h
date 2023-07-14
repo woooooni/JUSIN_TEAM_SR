@@ -14,8 +14,10 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
+
+	CGameObject*	Get_Owner() { return m_pOwner; }
+	void			Set_Owmer(CGameObject* _pOwner) { m_pOwner = _pOwner; }
 protected:
-	virtual HRESULT	Add_Component(void);
 
 protected:
 

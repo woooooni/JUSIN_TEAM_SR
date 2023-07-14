@@ -10,7 +10,8 @@ CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, CGameObject* _pOwne
 }
 
 CBullet::CBullet(const CBullet& rhs)
-	: CGameObject(rhs)
+	: CGameObject(rhs),
+	m_pOwner(rhs.m_pOwner)
 {
 }
 
@@ -20,27 +21,26 @@ CBullet::~CBullet()
 
 HRESULT CBullet::Ready_Object(void)
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 _int CBullet::Update_Object(const _float& fTimeDelta)
 {
-	return _int();
+	return __super::Update_Object(fTimeDelta);
 }
 
 void CBullet::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CBullet::Render_Object(void)
 {
+	__super::Render_Object();
 }
 
-HRESULT CBullet::Add_Component(void)
-{
-	return E_NOTIMPL;
-}
 
 void CBullet::Free()
 {
+	__super::Free();
 }

@@ -128,7 +128,7 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 
 	if (!pBomb)
 	{
-		pBomb = CPlayer_Bullet_Bomb::Create(Engine::Get_Device());
+		pBomb = CPlayer_Bullet_Bomb::Create(Engine::Get_Device(),m_pOwner);
 		NULL_CHECK_RETURN(pBomb, E_FAIL);
 		FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Bomb", pBomb), E_FAIL);
 		pBomb->Set_Active(true);

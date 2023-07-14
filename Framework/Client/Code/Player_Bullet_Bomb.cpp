@@ -9,14 +9,14 @@
 
 
 
-CPlayer_Bullet_Bomb::CPlayer_Bullet_Bomb(LPDIRECT3DDEVICE9 pGraphicDev)
-	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::PLAYER_SKILL),
+CPlayer_Bullet_Bomb::CPlayer_Bullet_Bomb(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
+	: CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL, _pOwner),
 	m_fMovePower(0.0f)
 {
 }
 
 CPlayer_Bullet_Bomb::CPlayer_Bullet_Bomb(const CPlayer_Bullet_Bomb& rhs)
-	: Engine::CGameObject(rhs),
+	: CBullet(rhs),
 	m_fMovePower(rhs.m_fMovePower)
 {
 }
@@ -237,9 +237,9 @@ void CPlayer_Bullet_Bomb::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _
 {
 }
 
-CPlayer_Bullet_Bomb* CPlayer_Bullet_Bomb::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CPlayer_Bullet_Bomb* CPlayer_Bullet_Bomb::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
 {
-	CPlayer_Bullet_Bomb* pInstance = new CPlayer_Bullet_Bomb(pGraphicDev);
+	CPlayer_Bullet_Bomb* pInstance = new CPlayer_Bullet_Bomb(pGraphicDev, _pOwner);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
