@@ -23,6 +23,7 @@
 #include "SunGollem.h"
 #include "SilkWorm.h"
 #include "House.h"
+#include "Prop.h"
 
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -426,7 +427,9 @@ void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 		case OBJ_ID::HOUSE:
 			pObj = CHouse::Create(m_pGraphicDev);
 			break;
-
+		case OBJ_ID::PROP:
+			pObj = CProp::Create(m_pGraphicDev);
+			break;
 		default:
 			continue;
 		}

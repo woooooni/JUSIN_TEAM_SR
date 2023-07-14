@@ -55,8 +55,6 @@ Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 
 void CLogo::LateUpdate_Scene()
 {
-
-
 	__super::LateUpdate_Scene();
 }
 
@@ -451,11 +449,6 @@ HRESULT CLogo::Ready_Layer_UI()
 	NULL_CHECK_RETURN(pUI_Cursor, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cursor", pUI_Cursor), E_FAIL);
 
-	// UI
-	//CUI* pUI = CUI::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pUI, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
-
 	CNPCText* pTextBox = CNPCText::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTextBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
@@ -475,10 +468,6 @@ HRESULT CLogo::Ready_Layer_UI()
 	CIcon* pIconQuest = CIcon::Create(m_pGraphicDev, ICONTYPE::QUEST);
 	NULL_CHECK_RETURN(pIconQuest, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconQuest), E_FAIL);
-
-	//	CIcon* pTotem1 = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP);
-	//	NULL_CHECK_RETURN(pTotem1, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Totem1", pTotem1), E_FAIL);
 
 	CUI_HPBar* pHPBar = CUI_HPBar::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pHPBar, E_FAIL);

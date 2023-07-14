@@ -20,6 +20,7 @@
 #include "SunGollem.h"
 #include "SilkWorm.h"
 #include "House.h"
+#include "Prop.h"
 
 IMPLEMENT_SINGLETON(CImGuiMgr)
 CImGuiMgr::CImGuiMgr()
@@ -182,10 +183,9 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 
 		m_pSelectedObject->Update_Object(0.f);
 		m_pSelectedObject->LateUpdate_Object();
-		m_pSelectedObject->Render_Object();
+		
 
 		OBJ_TYPE eObjType = m_pSelectedObject->GetObj_Type();
-
 		if (eObjType == OBJ_TYPE::OBJ_MONSTER || eObjType == OBJ_TYPE::OBJ_ENVIRONMENT)
 			SetAutoY(m_pSelectedObject);
 	}
@@ -320,6 +320,28 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		}
 		ImGui::EndTabItem();
 	}
+
+	if (ImGui::BeginTabItem("Prop"))
+	{
+		CTexture* pPropTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Prop"));
+		if (pPropTex != nullptr)
+		{
+			for (size_t i = 0; i < pPropTex->Get_Size(); ++i)
+			{
+				if (i % 4 != 0)
+					ImGui::SameLine();
+
+				if (ImGui::ImageButton(pPropTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
+				{
+					ResetSelectTarget();
+					m_pSelectedObject = CProp::Create(m_pGraphicDev);
+					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
+				}
+			}
+		}
+		ImGui::EndTabItem();
+	}
+
 	
 	ImGui::EndTabBar();
 }
@@ -357,6 +379,7 @@ void CImGuiMgr::UpdateMapTool(const _float& fTimeDelta)
 
 void CImGuiMgr::UpdateTileTool(const _float& fTimeDelta)
 {
+
 }
 
 void CImGuiMgr::ResetSelectTarget()
@@ -378,7 +401,6 @@ void CImGuiMgr::SetAutoY(CGameObject* pObj)
 	if (pObj)
 	{
 		CTransform* pTransform = pObj->Get_TransformCom();
-		CTexture* pTexture = pObj->Get_TextureCom();
 		
 		_vec3 vPos;
 		_vec3 vScale = pTransform->Get_Scale();
@@ -472,6 +494,13 @@ void CImGuiMgr::CreateObj(_vec3& vHit)
 		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
 		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
 		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"House" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::PROP:
+		pCloneObj = CProp::Create(m_pGraphicDev);
+		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
+		pCloneObj->Get_TextureCom()->Set_Idx(m_pSelectedObject->Get_TextureCom()->Get_Idx());
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Prop" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
 	default :

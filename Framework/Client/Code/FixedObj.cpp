@@ -9,10 +9,12 @@ CFixedObj::CFixedObj(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID eID)
 CFixedObj::CFixedObj(const CFixedObj& rhs)
     :CGameObject(rhs)
 {
+
 }
 
 CFixedObj::~CFixedObj()
 {
+
 }
 
 HRESULT CFixedObj::Ready_Object(void)
@@ -22,9 +24,9 @@ HRESULT CFixedObj::Ready_Object(void)
 
 _int CFixedObj::Update_Object(const _float& fTimeDelta)
 {
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	__super::Update_Object(fTimeDelta);
-    return S_OK;
+
+	return S_OK;
 }
 
 void CFixedObj::LateUpdate_Object(void)
@@ -35,8 +37,6 @@ void CFixedObj::LateUpdate_Object(void)
 void CFixedObj::Render_Object(void)
 {
 	__super::Render_Object();
-	m_pTextureCom->Render_Texture();
-	m_pBufferCom->Render_Buffer();
 }
 
 

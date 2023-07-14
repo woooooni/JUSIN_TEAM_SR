@@ -46,9 +46,10 @@ void CTile::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-	__super::Render_Object();
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
+
+	__super::Render_Object();
 }
 
 HRESULT CTile::Ready_Component()

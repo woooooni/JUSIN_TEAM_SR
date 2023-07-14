@@ -142,8 +142,8 @@ void CCamera::Follow(const _float& fTimeDelta)
 
 	D3DXVec3Normalize(&vDir, &vDir);
 	vCameraPos.x = vTargetPos.x;
-	vCameraPos.y = vTargetPos.y + 5.f;
-	vCameraPos.z = vTargetPos.z - 10.f;
+	vCameraPos.y = vTargetPos.y + 15.f;
+	vCameraPos.z = vTargetPos.z - 20.f;
 
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
 
@@ -161,10 +161,10 @@ void CCamera::Update_GameCamera(const _float& fTimeDelta)
 	ZeroMemory(&vLook, sizeof(_vec3));
 	ZeroMemory(&vUp, sizeof(_vec3));
 
-	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_POS, &vPos);
 	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_RIGHT, &vRight);
 	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_UP, &vUp);
 	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_LOOK, &vLook);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_POS, &vPos);
 
 	D3DXMatrixLookAtLH(&m_matView, &vPos, &vLook, &vUp);
 	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DX_PI / m_fFov, WINCX / WINCY, m_fNear, m_fFar);

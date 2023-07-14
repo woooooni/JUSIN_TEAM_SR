@@ -127,15 +127,17 @@ void CGameObject::Set_Billboard()
 	D3DXMatrixInverse(&matView, nullptr, &matView);
 
 	_vec3 vCameraPos = _vec3(matView._41, matView._42, matView._43);
-	_vec3 vObjPos, vObjUp;
+	_vec3 vObjPos, vObjUp = { 0.f, 1.f, 0.f };
 	m_pTransformCom->Get_Info(INFO_UP, &vObjUp);
 	m_pTransformCom->Get_Info(INFO_POS, &vObjPos);
 
 	_vec3 vDir = vObjPos - vCameraPos;
 	_vec3 vRight, vLook;
+
 	D3DXVec3Normalize(&vDir, &vDir);
 	D3DXVec3Cross(&vRight, &vObjUp, &vDir);
 	D3DXVec3Cross(&vLook, &vRight, &vObjUp);
+
 	m_pTransformCom->Set_Info(INFO_RIGHT, &(vRight));
 	m_pTransformCom->Set_Info(INFO_LOOK, &(vLook));
 
