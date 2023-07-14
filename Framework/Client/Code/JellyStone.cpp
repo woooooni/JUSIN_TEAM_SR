@@ -22,9 +22,6 @@ HRESULT CJellyStone::Ready_Object(void)
 {
 	FAILED_CHECK(Ready_Component());
 
-	CComponent* pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	m_mapComponent->insert({ COMPONENT_TYPE::COM_RIGIDBODY, pComponent });
 		
 	Set_MinHeight(0.5f);
 
@@ -195,7 +192,10 @@ HRESULT CJellyStone::Ready_Component()
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
 
-
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
 	return S_OK;
 

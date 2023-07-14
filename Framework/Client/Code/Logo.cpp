@@ -398,9 +398,9 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pJelCreat, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pJelCreat), E_FAIL);
 
-	CGrass* pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::GLOWING_REED_RED, 0, { 3, 0, 1 });
+	/*CGrass* pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::GLOWING_REED_RED, 0, { 3, 0, 1 });
 	NULL_CHECK_RETURN(pGrass, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);*/
 
 
 	pLayer->Ready_Layer();
