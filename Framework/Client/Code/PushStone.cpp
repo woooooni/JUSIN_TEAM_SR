@@ -2,12 +2,12 @@
 #include "PushStone.h"
 #include "Export_Function.h"
 
-CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CPushableObj(pDev, OBJ_ID::PUSH_STONE) , m_bIsFlying(false)
+CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev, OBJ_ID::PUSH_STONE) , m_bIsFlying(false)
 {
-
+	m_tInfo.m_bIsPushable = true;
 }
 
-CPushStone::CPushStone(const CPushStone& rhs) : CPushableObj(rhs), m_bIsFlying(rhs.m_bIsFlying)
+CPushStone::CPushStone(const CPushStone& rhs) : CFieldObject(rhs), m_bIsFlying(rhs.m_bIsFlying)
 {
 }
 
@@ -18,8 +18,14 @@ CPushStone::~CPushStone()
 HRESULT CPushStone::Ready_Object(void)
 {
 
-	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
+	FAILED_CHECK(Ready_Component());
 
+
+	Set_MinHeight(0.5f);
+
+	m_pRigidBodyCom->SetMass(10.f);
+	m_pRigidBodyCom->SetMaxVelocity(10000.f);
+	m_pRigidBodyCom->SetFricCoeff(999.f);
 
     return S_OK;
 }
@@ -35,16 +41,14 @@ _int CPushStone::Update_Object(const _float& fTimeDelta)
 		if (m_bIsFlying && m_pRigidBodyCom->IsGround())
 		{
 			m_bIsFlying = false;
-			m_pRigidBodyCom->SetVelocity({ 0, 0, 0 });
-			m_pRigidBodyCom->SetGround(true);
 		}
 
 	}
 
-	__super::Update_Object(fTimeDelta);
 
 	
-    return 0;
+    return	__super::Update_Object(fTimeDelta);
+	
 }
 
 void CPushStone::LateUpdate_Object(void)
@@ -66,10 +70,6 @@ void CPushStone::Render_Object(void)
 }
 
 
-void CPushStone::Push_Obj(const _vec3& pDirection)
-{
-
-}
 
 void CPushStone::Free()
 {
@@ -96,7 +96,7 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 
 void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
 		return;
 
 	if(!m_bIsFlying)

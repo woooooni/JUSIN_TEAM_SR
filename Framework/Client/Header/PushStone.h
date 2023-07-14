@@ -1,5 +1,5 @@
 #pragma once
-#include "PushableObj.h"
+#include "FieldObject.h"
 
 BEGIN(Engine)
 
@@ -11,7 +11,7 @@ class CCubeTex;
 
 END
 
-class CPushStone : public CPushableObj
+class CPushStone : public CFieldObject
 {
     CLONE(CPushStone)
 private:
@@ -27,9 +27,6 @@ public:
 
     virtual void    Free() override;
 
-
-    // CInteractiveObj을(를) 통해 상속됨
-    virtual void Push_Obj(const _vec3& pDirection) override;
 
 
     static      CPushStone* Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev);

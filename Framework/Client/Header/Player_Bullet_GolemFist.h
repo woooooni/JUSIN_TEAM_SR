@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "Bullet.h"
 
 BEGIN(Engine)
 
@@ -12,11 +12,11 @@ class CAnimator;
 
 END
 
-class CPlayer_Bullet_GolemFist : public CGameObject
+class CPlayer_Bullet_GolemFist : public CBullet
 {
 	CLONE(CPlayer_Bullet_GolemFist)
 private:
-	explicit CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
 	explicit CPlayer_Bullet_GolemFist(const CPlayer_Bullet_GolemFist& rhs);
 	virtual ~CPlayer_Bullet_GolemFist();
 
@@ -42,7 +42,7 @@ public:
 private:
 
 public:
-	static CPlayer_Bullet_GolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CPlayer_Bullet_GolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
 
 private:
 

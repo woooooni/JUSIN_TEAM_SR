@@ -109,6 +109,13 @@ void CHitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 	switch (m_eHitType)
 	{
 	case Engine::OBJ_HITTYPE::HIT_ONCE:
+
+		if (m_bHitted)
+			return;
+		else
+			m_bHitted = true;
+
+
 	case Engine::OBJ_HITTYPE::HIT_REPEAT:
 
 		Check_Event_Start(m_iEventNum);

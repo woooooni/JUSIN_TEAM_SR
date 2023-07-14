@@ -130,7 +130,7 @@ HRESULT CPlayer_Skill_Lightning::Shoot(void)
 
 	if (!pLightning)
 	{
-		pLightning = CPlayer_Bullet_Lightning::Create(Engine::Get_Device());
+		pLightning = CPlayer_Bullet_Lightning::Create(Engine::Get_Device(), m_pOwner);
 		NULL_CHECK_RETURN(pLightning, E_FAIL);
 		FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Lightning", pLightning), E_FAIL);
 		pLightning->Set_Active(true);

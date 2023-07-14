@@ -33,6 +33,29 @@ _int CButterFly::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
 
+	_vec3 playerPos, myPos;
+
+	Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")->Get_TransformCom()->Get_Info(INFO_POS, &playerPos);
+	m_pTransformCom->Get_Info(INFO_POS, &myPos);
+
+	playerPos.y = 0;
+	myPos.y = 0;
+
+	if (D3DXVec3Length(&(playerPos - myPos)) < 5.f)
+	{
+		_vec3 dir;
+		m_vMovingDir = *D3DXVec3Normalize(&dir, &((playerPos - myPos) * -1.f));
+
+		_vec3 scale;
+		m_pTransformCom->Get_Info(INFO_UP, &scale);
+
+		if (m_vMovingDir.x >= 0.f && scale.y < 0)
+			m_pTransformCom->Set_Scale({ 1, -1, 1 });
+		else if (m_vMovingDir.x < 0.f && scale.y >= 0)
+			m_pTransformCom->Set_Scale({ 1, -1, 1 });
+
+	}
+
 	if (m_fChangeTime >= 0)
 	{
 		m_fChangeTime -= fTimeDelta;

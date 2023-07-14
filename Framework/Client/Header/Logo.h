@@ -42,6 +42,7 @@
 #include	"ButterFly.h"
 #include	"JellyBomb.h"
 #include	"JellyBombCreator.h"
+#include	"Grass.h"
 
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"

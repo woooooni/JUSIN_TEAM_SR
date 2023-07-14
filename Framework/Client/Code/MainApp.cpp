@@ -781,6 +781,18 @@ HRESULT CMainApp::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_FlowerMove", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_MoonFlowerReact_%d.png", 18)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_FlowerStop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_MoonFlowerReact_Stop%d.png", 6)), E_FAIL);
 
+
+	/*FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_JungleBushBright", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_JunglePlants_BushBrightGreenLeaf%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_JungleBushDark", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_JunglePlants_BushDarkGreenLeaf%d.png", 7)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_ColorBush", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_LootNaturalObjects_ColorBush%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_HealthBush", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_LootNaturalObjects_HealthBush%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_RoundBush", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_NaturalObjects_LeafRound%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_Sharp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_NaturalObjects_LeafSharp%d.png", 4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_SpeedBush", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_LootNaturalObjects_SpeedBush%d.png", 4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_LongGrass", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_MoonForest_RuinInsideObjects_LongGrass%d.png", 7)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_GlowingPlantsReed", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_MoonForest_GlowingPlants_Reed%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_GlowingPlantsReedRed", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_MoonForest_GlowingPlantsRed_Reed%d.png", 5)), E_FAIL);*/
+
 	return S_OK;
 }
 

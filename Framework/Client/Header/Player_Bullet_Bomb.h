@@ -1,10 +1,10 @@
 #pragma once
-#include "GameObject.h"
-class CPlayer_Bullet_Bomb : public CGameObject
+#include "Bullet.h"
+class CPlayer_Bullet_Bomb : public CBullet
 {
 	CLONE(CPlayer_Bullet_Bomb)
 private:
-	explicit CPlayer_Bullet_Bomb(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CPlayer_Bullet_Bomb(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
 	explicit CPlayer_Bullet_Bomb(const CPlayer_Bullet_Bomb& rhs);
 	virtual ~CPlayer_Bullet_Bomb();
 
@@ -30,7 +30,7 @@ public:
 private:
 
 public:
-	static CPlayer_Bullet_Bomb* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CPlayer_Bullet_Bomb* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
 
 private:
 	 CGameObject* m_pTarget;

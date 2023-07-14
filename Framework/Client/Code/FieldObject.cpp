@@ -53,6 +53,9 @@ void CFieldObject::Push_Me(CCollider* other)
 	if (!other->Is_Active() || !m_pColliderCom->Is_Active())
 		return;
 
+	if (other->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		return;
+
 
 	const _vec3& vLeftScale = ((CBoxCollider*)m_pColliderCom)->Get_Scale();
 	const _vec3& vLeftPos = ((CBoxCollider*)m_pColliderCom)->Get_Pos();
@@ -112,7 +115,10 @@ HRESULT CFieldObject::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
-
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
 
 	return S_OK;

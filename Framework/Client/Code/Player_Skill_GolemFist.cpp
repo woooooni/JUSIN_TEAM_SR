@@ -22,7 +22,7 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 {
 	if (!m_pGolemFist)
 	{
-		CPlayer_Bullet_GolemFist* pGolemFist = CPlayer_Bullet_GolemFist::Create(Engine::Get_Device());
+		CPlayer_Bullet_GolemFist* pGolemFist = CPlayer_Bullet_GolemFist::Create(Engine::Get_Device(), m_pOwner);
 		Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Player_Skill_GolemFist", pGolemFist);
 		m_pGolemFist = pGolemFist;
 	}

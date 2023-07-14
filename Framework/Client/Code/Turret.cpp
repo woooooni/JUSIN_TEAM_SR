@@ -147,7 +147,7 @@ void CTurret::Set_Idle()
 
 void CTurret::Find_Enemy()
 {
-	vector<CGameObject*>& src = Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+	vector<CGameObject*>& src = Get_Layer(LAYER_TYPE::MONSTER)->Get_GameObjectVec();
 
 	m_pTarget = nullptr;
 
