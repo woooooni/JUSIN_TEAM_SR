@@ -8,6 +8,7 @@
 #include "BlueBeatle.h"
 #include "GreenBeatle.h"
 #include "TrashBig.h"
+#include "TrashBummer.h"
 #include "DesertRhino.h"
 #include "SunGollem.h"
 #include "Terrain.h"

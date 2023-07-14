@@ -306,20 +306,21 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 
 	}
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
-	{
-		m_tStat.iHp -= 1;
-		_vec3 vTargetPos;
-		_vec3 vPos;
-		_vec3 vDir;
-		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vDir = vPos - vTargetPos;
-		vDir.y = 0.0f;
-		D3DXVec3Normalize(&vDir, &vDir);
+	if(dynamic_cast<CBugBall*> (pCollider->GetOwner()))
+		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		{
+			m_tStat.iHp -= 1;
+			_vec3 vTargetPos;
+			_vec3 vPos;
+			_vec3 vDir;
+			pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			vDir = vPos - vTargetPos;
+			vDir.y = 0.0f;
+			D3DXVec3Normalize(&vDir, &vDir);
 
-		m_pRigidBodyCom->AddForce(vDir * 70.0f);
-	
-	}
+			m_pRigidBodyCom->AddForce(vDir * 70.0f);
+
+		}
 
 }

@@ -290,6 +290,7 @@
     <ClInclude Include="..\Header\Scene_Tool.h" />
     <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
+    <ClInclude Include="..\Header\SludgeBall.h" />
     <ClInclude Include="..\Header\SpitCactus.h" />
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
@@ -428,6 +429,7 @@
     <ClCompile Include="..\Code\Scene_Tool.cpp" />
     <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
+    <ClCompile Include="..\Code\SludgeBall.cpp" />
     <ClCompile Include="..\Code\SpitCactus.cpp" />
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
