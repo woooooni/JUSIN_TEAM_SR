@@ -318,15 +318,6 @@
     <ClInclude Include="..\Header\PushStone.h">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\AttackableObj.h">
-      <Filter>02. GameObject\07. AttackableObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\PushableObj.h">
-      <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\OnEventObj.h">
-      <Filter>02. GameObject\08. OnEventObj</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\BenchObj.h">
       <Filter>02. GameObject\06. FieldObj\02. BenchObj</Filter>
     </ClInclude>
@@ -615,6 +606,9 @@
     <ClInclude Include="..\Header\Prop.h">
       <Filter>02. GameObject\12. FixedObj\03. Prop</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Bullet.h" />
+    <ClInclude Include="..\Header\TrashBummer.h" />
+    <ClInclude Include="JellyPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -644,15 +638,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\PushStone.cpp">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\AttackableObj.cpp">
-      <Filter>02. GameObject\07. AttackableObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\PushableObj.cpp">
-      <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\OnEventObj.cpp">
-      <Filter>02. GameObject\08. OnEventObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BenchObj.cpp">
       <Filter>02. GameObject\06. FieldObj\02. BenchObj</Filter>
@@ -935,6 +920,8 @@
     <ClCompile Include="..\Code\Prop.cpp">
       <Filter>02. GameObject\12. FixedObj\03. Prop</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Bullet.cpp" />
+    <ClCompile Include="..\Code\TrashBummer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
