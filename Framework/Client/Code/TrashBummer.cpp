@@ -1,79 +1,70 @@
 
-#include "MothMage.h"
+#include "TrashBummer.h"
 #include "BugBall.h"
 #include "Export_Function.h"
 
-CMothMage::CMothMage(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
+CTrashBummer::CTrashBummer(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
 {
 }
 
-CMothMage::CMothMage(const CMothMage& rhs) : CMonster(rhs)
+CTrashBummer::CTrashBummer(const CTrashBummer& rhs) : CMonster(rhs)
 {
 }
 
-CMothMage::~CMothMage()
+CTrashBummer::~CTrashBummer()
 {
 }
 
 
 
-HRESULT CMothMage::Ready_Object(void)
+HRESULT CTrashBummer::Ready_Object(void)
 {
 	m_fMoveTime = 0.f;
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_Down", L"Proto_Texture_MothMage_Idle_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_Up", L"Proto_Texture_MothMage_Idle_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_Left", L"Proto_Texture_MothMage_Idle_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_Right", L"Proto_Texture_MothMage_Idle_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_RightDown", L"Proto_Texture_MothMage_Idle_RightDown", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_RightUp", L"Proto_Texture_MothMage_Idle_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_LeftDown", L"Proto_Texture_MothMage_Idle_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Idle_LeftUp", L"Proto_Texture_MothMage_Move_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_Down", L"Proto_Texture_TrashBummer_Idle_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_Up", L"Proto_Texture_TrashBummer_Idle_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_Left", L"Proto_Texture_TrashBummer_Idle_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_Right", L"Proto_Texture_TrashBummer_Idle_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_RightDown", L"Proto_Texture_TrashBummer_Idle_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_RightUp", L"Proto_Texture_TrashBummer_Idle_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_LeftDown", L"Proto_Texture_TrashBummer_Idle_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Idle_LeftUp", L"Proto_Texture_TrashBummer_Move_LeftUp", 0.1f);
 	
-	m_pAnimator->Add_Animation(L"MothMage_Move_Down", L"Proto_Texture_MothMage_Move_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Move_Up", L"Proto_Texture_MothMage_Move_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Move_Left", L"Proto_Texture_MothMage_Move_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Move_Right", L"Proto_Texture_MothMage_Move_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Move_RightDown", L"Proto_Texture_MothMage_Move_RightDown", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Move_RightUp", L"Proto_Texture_MothMage_Move_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Move_LeftDown", L"Proto_Texture_MothMage_Move_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Move_LeftUp", L"Proto_Texture_MothMage_Move_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_Down", L"Proto_Texture_TrashBummer_Move_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_Up", L"Proto_Texture_TrashBummer_Move_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_Left", L"Proto_Texture_TrashBummer_Move_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_Right", L"Proto_Texture_TrashBummer_Move_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_RightDown", L"Proto_Texture_TrashBummer_Move_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_RightUp", L"Proto_Texture_TrashBummer_Move_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_LeftDown", L"Proto_Texture_TrashBummer_Move_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Move_LeftUp", L"Proto_Texture_TrashBummer_Move_LeftUp", 0.1f);
 
-	m_pAnimator->Add_Animation(L"MothMage_Attack_Down", L"Proto_Texture_MothMage_Attack_Down", 0.4f);
-	m_pAnimator->Add_Animation(L"MothMage_Attack_Up", L"Proto_Texture_MothMage_Attack_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Attack_Left", L"Proto_Texture_MothMage_Attack_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Attack_Right", L"Proto_Texture_MothMage_Attack_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Attack_RightDown", L"Proto_Texture_MothMage_Attack_RightDown", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Attack_RightUp", L"Proto_Texture_MothMage_Attack_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftDown", L"Proto_Texture_MothMage_Attack_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftUp", L"Proto_Texture_MothMage_Attack_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"MothMage_Death_Down", L"Proto_Texture_MothMage_Death_Down", 0.1f);
-
-
-	m_pMothOrb= CMothOrb::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(m_pMothOrb, E_FAIL);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Down", L"Proto_Texture_TrashBummer_Attack_Down", 0.4f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Up", L"Proto_Texture_TrashBummer_Attack_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Left", L"Proto_Texture_TrashBummer_Attack_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Right", L"Proto_Texture_TrashBummer_Attack_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_RightDown", L"Proto_Texture_TrashBummer_Attack_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_RightUp", L"Proto_Texture_TrashBummer_Attack_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftDown", L"Proto_Texture_TrashBummer_Attack_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftUp", L"Proto_Texture_TrashBummer_Attack_LeftUp", 0.1f);
 
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
-	m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
+	m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
 	m_tStat = { 3,3,1 };
 	m_fMinHeight = 1.0f;
 	return S_OK;
 }
 
-_int CMothMage::Update_Object(const _float& fTimeDelta)
+_int CTrashBummer::Update_Object(const _float& fTimeDelta)
 {
-	if (m_tStat.iHp < 1.f && Get_State() != MONSTER_STATE::DIE)
-	{
-		m_pAnimator->Play_Animation(L"MothMage_Death_Down", false);
-		Set_State(MONSTER_STATE::DIE);
-	}
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	_vec3  vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK&& Get_State() != MONSTER_STATE::DIE)
+	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 		NULL_CHECK_RETURN(pTarget, S_OK);
@@ -90,24 +81,20 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 		if (D3DXVec3Length(&vDir) < 5.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
-			m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
 
 		}
 	}
-	vPos.y += 0.5f;
-	vPos.z -= 0.01f;
-	m_pMothOrb->Get_TransformCom()->Set_Pos(&vPos);
-	m_pMothOrb->Update_Object(fTimeDelta);
+
 	return iExit;
 }
-void CMothMage::LateUpdate_Object(void)
+void CTrashBummer::LateUpdate_Object(void)
 {
 
 	__super::LateUpdate_Object();
-	
-	m_pMothOrb->LateUpdate_Object();
+
 }
-void CMothMage::Render_Object(void)
+void CTrashBummer::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
@@ -116,18 +103,18 @@ void CMothMage::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	
-	m_pMothOrb->Render_Object();
+
 }
 
 
-void CMothMage::Update_Idle(_float fTimeDelta)
+void CTrashBummer::Update_Idle(_float fTimeDelta)
 {
 	if (m_fMoveTime > 10.f)
 	{
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::MOVE);
-			m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
 		}
 
 		m_fMoveTime = 0.f;
@@ -135,24 +122,17 @@ void CMothMage::Update_Idle(_float fTimeDelta)
 	m_fMoveTime += 10.f * fTimeDelta;
 }
 
-void CMothMage::Update_Die(_float fTimeDelta)
+void CTrashBummer::Update_Die(_float fTimeDelta)
 {
-
-	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
-	{
-		if (Is_Active() == true)
-		{
-			Set_Active(false);
-			m_pMothOrb->Set_Active(false);
-		}
-	}
+	if (Is_Active())
+		Set_Active(false);
 }
 
-void CMothMage::Update_Regen(_float fTimeDelta)
+void CTrashBummer::Update_Regen(_float fTimeDelta)
 {
 }
 
-void CMothMage::Update_Move(_float fTimeDelta)
+void CTrashBummer::Update_Move(_float fTimeDelta)
 {
 	_vec3 vDir, vPos, vDst;
 	if (m_fMoveTime > 5.f)
@@ -160,7 +140,7 @@ void CMothMage::Update_Move(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
 		}
 
 		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
@@ -178,13 +158,13 @@ void CMothMage::Update_Move(_float fTimeDelta)
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 }
 
-void CMothMage::Update_Attack(_float fTimeDelta)
+void CTrashBummer::Update_Attack(_float fTimeDelta)
 {
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	Trace(fTimeDelta);
 
 }
-HRESULT CMothMage::Add_Component(void)
+HRESULT CTrashBummer::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
@@ -213,22 +193,22 @@ HRESULT CMothMage::Add_Component(void)
 	return S_OK;
 }
 
-CMothMage* CMothMage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CTrashBummer* CTrashBummer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CMothMage* pInstance = new CMothMage(pGraphicDev);
+	CTrashBummer* pInstance = new CTrashBummer(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("MothMage Create Failed");
+		MSG_BOX("TrashBummer Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
 
-void CMothMage::Trace(_float fTimeDelta)
+void CTrashBummer::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
@@ -238,19 +218,19 @@ void CMothMage::Trace(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	vDir = vTargetPos - vPos;
-
+	vDir.y = 0.f;
 
 	if (D3DXVec3Length(&vDir) > 7.f && !m_bShoot)
 	{
 		Set_State(MONSTER_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
+		m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
 		m_bShoot = false;
 
 	}
 
 	else if (D3DXVec3Length(&vDir) <4.f && !m_bShoot)
 	{
-		m_pAnimator->Play_Animation(L"MothMage_Attack_Down", true);
+		m_pAnimator->Play_Animation(L"TrashBummer_Attack_Down", true);
 
 		m_bShoot = true;
 
@@ -273,19 +253,19 @@ void CMothMage::Trace(_float fTimeDelta)
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"BugBall", pBugBall);
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
 
 			m_bShoot = false;
 		}
 
 	}
 	else {
-		m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
+		m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
 		D3DXVec3Normalize(&vDir, &vDir);
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 	}
 }
-void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
@@ -304,7 +284,8 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		D3DXVec3Normalize(&vDir, &vDir);
 
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
-
+		if (m_tStat.iHp < 1.f)
+			Set_State(MONSTER_STATE::DIE);
 	}
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
@@ -318,8 +299,8 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
 
-		m_pRigidBodyCom->AddForce(vDir * 70.0f);
-	
+		m_pRigidBodyCom->AddForce(vDir * 30.0f);
+		if (m_tStat.iHp < 1.f)
+			Set_State(MONSTER_STATE::DIE);
 	}
-
 }
