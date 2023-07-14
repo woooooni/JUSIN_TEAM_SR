@@ -41,6 +41,7 @@ private:
 
 private:
 	tagSlotInfo		m_tInfo;
+	_vec3			m_vDefaultPos;
 
 public:
 	static  CQuickSlot* Create(LPDIRECT3DDEVICE9 pGraphicDev, SLOTNUM eType);

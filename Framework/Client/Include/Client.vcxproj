@@ -250,6 +250,8 @@
     <ClInclude Include="..\Header\NPCCow.h" />
     <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\NPCText.h" />
+    <ClInclude Include="..\Header\NPCTextBox.h" />
+    <ClInclude Include="..\Header\OnEventObj.h" />
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
@@ -298,6 +300,7 @@
     <ClInclude Include="..\Header\Tile.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
     <ClInclude Include="..\Header\TrashBummer.h" />
+    <ClInclude Include="..\Header\TrashFast.h" />
     <ClInclude Include="..\Header\TrashSlime.h" />
     <ClInclude Include="..\Header\Turret.h" />
     <ClInclude Include="..\Header\Tree.h" />
@@ -310,7 +313,6 @@
     <ClInclude Include="..\Header\UI_BookBackground.h" />
     <ClInclude Include="..\Header\Catapult.h" />
     <ClInclude Include="..\Header\UI_HPBar.h" />
-    <ClInclude Include="..\Header\UI_NameTag.h" />
     <ClInclude Include="..\Header\UI_Shop.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="..\Header\UI_Totem.h" />
@@ -390,6 +392,8 @@
     <ClCompile Include="..\Code\NPCCow.cpp" />
     <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\NPCText.cpp" />
+    <ClCompile Include="..\Code\NPCTextBox.cpp" />
+    <ClCompile Include="..\Code\OnEventObj.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
@@ -437,6 +441,7 @@
     <ClCompile Include="..\Code\Tile.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="..\Code\TrashBummer.cpp" />
+    <ClCompile Include="..\Code\TrashFast.cpp" />
     <ClCompile Include="..\Code\TrashSlime.cpp" />
     <ClCompile Include="..\Code\Turret.cpp" />
     <ClCompile Include="..\Code\Tree.cpp" />
@@ -449,7 +454,6 @@
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />
     <ClCompile Include="..\Code\Catapult.cpp" />
     <ClCompile Include="..\Code\UI_HPBar.cpp" />
-    <ClCompile Include="..\Code\UI_NameTag.cpp" />
     <ClCompile Include="..\Code\UI_Shop.cpp" />
     <ClCompile Include="..\Code\UI_Totem.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />

@@ -1,6 +1,5 @@
 #pragma once
 #include "CUI.h"
-#include "UI_NameTag.h"
 
 BEGIN(Engine)
 
@@ -11,13 +10,14 @@ class CText;
 
 END
 
-class CNPCText : public CUI
+class CNPCTextBox : public CUI
 {
-	CLONE(CNPCText)
+	CLONE(CNPCTextBox)
+
 private:
-	CNPCText(LPDIRECT3DDEVICE9 pGraphicDev);
-	CNPCText(const CNPCText& rhs);
-	virtual ~CNPCText();
+	CNPCTextBox(LPDIRECT3DDEVICE9 pGraphicDev);
+	CNPCTextBox(const CNPCTextBox& rhs);
+	virtual ~CNPCTextBox();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -33,7 +33,7 @@ private:
 	bool	m_bShown = false;
 
 public:
-	static  CNPCText*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CNPCTextBox*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;

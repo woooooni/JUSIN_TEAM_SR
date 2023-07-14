@@ -1,32 +1,23 @@
-#include "NPCText.h"
+#include "NPCTextBox.h"
 #include "Export_Function.h"
 #include "../Include/stdafx.h"
 
-CNPCText::CNPCText(LPDIRECT3DDEVICE9 pGraphicDev)
+CNPCTextBox::CNPCTextBox(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
 {
 }
 
-CNPCText::CNPCText(const CNPCText& rhs)
+CNPCTextBox::CNPCTextBox(const CNPCTextBox& rhs)
 	: CUI(rhs)
 {
 }
 
-CNPCText::~CNPCText()
+CNPCTextBox::~CNPCTextBox()
 {
 }
 
-HRESULT CNPCText::Ready_Object(void)
+HRESULT CNPCTextBox::Ready_Object(void)
 {	
-	// NameTag 추가
-//	Engine::CLayer* pLayer = Engine::CLayer::Create();
-//	NULL_CHECK_RETURN(pLayer, E_FAIL);
-//
-//	CUI_NameTag* pNameTag = CUI_NameTag::Create(m_pGraphicDev);
-//	NULL_CHECK_RETURN(pNameTag, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_NameTag", pNameTag), E_FAIL);
-	//
-
 	CComponent* pComponent = nullptr;
 
 	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
@@ -50,23 +41,21 @@ HRESULT CNPCText::Ready_Object(void)
 	return S_OK;
 }
 
-_int CNPCText::Update_Object(const _float& fTimeDelta)
+_int CNPCTextBox::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-
-	// Key_Input 만들어서 넣기 (대화창 닫히게끔)
 
 	__super::Update_Object(fTimeDelta);
 
 	return S_OK;
 }
 
-void CNPCText::LateUpdate_Object(void)
+void CNPCTextBox::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
 }
 
-void CNPCText::Render_Object(void)
+void CNPCTextBox::Render_Object(void)
 {
 	if (m_bShown)
 	{
@@ -104,9 +93,9 @@ void CNPCText::Render_Object(void)
 	__super::Render_Object();
 }
 
-CNPCText* CNPCText::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CNPCTextBox* CNPCTextBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CNPCText* pInstance = new CNPCText(pGraphicDev);
+	CNPCTextBox* pInstance = new CNPCTextBox(pGraphicDev);
 	
 	if (FAILED(pInstance->Ready_Object()))
 	{
@@ -119,6 +108,6 @@ CNPCText* CNPCText::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
-void CNPCText::Free()
+void CNPCTextBox::Free()
 {
 }

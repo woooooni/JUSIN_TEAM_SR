@@ -12,18 +12,18 @@ typedef enum class TextType
 
 struct tagTextInfo
 {
-	wstring			strDesc;
 	TEXTTYPE		eType;
+	wstring			strDesc;
 };
 
-class CTextBox : public CUI
+class CNPCText : public CUI
 {
-	CLONE(CTextBox)
+	CLONE(CNPCText)
 
 protected:
-	explicit CTextBox(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CTextBox(const CTextBox& rhs);
-	virtual ~CTextBox();
+	explicit CNPCText(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CNPCText(const CNPCText& rhs);
+	virtual ~CNPCText();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -36,27 +36,27 @@ public:
 	void	Set_Type(TEXTTYPE eType);
 	void	Next_Text();
 
-//public:
-//	_int	Split_String(LPCTSTR lpszTemp, TCHAR szSep, CStringArray& strArr);
-//	_int	Splits_String(CString strTemp, CString strSep, CStringArray& strArr);
 private:
 	HRESULT			Add_Component(void);
 
 private:
-	tagTextInfo m_tInfo = {};
-	bool		m_bShown = true;
-	UINT		m_iIndex = 0;
-	float		m_fAccTime = 0.f;
-	float		m_fTextSpeed = 5.f;
-	wstring		m_strCurrDesc = L"";
+	tagTextInfo		m_tInfo = {};
+	bool			m_bShown = TRUE;
+	UINT			m_iIndex = 0;
+	float			m_fAccTime = 0.f;
+	float			m_fTextSpeed = 7.f;
+	wstring			m_strCurrDesc = L"";
 
 private:
 	vector<tagTextInfo>		m_vecText;
 
 public:
-	static  CTextBox* Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType);
+	static  CNPCText* Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType);
 
 private:
 	virtual void		Free() override;
 };
 
+//public:
+//	_int	Split_String(LPCTSTR lpszTemp, TCHAR szSep, CStringArray& strArr);
+//	_int	Splits_String(CString strTemp, CString strSep, CStringArray& strArr);

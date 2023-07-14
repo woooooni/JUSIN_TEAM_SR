@@ -1,7 +1,7 @@
 #pragma once
 #include "NPC.h"
 #include "UI_ShortCutKey.h"
-#include "NPCText.h"
+#include "NPCTextBox.h"
 #include "Text.h"
 
 // NPC 대화창 : PNG파일 / NPC 대화 : TEXT (UI)
