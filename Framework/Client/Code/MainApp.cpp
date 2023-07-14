@@ -9,7 +9,7 @@
 #include "Player_Bullet_Lightning.h"
 
 
-CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr)
+CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
 {
 	
 }
@@ -159,8 +159,8 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	//pScene = CScene_Tool::Create(pGraphicDev);
-	pScene = CLogo::Create(pGraphicDev);
+	pScene = CScene_Tool::Create(pGraphicDev);
+	//pScene = CLogo::Create(pGraphicDev);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);
@@ -464,11 +464,13 @@ HRESULT CMainApp::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Idle_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Idle/Left/RollingBug_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Idle_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Idle/Right/RollingBug_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Idle_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Idle/Up/RollingBug_%d.png", 6)), E_FAIL);
+	
 	// Monster Rolling Bug Move
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Move_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Stand/Down/RollingBug_%d.png", 13)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Move_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Stand/Left/RollingBug_%d.png", 13)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Move_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Stand/Right/RollingBug_%d.png", 13)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Move_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Stand/Up/RollingBug_%d.png", 13)), E_FAIL);
+	
 	// Monster Rolling Bug Attack
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Pink_Attack_LeftRight", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Pink/Attack/Left/RollingBug_%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Pink_Attack_UpDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Pink/Attack/Up/RollingBug_%d.png", 5)), E_FAIL);
@@ -503,6 +505,7 @@ HRESULT CMainApp::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TrashBig_Move_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/TrashBig/Movement/LeftDown/TrashBig_%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TrashBig_Move_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/TrashBig/Movement/RightDown/TrashBig_%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TrashBig_Move_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/TrashBig/Movement/RightUp/TrashBig_%d.png", 5)), E_FAIL);
+	
 	//TrashSlime
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TrashSlime_Regen_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/TrashSlime/Regen/Down/TrashSlime_%d.png", 7)), E_FAIL);
 
@@ -616,6 +619,7 @@ HRESULT CMainApp::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	
 	// Todo(Jwa) : Totem 사용하지 않고 Font 출력으로 수정 필요.
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_HPGauge", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/UI_HP_GaugeBar.png")), E_FAIL);
+
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem1", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_1.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem2", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_2.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem3", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_3.png")), E_FAIL);
@@ -786,10 +790,10 @@ HRESULT CMainApp::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 10)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 100)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 331)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 19)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 80)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 31)), E_FAIL);
 	return S_OK;
 }
 

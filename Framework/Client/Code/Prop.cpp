@@ -1,54 +1,53 @@
-#include "Tree.h"
+#include "Prop.h"
 #include "Export_Function.h"
 
-CTree::CTree(LPDIRECT3DDEVICE9 pGraphicDev)
-    : CFixedObj(pGraphicDev, OBJ_ID::TREE)
+CProp::CProp(LPDIRECT3DDEVICE9 pGraphicDev)
+	: CFixedObj(pGraphicDev, OBJ_ID::PROP)
 {
 
 }
 
-CTree::CTree(const CTree& rhs)
-    : CFixedObj(rhs)
+CProp::CProp(const CProp& rhs)
+	: CFixedObj(rhs)
 {
 
 }
 
-CTree::~CTree()
+CProp::~CProp()
 {
 
 }
 
-HRESULT CTree::Ready_Object(void)
+HRESULT CProp::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 	return S_OK;
 }
 
-_int CTree::Update_Object(const _float& fTimeDelta)
+_int CProp::Update_Object(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }
 
-void CTree::LateUpdate_Object(void)
+void CProp::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
 }
 
-void CTree::Render_Object(void)
+void CProp::Render_Object(void)
 {
-	Set_Billboard();
-
+	//Set_Billboard();
+	
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 
 	__super::Render_Object();
 }
 
-HRESULT CTree::Ready_Component(void)
+HRESULT CProp::Ready_Component(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -62,10 +61,11 @@ HRESULT CTree::Ready_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Tree"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Prop"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
 
 	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -75,9 +75,9 @@ HRESULT CTree::Ready_Component(void)
 	return S_OK;
 }
 
-CTree* CTree::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CProp* CProp::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CTree* pInstance = new CTree(pGraphicDev);
+	CProp* pInstance = new CProp(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
@@ -90,6 +90,6 @@ CTree* CTree::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
-void CTree::Free()
+void CProp::Free()
 {
 }

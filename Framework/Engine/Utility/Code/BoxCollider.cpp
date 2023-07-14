@@ -60,7 +60,22 @@ void CBoxCollider::Render_Component()
 
 	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, pOwnerTransform->Get_WorldMatrix());
+	_vec3 vOwnerPos;
+
+	_matrix matWorld;
+	D3DXMatrixIdentity(&matWorld);
+
+	pOwnerTransform->Get_Info(INFO_POS, &vOwnerPos);
+
+	matWorld._11 = m_vScale.x;
+	matWorld._22 = m_vScale.y;
+	matWorld._33 = 1;
+
+	matWorld._41 = vOwnerPos.x;
+	matWorld._42 = vOwnerPos.y;
+	matWorld._43 = vOwnerPos.z;
+
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, &matWorld);
 	m_pBuffer->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);

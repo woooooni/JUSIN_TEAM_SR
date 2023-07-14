@@ -13,9 +13,6 @@
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{06dc1b76-8beb-4d64-8e1c-41231208a3d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\01. Stage">
-      <UniqueIdentifier>{4a6f84dc-73b6-43fb-80a1-6b14c92a3ca7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject">
       <UniqueIdentifier>{9c45403b-7aaa-4a2a-b325-b8d24758c2f4}</UniqueIdentifier>
     </Filter>
@@ -33,9 +30,6 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI">
       <UniqueIdentifier>{1dc885c6-a95a-455c-8051-f205df8fbfa5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\02. Tutorial">
-      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Loading">
       <UniqueIdentifier>{ed736470-011d-4888-aca8-d5b2a2e61918}</UniqueIdentifier>
@@ -279,6 +273,12 @@
     </Filter>
     <Filter Include="02. GameObject\13. Tile">
       <UniqueIdentifier>{17d996c8-d91c-4860-b76a-282f2a6080cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\14. Skill">
+      <UniqueIdentifier>{ae33a779-b8d4-4ead-bc22-55f9c679bd76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\12. FixedObj\03. Prop">
+      <UniqueIdentifier>{6f452940-98c1-46f0-a247-54904b23b1b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -612,6 +612,9 @@
     <ClInclude Include="..\Header\RedBeatle.h" />
     <ClInclude Include="..\Header\UI_Cursor.h" />
     <ClInclude Include="..\Header\UI_ItemInfo.h" />
+    <ClInclude Include="..\Header\Prop.h">
+      <Filter>02. GameObject\12. FixedObj\03. Prop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -928,6 +931,9 @@
     <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
     <ClCompile Include="..\Code\Tile.cpp">
       <Filter>02. GameObject\13. Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Prop.cpp">
+      <Filter>02. GameObject\12. FixedObj\03. Prop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -269,6 +269,7 @@
     <ClInclude Include="..\Header\Player_State_GetItem.h" />
     <ClInclude Include="..\Header\Player_State_Skill.h" />
     <ClInclude Include="..\Header\Pool.h" />
+    <ClInclude Include="..\Header\Prop.h" />
     <ClInclude Include="..\Header\PushableObj.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -406,6 +407,7 @@
     <ClCompile Include="..\Code\Player_State_GameOver.cpp" />
     <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
     <ClCompile Include="..\Code\Player_State_Skill.cpp" />
+    <ClCompile Include="..\Code\Prop.cpp" />
     <ClCompile Include="..\Code\PushableObj.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
