@@ -17,7 +17,7 @@ public:
 
 	virtual void    Free() override;
 
-	static			CJellyCombined* Create(LPDIRECT3DDEVICE9 p_Dev, JELLY_COLLOR_COMBINE p_Color, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
+	static			CJellyCombined* Create(LPDIRECT3DDEVICE9 p_Dev, JELLY_COLLOR_COMBINE p_Color = JELLY_COLLOR_COMBINE::JELLY_COMBINEEND, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
 
 public:
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
@@ -34,6 +34,7 @@ public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
 	const JELLY_COLLOR_COMBINE& Get_JellyColor() { return m_eColor; }
+	void	Set_JellyColor(const JELLY_COLLOR_COMBINE& pColor);
 
 protected:
 	JELLY_COLLOR_COMBINE	m_eColor;

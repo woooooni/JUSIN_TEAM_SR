@@ -634,6 +634,7 @@
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Bullet.h" />
+    <ClInclude Include="JellyPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -967,7 +968,6 @@
       <Filter>02. GameObject\14. Tile</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Bullet.cpp" />
-
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

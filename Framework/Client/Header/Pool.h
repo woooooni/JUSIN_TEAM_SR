@@ -31,7 +31,7 @@ public:
 		if (g_objQueue.empty()) return nullptr;
 
 		CGameObject* pObj = g_objQueue.front();
-		NULL_CHECK_RETURN(pObj, E_FAIL);
+		NULL_CHECK_RETURN(pObj, nullptr);
 
 		g_objQueue.pop();
 
@@ -42,7 +42,7 @@ public:
 
 	static _bool Return_Obj(CGameObject* _pObj)
 	{
-		NULL_CHECK_RETURN(pObj, E_FAIL);
+		NULL_CHECK_RETURN(_pObj, FALSE);
 		_pObj->Set_Active(false);
 		g_objQueue.push(_pObj);
 
@@ -62,6 +62,8 @@ public:
 			g_objQueue.pop();
 		}
 	}
+
+	static queue<CGameObject*>& Get_Que() { return g_objQueue; }
 
 private:
 	static queue<CGameObject*> g_objQueue;     // 비활성화된 오브젝트들만 갖고있다.
