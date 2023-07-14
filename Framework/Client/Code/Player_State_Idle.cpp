@@ -1,5 +1,6 @@
 #include "../Include/stdafx.h"
 #include "Player_State_Idle.h"
+#include "Export_Function.h"
 
 #include "Animator.h"
 #include "Player.h"
@@ -7,6 +8,12 @@
 #include "Transform.h"
 #include "Player_State_Skill.h"
 #include "Item_Hat.h"
+
+//Å×½ºÆ®
+#include "Particle_FixedLeaf.h"
+#include "Particle_MovingLeaf.h"
+#include "Pool.h"
+#include "Effect_Leaf.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -170,6 +177,22 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	{
 		if(dynamic_cast<CPlayer*>(m_pOwner)->Is_HaveSkill())
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SKILL);
+	}
+
+	if (KEY_TAP(KEY::H))
+	{
+		_vec3 vPos;
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		CGameObject* pLeaf = CPool<CEffect_Leaf>::Get_Obj();
+		if (pLeaf)
+			dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos,_vec3(1.5f,2.0f,1.5f), 40);
+		else
+		{
+			pLeaf = dynamic_cast<CEffect_Leaf*>(pLeaf)->Create(Engine::Get_Device());
+			if (pLeaf)
+				dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.0f, 1.8f, 1.5f), 40);
+		}
+			
 	}
 
 }

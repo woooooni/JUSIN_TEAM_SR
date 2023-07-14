@@ -609,6 +609,10 @@
     <ClInclude Include="..\Header\Bullet.h" />
     <ClInclude Include="..\Header\TrashBummer.h" />
     <ClInclude Include="JellyPool.h" />
+    <ClInclude Include="..\Header\SludgeBall.h" />
+    <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
+    <ClInclude Include="..\Header\Effect_Leaf.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -922,6 +926,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\Bullet.cpp" />
     <ClCompile Include="..\Code\TrashBummer.cpp" />
+    <ClCompile Include="..\Code\SludgeBall.cpp" />
+    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
+    <ClCompile Include="..\Code\Effect_Leaf.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

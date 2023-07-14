@@ -240,7 +240,7 @@ void CPlayer::Render_Object(void)
 {
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(50, 255, 255, 255));
 
 	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
 	{
@@ -249,7 +249,7 @@ void CPlayer::Render_Object(void)
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
-	
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 
