@@ -59,13 +59,16 @@ void CSludgeWave::LateUpdate_Object(void)
 
 void CSludgeWave::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	_int iAlpha = int(254.f * 0.1f * m_fMoveTime);
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(iAlpha, 255, 255, 255));
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
+	if (Is_Active())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		_int iAlpha = int(254.f * 0.1f * m_fMoveTime);
+		m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(iAlpha, 255, 255, 255));
+		__super::Render_Object();
+		m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+		m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
 }
 
 HRESULT CSludgeWave::Add_Component(void)
@@ -117,6 +120,7 @@ void CSludgeWave::Create_Wave()
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vPos.z -= 0.5f;
+	vPos.y += 0.001f;
 	CSludgeWave* pSludgeWave = CSludgeWave::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSludgeWave, );
 	pSludgeWave->Get_TransformCom()->Set_Pos(&vPos);

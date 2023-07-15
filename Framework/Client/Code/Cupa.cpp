@@ -50,8 +50,8 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 		Get_State() != MONSTER_STATE::ATTACK)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, E_FAIL);
-
+		if (nullptr == pTarget)
+			return S_OK;
 		// Player를 타켓으로 Set한다.
 		Set_Target(pTarget);
 		_vec3 vPlayerPos, vPos, vDir;

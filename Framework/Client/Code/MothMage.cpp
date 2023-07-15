@@ -76,8 +76,8 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK&& Get_State() != MONSTER_STATE::DIE)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, S_OK);
-
+		if (nullptr == pTarget)
+			return S_OK;
 		Set_Target(pTarget);
 		_vec3 vTargetPos,  vDir;
 
@@ -232,8 +232,8 @@ void CMothMage::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-	NULL_CHECK_RETURN(pTarget, );
-
+	if (nullptr == pTarget)
+		return;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 

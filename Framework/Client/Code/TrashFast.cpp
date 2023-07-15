@@ -54,7 +54,8 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 	{
 
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, S_OK);
+		if (nullptr == pTarget)
+			return S_OK; 
 		Set_Target(pTarget); // Player로 타켓을 설정해둠
 
 		_vec3 vTargetPos, vPos, vDir;

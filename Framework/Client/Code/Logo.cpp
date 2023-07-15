@@ -24,7 +24,7 @@ HRESULT CLogo::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
-	//FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
@@ -204,63 +204,63 @@ HRESULT CLogo::Ready_Layer_Monster()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(20.f, 1.f, 20.f), BUGCOLORTYPE::PINK);
-	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Pink", pMonRolling_Pink), E_FAIL);
-
-	CRollingBug* pMonRolling_Blue = CRollingBug::Create(m_pGraphicDev, _vec3(6.f, 1.f, 4.f), BUGCOLORTYPE::BLUE);
-	NULL_CHECK_RETURN(pMonRolling_Blue, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Blue", pMonRolling_Blue), E_FAIL);
-
-	CRollingBug* pMonRolling_Yellow = CRollingBug::Create(m_pGraphicDev, _vec3(8.f, 1.f, 2.f), BUGCOLORTYPE::YELLOW);
-	NULL_CHECK_RETURN(pMonRolling_Yellow, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Yellow", pMonRolling_Yellow), E_FAIL);
-
-//	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
-//	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
-
-	/*CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
-
-	CRedBeatle* pRedBeatle = CRedBeatle::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pRedBeatle, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"RedBeatle", pRedBeatle), E_FAIL);
-
-	CGreenBeatle* pGreenBeatle = CGreenBeatle::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
-
-	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
-
-	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
-
-	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashFast", pTrashFast), E_FAIL);
-
-	CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
-		*/
-
-	CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
-
-
-	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pMothMage, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
-	
-	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlantCannon", pPlantCannon), E_FAIL);
+//	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(20.f, 1.f, 20.f), BUGCOLORTYPE::PINK);
+//	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Pink", pMonRolling_Pink), E_FAIL);
+//
+//	CRollingBug* pMonRolling_Blue = CRollingBug::Create(m_pGraphicDev, _vec3(6.f, 1.f, 4.f), BUGCOLORTYPE::BLUE);
+//	NULL_CHECK_RETURN(pMonRolling_Blue, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Blue", pMonRolling_Blue), E_FAIL);
+//
+//	CRollingBug* pMonRolling_Yellow = CRollingBug::Create(m_pGraphicDev, _vec3(8.f, 1.f, 2.f), BUGCOLORTYPE::YELLOW);
+//	NULL_CHECK_RETURN(pMonRolling_Yellow, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Yellow", pMonRolling_Yellow), E_FAIL);
+//
+////	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
+////	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
+////	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
+//
+//	/*CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
+//
+//	CRedBeatle* pRedBeatle = CRedBeatle::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pRedBeatle, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"RedBeatle", pRedBeatle), E_FAIL);
+//
+//	CGreenBeatle* pGreenBeatle = CGreenBeatle::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
+//
+//	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
+//
+//	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
+//
+//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashFast", pTrashFast), E_FAIL);
+//
+//	CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
+//		*/
+//
+//	CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
+//
+//
+//	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pMothMage, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
+//	
+//	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlantCannon", pPlantCannon), E_FAIL);
 
 
 	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);

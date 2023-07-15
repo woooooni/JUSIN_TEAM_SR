@@ -36,7 +36,8 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-	NULL_CHECK_RETURN(pTarget, E_FAIL);
+	if (nullptr == pTarget)
+		return S_OK;
 
 	Set_Target(pTarget);
 
