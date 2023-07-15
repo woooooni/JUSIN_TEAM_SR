@@ -23,8 +23,8 @@ HRESULT CSludgeBall::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"SludgeBall", true);
 	m_vDst = { 1,0,0 };
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.5f, 0.5f, 0.5f });
+	m_pTransformCom->Set_Scale({ 1.0f, 1.0f, 1.0f });
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.0f, 1.0f, 1.0f });
 	m_fMinHeight = 0.26f;
 	Set_Active(true);
 	return S_OK;

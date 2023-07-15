@@ -280,6 +280,15 @@
     <Filter Include="02. GameObject\12. FixedObj\03. Prop">
       <UniqueIdentifier>{6f452940-98c1-46f0-a247-54904b23b1b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. Monster\05. PlantCannon">
+      <UniqueIdentifier>{a8e023bc-1a7a-46f4-b19c-314773e56d02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\05. PlantCannon\PlantBall">
+      <UniqueIdentifier>{b64c1e57-5f0e-471b-810c-abd4f3dc77d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\10. Boss\00. SunGolem\07. Wave">
+      <UniqueIdentifier>{8d38a460-47ba-48b3-ab55-53fb120be044}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -609,6 +618,16 @@
     <ClInclude Include="..\Header\Bullet.h" />
     <ClInclude Include="..\Header\TrashBummer.h" />
     <ClInclude Include="JellyPool.h" />
+    <ClInclude Include="..\Header\SludgeBall.h" />
+    <ClInclude Include="..\Header\PlantCannon.h">
+      <Filter>02. GameObject\02. Monster\05. PlantCannon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PlantBall.h">
+      <Filter>02. GameObject\02. Monster\05. PlantCannon\PlantBall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SludgeWave.h">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\07. Wave</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -922,6 +941,16 @@
     </ClCompile>
     <ClCompile Include="..\Code\Bullet.cpp" />
     <ClCompile Include="..\Code\TrashBummer.cpp" />
+    <ClCompile Include="..\Code\SludgeBall.cpp" />
+    <ClCompile Include="..\Code\PlantCannon.cpp">
+      <Filter>02. GameObject\02. Monster\05. PlantCannon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PlantBall.cpp">
+      <Filter>02. GameObject\02. Monster\05. PlantCannon\PlantBall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SludgeWave.cpp">
+      <Filter>02. GameObject\10. Boss\00. SunGolem\07. Wave</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

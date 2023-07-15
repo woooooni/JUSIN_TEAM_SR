@@ -590,6 +590,11 @@ HRESULT CMainApp::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TrashBummer_Attack_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/TrashBummer/Attack/RightUp/TrashBummer_%d.png", 6)), E_FAIL);
 	//SludgeBall
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SludgeBall", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/SludgeBall/SludgeBall_%d.png", 16)), E_FAIL);
+	//PlantCannon
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_PlantCannon_Attack_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/PlantCannon/Attack/Right/PlantCannon_%d.png", 10)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_PlantCannon_Attack_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/PlantCannon/Attack/Left/PlantCannon_%d.png", 10)), E_FAIL);
+	//PlantBall
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_PlantBall", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/PlantBall/PlantBall_%d.png", 4)), E_FAIL);
 
 	return S_OK;
 }
@@ -642,6 +647,7 @@ HRESULT CMainApp::Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Down", CTexture::Create(m_pGraphicDev,	TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Down/Bugboss_%d.png", 7)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_BugBoss_Phase2_Attack", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/BugBoss/Phase2/Attack/Bugboss_%d.png", 5)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SludgeWave", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/SludgeWave/SludgeWave_%d.png", 4)), E_FAIL);
 
 	return S_OK;
 }

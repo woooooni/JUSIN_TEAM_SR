@@ -243,19 +243,23 @@ HRESULT CLogo::Ready_Layer_Monster()
 	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pMothMage, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
+	
+	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlantCannon", pPlantCannon), E_FAIL);
+
 
 	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
 	//
-	/*CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);*/
-
 	pLayer->Ready_Layer();
 
 	return S_OK;
