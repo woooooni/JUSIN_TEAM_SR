@@ -622,6 +622,9 @@
     <ClInclude Include="..\Header\Effect_Leaf.h">
       <Filter>02. GameObject\98. Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Particle_MapCircle.h">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -946,6 +949,9 @@
       <Filter>02. GameObject\98. Effect</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect_Leaf.cpp">
+      <Filter>02. GameObject\98. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Particle_MapCircle.cpp">
       <Filter>02. GameObject\98. Effect</Filter>
     </ClCompile>
   </ItemGroup>

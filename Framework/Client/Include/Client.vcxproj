@@ -253,6 +253,7 @@
     <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\NPCText.h" />
     <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MapCircle.h" />
     <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
@@ -397,6 +398,7 @@
     <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\NPCText.cpp" />
     <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
     <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />

@@ -39,7 +39,7 @@ HRESULT CParticle_MovingLeaf::Ready_Object(void)
 	m_fEndTime = 1.0f;
 	m_iAlpha = m_iR = m_iG = m_iB = 255;
 
-	Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Fixed_Leaf", this);
+	Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Moving_Leaf", this);
 
 	return S_OK;
 }
