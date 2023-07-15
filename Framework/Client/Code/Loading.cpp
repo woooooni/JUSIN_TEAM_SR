@@ -26,7 +26,7 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	switch (pLoading->Get_LoadingID())
 	{
 	case LOADING_STAGE:
-		iFlag = pLoading->Loading_ForStage();
+		iFlag = pLoading->Loading_For_TutorialVillage();
 		break;
 	}
 
@@ -45,8 +45,7 @@ HRESULT CLoading::Ready_Loading(LOADINGID eLoadingID)
 
 	return S_OK;
 }
-
-_uint CLoading::Loading_ForStage()
+_uint CLoading::Loading_For_TutorialVillage()
 {
 	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RcTex", CRcTex::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TerrainTex", CTerrainTex::Create(m_pGraphicDev)), E_FAIL);

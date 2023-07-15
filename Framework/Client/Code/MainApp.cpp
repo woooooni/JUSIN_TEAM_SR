@@ -12,6 +12,7 @@
 #include "Effect_Leaf.h"
 #include "Pool.h"
 #include "Effect_Shadow.h"
+#include "Scene_TutorialVillage.h"
 
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)

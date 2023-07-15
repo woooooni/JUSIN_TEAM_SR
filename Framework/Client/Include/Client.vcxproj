@@ -223,6 +223,7 @@
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\FistEffect.h" />
     <ClInclude Include="..\Header\FixedObj.h" />
+    <ClInclude Include="..\Header\GameMgr.h" />
     <ClInclude Include="..\Header\GolemFace.h" />
     <ClInclude Include="..\Header\GolemFist.h" />
     <ClInclude Include="..\Header\GolemHead.h" />
@@ -318,6 +319,7 @@
     <ClInclude Include="..\Header\Scene_Tool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Header\Scene_TutorialVillage.h" />
     <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SludgeBall.h" />
@@ -394,6 +396,7 @@
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp" />
     <ClCompile Include="..\Code\FixedObj.cpp" />
+    <ClCompile Include="..\Code\GameMgr.cpp" />
     <ClCompile Include="..\Code\GolemFace.cpp" />
     <ClCompile Include="..\Code\GolemFist.cpp" />
     <ClCompile Include="..\Code\GolemHead.cpp" />
@@ -487,6 +490,7 @@
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Code\Scene_TutorialVillage.cpp" />
     <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SludgeBall.cpp" />

@@ -23,6 +23,14 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     // TODO 
 }
 
+void CUIMgr::Late_Update_UIMgr()
+{
+}
+
+void CUIMgr::Render_UIMgr()
+{
+}
+
 void CUIMgr::Free()
 {
     // TODO
