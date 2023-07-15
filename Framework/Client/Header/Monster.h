@@ -26,16 +26,22 @@ public:
 protected:
 	HRESULT	Add_Component(void);
 	
+public:
+	void	Set_Speed(_float _fSpeed)	{ m_fSpeed = _fSpeed; }
+	_float  Get_Speed()					{ return m_fSpeed; }
+
+	MONSTER_STATE	Get_State()			{ return m_eState; }
+	void			Set_State(MONSTER_STATE _eState)
+	{
+		if (m_eState == _eState)
+			return;
+		m_eState = _eState;
+	}
+
+	MONSTERSTAT Get_Stat()				{ return m_tStat; }
 
 public:
-	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
-	_float Get_Speed() { return m_fSpeed; }
-
-	MONSTER_STATE Get_State(){ return m_eState; }
-	void Set_State(MONSTER_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
-
-public:
-	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
+	void		 Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
 	virtual void Trace(_float fTimeDelta) PURE;
 
 public:
@@ -45,16 +51,15 @@ public:
 	virtual void Update_Attack(_float fTimeDelta)	PURE;
 	virtual void Update_Die(_float fTimeDelta)		PURE;
 	
-
 private:
 	_float			m_fSpeed = 5.f;
 	MONSTER_STATE	m_eState;
 
 protected:
-	CGameObject* m_pTarget;
-	MONSTERSTAT m_tStat;
+	CGameObject*	m_pTarget;
+	MONSTERSTAT		m_tStat;
+
 protected:
 	virtual void Free() override;
-
 };
 

@@ -60,6 +60,17 @@ void CIcon::Render_Object(void)
 		vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
 		break;
 
+	case ICONTYPE::PLAYERHP_BACK:
+		vPos = { (WINCX / WINCX - 1.66f) * (1 / m_matProj._11) ,
+				((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f };
+		m_pTransformCom->Set_Pos(&vPos);
+
+		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+		fRatio = _float(WINCY) / _float(WINCX);
+		vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
+		break;
+
 	case ICONTYPE::HEART:
 		vPos = { (WINCX / WINCX - 1.95f) * (1 / m_matProj._11) ,
 				 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f }; // yÁÂÇ¥ -0.2
@@ -232,6 +243,13 @@ HRESULT CIcon::Add_Component(void)
 	{
 	case ICONTYPE::PLAYERHP_FRAME:
 		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_HPFrame"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		pComponent->SetOwner(this);
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+		break;
+
+	case ICONTYPE::PLAYERHP_BACK:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_HPBack"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);

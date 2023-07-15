@@ -12,7 +12,6 @@ END
 
 class CUI_HPBar : public CUI
 {
-
 private:
 	CUI_HPBar(LPDIRECT3DDEVICE9 pGraphicDev);
 	CUI_HPBar(const CUI_HPBar& rhs);
