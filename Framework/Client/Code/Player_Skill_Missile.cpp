@@ -5,6 +5,7 @@
 #include "KeyMgr.h"
 #include "Export_Function.h"
 #include "Player_Bullet_Bomb.h"
+#include "Pool.h"
 
 CPlayer_Skill_Missile::CPlayer_Skill_Missile(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner),
@@ -124,15 +125,7 @@ void CPlayer_Skill_Missile::Render_State(void)
 
 HRESULT CPlayer_Skill_Missile::Shoot(void)
 {
-	CGameObject* pBomb = nullptr;
-
-	if (!pBomb)
-	{
-		pBomb = CPlayer_Bullet_Bomb::Create(Engine::Get_Device(),m_pOwner);
-		NULL_CHECK_RETURN(pBomb, E_FAIL);
-		FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Bomb", pBomb), E_FAIL);
-		pBomb->Set_Active(true);
-	}
+	
 
 	_vec3 vPos;
 	_vec3 vTarget;
@@ -161,6 +154,15 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 	D3DXVec3Normalize(&vDir, &vDir);
 	
 
+	CGameObject* pBomb = CPool<CPlayer_Bullet_Bomb>::Get_Obj();
+
+	if (!pBomb)
+	{
+		pBomb = CPlayer_Bullet_Bomb::Create(Engine::Get_Device());
+		NULL_CHECK_RETURN(pBomb, E_FAIL);
+		pBomb->Set_Active(true);
+	}
+	FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Bomb", pBomb), E_FAIL);
 	dynamic_cast<CPlayer_Bullet_Bomb*>(pBomb)->Shoot(m_pTarget, vDir, 5.0f, vPos);
 	++m_iBombCount;
 

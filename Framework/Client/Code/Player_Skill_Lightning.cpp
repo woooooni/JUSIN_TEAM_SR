@@ -6,6 +6,7 @@
 #include "Player_Skill_Aim.h"
 #include "Player_Bullet_Lightning.h"
 #include "Export_Function.h"
+#include "Pool.h"
 
 
 CPlayer_Skill_Lightning::CPlayer_Skill_Lightning(CGameObject* _pOwner)
@@ -62,10 +63,12 @@ HRESULT CPlayer_Skill_Lightning::Ready_State(void)
 
 	m_bSkillStart = false;
 
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(true);
+	CGameObject* pAim = dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim();
+	pAim->Set_Active(true);
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillAim", pAim);
 
 	_vec3 vAimPos = m_vPos + m_vDir;
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Get_TransformCom()->Set_Pos(&vAimPos);
+	pAim->Get_TransformCom()->Set_Pos(&vAimPos);
 
 
 	return S_OK;
@@ -126,15 +129,16 @@ void CPlayer_Skill_Lightning::Key_Input(const _float& fTimeDelta)
 
 HRESULT CPlayer_Skill_Lightning::Shoot(void)
 {
-	CGameObject* pLightning = nullptr;
-
+	CGameObject* pLightning = CPool<CPlayer_Bullet_Lightning>::Get_Obj();
 	if (!pLightning)
 	{
-		pLightning = CPlayer_Bullet_Lightning::Create(Engine::Get_Device(), m_pOwner);
+		pLightning = CPlayer_Bullet_Lightning::Create(Engine::Get_Device());
 		NULL_CHECK_RETURN(pLightning, E_FAIL);
-		FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Lightning", pLightning), E_FAIL);
 		pLightning->Set_Active(true);
 	}
+	dynamic_cast<CBullet*>(pLightning)->Set_Owner(m_pOwner);
+	FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Lightning", pLightning), E_FAIL);
+
 
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
 	_vec3 vAimPos = m_vPos + m_vDir;

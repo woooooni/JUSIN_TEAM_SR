@@ -53,7 +53,7 @@ HRESULT CPlayer_Skill_Turtle::Ready_State(void)
 		break;
 	}
 	m_pBarrier->Set_Active(true);
-
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillBarrier", m_pBarrier);
 
 
 	return S_OK;

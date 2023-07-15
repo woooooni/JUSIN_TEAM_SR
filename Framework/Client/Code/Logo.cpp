@@ -135,7 +135,7 @@ HRESULT CLogo::Ready_Layer_Player()
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MissileHat", pItemMissileHat), E_FAIL);
 
 
-	pPlayer->Set_Hat(pItemMonkeyHat);
+	pPlayer->Set_Hat(pItemMissileHat);
 
 	pLayer->Ready_Layer();
 

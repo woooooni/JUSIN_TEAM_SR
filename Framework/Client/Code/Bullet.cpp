@@ -4,7 +4,7 @@
 #include "TriCol.h"
 #include "Transform.h"
 
-CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, CGameObject* _pOwner)
+CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID)
 	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, _eID)
 {
 }

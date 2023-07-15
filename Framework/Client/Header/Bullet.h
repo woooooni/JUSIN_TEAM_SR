@@ -4,7 +4,7 @@
 class CBullet : public Engine::CGameObject
 {
 protected:
-	explicit CBullet(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, CGameObject* _pOwner);
+	explicit CBullet(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID);
 	explicit CBullet(const CBullet& rhs);
 	virtual ~CBullet();
 
@@ -16,7 +16,7 @@ public:
 
 
 	CGameObject*	Get_Owner() { return m_pOwner; }
-	void			Set_Owmer(CGameObject* _pOwner) { m_pOwner = _pOwner; }
+	void			Set_Owner(CGameObject* _pOwner) { m_pOwner = _pOwner; }
 protected:
 
 protected:

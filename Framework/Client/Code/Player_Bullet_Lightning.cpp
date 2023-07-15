@@ -5,10 +5,11 @@
 
 #include "Scene.h"
 #include "Terrain.h"
+#include "Pool.h"
 
 
-CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
-	: CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL, _pOwner),
+CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev)
+	: CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL),
 	m_fLightningTime(0.1f),
 	m_fAccLightningTime(0.0f),
 	m_fNextTime(0.2f),
@@ -35,6 +36,7 @@ HRESULT CPlayer_Bullet_Lightning::Ready_Object(void)
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
 	m_pAnimator->Add_Animation(L"Lightning", L"Proto_Texture_Player_Skill_Lightning", 0.1f);
+	m_pAnimator->Play_Animation(L"Lightning", false);
 
 	Set_Active(false);
 
@@ -53,8 +55,7 @@ _int CPlayer_Bullet_Lightning::Update_Object(const _float& fTimeDelta)
 
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_bFinished)
 	{
-		//CPool<CPlayer_Bullet_Lightning>::Return_Obj(this);
-		Set_Active(false);
+		CPool<CPlayer_Bullet_Lightning>::Return_Obj(this);
 	}
 
 	
@@ -135,7 +136,8 @@ HRESULT CPlayer_Bullet_Lightning::Ready_Component(void)
 void CPlayer_Bullet_Lightning::Shoot(_vec3& _vPos, _vec3& _vDir, _uint _iMax, _uint _iCurr)
 {
 	m_pTransformCom->Set_Pos(&_vPos);
-	m_pAnimator->Play_Animation(L"Lightning", false);
+	m_pAnimator->GetCurrAnimation()->Set_Idx(0);
+	m_pAnimator->GetCurrAnimation()->Set_Finished(false);
 	m_bFinished = false;
 	m_vDir = _vDir;
 
@@ -148,15 +150,16 @@ void CPlayer_Bullet_Lightning::Shoot(_vec3& _vPos, _vec3& _vDir, _uint _iMax, _u
 
 HRESULT CPlayer_Bullet_Lightning::ShootNext()
 {
-	CGameObject* pLightning = nullptr;
+	CGameObject* pLightning = CPool<CPlayer_Bullet_Lightning>::Get_Obj();
 
 	if (!pLightning)
 	{
-		pLightning = Create(m_pGraphicDev, m_pOwner);
+		pLightning = Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pLightning, E_FAIL);
-		FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Lightning", pLightning), E_FAIL);
 		pLightning->Set_Active(true);
 	}
+	dynamic_cast<CBullet*>(pLightning)->Set_Owner(m_pOwner);
+	FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Lightning", pLightning), E_FAIL);
 
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -181,9 +184,9 @@ void CPlayer_Bullet_Lightning::Collision_Exit(CCollider* pCollider, COLLISION_GR
 {
 }
 
-CPlayer_Bullet_Lightning* CPlayer_Bullet_Lightning::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
+CPlayer_Bullet_Lightning* CPlayer_Bullet_Lightning::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CPlayer_Bullet_Lightning* pInstance = new CPlayer_Bullet_Lightning(pGraphicDev, _pOwner);
+	CPlayer_Bullet_Lightning* pInstance = new CPlayer_Bullet_Lightning(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

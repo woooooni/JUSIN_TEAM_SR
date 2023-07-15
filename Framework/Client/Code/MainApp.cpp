@@ -7,6 +7,7 @@
 #include "Scene_Tool.h"
 #include "ImGuiMgr.h"
 #include "Player_Bullet_Lightning.h"
+#include "Player_Bullet_Bomb.h"
 #include "Particle_FixedLeaf.h"
 #include "Particle_MovingLeaf.h"
 #include "Effect_Leaf.h"
@@ -230,6 +231,9 @@ HRESULT CMainApp::Ready_Pool()
 	CPool<CParticle_FixedLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CParticle_MovingLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);
+	CPool<CPlayer_Bullet_Bomb>::Ready_Pool(m_pGraphicDev, 200);
+	CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 100);
+
 
 	return S_OK;
 }
