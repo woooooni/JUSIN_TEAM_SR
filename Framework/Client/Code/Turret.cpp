@@ -49,6 +49,7 @@ _int CTurret::Update_Object(const _float& fTimeDelta)
 	{
 		m_fEnergy -= fTimeDelta * 10.f;
 		Find_Enemy();
+
 		if (!m_pTarget)
 			Set_Idle();
 		else

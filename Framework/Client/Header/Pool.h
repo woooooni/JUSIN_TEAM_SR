@@ -11,7 +11,11 @@ class CPool : public CBase
 {
 public:
 	CPool() {}
-	~CPool() { Free();  __super::Free(); }
+	~CPool() 
+	{ 
+		Free();  
+		__super::Free(); 
+	}
 
 public:
 	static HRESULT Ready_Pool(LPDIRECT3DDEVICE9 pGraphicDev, const _uint& _iSize)
@@ -51,7 +55,8 @@ public:
 
 	void Free()
 	{
-		if (g_objQueue.empty()) return;
+		if (g_objQueue.empty()) 
+			return;
 
 		_int iSize = g_objQueue.size();
 

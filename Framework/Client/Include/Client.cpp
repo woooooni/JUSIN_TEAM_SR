@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "Client.h"
 #include "MainApp.h"
-#include "ImGuiMgr.h"
+#/*include "ImGuiMgr.h"*/
 #include "Export_Function.h"
 
 
@@ -26,6 +26,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow){
+
+    
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     UNREFERENCED_PARAMETER(hPrevInstance);
@@ -182,8 +184,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
-        return true;
+    //if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+    //    return true;
 
     switch (message)
     {

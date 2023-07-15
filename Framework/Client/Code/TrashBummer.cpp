@@ -65,6 +65,7 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	_vec3  vPos;
+
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{

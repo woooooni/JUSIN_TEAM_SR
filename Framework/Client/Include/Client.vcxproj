@@ -179,14 +179,30 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\ThirdParty\imconfig.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\ThirdParty\imgui_internal.h" />
-    <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h" />
-    <ClInclude Include="..\..\ThirdParty\imstb_textedit.h" />
-    <ClInclude Include="..\..\ThirdParty\imstb_truetype.h" />
+    <ClInclude Include="..\..\ThirdParty\imconfig.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui_internal.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imstb_textedit.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imstb_truetype.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Header\BalpanObj.h" />
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
@@ -224,7 +240,9 @@
     <ClInclude Include="..\Header\HitObj.h" />
     <ClInclude Include="..\Header\House.h" />
     <ClInclude Include="..\Header\Icon.h" />
-    <ClInclude Include="..\Header\ImGuiMgr.h" />
+    <ClInclude Include="..\Header\ImGuiMgr.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Header\InventoryMgr.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\Item_Hat.h" />
@@ -299,7 +317,9 @@
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\RedBeatle.h" />
     <ClInclude Include="..\Header\RollingBug.h" />
-    <ClInclude Include="..\Header\Scene_Tool.h" />
+    <ClInclude Include="..\Header\Scene_Tool.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SludgeBall.h" />
@@ -336,13 +356,27 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\ThirdParty\imgui.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp" />
-    <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Code\BalpanObj.cpp" />
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
@@ -379,7 +413,9 @@
     <ClCompile Include="..\Code\HitObj.cpp" />
     <ClCompile Include="..\Code\House.cpp" />
     <ClCompile Include="..\Code\Icon.cpp" />
-    <ClCompile Include="..\Code\ImGuiMgr.cpp" />
+    <ClCompile Include="..\Code\ImGuiMgr.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Code\InventoryMgr.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
     <ClCompile Include="..\Code\Item_Hat.cpp" />
@@ -453,7 +489,9 @@
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\RedBeatle.cpp" />
     <ClCompile Include="..\Code\RollingBug.cpp" />
-    <ClCompile Include="..\Code\Scene_Tool.cpp" />
+    <ClCompile Include="..\Code\Scene_Tool.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SludgeBall.cpp" />

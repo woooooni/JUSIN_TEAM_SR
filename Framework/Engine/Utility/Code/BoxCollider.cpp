@@ -103,7 +103,7 @@ void CBoxCollider::Free()
 	CComponent::Free();
 }
 
-CComponent * CBoxCollider::Clone(void)
+CComponent* CBoxCollider::Clone(void)
 {
 	return new CBoxCollider(*this);
 }

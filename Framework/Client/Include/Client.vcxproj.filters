@@ -675,6 +675,16 @@
     <ClInclude Include="..\Header\UI_BossHP.h">
       <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Leaf.h" />
+    <ClInclude Include="..\Header\Effect_Shadow.h" />
+    <ClInclude Include="..\Header\EtcItem.h" />
+    <ClInclude Include="..\Header\NearReactMushroom.h" />
+    <ClInclude Include="..\Header\PlantBall.h" />
+    <ClInclude Include="..\Header\PlantCannon.h" />
+    <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
+    <ClInclude Include="..\Header\SludgeWave.h" />
+    <ClInclude Include="..\Header\UseItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1016,6 +1026,16 @@
     <ClCompile Include="..\Code\UI_BossHP.cpp">
       <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_Leaf.cpp" />
+    <ClCompile Include="..\Code\Effect_Shadow.cpp" />
+    <ClCompile Include="..\Code\EtcItem.cpp" />
+    <ClCompile Include="..\Code\NearReactMushroom.cpp" />
+    <ClCompile Include="..\Code\PlantBall.cpp" />
+    <ClCompile Include="..\Code\PlantCannon.cpp" />
+    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
+    <ClCompile Include="..\Code\SludgeWave.cpp" />
+    <ClCompile Include="..\Code\UseItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

@@ -194,11 +194,6 @@ HRESULT CPlayer::Ready_Object(void)
 	m_tPlayerStat.iMaxMp = m_tPlayerStat.iMp = 5;
 	m_tPlayerStat.iAttack = 5;
 
-	
-
-
-
-
 	return S_OK;
 }
 
@@ -333,9 +328,7 @@ void CPlayer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 }
 void CPlayer::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	
 	//MSG_BOX("Ãæµ¹ Stay");
-	
 	if (_iColliderID == m_pColliderCom->Get_Id())
 	{
 		CFieldObject* src;
