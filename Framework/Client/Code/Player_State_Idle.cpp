@@ -15,6 +15,7 @@
 #include "Pool.h"
 #include "Effect_Leaf.h"
 #include "Effect_Shadow.h"
+#include "Particle_MapCircle.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -201,5 +202,16 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 		CEffect_Shadow* pShadow = CEffect_Shadow::Create(Engine::Get_Device());
 		NULL_CHECK(pShadow, E_FAIL);
 		dynamic_cast<CEffect_Shadow*>(pShadow)->Set_Shadow(m_pOwner, _vec3(0.8f, 0.6f, 1.0f));
+	}
+
+	if (KEY_TAP(KEY::B))
+	{
+		for (int i = 0; 100 > i; ++i)
+		{
+			CParticle_MapCircle* pParticle = CParticle_MapCircle::Create(Engine::Get_Device());
+			NULL_CHECK(pParticle, E_FAIL);
+			dynamic_cast<CParticle_MapCircle*>(pParticle)->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 100, 255, 255, 255, 20);
+			Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"MapCircle", pParticle);
+		}
 	}
 }

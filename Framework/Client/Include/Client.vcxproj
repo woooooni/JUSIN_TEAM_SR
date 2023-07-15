@@ -275,6 +275,7 @@
     <ClInclude Include="..\Header\PlantBall.h" />
     <ClInclude Include="..\Header\PlantCannon.h" />
     <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MapCircle.h" />
     <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
     <ClInclude Include="..\Header\NPCTextBox.h" />
     <ClInclude Include="..\Header\OnEventObj.h">
@@ -448,6 +449,7 @@
     <ClCompile Include="..\Code\PlantBall.cpp" />
     <ClCompile Include="..\Code\PlantCannon.cpp" />
     <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
     <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
     <ClCompile Include="..\Code\NPCTextBox.cpp" />
     <ClCompile Include="..\Code\OnEventObj.cpp">
