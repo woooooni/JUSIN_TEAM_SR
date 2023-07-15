@@ -64,7 +64,7 @@ void CGolemFist::LateUpdate_Object(void)
 		if (Is_Active())
 		{			
 			if (m_bDirty == true)
-				if (m_bBummer == true)
+				if (m_bBummer == true&&rand()%99<33)
 				{
 					CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
 					NULL_CHECK_RETURN(pTrashBummer, );
