@@ -4,8 +4,8 @@
 #include "Engine_Define.h"
 #include "Export_Function.h"
 #include "Logo.h"
-// #include "Scene_Tool.h"
-// #include "ImGuiMgr.h"
+#include "Scene_Tool.h"
+#include "ImGuiMgr.h"
 #include "Player_Bullet_Lightning.h"
 #include "Particle_FixedLeaf.h"
 #include "Particle_MovingLeaf.h"
@@ -167,7 +167,6 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 	(*ppManagementClass)->AddRef();
 
 	Engine::CScene*		pScene = nullptr;
-	pScene = CLogo::Create(pGraphicDev);
 
 	/*pScene = CScene_Tool::Create(pGraphicDev);*/
 	 pScene = CLogo::Create(pGraphicDev);
@@ -909,7 +908,7 @@ HRESULT CMainApp::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CMainApp::Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 175)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 18)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 17)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 121)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 236)), E_FAIL);
 
