@@ -94,6 +94,9 @@
     <Filter Include="06. Light">
       <UniqueIdentifier>{28a1cc40-f85d-4d6b-a753-ca2718b8f91b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\00. VIBuffer\06. CubeCol">
+      <UniqueIdentifier>{4acd586c-c404-42aa-a299-a231f28e327f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Scene.h">
@@ -183,6 +186,9 @@
     <ClInclude Include="..\..\Header\RcPuzzleBuff.h">
       <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\RcCubeCol.h">
+      <Filter>05. Component\00. VIBuffer\06. CubeCol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Scene.cpp">
@@ -268,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\RcPuzzleBuff.cpp">
       <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RcCubeCol.cpp">
+      <Filter>05. Component\00. VIBuffer\06. CubeCol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

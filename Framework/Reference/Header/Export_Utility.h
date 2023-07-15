@@ -13,6 +13,7 @@
 
 #include "TriCol.h"
 #include "RcCol.h"
+#include "RcCubeCol.h"
 #include "RcTex.h"
 #include "TerrainTex.h"
 #include "CubeTex.h"
@@ -24,6 +25,7 @@
 #include "Texture.h"
 #include "Animator.h"
 #include "RigidBody.h"
+
 
 #include "GameObject.h"
 
