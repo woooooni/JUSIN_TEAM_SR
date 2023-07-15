@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "MonsterAim.h"
 
 
 class CSludgeBall :
@@ -39,6 +39,8 @@ private:
 	_vec3 m_vDst;
 	CGameObject* m_pShooter;
 	_uint m_iAtk=1;
+	CMonsterAim* m_pMonsterAim;
+
 private:
 	_float m_fMoveTime=20.f;
 private:

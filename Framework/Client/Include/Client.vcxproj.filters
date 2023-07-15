@@ -319,6 +319,9 @@
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\00. GolemPart\05. Jaw\Upper">
       <UniqueIdentifier>{650fd75b-5627-4589-ba9f-14a84ae67471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\98. Effect\MonsterAim">
+      <UniqueIdentifier>{a6eec92a-7c0a-41e6-b79d-01a278fa5b1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -691,6 +694,9 @@
     <ClInclude Include="..\Header\GolemPart.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\00. GolemPart</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\MonsterAim.h">
+      <Filter>02. GameObject\98. Effect\MonsterAim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1044,6 +1050,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\GolemPart.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\00. GolemPart</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterAim.cpp">
+      <Filter>02. GameObject\98. Effect\MonsterAim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "MonsterAim.h"
 
 BEGIN(Engine)
 
@@ -38,6 +38,7 @@ public:
 	void Set_Atk(_int _iAtk) { m_iAtk = _iAtk; }
 
 private:
+	CMonsterAim* m_pMonsterAim;
 	_bool	m_bBummer = false;
 	_bool	m_bDirty = false;
 	_int m_iAtk = 0;
