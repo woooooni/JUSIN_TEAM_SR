@@ -42,6 +42,13 @@ HRESULT CLogo::Ready_Scene()
 	CPool<CJellyCombined>::Ready_Pool(m_pGraphicDev, 0);
 	CPool<CJellyBomb>::Ready_Pool(m_pGraphicDev, 0);
 
+	MATERIAL.Set_Material(MATERIAL.material, { 1.f, 1.f, 1.f, 0.f });
+
+	D3DMATERIAL9 mater = MATERIAL.material;
+
+	FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
+
+
 	return S_OK;
 }
 
@@ -288,6 +295,11 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pMoonNear, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DalPul", pMoonNear), E_FAIL);
 
+	CNearReactMushroom* pNearMush = CNearReactMushroom::Create(m_pGraphicDev, { 1, 0, 4 });
+	NULL_CHECK_RETURN(pNearMush, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonReactMush", pNearMush), E_FAIL);
+
+
 	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 1, { 13, 1, 15 });
 	NULL_CHECK_RETURN(pBal, E_FAIL);
 	pBal->Set_AutoReset();
@@ -405,8 +417,15 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 
 	CGrass* pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::GLOWING_REED_RED, 0, { 3, 0, 1 });
 	NULL_CHECK_RETURN(pGrass, E_FAIL);
+	pGrass->Add_DropItem(ITEM_CODE::TWIG, 80);
+	pGrass->Add_DropItem(ITEM_CODE::LEAF, 10);
+
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);
 
+	CEtcItem* pEtc = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::TWIG);
+	NULL_CHECK_RETURN(pEtc, E_FAIL);
+	pEtc->Get_TransformCom()->Set_Pos(&_vec3(1, 0, 2));
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item", pEtc), E_FAIL);
 
 	pLayer->Ready_Layer();
 

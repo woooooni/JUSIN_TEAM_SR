@@ -37,6 +37,7 @@ public:
 	_bool		m_bIsOpened;
 	JELLY_COLOR		m_eColor;
 	CBalpanObj* m_pBalPan;
+	D3DLIGHT9	m_Light;
 
 
 };

@@ -1,6 +1,6 @@
 #pragma once
-#include "FieldObject.h"
-class CButterFly :   public CFieldObject
+#include "Item.h"
+class CButterFly :   public CItem
 {
 public:
 	CLONE(CButterFly)
@@ -31,6 +31,7 @@ public:
 	virtual void Event_End(_uint iEventNum)	override;
 
 protected:
+	HRESULT			Ready_Component();
 	_vec3	m_vMovingDir;
 	_float	m_fChangeTime;
 

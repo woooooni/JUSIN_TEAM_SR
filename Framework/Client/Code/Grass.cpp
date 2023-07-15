@@ -1,6 +1,9 @@
 #include    "../Include/stdafx.h"
 #include "Grass.h"
 #include    "Export_Function.h"
+#include    "EtcItem.h"
+#include    "Pool.h"
+#include    <time.h>
 
 CGrass::CGrass(LPDIRECT3DDEVICE9 pGr) : CFieldObject(pGr, OBJ_ID::GRASS), m_eGrassType(GRASS_TYPE::GRASS_END)
 , m_fCurMoveTime(0.f)
@@ -164,10 +167,41 @@ CGrass* CGrass::Create(LPDIRECT3DDEVICE9 p_Dev, const GRASS_TYPE& p_Type, const 
 
 void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+
+    _vec3 myPos;
+    m_pTransformCom->Get_Info(INFO_POS, &myPos);
+
     if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING)
     {
         Set_Active(false);
-        //아이템을 드롭하는 코드
+        CEtcItem* src = dynamic_cast<CEtcItem*>(CPool<CEtcItem>::Get_Obj());
+        srand(unsigned(time(NULL)));
+        if (src)
+        {
+            for (auto& iter : m_dropItemMap)
+            {
+                if (rand() % 100 < iter.second)
+                {
+                    src->Change_Item(iter.first);
+                    src->Get_TransformCom()->Set_Pos(&myPos);
+                    return;
+                }
+            }
+        }
+        else
+        {
+            for (auto& iter : m_dropItemMap)
+            {
+                if (rand() % 100 < iter.second)
+                {
+                    src = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
+                    src->Get_TransformCom()->Set_Pos(&myPos);
+                    Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", src);
+                    return;
+                }
+            }
+
+        }
     }
     else if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
     {

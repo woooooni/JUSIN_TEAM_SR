@@ -236,6 +236,7 @@
     <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
+    <ClInclude Include="..\Header\EtcItem.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\LightPuzzle.h" />
     <ClInclude Include="..\Header\LightPuzzleBase.h" />
@@ -245,6 +246,7 @@
     <ClInclude Include="..\Header\MothMage.h" />
     <ClInclude Include="..\Header\MothOrb.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
+    <ClInclude Include="..\Header\NearReactMushroom.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\NPC.h" />
     <ClInclude Include="..\Header\NPCCow.h" />
@@ -311,6 +313,7 @@
     <ClInclude Include="..\Header\UI_Shop.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="..\Header\UI_Totem.h" />
+    <ClInclude Include="..\Header\UseItem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="JellyPool.h" />
     <ClInclude Include="Resource.h" />
@@ -373,6 +376,7 @@
     <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
+    <ClCompile Include="..\Code\EtcItem.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\LightPuzzle.cpp" />
     <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
@@ -382,6 +386,7 @@
     <ClCompile Include="..\Code\MothMage.cpp" />
     <ClCompile Include="..\Code\MothOrb.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
+    <ClCompile Include="..\Code\NearReactMushroom.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\NPC.cpp" />
     <ClCompile Include="..\Code\NPCCow.cpp" />
@@ -447,6 +452,7 @@
     <ClCompile Include="..\Code\UI_Shop.cpp" />
     <ClCompile Include="..\Code\UI_Totem.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
+    <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
