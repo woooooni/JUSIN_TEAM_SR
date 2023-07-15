@@ -1,4 +1,4 @@
-#include "Effect_Shadow.h"
+#include "Effect_GetItem.h"
 
 
 #include "Export_Function.h"
@@ -8,40 +8,61 @@
 #include "Scene.h"
 #include "Terrain.h"
 
-
-CEffect_Shadow::CEffect_Shadow(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CEffect(pGraphicDev)
+CEffect_GetItem::CEffect_GetItem(LPDIRECT3DDEVICE9 pGraphicDev)
+	:CEffect(pGraphicDev)
 {
 }
 
-CEffect_Shadow::CEffect_Shadow(const CEffect& rhs)
+CEffect_GetItem::CEffect_GetItem(const CEffect& rhs)
 	: CEffect(rhs)
 {
 }
 
-CEffect_Shadow::~CEffect_Shadow()
+CEffect_GetItem::~CEffect_GetItem()
 {
 }
 
-HRESULT CEffect_Shadow::Ready_Object(void)
+HRESULT CEffect_GetItem::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_pAnimator->Add_Animation(L"Shadow", L"Proto_Texture_Effect_Shadow", 0.1f);
+	m_pAnimator->Add_Animation(L"GetItem", L"Proto_Texture_Effect_GetItem", 0.1f);
 
-	m_pAnimator->Play_Animation(L"Shadow", false);
+	m_pAnimator->Play_Animation(L"GetItem", false);
 
 	Set_Active(false);
-
-	Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Shadow", this);
 
 	return S_OK;
 }
 
-_int CEffect_Shadow::Update_Object(const _float& fTimeDelta)
+_int CEffect_GetItem::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+
+
+	switch (m_iTurn)
+	{
+	case 0:
+		m_vScale += _vec3(0.1f, 0.1f, 0.1f);
+		if (m_vScale.x > 2.0f)
+			m_iTurn = 1;
+		break;
+	case 1:
+		if (m_vScale.x > 1.8f)
+			m_vScale -= _vec3(0.05f, 0.05f, 0.05f);
+		break;
+	case 2:
+		m_vScale -= _vec3(0.2f, 0.2f, 0.2f);
+		if (m_vScale.x <= 0.01f)
+			Set_Active(false);
+		break;
+	}
+	m_pTransformCom->Set_Scale(m_vScale);
+
+
+
+
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
@@ -50,29 +71,21 @@ _int CEffect_Shadow::Update_Object(const _float& fTimeDelta)
 	return iExit;
 }
 
-void CEffect_Shadow::LateUpdate_Object(void)
+void CEffect_GetItem::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
-
-	_vec3 vPos;
-
-	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-
-	vPos.y = 0.001f;
-	m_pTransformCom->Set_Pos(&vPos);
 
 	__super::LateUpdate_Object();
 }
 
-void CEffect_Shadow::Render_Object(void)
+
+void CEffect_GetItem::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
 
-	
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(100, 255, 255, 255));
-
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(50, 255, 255, 255));
 
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -84,45 +97,33 @@ void CEffect_Shadow::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
-CEffect_Shadow* CEffect_Shadow::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CEffect_GetItem* CEffect_GetItem::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CEffect_Shadow* pInstance = new CEffect_Shadow(pGraphicDev);
+	CEffect_GetItem* pInstance = new CEffect_GetItem(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("Effect_Shadow_Create_Failed");
+		MSG_BOX("Effect_GetItem Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
 
-void CEffect_Shadow::Set_Shadow(CGameObject* _pObj, _vec3& _vScale)
+
+void CEffect_GetItem::Get_Effect(_vec3& _vPos, CGameObject* _pItem)
 {
-	m_pOwner = _pObj;
+	m_iTurn = 0;
+	m_pTransformCom->Set_Scale(_vec3(0.001f, 0.001f, 0.001f));
+	m_vScale = { 0.001f, 0.001f, 0.001f };
 
-	_float m_fAngle;
-
-	m_fAngle = D3DXToRadian(90.0f);
-
-	_matrix matWorld;
-	D3DXMatrixIdentity(&matWorld);
-	for (_uint i = 0; INFO_END > i; ++i)
-	{
-		_vec3 vInfo;
-		memcpy(&vInfo, &matWorld.m[i][0], sizeof(_vec3));
-		m_pTransformCom->Set_Info((MATRIX_INFO)i, &vInfo);
-	}
-
-	m_pTransformCom->Set_Scale(_vScale);
-	m_pTransformCom->RotationAxis(_vec3(1.0f, 0.0f, 0.0f), m_fAngle);
-
+	m_pTransformCom->Set_Pos(&_vPos);
 	Set_Active(true);
 }
 
-HRESULT CEffect_Shadow::Add_Component(void)
+HRESULT CEffect_GetItem::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -144,7 +145,6 @@ HRESULT CEffect_Shadow::Add_Component(void)
 	return S_OK;
 }
 
-void CEffect_Shadow::Free()
+void CEffect_GetItem::Free()
 {
-	__super::Free();
 }
