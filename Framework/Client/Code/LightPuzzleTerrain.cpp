@@ -102,6 +102,14 @@ void CLightPuzzleTerrain::Render_Object(void)
 
 void CLightPuzzleTerrain::Free()
 {
+	for (auto& iter : m_vecLightMap)
+	{
+		iter->m_pOnTileObj = nullptr;
+		Safe_Delete(iter);
+	}
+
+	m_vecLightMap.clear();
+	
 	Safe_Delete_Array(m_vTileCenterPos);
 	__super::Free();
 }
@@ -268,9 +276,6 @@ HRESULT CLightPuzzleTerrain::Ready_Compnent()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-	pComponent = m_pSubBuffer = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
 
 
 	return S_OK;

@@ -316,6 +316,9 @@
     <Filter Include="02. GameObject\04. UI\05. Monster HPBar\01. Boss HP">
       <UniqueIdentifier>{a0386ccb-8d1e-4136-a06e-2a8bb416259f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\11. Item\Test">
+      <UniqueIdentifier>{375591b4-9ba0-4c5e-8065-175d29d576b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -353,9 +356,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\PushStone.h">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\OnEventObj.h">
-      <Filter>02. GameObject\08. OnEventObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BenchObj.h">
       <Filter>02. GameObject\06. FieldObj\02. BenchObj</Filter>
@@ -560,7 +560,6 @@
     <ClInclude Include="..\Header\GolemFace.h">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\ButterFly.h" />
     <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\Turret.h" />
@@ -590,9 +589,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_Pages.h">
       <Filter>02. GameObject\04. UI\03. AdventureBook\01. Pages</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\InventoryMgr.h">
-      <Filter>98. Manager\03. Inventory</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Barrier.h" />
     <ClInclude Include="..\Header\Player_Skill_Drill.h" />
@@ -675,6 +671,26 @@
     <ClInclude Include="..\Header\UI_BossHP.h">
       <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Leaf.h" />
+    <ClInclude Include="..\Header\Effect_Shadow.h" />
+    <ClInclude Include="..\Header\NearReactMushroom.h" />
+    <ClInclude Include="..\Header\PlantBall.h" />
+    <ClInclude Include="..\Header\PlantCannon.h" />
+    <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
+    <ClInclude Include="..\Header\SludgeWave.h" />
+    <ClInclude Include="..\Header\EtcItem.h">
+      <Filter>02. GameObject\11. Item\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UseItem.h">
+      <Filter>02. GameObject\11. Item\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\InventoryMgr.h">
+      <Filter>98. Manager\03. Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ButterFly.h">
+      <Filter>02. GameObject\11. Item\Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -704,9 +720,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\PushStone.cpp">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\OnEventObj.cpp">
-      <Filter>02. GameObject\08. OnEventObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BenchObj.cpp">
       <Filter>02. GameObject\06. FieldObj\02. BenchObj</Filter>
@@ -902,7 +915,6 @@
     <ClCompile Include="..\Code\GolemFace.cpp">
       <Filter>02. GameObject\10. Boss\00. SunGolem\06. Face</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\ButterFly.cpp" />
     <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\Turret.cpp" />
@@ -1015,6 +1027,23 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_BossHP.cpp">
       <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_Leaf.cpp" />
+    <ClCompile Include="..\Code\Effect_Shadow.cpp" />
+    <ClCompile Include="..\Code\NearReactMushroom.cpp" />
+    <ClCompile Include="..\Code\PlantBall.cpp" />
+    <ClCompile Include="..\Code\PlantCannon.cpp" />
+    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
+    <ClCompile Include="..\Code\SludgeWave.cpp" />
+    <ClCompile Include="..\Code\EtcItem.cpp">
+      <Filter>02. GameObject\11. Item\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UseItem.cpp">
+      <Filter>02. GameObject\11. Item\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ButterFly.cpp">
+      <Filter>02. GameObject\11. Item\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

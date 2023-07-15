@@ -112,6 +112,11 @@ wstring CItem::Get_ImgName(const ITEM_CODE& pCode)
 		return L"Twig";
 
 		break;
+
+	case ITEM_CODE::BUTTERFLY:
+
+		return L"Kabuto";
+		break;
 	case Engine::ITEM_CODE::ITEM_END:
 		break;
 	default:

@@ -151,10 +151,21 @@ namespace Engine
 		TYPE_END
 	};
 
+	enum class EFFECT_TYPE
+	{
+		HEAL,
+		POWER,
+		SPEED,
+		POISON,
+		EFFECT_END
+	};
+
 	enum class ITEM_CODE
 	{
 		//EQUIP
 
+
+		EQUIP_END,
 		//CONSUME
 		HP_SMALL,
 		HP_MIDDLE,
@@ -163,11 +174,14 @@ namespace Engine
 		SPEED_MIDDLE,
 		SPEED_BIG,
 
+		CONSUME_END,
 
 		//ETC
 		LEAF,
 		TWIG,
+		BUTTERFLY,
 
+		ETC_END,
 
 		ITEM_END
 	};

@@ -2,8 +2,10 @@
 #include "Grass.h"
 #include    "Export_Function.h"
 #include    "EtcItem.h"
+#include    "UseItem.h"
 #include    "Pool.h"
 #include    <time.h>
+#include    "Effect_Leaf.h"
 
 CGrass::CGrass(LPDIRECT3DDEVICE9 pGr) : CFieldObject(pGr, OBJ_ID::GRASS), m_eGrassType(GRASS_TYPE::GRASS_END)
 , m_fCurMoveTime(0.f)
@@ -157,7 +159,7 @@ CGrass* CGrass::Create(LPDIRECT3DDEVICE9 p_Dev, const GRASS_TYPE& p_Type, const 
         MSG_BOX("Grass Create Failed");
         return nullptr;
     }
-    ret->m_pTransformCom->Set_Scale({ 1.5f, 1.5f,1.5f });
+    ret->m_pTransformCom->Set_Scale({ 1.5f, 1.5f, 1.5f });
     ret->m_pTransformCom->Set_Pos(&p_Pos);
     
     ret->m_pColliderCom->Set_Offset({ 0, 0.75f, 0 });
@@ -174,38 +176,78 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
     if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING)
     {
         Set_Active(false);
-        CEtcItem* src = dynamic_cast<CEtcItem*>(CPool<CEtcItem>::Get_Obj());
         srand(unsigned(time(NULL)));
-        if (src)
-        {
-            for (auto& iter : m_dropItemMap)
-            {
-                if (rand() % 100 < iter.second)
-                {
-                    src->Change_Item(iter.first);
-                    src->Get_TransformCom()->Set_Pos(&myPos);
-                    return;
-                }
-            }
-        }
+
+        _vec3 vPos;
+        m_pTransformCom->Get_Info(INFO_POS, &vPos);
+        CGameObject* pLeaf = CPool<CEffect_Leaf>::Get_Obj();
+        if (pLeaf)
+            dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.2f, 2.5f, 1.5f), 40);
         else
         {
-            for (auto& iter : m_dropItemMap)
+            pLeaf = dynamic_cast<CEffect_Leaf*>(pLeaf)->Create(Engine::Get_Device());
+            if (pLeaf)
+                dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.2f, 2.5f, 1.5f), 40);
+        }
+
+
+        for (auto& iter : m_dropItemMap)
+        {
+            if (rand() % 100 < iter.second)
             {
-                if (rand() % 100 < iter.second)
+
+                if (iter.first >= ITEM_CODE::HP_SMALL && iter.first <= ITEM_CODE::SPEED_BIG)
                 {
-                    src = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
+                    CUseItem* src = dynamic_cast<CUseItem*>(CPool<CUseItem>::Get_Obj());
+
+                    if (src)
+                    {
+                        src->Change_Item(iter.first);
+                    }
+                    else
+                    {
+                        src = CUseItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
+                    }
+
+                    src->Get_TransformCom()->Set_Pos(&myPos);
+                    Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", src);
+                    return;
+
+                }
+                else if (iter.first >= ITEM_CODE::LEAF && iter.first <= ITEM_CODE::TWIG)
+                {
+                    CEtcItem* src = dynamic_cast<CEtcItem*>(CPool<CEtcItem>::Get_Obj());
+
+                    if (src)
+                    {
+                        src->Change_Item(iter.first);
+                    }
+                    else
+                    {
+                        src = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
+                    }
+
                     src->Get_TransformCom()->Set_Pos(&myPos);
                     Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", src);
                     return;
                 }
             }
-
         }
     }
     else if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
     {
         m_fMaxMoveTime = 0.5f;
+
+        CGameObject* pLeaf = CPool<CEffect_Leaf>::Get_Obj();
+        if (pLeaf)
+            dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
+        else
+        {
+            pLeaf = dynamic_cast<CEffect_Leaf*>(pLeaf)->Create(Engine::Get_Device());
+            if (pLeaf)
+                dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
+        }
+
     }
 }
 

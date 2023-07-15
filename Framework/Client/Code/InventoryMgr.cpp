@@ -1,11 +1,14 @@
 #include "Export_Function.h"
 #include "..\Header\InventoryMgr.h"
 #include	"Pool.h"
+#include	"Player.h"
+#include	"UseItem.h"
 
 
 IMPLEMENT_SINGLETON(CInventoryMgr)
-CInventoryMgr::CInventoryMgr()
+CInventoryMgr::CInventoryMgr() : m_pPlayer(nullptr)
 {
+	ZeroMemory(m_bHasRooted, sizeof(_bool) * (_uint)(ITEM_CODE::ITEM_END));
 }
 
 CInventoryMgr::~CInventoryMgr()
@@ -45,12 +48,27 @@ HRESULT CInventoryMgr::Add_Item(CGameObject* pItem)
 	{
 		tem->Set_Active(false);
 		yourVec.push_back(tem);
+		tem->Set_InvenCount();
 	}
 	else
 	{
-		tem->Add_Pool();
+		if (tem->Get_ItemType() == ITEM_TYPE::EQUIPMENT)
+		{
+			//Erase 추천
+		}
+		else
+		{
+			tem->Add_Pool();
+		}
 		(*iter)->Set_InvenCount();
 
+	}
+
+	if (!m_bHasRooted[(_uint)tem->Get_ItemCode()])
+	{
+		m_bHasRooted[(_uint)tem->Get_ItemCode()] = true;
+
+		//최초 획득 이벤트 코드
 	}
 	
 	return S_OK;
@@ -73,6 +91,30 @@ _bool CInventoryMgr::Is_In_Inven(CGameObject* pItem)
 		return true;
 
 	return false;
+}
+
+HRESULT CInventoryMgr::Use_Item(_uint pInt)
+{
+	auto& tmp = m_vecInventory[(_uint)INVENTORY_TYPE::CONSUMPSION];
+	if (pInt < 0 || pInt >= tmp.size())
+		return E_FAIL;
+
+	CUseItem* src = dynamic_cast<CUseItem*>(tmp[pInt]);
+	NULL_CHECK_RETURN(src, E_FAIL);
+
+	HRESULT ret = src->Use_Item(m_pPlayer);
+
+	if (src->Get_InvenCount() == 0)
+		tmp.erase(tmp.begin() + pInt);
+
+	return ret;
+}
+
+void CInventoryMgr::Set_Player(CPlayer* pPlayer)
+{
+	NULL_CHECK(pPlayer);
+
+	m_pPlayer = pPlayer;
 }
 
 

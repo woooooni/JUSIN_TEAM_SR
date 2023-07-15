@@ -20,7 +20,7 @@ public:
 
 	virtual void    Free() override;
 
-	static			CButterFly* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
+	static			CButterFly* Create(LPDIRECT3DDEVICE9 p_Dev, ITEM_CODE p_Code, const _vec3 p_Pos = { 0, 0, 0 });
 
 public:
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
@@ -29,6 +29,12 @@ public:
 
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
+
+	virtual	CGameObject* Get_ByPool() override;
+	virtual void				Add_Pool() override;
+
+	HRESULT		Change_Item(const ITEM_CODE& pCode);
+
 
 protected:
 	HRESULT			Ready_Component();

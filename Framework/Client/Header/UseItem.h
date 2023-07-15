@@ -1,5 +1,8 @@
 #pragma once
 #include "Item.h"
+
+
+class CPlayer;
 class CUseItem :    public CItem
 {
 protected:
@@ -26,7 +29,7 @@ public:
 
 public:
 	static		CUseItem* Create(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, const ITEM_CODE& pCode = ITEM_CODE::HP_SMALL);
-	HRESULT			Use_Item();
+	HRESULT			Use_Item(CPlayer* pPlayer);
 
 protected:
 	virtual HRESULT	Add_Component(void);
