@@ -46,7 +46,9 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_fSpeed = 5.f;
 	Set_State(SUNGOLEM_STATE::REGEN);
 	m_tStat = { 6,6,1 };
-	
+	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
+	m_pMonsterAim->Set_Active(true);
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
 	m_fMinHeight = 2.0f;
 	return S_OK;
@@ -90,7 +92,7 @@ _int CSunGollem::Update_Object(const _float& fTimeDelta)
 			m_pParts[i]->Set_State(m_eState);
 		}
 	}
-
+	m_pMonsterAim->Update_Object(fTimeDelta);
 	return iExit;
 }
 
@@ -101,6 +103,7 @@ void CSunGollem::LateUpdate_Object(void)
 		if (m_pParts[i]->Is_Active())
 			m_pParts[i]->LateUpdate_Object();
 	}
+	m_pMonsterAim->LateUpdate_Object();
 }
 
 void CSunGollem::Render_Object(void)
@@ -116,7 +119,7 @@ void CSunGollem::Render_Object(void)
 		if (m_pParts[i]->Is_Active())
 			m_pParts[i]->Render_Object();
 	}
-		
+	m_pMonsterAim->Render_Object();
 }
 
 HRESULT CSunGollem::Add_Component(void)
@@ -278,22 +281,27 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 
 void CSunGollem::Update_Attack(_float fTimeDelta)
 {
+
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 	if (nullptr == pTarget)
 		return;
 	Set_Target(pTarget);
+
 	_vec3 vTargetPos, vDir;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	if (m_bLockon == false)
 	{
 		m_vTargetPos = vTargetPos;
+		m_pMonsterAim->Set_Active(true);
+		m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ vTargetPos.x,0.001f,vTargetPos.z });
 		m_bLockon = true;
 	}
 	else
 	{
 		vDir = vTargetPos - m_vTargetPos;
 		D3DXVec3Normalize(&vDir, &vDir);
-		m_vTargetPos += vDir * fTimeDelta * 5.f;
+		m_vTargetPos += vDir * fTimeDelta *5.f;
+		m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ m_vTargetPos.x,0.001f,m_vTargetPos.z });
 	}
 	if (m_iActiveArm > 5)
 	{
@@ -368,6 +376,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			memset(m_bAttack, 1, sizeof(bool) * 6);
 			m_iActiveArm += 2;
 			m_bLockon = false;
+			m_pMonsterAim->Set_Active(false);
 			m_tStat.iHp -= 1;
 			if (m_iActiveArm > 5)
 			{

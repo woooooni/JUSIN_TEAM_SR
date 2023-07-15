@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "GolemPart.h"
-
+#include "MonsterAim.h"
 BEGIN(Engine)
 	class CRcTex;
 class CTransform;
@@ -32,7 +32,7 @@ protected:
 	HRESULT	Add_Component(void);
 private:
 CGolemPart* m_pParts[PARTSEND];
-
+CMonsterAim* m_pMonsterAim;
 public:
 	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
 	_float Get_Speed() { return m_fSpeed; }
