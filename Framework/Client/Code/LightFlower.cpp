@@ -30,8 +30,13 @@ HRESULT CLightFlower::Ready_Object(void)
 
     CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_LightFlower_Area"));
     NULL_CHECK_RETURN_MSG(pComponent, E_FAIL, L"LightArea Create Failed");
-    m_mapComponent->emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+    pComponent->SetOwner(this);
+    m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
+    pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Clone_Proto(L"Proto_RigidBody"));
+    NULL_CHECK_RETURN_MSG(pComponent, E_FAIL, L"LightArea Create Failed");
+    pComponent->SetOwner(this);
+    m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
 
     m_pAnimator->Add_Animation(L"Idle", L"Proto_Tex_LightFlower_Idle", 0.1f);
@@ -40,6 +45,8 @@ HRESULT CLightFlower::Ready_Object(void)
     m_pAnimator->Add_Animation(L"Close", L"Proto_Tex_LightFlower_Close", 0.1f);
 
     m_pAnimator->Play_Animation(L"Idle", false);
+
+
 
 
     return S_OK;
@@ -54,11 +61,19 @@ _int CLightFlower::Update_Object(const _float& fTimeDelta)
 
 void CLightFlower::LateUpdate_Object(void)
 {
+    __super::LateUpdate_Object();
 }
 
 void CLightFlower::Render_Object(void)
 {
     const _matrix* world = m_pTransformCom->Get_WorldMatrix();
+
+    m_pGraphicDev->SetLight(0, &m_Light);
+
+    if (m_pGraphicDev->LightEnable(0, true) != S_OK)
+    {
+        int i = 0;
+   }
 
     __super::Render_Object();
 
@@ -103,7 +118,20 @@ CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 p_Dev, CGameObject* p_Balpa
     ret->m_pBalPan = dynamic_cast<CBalpanObj*>(p_Balpan);
     ret->m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
     ret->m_pColliderCom->Set_Offset(_vec3({ 0.f, -1.f, 0.f }));
-    ret->m_pTransformCom->Set_Pos(&(p_Pos + _vec3({0.f, 1.f, 0.f})));
+    ret->m_pTransformCom->Set_Pos(&(p_Pos));
+
+    ZeroMemory(&ret->m_Light, sizeof(D3DLIGHT9));
+    ret->m_Light.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
+    ret->m_Light.Diffuse = { 1.f, 1.f, 1.f, 1.f };
+    ret->m_Light.Ambient = { 0.4f, 0.4f, 0.4f, 0.4f };
+    ret->m_Light.Specular = { 0.2f, 0.2f, 0.2f, 0.2f };
+    ret->m_Light.Position = p_Pos + _vec3(0.f, 3.f, 0.f);
+    ret->m_Light.Range = 4.f;
+    ret->m_Light.Attenuation0 = 1.5f;
+    ret->m_Light.Attenuation1 = 1.5f;
+
+    ret->Set_MinHeight(2.f);
+
 
     return ret;
 }

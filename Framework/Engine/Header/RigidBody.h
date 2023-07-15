@@ -33,6 +33,7 @@ public:
 	_float GetSpeed() { return D3DXVec3Length(&m_vVelocity); }
 
 
+	void SetGravity(_float _fGravity) { m_fGravity = _fGravity; }
 	void SetGravity(_bool _bGravity) { m_bGravity = _bGravity; }
 	bool IsGravity() { return m_bGravity; }
 
@@ -59,7 +60,7 @@ private:
 	_bool		m_bGround;		// 현재 땅바닥에 있는지.
 
 	_float		m_fFricCoeff;	// 마찰력
-	
+	_float		m_fGravity;		// 중력
 
 public:
 	static CRigidBody* Create(LPDIRECT3DDEVICE9 _pDevice);

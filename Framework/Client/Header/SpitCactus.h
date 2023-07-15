@@ -32,5 +32,6 @@ private:
     void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
     _bool m_bPoison;
     _bool m_bShoot;
+
 };
 

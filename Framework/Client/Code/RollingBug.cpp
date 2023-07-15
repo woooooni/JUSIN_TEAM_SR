@@ -23,6 +23,8 @@ HRESULT CRollingBug::Ready_Object(void)
 	Set_State(MONSTER_STATE::IDLE);
 	Set_Speed(1.f);
 
+	m_tStat = { 3, 3, 1 }; // MaxHp, Hp, Attack
+
 	_vec3 vScale = _vec3(0.8f, 0.8f, 0.8f);
 	m_pTransformCom->Set_Scale(vScale);
 

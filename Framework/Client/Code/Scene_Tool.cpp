@@ -24,6 +24,7 @@
 #include "SilkWorm.h"
 #include "House.h"
 #include "Prop.h"
+#include "Grass.h"
 
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)

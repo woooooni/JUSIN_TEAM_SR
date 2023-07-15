@@ -24,7 +24,7 @@ HRESULT CLogo::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	//FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
@@ -41,6 +41,13 @@ HRESULT CLogo::Ready_Scene()
 	CPool<CJellyStone>::Ready_Pool(m_pGraphicDev, 0);
 	CPool<CJellyCombined>::Ready_Pool(m_pGraphicDev, 0);
 	CPool<CJellyBomb>::Ready_Pool(m_pGraphicDev, 0);
+
+	MATERIAL.Set_Material(MATERIAL.material, { 1.f, 1.f, 1.f, 0.f });
+
+	D3DMATERIAL9 mater = MATERIAL.material;
+
+	FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
+
 
 	return S_OK;
 }
@@ -197,7 +204,7 @@ HRESULT CLogo::Ready_Layer_Monster()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(3.f, 1.f, 1.f), BUGCOLORTYPE::PINK);
+	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(20.f, 1.f, 20.f), BUGCOLORTYPE::PINK);
 	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Pink", pMonRolling_Pink), E_FAIL);
 
@@ -250,18 +257,26 @@ HRESULT CLogo::Ready_Layer_Monster()
 	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pMothMage, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
+	
+	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlantCannon", pPlantCannon), E_FAIL);
+
 
 	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
 	//
-	/*CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);*/
+//	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
 
 	pLayer->Ready_Layer();
 
@@ -298,6 +313,11 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	CNearReactMoonObj* pMoonNear = CNearReactMoonObj::Create(m_pGraphicDev, { 13, 1, 13 });
 	NULL_CHECK_RETURN(pMoonNear, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DalPul", pMoonNear), E_FAIL);
+
+	CNearReactMushroom* pNearMush = CNearReactMushroom::Create(m_pGraphicDev, { 1, 0, 4 });
+	NULL_CHECK_RETURN(pNearMush, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MoonReactMush", pNearMush), E_FAIL);
+
 
 	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 1, { 13, 1, 15 });
 	NULL_CHECK_RETURN(pBal, E_FAIL);
@@ -414,10 +434,18 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pJelCreat, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pJelCreat), E_FAIL);
 
-	/*CGrass* pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::GLOWING_REED_RED, 0, { 3, 0, 1 });
+	CGrass* pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::GLOWING_REED_RED, 0, { 3, 0, 1 });
 	NULL_CHECK_RETURN(pGrass, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);*/
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);
+	pGrass->Add_DropItem(ITEM_CODE::TWIG, 80);
+	pGrass->Add_DropItem(ITEM_CODE::LEAF, 10);
 
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);
+
+	CEtcItem* pEtc = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::TWIG);
+	NULL_CHECK_RETURN(pEtc, E_FAIL);
+	pEtc->Get_TransformCom()->Set_Pos(&_vec3(1, 0, 2));
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item", pEtc), E_FAIL);
 
 	pLayer->Ready_Layer();
 
@@ -452,8 +480,34 @@ HRESULT CLogo::Ready_Layer_UI()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+	
+	// UI (Boss)
+	CUI_BossHP* pUI_BossBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	NULL_CHECK_RETURN(pUI_BossBack, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPBack", pUI_BossBack), E_FAIL);
 
-	// UI ( SHOP )
+	CUI_BossHP* pUI_BossGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	NULL_CHECK_RETURN(pUI_BossGauge, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_Gauge", pUI_BossGauge), E_FAIL);
+
+	CUI_BossHP* pUI_BossFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	NULL_CHECK_RETURN(pUI_BossFrame, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPFrame", pUI_BossFrame), E_FAIL);
+
+	// UI (Monster)
+	CUI_MonsterHP* pUI_MonsterBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
+	NULL_CHECK_RETURN(pUI_MonsterBack, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPBack", pUI_MonsterBack), E_FAIL);
+
+	CUI_MonsterHP* pUI_MonsterGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
+	NULL_CHECK_RETURN(pUI_MonsterGauge, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Gauge", pUI_MonsterGauge), E_FAIL);
+
+	CUI_MonsterHP* pUI_MonsterFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
+	NULL_CHECK_RETURN(pUI_MonsterFrame, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPFrame", pUI_MonsterFrame), E_FAIL);
+	
+	// UI (SHOP)
 	CUI_Shop* pUI_Shop = CUI_Shop::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pUI_Shop, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Background", pUI_Shop), E_FAIL);
@@ -486,7 +540,6 @@ HRESULT CLogo::Ready_Layer_UI()
 	NULL_CHECK_RETURN(pUI_Cursor, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cursor", pUI_Cursor), E_FAIL);
 
-	CNPCText* pTextBox = CNPCText::Create(m_pGraphicDev);
 	CUI_ItemInfo* pShop_ImgBox = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_IMGBOX);
 	NULL_CHECK_RETURN(pShop_ImgBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_IMGBox", pShop_ImgBox), E_FAIL);
@@ -505,9 +558,6 @@ HRESULT CLogo::Ready_Layer_UI()
 
 
 	// UI
-	//CUI* pUI = CUI::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pUI, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
 
 	CNPCTextBox* pTextBox = CNPCTextBox::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTextBox, E_FAIL);
@@ -528,6 +578,10 @@ HRESULT CLogo::Ready_Layer_UI()
 	CIcon* pIconQuest = CIcon::Create(m_pGraphicDev, ICONTYPE::QUEST);
 	NULL_CHECK_RETURN(pIconQuest, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconQuest), E_FAIL);
+	
+	CIcon* pHPBack = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP_BACK);
+	NULL_CHECK_RETURN(pHPBack, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_HPBack", pHPBack), E_FAIL);
 
 	CUI_HPBar* pHPBar = CUI_HPBar::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pHPBar, E_FAIL);

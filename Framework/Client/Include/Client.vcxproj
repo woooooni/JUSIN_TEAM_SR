@@ -201,6 +201,8 @@
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Leaf.h" />
+    <ClInclude Include="..\Header\Effect_Shadow.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\FistEffect.h" />
@@ -236,6 +238,7 @@
     <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
+    <ClInclude Include="..\Header\EtcItem.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\LightPuzzle.h" />
     <ClInclude Include="..\Header\LightPuzzleBase.h" />
@@ -245,13 +248,20 @@
     <ClInclude Include="..\Header\MothMage.h" />
     <ClInclude Include="..\Header\MothOrb.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
+    <ClInclude Include="..\Header\NearReactMushroom.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
     <ClInclude Include="..\Header\NPC.h" />
     <ClInclude Include="..\Header\NPCCow.h" />
     <ClInclude Include="..\Header\NPCSheep.h" />
     <ClInclude Include="..\Header\NPCText.h" />
+    <ClInclude Include="..\Header\PlantBall.h" />
+    <ClInclude Include="..\Header\PlantCannon.h" />
+    <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
     <ClInclude Include="..\Header\NPCTextBox.h" />
-    <ClInclude Include="..\Header\OnEventObj.h" />
+    <ClInclude Include="..\Header\OnEventObj.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
@@ -293,10 +303,10 @@
     <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
     <ClInclude Include="..\Header\SludgeBall.h" />
+    <ClInclude Include="..\Header\SludgeWave.h" />
     <ClInclude Include="..\Header\SpitCactus.h" />
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
-    <ClInclude Include="..\Header\Text.h" />
     <ClInclude Include="..\Header\Tile.h" />
     <ClInclude Include="..\Header\TrashBig.h" />
     <ClInclude Include="..\Header\TrashBummer.h" />
@@ -306,8 +316,10 @@
     <ClInclude Include="..\Header\Tree.h" />
     <ClInclude Include="..\Header\TutorialNPC.h" />
     <ClInclude Include="..\Header\UIMgr.h" />
+    <ClInclude Include="..\Header\UI_BossHP.h" />
     <ClInclude Include="..\Header\UI_Cursor.h" />
     <ClInclude Include="..\Header\UI_ItemInfo.h" />
+    <ClInclude Include="..\Header\UI_MonsterHP.h" />
     <ClInclude Include="..\Header\UI_Pages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
@@ -316,6 +328,7 @@
     <ClInclude Include="..\Header\UI_Shop.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="..\Header\UI_Totem.h" />
+    <ClInclude Include="..\Header\UseItem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="JellyPool.h" />
     <ClInclude Include="Resource.h" />
@@ -344,6 +357,8 @@
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_Leaf.cpp" />
+    <ClCompile Include="..\Code\Effect_Shadow.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp" />
@@ -378,6 +393,7 @@
     <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
+    <ClCompile Include="..\Code\EtcItem.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\LightPuzzle.cpp" />
     <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
@@ -387,13 +403,20 @@
     <ClCompile Include="..\Code\MothMage.cpp" />
     <ClCompile Include="..\Code\MothOrb.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
+    <ClCompile Include="..\Code\NearReactMushroom.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
     <ClCompile Include="..\Code\NPC.cpp" />
     <ClCompile Include="..\Code\NPCCow.cpp" />
     <ClCompile Include="..\Code\NPCSheep.cpp" />
     <ClCompile Include="..\Code\NPCText.cpp" />
+    <ClCompile Include="..\Code\PlantBall.cpp" />
+    <ClCompile Include="..\Code\PlantCannon.cpp" />
+    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
     <ClCompile Include="..\Code\NPCTextBox.cpp" />
-    <ClCompile Include="..\Code\OnEventObj.cpp" />
+    <ClCompile Include="..\Code\OnEventObj.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
@@ -434,10 +457,10 @@
     <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
     <ClCompile Include="..\Code\SludgeBall.cpp" />
+    <ClCompile Include="..\Code\SludgeWave.cpp" />
     <ClCompile Include="..\Code\SpitCactus.cpp" />
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
-    <ClCompile Include="..\Code\Text.cpp" />
     <ClCompile Include="..\Code\Tile.cpp" />
     <ClCompile Include="..\Code\TrashBig.cpp" />
     <ClCompile Include="..\Code\TrashBummer.cpp" />
@@ -447,8 +470,10 @@
     <ClCompile Include="..\Code\Tree.cpp" />
     <ClCompile Include="..\Code\TutorialNPC.cpp" />
     <ClCompile Include="..\Code\UIMgr.cpp" />
+    <ClCompile Include="..\Code\UI_BossHP.cpp" />
     <ClCompile Include="..\Code\UI_Cursor.cpp" />
     <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
+    <ClCompile Include="..\Code\UI_MonsterHP.cpp" />
     <ClCompile Include="..\Code\UI_Pages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />
@@ -457,6 +482,7 @@
     <ClCompile Include="..\Code\UI_Shop.cpp" />
     <ClCompile Include="..\Code\UI_Totem.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
+    <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

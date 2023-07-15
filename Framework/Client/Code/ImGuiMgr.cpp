@@ -124,11 +124,13 @@ void CImGuiMgr::Update_ImGui(const _float& fTimeDelta)
 
 	if (ImGui::Button("Save"))
 	{
+		ResetSelectTarget();
 		m_pToolScene->Save_Data(m_strFolderPath);
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Load"))
 	{
+		ResetSelectTarget();
 		m_pToolScene->Load_Data(m_strFolderPath);
 	}
 	ImGui::SameLine();
@@ -164,9 +166,9 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		{
 			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 			
-			vHit.x = _int(vHit.x);
+			vHit.x = ceil(vHit.x * 2) / 2;
 			vHit.y = vPos.y;
-			vHit.z = _int(vHit.z);
+			vHit.z = ceil(vHit.z * 2)/ 2;
 
 			m_pSelectedObject->Get_TransformCom()->Set_Info(INFO_POS, &vHit);
 			if (KEY_TAP(KEY::LBTN))
@@ -185,9 +187,9 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		m_pSelectedObject->LateUpdate_Object();
 		
 
-		OBJ_TYPE eObjType = m_pSelectedObject->GetObj_Type();
+		/*OBJ_TYPE eObjType = m_pSelectedObject->GetObj_Type();
 		if (eObjType == OBJ_TYPE::OBJ_MONSTER || eObjType == OBJ_TYPE::OBJ_ENVIRONMENT)
-			SetAutoY(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);*/
 	}
 
 	static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_AutoSelectNewTabs | ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyResizeDown;
@@ -198,60 +200,80 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CBlueBeatle::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Red_Beatle"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CRedBeatle::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Green_Beatle"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CGreenBeatle::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Desert_Rino"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CDesertRhino::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Trash_Big"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CTrashBig::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Trash_Slime"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CTrashSlime::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Spit_Cactus"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CSpitCactus::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Moth_Mage"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CMothMage::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("Rolling_Bug"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CRollingBug::Create(m_pGraphicDev, {0.f, 0.f, 0.f}, BUGCOLORTYPE::PINK);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		if (ImGui::Button("CUPA"))
 		{
 			ResetSelectTarget();
 			m_pSelectedObject = CCupa::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
 		}
 
 		ImGui::EndTabItem();
@@ -281,19 +303,21 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 
 	if (ImGui::BeginTabItem("Tree"))
 	{
-		CTexture* pTileTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Tree"));
-		if (pTileTex != nullptr)
+		CTexture* pTreeTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Tree"));
+		if (pTreeTex != nullptr)
 		{
-			for (size_t i = 0; i < pTileTex->Get_Size(); ++i)
+			for (size_t i = 0; i < pTreeTex->Get_Size(); ++i)
 			{
 				if (i % 4 != 0)
 					ImGui::SameLine();
 
-				if (ImGui::ImageButton(pTileTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
+				if (ImGui::ImageButton(pTreeTex->Get_TextureVec()[i], ImVec2(50.f, 50.f)))
 				{
 					ResetSelectTarget();
 					m_pSelectedObject = CTree::Create(m_pGraphicDev);
 					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
+					SetScaleRatio(m_pSelectedObject);
+					SetAutoY(m_pSelectedObject);
 				}
 			}
 		}
@@ -315,6 +339,8 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 					ResetSelectTarget();
 					m_pSelectedObject = CHouse::Create(m_pGraphicDev);
 					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
+					SetScaleRatio(m_pSelectedObject);
+					SetAutoY(m_pSelectedObject);
 				}
 			}
 		}
@@ -336,6 +362,8 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 					ResetSelectTarget();
 					m_pSelectedObject = CProp::Create(m_pGraphicDev);
 					m_pSelectedObject->Get_TextureCom()->Set_Idx(i);
+					SetScaleRatio(m_pSelectedObject);
+					SetAutoY(m_pSelectedObject);
 				}
 			}
 		}
@@ -413,6 +441,36 @@ void CImGuiMgr::SetAutoY(CGameObject* pObj)
 		vPos.y = fHeight;
 		pTransform->GetOwner()->Set_MinHeight(fHeight);
 		pTransform->Set_Info(INFO_POS, &vPos);
+	}
+}
+
+void CImGuiMgr::SetScaleRatio(CGameObject* pObj)
+{
+
+	CTexture* pTexture = pObj->Get_TextureCom();
+	if (pTexture)
+	{
+		const D3DXIMAGE_INFO& tImageInfo = pTexture->Get_TextureDesc(pTexture->Get_Idx());
+		_vec3 vScale = pObj->Get_TransformCom()->Get_Scale();
+
+		vScale.x = _float(tImageInfo.Width) / tImageInfo.Width;
+		vScale.y = _float(tImageInfo.Height) / tImageInfo.Width;
+
+		pObj->Get_TransformCom()->Set_Scale(vScale);
+		return;
+	}
+	else
+	{
+		CAnimator* pAnimator = pObj->Get_AnimatorCom();
+		_vec3 vScale = pObj->Get_TransformCom()->Get_Scale();
+
+		const D3DXIMAGE_INFO& tImageInfo = pAnimator->GetCurrAnimation()->Get_TextureDesc(0);
+
+		vScale.x = _float(tImageInfo.Width) / tImageInfo.Width;
+		vScale.y = _float(tImageInfo.Height) / tImageInfo.Width;
+
+		pObj->Get_TransformCom()->Set_Scale(vScale);
+		return;
 	}
 }
 
@@ -613,6 +671,16 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			m_pTargetObject->Get_TransformCom()->RotationAxis(vLook, D3DXToRadian(-90.f));
 		}
 
+		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::R))
+		{
+			_vec3 vLook, vRight, vUp;
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+
+			m_pTargetObject->Get_TransformCom()->RotationAxis(_vec3(0.f, 1.f, 0.f), D3DXToRadian(-90.f));
+		}
+
 		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::F))
 		{
 			_vec3 vLook, vRight, vUp;
@@ -646,15 +714,16 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
+
 		}
 
 		if (KEY_TAP(KEY::CLOSE_SQUARE_BRACKET)) // ']'
 		{
 			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
-			vScale.x += 1.1f;
-			vScale.y += 1.1f;
-			vScale.z += 1.1f;
+			vScale.x += 1.0f;
+			vScale.y += 1.0f;
+			vScale.z += 1.0f;
 
 			vScale.x = _int(vScale.x);
 			vScale.y = _int(vScale.y);
@@ -662,29 +731,38 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 
 			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
+
 			if(nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
+
+			if(m_pTargetObject->GetObj_Id() != OBJ_ID::TILE)
+				SetAutoY(m_pTargetObject);
 		}
 
 		if (KEY_HOLD(KEY::O))
 		{
 			_vec3 vScale = m_pTargetObject->Get_TransformCom()->Get_Scale();
 
-			vScale.x -= 1.f;
-			vScale.y -= 1.f;
-			vScale.z -= 1.f;
+			vScale.x -= 1.0f;
+			vScale.y -= 1.0f;
+			vScale.z -= 1.0f;
 
-			if (vScale.x < 1.f)
-				vScale.x = 1.f;
-			if (vScale.y < 1.f)
-				vScale.y = 1.f;
-			if (vScale.z < 1.f)
-				vScale.z = 1.f;
+			if (vScale.x < 0.1f)
+				vScale.x = 0.1f;
+
+			if (vScale.y < 0.1f)
+				vScale.y = 0.1f;
+
+			if (vScale.z < 0.1f)
+				vScale.z = 0.1f;
 
 			m_pTargetObject->Get_TransformCom()->Set_Scale(vScale);
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
+
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE)
+				SetAutoY(m_pTargetObject);
 		}
 
 		if (KEY_HOLD(KEY::P))
@@ -699,6 +777,9 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
+
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE)
+				SetAutoY(m_pTargetObject);
 		}
 
 		m_pTargetObject->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
@@ -737,6 +818,16 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
 		}
 
+		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::R))
+		{
+			_vec3 vLook, vRight, vUp;
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+
+			m_pSelectedObject->Get_TransformCom()->RotationAxis(_vec3(0.f, 1.f, 0.f), D3DXToRadian(-90.f));
+		}
+
 		if (KEY_TAP(KEY::OPEN_SQUARE_BRACKET)) // '['
 		{
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
@@ -752,32 +843,30 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (vScale.z < 1.f)
 				vScale.z = 1.f;
 
-			vScale.x = _int(vScale.x);
-			vScale.y = _int(vScale.y);
-			vScale.z = _int(vScale.z);
-
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
+
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+				SetAutoY(m_pSelectedObject);
 		}
 
 		if (KEY_TAP(KEY::CLOSE_SQUARE_BRACKET)) // ']'
 		{
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 
-			vScale.x += 1.1f;
-			vScale.y += 1.1f;
-			vScale.z += 1.1f;
-
-			vScale.x = _int(vScale.x);
-			vScale.y = _int(vScale.y);
-			vScale.z = _int(vScale.z);
+			vScale.x += 1.0f;
+			vScale.y += 1.0f;
+			vScale.z += 1.0f;
 
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
+
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+				SetAutoY(m_pSelectedObject);
 		}
 
 
@@ -801,6 +890,9 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
 			if (nullptr != pCollider)
 				pCollider->Set_Scale(vScale);
+
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+				SetAutoY(m_pSelectedObject);
 		}
 
 		if (KEY_HOLD(KEY::P))
@@ -816,6 +908,9 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(m_pSelectedObject->Get_ColliderCom());
 			if(nullptr != pCollider)
 				pCollider->Set_Scale(vScale);
+
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+				SetAutoY(m_pSelectedObject);
 		}
 
 	}
@@ -855,7 +950,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 				fFov < 1.f ? fFov = 1.f : fFov = fFov;
 				m_pToolScene->Get_MainCamera()->Set_Fov(fFov);
 			}
-		}	
+		}
 	}
 
 	ObjPicking();
@@ -909,8 +1004,9 @@ void CImGuiMgr::Update_Help(const _float& fTimeDelta)
 	ImGui::Text("");
 	ImGui::Text("");
 	ImGui::Text(u8"Ctrl + Q : Rotation CCW");
-	ImGui::Text(u8"Ctrl + F : Flip");
 	ImGui::Text(u8"Ctrl + E : Rotation CW");
+	ImGui::Text(u8"Ctrl + R : 90µµ È¸Àü");
+	ImGui::Text(u8"Ctrl + F : Flip");
 	ImGui::Text(u8"Ctrl + ÈÙ : ZoomIn, ZoomOut");
 
 	ImGui::Text("");
@@ -931,11 +1027,13 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 		CTransform* pTargetTransform = m_pTargetObject->Get_TransformCom();
 		if (pTargetTransform != nullptr)
 		{
-			_vec3 vPos, vScale;
+			_vec3 vPos, vScale, vRight, vUp, vLook;
 			pTargetTransform->Get_Info(INFO_POS, &vPos);
 			vScale = pTargetTransform->Get_Scale();
 
+
 			_float fPos[3] = { vPos.x, vPos.y, vPos.z };
+			_float fRotation[3] = { 0.f, 0.f, 0.f };
 			_float fScale[3] = { vScale.x, vScale.y, vScale.z };
 
 			ImGui::SameLine();
@@ -967,30 +1065,27 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			vPos.y = fPos[1];
 			vPos.z = fPos[2];
 
-
 			vScale.x = fScale[0];
 			vScale.y = fScale[1];
 			vScale.z = fScale[2];
 
-			if (vScale.x < 0.1f)
+			if (vScale.x < 0.0001f)
 				vScale.x = 1.f;
-
-			if (vScale.y < 0.1f)
+			if (vScale.y < 0.0001f)
 				vScale.y = 1.f;
-
-			if (vScale.z < 0.1f)
+			if (vScale.z < 0.0001f)
 				vScale.z = 1.f;
+
 
 			pTargetTransform->Set_Info(INFO_POS, &vPos);
 			pTargetTransform->Set_Scale(vScale);
 
-			OBJ_TYPE eObjType = m_pTargetObject->GetObj_Type();
-			if(eObjType == OBJ_TYPE::OBJ_MONSTER || eObjType == OBJ_TYPE::OBJ_ENVIRONMENT)
-				SetAutoY(m_pTargetObject);
-
 			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
+
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::TERRAIN)
+				SetAutoY(m_pTargetObject);
 		}
 	}
 	ImGui::End();

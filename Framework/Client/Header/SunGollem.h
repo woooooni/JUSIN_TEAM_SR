@@ -41,6 +41,9 @@ public:
 	SUNGOLEM_STATE Get_State() { return m_eState; }
 	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
 
+	// BossHPBar 연동으로 인해 추가함 (Test)
+	MONSTERSTAT Get_Stat() { return m_tStat; }
+
 public:
 	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
 public:
@@ -64,6 +67,7 @@ private:
 	MONSTERSTAT m_tStat;
 private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);
+	void Create_Wave(_vec3 vPos);
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
@@ -73,10 +77,10 @@ protected:
 	_vec3 m_vTargetPos = {};
 	_int m_iRand = 1;
 	_int m_iActiveArm = 2;
+	bool m_bSummon[3];
 	bool m_bAttack[6];
 	bool m_bLockon = false;
 	bool m_bDirty = false;
-
 protected:
 	virtual void Free() override;
 	

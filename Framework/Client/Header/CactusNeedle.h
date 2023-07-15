@@ -29,6 +29,8 @@ public:
 
 	void Set_Poison(_bool _bPoison) { if (m_bPoison == _bPoison) return; m_bPoison = _bPoison; }
 	_bool Is_Poison() { return m_bPoison; }
+	void Set_Spin(_bool _bSpin) { if (m_bSpin == _bSpin) return; m_bSpin = _bSpin; }
+	_bool Is_Spin() { return m_bSpin; }
 
 	static CCactusNeedle* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
@@ -36,7 +38,7 @@ private:
 	OBJ_DIR m_eDir;
 	_vec3 m_vDir;
 	_bool	m_bPoison = false;
-
+	_bool m_bSpin = true;
 protected:
 	_float m_fMoveTime=20.f;
 protected:

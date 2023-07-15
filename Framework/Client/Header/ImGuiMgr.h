@@ -51,7 +51,7 @@ private:
 	void ResetSelectTarget();
 	void PasteObj();
 	void SetAutoY(CGameObject* pObj);
-
+	void SetScaleRatio(CGameObject* pObj);
 
 private:
 	void CreateObj(_vec3& vHit);

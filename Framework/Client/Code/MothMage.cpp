@@ -87,7 +87,7 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
 
-		if (D3DXVec3Length(&vDir) < 5.f)
+		if (D3DXVec3Length(&vDir) < 7.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
 			m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);

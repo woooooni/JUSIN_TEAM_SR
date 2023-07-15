@@ -307,6 +307,15 @@
     <Filter Include="02. GameObject\04. UI\04. Shop\01. ItemInfo">
       <UniqueIdentifier>{c3216025-b5d4-4c9d-89bb-5580309f0e13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\05. Monster HPBar">
+      <UniqueIdentifier>{d122622d-e27e-4f86-aa52-073b30fb031f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\05. Monster HPBar\00. Monster HP">
+      <UniqueIdentifier>{507da345-e8ce-4233-a675-538cd1887626}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\05. Monster HPBar\01. Boss HP">
+      <UniqueIdentifier>{a0386ccb-8d1e-4136-a06e-2a8bb416259f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -344,12 +353,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\PushStone.h">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\AttackableObj.h">
-      <Filter>02. GameObject\07. AttackableObj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\PushableObj.h">
-      <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\OnEventObj.h">
       <Filter>02. GameObject\08. OnEventObj</Filter>
@@ -510,9 +513,6 @@
     <ClInclude Include="..\Header\QuickSlot.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Text.h">
-      <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\JellyBomb.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
@@ -661,6 +661,20 @@
     <ClInclude Include="..\Header\NPCTextBox.h">
       <Filter>02. GameObject\04. UI\02. NPCText</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Bullet.h" />
+    <ClInclude Include="..\Header\Prop.h" />
+    <ClInclude Include="..\Header\SludgeBall.h" />
+    <ClInclude Include="..\Header\TrashBummer.h" />
+    <ClInclude Include="JellyPool.h" />
+    <ClInclude Include="..\Header\NPCText.h">
+      <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_MonsterHP.h">
+      <Filter>02. GameObject\04. UI\05. Monster HPBar\00. Monster HP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_BossHP.h">
+      <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -690,12 +704,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\PushStone.cpp">
       <Filter>02. GameObject\06. FieldObj\00. PushableObj\00. Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\AttackableObj.cpp">
-      <Filter>02. GameObject\07. AttackableObj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\PushableObj.cpp">
-      <Filter>02. GameObject\06. FieldObj\00. PushableObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\OnEventObj.cpp">
       <Filter>02. GameObject\08. OnEventObj</Filter>
@@ -847,9 +855,6 @@
     <ClCompile Include="..\Code\QuickSlot.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Text.cpp">
-      <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\JellyBomb.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
@@ -909,9 +914,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\Tree.cpp">
       <Filter>02. GameObject\13. FixedObj\00. Tree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Header\Tile.cpp">
-      <Filter>02. GameObject\14. Tile</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\House.cpp">
       <Filter>02. GameObject\13. FixedObj\01. House</Filter>
@@ -999,6 +1001,20 @@
     </ClCompile>
     <ClCompile Include="..\Code\NPCTextBox.cpp">
       <Filter>02. GameObject\04. UI\02. NPCText</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Bullet.cpp" />
+    <ClCompile Include="..\Code\Prop.cpp" />
+    <ClCompile Include="..\Code\SludgeBall.cpp" />
+    <ClCompile Include="..\Code\Tile.cpp" />
+    <ClCompile Include="..\Code\TrashBummer.cpp" />
+    <ClCompile Include="..\Code\NPCText.cpp">
+      <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_MonsterHP.cpp">
+      <Filter>02. GameObject\04. UI\05. Monster HPBar\00. Monster HP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_BossHP.cpp">
+      <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

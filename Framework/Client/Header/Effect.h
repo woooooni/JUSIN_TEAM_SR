@@ -9,8 +9,7 @@ class CCollider;
 
 END
 
-class CEffect :
-	public CGameObject
+class CEffect : public CGameObject
 {
 
 protected:

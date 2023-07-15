@@ -142,8 +142,8 @@ void CCamera::Follow(const _float& fTimeDelta)
 
 	D3DXVec3Normalize(&vDir, &vDir);
 	vCameraPos.x = vTargetPos.x;
-	vCameraPos.y = vTargetPos.y + 15.f;
-	vCameraPos.z = vTargetPos.z - 20.f;
+	vCameraPos.y = vTargetPos.y + 5.f;
+	vCameraPos.z = vTargetPos.z - 10.f;
 
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
 
@@ -404,20 +404,6 @@ void CCamera::Key_Input_Tool(const _float& fTimeDelta)
 		_vec3 vDir;
 		m_pTransformCom->Get_Info(INFO_LOOK, &vDir);
 		m_pTransformCom->Move_Pos(&vDir, -m_fMoveSpeed, fTimeDelta);
-	}
-
-	if (KEY_TAP(KEY::R))
-	{
-		if (m_bMouse)
-		{
-			ShowCursor(false);
-			m_bMouse = false;
-		}
-		else
-		{
-			ShowCursor(true);
-			m_bMouse = true;
-		}
 	}
 
 	if (KEY_HOLD(KEY::Q) && KEY_NONE(KEY::CTRL))

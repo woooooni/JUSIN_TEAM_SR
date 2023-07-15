@@ -38,7 +38,6 @@ void CHouse::LateUpdate_Object(void)
 
 void CHouse::Render_Object(void)
 {
-
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 	m_pTextureCom->Render_Texture();

@@ -49,6 +49,9 @@ public:
 	void Set_MinHeight(_float _fHeight) { m_fMinHeight = _fHeight; }
 	_float Get_MinHeight() { return m_fMinHeight; }
 
+	void Set_Alpha(_float _fAlpha) { m_fAlpha = _fAlpha; }
+	_float Get_Alpha() { return m_fAlpha; }
+
 public:
 	CVIBuffer* Get_BufferCom() { return m_pBufferCom; }
 	CTransform* Get_TransformCom() { return m_pTransformCom; }
@@ -99,6 +102,8 @@ protected:
 
 	_float		m_fViewZ;
 	_float		m_fMinHeight;
+
+	_float		m_fAlpha;
 
 private:
 	_bool		m_bActive;

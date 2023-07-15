@@ -35,7 +35,7 @@ _int CJellyBombCreator::Update_Object(const _float& fTimeDelta)
 		m_pJellyBomb->Reset();
 		_vec3	vec;
 		m_pTransformCom->Get_Info(INFO_POS, &vec);
-		vec.y = 1.f;
+
 
 		m_pJellyBomb->Get_TransformCom()->Set_Pos(&vec);
 

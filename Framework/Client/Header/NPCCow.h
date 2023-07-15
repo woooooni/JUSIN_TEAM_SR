@@ -2,7 +2,7 @@
 #include "NPC.h"
 #include "UI_ShortCutKey.h"
 #include "NPCTextBox.h"
-#include "Text.h"
+#include "NPCText.h"
 #include "NPCSheep.h"
 
 BEGIN(Engine)

@@ -123,7 +123,6 @@ public:
 	}
 	CItem_Hat*		Get_Hat() { return dynamic_cast<CItem_Hat*>(m_pHat); }
 
-
 	//½ºÅ³
 	
 	void			Set_Skill(PLAYER_SKILL _eSkill) 

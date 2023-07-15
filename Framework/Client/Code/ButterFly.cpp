@@ -2,15 +2,16 @@
 #include	"Export_Function.h"
 #include	<time.h>
 
+
 CButterFly::CButterFly(LPDIRECT3DDEVICE9 pDev) 
-	: CFieldObject(pDev, OBJ_ID::BUTTERFLY)
+	: CItem(pDev, ITEM_TYPE::ETC, OBJ_ID::BUTTERFLY)
 	, m_vMovingDir({-1, 0, 0})
 	, m_fChangeTime(1.f)
 {
 }
 
 
-CButterFly::CButterFly(const CButterFly& rhs) : CFieldObject(rhs), m_vMovingDir(rhs.m_vMovingDir), m_fChangeTime(rhs.m_fChangeTime)
+CButterFly::CButterFly(const CButterFly& rhs) : CItem(rhs), m_vMovingDir(rhs.m_vMovingDir), m_fChangeTime(rhs.m_fChangeTime)
 {
 }
 
@@ -98,9 +99,9 @@ void CButterFly::LateUpdate_Object(void)
 
 void CButterFly::Render_Object(void)
 {
-	
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
-	
+	m_pBufferCom->Render_Buffer();
 
 }
 
@@ -156,4 +157,36 @@ void CButterFly::Event_Start(_uint iEventNum)
 
 void CButterFly::Event_End(_uint iEventNum)
 {
+}
+
+HRESULT CButterFly::Ready_Component()
+{
+	CComponent* pComponent = nullptr;
+
+	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
+
+
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
+
+	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+
+	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+
+
+
+	return S_OK;
+
 }

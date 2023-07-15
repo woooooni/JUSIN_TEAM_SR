@@ -5,7 +5,7 @@
 
 CRigidBody::CRigidBody()
 	: m_fMass(1.f)
-	, m_fMaxVelocity(10.0f)
+	, m_fMaxVelocity(1000.0f)
 	, m_bGravity(true)
 	, m_bGround(false)
 	, m_vVelocity(_vec3(0.f, 0.f, 0.f))
@@ -13,13 +13,14 @@ CRigidBody::CRigidBody()
 	, m_vAccelA(_vec3(0.f, 0.f, 0.f))
 	, m_vForce(_vec3(0.f, 0.f, 0.f))
 	, m_fFricCoeff(50.f)
+	, m_fGravity(-98.0f)
 {
 }
 
 CRigidBody::CRigidBody(LPDIRECT3DDEVICE9 _pDevice)
 	: CComponent(_pDevice, COMPONENT_TYPE::COM_RIGIDBODY)
 	, m_fMass(10.f)
-	, m_fMaxVelocity(10.0f)
+	, m_fMaxVelocity(1000.0f)
 	, m_bGravity(true)
 	, m_bGround(false)
 	, m_vVelocity(_vec3(0.f, 0.f, 0.f))
@@ -27,6 +28,7 @@ CRigidBody::CRigidBody(LPDIRECT3DDEVICE9 _pDevice)
 	, m_vAccelA(_vec3(0.f, 0.f, 0.f)) 
 	, m_vForce(_vec3(0.f, 0.f, 0.f))
 	, m_fFricCoeff(50.f)
+	, m_fGravity(-98.0f)
 {
 }
 
@@ -41,6 +43,7 @@ CRigidBody::CRigidBody(const CRigidBody& rhs)
 	, m_vAccelA(_vec3(0.f, 0.f, 0.f))
 	, m_vForce(_vec3(0.f, 0.f, 0.f))
 	, m_fFricCoeff(rhs.m_fFricCoeff)
+	, m_fGravity(rhs.m_fGravity)
 {
 }
 
@@ -145,7 +148,7 @@ void CRigidBody::SetGround(_bool _bGround)
 
 void CRigidBody::Update_Gravity()
 {
-	SetAccelAlpha(_vec3(0.f, -98.f, 0.f));
+	SetAccelAlpha(_vec3(0.f, m_fGravity, 0.f));
 }
 
 void CRigidBody::Move(_float fTimeDelta)

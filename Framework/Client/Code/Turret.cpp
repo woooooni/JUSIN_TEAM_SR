@@ -1,10 +1,18 @@
 #include "Turret.h"
 #include	"Export_Function.h"
-CTurret::CTurret(LPDIRECT3DDEVICE9 pGraphicDev) : CFieldObject(pGraphicDev, OBJ_ID::TURRET), m_wstrCurState(L""), m_pTarget(nullptr), m_fEnergy(0)
+CTurret::CTurret(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: CFieldObject(pGraphicDev, OBJ_ID::TURRET)
+	, m_wstrCurState(L"")
+	, m_pTarget(nullptr)
+	, m_fEnergy(0)
 {}
 
 
-CTurret::CTurret(const CTurret& rhs) : CFieldObject(rhs), m_wstrCurState(rhs.m_wstrCurState), m_pTarget(rhs.m_pTarget), m_fEnergy(rhs.m_fEnergy)
+CTurret::CTurret(const CTurret& rhs) 
+	: CFieldObject(rhs)
+	, m_wstrCurState(rhs.m_wstrCurState)
+	, m_pTarget(rhs.m_pTarget)
+	, m_fEnergy(rhs.m_fEnergy)
 {
 }
 

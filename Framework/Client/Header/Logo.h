@@ -27,7 +27,7 @@
 #include "NPCTextBox.h"
 #include "Coin.h"
 #include "QuickSlot.h"
-#include "Text.h"
+#include "NPCText.h"
 #include "Icon.h"
 #include "NPCCow.h"
 #include "NPCSheep.h"
@@ -35,8 +35,10 @@
 #include "UI_ItemInfo.h"
 #include "UI_Cursor.h"
 #include "UI_HPBar.h"
+#include "UI_BossHP.h"
 #include "UI_Totem.h"
 #include "UI_ShortCutKey.h"
+#include "UI_MonsterHP.h"
 #include "LightPuzzleTerrain.h"
 #include "LightPuzzleBase.h"
 #include "LightPuzzlePiece.h"
@@ -46,6 +48,7 @@
 #include	"JellyBomb.h"
 #include	"JellyBombCreator.h"
 #include	"Grass.h"
+#include	"NearReactMushroom.h"
 
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"
@@ -65,8 +68,12 @@
 #include "Item_Hat_Light.h"
 #include "Item_Hat_Mask.h"
 #include "Item_Hat_Missile.h"
+#include	"EtcItem.h"
 
-#include "FistEffect.h"
+
+
+#include	"PlantCannon.h"
+
 class CLogo : public Engine::CScene
 {
 private:

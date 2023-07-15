@@ -22,6 +22,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType, OBJ_ID 
 	, m_pRigidBodyCom(nullptr)
 	, m_fMinHeight(0.006f)
 	, m_eID(_eID)
+	, m_fAlpha(255.f)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -40,6 +41,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_pRigidBodyCom(rhs.m_pRigidBodyCom)
 	, m_fMinHeight(rhs.m_fMinHeight)
 	, m_eID(rhs.m_eID)
+	, m_fAlpha(rhs.m_fAlpha)
 	
 {
 	m_pGraphicDev->AddRef();
@@ -60,7 +62,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);	
 
 	if (nullptr != m_pRigidBodyCom)
-		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);
+		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, m_pRigidBodyCom);
 
 }
 

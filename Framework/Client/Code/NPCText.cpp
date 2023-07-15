@@ -1,4 +1,4 @@
-#include "Text.h"
+#include "NPCText.h"
 #include "Export_Function.h"
 
 CNPCText::CNPCText(LPDIRECT3DDEVICE9 pGraphicDev)
