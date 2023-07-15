@@ -214,6 +214,7 @@
     <ClInclude Include="..\Header\GolemLeftHand.h" />
     <ClInclude Include="..\Header\GolemLeftLeg.h" />
     <ClInclude Include="..\Header\GolemLowerJaw.h" />
+    <ClInclude Include="..\Header\GolemPart.h" />
     <ClInclude Include="..\Header\GolemParts.h" />
     <ClInclude Include="..\Header\GolemRightArm.h" />
     <ClInclude Include="..\Header\GolemRightHand.h" />
@@ -370,6 +371,7 @@
     <ClCompile Include="..\Code\GolemLeftHand.cpp" />
     <ClCompile Include="..\Code\GolemLeftLeg.cpp" />
     <ClCompile Include="..\Code\GolemLowerJaw.cpp" />
+    <ClCompile Include="..\Code\GolemPart.cpp" />
     <ClCompile Include="..\Code\GolemRightArm.cpp" />
     <ClCompile Include="..\Code\GolemRightHand.cpp" />
     <ClCompile Include="..\Code\GolemRightLeg.cpp" />

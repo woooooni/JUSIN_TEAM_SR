@@ -72,10 +72,12 @@ void CSludgeBall::LateUpdate_Object(void)
 
 void CSludgeBall::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
-
+	if (Is_Active())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		__super::Render_Object();
+		m_pBufferCom->Render_Buffer();
+	}
 }
 
 HRESULT CSludgeBall::Add_Component(void)

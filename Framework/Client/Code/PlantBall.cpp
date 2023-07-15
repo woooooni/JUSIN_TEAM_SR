@@ -64,10 +64,12 @@ void CPlantBall::LateUpdate_Object(void)
 
 void CPlantBall::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
-
+	if (Is_Active())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		__super::Render_Object();
+		m_pBufferCom->Render_Buffer();
+	}
 }
 
 HRESULT CPlantBall::Add_Component(void)

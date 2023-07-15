@@ -2,14 +2,14 @@
 #include "GolemLowerJaw.h"
 #include "SunGollem.h"
 
-CGolemLowerJaw::CGolemLowerJaw(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
-, m_eState(SUNGOLEM_STATE::REGEN)
+CGolemLowerJaw::CGolemLowerJaw(LPDIRECT3DDEVICE9 pGraphicDev) : CGolemPart(pGraphicDev)
+
 
 {
 }
 CGolemLowerJaw::CGolemLowerJaw(const CGolemLowerJaw& rhs)
-	: Engine::CGameObject(rhs)
-	, m_eState(rhs.m_eState)
+	: CGolemPart(rhs)
+
 {
 
 }
@@ -35,8 +35,7 @@ HRESULT CGolemLowerJaw::Ready_Object(void)
 _int CGolemLowerJaw::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
-	Set_State(dynamic_cast<CSunGollem*>(pTarget)->Get_State());
+	
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (m_eState)
 	{

@@ -101,15 +101,18 @@ void CSilkWorm::LateUpdate_Object(void)
 }
 void CSilkWorm::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	
+	if (Is_Active())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
-	if (m_bSpawn)
-		for (int i = 0; i < COLOR_END; i++)
-			if (m_pBeatles[i]->Is_Active())
-			m_pBeatles[i]->Render_Object();
+
+		__super::Render_Object();
+		m_pBufferCom->Render_Buffer();
+		if (m_bSpawn)
+			for (int i = 0; i < COLOR_END; i++)
+				if (m_pBeatles[i]->Is_Active())
+					m_pBeatles[i]->Render_Object();
+	}
 	
 }
 
@@ -140,6 +143,12 @@ void CSilkWorm::Update_Die(_float fTimeDelta)
 	}
 	else
 		m_pAnimator->GetCurrAnimation()->Set_Idx(3);
+	for (int i = 0; i < COLOR_END; i++)
+	{
+
+		if (m_pBeatles[i]->Is_Active())
+			m_pBeatles[i]->Set_Active(false);
+	}
 }
 
 void CSilkWorm::Update_Regen(_float fTimeDelta)

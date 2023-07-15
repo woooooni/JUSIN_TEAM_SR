@@ -1,14 +1,13 @@
 #include "Export_Function.h"
 #include "GolemHead.h"
 #include "SunGollem.h"
-CGolemHead::CGolemHead(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
-, m_eState(SUNGOLEM_STATE::REGEN)
+CGolemHead::CGolemHead(LPDIRECT3DDEVICE9 pGraphicDev) : CGolemPart(pGraphicDev)
+
 
 {
 }
 CGolemHead::CGolemHead(const CGolemHead& rhs)
-	: Engine::CGameObject(rhs)
-	, m_eState(rhs.m_eState)
+	: CGolemPart(rhs)
 {
 
 }
@@ -35,10 +34,8 @@ HRESULT CGolemHead::Ready_Object(void)
 _int CGolemHead::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
 
-	Set_State(dynamic_cast<CSunGollem*>(pTarget)->Get_State());
-
+	
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (m_eState)
 	{

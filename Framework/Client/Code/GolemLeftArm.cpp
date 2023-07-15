@@ -2,14 +2,13 @@
 #include "GolemLeftArm.h"
 #include "SunGollem.h"
 
-CGolemLeftArm::CGolemLeftArm(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
-, m_eState(SUNGOLEM_STATE::REGEN)
+CGolemLeftArm::CGolemLeftArm(LPDIRECT3DDEVICE9 pGraphicDev) : CGolemPart(pGraphicDev)
 
 {
 }
 CGolemLeftArm::CGolemLeftArm(const CGolemLeftArm& rhs)
-	: Engine::CGameObject(rhs)
-	, m_eState(rhs.m_eState)
+	:CGolemPart(rhs)
+
 {
 
 }
@@ -37,8 +36,6 @@ HRESULT CGolemLeftArm::Ready_Object(void)
 _int CGolemLeftArm::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
-	Set_State(dynamic_cast<CSunGollem*>(pTarget)->Get_State());
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (m_eState)
 	{
