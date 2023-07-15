@@ -32,27 +32,30 @@ _int CUI_MonsterHP::Update_Object(const _float& fTimeDelta)
 	// 우선, Test용으로 RollingBug를 잡겠다.
 	CGameObject* pMonster = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"Monster_Rolling_Pink");
 	
-	_uint iMaxHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iMaxHp;
-	_uint iHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iHp;
+	if (pMonster != nullptr)
+	{
+		_uint iMaxHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iMaxHp;
+		_uint iHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iHp;
 
-	m_iMaxHP = iMaxHp;
-	m_iHP = iHp;
+		m_iMaxHP = iMaxHp;
+		m_iHP = iHp;
 
-	_vec3 vBarPos, vPos, vDir;
-	pMonster->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		_vec3 vBarPos, vPos, vDir;
+		pMonster->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 
-	vDir = vPos - vBarPos;
-	D3DXVec3Normalize(&vDir, &vDir);
+		vDir = vPos - vBarPos;
+		D3DXVec3Normalize(&vDir, &vDir);
 
-	m_vDefaultPos = { vPos.x , vPos.y + 200.f, 0.f }; // 체력바를 띄울 위치
-	//m_vDefaultPos = { vBarPos.x , vBarPos.y + 200.f, 0.f };
+		m_vDefaultPos = { vPos.x , vPos.y + 200.f, 0.f }; // 체력바를 띄울 위치
+		//m_vDefaultPos = { vBarPos.x , vBarPos.y + 200.f, 0.f };
 
-	//m_pTransformCom->Set_Pos(&m_vDefaultPos);
-	//m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 5.f);
+		//m_pTransformCom->Set_Pos(&m_vDefaultPos);
+		//m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 5.f);
 
-	// 체력이 하나 이상 닳았고 0은 아닌 상태면 TRUE -> 체력바를 보여주겠다
-	if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
-		m_bShown = true;
+		// 체력이 하나 이상 닳았고 0은 아닌 상태면 TRUE -> 체력바를 보여주겠다
+		if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
+			m_bShown = true;
+	}
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;

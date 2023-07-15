@@ -47,13 +47,26 @@ _int CLayer::Update_Layer(const _float & fTimeDelta)
 
 	m_vecReserveObj.clear();
 
-	for (auto& iter : m_vecObject)
-	{	
-		if(iter->Is_Active())
-			iResult = iter->Update_Object(fTimeDelta);
 
-		if (iResult & 0x80000000) 
-			return iResult;
+	auto iter = m_vecObject.begin();
+	for (; iter != m_vecObject.end();)
+	{
+		if ((*iter) == nullptr)
+		{
+			iter = m_vecObject.erase(iter);
+			continue;
+		}
+
+		if ((*iter)->Is_Active())
+		{
+			iResult = (*iter)->Update_Object(fTimeDelta);
+			++iter;
+		}
+		else
+		{
+			iter = m_vecObject.erase(iter);
+			continue;
+		}
 	}
 	
 	return iResult;

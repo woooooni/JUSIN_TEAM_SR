@@ -31,8 +31,14 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 
 	// Test : SunGollem
 	CGameObject* pBossMonster = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
-	m_iMaxHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iMaxHp;
-	m_iCurHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iHp;
+
+	if (pBossMonster != nullptr)
+	{
+		m_iMaxHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iMaxHp;
+		m_iCurHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iHp;
+	}
+
+	
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;

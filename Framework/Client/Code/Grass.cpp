@@ -976,7 +976,6 @@ HRESULT CGrass::Set_Grass()
 
         break;
     case Engine::GRASS_TYPE::GLOWING_REED_RED:
-
         src = new GrassTexture;
         src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedRed"));
         NULL_CHECK_RETURN(src->m_pTexture, E_FAIL);

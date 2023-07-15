@@ -40,7 +40,6 @@ _int CJellyCombined::Update_Object(const _float& fTimeDelta)
 		Add_RenderGroup(RENDER_ALPHA, this);
 		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
 		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_GRAB);
-
 	}
 
 
@@ -147,9 +146,6 @@ HRESULT CJellyCombined::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
-
-
-
 	return S_OK;
 
 }
@@ -175,18 +171,14 @@ CGameObject* CJellyCombined::Get_GrabObj()
 	{
 		iter = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::JELLY_NORMALEND);
 		NULL_CHECK_RETURN_MSG(iter, nullptr, L"JellyGrabFailed");
-		Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Normal", iter);
 	}
 
 	CJellyStone* tmp = dynamic_cast<CJellyStone*>(CPool<CJellyStone>::Get_Obj());
 	if (tmp == nullptr)
-		{
-			tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::JELLY_NORMALEND);
-			NULL_CHECK_RETURN_MSG(tmp, nullptr, L"JellyGrabFailed");
-			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Normal", tmp);
-		}
-
-
+	{
+		tmp = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::JELLY_NORMALEND);
+		NULL_CHECK_RETURN_MSG(tmp, nullptr, L"JellyGrabFailed");
+	}
 
 	(iter)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.z));
 	(tmp)->Get_TransformCom()->Set_Pos(&_vec3(dst.x, 0.5f, dst.z));
@@ -194,6 +186,9 @@ CGameObject* CJellyCombined::Get_GrabObj()
 	(tmp)->Set_Active(true);
 	iter->Set_Created_False();
 	tmp->Set_Created_False();
+
+	Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Normal", iter);
+	Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Normal", tmp);
 
 	switch (m_eColor)
 	{
@@ -219,10 +214,14 @@ CGameObject* CJellyCombined::Get_GrabObj()
 		return nullptr;
 	}
 
+
+
 	if (rand() % 2)
 		return iter;
 	else
 		return tmp;
+
+
 }
 
 void CJellyCombined::Set_SubscribeEvent(_uint pEvent)
