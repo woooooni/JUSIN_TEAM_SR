@@ -142,8 +142,8 @@ void CCamera::Follow(const _float& fTimeDelta)
 
 	D3DXVec3Normalize(&vDir, &vDir);
 	vCameraPos.x = vTargetPos.x;
-	vCameraPos.y = vTargetPos.y + 15.f;
-	vCameraPos.z = vTargetPos.z - 20.f;
+	vCameraPos.y = vTargetPos.y + 5.f;
+	vCameraPos.z = vTargetPos.z - 10.f;
 
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
 

@@ -7,6 +7,11 @@
 #include "Scene_Tool.h"
 #include "ImGuiMgr.h"
 #include "Player_Bullet_Lightning.h"
+#include "Particle_FixedLeaf.h"
+#include "Particle_MovingLeaf.h"
+#include "Effect_Leaf.h"
+#include "Pool.h"
+#include "Effect_Shadow.h"
 
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
@@ -27,6 +32,7 @@ HRESULT CMainApp::Ready_MainApp(void)
 	FAILED_CHECK_RETURN(Ready_Proto_Event(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Manager(m_pGraphicDev), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Pool(), E_FAIL);
 
 	return S_OK;
 }
@@ -218,7 +224,11 @@ HRESULT CMainApp::Ready_Proto_Event()
 
 HRESULT CMainApp::Ready_Pool()
 {
-	return E_NOTIMPL;
+	CPool<CParticle_FixedLeaf>::Ready_Pool(m_pGraphicDev, 1000);
+	CPool<CParticle_MovingLeaf>::Ready_Pool(m_pGraphicDev, 1000);
+	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);
+
+	return S_OK;
 }
 
 HRESULT CMainApp::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -737,6 +747,11 @@ HRESULT CMainApp::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CMainApp::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_FistEffect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/FistEffect/FistEffect_%d.png", 9)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_FixedLeaf", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Leaf/Leaf_Fixed/Leaf_Fixed_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_LeafFloating", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Leaf/Leaf_Floating/Leaf_Floating_%d.png", 8)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Shadow", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Shadow/Shadow_%d.png", 1)), E_FAIL);
 
 	return S_OK;
 }

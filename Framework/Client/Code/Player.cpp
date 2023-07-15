@@ -22,6 +22,7 @@
 #include "Player_State_Drawing.h"
 #include "FieldObject.h"
 #include "Player_State_Skill.h"
+#include "Effect_Shadow.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER, OBJ_ID::PLAYER)
@@ -196,6 +197,8 @@ HRESULT CPlayer::Ready_Object(void)
 	
 
 
+
+
 	return S_OK;
 }
 
@@ -240,14 +243,16 @@ void CPlayer::Render_Object(void)
 {
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
 	{
 		m_pCollider[i]->Render_Component();
 	}
-
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 

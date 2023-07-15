@@ -201,6 +201,8 @@
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Leaf.h" />
+    <ClInclude Include="..\Header\Effect_Shadow.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\FistEffect.h" />
@@ -252,6 +254,8 @@
     <ClInclude Include="..\Header\NPCText.h" />
     <ClInclude Include="..\Header\PlantBall.h" />
     <ClInclude Include="..\Header\PlantCannon.h" />
+    <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
@@ -345,6 +349,8 @@
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_Leaf.cpp" />
+    <ClCompile Include="..\Code\Effect_Shadow.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp" />
@@ -395,6 +401,8 @@
     <ClCompile Include="..\Code\NPCText.cpp" />
     <ClCompile Include="..\Code\PlantBall.cpp" />
     <ClCompile Include="..\Code\PlantCannon.cpp" />
+    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
