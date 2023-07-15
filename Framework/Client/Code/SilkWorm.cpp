@@ -243,7 +243,8 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 			}
 			_vec3 vTargetPos, vPos, vDir;
 			CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-			NULL_CHECK_RETURN(pTarget, );
+			if (nullptr == pTarget)
+				return;
 			m_pTarget = pTarget;
 			m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 			m_pTransformCom->Get_Info(INFO_POS, &vPos);
