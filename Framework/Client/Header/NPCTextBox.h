@@ -1,21 +1,23 @@
 #pragma once
 #include "CUI.h"
-#include "Player.h"
 
 BEGIN(Engine)
 
 class CRcTex;
 class CTransform;
 class CTexture;
+class CText;
 
 END
 
-class CUI_HPBar : public CUI
+class CNPCTextBox : public CUI
 {
+	CLONE(CNPCTextBox)
+
 private:
-	CUI_HPBar(LPDIRECT3DDEVICE9 pGraphicDev);
-	CUI_HPBar(const CUI_HPBar& rhs);
-	virtual ~CUI_HPBar();
+	CNPCTextBox(LPDIRECT3DDEVICE9 pGraphicDev);
+	CNPCTextBox(const CNPCTextBox& rhs);
+	virtual ~CNPCTextBox();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -23,13 +25,15 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+public:
+	void	Set_Shown(bool _bShown) { m_bShown = _bShown; }
+	bool	Get_Shown()				{ return m_bShown; }
+
 private:
-	_vec3	m_vDefaultPos;
-	_int	m_iMaxHP = 3;
-	_int	m_iHP = 1;
+	bool	m_bShown = false;
 
 public:
-	static  CUI_HPBar* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CNPCTextBox*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;

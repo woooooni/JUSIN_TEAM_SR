@@ -41,6 +41,9 @@ public:
 	SUNGOLEM_STATE Get_State() { return m_eState; }
 	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
 
+	// BossHPBar 연동으로 인해 추가함 (Test)
+	MONSTERSTAT Get_Stat() { return m_tStat; }
+
 public:
 	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
 public:

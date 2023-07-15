@@ -1,8 +1,6 @@
 #pragma once
 #include "CUI.h"
-
-// 아무 기능 없는 메인 컴포넌트 아이콘 클래스
-// QuickSlot -> 따로 클래스 생성
+#include "Player.h"
 
 BEGIN(Engine)
 
@@ -15,9 +13,12 @@ END
 typedef enum class IconType
 {
 	PLAYERHP_FRAME,
+	PLAYERHP_BACK,
+
 	HEART, KEYBOARD, QUEST,
-	KEYBUTTON_L, KEYBUTTON_1, KEYBUTTON_2, KEYBUTTON_3, KEYBUTTON_4,
-	PLAYERHP, PLAYERMAXHP,
+	SHOP_LKEY, KEYBUTTON_L,
+	KEYBUTTON_1, KEYBUTTON_2,
+	KEYBUTTON_3, KEYBUTTON_4,
 
 	ICONTYPE_END
 
@@ -45,9 +46,11 @@ public:
 private:
 	HRESULT			Add_Component(void);
 	void			Set_Type(ICONTYPE eType);
+	void			Key_Input();
 
 private:
 	tagIconInfo			m_tInfo;
+	_bool				m_bShown = FALSE;
 
 public:
 	static  CIcon* Create(LPDIRECT3DDEVICE9 pGraphicDev, ICONTYPE eType);

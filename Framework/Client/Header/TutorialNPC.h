@@ -1,8 +1,8 @@
 #pragma once
 #include "NPC.h"
 #include "UI_ShortCutKey.h"
+#include "NPCTextBox.h"
 #include "NPCText.h"
-#include "Text.h"
 
 // NPC 대화창 : PNG파일 / NPC 대화 : TEXT (UI)
 // 대화 끝나면 NPC STATE -> REACT로

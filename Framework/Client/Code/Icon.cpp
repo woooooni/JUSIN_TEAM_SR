@@ -26,6 +26,8 @@ _int CIcon::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
+	Key_Input();
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -58,6 +60,17 @@ void CIcon::Render_Object(void)
 		vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
 		break;
 
+	case ICONTYPE::PLAYERHP_BACK:
+		vPos = { (WINCX / WINCX - 1.66f) * (1 / m_matProj._11) ,
+				((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f };
+		m_pTransformCom->Set_Pos(&vPos);
+
+		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+		fRatio = _float(WINCY) / _float(WINCX);
+		vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
+		break;
+
 	case ICONTYPE::HEART:
 		vPos = { (WINCX / WINCX - 1.95f) * (1 / m_matProj._11) ,
 				 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f }; // y좌표 -0.2
@@ -77,7 +90,7 @@ void CIcon::Render_Object(void)
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(fWidth * fRatio * 1.3, fHeight * fRatio * 1.3 , 0.f);
+		vScale = _vec3(fWidth * fRatio * 1.3, fHeight * fRatio * 1.3, 0.f);
 		break;
 
 		// 메인 컴포넌트 두번째 줄
@@ -116,7 +129,7 @@ void CIcon::Render_Object(void)
 
 	case ICONTYPE::KEYBUTTON_3:
 		vPos = { (WINCX / WINCX - 1.56f) * (1 / m_matProj._11) ,
-				 ((-1 * WINCY) / WINCY + 1.8f)* (1 / m_matProj._22), 0.f };
+				 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -127,7 +140,7 @@ void CIcon::Render_Object(void)
 
 	case ICONTYPE::KEYBUTTON_4:
 		vPos = { (WINCX / WINCX - 1.44f) * (1 / m_matProj._11) ,
-				 ((-1 * WINCY) / WINCY + 1.8f)* (1 / m_matProj._22), 0.f };
+				 ((-1 * WINCY) / WINCY + 1.8f) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -154,10 +167,29 @@ void CIcon::Render_Object(void)
 
 	m_pTransformCom->Set_Pos(&vPos);
 
-//	fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-//	fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-//	fRatio = _float(WINCY) / _float(WINCX);
-//	vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
+	// Player HP TextOut //
+
+	_int MaxHP = 3;
+	_int HP = 1;
+
+	// 현재 MaxHP, HP 모두 0으로 되어있어 주석처리함. Player 세팅 완료시 사용
+	//CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	//MaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
+	//HP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
+
+	RECT rc = { 0, 25, 440, WINCY / 2 };
+	//TCHAR szBuffer[32] = L"1 / 3";
+
+	string strMaxHP = to_string(MaxHP);
+	string strHP = to_string(HP);
+	string strBuffer = strHP + " / " + strMaxHP;
+
+	wstring sTemp = wstring(strBuffer.begin(), strBuffer.end());
+	LPCWSTR swBuffer = sTemp.c_str();
+
+	CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+		swBuffer, lstrlen(swBuffer), &rc, DT_CENTER | DT_NOCLIP,
+		D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -176,6 +208,18 @@ void CIcon::Render_Object(void)
 void CIcon::Set_Type(ICONTYPE eType)
 {
 	m_tInfo.eType = eType;
+}
+
+void CIcon::Key_Input()
+{
+	if (KEY_TAP(KEY::L))
+	{
+		if (!m_bShown)
+			m_bShown = TRUE;
+
+		else
+			m_bShown = FALSE;
+	}
 }
 
 HRESULT CIcon::Add_Component(void)
@@ -199,6 +243,13 @@ HRESULT CIcon::Add_Component(void)
 	{
 	case ICONTYPE::PLAYERHP_FRAME:
 		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_HPFrame"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		pComponent->SetOwner(this);
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+		break;
+
+	case ICONTYPE::PLAYERHP_BACK:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_HPBack"));
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);

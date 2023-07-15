@@ -190,6 +190,10 @@ HRESULT CLogo::Ready_Layer_Environment()
 	NULL_CHECK_RETURN(pNPCCow, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
 
+	CNPCSheep* pNPCSheep = CNPCSheep::Create(m_pGraphicDev, { 18, 1, 7 }, NPCTYPE::TUT_SHEEP);
+	NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
+
 	pLayer->Ready_Layer();
 
 	return S_OK;
@@ -200,7 +204,7 @@ HRESULT CLogo::Ready_Layer_Monster()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(3.f, 1.f, 1.f), BUGCOLORTYPE::PINK);
+	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(20.f, 1.f, 20.f), BUGCOLORTYPE::PINK);
 	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Pink", pMonRolling_Pink), E_FAIL);
 
@@ -212,9 +216,9 @@ HRESULT CLogo::Ready_Layer_Monster()
 	NULL_CHECK_RETURN(pMonRolling_Yellow, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Yellow", pMonRolling_Yellow), E_FAIL);
 
-	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
+//	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
 
 	/*CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
@@ -236,6 +240,9 @@ HRESULT CLogo::Ready_Layer_Monster()
 	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
 
+	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashFast", pTrashFast), E_FAIL);
 
 	CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
@@ -267,6 +274,10 @@ HRESULT CLogo::Ready_Layer_Monster()
 	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);*/
+//	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
+
 	pLayer->Ready_Layer();
 
 	return S_OK;
@@ -469,21 +480,90 @@ HRESULT CLogo::Ready_Layer_UI()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+	
+	// UI (Boss)
+	CUI_BossHP* pUI_BossBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	NULL_CHECK_RETURN(pUI_BossBack, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPBack", pUI_BossBack), E_FAIL);
 
-	// UI ( SHOP )
+	CUI_BossHP* pUI_BossGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	NULL_CHECK_RETURN(pUI_BossGauge, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_Gauge", pUI_BossGauge), E_FAIL);
+
+	CUI_BossHP* pUI_BossFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	NULL_CHECK_RETURN(pUI_BossFrame, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPFrame", pUI_BossFrame), E_FAIL);
+
+	// UI (Monster)
+	CUI_MonsterHP* pUI_MonsterBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
+	NULL_CHECK_RETURN(pUI_MonsterBack, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPBack", pUI_MonsterBack), E_FAIL);
+
+	CUI_MonsterHP* pUI_MonsterGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
+	NULL_CHECK_RETURN(pUI_MonsterGauge, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Gauge", pUI_MonsterGauge), E_FAIL);
+
+	CUI_MonsterHP* pUI_MonsterFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
+	NULL_CHECK_RETURN(pUI_MonsterFrame, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPFrame", pUI_MonsterFrame), E_FAIL);
+	
+	// UI (SHOP)
 	CUI_Shop* pUI_Shop = CUI_Shop::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pUI_Shop, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Background", pUI_Shop), E_FAIL);
+
+	CUI_ItemInfo* pUI_Branch = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_BRANCH);
+	NULL_CHECK_RETURN(pUI_Branch, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Branch", pUI_Branch), E_FAIL);
+
+	CUI_ItemInfo* pUI_Cloth = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_CLOTH);
+	NULL_CHECK_RETURN(pUI_Cloth, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cloth", pUI_Cloth), E_FAIL);
+
+	CUI_ItemInfo* pUI_Leaf = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_LEAF);
+	NULL_CHECK_RETURN(pUI_Leaf, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Leaf", pUI_Leaf), E_FAIL);
+
+	CUI_ItemInfo* pUI_PriceTag = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_PRICETAG);
+	NULL_CHECK_RETURN(pUI_PriceTag, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_PriceTag", pUI_PriceTag), E_FAIL);
+
+	CUI_ItemInfo* pShop_TextBox = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_TEXTBOX);
+	NULL_CHECK_RETURN(pShop_TextBox, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_TextBox", pShop_TextBox), E_FAIL);
+
+	CUI_ItemInfo* pWallet = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_WALLET);
+	NULL_CHECK_RETURN(pWallet, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Wallet", pWallet), E_FAIL);
 
 	CUI_Cursor* pUI_Cursor = CUI_Cursor::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pUI_Cursor, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cursor", pUI_Cursor), E_FAIL);
 
-	CNPCText* pTextBox = CNPCText::Create(m_pGraphicDev);
+	CUI_ItemInfo* pShop_ImgBox = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_IMGBOX);
+	NULL_CHECK_RETURN(pShop_ImgBox, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_IMGBox", pShop_ImgBox), E_FAIL);
+
+	CUI_ItemInfo* pUI_Branch_Info = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_BRANCH_INFO);
+	NULL_CHECK_RETURN(pUI_Branch_Info, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Branch_Info", pUI_Branch_Info), E_FAIL);
+
+	CUI_ItemInfo* pUI_Cloth_Info = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_CLOTH_INFO);
+	NULL_CHECK_RETURN(pUI_Cloth_Info, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Cloth_Info", pUI_Cloth_Info), E_FAIL);
+
+	CUI_ItemInfo* pUI_Leaf_Info = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::UISHOP_LEAF_INFO);
+	NULL_CHECK_RETURN(pUI_Leaf_Info, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_Leaf_Info", pUI_Leaf_Info), E_FAIL);
+
+
+	// UI
+
+	CNPCTextBox* pTextBox = CNPCTextBox::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pTextBox, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_TextBox", pTextBox), E_FAIL);
 
-	CTextBox* pText = CTextBox::Create(m_pGraphicDev, TEXTTYPE::COW);
+	CNPCText* pText = CNPCText::Create(m_pGraphicDev, TEXTTYPE::COW);
 	NULL_CHECK_RETURN(pText, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Text", pText), E_FAIL);
 
@@ -498,6 +578,10 @@ HRESULT CLogo::Ready_Layer_UI()
 	CIcon* pIconQuest = CIcon::Create(m_pGraphicDev, ICONTYPE::QUEST);
 	NULL_CHECK_RETURN(pIconQuest, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Heart", pIconQuest), E_FAIL);
+	
+	CIcon* pHPBack = CIcon::Create(m_pGraphicDev, ICONTYPE::PLAYERHP_BACK);
+	NULL_CHECK_RETURN(pHPBack, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_HPBack", pHPBack), E_FAIL);
 
 	CUI_HPBar* pHPBar = CUI_HPBar::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pHPBar, E_FAIL);
@@ -507,13 +591,13 @@ HRESULT CLogo::Ready_Layer_UI()
 	NULL_CHECK_RETURN(pIconHPFrame, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_HPFrame", pIconHPFrame), E_FAIL);
 
-	CUI_Totem* pTotem_Cur = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::CURR);
-	NULL_CHECK_RETURN(pTotem_Cur, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Cur", pTotem_Cur), E_FAIL);
-
-	CUI_Totem* pTotem_Max = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::MAX);
-	NULL_CHECK_RETURN(pTotem_Max, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Max", pTotem_Max), E_FAIL);
+//	CUI_Totem* pTotem_Cur = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::CURR);
+//	NULL_CHECK_RETURN(pTotem_Cur, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Cur", pTotem_Cur), E_FAIL);
+//
+//	CUI_Totem* pTotem_Max = CUI_Totem::Create(m_pGraphicDev, TOTEMTYPE::MAX);
+//	NULL_CHECK_RETURN(pTotem_Max, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_Totem_Max", pTotem_Max), E_FAIL);
 
 	CIcon* pIconKeyButton = CIcon::Create(m_pGraphicDev, ICONTYPE::KEYBUTTON_L);
 	NULL_CHECK_RETURN(pIconKeyButton, E_FAIL);
@@ -551,9 +635,21 @@ HRESULT CLogo::Ready_Layer_UI()
 	NULL_CHECK_RETURN(pIconKeyButton4, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Icon_KeyButton_4", pIconKeyButton4), E_FAIL);
 
-	CUI_ShortCutKey* pKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pKeyInfo, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pKeyInfo), E_FAIL);
+	CUI_ShortCutKey* pZKeyInfo = CUI_ShortCutKey::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pZKeyInfo, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Info", pZKeyInfo), E_FAIL);
+
+	CUI_ItemInfo* pLKeyInfo = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOPKEY_L);
+	NULL_CHECK_RETURN(pLKeyInfo, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_ShortCutKey_Close", pLKeyInfo), E_FAIL);
+
+	CUI_ItemInfo* pVerLine = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_VERLINE);
+	NULL_CHECK_RETURN(pVerLine, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_VerLine", pVerLine), E_FAIL);
+
+	CUI_ItemInfo* pHorLine = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_HORLINE);
+	NULL_CHECK_RETURN(pHorLine, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Shop_HorLine", pHorLine), E_FAIL);
 	
 	CNPCCow* pNPCCow = CNPCCow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
 	NULL_CHECK_RETURN(pNPCCow, E_FAIL);

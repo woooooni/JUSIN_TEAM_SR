@@ -1,22 +1,28 @@
 #pragma once
 #include "CUI.h"
-#include "UI_NameTag.h"
+#include "TutorialNPC.h"
 
-BEGIN(Engine)
+typedef enum class TextType
+{
+	COW, SHEEP, PIG, DOOGEE,
 
-class CRcTex;
-class CTransform;
-class CTexture;
-class CText;
+	TEXTTYPE_END
 
-END
+}TEXTTYPE;
+
+struct tagTextInfo
+{
+	TEXTTYPE		eType;
+	wstring			strDesc;
+};
 
 class CNPCText : public CUI
 {
 	CLONE(CNPCText)
-private:
-	CNPCText(LPDIRECT3DDEVICE9 pGraphicDev);
-	CNPCText(const CNPCText& rhs);
+
+protected:
+	explicit CNPCText(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CNPCText(const CNPCText& rhs);
 	virtual ~CNPCText();
 
 public:
@@ -27,15 +33,30 @@ public:
 
 public:
 	void	Set_Shown(bool _bShown) { m_bShown = _bShown; }
-	bool	Get_Shown()				{ return m_bShown; }
+	void	Set_Type(TEXTTYPE eType);
+	void	Next_Text();
 
 private:
-	bool	m_bShown = false;
+	HRESULT			Add_Component(void);
+
+private:
+	tagTextInfo		m_tInfo = {};
+	bool			m_bShown = TRUE;
+	UINT			m_iIndex = 0;
+	float			m_fAccTime = 0.f;
+	float			m_fTextSpeed = 7.f;
+	wstring			m_strCurrDesc = L"";
+
+private:
+	vector<tagTextInfo>		m_vecText;
 
 public:
-	static  CNPCText*	Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CNPCText* Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType);
 
 private:
 	virtual void		Free() override;
 };
 
+//public:
+//	_int	Split_String(LPCTSTR lpszTemp, TCHAR szSep, CStringArray& strArr);
+//	_int	Splits_String(CString strTemp, CString strSep, CStringArray& strArr);

@@ -1,8 +1,9 @@
 #pragma once
 #include "NPC.h"
 #include "UI_ShortCutKey.h"
+#include "NPCTextBox.h"
 #include "NPCText.h"
-#include "Text.h"
+#include "NPCSheep.h"
 
 BEGIN(Engine)
 
@@ -25,6 +26,9 @@ public:
 	virtual _int		Update_Object(const _float& fTimeDelta) override;
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
+
+public:
+	_bool	Get_Collision() { return m_bCollision; }
 
 private:
 	_bool	m_bCollision = false;

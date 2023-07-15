@@ -190,7 +190,7 @@ CTrashBig* CTrashBig::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("BlueBeatle Create Failed");
+		MSG_BOX("TrashBig Create Failed");
 		return nullptr;
 	}
 

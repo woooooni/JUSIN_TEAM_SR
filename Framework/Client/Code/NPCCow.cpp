@@ -62,28 +62,34 @@ _int CNPCCow::Update_Object(const _float& fTimeDelta)
 	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_ShortCutKey_Info");
 	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_TextBox");
 	CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_Text");
+	CGameObject* pNPCSheep = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_Tutorial_Sheep");
 
 	_vec3 vPlayerPos, vNPCPos;
-	bool bShown = dynamic_cast<CNPCText*>(pUIBox)->Get_Shown();
+
+	bool bShown = dynamic_cast<CNPCTextBox*>(pUIBox)->Get_Shown();
+	bool bCol = dynamic_cast<CNPCSheep*>(pNPCSheep)->Get_Collision();
 
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vNPCPos);
 	_float fLength = D3DXVec3Length(&(vPlayerPos - vNPCPos));
 
-	if (fLength <= 2.5f)
+	if (fLength <= 2.f)
 	{
-		bool bShown = dynamic_cast<CNPCText*>(pUIBox)->Get_Shown();
+		bool bShown = dynamic_cast<CNPCTextBox*>(pUIBox)->Get_Shown();
 
-		m_bCollision = true;
-		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(true);
+		m_bCollision = true; // NPC 근처에 Player가 있다.
+		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(true); // 단축키 안내 On
 
-		if (bShown)
+		if (bShown) // TEXTBOX가 켜져있는 상황이라면 단축키 안내를 끈다.
 			dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
 	}
-	else if (fLength > 2.5f)
+
+	else if (fLength > 2.f)
 	{
 		m_bCollision = false;
-		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
+
+		if (!bCol)
+			dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
 	}
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -96,19 +102,23 @@ void CNPCCow::LateUpdate_Object(void)
 	CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_ShortCutKey_Info");
 	CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_TextBox");
 	CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_Text");
+	CGameObject* pNPCSheep = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_Tutorial_Sheep");
+
+	bool bCol = dynamic_cast<CNPCSheep*>(pNPCSheep)->Get_Collision();
 
 	if (m_bCollision)
 	{
 		if (GetAsyncKeyState('Z') & 0x8000)
 		{
-			dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(true);
-			dynamic_cast<CTextBox*>(pUIText)->Set_Shown(true);
+			dynamic_cast<CNPCText*>(pUIText)->Set_Type(TEXTTYPE::COW);
+			dynamic_cast<CNPCTextBox*>(pUIBox)->Set_Shown(true);
+			dynamic_cast<CNPCText*>(pUIText)->Set_Shown(true);
 		}
 	}
-	else
+	else if (!m_bCollision && !bCol) // Cow와 Player가 일정 거리 떨어져있고, Sheep과도 일정 거리 떨어져 있다면
 	{
-		dynamic_cast<CNPCText*>(pUIBox)->Set_Shown(false);
-		dynamic_cast<CTextBox*>(pUIText)->Set_Shown(false);
+		dynamic_cast<CNPCTextBox*>(pUIBox)->Set_Shown(false);
+		dynamic_cast<CNPCText*>(pUIText)->Set_Shown(false);
 	}
 
 	__super::LateUpdate_Object();
