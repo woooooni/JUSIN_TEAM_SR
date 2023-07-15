@@ -406,20 +406,6 @@ void CCamera::Key_Input_Tool(const _float& fTimeDelta)
 		m_pTransformCom->Move_Pos(&vDir, -m_fMoveSpeed, fTimeDelta);
 	}
 
-	if (KEY_TAP(KEY::R))
-	{
-		if (m_bMouse)
-		{
-			ShowCursor(false);
-			m_bMouse = false;
-		}
-		else
-		{
-			ShowCursor(true);
-			m_bMouse = true;
-		}
-	}
-
 	if (KEY_HOLD(KEY::Q) && KEY_NONE(KEY::CTRL))
 	{
 		m_pTransformCom->Move_Pos(&_vec3{0.f, 1.f, 0.f}, m_fMoveSpeed, fTimeDelta);

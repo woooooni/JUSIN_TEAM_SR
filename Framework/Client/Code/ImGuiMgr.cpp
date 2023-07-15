@@ -671,6 +671,16 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			m_pTargetObject->Get_TransformCom()->RotationAxis(vLook, D3DXToRadian(-90.f));
 		}
 
+		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::R))
+		{
+			_vec3 vLook, vRight, vUp;
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+			m_pTargetObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+
+			m_pTargetObject->Get_TransformCom()->RotationAxis(_vec3(0.f, 1.f, 0.f), D3DXToRadian(-90.f));
+		}
+
 		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::F))
 		{
 			_vec3 vLook, vRight, vUp;
@@ -806,6 +816,16 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			_vec3 vScale = m_pSelectedObject->Get_TransformCom()->Get_Scale();
 			vScale.x *= -1.f;
 			m_pSelectedObject->Get_TransformCom()->Set_Scale(vScale);
+		}
+
+		if (KEY_HOLD(KEY::CTRL) && KEY_TAP(KEY::R))
+		{
+			_vec3 vLook, vRight, vUp;
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
+			m_pSelectedObject->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
+
+			m_pSelectedObject->Get_TransformCom()->RotationAxis(_vec3(0.f, 1.f, 0.f), D3DXToRadian(-90.f));
 		}
 
 		if (KEY_TAP(KEY::OPEN_SQUARE_BRACKET)) // '['
@@ -984,8 +1004,9 @@ void CImGuiMgr::Update_Help(const _float& fTimeDelta)
 	ImGui::Text("");
 	ImGui::Text("");
 	ImGui::Text(u8"Ctrl + Q : Rotation CCW");
-	ImGui::Text(u8"Ctrl + F : Flip");
 	ImGui::Text(u8"Ctrl + E : Rotation CW");
+	ImGui::Text(u8"Ctrl + R : 90µµ È¸Àü");
+	ImGui::Text(u8"Ctrl + F : Flip");
 	ImGui::Text(u8"Ctrl + ÈÙ : ZoomIn, ZoomOut");
 
 	ImGui::Text("");
@@ -1048,11 +1069,11 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			vScale.y = fScale[1];
 			vScale.z = fScale[2];
 
-			if (vScale.x < 0.1f)
+			if (vScale.x < 0.0001f)
 				vScale.x = 1.f;
-			if (vScale.y < 0.1f)
+			if (vScale.y < 0.0001f)
 				vScale.y = 1.f;
-			if (vScale.z < 0.1f)
+			if (vScale.z < 0.0001f)
 				vScale.z = 1.f;
 
 
@@ -1063,7 +1084,7 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE)
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::TERRAIN)
 				SetAutoY(m_pTargetObject);
 		}
 	}
