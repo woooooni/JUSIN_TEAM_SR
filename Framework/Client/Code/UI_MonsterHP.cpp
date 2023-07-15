@@ -38,17 +38,12 @@ _int CUI_MonsterHP::Update_Object(const _float& fTimeDelta)
 	m_iMaxHP = iMaxHp;
 	m_iHP = iHp;
 
-	_vec3 vBarPos, vPos, vDir;
-	pMonster->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 
-	vDir = vPos - vBarPos;
-	D3DXVec3Normalize(&vDir, &vDir);
 
-	m_vDefaultPos = { vPos.x , vPos.y + 200.f, 0.f }; // 체력바를 띄울 위치
-	//m_vDefaultPos = { vBarPos.x , vBarPos.y + 200.f, 0.f };
 
-	//m_pTransformCom->Set_Pos(&m_vDefaultPos);
-	//m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 5.f);
+
+
+
 
 	// 체력이 하나 이상 닳았고 0은 아닌 상태면 TRUE -> 체력바를 보여주겠다
 	if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
@@ -65,74 +60,6 @@ void CUI_MonsterHP::LateUpdate_Object(void)
 
 void CUI_MonsterHP::Render_Object(void)
 {
-	CGameObject* pMonster = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"Monster_Rolling_Pink");
-	
-	_matrix matPreView, matPreProj;
-	 
-	_float fMaxHp = _float(m_iMaxHP);
-	_float fCurHp = _float(m_iHP);
-	_float fHP = fCurHp / fMaxHp;
-
-	if (m_bShown &&
-		m_eUIType != MONSTERHP::UI_GAUGE)
-	{
-		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-		_float fRatio = _float(WINCY) / _float(WINCX);
-
-		_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
-		m_pTransformCom->Set_Scale(vScale);
-
-		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-
-		m_pTextureCom->Render_Texture(0);
-		m_pBufferCom->Render_Buffer();
-
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	}
-
-	else if (m_bShown &&
-		m_eUIType == MONSTERHP::UI_GAUGE)
-	{
-		//CGameObject* pMonster = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"Monster_Rolling_Pink");
-		//_uint iMaxHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iMaxHp;
-		//_uint iHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iHp;
-
-		//m_iMaxHP = iMaxHp;
-		//m_iHP = iHp;
-
-		_float fOriginWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-		_float fWidth = fOriginWidth * fHP; // HPBar 남은 길이
-		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-		_float fRatio = _float(WINCY) / _float(WINCX);
-
-		// HPBar 줄어든길이 -> 줄어든 길이만큼 Pos를 옮겨줘야함.
-		_float fX = fOriginWidth - fWidth; // HPBar 줄어든 길이
-
-		// HP Bar 프레임 키운만큼 같이 확대시킴
-		_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
-		m_pTransformCom->Set_Scale(vScale);
-
-		// 모니터상에서 출력되는 위치이다.
-//		_vec3 vMovePos = { (m_vDefaultPos.x - fX + 15.f) * (1/ m_matProj._11),
-//			m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
-		//_vec3 vMovePos = { m_vDefaultPos.x - fX + 15.f, m_vDefaultPos.y, 0.f };
-		// 15.f = 보정값
-
-		//m_pTransformCom->Set_Pos(&vMovePos);
-
-		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-		//m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-
-		m_pTextureCom->Render_Texture(0);
-		m_pBufferCom->Render_Buffer();
- 
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-		//m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
-
-	}
 
 	__super::Render_Object();
 }
