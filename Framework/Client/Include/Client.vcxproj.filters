@@ -289,6 +289,12 @@
     <Filter Include="02. GameObject\10. Boss\00. SunGolem\07. Wave">
       <UniqueIdentifier>{8d38a460-47ba-48b3-ab55-53fb120be044}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\09. EnvironmentObj\00. NearReactObj\01. NearReactMushroom">
+      <UniqueIdentifier>{2d0158ed-9def-4f25-94e7-b80909e1332d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\11. Item\00.TestItem">
+      <UniqueIdentifier>{955c9596-02e2-4d1c-ae3d-5f01fb5d1391}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -638,6 +644,14 @@
     </ClInclude>
     <ClInclude Include="..\Header\Effect_Leaf.h">
       <Filter>02. GameObject\98. Effect</Filter>
+    <ClInclude Include="..\Header\NearReactMushroom.h">
+      <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj\01. NearReactMushroom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\EtcItem.h">
+      <Filter>02. GameObject\11. Item\00.TestItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UseItem.h">
+      <Filter>02. GameObject\11. Item\00.TestItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -972,6 +986,14 @@
     </ClCompile>
     <ClCompile Include="..\Code\Effect_Leaf.cpp">
       <Filter>02. GameObject\98. Effect</Filter>
+    <ClCompile Include="..\Code\NearReactMushroom.cpp">
+      <Filter>02. GameObject\09. EnvironmentObj\00. NearReactObj\01. NearReactMushroom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\EtcItem.cpp">
+      <Filter>02. GameObject\11. Item\00.TestItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UseItem.cpp">
+      <Filter>02. GameObject\11. Item\00.TestItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

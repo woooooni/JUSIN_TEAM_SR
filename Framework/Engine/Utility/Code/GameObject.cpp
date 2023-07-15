@@ -62,7 +62,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);	
 
 	if (nullptr != m_pRigidBodyCom)
-		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);
+		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, m_pRigidBodyCom);
 
 }
 

@@ -44,6 +44,7 @@
 #include	"JellyBomb.h"
 #include	"JellyBombCreator.h"
 #include	"Grass.h"
+#include	"NearReactMushroom.h"
 
 #include "Player_Skill_Range.h"
 #include "Player_Skill_Aim.h"
@@ -62,6 +63,8 @@
 #include "Item_Hat_Light.h"
 #include "Item_Hat_Mask.h"
 #include "Item_Hat_Missile.h"
+#include	"EtcItem.h"
+
 
 
 #include	"PlantCannon.h"

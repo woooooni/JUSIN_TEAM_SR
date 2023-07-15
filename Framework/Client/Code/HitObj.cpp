@@ -106,29 +106,33 @@ CHitObj* CHitObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const
 
 void CHitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	switch (m_eHitType)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING)
 	{
-	case Engine::OBJ_HITTYPE::HIT_ONCE:
+		switch (m_eHitType)
+		{
+		case Engine::OBJ_HITTYPE::HIT_ONCE:
 
-		if (m_bHitted)
-			return;
-		else
-			m_bHitted = true;
+			if (m_bHitted)
+				return;
+			else
+				m_bHitted = true;
 
 
-	case Engine::OBJ_HITTYPE::HIT_REPEAT:
+		case Engine::OBJ_HITTYPE::HIT_REPEAT:
 
-		Check_Event_Start(m_iEventNum);
-		m_fEffectTime = 0.5f;
-		Make_Toward();
-		
-		break;
-	case Engine::OBJ_HITTYPE::HIT_BREAK:
-		break;
-	case Engine::OBJ_HITTYPE::HIT_END:
-		break;
-	default:
-		break;
+			Check_Event_Start(m_iEventNum);
+			m_fEffectTime = 0.5f;
+			Make_Toward();
+
+			break;
+		case Engine::OBJ_HITTYPE::HIT_BREAK:
+			break;
+		case Engine::OBJ_HITTYPE::HIT_END:
+			break;
+		default:
+			break;
+		}
+
 	}
 }
 

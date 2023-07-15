@@ -33,6 +33,7 @@ protected:
 
 	float			m_fFindRange = 3.f;
 	float			m_fCurFrame = 0.f;
+	_float			m_fMinSize;
 
 };
 
