@@ -422,7 +422,7 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pTurret, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Turret", pTurret), E_FAIL);
 
-	CButterFly* pBut = CButterFly::Create(m_pGraphicDev, 0, { 20, 1, 20 });
+	CButterFly* pBut = CButterFly::Create(m_pGraphicDev, ITEM_CODE::BUTTERFLY, { 20, 1, 20 });
 	NULL_CHECK_RETURN(pBut, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ButterFly", pBut), E_FAIL);
 
@@ -436,11 +436,19 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 
 	CGrass* pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::GLOWING_REED_RED, 0, { 3, 0, 1 });
 	NULL_CHECK_RETURN(pGrass, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);
 	pGrass->Add_DropItem(ITEM_CODE::TWIG, 80);
 	pGrass->Add_DropItem(ITEM_CODE::LEAF, 10);
 
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Bomb_Creator", pGrass), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Grass", pGrass), E_FAIL);
+
+	pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::HEALTHBUSH, 0, { 4.5, 0, 1 });
+	NULL_CHECK_RETURN(pGrass, E_FAIL);
+	pGrass->Add_DropItem(ITEM_CODE::HP_SMALL, 50);
+	pGrass->Add_DropItem(ITEM_CODE::HP_MIDDLE, 30);
+	pGrass->Add_DropItem(ITEM_CODE::HP_BIG, 15);
+
+
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Grass", pGrass), E_FAIL);
 
 	CEtcItem* pEtc = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::TWIG);
 	NULL_CHECK_RETURN(pEtc, E_FAIL);
@@ -482,30 +490,30 @@ HRESULT CLogo::Ready_Layer_UI()
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 	
 	// UI (Boss)
-	CUI_BossHP* pUI_BossBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
-	NULL_CHECK_RETURN(pUI_BossBack, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPBack", pUI_BossBack), E_FAIL);
+	//CUI_BossHP* pUI_BossBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	//NULL_CHECK_RETURN(pUI_BossBack, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPBack", pUI_BossBack), E_FAIL);
 
-	CUI_BossHP* pUI_BossGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
-	NULL_CHECK_RETURN(pUI_BossGauge, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_Gauge", pUI_BossGauge), E_FAIL);
+	//CUI_BossHP* pUI_BossGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	//NULL_CHECK_RETURN(pUI_BossGauge, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_Gauge", pUI_BossGauge), E_FAIL);
 
-	CUI_BossHP* pUI_BossFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
-	NULL_CHECK_RETURN(pUI_BossFrame, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPFrame", pUI_BossFrame), E_FAIL);
+	//CUI_BossHP* pUI_BossFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	//NULL_CHECK_RETURN(pUI_BossFrame, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Boss_HPFrame", pUI_BossFrame), E_FAIL);
 
-	// UI (Monster)
-	CUI_MonsterHP* pUI_MonsterBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
-	NULL_CHECK_RETURN(pUI_MonsterBack, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPBack", pUI_MonsterBack), E_FAIL);
+	//// UI (Monster)
+	//CUI_MonsterHP* pUI_MonsterBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
+	//NULL_CHECK_RETURN(pUI_MonsterBack, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPBack", pUI_MonsterBack), E_FAIL);
 
-	CUI_MonsterHP* pUI_MonsterGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
-	NULL_CHECK_RETURN(pUI_MonsterGauge, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Gauge", pUI_MonsterGauge), E_FAIL);
+	//CUI_MonsterHP* pUI_MonsterGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
+	//NULL_CHECK_RETURN(pUI_MonsterGauge, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_Gauge", pUI_MonsterGauge), E_FAIL);
 
-	CUI_MonsterHP* pUI_MonsterFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
-	NULL_CHECK_RETURN(pUI_MonsterFrame, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPFrame", pUI_MonsterFrame), E_FAIL);
+	//CUI_MonsterHP* pUI_MonsterFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
+	//NULL_CHECK_RETURN(pUI_MonsterFrame, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI_Monster_HPFrame", pUI_MonsterFrame), E_FAIL);
 	
 	// UI (SHOP)
 	CUI_Shop* pUI_Shop = CUI_Shop::Create(m_pGraphicDev);

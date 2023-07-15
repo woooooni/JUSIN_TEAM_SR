@@ -1,5 +1,8 @@
 #include "UseItem.h"
 #include	"Export_Function.h"
+#include "Pool.h"
+#include	"Player.h"
+#include	"InventoryMgr.h"
 
 CUseItem::CUseItem(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID) : CItem(pGraphicDev, ITEM_TYPE::CONSUMPTION, _eID)
 {
@@ -15,43 +18,76 @@ CUseItem::~CUseItem()
 
 HRESULT CUseItem::Ready_Object(void)
 {
-    return E_NOTIMPL;
+	FAILED_CHECK(Add_Component());
+
+	return S_OK;
+
 }
 
 _int CUseItem::Update_Object(const _float& fTimeDelta)
 {
-    return _int();
+	Add_RenderGroup(RENDER_ALPHA, this);
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
+
+	return __super::Update_Object(fTimeDelta);
+
 }
 
 void CUseItem::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
+
 }
 
 void CUseItem::Render_Object(void)
 {
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pTextureCom->Render_Texture();
+	m_pBufferCom->Render_Buffer();
+
 }
 
 CGameObject* CUseItem::Get_ByPool()
 {
-    return nullptr;
+	return CPool<CUseItem>::Get_Obj();
 }
 
 void CUseItem::Add_Pool()
 {
+	CPool<CUseItem>::Return_Obj(this);
 }
 
 void CUseItem::Free()
 {
+	__super::Free();
 }
 
 
 HRESULT CUseItem::Change_Item(const ITEM_CODE& pCode)
 {
-    return E_NOTIMPL;
+	Safe_Release(m_pTextureCom);
+	m_mapComponent[ID_STATIC].erase(COMPONENT_TYPE::COM_TEXTURE);
+
+	wstring src = L"Proto_Texture_Item_";
+
+	src += CItem::Get_ImgName(pCode);
+
+	CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(src.c_str()));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TEXTURE , pComponent });
+
+	m_eCode = pCode;
+
+	return S_OK;
+
 }
 
 void CUseItem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
+		CInventoryMgr::GetInstance()->Add_Item(this);
+
 }
 
 CUseItem* CUseItem::Create(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, const ITEM_CODE& pCode)
@@ -85,12 +121,44 @@ CUseItem* CUseItem::Create(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, const ITE
 
 }
 
-
-
-HRESULT CUseItem::Use_Item()
+HRESULT CUseItem::Use_Item(CPlayer* pPlayer)
 {
-	return E_NOTIMPL;
+	if (!pPlayer)
+		return E_FAIL;
+
+	switch (m_eCode)
+	{
+	case Engine::ITEM_CODE::HP_SMALL:
+		pPlayer->Add_HP(1);
+		break;
+	case Engine::ITEM_CODE::HP_MIDDLE:
+		pPlayer->Add_HP(3);
+
+		break;
+	case Engine::ITEM_CODE::HP_BIG:
+		pPlayer->Add_HP(5);
+
+		break;
+	case Engine::ITEM_CODE::SPEED_SMALL:
+		break;
+	case Engine::ITEM_CODE::SPEED_MIDDLE:
+		break;
+	case Engine::ITEM_CODE::SPEED_BIG:
+		break;
+
+	default:
+		return E_FAIL;
+	}
+
+	Set_InvenCount(false);
+
+	if (Get_InvenCount() == 0)
+		Add_Pool();
+
+	return S_OK;
 }
+
+
 
 	HRESULT CUseItem::Add_Component(void)
 {

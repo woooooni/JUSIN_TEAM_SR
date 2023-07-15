@@ -41,7 +41,6 @@ public:
 	virtual void		Render_Object(void) override;
 	
 
-
 private:
 	HRESULT			Ready_Component(void);
 public:

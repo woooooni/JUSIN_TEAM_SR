@@ -23,6 +23,7 @@
 #include "FieldObject.h"
 #include "Player_State_Skill.h"
 #include "Effect_Shadow.h"
+#include	"InventoryMgr.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER, OBJ_ID::PLAYER)
@@ -325,6 +326,7 @@ void CPlayer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 		Collision_Enter_Hit(pCollider, _eCollisionGroup, _iColliderID);
 	}
 
+
 }
 void CPlayer::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
@@ -360,6 +362,8 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("Player Create Failed");
 		return nullptr;
 	}
+
+	CInventoryMgr::GetInstance()->Set_Player(pInstance);
 
 	return pInstance;
 }

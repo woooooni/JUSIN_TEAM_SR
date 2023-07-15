@@ -147,7 +147,7 @@ HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Ready_PickingMgr(m_pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_KeyMgr(m_pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_CollisionMgr(m_pGraphicDev), E_FAIL);
-	// FAILED_CHECK_RETURN(CImGuiMgr::GetInstance()->Ready_ImGuiMgr(g_hWnd, m_pGraphicDev), E_FAIL);
+	FAILED_CHECK_RETURN(CImGuiMgr::GetInstance()->Ready_ImGuiMgr(g_hWnd, m_pGraphicDev), E_FAIL);
 
 	return S_OK;
 }
@@ -168,7 +168,9 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 	pScene = CLogo::Create(pGraphicDev);
-	// pScene = CScene_Tool::Create(pGraphicDev);
+
+	/*pScene = CScene_Tool::Create(pGraphicDev);*/
+	 pScene = CLogo::Create(pGraphicDev);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);
@@ -777,6 +779,14 @@ HRESULT CMainApp::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Leaf", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Money2_Leaf.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Twig", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Money2_Twig.png")), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_HP_Small", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Consumable_PotionHPSmall.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_HP_Middle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Consumable_PotionHPMedium.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_HP_Big", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Consumable_PotionHPBig.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Speed_Small", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Consumable_PotionSpeedSmall.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Speed_Middle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Consumable_PotionSpeedMedium.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Speed_Big", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Consumable_PotionSpeedBig.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_Kabuto", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Money_54.png")), E_FAIL);
+
 
 	return S_OK;
 }
@@ -862,7 +872,6 @@ HRESULT CMainApp::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_LightFlower_Close", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Light_Flower/Close/Sprite_MoonForest_FlowerLightBase%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_LightFlower_Area", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_MoonForest_FlowerLightStandArea.png")), E_FAIL);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Kabuto", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/Sprite_ItemThumbnails_Money_54.png")), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_JellyBomb", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_JellyBomb.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_JellyBomb_Effect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_JellyBombEffect_%d.png", 6)), E_FAIL);
@@ -900,7 +909,7 @@ HRESULT CMainApp::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CMainApp::Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 175)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 17)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 18)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 121)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 236)), E_FAIL);
 

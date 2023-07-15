@@ -151,6 +151,8 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 			(jCom)->Get_TransformCom()->Set_Pos(&(0.5f * (dst + tmp)));
 			jCom->Set_JellyColor((JELLY_COLLOR_COMBINE)((_uint)m_eColor + (_uint)src->m_eColor));
 			(jCom)->Set_Active(true);
+
+			Engine::Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Jelly_Combined", jCom);
 		}
 		m_bCreatedCombine = true;
 		CPool<CJellyStone>::Return_Obj(this);

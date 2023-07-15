@@ -1,13 +1,15 @@
 #include "ButterFly.h"
 #include	"Export_Function.h"
 #include	<time.h>
-
+#include	"InventoryMgr.h"
+#include	"Pool.h"
 
 CButterFly::CButterFly(LPDIRECT3DDEVICE9 pDev) 
 	: CItem(pDev, ITEM_TYPE::ETC, OBJ_ID::BUTTERFLY)
 	, m_vMovingDir({-1, 0, 0})
 	, m_fChangeTime(1.f)
 {
+	
 }
 
 
@@ -22,8 +24,6 @@ CButterFly::~CButterFly()
 HRESULT CButterFly::Ready_Object(void)
 {
 	FAILED_CHECK(Ready_Component());
-	m_pAnimator->Add_Animation(L"Base", L"Proto_Tex_Kabuto", 0.f);
-	m_pAnimator->Play_Animation(L"Base", false);
 	
 
 	return S_OK;
@@ -101,6 +101,7 @@ void CButterFly::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
+	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 
 }
@@ -115,7 +116,28 @@ void CButterFly::Free()
 	__super::Free();
 }
 
-CButterFly* CButterFly::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos)
+HRESULT CButterFly::Change_Item(const ITEM_CODE& pCode)
+{
+	Safe_Release(m_pTextureCom);
+	m_mapComponent[ID_STATIC].erase(COMPONENT_TYPE::COM_TEXTURE);
+
+	wstring src = L"Proto_Texture_Item_";
+
+	src += CItem::Get_ImgName(pCode);
+
+	CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(src.c_str()));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TEXTURE , pComponent });
+
+	m_eCode = pCode;
+
+	return S_OK;
+
+}
+
+
+CButterFly* CButterFly::Create(LPDIRECT3DDEVICE9 p_Dev, ITEM_CODE p_Code, const _vec3 p_Pos)
 {
 	CButterFly* ret = new CButterFly(p_Dev);
 	NULL_CHECK_RETURN(ret, nullptr);
@@ -126,7 +148,10 @@ CButterFly* CButterFly::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
 		return nullptr;
 	}
 
-	ret->Add_Subscribe(p_EventNum);
+	CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto((wstring(L"Proto_Texture_Item_") + CItem::Get_ImgName(p_Code)).c_str()));
+	NULL_CHECK_RETURN(pComponent, nullptr);
+	pComponent->SetOwner(ret);
+	ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 	ret->m_pTransformCom->RotationAxis({ 0, 0, 1 }, D3DXToRadian(-89.5f));
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
 	
@@ -138,7 +163,7 @@ void CButterFly::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING)
 	{
-		//¾ÆÀÌÅÛ È¹µæÇÏ´Â°Å
+		CInventoryMgr::GetInstance()->Add_Item(this);
 
 	}
 }
@@ -157,6 +182,16 @@ void CButterFly::Event_Start(_uint iEventNum)
 
 void CButterFly::Event_End(_uint iEventNum)
 {
+}
+
+CGameObject* CButterFly::Get_ByPool()
+{
+	return CPool<CButterFly>::Get_Obj();
+}
+
+void CButterFly::Add_Pool()
+{
+	CPool<CButterFly>::Return_Obj(this);
 }
 
 HRESULT CButterFly::Ready_Component()
@@ -178,11 +213,6 @@ HRESULT CButterFly::Ready_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
-
-	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
 
 

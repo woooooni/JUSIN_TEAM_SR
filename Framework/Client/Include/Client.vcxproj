@@ -278,9 +278,6 @@
     <ClInclude Include="..\Header\Particle_MapCircle.h" />
     <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
     <ClInclude Include="..\Header\NPCTextBox.h" />
-    <ClInclude Include="..\Header\OnEventObj.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
@@ -452,9 +449,6 @@
     <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
     <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
     <ClCompile Include="..\Code\NPCTextBox.cpp" />
-    <ClCompile Include="..\Code\OnEventObj.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
