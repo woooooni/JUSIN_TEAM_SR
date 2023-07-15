@@ -20,7 +20,20 @@ HRESULT CUI_BossHP::Ready_Object(void)
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	// UI가 띄워질 위치
-	m_vDefaultPos = { 0.f, 0.f, 0.f };
+	//m_vDefaultPos = { 0.f, +350.f, 0.f }; // 사용X
+
+	// 공식
+	//_vec3 vMovePos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
+	//	((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+
+	m_tInfo.fX = WINCX / 2.f;
+	m_tInfo.fY = WINCY / 2.f - 350.f;
+
+	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
+					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+
+	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
+	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
 
 	return S_OK;
 }
@@ -38,7 +51,6 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 		m_iCurHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iHp;
 	}
 
-	
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -46,6 +58,14 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 
 void CUI_BossHP::LateUpdate_Object(void)
 {
+	_float fMaxHP = _float(m_iMaxHP);
+	_float fCurHP = _float(m_iCurHP);
+	_float fHP = fCurHP / fMaxHP;
+
+	_float fIndex = m_tInfo.fCX - m_tInfo.fCX * fHP; // 줄어든 길이
+
+	m_tInfo.fX = WINCX / 2.f - fIndex * 1.4f;
+
 	__super::LateUpdate_Object();
 }
 
@@ -54,32 +74,30 @@ void CUI_BossHP::Render_Object(void)
 	_matrix matPreView, matPreProj;
 	_float fCurHP, fMaxHP, fHP;
 
-	fMaxHP = _float(m_iMaxHP);
-	fCurHP = _float(m_iCurHP);
-	fHP = fCurHP / fMaxHP;
-
 	if (m_bShown) // Gauge Bar만 여기에 해당한다.
 	{
+		fMaxHP = _float(m_iMaxHP);
+		fCurHP = _float(m_iCurHP);
+		fHP = fCurHP / fMaxHP;
+
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-		_float fOriginWidth = m_tInfo.fX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+		_float fOriginWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		_float fWidth = fOriginWidth * fHP; // HPBar 남은 길이
 		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		_float fRatio = _float(WINCY) / _float(WINCX);
 
 		if (m_eUIType == BOSSHP::UI_FRAME)
 		{
-			_vec3 vScale = _vec3(fWidth * fRatio * 0.7f, fHeight * fRatio * 0.6f, 0.f);
+			_vec3 vScale = _vec3(fOriginWidth * fRatio * 0.8f, fHeight * fRatio * 0.6f, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
-			_vec3 vPos = { 0.f, +350.f, 0.f };
-			//m_pTransformCom->Set_Pos(&m_vDefaultPos);
-			m_pTransformCom->Set_Pos(&vPos);
+			m_pTransformCom->Set_Pos(&m_vDefaultPos);
 		}
 
 		else if (m_eUIType == BOSSHP::UI_BACK)
 		{
-			_vec3 vScale = _vec3(fWidth * fRatio * 4.f, fHeight * fRatio, 0.f);
+			_vec3 vScale = _vec3(fOriginWidth * fRatio * 4.17f, fHeight * fRatio, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
 			m_pTransformCom->Set_Pos(&m_vDefaultPos);
 		}
@@ -87,10 +105,21 @@ void CUI_BossHP::Render_Object(void)
 		else if (m_eUIType == BOSSHP::UI_GAUGE)
 		{
 			_float fX = fOriginWidth - fWidth;
-			_vec3 vScale = _vec3(fWidth * fRatio * 4.f, fHeight * fRatio, 0.f);
+			_vec3 vScale = _vec3(fWidth * fRatio * 4.2f, fHeight * fRatio, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
-			_vec3 vMovePos = { m_vDefaultPos.x - fX + 15.f, m_vDefaultPos.y, 0.f };
-			m_pTransformCom->Set_Pos(&vMovePos);
+
+			if (fMaxHP == fCurHP)
+			{
+				m_pTransformCom->Set_Pos(&m_vDefaultPos);
+			}
+			else if (fCurHP < fMaxHP && fCurHP > 0)
+			{
+				// Boss HP확정되면 추가 작업 필요
+				_vec3 vMovePos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
+					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+				//_vec3 vMovePos = { m_vDefaultPos.x - fX - 15.f, m_vDefaultPos.y, 0.f };
+				m_pTransformCom->Set_Pos(&vMovePos);
+			}
 
 		}
 
@@ -103,6 +132,15 @@ void CUI_BossHP::Render_Object(void)
 
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+
+		// Boss에 따른 이름 출력 : Test
+		RECT rc = { 0, 0, WINCX, WINCY / 9 };
+		TCHAR szBuf[256] = L"";
+		swprintf_s(szBuf, L"시련의 원숭이 석상");
+
+		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+
 	}
 }
 
@@ -178,4 +216,3 @@ CUI_BossHP* CUI_BossHP::Create(LPDIRECT3DDEVICE9 pGraphicDev, BOSSHP eType)
 void CUI_BossHP::Free()
 {
 }
-
