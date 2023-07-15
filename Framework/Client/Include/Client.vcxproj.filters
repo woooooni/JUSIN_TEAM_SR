@@ -52,9 +52,6 @@
     <Filter Include="02. GameObject\06. FieldObj\00. PushableObj\00. Stone">
       <UniqueIdentifier>{7226a995-e819-4ebe-875b-411c95eea3e5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\06. FieldObj\01. GrabbableObj">
-      <UniqueIdentifier>{e77b86f2-c4c8-4bcd-85a9-8b50fd5f02ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\06. FieldObj\02. BenchObj">
       <UniqueIdentifier>{37266a86-5e6d-4239-868a-4995d80878e7}</UniqueIdentifier>
     </Filter>
@@ -447,6 +444,12 @@
     </Filter>
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\01. Turret">
       <UniqueIdentifier>{8cffd656-a570-4179-b846-a4e0332ca644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb">
+      <UniqueIdentifier>{64cf6f3a-a592-4a78-8059-a3739552bdb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField">
+      <UniqueIdentifier>{3217d82d-f638-453f-b95d-18cac4c38f69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -889,6 +892,13 @@
     <ClInclude Include="..\Header\UseItem.h">
       <Filter>02. GameObject\10. Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Particle_MapCircle.h" />
+    <ClInclude Include="..\Header\ClearBomb.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\ClearField.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1312,6 +1322,13 @@
     </ClCompile>
     <ClCompile Include="..\Code\UseItem.cpp">
       <Filter>02. GameObject\10. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
+    <ClCompile Include="..\Code\ClearBomb.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\ClearField.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -69,6 +69,8 @@
 #include "Item_Hat_Mask.h"
 #include "Item_Hat_Missile.h"
 #include	"EtcItem.h"
+#include	"ClearBomb.h"
+#include	"ClearField.h"
 
 
 

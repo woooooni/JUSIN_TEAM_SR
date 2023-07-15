@@ -38,7 +38,7 @@ _int CJellyBombCreator::Update_Object(const _float& fTimeDelta)
 
 
 		m_pJellyBomb->Get_TransformCom()->Set_Pos(&vec);
-
+		Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyBomb", m_pJellyBomb);
 	}
 
 	Add_RenderGroup(RENDER_ALPHA, this);

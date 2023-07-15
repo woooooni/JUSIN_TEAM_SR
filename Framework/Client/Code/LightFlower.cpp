@@ -83,10 +83,40 @@ void CLightFlower::Render_Object(void)
         AreaWorld._42 = 0.001f;
         AreaWorld._43 = world->_43;
 
+        DWORD   areaColor;
+
+        switch (m_eColor)
+        {
+        case Engine::JELLY_COLOR::CYAN:
+            areaColor = D3DCOLOR_ARGB(255, 0, 255, 255);
+            break;
+        case Engine::JELLY_COLOR::MAGENTA:
+            areaColor = D3DCOLOR_ARGB(255, 255, 0, 255);
+            break;
+        case Engine::JELLY_COLOR::YELLOW:
+            areaColor = D3DCOLOR_ARGB(255, 255, 255, 0);
+            break;
+        case Engine::JELLY_COLOR::RED:
+            areaColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+            break;
+        case Engine::JELLY_COLOR::BLUE:
+            areaColor = D3DCOLOR_ARGB(255, 0, 0, 255);
+            break;
+        case Engine::JELLY_COLOR::GREEN:
+            areaColor = D3DCOLOR_ARGB(255, 0, 255, 0);
+            break;
+        case Engine::JELLY_COLOR::JELLY_END:
+            break;
+        default:
+            break;
+        }
+
 
         m_pGraphicDev->SetTransform(D3DTS_WORLD, &AreaWorld);
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, areaColor);
         m_pTextureCom->Render_Texture();
         m_pBufferCom->Render_Buffer();
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255,255,255,255));
     }
 }
 

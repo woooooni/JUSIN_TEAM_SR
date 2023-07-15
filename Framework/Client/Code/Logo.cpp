@@ -455,6 +455,10 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	pEtc->Get_TransformCom()->Set_Pos(&_vec3(1, 0, 2));
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item", pEtc), E_FAIL);
 
+	CClearBomb* pCBomb = CClearBomb::Create(m_pGraphicDev, { 2, 0, 2 });
+	NULL_CHECK_RETURN(pCBomb, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ClearBomb", pCBomb), E_FAIL);
+
 	pLayer->Ready_Layer();
 
 	return S_OK;
