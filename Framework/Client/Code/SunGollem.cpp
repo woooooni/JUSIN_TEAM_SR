@@ -151,16 +151,20 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 		if(m_fMoveTime > 3.f && m_bSummon[0])
 		{
 			Create_Wave(m_vRandomPos[0]);
+			Create_Wave({ m_vRandomPos[0].x+2.f,m_vRandomPos[0].y ,m_vRandomPos[0].z + 2.f });
 			m_bSummon[0] = false;
 		}
 		else if ( m_fMoveTime > 6.f && m_bSummon[1])
 		{
 			Create_Wave(m_vRandomPos[1]);
+			Create_Wave({ m_vRandomPos[1].x + 2.f,m_vRandomPos[1].y ,m_vRandomPos[1].z + 2.f });
 			m_bSummon[1] = false;
 		}
 		else if ( m_fMoveTime >9.f && m_bSummon[2])
 		{
 			Create_Wave(m_vRandomPos[2]);
+			Create_Wave({ m_vRandomPos[2].x + 2.f,m_vRandomPos[2].y ,m_vRandomPos[2].z + 2.f });
+
 			m_bSummon[2] = false;
 		}
 	}
@@ -261,7 +265,8 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 void CSunGollem::Update_Attack(_float fTimeDelta)
 {
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-	NULL_CHECK_RETURN(pTarget, );
+	if (nullptr == pTarget)
+		return;
 	Set_Target(pTarget);
 	_vec3 vTargetPos, vDir;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
@@ -306,7 +311,6 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			if (m_bAttack[0]&&m_fMoveTime > 10.f)
 			{
 				Create_Fist(false, 5);
-				Create_Wave(m_vRandomPos[1]);
 				m_bAttack[0] = false;
 			}
 			if (m_bAttack[1] && m_fMoveTime > 15.f)

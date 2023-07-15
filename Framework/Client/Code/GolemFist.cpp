@@ -2,6 +2,7 @@
 #include "GolemFist.h"
 #include "SunGollem.h"
 #include "FistEffect.h"
+#include "TrashBummer.h"
 CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
 {
 }
@@ -61,7 +62,18 @@ void CGolemFist::LateUpdate_Object(void)
 	if (vPos.y < -1.f)
 	{
 		if (Is_Active())
-		{
+		{			
+			if (m_bDirty == true)
+				if (m_bBummer == true)
+				{
+					CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
+					NULL_CHECK_RETURN(pTrashBummer, );
+					vPos.y = 1.f;
+					pTrashBummer->Get_TransformCom()->Set_Pos(&vPos);
+					CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+					pLayer->Add_GameObject(L"GolemFist", pTrashBummer);
+
+				}
 			CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
 			NULL_CHECK_RETURN(pFistEffect, );
 			vPos.y = 0.001f;
@@ -70,17 +82,20 @@ void CGolemFist::LateUpdate_Object(void)
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"GolemFist", pFistEffect);
 			Set_Active(false);
+
 		}
 	}
 }
 
 void CGolemFist::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
+	if (Is_Active())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
+		__super::Render_Object();
+		m_pBufferCom->Render_Buffer();
+	}
 	
 }
 

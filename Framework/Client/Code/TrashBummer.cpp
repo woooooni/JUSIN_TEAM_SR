@@ -69,8 +69,8 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-		NULL_CHECK_RETURN(pTarget, S_OK);
-
+		if (nullptr == pTarget)
+			return S_OK;
 		Set_Target(pTarget);
 		_vec3 vTargetPos,  vDir;
 
@@ -213,7 +213,8 @@ void CTrashBummer::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-	NULL_CHECK_RETURN(pTarget, );
+	if (nullptr == pTarget)
+		return;
 
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -251,8 +252,8 @@ void CTrashBummer::Trace(_float fTimeDelta)
 			pSludgeBall->Set_Dst(vTargetPos);
 			pSludgeBall->Set_Shooter(this);
 			pSludgeBall->Set_Atk(m_tStat.iAttack);
-			pSludgeBall->Get_RigidBodyCom()->SetMass(1.f);
-			pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 300.0f, 0.0f));
+			pSludgeBall->Get_RigidBodyCom()->SetMass(10.f);
+			pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 150.0f, 0.0f));
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
 			Set_State(MONSTER_STATE::IDLE);
