@@ -69,6 +69,7 @@ _int CClearBomb::Update_Object(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
 
 	return __super::Update_Object(fTimeDelta);
 }

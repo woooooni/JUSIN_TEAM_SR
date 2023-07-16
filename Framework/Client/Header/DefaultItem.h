@@ -1,12 +1,15 @@
 #pragma once
 #include "Item.h"
-class CEtcItem :    public CItem
+
+class CPlayer;
+
+class CDefaultItem :    public CItem
 {
 
 protected:
-	explicit CEtcItem(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID);
-	explicit CEtcItem(const CItem& rhs);
-	virtual ~CEtcItem();
+	explicit CDefaultItem(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID);
+	explicit CDefaultItem(const CItem& rhs);
+	virtual ~CDefaultItem();
 
 public:
 	virtual HRESULT Ready_Object(void)							override;
@@ -18,7 +21,7 @@ public:
 	virtual void				Add_Pool()override;
 
 	virtual void		Free() override;
-	CLONE(CEtcItem)
+	CLONE(CDefaultItem)
 
 	HRESULT		Change_Item(const ITEM_CODE& pCode);
 
@@ -26,7 +29,8 @@ public:
 
 
 public:
-	static		CEtcItem* Create(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, const ITEM_CODE& pCode = ITEM_CODE::LEAF);
+	static		CDefaultItem* Create(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, const ITEM_CODE& pCode = ITEM_CODE::LEAF);
+	HRESULT			Use_Item(CPlayer* pPlayer);
 
 
 protected:

@@ -43,15 +43,19 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
     {
         if (m_pAnimator->GetCurrAnimation()->Get_Idx() < 5)
         {
-            m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 1.f });
+            m_pTransformCom->Set_Scale({ 1.f, 1.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.f, 1.f, 1.f });
         }
         else if (5.f <= m_pAnimator->GetCurrAnimation()->Get_Idx() && m_pAnimator->GetCurrAnimation()->Get_Idx() < 10)
         {
             m_pTransformCom->Set_Scale({ 2.f, 2.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.f, 2.f, 1.f });
         }
         else if (10.f <= m_pAnimator->GetCurrAnimation()->Get_Idx() && m_pAnimator->GetCurrAnimation()->Get_Idx() < 15)
         {
             m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 4.f, 1.f });
+
         }
 
     }
@@ -62,14 +66,19 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
         if (m_fFrame < 5.f)
         {
             m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 4.f, 1.f });
         }
         else if (5.f <= m_fFrame && m_fFrame < 10.f)
         {
             m_pTransformCom->Set_Scale({ 2.f, 2.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.f, 2.f, 1.f });
+
         }
         else if (10.f <= m_fFrame && m_fFrame < 15.f)
         {
-            m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 1.f });
+            m_pTransformCom->Set_Scale({ 1.f, 1.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.f, 1.f, 1.f });
+
         }
 
     }
@@ -107,6 +116,8 @@ void CClearField::Render_Object(void)
         m_pTextureCom->Render_Texture((_uint)m_fFrame);
         m_pBufferCom->Render_Buffer();
     }
+
+    
 }
 
 void CClearField::Free()
@@ -131,6 +142,7 @@ CClearField* CClearField::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
     ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 
     ret->Set_MinHeight(0.005f);
+    ret->m_pColliderCom->Set_Offset({ 0, 0.5f, 0 });
 
     return ret;
 }
@@ -144,13 +156,12 @@ void CClearField::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
     if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER)
     {
-        //몬스터 죽이는 코드
         m_fMaxFrame += 5.f;
 
     }
     else if ((_eCollisionGroup == COLLISION_GROUP::COLLIDE_PUSH) && (src = dynamic_cast<CPushStone*>(pCollider->GetOwner())))
     {
-        //돌에 모자씌우는 코드
+        src->Set_Clean();
     }
 }
 

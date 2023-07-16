@@ -1,7 +1,7 @@
 #include    "../Include/stdafx.h"
 #include "Grass.h"
 #include    "Export_Function.h"
-#include    "EtcItem.h"
+#include    "DefaultItem.h"
 #include    "UseItem.h"
 #include    "Pool.h"
 #include    <time.h>
@@ -190,7 +190,6 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
                 dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.2f, 2.5f, 1.5f), 40);
         }
 
-        Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Leaf", pLeaf);
 
 
         for (auto& iter : m_dropItemMap)
@@ -218,7 +217,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
                 }
                 else if (iter.first >= ITEM_CODE::LEAF && iter.first <= ITEM_CODE::TWIG)
                 {
-                    CEtcItem* src = dynamic_cast<CEtcItem*>(CPool<CEtcItem>::Get_Obj());
+                    CDefaultItem* src = dynamic_cast<CDefaultItem*>(CPool<CDefaultItem>::Get_Obj());
 
                     if (src)
                     {
@@ -226,7 +225,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
                     }
                     else
                     {
-                        src = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
+                        src = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
                     }
 
                     src->Get_TransformCom()->Set_Pos(&myPos);
@@ -249,7 +248,6 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
             if (pLeaf)
                 dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
         }
-        Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Leaf", pLeaf);
 
     }
 }

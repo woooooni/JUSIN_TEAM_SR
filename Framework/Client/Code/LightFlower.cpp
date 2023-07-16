@@ -46,6 +46,7 @@ HRESULT CLightFlower::Ready_Object(void)
 
     m_pAnimator->Play_Animation(L"Idle", false);
 
+    m_pColliderCom->Set_Offset({ 0.f, 0.5f, 0.f });
 
 
 
@@ -106,9 +107,9 @@ void CLightFlower::Render_Object(void)
             areaColor = D3DCOLOR_ARGB(255, 0, 255, 0);
             break;
         case Engine::JELLY_COLOR::JELLY_END:
-            break;
         default:
-            break;
+            MSG_BOX("Error");
+            return;
         }
 
 

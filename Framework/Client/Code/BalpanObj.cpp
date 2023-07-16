@@ -12,10 +12,11 @@ CBalpanObj::CBalpanObj(LPDIRECT3DDEVICE9 p_Dev)
 	, m_iPushedEventNum(0) 
 	, m_eColor(JELLY_COLOR::JELLY_END)
 	, m_bIsStoneSwitch(false)
+	, m_eCorrectColor(JELLY_COLOR::JELLY_END)
 {
 }
 
-CBalpanObj::CBalpanObj(const CBalpanObj& rhs) : CFieldObject(rhs), m_bIsPushed(rhs.m_bIsPushed), m_bIsAutoReset(rhs.m_bIsAutoReset), m_iPushedEventNum(rhs.m_iPushedEventNum), m_eColor(rhs.m_eColor), m_bIsStoneSwitch(rhs.m_bIsStoneSwitch)
+CBalpanObj::CBalpanObj(const CBalpanObj& rhs) : CFieldObject(rhs), m_bIsPushed(rhs.m_bIsPushed), m_bIsAutoReset(rhs.m_bIsAutoReset), m_iPushedEventNum(rhs.m_iPushedEventNum), m_eColor(rhs.m_eColor), m_bIsStoneSwitch(rhs.m_bIsStoneSwitch), m_eCorrectColor(rhs.m_eCorrectColor)
 {
 	m_wstrTargName = rhs.m_wstrTargName;
 }
@@ -246,12 +247,7 @@ void CBalpanObj::Set_Static()
 
  void CBalpanObj::Event_Start(_uint iEventNum)
  {
-	 auto iter = find(m_listActivateNum.begin(), m_listActivateNum.end(), iEventNum);
 
-	 if (iter != m_listActivateNum.end())
-	 {
-
-	 }
  }
 
  void CBalpanObj::Event_End(_uint iEventNum)
@@ -260,6 +256,8 @@ void CBalpanObj::Set_Static()
 
  void CBalpanObj::Collide(CCollider* pCollider)
  {
+
+
 	 m_bIsPushed = true;
 	 if (!m_bIsStoneSwitch)
 		 m_pAnimator->Play_Animation(L"Pushed", false);
@@ -309,6 +307,15 @@ void CBalpanObj::Set_Static()
 	 }
 
 	 if (m_iPushedEventNum != 0)
+	 {
+		 if (m_wstrTargName == L"Jelly" && m_eCorrectColor != JELLY_COLOR::JELLY_END && m_eColor != m_eCorrectColor)
+		 {
+			 m_bIsPushed = false;
+			 return;
+		 }
+
 		 Engine::Check_Event_Start(m_iPushedEventNum);
+
+	 }
 
  }

@@ -451,6 +451,18 @@
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField">
       <UniqueIdentifier>{3217d82d-f638-453f-b95d-18cac4c38f69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\01. Stage\00. Stage 1">
+      <UniqueIdentifier>{8e5af2bb-f3f9-4192-8abb-9c2b5983eb7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\08. BreakStone">
+      <UniqueIdentifier>{ad85a1a7-fc6d-4ddb-a57b-bb9ab4d534d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\03. BalpanObj\00. HoleObj">
+      <UniqueIdentifier>{3cbc5b2d-5941-44c0-8376-d38a385dada7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\03. QuizStatue">
+      <UniqueIdentifier>{5cdc36e3-8753-4bee-b990-7c61286c405e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -793,7 +805,7 @@
     <ClInclude Include="..\Header\Effect_Shadow.h">
       <Filter>02. GameObject\13. Effect\01. Shadow</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\EtcItem.h">
+    <ClInclude Include="..\Header\DefaultItem.h">
       <Filter>02. GameObject\10. Item\03. Etc</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\FistEffect.h">
@@ -898,6 +910,18 @@
     </ClInclude>
     <ClInclude Include="..\Header\ClearField.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Stage1.h">
+      <Filter>01. Scene\01. Stage\00. Stage 1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\BreakStone.h">
+      <Filter>02. GameObject\06. FieldObj\08. BreakStone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\HoleObj.h">
+      <Filter>02. GameObject\06. FieldObj\03. BalpanObj\00. HoleObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\QuizStatue.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. QuizStatue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1127,9 +1151,6 @@
     <ClCompile Include="..\Code\InventoryMgr.cpp">
       <Filter>98. Manager\03. Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Scene_Tool.cpp">
-      <Filter>01. Scene\99. Tool</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Grass.cpp">
       <Filter>02. GameObject\11. FixedObj\02. Glass</Filter>
     </ClCompile>
@@ -1224,7 +1245,7 @@
     <ClCompile Include="..\Code\Effect_Shadow.cpp">
       <Filter>02. GameObject\13. Effect\01. Shadow</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\EtcItem.cpp">
+    <ClCompile Include="..\Code\DefaultItem.cpp">
       <Filter>02. GameObject\10. Item\03. Etc</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\FistEffect.cpp">
@@ -1329,6 +1350,21 @@
     </ClCompile>
     <ClCompile Include="..\Code\ClearField.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_Tool.cpp">
+      <Filter>01. Scene\99. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Stage1.cpp">
+      <Filter>01. Scene\01. Stage\00. Stage 1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BreakStone.cpp">
+      <Filter>02. GameObject\06. FieldObj\08. BreakStone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\HoleObj.cpp">
+      <Filter>02. GameObject\06. FieldObj\03. BalpanObj\00. HoleObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuizStatue.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. QuizStatue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

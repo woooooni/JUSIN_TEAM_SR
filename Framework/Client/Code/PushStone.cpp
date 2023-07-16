@@ -1,13 +1,17 @@
 #include  "../Include/stdafx.h"
 #include "PushStone.h"
 #include "Export_Function.h"
+#include	"Pool.h"
 
-CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) : CFieldObject(pDev, OBJ_ID::PUSH_STONE) , m_bIsFlying(false)
+CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) 
+												: CFieldObject(pDev, OBJ_ID::PUSH_STONE) 
+												, m_bIsFlying(false)
+												, m_bIsClean(false)
 {
 	m_tInfo.m_bIsPushable = true;
 }
 
-CPushStone::CPushStone(const CPushStone& rhs) : CFieldObject(rhs), m_bIsFlying(rhs.m_bIsFlying)
+CPushStone::CPushStone(const CPushStone& rhs) : CFieldObject(rhs), m_bIsFlying(rhs.m_bIsFlying), m_bIsClean(rhs.m_bIsClean)
 {
 }
 
@@ -26,6 +30,10 @@ HRESULT CPushStone::Ready_Object(void)
 	m_pRigidBodyCom->SetMass(10.f);
 	m_pRigidBodyCom->SetMaxVelocity(10000.f);
 	m_pRigidBodyCom->SetFricCoeff(999.f);
+
+	m_pAnimator->Add_Animation(L"Base", L"Proto_Texture_Stone_Clean", 0.f);
+	m_pAnimator->Play_Animation(L"Base", false);
+
 
     return S_OK;
 }
@@ -67,6 +75,22 @@ void CPushStone::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	m_pColliderCom->Render_Component();
+
+	if (m_bIsClean)
+	{
+		_matrix world = *m_pTransformCom->Get_WorldMatrix();
+		_vec3 look;
+		m_pTransformCom->Get_Info(INFO_LOOK, &look);
+		world._41 -= look.x * 0.005f;
+		world._42 -= look.y * 0.005f;
+		world._43 -= look.z * 0.005f;
+
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, &world);
+		m_pAnimator->Render_Component();
+		m_pBufferCom->Render_Buffer();
+
+
+	}
 }
 
 
@@ -92,6 +116,16 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 
 	return pInstance;
 
+}
+
+void CPushStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS && m_bIsFlying)
+	{
+		CPool<CPushStone*>::Return_Obj(this);
+		m_bIsClean = false;
+		m_bIsFlying = false;
+	}
 }
 
 void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
@@ -126,12 +160,20 @@ HRESULT CPushStone::Ready_Component()
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Stone"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
-	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
 	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
+	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+
+
 
 	return S_OK;
 

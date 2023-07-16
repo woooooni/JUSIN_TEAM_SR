@@ -54,6 +54,7 @@ HRESULT CLogo::Ready_Scene()
 
 Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
+	Check_Event_Start(10);
 
 	__super::Update_Scene(fTimeDelta);
 
@@ -288,9 +289,13 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::INTERACTION_OBJ];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CPushStone* pPush = CPushStone::Create(_vec3(3, 1, 3), m_pGraphicDev);
+	CPushStone* pPush = CPushStone::Create(_vec3(1, 1, 3), m_pGraphicDev);
 	NULL_CHECK_RETURN(pPush, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Stone", pPush), E_FAIL);
+
+	CHoleObj* pHole = CHoleObj::Create(m_pGraphicDev, 0, {1, 1, 4});
+	NULL_CHECK_RETURN(pHole, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Hole", pHole), E_FAIL);
 
 
 	CNearReactObj* pNear = CNearReactObj::Create(m_pGraphicDev, { 5, 1, 5 });
@@ -342,6 +347,15 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	pBal->Set_Static();
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
 
+	pBal = CBalpanObj::Create(m_pGraphicDev, 11, { 19, 1, 20 });
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+	pBal->Set_TargName(L"Jelly");
+	pBal->Set_Static();
+	pBal->Set_Answer(JELLY_COLOR::MAGENTA);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Balpan", pBal), E_FAIL);
+
+
+
 	CLightFlower* pLF = CLightFlower::Create(m_pGraphicDev, pBal, 0, { 10, 1, 5 });
 	NULL_CHECK_RETURN(pLF, E_FAIL);
 	pLF->Add_Subscribe(5);
@@ -352,9 +366,30 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 	pHit->Set_Event(2);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BugDongsang", pHit), E_FAIL);
 
-	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 15, 1, 20 }, true);
+	CQuizStatue* pQuiz = CQuizStatue::Create(m_pGraphicDev, 7, CQuizStatue::MONKEY_STATUE::EAR, { 16, 0, 20 });
+	NULL_CHECK_RETURN(pQuiz, E_FAIL);
+	Add_Subscribe(10, pQuiz);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuizStatue", pQuiz), E_FAIL);
+
+	pQuiz = CQuizStatue::Create(m_pGraphicDev, 8, CQuizStatue::MONKEY_STATUE::MOUTH, { 17, 0, 20 });
+	NULL_CHECK_RETURN(pQuiz, E_FAIL);
+	Add_Subscribe(10, pQuiz);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuizStatue", pQuiz), E_FAIL);
+
+	pQuiz = CQuizStatue::Create(m_pGraphicDev, 9, CQuizStatue::MONKEY_STATUE::EYE, { 18, 0, 20 });
+	NULL_CHECK_RETURN(pQuiz, E_FAIL);
+	Add_Subscribe(10, pQuiz);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"QuizStatue", pQuiz), E_FAIL);
+
+
+
+	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 11, { 15, 1, 20 }, true);
 	NULL_CHECK_RETURN(pBlock, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
+
+	CBreakStone* pBreakStone = CBreakStone::Create(m_pGraphicDev,JELLY_COLOR::YELLOW, 2, { 16, 1, 20 });
+	NULL_CHECK_RETURN(pBreakStone, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBreakStone), E_FAIL);
 
 	CJellyStone* pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, { 8, 1, 10 });
 	NULL_CHECK_RETURN(pJelly, E_FAIL);
@@ -450,7 +485,7 @@ HRESULT CLogo::Ready_Layer_InterationObj()
 
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Grass", pGrass), E_FAIL);
 
-	CEtcItem* pEtc = CEtcItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::TWIG);
+	CDefaultItem* pEtc = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::TWIG);
 	NULL_CHECK_RETURN(pEtc, E_FAIL);
 	pEtc->Get_TransformCom()->Set_Pos(&_vec3(1, 0, 2));
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item", pEtc), E_FAIL);

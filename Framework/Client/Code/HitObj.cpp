@@ -26,9 +26,9 @@ HRESULT CHitObj::Ready_Object(void)
 {
     FAILED_CHECK(Ready_Component());
 
-	FAILED_CHECK(m_pAnimator->Add_Animation(L"Normal", L"Proto_Tex_BugStatue", 0.1f));
-
-	m_pAnimator->Play_Animation(L"Normal", false);
+	FAILED_CHECK(m_pAnimator->Add_Animation(L"Bug", L"Proto_Tex_BugStatue", 0.f));
+	FAILED_CHECK(m_pAnimator->Add_Animation(L"Monkey", L"Proto_Tex_MonkeyStatue", 0.f));
+	FAILED_CHECK(m_pAnimator->Add_Animation(L"Rat", L"Proto_Tex_RatStatue", 0.f));
 
     return S_OK;
 }
@@ -85,7 +85,7 @@ void CHitObj::Free()
     __super::Free();
 }
 
-CHitObj* CHitObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos)
+CHitObj* CHitObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos, const _tchar* statuename)
 {
 
     CHitObj* ret = new CHitObj(p_Dev);
@@ -98,8 +98,9 @@ CHitObj* CHitObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const
     }
 
 	ret->m_iEventNum = p_EventNum;
-	ret->m_vOrigin = p_Pos;
+	ret->m_vOrigin = { p_Pos.x, 0.5f, p_Pos.z };
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
+	ret->m_pAnimator->Play_Animation(statuename, false);
 
     return ret;
 }
@@ -160,6 +161,13 @@ HRESULT CHitObj::Ready_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
+	Set_MinHeight(0.5f);
 
 	return S_OK;
 
