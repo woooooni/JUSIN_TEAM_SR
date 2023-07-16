@@ -13,9 +13,6 @@
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{06dc1b76-8beb-4d64-8e1c-41231208a3d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\01. Stage">
-      <UniqueIdentifier>{4a6f84dc-73b6-43fb-80a1-6b14c92a3ca7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject">
       <UniqueIdentifier>{9c45403b-7aaa-4a2a-b325-b8d24758c2f4}</UniqueIdentifier>
     </Filter>
@@ -33,9 +30,6 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI">
       <UniqueIdentifier>{1dc885c6-a95a-455c-8051-f205df8fbfa5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\02. Tutorial">
-      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Loading">
       <UniqueIdentifier>{ed736470-011d-4888-aca8-d5b2a2e61918}</UniqueIdentifier>
@@ -391,15 +385,6 @@
     <Filter Include="02. GameObject\16. Bullet">
       <UniqueIdentifier>{8e47839c-903c-4d9d-905a-f2a39b6335b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="17. Particle">
-      <UniqueIdentifier>{931b85ae-36fa-4b66-aed0-2d20d14d3d20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="17. Particle\00. FixedLeaf">
-      <UniqueIdentifier>{03ce479a-ddee-43f4-b7f9-921093b9a1ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="17. Particle\01. MovingLeaf">
-      <UniqueIdentifier>{bf7bf5c3-2b67-401f-9b60-93b86fa31425}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\16. Bullet\00. Player_Bullet_Bomb">
       <UniqueIdentifier>{9d7dda0b-beea-4416-bb96-40d0d5feb6da}</UniqueIdentifier>
     </Filter>
@@ -411,6 +396,21 @@
     </Filter>
     <Filter Include="02. GameObject\13. Effect\03. Player_Skill_Aim">
       <UniqueIdentifier>{1caee045-0aac-4fff-86ce-d14be42de91a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\04. Player_Skill_Barrier">
+      <UniqueIdentifier>{2c7931f2-911c-482c-92da-17488e51407e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\05. Player_Skill_Drill">
+      <UniqueIdentifier>{5529a875-2686-4101-b138-95a3ba7c861b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\06. Player_Skill_GolemFist">
+      <UniqueIdentifier>{e037dc2c-3e99-4a81-9c50-ac4d5b12c2bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\08. Player_Skill_Missile">
+      <UniqueIdentifier>{48ad2ef0-c304-45f4-90a4-7b6fc40888e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\07. Player_Skill_Lightning">
+      <UniqueIdentifier>{acca675b-a08e-455c-945b-ae8b9c4ac156}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\13. Effect\09. Player_Skill_Range">
       <UniqueIdentifier>{e8a6750c-8085-4d11-89ce-da99c0d9eee7}</UniqueIdentifier>
@@ -433,26 +433,23 @@
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\01. Turret">
       <UniqueIdentifier>{8cffd656-a570-4179-b846-a4e0332ca644}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\Skill">
-      <UniqueIdentifier>{1dcc66ad-61fd-48f5-939d-fcb60976e798}</UniqueIdentifier>
+    <Filter Include="02. GameObject\17. Particle">
+      <UniqueIdentifier>{931b85ae-36fa-4b66-aed0-2d20d14d3d20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\Skill\00. Player_Skill_Barrier">
-      <UniqueIdentifier>{2c7931f2-911c-482c-92da-17488e51407e}</UniqueIdentifier>
+    <Filter Include="02. GameObject\17. Particle\00. FixedLeaf">
+      <UniqueIdentifier>{03ce479a-ddee-43f4-b7f9-921093b9a1ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\Skill\01. Player_Skill_Drill">
-      <UniqueIdentifier>{5529a875-2686-4101-b138-95a3ba7c861b}</UniqueIdentifier>
+    <Filter Include="02. GameObject\17. Particle\01. MovingLeaf">
+      <UniqueIdentifier>{bf7bf5c3-2b67-401f-9b60-93b86fa31425}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\Skill\02. Player_Skill_GolemFist">
-      <UniqueIdentifier>{e037dc2c-3e99-4a81-9c50-ac4d5b12c2bd}</UniqueIdentifier>
+    <Filter Include="01. Scene\01. Tutorial">
+      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\Skill\03. Player_Skill_Lightning">
-      <UniqueIdentifier>{acca675b-a08e-455c-945b-ae8b9c4ac156}</UniqueIdentifier>
+    <Filter Include="01. Scene\01. Tutorial\00. Village">
+      <UniqueIdentifier>{913d9fb0-155c-4c30-be37-f2fbb483d75c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\Skill\04. Player_Skill_Missile">
-      <UniqueIdentifier>{48ad2ef0-c304-45f4-90a4-7b6fc40888e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\04. GetItem">
-      <UniqueIdentifier>{0f6036b5-db16-4f1d-9654-32fbd6ac22f0}</UniqueIdentifier>
+    <Filter Include="01. Scene\01. Tutorial\01.">
+      <UniqueIdentifier>{2eb2d4f6-0a47-437b-990d-5b003dc9c566}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -836,10 +833,10 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_FixedLeaf.h">
-      <Filter>17. Particle\00. FixedLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\00. FixedLeaf</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_MovingLeaf.h">
-      <Filter>17. Particle\01. MovingLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\01. MovingLeaf</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h">
       <Filter>02. GameObject\16. Bullet\00. Player_Bullet_Bomb</Filter>
@@ -854,19 +851,19 @@
       <Filter>02. GameObject\13. Effect\03. Player_Skill_Aim</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Barrier.h">
-      <Filter>02. GameObject\01. Player\Skill\00. Player_Skill_Barrier</Filter>
+      <Filter>02. GameObject\13. Effect\04. Player_Skill_Barrier</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Drill.h">
-      <Filter>02. GameObject\01. Player\Skill\01. Player_Skill_Drill</Filter>
+      <Filter>02. GameObject\13. Effect\05. Player_Skill_Drill</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_GolemFist.h">
-      <Filter>02. GameObject\01. Player\Skill\02. Player_Skill_GolemFist</Filter>
+      <Filter>02. GameObject\13. Effect\06. Player_Skill_GolemFist</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Lightning.h">
-      <Filter>02. GameObject\01. Player\Skill\03. Player_Skill_Lightning</Filter>
+      <Filter>02. GameObject\13. Effect\07. Player_Skill_Lightning</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Missile.h">
-      <Filter>02. GameObject\01. Player\Skill\04. Player_Skill_Missile</Filter>
+      <Filter>02. GameObject\13. Effect\08. Player_Skill_Missile</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Range.h">
       <Filter>02. GameObject\13. Effect\09. Player_Skill_Range</Filter>
@@ -896,8 +893,11 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_MapCircle.h" />
-    <ClInclude Include="..\Header\Effect_GetItem.h">
-      <Filter>02. GameObject\13. Effect\04. GetItem</Filter>
+    <ClInclude Include="..\Header\Scene_TutorialVillage.h">
+      <Filter>01. Scene\01. Tutorial\00. Village</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\GameMgr.h">
+      <Filter>98. Manager\01. Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1264,10 +1264,10 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_FixedLeaf.cpp">
-      <Filter>17. Particle\00. FixedLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\00. FixedLeaf</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_MovingLeaf.cpp">
-      <Filter>17. Particle\01. MovingLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\01. MovingLeaf</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp">
       <Filter>02. GameObject\16. Bullet\00. Player_Bullet_Bomb</Filter>
@@ -1282,19 +1282,19 @@
       <Filter>02. GameObject\13. Effect\03. Player_Skill_Aim</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Barrier.cpp">
-      <Filter>02. GameObject\01. Player\Skill\00. Player_Skill_Barrier</Filter>
+      <Filter>02. GameObject\13. Effect\04. Player_Skill_Barrier</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Drill.cpp">
-      <Filter>02. GameObject\01. Player\Skill\01. Player_Skill_Drill</Filter>
+      <Filter>02. GameObject\13. Effect\05. Player_Skill_Drill</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp">
-      <Filter>02. GameObject\01. Player\Skill\02. Player_Skill_GolemFist</Filter>
+      <Filter>02. GameObject\13. Effect\06. Player_Skill_GolemFist</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp">
-      <Filter>02. GameObject\01. Player\Skill\03. Player_Skill_Lightning</Filter>
+      <Filter>02. GameObject\13. Effect\07. Player_Skill_Lightning</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Missile.cpp">
-      <Filter>02. GameObject\01. Player\Skill\04. Player_Skill_Missile</Filter>
+      <Filter>02. GameObject\13. Effect\08. Player_Skill_Missile</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Range.cpp">
       <Filter>02. GameObject\13. Effect\09. Player_Skill_Range</Filter>
@@ -1324,8 +1324,11 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
-    <ClCompile Include="..\Code\Effect_GetItem.cpp">
-      <Filter>02. GameObject\13. Effect\04. GetItem</Filter>
+    <ClCompile Include="..\Code\Scene_TutorialVillage.cpp">
+      <Filter>01. Scene\01. Tutorial\00. Village</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\GameMgr.cpp">
+      <Filter>98. Manager\01. Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

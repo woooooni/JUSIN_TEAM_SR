@@ -57,10 +57,8 @@ _int CParticle_MapCircle::Update_Object(const _float& fTimeDelta)
 	Update_Move(fTimeDelta);
 	Update_Show(fTimeDelta);
 	Update_Reset(fTimeDelta);
-	
 
-
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Engine::Add_RenderGroup(RENDERID::RENDER_EFFECT, this);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 

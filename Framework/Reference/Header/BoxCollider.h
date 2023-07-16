@@ -2,7 +2,8 @@
 #include "Collider.h"
 
 BEGIN(Engine)
-class CCubeTex;
+class CRcCubeCol;
+
 class ENGINE_DLL CBoxCollider : public CCollider
 {
 	
@@ -38,7 +39,7 @@ private:
 
 
 private:
-	CCubeTex*	m_pBuffer;
+	CRcCubeCol*	m_pBuffer;
 	_vec3		m_vScale = {1, 1, 1};
 
 

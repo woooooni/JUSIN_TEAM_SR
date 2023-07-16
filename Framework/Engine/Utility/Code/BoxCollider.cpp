@@ -1,6 +1,7 @@
 #include "..\..\Header\BoxCollider.h"
 #include "Export_Function.h"
 #include "KeyMgr.h"
+
 CBoxCollider::CBoxCollider()
 {
 }
@@ -13,7 +14,7 @@ CBoxCollider::CBoxCollider(LPDIRECT3DDEVICE9 _pDevice)
 CBoxCollider::CBoxCollider(const CBoxCollider & rhs)
 	: CCollider(rhs)
 {
-	m_pBuffer = dynamic_cast<CCubeTex*>(Engine::Clone_Proto(L"Proto_RcCube"));
+	m_pBuffer = dynamic_cast<CRcCubeCol*>(Engine::Clone_Proto(L"Proto_RcCubeCol"));
 }
 
 
@@ -24,8 +25,8 @@ CBoxCollider::~CBoxCollider()
 
 HRESULT CBoxCollider::Ready_BoxCollider()
 {
-	m_pBuffer = dynamic_cast<CCubeTex*>(Engine::Clone_Proto(L"Proto_RcCube"));
-	NULL_CHECK_RETURN_MSG(m_pBuffer, E_FAIL, L"Clone Proto RcCube Failed");
+	m_pBuffer = dynamic_cast<CRcCubeCol*>(Engine::Clone_Proto(L"Proto_RcCubeCol"));
+	NULL_CHECK_RETURN_MSG(m_pBuffer, E_FAIL, L"Clone Proto RcCubeCol Failed");
 
 	return S_OK;
 }
@@ -53,8 +54,8 @@ void CBoxCollider::LateUpdate_Component()
 
 void CBoxCollider::Render_Component()
 {
-	if (!m_bRender)
-		return;
+	//if (!m_bRender)
+	//	return;
 
 	//CTransform* pOwnerTransform = (CTransform*)(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
 
@@ -69,17 +70,17 @@ void CBoxCollider::Render_Component()
 
 	//matWorld._11 = m_vScale.x;
 	//matWorld._22 = m_vScale.y;
-	//matWorld._33 = 1;
+	//matWorld._33 = m_vScale.z;
 
 	//matWorld._41 = vOwnerPos.x;
 	//matWorld._42 = vOwnerPos.y;
 	//matWorld._43 = vOwnerPos.z;
 
 	//m_pGraphicDev->SetTransform(D3DTS_WORLD, &matWorld);
-	//// m_pGraphicDev->SetTexture(0, nullptr);
+	//m_pGraphicDev->SetTexture(0, NULL);
 	//m_pBuffer->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	//m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
 
 CBoxCollider * CBoxCollider::Create(LPDIRECT3DDEVICE9 _pDevice)

@@ -22,7 +22,7 @@ public:
 	{
 		for (_uint i = 0; i < _iSize; ++i)
 		{
-			CGameObject* pObj = T::Create(pGraphicDev);
+			T* pObj = T::Create(pGraphicDev);
 			NULL_CHECK_RETURN(pObj, E_FAIL);
 			pObj->Set_Active(false);
 			g_objQueue.push(pObj);
@@ -30,11 +30,11 @@ public:
 		return S_OK;
 	}
 
-	static CGameObject* Get_Obj()
+	static T* Get_Obj()
 	{
 		if (g_objQueue.empty()) return nullptr;
 
-		CGameObject* pObj = g_objQueue.front();
+		T* pObj = g_objQueue.front();
 		NULL_CHECK_RETURN(pObj, nullptr);
 
 		g_objQueue.pop();
@@ -44,7 +44,7 @@ public:
 		return pObj;
 	}
 
-	static _bool Return_Obj(CGameObject* _pObj)
+	static _bool Return_Obj(T* _pObj)
 	{
 		NULL_CHECK_RETURN(_pObj, FALSE);
 		_pObj->Set_Active(false);
@@ -62,19 +62,19 @@ public:
 
 		for (_int i = 0; i < iSize; ++i)
 		{
-			CGameObject* pObj = g_objQueue.front();
+			T* pObj = g_objQueue.front();
 			Safe_Release(pObj);
 			g_objQueue.pop();
 		}
 	}
 
-	static queue<CGameObject*>& Get_Que() { return g_objQueue; }
+	static queue<T*>& Get_Que() { return g_objQueue; }
 
 private:
-	static queue<CGameObject*> g_objQueue;     // 비활성화된 오브젝트들만 갖고있다.
+	static queue<T*> g_objQueue;     // 비활성화된 오브젝트들만 갖고있다.
 };
 
 template <typename T>
-queue<CGameObject*> CPool<T>::g_objQueue;
+queue<T*> CPool<T>::g_objQueue;
 
 END

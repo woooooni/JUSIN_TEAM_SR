@@ -74,7 +74,7 @@
 
 #include	"PlantCannon.h"
 
-class CLogo : public Engine::CScene
+class CLogo final : public Engine::CScene
 {
 private:
 	explicit CLogo(LPDIRECT3DDEVICE9 pGraphicDev);

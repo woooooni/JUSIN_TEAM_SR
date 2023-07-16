@@ -22,8 +22,7 @@ public:
 
 public:
 	HRESULT			Ready_Loading(LOADINGID eLoadingID);
-	_uint			Loading_ForStage();
-
+	_uint			Loading_For_TutorialVillage();
 private:
 	HANDLE				m_hThread;
 	CRITICAL_SECTION	m_Crt;
