@@ -457,6 +457,9 @@
     <Filter Include="01. Scene\01. Tutorial\00. Village">
       <UniqueIdentifier>{9ed00668-8c13-45d6-a96e-d54248df9432}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\100. Test">
+      <UniqueIdentifier>{b5595ae0-4c42-47c3-aaba-16051343aaf5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -923,6 +926,9 @@
     <ClInclude Include="..\Header\Player_State_Dance.h" />
     <ClInclude Include="..\Header\QuizStatue.h" />
     <ClInclude Include="..\Header\Stage1.h" />
+    <ClInclude Include="..\Header\Scene_Test.h">
+      <Filter>01. Scene\100. Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1372,6 +1378,9 @@
     <ClCompile Include="..\Code\Player_State_Dance.cpp" />
     <ClCompile Include="..\Code\QuizStatue.cpp" />
     <ClCompile Include="..\Code\Stage1.cpp" />
+    <ClCompile Include="..\Code\Scene_Test.cpp">
+      <Filter>01. Scene\100. Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

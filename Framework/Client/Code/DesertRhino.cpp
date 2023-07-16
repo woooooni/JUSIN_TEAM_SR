@@ -92,7 +92,6 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		if (D3DXVec3Length(&vDir) < 5.f)
 		{
 			Set_State(MONSTER_STATE::REGEN);
-			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Down", true);
 		}
 	}
 
@@ -104,6 +103,7 @@ void CDesertRhino::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return ;
+	Set_Animation();
 	__super::LateUpdate_Object();
 }
 void CDesertRhino::Render_Object(void)
@@ -126,7 +126,6 @@ void CDesertRhino::Update_Idle(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::MOVE);
-			m_pAnimator->Play_Animation(L"DesertRhino_Move_Down", true);
 		}
 
 		m_fMoveTime = 0.f;
@@ -150,11 +149,10 @@ void CDesertRhino::Update_Regen(_float fTimeDelta)
 
 	vDir = vTargetPos - vPos;
 	m_vDir = vTargetPos - vPos;
-
-	if (m_fMoveTime > 15.f)
+	m_vLook = m_vDir;
+	if (	m_fMoveTime > 15.f)
 	{
 		Set_State(MONSTER_STATE::ATTACK);
-		m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
 		m_fMoveTime = 0.f;
 	}
 
@@ -170,7 +168,7 @@ void CDesertRhino::Update_Move(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
+	
 		}
 
 		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
@@ -184,6 +182,8 @@ void CDesertRhino::Update_Move(_float fTimeDelta)
 	vDir = m_vDst;
 	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
+	m_vLook = vDir;
+	m_vDir = vDir;
 	m_pTarget = nullptr;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 }
@@ -251,7 +251,6 @@ void CDesertRhino::Trace(_float fTimeDelta)
 	if (m_fMoveTime > 10.f)
 	{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
 			m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -281,3 +280,236 @@ void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 
 	}
 }
+
+void CDesertRhino::Set_Animation()
+{
+
+	OBJ_DIR eDir=OBJ_DIR::DIR_END;
+	D3DXVec3Normalize(&m_vLook, &m_vLook);
+	_vec3 vAxis(0.f, 0.f, 1.f);
+	_float fAngle = D3DXVec3Dot(&m_vLook, &vAxis);
+	fAngle = acosf(fAngle);
+	
+	if (m_vLook.x < 0.0f)
+		fAngle = D3DX_PI * 2 - fAngle;
+
+
+	fAngle = D3DXToDegree(fAngle);
+
+
+
+	_uint iDir = fAngle / 22.5f;
+
+	if (iDir == 0 || iDir == 15 || iDir == 16)
+	{
+		eDir = OBJ_DIR::DIR_U;
+	}
+	else if (iDir == 1 || iDir == 2)
+	{
+		eDir = OBJ_DIR::DIR_RU;
+	}
+	else if (iDir == 3 || iDir == 4)
+	{
+		eDir = OBJ_DIR::DIR_R;
+	}
+	else if (iDir == 5 || iDir == 6)
+	{
+		eDir = OBJ_DIR::DIR_RD;
+	}
+	else if (iDir == 7 || iDir == 8)
+	{
+		eDir = OBJ_DIR::DIR_D;
+	}
+	else if (iDir == 9 || iDir == 10)
+	{
+		eDir = OBJ_DIR::DIR_LD;
+	}
+	else if (iDir == 11 || iDir == 12)
+	{
+		eDir = OBJ_DIR::DIR_L;
+	}
+	else if (iDir == 13 || iDir == 14)
+	{
+		eDir = OBJ_DIR::DIR_LU;
+	}
+	else 
+		return;
+	MONSTER_STATE eState= Get_State();
+	if (m_ePreviousState == eState && eDir == m_eDir)
+		return;
+	m_ePreviousState = eState;
+	m_eDir = eDir;
+	_uint iIndex = m_pAnimator->GetCurrAnimation()->Get_Idx();
+	switch (m_ePreviousState)
+	{
+	case Engine::MONSTER_STATE::IDLE:
+		switch (m_eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Up",true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);	
+			break;
+		case Engine::OBJ_DIR::DIR_L:			
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:		
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:				
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:		
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:		
+				m_pAnimator->Play_Animation(L"DesertRhino_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::MOVE:
+		switch (m_eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::REGEN:
+		switch (m_eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Ready_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::ATTACK:
+		switch (m_eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Attack_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::DIE:
+		switch (m_eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+	m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
+}
+

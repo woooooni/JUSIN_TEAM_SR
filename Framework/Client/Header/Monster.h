@@ -59,7 +59,10 @@ private:
 protected:
 	CGameObject*	m_pTarget;
 	MONSTERSTAT		m_tStat;
+	_vec3 m_vLook;
 	CUI_MonsterHP* m_pUI;
+	MONSTER_STATE m_ePreviousState;
+	OBJ_DIR m_eDir;
 protected:
 	virtual void Free() override;
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
