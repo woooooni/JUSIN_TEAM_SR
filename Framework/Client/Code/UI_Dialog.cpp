@@ -49,8 +49,8 @@ _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 		m_fAccTime = 0.f;
 		m_iIdx++;
 
-		if (m_iIdx >= m_strDesc.size())
-			m_iIdx = m_strDesc.size() - 1;
+		if (m_iIdx >= _uint(m_strDesc.size()))
+			m_iIdx = _uint(m_strDesc.size() - 1);
 
 		m_strCurrDesc = m_strDesc.substr(0, m_iIdx);
 	}
@@ -84,7 +84,7 @@ void CUI_Dialog::Render_Object(void)
 		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
 		_float fRatio = _float(WINCY) / _float(WINCX);
-		_vec3 vScale = _vec3(fWidth * fRatio * 0.8, fHeight * fRatio, 0.f);
+		_vec3 vScale = _vec3(_float(fWidth * fRatio * 0.8), _float(fHeight * fRatio), 0.f);
 
 		m_pTransformCom->Set_Scale(vScale);
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -95,17 +95,16 @@ void CUI_Dialog::Render_Object(void)
 		m_pBufferCom->Render_Buffer();
 
 
-
 		// Name Tag 위치
 		RECT rcName = { -1 * (WINCX / 4) + 70, (WINCY / 4) - 50, 3 * (WINCX / 4), WINCY };
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-			m_strName.c_str(), m_strName.size(), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+			m_strName.c_str(), INT(m_strName.size()), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 			D3DCOLOR_ARGB(100, 0, 0, 0));
 
 		// Text 출력 위치
-		RECT rc = { 0, WINCY / 2, WINCX, WINCY };
+		RECT rcText = { 0, WINCY / 2, WINCX, WINCY };
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-			m_strCurrDesc.c_str(), m_strCurrDesc.size(), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+			m_strCurrDesc.c_str(), INT(m_strCurrDesc.size()), &rcText, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 			D3DCOLOR_ARGB(100, 0, 0, 0));
 
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);

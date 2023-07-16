@@ -1,7 +1,6 @@
 #pragma once
 #include "Npc.h"
 #include "UI_ShortCutKey.h"
-#include "NPCTextBox.h"
 #include "NPCText.h"
 
 BEGIN(Engine)
