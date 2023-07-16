@@ -1,8 +1,6 @@
 #include "UI_BossHP.h"
 #include "Export_Function.h"
 
-// 보스가 있는 맵으로 가면 나타난다.
-
 CUI_BossHP::CUI_BossHP(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
 {
 }
@@ -18,13 +16,6 @@ CUI_BossHP::~CUI_BossHP()
 HRESULT CUI_BossHP::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
-	// UI가 띄워질 위치
-	//m_vDefaultPos = { 0.f, +350.f, 0.f }; // 사용X
-
-	// 공식
-	//_vec3 vMovePos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
-	//	((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	m_tInfo.fX = WINCX / 2.f;
 	m_tInfo.fY = WINCY / 2.f - 350.f;
@@ -51,7 +42,6 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 		m_iCurHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iHp;
 	}
 
-
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -62,7 +52,7 @@ void CUI_BossHP::LateUpdate_Object(void)
 	_float fCurHP = _float(m_iCurHP);
 	_float fHP = fCurHP / fMaxHP;
 
-	_float fIndex = m_tInfo.fCX - m_tInfo.fCX * fHP; // 줄어든 길이
+	_float fIndex = m_tInfo.fCX - m_tInfo.fCX * fHP;
 
 	m_tInfo.fX = WINCX / 2.f - fIndex * 1.4f;
 
@@ -74,7 +64,7 @@ void CUI_BossHP::Render_Object(void)
 	_matrix matPreView, matPreProj;
 	_float fCurHP, fMaxHP, fHP;
 
-	if (m_bShown) // Gauge Bar만 여기에 해당한다.
+	if (m_bShown)
 	{
 		fMaxHP = _float(m_iMaxHP);
 		fCurHP = _float(m_iCurHP);
@@ -114,10 +104,8 @@ void CUI_BossHP::Render_Object(void)
 			}
 			else if (fCurHP < fMaxHP && fCurHP > 0)
 			{
-				// Boss HP확정되면 추가 작업 필요
 				_vec3 vMovePos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
 					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
-				//_vec3 vMovePos = { m_vDefaultPos.x - fX - 15.f, m_vDefaultPos.y, 0.f };
 				m_pTransformCom->Set_Pos(&vMovePos);
 			}
 

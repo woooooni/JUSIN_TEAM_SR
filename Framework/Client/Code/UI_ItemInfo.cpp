@@ -23,12 +23,8 @@ HRESULT CUI_ItemInfo::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	// 복붙의 잔해,, WINCX 1280 WINCY 860 기준으로 다시 수정할것
-	m_tInfo.fX = 656.f;
-	m_tInfo.fY = 372.f;
-
-	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX - 1.78f) * (1 / m_matProj._11) ,
-					((-2 * (m_tInfo.fY)) / WINCY + 1.08f) * (1 / m_matProj._22), 0.f };
+	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
 	return S_OK;
 }
@@ -69,105 +65,98 @@ void CUI_ItemInfo::Render_Object(void)
 	{
 		switch (m_tItemInfo.eType)
 		{
+			// 상점 첫번째 아이템
 		case SHOPITEMTYPE::UISHOP_CLOTH:
-			vPos = { m_vDefaultPos.x, m_vDefaultPos.y, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio, m_tInfo.fCY * fRatio, 0.f);
 			break;
 
+			// 상점 두번째 아이템
 		case SHOPITEMTYPE::UISHOP_BRANCH:
-			vPos = { (m_vDefaultPos.x + 148.f), m_vDefaultPos.y, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio, m_tInfo.fCY * fRatio, 0.f);
 			break;
 
+			// 상점 세번째 아이템
 		case SHOPITEMTYPE::UISHOP_LEAF:
-			vPos = { (m_vDefaultPos.x + 306.f), m_vDefaultPos.y, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio, m_tInfo.fCY * fRatio, 0.f);
 			break;
 
+			// 닫기 버튼
 		case SHOPITEMTYPE::SHOPKEY_L:
-			vPos = { (m_vDefaultPos.x + 630.f), m_vDefaultPos.y + 150.f, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio * 1.2f, fHeight * fRatio * 1.2f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.2f, m_tInfo.fCY * fRatio * 1.2f, 0.f);
 			break;
 
 		case SHOPITEMTYPE::SHOP_PRICETAG: // Scale, Pos 테스트용임 수정필요함.
-			vPos = { m_vDefaultPos.x + 35.f, m_vDefaultPos.y - 60.f, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio, m_tInfo.fCY * fRatio, 0.f);
 			break;
 
 		case SHOPITEMTYPE::SHOP_VERLINE:
-			vPos = { m_vDefaultPos.x + 750.f, m_vDefaultPos.y - 120.f, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio * 1.5f, fHeight * fRatio * 1.6f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.5f, m_tInfo.fCY * fRatio * 1.6f, 0.f);
 			break;
 
 		case SHOPITEMTYPE::SHOP_HORLINE:
-			vPos = { m_vDefaultPos.x + 920.f, m_vDefaultPos.y - 160.f, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio * 1.2f, fHeight * fRatio, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.2f, m_tInfo.fCY * fRatio, 0.f);
 			break;
 
 		case SHOPITEMTYPE::SHOP_TEXTBOX:
-			vPos = { m_vDefaultPos.x + 920.f, m_vDefaultPos.y - 250.f, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio * 0.8f, fHeight * fRatio * 1.1f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 0.8f, m_tInfo.fCY * fRatio * 1.1f, 0.f);
 			break;
 
 		case SHOPITEMTYPE::SHOP_IMGBOX:
-			vPos = { m_vDefaultPos.x + 920.f, m_vDefaultPos.y + 50.f, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio * 0.8f, fHeight * fRatio * 0.7f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 0.8f, m_tInfo.fCY * fRatio * 0.7f, 0.f);
 			break;
 
 		case SHOPITEMTYPE::SHOP_WALLET:
-			vPos = { m_vDefaultPos.x + 1020.f, m_vDefaultPos.y + 290.f, m_vDefaultPos.z };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
-
+			vScale = _vec3(m_tInfo.fCX * fRatio, m_tInfo.fCY * fRatio, 0.f);
 			break;
 
 		default:
@@ -184,14 +173,16 @@ void CUI_ItemInfo::Render_Object(void)
 
 
 		// Player Money TextOut //
-		_int iMoney;
-
 		CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-		iMoney = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMoney;
+
+		if (pPlayer != nullptr)
+		{
+			m_iPlayerMoney = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMoney;
+		}
 
 		RECT rc = { 1100, 35, WINCX, WINCY / 2 };
 
-		string strMoney = to_string(iMoney);
+		string strMoney = to_string(m_iPlayerMoney);
 		wstring sTemp = wstring(strMoney.begin(), strMoney.end());
 		LPCWSTR swBuffer = sTemp.c_str();
 
@@ -212,14 +203,12 @@ void CUI_ItemInfo::Render_Object(void)
 		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_CLOTH_INFO
 			&& m_iCursorX == 0 && m_iCursorY == 0)
 		{
-			vPos = { m_vDefaultPos.x + 920.f, m_vDefaultPos.y + 50.f, m_vDefaultPos.z };
+			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-
-			vScale = _vec3(fWidth * fRatio * 1.7f, fHeight * fRatio * 1.7f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.7f, m_tInfo.fCY * fRatio * 1.7f, 0.f);
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -233,14 +222,12 @@ void CUI_ItemInfo::Render_Object(void)
 		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_LEAF_INFO
 			&& m_iCursorX == 2 && m_iCursorY == 0)
 		{
-			vPos = { m_vDefaultPos.x + 920.f, m_vDefaultPos.y + 50.f, m_vDefaultPos.z };
+			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-
-			vScale = _vec3(fWidth * fRatio * 1.8f, fHeight * fRatio * 1.8f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.8f, m_tInfo.fCY * fRatio * 1.8f, 0.f);
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -254,14 +241,12 @@ void CUI_ItemInfo::Render_Object(void)
 		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_BRANCH_INFO
 			&& m_iCursorX == 1 && m_iCursorY == 0)
 		{
-			vPos = { m_vDefaultPos.x + 920.f, m_vDefaultPos.y + 50.f, m_vDefaultPos.z };
+			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
-			fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-			fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 			fRatio = _float(WINCY) / _float(WINCX);
-
-			vScale = _vec3(fWidth * fRatio * 1.6f, fHeight * fRatio * 1.6f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.6f, m_tInfo.fCY * fRatio * 1.6f, 0.f);
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -299,6 +284,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = -335.f;
+		m_tInfo.fY = -90.f;
 		break;
 
 	case SHOPITEMTYPE::UISHOP_CLOTH:
@@ -306,6 +294,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = -485.f;
+		m_tInfo.fY = -90.f;
 		break;
 
 	case SHOPITEMTYPE::UISHOP_LEAF:
@@ -313,6 +304,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = -180.f;
+		m_tInfo.fY = -90.f;
 		break;
 
 	case SHOPITEMTYPE::SHOPKEY_L:
@@ -320,6 +314,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 150.f;
+		m_tInfo.fY = -245.f;
 		break;
 
 	case SHOPITEMTYPE::SHOP_PRICETAG:
@@ -327,6 +324,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = -450.f;
+		m_tInfo.fY = -37.f;
 		break;
 
 	case SHOPITEMTYPE::SHOP_VERLINE:
@@ -334,6 +334,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 265.f;
+		m_tInfo.fY = 30.f;
 		break;
 
 	case SHOPITEMTYPE::SHOP_HORLINE:
@@ -341,6 +344,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 435.f;
+		m_tInfo.fY = 65.f;
 		break;
 
 	case SHOPITEMTYPE::SHOP_TEXTBOX:
@@ -348,6 +354,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 435.f;
+		m_tInfo.fY = 160.f;
 		break;
 
 	case SHOPITEMTYPE::UISHOP_BRANCH_INFO:
@@ -355,6 +364,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 435.f;
+		m_tInfo.fY = -140.f;
 		break;
 
 	case SHOPITEMTYPE::UISHOP_CLOTH_INFO:
@@ -362,6 +374,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 435.f;
+		m_tInfo.fY = -140.f;
 		break;
 
 	case SHOPITEMTYPE::UISHOP_LEAF_INFO:
@@ -369,6 +384,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 435.f;
+		m_tInfo.fY = -140.f;
 		break;
 
 	case SHOPITEMTYPE::SHOP_IMGBOX:
@@ -376,6 +394,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 435.f;
+		m_tInfo.fY = -140.f;
 		break;
 
 	case SHOPITEMTYPE::SHOP_WALLET:
@@ -383,6 +404,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		NULL_CHECK_RETURN(pComponent, E_FAIL);
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 540.f;
+		m_tInfo.fY = -380.f;
 		break;
 
 	default:

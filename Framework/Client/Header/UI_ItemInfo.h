@@ -63,6 +63,7 @@ private:
 	_bool				m_bCursorMove = false;
 	_uint				m_iCursorX = 0;
 	_uint				m_iCursorY = 0;
+	_uint				m_iPlayerMoney = 0;
 
 public:
 	static  CUI_ItemInfo* Create(LPDIRECT3DDEVICE9 pGraphicDev, SHOPITEMTYPE eType);

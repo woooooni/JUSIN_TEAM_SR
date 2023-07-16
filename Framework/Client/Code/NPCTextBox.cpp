@@ -37,6 +37,12 @@ HRESULT CNPCTextBox::Ready_Object(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
+
+	m_tInfo.fX = 0.f;
+	m_tInfo.fY = 220.f;
+
+	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	
 	return S_OK;
 }
@@ -64,19 +70,14 @@ void CNPCTextBox::Render_Object(void)
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-		//	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) *  (1 / m_matProj._11) ,
-		//		((-2 * (WINCY / 2)) / WINCY + 1)  * (1 / m_matProj._22), 0.f };
-		_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) ,
-			((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
+
+		_vec3 vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 
 		m_pTransformCom->Set_Pos(&vPos);
 
-		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-
 		_float fRatio = _float(WINCY) / _float(WINCX);
-		//	_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
-		_vec3 vScale = _vec3(fWidth * fRatio * 0.8, fHeight * fRatio, 0.f);
+		_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 0.8, m_tInfo.fCY * fRatio, 0.f);
 
 		m_pTransformCom->Set_Scale(vScale);
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());

@@ -49,7 +49,7 @@ private:
 	void			Key_Input();
 
 private:
-	tagIconInfo			m_tInfo;
+	tagIconInfo			m_tIconInfo;
 	_bool				m_bShown = FALSE;
 
 public:

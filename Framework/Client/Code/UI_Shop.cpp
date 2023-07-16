@@ -22,8 +22,8 @@ HRESULT CUI_Shop::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_tInfo.fX = 656.f;
-	m_tInfo.fY = 372.f;
+	m_tInfo.fX = -178.f;
+	m_tInfo.fY = 70.f;
 
 	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
 	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
@@ -63,8 +63,8 @@ void CUI_Shop::Render_Object(void)
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-		_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1.3f) * (1 / m_matProj._11) ,
-						((-2 * (m_tInfo.fY)) / WINCY + 0.7f) * (1 / m_matProj._22), 0.f };
+		_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX ) * (1 / m_matProj._11) ,
+						((-2 * (m_tInfo.fY)) / WINCY) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
