@@ -913,6 +913,15 @@
     <ClInclude Include="..\Header\Player_State_Dance.h">
       <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_DieSmoke.h">
+      <Filter>02. GameObject\13. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_Explosion.h">
+      <Filter>02. GameObject\13. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_LightningGround.h">
+      <Filter>02. GameObject\13. Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1351,6 +1360,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Dance.cpp">
       <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_DieSmoke.cpp">
+      <Filter>02. GameObject\13. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_Explosion.cpp">
+      <Filter>02. GameObject\13. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_LightningGround.cpp">
+      <Filter>02. GameObject\13. Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

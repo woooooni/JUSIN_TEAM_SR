@@ -218,8 +218,11 @@
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_DieSmoke.h" />
+    <ClInclude Include="..\Header\Effect_Explosion.h" />
     <ClInclude Include="..\Header\Effect_GetItem.h" />
     <ClInclude Include="..\Header\Effect_Leaf.h" />
+    <ClInclude Include="..\Header\Effect_LightningGround.h" />
     <ClInclude Include="..\Header\Effect_Shadow.h" />
     <ClInclude Include="..\Header\Effect_StoneParticle.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
@@ -393,8 +396,11 @@
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_DieSmoke.cpp" />
+    <ClCompile Include="..\Code\Effect_Explosion.cpp" />
     <ClCompile Include="..\Code\Effect_GetItem.cpp" />
     <ClCompile Include="..\Code\Effect_Leaf.cpp" />
+    <ClCompile Include="..\Code\Effect_LightningGround.cpp" />
     <ClCompile Include="..\Code\Effect_Shadow.cpp" />
     <ClCompile Include="..\Code\Effect_StoneParticle.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />

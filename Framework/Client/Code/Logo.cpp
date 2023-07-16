@@ -24,7 +24,7 @@ HRESULT CLogo::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
-	//FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
@@ -135,7 +135,8 @@ HRESULT CLogo::Ready_Layer_Player()
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MissileHat", pItemMissileHat), E_FAIL);
 
 
-	pPlayer->Set_Hat(pItemMissileHat);
+
+	pPlayer->Set_Hat(pItemMaskHat);
 
 	pLayer->Ready_Layer();
 
