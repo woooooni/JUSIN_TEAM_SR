@@ -334,9 +334,6 @@
     <Filter Include="02. GameObject\10. Item\03. Etc">
       <UniqueIdentifier>{649d0fca-11c6-4249-9313-586667c02e99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\13. Effect\02. Fish">
-      <UniqueIdentifier>{0961bc03-1e8b-474c-ac46-7c64e87c291b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\06. FieldObj\06. Jelly">
       <UniqueIdentifier>{5d304fa1-10d9-41c1-b59f-6b6bd93a533a}</UniqueIdentifier>
     </Filter>
@@ -450,6 +447,12 @@
     </Filter>
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField">
       <UniqueIdentifier>{3217d82d-f638-453f-b95d-18cac4c38f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\11. StoneSpike">
+      <UniqueIdentifier>{42042bb7-67da-4d10-a79f-814988d8e056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\02. Fist">
+      <UniqueIdentifier>{0961bc03-1e8b-474c-ac46-7c64e87c291b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -745,9 +748,6 @@
     <ClInclude Include="..\Header\NPCText.h">
       <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_MonsterHP.h">
-      <Filter>02. GameObject\04. UI\05. Monster HPBar\00. Monster HP</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\UI_BossHP.h">
       <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
     </ClInclude>
@@ -797,7 +797,7 @@
       <Filter>02. GameObject\10. Item\03. Etc</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\FistEffect.h">
-      <Filter>02. GameObject\13. Effect\02. Fish</Filter>
+      <Filter>02. GameObject\13. Effect\02. Fist</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\JellyBomb.h">
       <Filter>02. GameObject\06. FieldObj\06. Jelly\00. JellyBomb</Filter>
@@ -898,6 +898,17 @@
     </ClInclude>
     <ClInclude Include="..\Header\ClearField.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_GetItem.h" />
+    <ClInclude Include="..\Header\GameMgr.h" />
+    <ClInclude Include="..\Header\GolemPart.h" />
+    <ClInclude Include="..\Header\MonsterAim.h" />
+    <ClInclude Include="..\Header\Scene_TutorialVillage.h" />
+    <ClInclude Include="..\Header\Effect_StoneSpike.h">
+      <Filter>02. GameObject\13. Effect\11. StoneSpike</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_MonsterHP.h">
+      <Filter>02. GameObject\04. UI\05. Monster HPBar\00. Monster HP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1176,9 +1187,6 @@
     <ClCompile Include="..\Code\NPCText.cpp">
       <Filter>02. GameObject\04. UI\02. NPCText\00. Text</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_MonsterHP.cpp">
-      <Filter>02. GameObject\04. UI\05. Monster HPBar\00. Monster HP</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\UI_BossHP.cpp">
       <Filter>02. GameObject\04. UI\05. Monster HPBar\01. Boss HP</Filter>
     </ClCompile>
@@ -1228,7 +1236,7 @@
       <Filter>02. GameObject\10. Item\03. Etc</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\FistEffect.cpp">
-      <Filter>02. GameObject\13. Effect\02. Fish</Filter>
+      <Filter>02. GameObject\13. Effect\02. Fist</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\JellyBomb.cpp">
       <Filter>02. GameObject\06. FieldObj\06. Jelly\00. JellyBomb</Filter>
@@ -1329,6 +1337,17 @@
     </ClCompile>
     <ClCompile Include="..\Code\ClearField.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_GetItem.cpp" />
+    <ClCompile Include="..\Code\GameMgr.cpp" />
+    <ClCompile Include="..\Code\GolemPart.cpp" />
+    <ClCompile Include="..\Code\MonsterAim.cpp" />
+    <ClCompile Include="..\Code\Scene_TutorialVillage.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneSpike.cpp">
+      <Filter>02. GameObject\13. Effect\11. StoneSpike</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_MonsterHP.cpp">
+      <Filter>02. GameObject\04. UI\05. Monster HPBar\00. Monster HP</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

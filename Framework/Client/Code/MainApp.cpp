@@ -799,7 +799,7 @@ HRESULT CMainApp::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CMainApp::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_FistEffect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/FistEffect/FistEffect_%d.png", 9)), E_FAIL);
-
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_StoneSpike", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/StoneSpike/StoneSpikeEffect_%d.png", 9)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_FixedLeaf", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Leaf/Leaf_Fixed/Leaf_Fixed_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_LeafFloating", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Leaf/Leaf_Floating/Leaf_Floating_%d.png", 8)), E_FAIL);
 

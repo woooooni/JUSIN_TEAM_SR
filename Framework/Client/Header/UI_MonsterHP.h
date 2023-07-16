@@ -1,6 +1,6 @@
 #pragma once
 #include "CUI.h"
-#include "Monster.h"
+
 
 // Back, Frame, HP
 
@@ -20,7 +20,9 @@ class CRcTex;
 class CTransform;
 class CTexture;
 
+
 END;
+class CMonster;
 
 class CUI_MonsterHP : public CUI
 {
@@ -38,6 +40,8 @@ public:
 public:
 	HRESULT	Add_Component(void);
 	void	Set_Type(MONSTERHP eType);
+	CMonster* Get_Owner() { return m_pOwner; }
+	void			Set_Owner(CMonster* _pOwner) { m_pOwner = _pOwner; }
 
 private:
 	MONSTERHP	m_eUIType;
@@ -46,7 +50,7 @@ private:
 	_int		m_iHP;	  // 몬스터 현재 체력
 	_bool		m_bShown = true; // UI를 띄웠는가?
 	_vec3		m_vMonsterPos; // 몬스터 현재 위치
-
+	CMonster* m_pOwner;
 public:
 	static  CUI_MonsterHP* Create(LPDIRECT3DDEVICE9 pGraphicDev, MONSTERHP eType);
 

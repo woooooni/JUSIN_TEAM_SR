@@ -31,7 +31,7 @@ HRESULT CTrashFast::Ready_Object(void)
 	vScale = m_pTransformCom->Get_Scale();
 	m_pTransformCom->Set_Scale({ vScale.x * 0.6f, vScale.y * 0.6f, vScale.x });
 
-	m_fMinHeight = 1.0f; // 최소y값
+	m_fMinHeight = 0.5f; // 최소y값
 	m_tStat = { 1,1,1 };
 	//typedef struct tagMonsterstats
 	//{

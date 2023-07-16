@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "UI_MonsterHP.h"
 
 BEGIN(Engine)
 
@@ -58,7 +59,7 @@ private:
 protected:
 	CGameObject*	m_pTarget;
 	MONSTERSTAT		m_tStat;
-
+	CUI_MonsterHP* m_pUI;
 protected:
 	virtual void Free() override;
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;

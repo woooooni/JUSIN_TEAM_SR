@@ -29,7 +29,7 @@ HRESULT CGreenBeatle::Ready_Object(void)
 	Set_Speed(5.f);
 
 	m_pAnimator->Play_Animation(L"GreenBeatle_Idle_Down", true);
-	m_fMinHeight = 1.0f;
+	m_fMinHeight = 0.5f;
 	m_tStat = { 3,3,0 };
 	return S_OK;
 }

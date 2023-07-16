@@ -35,7 +35,8 @@ HRESULT CMothOrb::Ready_Object(void)
 
 _int CMothOrb::Update_Object(const _float& fTimeDelta)
 {
-
+	if (!Is_Active())
+		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
 
 	return iExit;
@@ -46,6 +47,8 @@ void CMothOrb::LateUpdate_Object(void)
 }
 void CMothOrb::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 	__super::Render_Object();

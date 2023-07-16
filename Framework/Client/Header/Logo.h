@@ -71,9 +71,6 @@
 #include	"EtcItem.h"
 #include	"ClearBomb.h"
 #include	"ClearField.h"
-
-
-
 #include	"PlantCannon.h"
 
 class CLogo final : public Engine::CScene

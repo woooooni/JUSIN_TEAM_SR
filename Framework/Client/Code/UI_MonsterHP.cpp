@@ -1,6 +1,6 @@
 #include "UI_MonsterHP.h"
 #include "Export_Function.h"
-
+#include "Monster.h"
 // 몬스터를 때리면 나타난다.
 
 CUI_MonsterHP::CUI_MonsterHP(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
@@ -26,37 +26,20 @@ HRESULT CUI_MonsterHP::Ready_Object(void)
 
 _int CUI_MonsterHP::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
-
-	// Player가 공격한 몬스터를 찾아 MaxHp와 Hp를 얻어온다.
-	// 우선, Test용으로 RollingBug를 잡겠다.
-	CGameObject* pMonster = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"Monster_Rolling_Pink");
 	
-	if (pMonster != nullptr)
+	if (m_pOwner != nullptr && m_pOwner->Is_Active())
 	{
-		_uint iMaxHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iMaxHp;
-		_uint iHp = dynamic_cast<CMonster*>(pMonster)->Get_Stat().iHp;
+		_uint iMaxHp = (m_pOwner)->Get_Stat().iMaxHp;
+		_uint iHp = (m_pOwner)->Get_Stat().iHp;
 
 		m_iMaxHP = iMaxHp;
 		m_iHP = iHp;
 
-		_vec3 vBarPos, vPos, vDir;
-		pMonster->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-
-		vDir = vPos - vBarPos;
-		D3DXVec3Normalize(&vDir, &vDir);
-
-		m_vDefaultPos = { vPos.x , vPos.y + 200.f, 0.f }; // 체력바를 띄울 위치
-		//m_vDefaultPos = { vBarPos.x , vBarPos.y + 200.f, 0.f };
-
-		//m_pTransformCom->Set_Pos(&m_vDefaultPos);
-		//m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 5.f);
-
-		// 체력이 하나 이상 닳았고 0은 아닌 상태면 TRUE -> 체력바를 보여주겠다
 		if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
-			m_bShown = true;
+			Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 	}
-
+	else
+		Set_Active(false);
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -68,16 +51,17 @@ void CUI_MonsterHP::LateUpdate_Object(void)
 
 void CUI_MonsterHP::Render_Object(void)
 {
+	if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
+	{m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	__super::Render_Object();
+	m_pTextureCom->Render_Texture(0);
+	m_pBufferCom->Render_Buffer();}
 }
 
 HRESULT CUI_MonsterHP::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
-
-	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
-	D3DXMatrixIdentity(&m_matView);
 
 	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);

@@ -43,7 +43,7 @@ HRESULT CTrashSlime::Ready_Object(void)
 	Set_Speed(2.f);
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", false);
-	m_fMinHeight = 1.0f;
+	m_fMinHeight = 0.5f;
 	return S_OK;
 }
 

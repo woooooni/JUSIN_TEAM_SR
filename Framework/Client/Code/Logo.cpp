@@ -252,18 +252,11 @@ HRESULT CLogo::Ready_Layer_Monster()
 //	CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
 //	NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
-//
-//
+
 	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pMothMage, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
-	pMothMage = CMothMage::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pMothMage, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
-	 pMothMage = CMothMage::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pMothMage, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
-//	
+
 //	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
 //	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlantCannon", pPlantCannon), E_FAIL);
@@ -272,7 +265,7 @@ HRESULT CLogo::Ready_Layer_Monster()
 	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
-	//
+
 	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);

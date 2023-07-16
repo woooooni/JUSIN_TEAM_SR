@@ -31,6 +31,8 @@ HRESULT CBugBall::Ready_Object(void)
 
 _int CBugBall::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
@@ -49,6 +51,8 @@ _int CBugBall::Update_Object(const _float& fTimeDelta)
 
 void CBugBall::LateUpdate_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	if (vPos.y < 1.f)
@@ -64,6 +68,8 @@ void CBugBall::LateUpdate_Object(void)
 
 void CBugBall::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
