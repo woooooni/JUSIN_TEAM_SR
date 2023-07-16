@@ -16,15 +16,6 @@ CLogo::~CLogo()
 HRESULT CLogo::Ready_Scene()
 {
 	__super::Ready_AllLayer();
-	/*FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);*/
 
 	D3DVIEWPORT9 vp;
 	vp.X = 0;
@@ -43,25 +34,26 @@ HRESULT CLogo::Ready_Scene()
 
 	m_pLoading = CLoading::Create(m_pGraphicDev, SCENE_TYPE::LOGO);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Background", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_Test_AddSlot.png")), E_FAIL);
+	/*FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Background", 
+		CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_Test_AddSlot.png")), E_FAIL);
 
 	CUI_Shop* pUI = CUI_Shop::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pUI, E_FAIL);
 
-	FAILED_CHECK_RETURN(m_mapLayer.find(LAYER_TYPE::UI)->second->Add_GameObject(L"SRC", pUI), E_FAIL);
+	FAILED_CHECK_RETURN(m_mapLayer.find(LAYER_TYPE::UI)->second->Add_GameObject(L"SRC", pUI), E_FAIL);*/
 
-
+	//PlayVideo(g_hWnd, L"../Bin/Resource/Video/Intro.avi");
 	return S_OK;
 }
 
 Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
-
-
 	__super::Update_Scene(fTimeDelta);
-
+	
 	if (m_pLoading->Get_Finish())
 		Set_Scene(m_pLoading->Get_Scene());
+
+	
 
 	return 0;
 }

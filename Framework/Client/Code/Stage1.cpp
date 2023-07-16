@@ -1,3 +1,5 @@
+#include "Export_Function.h"
+#include "../Include/stdafx.h"
 #include "Stage1.h"
 
 CStage1::CStage1(LPDIRECT3DDEVICE9 pGraphicDev) : CScene(pGraphicDev, SCENE_TYPE::STAGE1)
@@ -11,6 +13,8 @@ CStage1::~CStage1()
 HRESULT CStage1::Ready_Scene()
 {
     __super::Ready_AllLayer();
+    m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"MainCamera", Engine::CreateCamera(g_hWnd, m_pGraphicDev, 0.1f, 1000.f));
+    m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
     return S_OK;
 }

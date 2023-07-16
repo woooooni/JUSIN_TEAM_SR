@@ -3,6 +3,7 @@
 CScene::CScene(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE _eType)
 	: m_pGraphicDev(pGraphicDev)
 	, m_eType(_eType)
+	, m_hVideoHandle(nullptr)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -52,4 +53,27 @@ void CScene::Free()
 	m_mapLayer.clear();
 
 	Safe_Release(m_pGraphicDev);
+}
+
+void CScene::PlayVideo(HWND _hWnd, const wstring& _strFilePath)
+{
+	m_hVideoHandle = MCIWndCreate(_hWnd,
+		NULL,
+		WS_CHILD |
+		WS_VISIBLE |
+		MCIWNDF_NOPLAYBAR, _strFilePath.c_str());
+
+	MoveWindow(m_hVideoHandle, 0, 0, WINCX, WINCY, FALSE);
+
+	MCIWndPlay(m_hVideoHandle);
+	while (MCIWndGetLength(m_hVideoHandle) > MCIWndGetPosition(m_hVideoHandle))
+	{
+		if (GetAsyncKeyState(VK_RETURN))
+		{
+			MCIWndClose(m_hVideoHandle);
+			break;
+		}
+	}
+
+	MCIWndClose(m_hVideoHandle);
 }

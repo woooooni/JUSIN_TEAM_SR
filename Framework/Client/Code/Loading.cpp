@@ -25,7 +25,8 @@
 #include "House.h"
 #include "Prop.h"
 #include "Grass.h"
-#include	"Stage1.h"
+#include "Stage1.h"
+#include "Scene_TutorialVillage.h"
 
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -53,11 +54,12 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	{
 	case Engine::SCENE_TYPE::LOGO:
 		FAILED_CHECK_RETURN(pLoading->Loading_Logo(), E_FAIL);
-		pLoading->m_pLoadingScene = CStage1::Create(pLoading->m_pGraphicDev);
-		pLoading->m_pLoadingScene->Get_Layer(LAYER_TYPE::TERRAIN)->Add_GameObject(L"Terrain", CTerrain::Create(pLoading->m_pGraphicDev));
-		iFlag = pLoading->Load_Stage1();
+		pLoading->m_pLoadingScene = CScene_TutorialVillage::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_TutorialVillage();
 		break;
-	case Engine::SCENE_TYPE::STAGE1:
+
+	case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
+
 		break;
 	case Engine::SCENE_TYPE::STAGE2:
 		break;
@@ -90,27 +92,11 @@ HRESULT CLoading::Ready_Loading(SCENE_TYPE eLoadingID)
 	return S_OK;
 }
 
-_uint CLoading::Load_Texture()
+
+_uint CLoading::Load_TutorialVillage()
 {
-	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RcTex", CRcTex::Create(m_pGraphicDev)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TerrainTex", CTerrainTex::Create(m_pGraphicDev)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_CubeTex", CCubeTex::Create(m_pGraphicDev)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Transform", CTransform::Create(m_pGraphicDev)), E_FAIL);
-
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player", CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Player/Ma.jpg")), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Terrain", CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Grass_%d.tga", 2)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect", CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Explosion/Explosion%d.png", 90)), E_FAIL);
-
-	m_bFinish = true;
-
-	return S_OK;
-}
-
-_uint CLoading::Load_Stage1()
-{
-	FAILED_CHECK_RETURN(Load_Terrain_Data(L"../Bin/Data/01/Data/Test"), E_FAIL);
-	FAILED_CHECK_RETURN(Load_Obj_Data(L"../Bin/Data/01/Data/Test"), E_FAIL);
+	FAILED_CHECK_RETURN(Load_Terrain_Data(L"../Bin/Data/Test"), E_FAIL);
+	FAILED_CHECK_RETURN(Load_Obj_Data(L"../Bin/Data/Test"), E_FAIL);
 
 	return S_OK;
 }
@@ -594,15 +580,8 @@ HRESULT CLoading::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Attack_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Attack/RightUp/Cupa_%d.png", 2)), E_FAIL);
 	// Monster Cupa Regen
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/Down/Cupa_%d.png", 5)), E_FAIL);
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/Up/Cupa_%d.png", 2)), E_FAIL);
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/Left/Cupa_%d.png", 2)), E_FAIL);
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/Right/Cupa_%d.png", 2)), E_FAIL);
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_LeftUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/LeftUp/Cupa_%d.png", 2)), E_FAIL);
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/LeftDown/Cupa_%d.png", 2)), E_FAIL);
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/RightDown/Cupa_%d.png", 2)), E_FAIL);
-	//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/RightUp/Cupa_%d.png", 2)), E_FAIL);
 
-		// Monster Rolling Bug Idle
+	// Monster Rolling Bug Idle
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Pink_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Pink/Idle/Down/RollingBug_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Blue_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Blue/Idle/Down/RollingBug_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Yellow_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Yellow/Idle/Down/RollingBug_%d.png", 6)), E_FAIL);

@@ -132,21 +132,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RigidBody", CRigidBody::Create(m_pGraphicDev)), E_FAIL);
 
-
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Main", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Banner.png")), E_FAIL);
-
-
-	// Initialize Textures
-	/*Ready_Player_Texture(pGraphicDev);
-	Ready_Monster_Texture(pGraphicDev);
-	Ready_Boss_Texture(pGraphicDev);
-	Ready_UI_Texture(pGraphicDev);
-	Ready_Item_Texture(pGraphicDev);
-	Ready_InteractionObj_Texture(pGraphicDev);
-	Ready_Environment_Texture(pGraphicDev);
-	Ready_Terrain_Texture(pGraphicDev);
-	Ready_NPC_Texture(pGraphicDev);
-	Ready_Effect_Texture(pGraphicDev);*/
 
 
 
@@ -155,7 +141,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(pGraphicDev), E_FAIL);
+	// FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_PickingMgr(m_pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_KeyMgr(m_pGraphicDev, g_hWnd), E_FAIL);

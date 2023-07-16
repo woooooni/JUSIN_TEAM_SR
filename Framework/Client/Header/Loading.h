@@ -17,7 +17,7 @@ public:
 
 public:
 	SCENE_TYPE			Get_LoadingID() { return m_eID; }
-	CRITICAL_SECTION* Get_Crt() { return &m_Crt; }
+	CRITICAL_SECTION*	Get_Crt() { return &m_Crt; }
 	_bool				Get_Finish() { return m_bFinish; }
 
 public:
@@ -25,8 +25,7 @@ public:
 
 public:
 	HRESULT			Ready_Loading(SCENE_TYPE eLoadingID);
-	_uint			Load_Texture();
-	_uint			Load_Stage1();
+	_uint			Load_TutorialVillage();
 	CScene* Get_Scene() { return m_pLoadingScene; }
 
 

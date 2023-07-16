@@ -30,6 +30,9 @@ protected:
 	virtual HRESULT			Ready_Layer_UI() PURE;
 
 protected:
+	void					PlayVideo(HWND _hWnd, const wstring& _strFilePath);
+
+protected:
 	HRESULT Ready_AllLayer()
 	{
 		for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
@@ -46,6 +49,7 @@ protected:
 	LPDIRECT3DDEVICE9					m_pGraphicDev;
 	map<LAYER_TYPE, CLayer*>			m_mapLayer;
 	SCENE_TYPE							m_eType;
+	HWND								m_hVideoHandle;
 
 public:
 	virtual void	Free();
