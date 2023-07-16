@@ -1,9 +1,8 @@
 #pragma once
 #include "GameObject.h"
-
-
+#include "GolemPart.h"
+#include "MonsterAim.h"
 BEGIN(Engine)
-
 	class CRcTex;
 class CTransform;
 class CCollider;
@@ -33,8 +32,8 @@ public:
 protected:
 	HRESULT	Add_Component(void);
 private:
-	vector<CGameObject*> m_vecParts;
-
+CGolemPart* m_pParts[PARTSEND];
+CMonsterAim* m_pMonsterAim;
 public:
 	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
 	_float Get_Speed() { return m_fSpeed; }
@@ -64,11 +63,12 @@ private:
 	_float			m_fSpeed = 5.f;
 	_float			m_fHealth = 6.f;
 	SUNGOLEM_STATE	m_eState;
-	_vec3 m_vPartPos[PARTSEND];
+
 	MONSTERSTAT m_tStat;
 private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);
 	void Create_Wave(_vec3 vPos);
+	void Create_Stone();
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;

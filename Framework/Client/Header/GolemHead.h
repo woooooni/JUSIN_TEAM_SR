@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "GolemPart.h"
 
 
 BEGIN(Engine)
@@ -9,7 +9,7 @@ class CTransform;
 
 END
 
-class CGolemHead : public Engine::CGameObject
+class CGolemHead : public CGolemPart
 {
 	CLONE(CGolemHead)
 
@@ -34,7 +34,7 @@ public:
 	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
 
 public:
-	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
+	void Set_Target(CGolemPart* _pTarget) { m_pTarget = _pTarget; }
 public:
 	virtual void Update_Idle(_float fTimeDelta)	;
 	virtual void Update_Dirty(_float fTimeDelta);
@@ -48,9 +48,8 @@ public:
 
 
 private:
-	SUNGOLEM_STATE	m_eState;
+
 protected:
-	CGameObject* m_pTarget;
 	_float m_fMoveTime;
 	bool m_bBreath=false;
 protected:

@@ -29,6 +29,9 @@ HRESULT CGolemFist::Ready_Object(void)
 
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 0.6f, 1.f, 1.f });
+	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
+	m_pMonsterAim->Set_Active(true);
 	return S_OK;
 }
 
@@ -50,6 +53,8 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 20.f);
+	
+	m_pMonsterAim->Update_Object(fTimeDelta);
 
 	return iExit;
 }
@@ -58,13 +63,15 @@ void CGolemFist::LateUpdate_Object(void)
 {
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ vPos.x,0.01f,vPos.z });
+	m_pMonsterAim->Set_Red(int(vPos.y/7.f*255.f));
 	__super::LateUpdate_Object();
 	if (vPos.y < -1.f)
 	{
 		if (Is_Active())
 		{			
 			if (m_bDirty == true)
-				if (m_bBummer == true)
+				if (m_bBummer == true&&rand()%99<33)
 				{
 					CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
 					NULL_CHECK_RETURN(pTrashBummer, );
@@ -82,9 +89,10 @@ void CGolemFist::LateUpdate_Object(void)
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"GolemFist", pFistEffect);
 			Set_Active(false);
-
+			m_pMonsterAim->Set_Active(false);
 		}
 	}
+	m_pMonsterAim->LateUpdate_Object();
 }
 
 void CGolemFist::Render_Object(void)
@@ -95,6 +103,7 @@ void CGolemFist::Render_Object(void)
 
 		__super::Render_Object();
 		m_pBufferCom->Render_Buffer();
+		m_pMonsterAim->Render_Object();
 	}
 	
 }

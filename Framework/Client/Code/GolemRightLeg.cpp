@@ -2,14 +2,12 @@
 #include "GolemRightLeg.h"
 #include "SunGollem.h"
 
-CGolemRightLeg::CGolemRightLeg(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
-, m_eState(SUNGOLEM_STATE::REGEN)
+CGolemRightLeg::CGolemRightLeg(LPDIRECT3DDEVICE9 pGraphicDev) : CGolemPart(pGraphicDev)
 
 {
 }
 CGolemRightLeg::CGolemRightLeg(const CGolemRightLeg& rhs)
-	: Engine::CGameObject(rhs)
-	, m_eState(rhs.m_eState)
+	: CGolemPart(rhs)
 {
 
 }
@@ -21,7 +19,7 @@ CGolemRightLeg::~CGolemRightLeg()
 HRESULT CGolemRightLeg::Ready_Object(void)
 {
 	//227 / 315
-	m_fMoveTime = 0.f;
+
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pAnimator->Add_Animation(L"SunGolem_Idle_RightLeg", L"Proto_Texture_SunGolem_Idle_RightLeg", 0.1f);
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_RightLeg", L"Proto_Texture_SunGolem_Dirty_RightLeg", 0.1f);
@@ -37,8 +35,8 @@ HRESULT CGolemRightLeg::Ready_Object(void)
 _int CGolemRightLeg::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
-	Set_State(dynamic_cast<CSunGollem*>(pTarget)->Get_State());
+	
+
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (m_eState)
 	{
@@ -110,13 +108,7 @@ void CGolemRightLeg::Update_Idle(_float fTimeDelta)
 void CGolemRightLeg::Update_Dirty(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_RightLeg", true);
-	_vec3 vDir;
 
-	if (m_fMoveTime > 10.f)
-	{
-		m_fMoveTime = 0.f;
-	}
-	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CGolemRightLeg::Update_Move(_float fTimeDelta)
@@ -133,17 +125,8 @@ void CGolemRightLeg::Update_Die(_float fTimeDelta)
 
 void CGolemRightLeg::Update_Regen(_float fTimeDelta)
 {
-	_vec3 vDir, vPos;
-	vDir = { 0.f,1.f ,0.f };
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (vPos.y > 2.f)
-	{
 
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
-	}
 }
 CGolemRightLeg* CGolemRightLeg::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

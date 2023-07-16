@@ -31,27 +31,29 @@ HRESULT CMonster::Ready_Object(void)
 _int CMonster::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	switch (m_eState)
+	if (Is_Active())
 	{
-	case MONSTER_STATE::IDLE:
-		Update_Idle(fTimeDelta);
-		break;
-	case MONSTER_STATE::MOVE:
-		Update_Move(fTimeDelta);
-		break;
-	case MONSTER_STATE::REGEN:
-		Update_Regen(fTimeDelta);
-		break;
-	case MONSTER_STATE::ATTACK:
-		Update_Attack(fTimeDelta);
-		break;
-	case MONSTER_STATE::DIE:
-		Update_Die(fTimeDelta);
-		break;
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
+		Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+		switch (m_eState)
+		{
+		case MONSTER_STATE::IDLE:
+			Update_Idle(fTimeDelta);
+			break;
+		case MONSTER_STATE::MOVE:
+			Update_Move(fTimeDelta);
+			break;
+		case MONSTER_STATE::REGEN:
+			Update_Regen(fTimeDelta);
+			break;
+		case MONSTER_STATE::ATTACK:
+			Update_Attack(fTimeDelta);
+			break;
+		case MONSTER_STATE::DIE:
+			Update_Die(fTimeDelta);
+			break;
+		}
 	}
-
 	return iExit;
 }
 

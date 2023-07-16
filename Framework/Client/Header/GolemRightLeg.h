@@ -1,5 +1,5 @@
 #pragma once
-#include "GameObject.h"
+#include "GolemPart.h"
 
 
 BEGIN(Engine)
@@ -8,7 +8,7 @@ class CRcTex;
 class CTransform;
 END
 
-class CGolemRightLeg : public Engine::CGameObject
+class CGolemRightLeg : public CGolemPart
 {
 	CLONE(CGolemRightLeg)
 
@@ -26,13 +26,7 @@ public:
 protected:
 	HRESULT	Add_Component(void);
 
-public:
 
-	SUNGOLEM_STATE Get_State() { return m_eState; }
-	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
-
-public:
-	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
 public:
 	virtual void Update_Idle(_float fTimeDelta)	;
 	virtual void Update_Dirty(_float fTimeDelta);
@@ -44,13 +38,6 @@ public:
 	static CGolemRightLeg* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
-
-private:
-	SUNGOLEM_STATE	m_eState;
-	bool m_bBreath = false;
-protected:
-	CGameObject* m_pTarget;
-	_float m_fMoveTime;
 protected:
 	virtual void Free() override;
 

@@ -26,6 +26,10 @@ HRESULT CSludgeBall::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 1.0f, 1.0f, 1.0f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.0f, 1.0f, 1.0f });
 	m_fMinHeight = 0.26f;
+
+	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
+	m_pMonsterAim->Set_Active(true);
 	Set_Active(true);
 	return S_OK;
 }
@@ -51,7 +55,7 @@ _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 		if ( m_pAnimator->GetCurrAnimation()->Get_Idx() < 6)
 		{
 			m_pAnimator->GetCurrAnimation()->Set_Idx(6);
-		
+			m_pMonsterAim->Set_Active(false);
 		}
 		return iExit;
 	}
@@ -61,21 +65,27 @@ _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 	}
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 7.5f);
 
-
+	m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ m_vDst.x,0.01f,m_vDst.z });
+	m_pMonsterAim->Set_Red(0);
+	m_pMonsterAim->Update_Object(fTimeDelta);
 	return iExit;
 }
 
 void CSludgeBall::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
+	m_pMonsterAim->LateUpdate_Object();
 }
 
 void CSludgeBall::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
-
+	if (Is_Active())
+	{
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		__super::Render_Object();
+		m_pBufferCom->Render_Buffer();
+		m_pMonsterAim->Render_Object();
+	}
 }
 
 HRESULT CSludgeBall::Add_Component(void)
@@ -133,6 +143,7 @@ void CSludgeBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() < 6)
 		{
 			m_pAnimator->GetCurrAnimation()->Set_Idx(6);
+			m_pMonsterAim->Set_Active(false);
 		}
 	}
 }
