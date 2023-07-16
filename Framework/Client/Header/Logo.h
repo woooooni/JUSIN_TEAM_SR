@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Scene.h"
+class CLoading;
 
 class CLogo final : public Engine::CScene
 {
@@ -31,6 +32,8 @@ public:
 
 private:
 	virtual void Free() override;
+	CLoading* m_pLoading;
+
 
 };
 
