@@ -211,6 +211,8 @@
     <ClInclude Include="..\Header\ButterFly.h" />
     <ClInclude Include="..\Header\BugBall.h" />
     <ClInclude Include="..\Header\CactusNeedle.h" />
+    <ClInclude Include="..\Header\ClearBomb.h" />
+    <ClInclude Include="..\Header\ClearField.h" />
     <ClInclude Include="..\Header\Coin.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\Cupa.h" />
@@ -387,6 +389,8 @@
     <ClCompile Include="..\Code\ButterFly.cpp" />
     <ClCompile Include="..\Code\BugBall.cpp" />
     <ClCompile Include="..\Code\CactusNeedle.cpp" />
+    <ClCompile Include="..\Code\ClearBomb.cpp" />
+    <ClCompile Include="..\Code\ClearField.cpp" />
     <ClCompile Include="..\Code\Coin.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\Cupa.cpp" />

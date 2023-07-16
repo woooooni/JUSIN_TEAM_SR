@@ -190,6 +190,8 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
                 dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.2f, 2.5f, 1.5f), 40);
         }
 
+        Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Leaf", pLeaf);
+
 
         for (auto& iter : m_dropItemMap)
         {
@@ -247,6 +249,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
             if (pLeaf)
                 dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
         }
+        Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Leaf", pLeaf);
 
     }
 }

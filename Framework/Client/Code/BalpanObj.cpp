@@ -190,7 +190,6 @@ void CBalpanObj::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisio
  void CBalpanObj::Reset_Pushed() {
 	 m_bIsPushed = false; 		
 	 m_eColor = JELLY_COLOR::JELLY_END;
-	 m_bIsPushed = false;
 
 	if (m_iPushedEventNum != 0)
 		 Engine::Check_Event_Start(m_iPushedEventNum);

@@ -21,7 +21,7 @@ public:
 
 	virtual CGameObject* Get_GrabObj() { return this; }
 
-
+	
 
 
 protected:

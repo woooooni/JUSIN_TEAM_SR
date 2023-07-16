@@ -13,6 +13,9 @@
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{06dc1b76-8beb-4d64-8e1c-41231208a3d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\01. Stage">
+      <UniqueIdentifier>{4a6f84dc-73b6-43fb-80a1-6b14c92a3ca7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject">
       <UniqueIdentifier>{9c45403b-7aaa-4a2a-b325-b8d24758c2f4}</UniqueIdentifier>
     </Filter>
@@ -31,6 +34,9 @@
     <Filter Include="02. GameObject\04. UI">
       <UniqueIdentifier>{1dc885c6-a95a-455c-8051-f205df8fbfa5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\02. Tutorial">
+      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="03. Loading">
       <UniqueIdentifier>{ed736470-011d-4888-aca8-d5b2a2e61918}</UniqueIdentifier>
     </Filter>
@@ -45,9 +51,6 @@
     </Filter>
     <Filter Include="02. GameObject\06. FieldObj\00. PushableObj\00. Stone">
       <UniqueIdentifier>{7226a995-e819-4ebe-875b-411c95eea3e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\06. FieldObj\01. GrabbableObj">
-      <UniqueIdentifier>{e77b86f2-c4c8-4bcd-85a9-8b50fd5f02ee}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\06. FieldObj\02. BenchObj">
       <UniqueIdentifier>{37266a86-5e6d-4239-868a-4995d80878e7}</UniqueIdentifier>
@@ -385,6 +388,15 @@
     <Filter Include="02. GameObject\16. Bullet">
       <UniqueIdentifier>{8e47839c-903c-4d9d-905a-f2a39b6335b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="17. Particle">
+      <UniqueIdentifier>{931b85ae-36fa-4b66-aed0-2d20d14d3d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="17. Particle\00. FixedLeaf">
+      <UniqueIdentifier>{03ce479a-ddee-43f4-b7f9-921093b9a1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="17. Particle\01. MovingLeaf">
+      <UniqueIdentifier>{bf7bf5c3-2b67-401f-9b60-93b86fa31425}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\16. Bullet\00. Player_Bullet_Bomb">
       <UniqueIdentifier>{9d7dda0b-beea-4416-bb96-40d0d5feb6da}</UniqueIdentifier>
     </Filter>
@@ -433,23 +445,11 @@
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\01. Turret">
       <UniqueIdentifier>{8cffd656-a570-4179-b846-a4e0332ca644}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\17. Particle">
-      <UniqueIdentifier>{931b85ae-36fa-4b66-aed0-2d20d14d3d20}</UniqueIdentifier>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb">
+      <UniqueIdentifier>{64cf6f3a-a592-4a78-8059-a3739552bdb6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\17. Particle\00. FixedLeaf">
-      <UniqueIdentifier>{03ce479a-ddee-43f4-b7f9-921093b9a1ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\17. Particle\01. MovingLeaf">
-      <UniqueIdentifier>{bf7bf5c3-2b67-401f-9b60-93b86fa31425}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\01. Tutorial">
-      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\01. Tutorial\00. Village">
-      <UniqueIdentifier>{913d9fb0-155c-4c30-be37-f2fbb483d75c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\01. Tutorial\01.">
-      <UniqueIdentifier>{2eb2d4f6-0a47-437b-990d-5b003dc9c566}</UniqueIdentifier>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField">
+      <UniqueIdentifier>{3217d82d-f638-453f-b95d-18cac4c38f69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -833,10 +833,10 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_FixedLeaf.h">
-      <Filter>02. GameObject\17. Particle\00. FixedLeaf</Filter>
+      <Filter>17. Particle\00. FixedLeaf</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_MovingLeaf.h">
-      <Filter>02. GameObject\17. Particle\01. MovingLeaf</Filter>
+      <Filter>17. Particle\01. MovingLeaf</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h">
       <Filter>02. GameObject\16. Bullet\00. Player_Bullet_Bomb</Filter>
@@ -893,11 +893,11 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_MapCircle.h" />
-    <ClInclude Include="..\Header\Scene_TutorialVillage.h">
-      <Filter>01. Scene\01. Tutorial\00. Village</Filter>
+    <ClInclude Include="..\Header\ClearBomb.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\GameMgr.h">
-      <Filter>98. Manager\01. Game</Filter>
+    <ClInclude Include="..\Header\ClearField.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1264,10 +1264,10 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_FixedLeaf.cpp">
-      <Filter>02. GameObject\17. Particle\00. FixedLeaf</Filter>
+      <Filter>17. Particle\00. FixedLeaf</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_MovingLeaf.cpp">
-      <Filter>02. GameObject\17. Particle\01. MovingLeaf</Filter>
+      <Filter>17. Particle\01. MovingLeaf</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp">
       <Filter>02. GameObject\16. Bullet\00. Player_Bullet_Bomb</Filter>
@@ -1324,11 +1324,11 @@
       <Filter>02. GameObject\10. Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
-    <ClCompile Include="..\Code\Scene_TutorialVillage.cpp">
-      <Filter>01. Scene\01. Tutorial\00. Village</Filter>
+    <ClCompile Include="..\Code\ClearBomb.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\GameMgr.cpp">
-      <Filter>98. Manager\01. Game</Filter>
+    <ClCompile Include="..\Code\ClearField.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

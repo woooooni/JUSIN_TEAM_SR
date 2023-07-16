@@ -454,6 +454,13 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 void CPlayer::Collision_Enter_Grab(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	m_pLiftObj = dynamic_cast<CFieldObject*>(pCollider->GetOwner())->Get_GrabObj();
+	if (!m_pLiftObj || !dynamic_cast<CFieldObject*>(m_pLiftObj)->Get_ObjInfo().m_bIsGrabbable)
+	{
+		m_pLiftObj = nullptr;
+		return;
+	}
+
+
 	m_pLiftObj->Get_ColliderCom()->Set_Active(false);
 	if(m_pLiftObj != nullptr)
 		m_bGrab = true;
