@@ -39,6 +39,8 @@ public:
 
 	const	JELLY_COLOR& Get_JellyColor() { return m_eColor; }
 
+	void		Set_Answer(const JELLY_COLOR& pAnswer) { m_eCorrectColor = pAnswer; }
+
 protected:
 	virtual HRESULT		Ready_Component();
 	virtual void Event_Start(_uint iEventNum) override;
@@ -47,6 +49,7 @@ protected:
 	void		Collide(CCollider* pCollider);
 
 	JELLY_COLOR		m_eColor;
+	JELLY_COLOR		m_eCorrectColor;
 	_bool			m_bIsStoneSwitch;
 	_uint		m_iPushedEventNum;
 	list<_uint>	m_listActivateNum;

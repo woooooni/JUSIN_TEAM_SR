@@ -1,30 +1,29 @@
-#include "UseItem.h"
-#include	"Export_Function.h"
-#include "Pool.h"
-#include	"Player.h"
+#include "DefaultItem.h"
+#include    "Export_Function.h"
+#include    "Pool.h"
 #include	"InventoryMgr.h"
+#include	"Player.h"
 
-CUseItem::CUseItem(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID) : CItem(pGraphicDev, ITEM_TYPE::CONSUMPTION, _eID)
+CDefaultItem::CDefaultItem(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID) : CItem(pGraphicDev, ITEM_TYPE::ETC, _eID)
 {
 }
 
-CUseItem::CUseItem(const CItem& rhs) : CItem(rhs)
+CDefaultItem::CDefaultItem(const CItem& rhs) : CItem(rhs)
 {
 }
 
-CUseItem::~CUseItem()
+CDefaultItem::~CDefaultItem()
 {
 }
 
-HRESULT CUseItem::Ready_Object(void)
+HRESULT CDefaultItem::Ready_Object(void)
 {
 	FAILED_CHECK(Add_Component());
 
-	return S_OK;
-
+    return S_OK;
 }
 
-_int CUseItem::Update_Object(const _float& fTimeDelta)
+_int CDefaultItem::Update_Object(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
@@ -33,13 +32,12 @@ _int CUseItem::Update_Object(const _float& fTimeDelta)
 
 }
 
-void CUseItem::LateUpdate_Object(void)
+void CDefaultItem::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
-
 }
 
-void CUseItem::Render_Object(void)
+void CDefaultItem::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pTextureCom->Render_Texture();
@@ -47,64 +45,7 @@ void CUseItem::Render_Object(void)
 
 }
 
-CGameObject* CUseItem::Get_ByPool()
-{
-	return CPool<CUseItem>::Get_Obj();
-}
-
-void CUseItem::Add_Pool()
-{
-	CPool<CUseItem>::Return_Obj(this);
-}
-
-void CUseItem::Free()
-{
-	__super::Free();
-}
-
-
-HRESULT CUseItem::Change_Item(const ITEM_CODE& pCode)
-{
-	if (pCode >= ITEM_CODE::ITEM_END)
-		return E_FAIL;
-
-
-	m_eCode = pCode;
-
-	m_pTextureCom->Set_Idx((_uint)m_eCode);
-
-	return S_OK;
-
-}
-
-void CUseItem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
-{
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
-		CInventoryMgr::GetInstance()->Add_Item(this);
-
-}
-
-CUseItem* CUseItem::Create(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, const ITEM_CODE& pCode)
-{
-	if (pCode < ITEM_CODE::HP_SMALL || pCode >= ITEM_CODE::ITEM_END)
-		return nullptr;
-	
-	CUseItem* ret = new CUseItem(pGraphicDev, OBJ_ID::ITEM);
-
-	if (FAILED(ret->Ready_Object()))
-	{
-		Safe_Release(ret);
-		MSG_BOX("DefaultItem Create Failed");
-		return nullptr;
-	}
-
-	ret->m_eCode = pCode;
-	ret->m_pTextureCom->Set_Idx((_uint)pCode);
-	return ret;
-
-}
-
-HRESULT CUseItem::Use_Item(CPlayer* pPlayer)
+HRESULT CDefaultItem::Use_Item(CPlayer* pPlayer)
 {
 	if (!pPlayer)
 		return E_FAIL;
@@ -142,8 +83,62 @@ HRESULT CUseItem::Use_Item(CPlayer* pPlayer)
 }
 
 
+CGameObject* CDefaultItem::Get_ByPool()
+{
+    return CPool<CDefaultItem>::Get_Obj();
+}
 
-	HRESULT CUseItem::Add_Component(void)
+void CDefaultItem::Add_Pool()
+{
+	CPool<CDefaultItem>::Return_Obj(this);
+}
+
+void CDefaultItem::Free()
+{
+	__super::Free();
+}
+
+HRESULT CDefaultItem::Change_Item(const ITEM_CODE& pCode)
+{
+	if (pCode >= ITEM_CODE::ITEM_END)
+		return E_FAIL;
+
+
+	m_eCode = pCode;
+
+	m_pTextureCom->Set_Idx((_uint)m_eCode);
+
+	return S_OK;
+
+
+}
+
+void CDefaultItem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
+		CInventoryMgr::GetInstance()->Add_Item(this);
+}
+
+CDefaultItem* CDefaultItem::Create(LPDIRECT3DDEVICE9 pGraphicDev,  OBJ_ID _eID, const ITEM_CODE& pCode)
+{
+	if (pCode < ITEM_CODE::HP_SMALL || pCode >= ITEM_CODE::ITEM_END)
+		return nullptr;
+
+	CDefaultItem* ret = new CDefaultItem(pGraphicDev, OBJ_ID::ITEM);
+
+	if (FAILED(ret->Ready_Object()))
+	{
+		Safe_Release(ret);
+		MSG_BOX("DefaultItem Create Failed");
+		return nullptr;
+	}
+
+	ret->m_eCode = pCode;
+	ret->m_pTextureCom->Set_Idx((_uint)pCode);
+	return ret;
+}
+
+HRESULT CDefaultItem::Add_Component(void)
 {
 
 	CComponent* pComponent = nullptr;
@@ -181,5 +176,5 @@ HRESULT CUseItem::Use_Item(CPlayer* pPlayer)
 	Set_MinHeight(0.4f);
 
 
-	return S_OK;
+    return S_OK;
 }

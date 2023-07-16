@@ -118,19 +118,13 @@ void CButterFly::Free()
 
 HRESULT CButterFly::Change_Item(const ITEM_CODE& pCode)
 {
-	Safe_Release(m_pTextureCom);
-	m_mapComponent[ID_STATIC].erase(COMPONENT_TYPE::COM_TEXTURE);
+	if (pCode >= ITEM_CODE::ITEM_END)
+		return E_FAIL;
 
-	wstring src = L"Proto_Texture_Item_";
-
-	src += CItem::Get_ImgName(pCode);
-
-	CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(src.c_str()));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TEXTURE , pComponent });
 
 	m_eCode = pCode;
+
+	m_pTextureCom->Set_Idx((_uint)m_eCode);
 
 	return S_OK;
 
@@ -139,6 +133,10 @@ HRESULT CButterFly::Change_Item(const ITEM_CODE& pCode)
 
 CButterFly* CButterFly::Create(LPDIRECT3DDEVICE9 p_Dev, ITEM_CODE p_Code, const _vec3 p_Pos)
 {
+	if (p_Code < ITEM_CODE::HP_SMALL || p_Code >= ITEM_CODE::ITEM_END)
+		return nullptr;
+
+
 	CButterFly* ret = new CButterFly(p_Dev);
 	NULL_CHECK_RETURN(ret, nullptr);
 	if (FAILED(ret->Ready_Object()))
@@ -148,10 +146,7 @@ CButterFly* CButterFly::Create(LPDIRECT3DDEVICE9 p_Dev, ITEM_CODE p_Code, const 
 		return nullptr;
 	}
 
-	CComponent* pComponent = ret->m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto((wstring(L"Proto_Texture_Item_") + CItem::Get_ImgName(p_Code)).c_str()));
-	NULL_CHECK_RETURN(pComponent, nullptr);
-	pComponent->SetOwner(ret);
-	ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+	ret->m_pTextureCom->Set_Idx(_uint(p_Code));
 	ret->m_pTransformCom->RotationAxis({ 0, 0, 1 }, D3DXToRadian(-89.5f));
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
 	
@@ -213,6 +208,11 @@ HRESULT CButterFly::Ready_Component()
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Items"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
 
 

@@ -118,6 +118,7 @@ CTurret* CTurret::Create(LPDIRECT3DDEVICE9 p_Dev,  const _uint& p_EventNum, cons
 
 	ret->Add_Subscribe(p_EventNum);
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
+	ret->Set_MinHeight(0.5f);
 
 	return ret;
 }

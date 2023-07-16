@@ -171,7 +171,6 @@ namespace Engine
 		//EQUIP
 
 
-		EQUIP_END,
 		//CONSUME
 		HP_SMALL,
 		HP_MIDDLE,
@@ -180,16 +179,18 @@ namespace Engine
 		SPEED_MIDDLE,
 		SPEED_BIG,
 
-		CONSUME_END,
 
 		//ETC
 		LEAF,
 		TWIG,
 		BUTTERFLY,
+		SASUM,
+		ITEM_END,
 
-		ETC_END,
+		CONSUME_END = LEAF,
+		EQUIP_END = HP_SMALL,
+		ETC_END = ITEM_END
 
-		ITEM_END
 	};
 	
 	// KeyBoard

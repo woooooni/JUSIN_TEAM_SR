@@ -38,7 +38,10 @@ _int CJellyBombCreator::Update_Object(const _float& fTimeDelta)
 
 
 		m_pJellyBomb->Get_TransformCom()->Set_Pos(&vec);
-		Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyBomb", m_pJellyBomb);
+		auto iter = find(Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Get_GameObjectVec().begin(), Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Get_GameObjectVec().end(), m_pJellyBomb);
+		if (iter == Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Get_GameObjectVec().end())
+			Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"JellyBomb", m_pJellyBomb);
+
 	}
 
 	Add_RenderGroup(RENDER_ALPHA, this);

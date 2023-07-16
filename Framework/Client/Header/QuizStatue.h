@@ -1,13 +1,18 @@
 #pragma once
 #include "FieldObject.h"
-class CJellyBomb :    public CFieldObject
+class CQuizStatue :
+    public CFieldObject
 {
-	CLONE(CJellyBomb)
-
 protected:
-	CJellyBomb(LPDIRECT3DDEVICE9 p_Dev);
-	CJellyBomb(const CJellyBomb& rhs);
-	virtual ~CJellyBomb();
+	CQuizStatue(LPDIRECT3DDEVICE9 p_Dev);
+	CQuizStatue(const CQuizStatue& rhs);
+	virtual ~CQuizStatue();
+
+public:
+	enum class MONKEY_STATUE
+	{
+		EAR, MOUTH, EYE, STATUE_END
+	};
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -17,35 +22,28 @@ public:
 
 	virtual void    Free() override;
 
-	static			CJellyBomb* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum = 0, const _vec3& p_Pos = { 0, 0, 0 });
+	static			CQuizStatue* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const MONKEY_STATUE& Answer ,const _vec3 p_Pos = { 0, 0, 0 }, MONKEY_STATUE p_Monkey = MONKEY_STATUE::EAR);
+
+	CLONE(CQuizStatue);
 
 public:
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
+
 	virtual void Event_Start(_uint iEventNum) override;
-	virtual void Event_End(_uint iEventNum)	override;
-
-public:
-	virtual void		Set_SubscribeEvent(_uint pEvent) override;
-
-	void	Reset() 
-	{ 
-		m_bHitted = false;
-		m_fExplodeTime = 0.f;
-		m_fBlurAlpha = 0.f;
-		Set_Active(true);
-	}
-	const	_uint& Get_EventNum() { return m_iExplodeEvent; }
-
 
 protected:
-	_bool		m_bHitted;
-	_uint		m_iExplodeEvent;
-	_float		m_fExplodeTime;
-	CTexture* m_pBlurTex;
-	_float		m_fBlurAlpha;
+
+	virtual HRESULT	Ready_Component()override;
+	_uint	m_iEventNum;
+	MONKEY_STATUE		m_eMonkey;
+	MONKEY_STATUE		m_eAnswer;
+
+	_bool				m_bIsCorrect;
+	_bool				m_bIsLocked;
+
 
 };
 

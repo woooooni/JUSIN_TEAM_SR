@@ -183,7 +183,7 @@ void CCatapult::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		}
 
 	}
-	else if ((tmp = dynamic_cast<CPushStone*>(pCollider->GetOwner())) && !tmp->Is_Flying())
+	else if ((tmp = dynamic_cast<CPushStone*>(pCollider->GetOwner())) && !tmp->Is_Flying() && !m_pThrowingStone)
 	{
 		m_pThrowingStone = tmp;
 		m_pThrowingStone->Get_ColliderCom()->Set_Active(false);

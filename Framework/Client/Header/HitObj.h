@@ -16,13 +16,14 @@ public:
 
 	virtual void    Free() override;
 
-	static			CHitObj* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos = { 0, 0, 0 });
+	static			CHitObj* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos = { 0, 0, 0 }, const _tchar* statuename = L"Monkey");
 
 public:
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 
 public:
 	void			Set_Event(const _uint& pI) { m_iEventNum = pI; }
+	void			Set_HitType(const OBJ_HITTYPE& pH) { m_eHitType = pH; }
 protected:
 	OBJ_HITTYPE			m_eHitType;
 	HRESULT				Ready_Component();

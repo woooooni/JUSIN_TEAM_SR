@@ -64,10 +64,12 @@
 #include "Item_Hat_Light.h"
 #include "Item_Hat_Mask.h"
 #include "Item_Hat_Missile.h"
-#include	"EtcItem.h"
+#include	"DefaultItem.h"
 #include	"ClearBomb.h"
 #include	"ClearField.h"
-
+#include	"BreakStone.h"
+#include	"HoleObj.h"
+#include	"QuizStatue.h"
 
 
 #include	"PlantCannon.h"

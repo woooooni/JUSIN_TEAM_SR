@@ -207,6 +207,7 @@
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\BreakStone.h" />
     <ClInclude Include="..\Header\Bullet.h" />
     <ClInclude Include="..\Header\ButterFly.h" />
     <ClInclude Include="..\Header\BugBall.h" />
@@ -243,6 +244,7 @@
     <ClInclude Include="..\Header\Grass.h" />
     <ClInclude Include="..\Header\GreenBeatle.h" />
     <ClInclude Include="..\Header\HitObj.h" />
+    <ClInclude Include="..\Header\HoleObj.h" />
     <ClInclude Include="..\Header\House.h" />
     <ClInclude Include="..\Header\Icon.h" />
     <ClInclude Include="..\Header\ImGuiMgr.h">
@@ -261,7 +263,7 @@
     <ClInclude Include="..\Header\JellyBombCreator.h" />
     <ClInclude Include="..\Header\JellyCombined.h" />
     <ClInclude Include="..\Header\JellyStone.h" />
-    <ClInclude Include="..\Header\EtcItem.h" />
+    <ClInclude Include="..\Header\DefaultItem.h" />
     <ClInclude Include="..\Header\LightFlower.h" />
     <ClInclude Include="..\Header\LightPuzzle.h" />
     <ClInclude Include="..\Header\LightPuzzleBase.h" />
@@ -317,6 +319,7 @@
     <ClInclude Include="..\Header\Player_State_Walk.h" />
     <ClInclude Include="..\Header\PushStone.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
+    <ClInclude Include="..\Header\QuizStatue.h" />
     <ClInclude Include="..\Header\RedBeatle.h" />
     <ClInclude Include="..\Header\RollingBug.h" />
     <ClInclude Include="..\Header\Scene_Tool.h">
@@ -328,6 +331,7 @@
     <ClInclude Include="..\Header\SludgeBall.h" />
     <ClInclude Include="..\Header\SludgeWave.h" />
     <ClInclude Include="..\Header\SpitCactus.h" />
+    <ClInclude Include="..\Header\Stage1.h" />
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\Tile.h" />
@@ -383,6 +387,7 @@
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\BreakStone.cpp" />
     <ClCompile Include="..\Code\Bullet.cpp" />
     <ClCompile Include="..\Code\ButterFly.cpp" />
     <ClCompile Include="..\Code\BugBall.cpp" />
@@ -418,6 +423,7 @@
     <ClCompile Include="..\Code\Grass.cpp" />
     <ClCompile Include="..\Code\GreenBeatle.cpp" />
     <ClCompile Include="..\Code\HitObj.cpp" />
+    <ClCompile Include="..\Code\HoleObj.cpp" />
     <ClCompile Include="..\Code\House.cpp" />
     <ClCompile Include="..\Code\Icon.cpp" />
     <ClCompile Include="..\Code\ImGuiMgr.cpp">
@@ -436,7 +442,7 @@
     <ClCompile Include="..\Code\JellyBombCreator.cpp" />
     <ClCompile Include="..\Code\JellyCombined.cpp" />
     <ClCompile Include="..\Code\JellyStone.cpp" />
-    <ClCompile Include="..\Code\EtcItem.cpp" />
+    <ClCompile Include="..\Code\DefaultItem.cpp" />
     <ClCompile Include="..\Code\LightFlower.cpp" />
     <ClCompile Include="..\Code\LightPuzzle.cpp" />
     <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
@@ -491,6 +497,7 @@
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
     <ClCompile Include="..\Code\PushStone.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
+    <ClCompile Include="..\Code\QuizStatue.cpp" />
     <ClCompile Include="..\Code\RedBeatle.cpp" />
     <ClCompile Include="..\Code\RollingBug.cpp" />
     <ClCompile Include="..\Code\Scene_Tool.cpp">
@@ -502,6 +509,7 @@
     <ClCompile Include="..\Code\SludgeBall.cpp" />
     <ClCompile Include="..\Code\SludgeWave.cpp" />
     <ClCompile Include="..\Code\SpitCactus.cpp" />
+    <ClCompile Include="..\Code\Stage1.cpp" />
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\Tile.cpp" />

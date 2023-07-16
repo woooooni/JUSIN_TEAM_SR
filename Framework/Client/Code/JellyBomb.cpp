@@ -2,7 +2,10 @@
 #include    "Export_Function.h"
 #include    "Player.h"
 
-CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::JELLY_BOMB), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0)
+CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : 
+    CFieldObject(p_Dev, OBJ_ID::JELLY_BOMB), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0)
+    , m_fBlurAlpha(0.f)
+                    
 {
     m_tInfo.m_bIsAttackable = true;
     m_tInfo.m_bIsGrabbable = true;
@@ -10,6 +13,7 @@ CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::JE
 }
 
 CJellyBomb::CJellyBomb(const CJellyBomb& rhs) : CFieldObject(rhs), m_pBlurTex(rhs.m_pBlurTex), m_bHitted(rhs.m_bHitted), m_fExplodeTime(rhs.m_fExplodeTime), m_iExplodeEvent(rhs.m_iExplodeEvent)
+                                               , m_fBlurAlpha(rhs.m_fBlurAlpha)
 {
 }
 
@@ -63,7 +67,13 @@ _int CJellyBomb::Update_Object(const _float& fTimeDelta)
             Engine::Check_Event_Start(m_iExplodeEvent);
         }
         else
+        {
             m_fExplodeTime -= fTimeDelta;
+            m_fBlurAlpha += fTimeDelta * 0.3f;
+
+            if (m_fBlurAlpha > 1.f)
+                m_fBlurAlpha = 1.f;
+        }
     }
 
     return __super::Update_Object(fTimeDelta);
@@ -101,6 +111,25 @@ void CJellyBomb::Render_Object(void)
     m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
     m_pAnimator->Render_Component();
     m_pBufferCom->Render_Buffer();
+
+    if (m_bHitted)
+    {
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB((_uint)(255.f * m_fBlurAlpha), 255, 255, 255));
+        mat._11 /= 0.7f;
+        mat._22 /= 0.7f;
+        mat._33 /= 0.7f;
+
+
+        mat._41 += look.x - up.x;
+        mat._42 += look.y - up.y;
+        mat._43 += look.z - up.z;
+
+        m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
+        m_pBlurTex->Render_Texture();
+        m_pBufferCom->Render_Buffer();
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+    }
 }
 
 void CJellyBomb::Free()
@@ -129,7 +158,7 @@ void CJellyBomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
     if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && !m_bHitted)
     {
         m_bHitted = true;
-        m_fExplodeTime = 5.f;
+        m_fExplodeTime = 3.f;
     }
 
 }

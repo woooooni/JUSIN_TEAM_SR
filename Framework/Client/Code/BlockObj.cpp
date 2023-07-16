@@ -39,7 +39,6 @@ _int CBlockObj::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDER_ALPHA, this);
 	if (!m_bIsBlocking)
 	{
-		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
 		if (m_vBlockPos.y > 0.f)
 			m_vBlockPos.y -= fTimeDelta;
 		else
@@ -52,6 +51,8 @@ _int CBlockObj::Update_Object(const _float& fTimeDelta)
 	}
 	else
 	{
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
+
 		m_pAnimator->Play_Animation(L"Idle", false);
 
 		if (m_vBlockPos.y < 0.5f)
@@ -67,9 +68,7 @@ _int CBlockObj::Update_Object(const _float& fTimeDelta)
 
 void CBlockObj::LateUpdate_Object(void)
 {
-	if (Check_Event_Start(m_iFollowingEvent) == S_OK)
-	{
-	}
+	
 }
 
 void CBlockObj::Render_Object(void)
