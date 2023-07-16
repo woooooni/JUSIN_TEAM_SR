@@ -11,15 +11,15 @@ class CAnimator;
 END
 
 // Stage별 ENUM값으로 렌더 다르게 -> 충돌(?)시 대화창 다르게 나오게
-class CNPC
+class CNpc
 	: public CGameObject
 {
-	CLONE(CNPC)
+	CLONE(CNpc)
 
 protected:
-	explicit CNPC(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CNPC(const CNPC& rhs);
-	virtual ~CNPC();
+	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CNpc(const CNpc& rhs);
+	virtual ~CNpc();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -28,7 +28,7 @@ public:
 	virtual void		Render_Object(void) override;
 
 public:
-	static CNPC* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos);
+	static CNpc* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos);
 
 protected:
 	virtual void Free() override;

@@ -138,7 +138,7 @@ void CUI_BossHP::Render_Object(void)
 		TCHAR szBuf[256] = L"";
 		swprintf_s(szBuf, L"시련의 원숭이 석상");
 
-		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	}

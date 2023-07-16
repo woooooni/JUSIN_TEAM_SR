@@ -141,6 +141,13 @@ namespace Engine
 		ID_END
 	};
 
+	enum class FONT_TYPE
+	{
+		CAFE24_SURROUND_AIR,
+		CAFE24_SURROUND_BOLD,
+		TYPE_END
+	};
+
 	enum class ITEM_TYPE
 	{
 		EQUIPMENT,

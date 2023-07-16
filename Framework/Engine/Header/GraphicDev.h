@@ -20,13 +20,6 @@ public:
 	void			Render_Begin(D3DXCOLOR Color);
 	void			Render_End();
 
-
-//////////////////
-	LPD3DXFONT				Get_Font(void) { return m_pFont; }
-private:
-	LPD3DXFONT			m_pFont;
-//////////////////
-
 private:
 	LPDIRECT3D9			m_pSDK;
 	LPDIRECT3DDEVICE9	m_pGraphicDev;

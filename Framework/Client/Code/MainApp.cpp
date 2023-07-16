@@ -28,7 +28,6 @@ CMainApp::~CMainApp()
 HRESULT CMainApp::Ready_MainApp(void)
 {
 	// _CrtSetBreakAlloc(3474);//문제 발생 시, 메모리 릭 부분에 중단점
-
 	FAILED_CHECK_RETURN(SetUp_DefaultSetting(&m_pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Default_SamplerState(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Default_RenderState(), E_FAIL);
@@ -148,6 +147,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	FAILED_CHECK_RETURN(Engine::Ready_Font(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_PickingMgr(m_pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_KeyMgr(m_pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_CollisionMgr(m_pGraphicDev), E_FAIL);
@@ -702,13 +702,6 @@ HRESULT CMainApp::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Boss_HPGauge", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/UI_Boss_HP_GuageBar.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Boss_HPFrame", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/UI_HP_BossFrame.png")), E_FAIL);
 
-//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem1", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_1.png")), E_FAIL);
-//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem2", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_2.png")), E_FAIL);
-//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem3", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_3.png")), E_FAIL);
-//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem4", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_4.png")), E_FAIL);
-//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem5", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_5.png")), E_FAIL);
-//	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Totem6", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Totem/UI_Totem_6.png")), E_FAIL);
-
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_KeyButton_1", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_KeyButton_1.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_KeyButton_2", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_KeyButton_2.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_KeyButton_3", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_KeyButton_3.png")), E_FAIL);
@@ -716,8 +709,7 @@ HRESULT CMainApp::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_AdventureBook_Background", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/AdventureBook/Background/Background.png")), E_FAIL);
 
-	// Todo(Jwa) : 상점 리소스 재가공 필요.
-	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Background", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_BasicLineBoxFrame.png")), E_FAIL);
+
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Background", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_Test_AddSlot.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Cursor", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Cursor_Test_%d.png", 2)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Item_Cloth", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/Test/UI_Shop_Item_Cloth.png")), E_FAIL);

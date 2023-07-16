@@ -1,10 +1,5 @@
 #include "Export_System.h"
-//////////////
-inline LPD3DXFONT Get_Font()
-{
-	return CGraphicDev::GetInstance()->Get_Font();
-}
-//////////////
+
 HRESULT		Ready_GraphicDev(HWND hWnd, WINMODE eMode, const _uint& iSizeX, const _uint& iSizeY, CGraphicDev** ppGraphicDev)
 {
 	return CGraphicDev::GetInstance()->Ready_GraphicDev(hWnd, eMode, iSizeX, iSizeY, ppGraphicDev);
@@ -67,6 +62,15 @@ void		Update_InputDev(void)
 	CInputDevice::GetInstance()->Update_InputDev();
 }
 
+inline HRESULT Ready_Font(LPDIRECT3DDEVICE9 pDevice)
+{
+	return CFontMgr::GetInstance()->Ready_Font(pDevice);
+}
+
+inline const LPD3DXFONT& Get_Font(FONT_TYPE _eType)
+{
+	return CFontMgr::GetInstance()->Get_Font(_eType);
+}
 
 void			Release_System()
 {

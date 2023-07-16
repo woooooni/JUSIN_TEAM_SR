@@ -1,24 +1,22 @@
 #include "NPCText.h"
 #include "Export_Function.h"
 
-CNPCText::CNPCText(LPDIRECT3DDEVICE9 pGraphicDev)
+CNpcText::CNpcText(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev), m_tInfo{}
 {
 }
 
-CNPCText::CNPCText(const CNPCText& rhs)
+CNpcText::CNpcText(const CNpcText& rhs)
 	: CUI(rhs), m_tInfo(rhs.m_tInfo)
 {
 }
 
-CNPCText::~CNPCText()
+CNpcText::~CNpcText()
 {
 }
 
-HRESULT CNPCText::Ready_Object(void)
+HRESULT CNpcText::Ready_Object(void)
 {
-	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
 	// 소 아저씨
 	m_vecText.push_back({ TEXTTYPE::COW, L"" });
 	m_vecText.push_back({ TEXTTYPE::COW, L"오늘도 날씨가 따스하고 좋네\n이런 날은 놀러 나가야 하는데... " });
@@ -34,7 +32,7 @@ HRESULT CNPCText::Ready_Object(void)
 	return S_OK;
 }
 
-_int CNPCText::Update_Object(const _float& fTimeDelta)
+_int CNpcText::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
@@ -47,12 +45,12 @@ _int CNPCText::Update_Object(const _float& fTimeDelta)
 	return S_OK;
 }
 
-void CNPCText::LateUpdate_Object(void)
+void CNpcText::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
 }
 
-void CNPCText::Render_Object(void)
+void CNpcText::Render_Object(void)
 {
 	_uint iIndex = 0;
 
@@ -67,14 +65,14 @@ void CNPCText::Render_Object(void)
 		{
 		case TEXTTYPE::SHEEP:
 			//m_vecText.push_back({ TEXTTYPE::SHEEP, L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~ " });
-			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 				L"양 아줌마", lstrlen(L"양 아줌마"), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 				D3DCOLOR_ARGB(100, 0, 0, 0));
 			break;
 
 		case TEXTTYPE::COW:
 			//m_vecText.push_back({ TEXTTYPE::COW, L"오늘도 날씨가 따스하고 좋네\n이런 날은 놀러 나가야 하는데... " });
-			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 				L"소 아저씨", lstrlen(L"소 아저씨"), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 				D3DCOLOR_ARGB(100, 0, 0, 0));
 			break;
@@ -90,45 +88,18 @@ void CNPCText::Render_Object(void)
 				m_strCurrDesc += m_vecText[m_iIndex].strDesc[i];
 		}
 
-		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 			m_strCurrDesc.c_str(), m_strCurrDesc.size(), &rc,
 			DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-
-//		tagTextInfo tagDst;
-//		tagDst.eType = TEXTTYPE::COW;
-//		vector<tagTextInfo>::iterator iter;
-//		iter = find_if(m_vecText.begin(), m_vecText.end(), tagDst);
-//
-//		if (iter != m_vecText.end())
-//		{
-//			if ((_uint)m_fAccTime < m_vecText[m_iIndex].strDesc.size())
-//			{
-//				m_strCurrDesc = L"";
-//				for (_uint i = 0; i < (_uint)m_fAccTime; ++i)
-//					m_strCurrDesc += m_vecText[m_iIndex].strDesc[i];
-//			}
-//		}
-
-		// 구조체가 들어간 벡터
-//		if ((_uint)m_fAccTime < m_vecText[m_iIndex].strDesc.size())
-//		{
-//			m_strCurrDesc = L"";
-//			for (_uint i = 0; i < (_uint)m_fAccTime; ++i)
-//				m_strCurrDesc += m_vecText[m_iIndex].strDesc[i];
-//		}
-//
-//		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
-//			m_strCurrDesc.c_str(), m_strCurrDesc.size(), &rc,
-//			DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 }
 
-void CNPCText::Set_Type(TEXTTYPE eType)
+void CNpcText::Set_Type(TEXTTYPE eType)
 {
 	m_tInfo.eType = eType;
 }
 
-void CNPCText::Next_Text()
+void CNpcText::Next_Text()
 {
 	m_fAccTime = 0.f;
 	m_strCurrDesc = L"";
@@ -141,39 +112,10 @@ void CNPCText::Next_Text()
 		++m_iIndex;
 }
 
-HRESULT CNPCText::Add_Component(void)
-{
-//	switch (m_tInfo.eType)
-//	{
-//	case TEXTTYPE::COW:
-//		m_vecText.push_back({ L"오늘도 날씨가 따스하고 좋네\n이런 날은 놀러 나가야 하는데..." });
-//		break;
-//
-//	case TEXTTYPE::SHEEP:
-//		m_vecText.push_back({ L"놀러 나가는 건 좋지만, 아무나 따라가면 큰일 난다~" });
-//		m_vecText.push_back({ L"조심히 놀다 오렴~" });
-//		break;
-//
-//	case TEXTTYPE::PIG:
-//		m_vecText.push_back({ L"어린아이라면 자고로 열심히 뛰고\n열심히 먹고 열심히 놀아야지." });
-//		break;
-//
-//	case TEXTTYPE::DOOGEE:
-//		m_vecText.push_back({ L"안녕, 아기 오구야, 어디 가 ?" });
-//		m_vecText.push_back({ L"오늘도 모험을 떠나는 거니 ?" });
-//		m_vecText.push_back({ L"몸조심하고 무슨 일 있으면 나를 부르도록 해!" });
-//		break;
-//
-//	default:
-//		break;
-//	}
 
-	return S_OK;
-}
-
-CNPCText* CNPCText::Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType)
+CNpcText* CNpcText::Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType)
 {
-	CNPCText* pInstance = new CNPCText(pGraphicDev);
+	CNpcText* pInstance = new CNpcText(pGraphicDev);
 
 	pInstance->Set_Type(eType);
 
@@ -188,7 +130,7 @@ CNPCText* CNPCText::Create(LPDIRECT3DDEVICE9 pGraphicDev, TEXTTYPE eType)
 	return pInstance;
 }
 
-void CNPCText::Free()
+void CNpcText::Free()
 {
 }
 

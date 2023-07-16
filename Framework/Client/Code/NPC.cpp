@@ -1,21 +1,21 @@
 #include "Export_Function.h"
-#include "NPC.h"
+#include "Npc.h"
 
-CNPC::CNPC(LPDIRECT3DDEVICE9 pGraphicDev)
+CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
 {
 }
 
-CNPC::CNPC(const CNPC& rhs)
+CNpc::CNpc(const CNpc& rhs)
 	:CGameObject(rhs)
 {
 }
 
-CNPC::~CNPC()
+CNpc::~CNpc()
 {
 }
 
-HRESULT CNPC::Ready_Object(void)
+HRESULT CNpc::Ready_Object(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -54,7 +54,7 @@ HRESULT CNPC::Ready_Object(void)
 	return S_OK;
 }
 
-_int CNPC::Update_Object(const _float& fTimeDelta)
+_int CNpc::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	
@@ -63,12 +63,12 @@ _int CNPC::Update_Object(const _float& fTimeDelta)
 	return iExit;
 }
 
-void CNPC::LateUpdate_Object(void)
+void CNpc::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
 }
 
-void CNPC::Render_Object(void)
+void CNpc::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
@@ -78,9 +78,9 @@ void CNPC::Render_Object(void)
 	__super::Render_Object();
 }
 
-CNPC* CNPC::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos)
+CNpc* CNpc::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos)
 {
-	CNPC* pInstance = new CNPC(pGraphicDev);
+	CNpc* pInstance = new CNpc(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
@@ -95,7 +95,7 @@ CNPC* CNPC::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos)
 	return pInstance;
 }
 
-void CNPC::Free()
+void CNpc::Free()
 {
 	__super::Free();
 }

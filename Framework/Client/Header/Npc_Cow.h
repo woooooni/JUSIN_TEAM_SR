@@ -1,9 +1,8 @@
 #pragma once
-#include "NPC.h"
+#include "Npc.h"
 #include "UI_ShortCutKey.h"
 #include "NPCTextBox.h"
 #include "NPCText.h"
-#include "NPCCow.h"
 
 BEGIN(Engine)
 
@@ -14,12 +13,12 @@ class CAnimator;
 
 END
 
-class CNPCSheep : public CNPC
+class CNpc_Cow : public CNpc
 {
 private:
-	explicit CNPCSheep(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CNPCSheep(const CNPCSheep& rhs);
-	virtual ~CNPCSheep();
+	explicit CNpc_Cow(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CNpc_Cow(const CNpc_Cow& rhs);
+	virtual ~CNpc_Cow();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -34,7 +33,7 @@ private:
 	_bool	m_bCollision = false;
 
 public:
-	static  CNPCSheep* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos, NPCTYPE eType);
+	static  CNpc_Cow* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;

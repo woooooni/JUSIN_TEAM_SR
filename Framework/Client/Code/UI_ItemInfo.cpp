@@ -195,7 +195,7 @@ void CUI_ItemInfo::Render_Object(void)
 		wstring sTemp = wstring(strMoney.begin(), strMoney.end());
 		LPCWSTR swBuffer = sTemp.c_str();
 
-		CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 			swBuffer, lstrlen(swBuffer), &rc, DT_CENTER | DT_NOCLIP,
 			D3DCOLOR_ARGB(255, 255, 255, 255));
 

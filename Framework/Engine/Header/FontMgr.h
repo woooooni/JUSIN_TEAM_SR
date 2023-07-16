@@ -16,7 +16,10 @@ private:
 	virtual ~CFontMgr(void);
 
 public:
-	HRESULT Ready_Font(HINSTANCE hInst, HWND hWnd);
+	HRESULT Ready_Font(LPDIRECT3DDEVICE9 pDevice);
+
+public:
+	const LPD3DXFONT& Get_Font(FONT_TYPE _eType) { return m_vecFont[(_uint)_eType];  }
 
 private:
 	vector<LPD3DXFONT> m_vecFont;

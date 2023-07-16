@@ -5,6 +5,7 @@
 #include "TimerMgr.h"
 #include "FrameMgr.h"
 #include "InputDevice.h"
+#include "FontMgr.h"
 
 BEGIN(Engine)
 
@@ -33,7 +34,9 @@ inline _long	Get_DIMouseMove(MOUSEMOVESTATE eMouseState);
 inline HRESULT	Ready_InputDev(HINSTANCE hInst, HWND hWnd);
 inline void		Update_InputDev(void);
 
-
+// FontMgr
+inline HRESULT Ready_Font(LPDIRECT3DDEVICE9 pDevice);
+inline const LPD3DXFONT& Get_Font(FONT_TYPE _eType);
 
 
 // Release

@@ -61,18 +61,7 @@ HRESULT CGraphicDev::Ready_GraphicDev(HWND hWnd,
 
 	*ppGraphicDev = this;
 
-/////////////////
-	// 매개변수
-	// 그래픽카드 인터페이스, 세로 사이즈, 가로 사이즈, 굵기, 1,
-	// 기울기, DEFAULT_CHARSET, 정밀도, DEFAULT_QUALITY, 0, 글꼴, LPD3DXFONT 포인터
-	if (FAILED(D3DXCreateFont(m_pGraphicDev, 30, 30, 100, 1,
-		false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, L"카페24 써라운드 에어", &m_pFont)))
-	{
-		MSG_BOX("Create Font Failed");
-		
-		return E_FAIL;
-	}
-/////////////////
+
 
 	return S_OK;
 }
@@ -93,11 +82,6 @@ void CGraphicDev::Render_End()
 void CGraphicDev::Free()
 {
 	_ulong	dwRefCnt = 0;
-
-//////////////////
-	if (dwRefCnt = Safe_Release(m_pFont))
-		MSG_BOX("m_pFont Release Failed");
-//////////////////
 		
 	if (dwRefCnt = Safe_Release(m_pGraphicDev))
 		MSG_BOX("m_pGraphicDev Release Failed");

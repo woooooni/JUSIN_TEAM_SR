@@ -110,7 +110,7 @@ void CUI_Cursor::Render_Object(void)
 			swprintf_s(szBuf, L"천조각\n\nTest 1");
 
 			// 아이템 설명 폰트 -> 동일 폰트 사이즈 작은것으로 Font 추가 가능한지
-			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 
@@ -120,7 +120,7 @@ void CUI_Cursor::Render_Object(void)
 			TCHAR szBuf[256] = L"";
 			swprintf_s(szBuf, L"나뭇가지\n\nTest 2");
 
-			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 
@@ -130,7 +130,7 @@ void CUI_Cursor::Render_Object(void)
 			TCHAR szBuf[256] = L"";
 			swprintf_s(szBuf, L"나뭇잎\n\nTest 3");
 
-			CGraphicDev::GetInstance()->Get_Font()->DrawText(NULL,
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 
