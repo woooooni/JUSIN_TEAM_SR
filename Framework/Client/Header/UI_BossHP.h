@@ -39,11 +39,11 @@ public:
 	void	Set_Type(BOSSHP eType);
 
 private:
-	BOSSHP		m_eUIType;     // Frame, Gauge, Back 구분
-	_vec3		m_vDefaultPos; // UI가 띄워지는 기준점
-	_int		m_iMaxHP;	   // 보스 최대 체력
-	_int		m_iCurHP;	   // 보스 현재 체력
-	_bool		m_bShown = true; // UI가 보여지고 있는가?
+	BOSSHP		m_eUIType;
+	_vec3		m_vDefaultPos;
+	_int		m_iMaxHP;
+	_int		m_iCurHP;
+	_bool		m_bShown = false;
 
 public:
 	static  CUI_BossHP* Create(LPDIRECT3DDEVICE9 pGraphicDev, BOSSHP eType);

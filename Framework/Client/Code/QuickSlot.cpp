@@ -37,7 +37,10 @@ HRESULT CQuickSlot::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	m_vDefaultPos = { -0.84f, 0.75f, 0.f };
+	m_tInfo.fX = 0.f;
+	m_tInfo.fY = 0.f;
+	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
 	return S_OK;
 }
@@ -52,6 +55,31 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 
 void CQuickSlot::LateUpdate_Object(void)
 {
+	switch (m_tSlotInfo.eType)
+	{
+	case SLOTNUM::SLOT_ONE:
+		m_tInfo.fX = -536.f;
+		m_tInfo.fY = -320.f;
+		break;
+
+	case SLOTNUM::SLOT_TWO:
+		m_tInfo.fX = -460.5f;
+		m_tInfo.fY = -320.f;
+		break;
+
+	case SLOTNUM::SLOT_THREE:
+		m_tInfo.fX = -385.f;
+		m_tInfo.fY = -320.f;
+		break;
+
+	case SLOTNUM::SLOT_FOUR:
+		m_tInfo.fX = -309.5f;
+		m_tInfo.fY = -320.f;
+		break;
+
+	default:
+		break;
+	}
 	__super::LateUpdate_Object();
 }
 
@@ -63,25 +91,26 @@ void CQuickSlot::Render_Object(void)
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-		switch (m_tInfo.eType)
+		switch (m_tSlotInfo.eType)
 		{
 		case SLOTNUM::SLOT_ONE:
-			vPos = { m_vDefaultPos.x * (1 / m_matProj._11) , m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
+			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
+		(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_TWO:
-			vPos = { (m_vDefaultPos.x + 0.12f) * (1 / m_matProj._11) ,
-					m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_THREE:
-			vPos = { (m_vDefaultPos.x + 0.24f) * (1 / m_matProj._11) ,
-					m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			break;
 
 		case SLOTNUM::SLOT_FOUR:
-			vPos = { (m_vDefaultPos.x + 0.36f) * (1 / m_matProj._11) ,
-					m_vDefaultPos.y * (1 / m_matProj._22), 0.f };
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 			break;
 
 		default:
@@ -90,11 +119,9 @@ void CQuickSlot::Render_Object(void)
 
 		m_pTransformCom->Set_Pos(&vPos);
 
-		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 		_float fRatio = _float(WINCY) / _float(WINCX);
 
-		_vec3 vScale = _vec3(fWidth * fRatio * 0.85, fHeight * 0.85 * fRatio, 0.f);
+		_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 0.85, m_tInfo.fCY * 0.85 * fRatio, 0.f);
 
 		m_pTransformCom->Set_Scale(vScale);
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -106,7 +133,6 @@ void CQuickSlot::Render_Object(void)
 
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
-	//}
 
 	__super::Render_Object();
 }
@@ -118,7 +144,7 @@ HRESULT CQuickSlot::Add_Component(void)
 
 void CQuickSlot::Set_Type(SLOTNUM eType)
 {
-	m_tInfo.eType = eType;
+	m_tSlotInfo.eType = eType;
 }
 
 CQuickSlot* CQuickSlot::Create(LPDIRECT3DDEVICE9 pGraphicDev, SLOTNUM eType)

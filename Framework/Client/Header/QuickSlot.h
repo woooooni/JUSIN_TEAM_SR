@@ -40,7 +40,7 @@ private:
 	void			Set_Type(SLOTNUM eType);
 
 private:
-	tagSlotInfo		m_tInfo;
+	tagSlotInfo		m_tSlotInfo;
 	_vec3			m_vDefaultPos;
 
 public:

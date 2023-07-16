@@ -43,16 +43,7 @@ _int CUI_MonsterHP::Update_Object(const _float& fTimeDelta)
 		_vec3 vBarPos, vPos, vDir;
 		pMonster->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 
-		vDir = vPos - vBarPos;
-		D3DXVec3Normalize(&vDir, &vDir);
 
-		m_vDefaultPos = { vPos.x , vPos.y + 200.f, 0.f }; // 체력바를 띄울 위치
-		//m_vDefaultPos = { vBarPos.x , vBarPos.y + 200.f, 0.f };
-
-		//m_pTransformCom->Set_Pos(&m_vDefaultPos);
-		//m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 5.f);
-
-		// 체력이 하나 이상 닳았고 0은 아닌 상태면 TRUE -> 체력바를 보여주겠다
 		if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
 			m_bShown = true;
 	}

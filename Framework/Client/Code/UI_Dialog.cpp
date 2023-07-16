@@ -136,8 +136,15 @@ HRESULT CUI_Dialog::Ready_Component()
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
+	m_tInfo.fX = 0.f;
+	m_tInfo.fY = 220.f;
+
+	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+	
 	return S_OK;
 }
+
 
 CUI_Dialog* CUI_Dialog::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

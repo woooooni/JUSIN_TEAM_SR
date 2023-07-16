@@ -29,11 +29,11 @@ HRESULT CUI_HPBar::Ready_Object(void)
 	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_HPGauge"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 
-	// 원래 HPBar 가로길이
-	m_tInfo.fX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
-	m_vDefaultPos = { ((WINCX - (m_tInfo.fX)) / WINCX - 1.52f) * (1 / m_matProj._11),
-					 ((-1 * WINCY) / WINCY + 1.91f) * (1 / m_matProj._22), 0.f };
+	m_tInfo.fX = -420.f;
+	m_tInfo.fY = -390.f;
 
 	return S_OK;
 }
@@ -54,6 +54,14 @@ _int CUI_HPBar::Update_Object(const _float& fTimeDelta)
 
 void CUI_HPBar::LateUpdate_Object(void)
 {
+	_float fMaxHP = _float(m_iMaxHP);
+	_float fCurHP = _float(m_iHP);
+	_float fHP = fCurHP / fMaxHP;
+
+	_float fIndex = m_tInfo.fCX - m_tInfo.fCX * fHP;
+
+	m_tInfo.fX = -420.f - fIndex + (fIndex * 0.15f);
+
 	__super::LateUpdate_Object();
 }
 
@@ -70,7 +78,7 @@ void CUI_HPBar::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
 	// 프레임 맞춰서 Pos 1차 수정필요. Scale.x 줄어든만큼 위치값옮기기
-	_float fOriginWidth = m_tInfo.fX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	_float fOriginWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	_float fWidth = fOriginWidth * fHP; // HPBar 남은 길이
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	_float fRatio = _float(WINCY) / _float(WINCX);
@@ -82,10 +90,10 @@ void CUI_HPBar::Render_Object(void)
 	_vec3 vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
 	m_pTransformCom->Set_Scale(vScale);
 
-	_vec3 vMovePos = { m_vDefaultPos.x - fX + 15.f, m_vDefaultPos.y, 0.f };
-	// 15.f = 보정값
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX) * (1 / m_matProj._11) ,
+				((-2 * (m_tInfo.fY)) / WINCY) * (1 / m_matProj._22), 0.f };
 
-	m_pTransformCom->Set_Pos(&vMovePos);
+	m_pTransformCom->Set_Pos(&vPos);
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);

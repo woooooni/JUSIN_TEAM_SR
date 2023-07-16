@@ -1,4 +1,3 @@
-#include "../Include/stdafx.h"
 #include "..\Header\MainApp.h"
 #include "../Include/stdafx.h"
 #include "Engine_Define.h"
@@ -11,6 +10,7 @@
 #include "Particle_FixedLeaf.h"
 #include "Particle_MovingLeaf.h"
 #include "Effect_Leaf.h"
+
 #include "Pool.h"
 #include "Effect_Shadow.h"
 #include "Scene_TutorialVillage.h"
@@ -172,8 +172,8 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	/*pScene = CScene_Tool::Create(pGraphicDev);*/
-	 pScene = CLogo::Create(pGraphicDev);
+	//pScene = CScene_Tool::Create(pGraphicDev);
+	pScene = CLogo::Create(pGraphicDev);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);

@@ -19,15 +19,15 @@ HRESULT CUI_Cursor::Ready_Object(void)
 	D3DXMatrixIdentity(&m_matView);
 
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
-	// 복붙 수정필요
-	m_tInfo.fX = 656.f;
-	m_tInfo.fY = 372.f;
+	
+	m_tInfo.fX = -490.f;
+	m_tInfo.fY = -90.f;
 
 	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
 	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
 
-	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX - 1.79f) * (1 / m_matProj._11) ,
-					((-2 * (m_tInfo.fY)) / WINCY + 1.085f) * (1 / m_matProj._22), 0.f };
+	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX) * (1 / m_matProj._11) ,
+					((-2 * (m_tInfo.fY)) / WINCY ) * (1 / m_matProj._22), 0.f };
 
 	return S_OK;
 }
