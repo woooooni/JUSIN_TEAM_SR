@@ -212,6 +212,7 @@
     <ClInclude Include="..\Header\BugBall.h" />
     <ClInclude Include="..\Header\CactusNeedle.h" />
     <ClInclude Include="..\Header\Coin.h" />
+    <ClInclude Include="..\Header\CParticle_Stone.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\Cupa.h" />
     <ClInclude Include="..\Header\Effect.h">
@@ -220,6 +221,7 @@
     <ClInclude Include="..\Header\Effect_GetItem.h" />
     <ClInclude Include="..\Header\Effect_Leaf.h" />
     <ClInclude Include="..\Header\Effect_Shadow.h" />
+    <ClInclude Include="..\Header\Effect_StoneParticle.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\FistEffect.h" />
@@ -384,6 +386,7 @@
     <ClCompile Include="..\Code\BugBall.cpp" />
     <ClCompile Include="..\Code\CactusNeedle.cpp" />
     <ClCompile Include="..\Code\Coin.cpp" />
+    <ClCompile Include="..\Code\CParticle_Stone.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\Cupa.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
@@ -392,6 +395,7 @@
     <ClCompile Include="..\Code\Effect_GetItem.cpp" />
     <ClCompile Include="..\Code\Effect_Leaf.cpp" />
     <ClCompile Include="..\Code\Effect_Shadow.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneParticle.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp" />

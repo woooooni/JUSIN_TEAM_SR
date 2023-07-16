@@ -72,6 +72,10 @@ void CPlayer_State_Drawing::Render_State(void)
 {
 }
 
+void CPlayer_State_Drawing::Reset_State(void)
+{
+}
+
 void CPlayer_State_Drawing::Update_Hat()
 {
 

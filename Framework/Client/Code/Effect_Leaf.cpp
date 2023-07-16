@@ -81,7 +81,11 @@ void CEffect_Leaf::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iCount)
 
         CGameObject* pLeaf = CPool<CParticle_FixedLeaf>::Get_Obj();
         if (pLeaf)
+        {
             dynamic_cast<CParticle_FixedLeaf*>(pLeaf)->Random_Particle(vPos);
+            pLeaf->Set_Active(true);
+            Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"FixedLeaf", pLeaf);
+        }
         else
         {
             pLeaf = dynamic_cast<CParticle_FixedLeaf*>(pLeaf)->Create(Engine::Get_Device());
@@ -89,6 +93,7 @@ void CEffect_Leaf::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iCount)
             {
                 pLeaf->Set_Active(true);
                 dynamic_cast<CParticle_FixedLeaf*>(pLeaf)->Random_Particle(vPos);
+                Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"FixedLeaf", pLeaf);
             }
         }
 
@@ -113,7 +118,11 @@ void CEffect_Leaf::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iCount)
 
         CGameObject* pLeaf = CPool<CParticle_MovingLeaf>::Get_Obj();
         if (pLeaf)
+        {
             dynamic_cast<CParticle_MovingLeaf*>(pLeaf)->Random_Particle(vPos);
+            pLeaf->Set_Active(true);
+            Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"MovingLeaf", pLeaf);
+        }
         else
         {
             pLeaf = dynamic_cast<CParticle_MovingLeaf*>(pLeaf)->Create(Engine::Get_Device());
@@ -121,6 +130,7 @@ void CEffect_Leaf::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iCount)
             {
                 pLeaf->Set_Active(true);
                 dynamic_cast<CParticle_MovingLeaf*>(pLeaf)->Random_Particle(vPos);
+                Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"MovingLeaf", pLeaf);
             }
         }
     }

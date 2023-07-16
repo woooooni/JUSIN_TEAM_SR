@@ -12,6 +12,7 @@ public:
 	virtual _int			Update_State(const _float& fTimeDelta) override;
 	virtual void			LateUpdate_State(void) override;
 	virtual void			Render_State(void) override;
+	virtual void			Reset_State(void) override;
 
 private:
 	bool	m_bFinished = false;
@@ -29,6 +30,8 @@ private:
 	float m_fAngle[6];
 	float m_fScale[6];
 
+	_uint m_iIndex;
+	bool m_bReverse = false;
 
 	CGameObject* m_pEffect = nullptr;
 };

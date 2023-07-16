@@ -90,6 +90,10 @@ void CPlayer_State_Hit::Render_State(void)
 {
 }
 
+void CPlayer_State_Hit::Reset_State(void)
+{
+}
+
 void CPlayer_State_Hit::Update_Hat()
 {
 	_vec3 vPos;

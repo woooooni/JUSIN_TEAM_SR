@@ -208,6 +208,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 
 	if (m_bStateChange)
 	{
+		m_vecState[(_uint)m_eState]->Reset_State();
 		m_eState = m_eChangeState;
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
@@ -529,7 +530,7 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 	}
 	else
-		Change_State(PLAYER_STATE::HIT);
+		Change_State_Now(PLAYER_STATE::HIT);
 
 }
 

@@ -59,3 +59,7 @@ void CPlayer_State_Skill::Render_State(void)
 		m_vecSkillState[(_uint)m_eSkill]->Render_State();
 	}
 }
+
+void CPlayer_State_Skill::Reset_State(void)
+{
+}

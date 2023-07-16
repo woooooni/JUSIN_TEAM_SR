@@ -13,6 +13,7 @@ public:
 	virtual _int		Update_State(const _float& fTimeDelta) PURE;
 	virtual void		LateUpdate_State(void) PURE;
 	virtual void		Render_State(void) PURE;
+	virtual void		Reset_State(void) PURE;
 
 protected:
 	CGameObject* m_pOwner;

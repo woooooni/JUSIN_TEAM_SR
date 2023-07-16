@@ -44,16 +44,16 @@ _int CEffect_GetItem::Update_Object(const _float& fTimeDelta)
 	switch (m_iTurn)
 	{
 	case 0:
-		m_vScale += _vec3(0.1f, 0.1f, 0.1f);
-		if (m_vScale.x > 2.0f)
+		m_vScale += _vec3(0.2f, 0.2f, 0.2f);
+		if (m_vScale.x > 3.0f)
 			m_iTurn = 1;
 		break;
 	case 1:
-		if (m_vScale.x > 1.8f)
-			m_vScale -= _vec3(0.05f, 0.05f, 0.05f);
+		if (m_vScale.x > 2.8f)
+			m_vScale -= _vec3(0.1f, 0.1f, 0.1f);
 		break;
 	case 2:
-		m_vScale -= _vec3(0.2f, 0.2f, 0.2f);
+		m_vScale -= _vec3(0.4f, 0.4f, 0.4f);
 		if (m_vScale.x <= 0.01f)
 			Set_Active(false);
 		break;

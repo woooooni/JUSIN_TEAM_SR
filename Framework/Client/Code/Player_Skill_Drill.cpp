@@ -67,6 +67,10 @@ void CPlayer_Skill_Drill::Render_State(void)
 {
 }
 
+void CPlayer_Skill_Drill::Reset_State(void)
+{
+}
+
 void CPlayer_Skill_Drill::Update_Start(const _float& fTimeDelta)
 {
     if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() > 5)

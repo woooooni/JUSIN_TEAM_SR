@@ -135,6 +135,10 @@ void CPlayer_State_Jump::Render_State(void)
 {
 }
 
+void CPlayer_State_Jump::Reset_State(void)
+{
+}
+
 void CPlayer_State_Jump::Update_Hat()
 {
 	_vec3 vPos;

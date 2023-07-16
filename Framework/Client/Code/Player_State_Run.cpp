@@ -109,6 +109,10 @@ void CPlayer_State_Run::Render_State(void)
 {
 }
 
+void CPlayer_State_Run::Reset_State(void)
+{
+}
+
 void CPlayer_State_Run::Key_Input(const _float& fTimeDelta)
 {
 	if (KEY_HOLD(KEY::UP_ARROW) && KEY_HOLD(KEY::LEFT_ARROW) && KEY_HOLD(KEY::SHIFT))

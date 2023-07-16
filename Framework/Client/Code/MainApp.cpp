@@ -13,6 +13,7 @@
 #include "Effect_Leaf.h"
 #include "Pool.h"
 #include "Effect_Shadow.h"
+#include "CParticle_Stone.h"
 
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
@@ -233,6 +234,7 @@ HRESULT CMainApp::Ready_Pool()
 	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);
 	CPool<CPlayer_Bullet_Bomb>::Ready_Pool(m_pGraphicDev, 200);
 	CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CParticle_Stone>::Ready_Pool(m_pGraphicDev, 1000);
 
 
 	return S_OK;
@@ -803,6 +805,8 @@ HRESULT CMainApp::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Shadow", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Shadow/Shadow_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_MapCircle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/MapCircle/MapCircle_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_GetItem", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/GetItem/GetItem_%d.png", 1)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_ParticleStone", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Stone/Particle_Stone_%d.png", 1)), E_FAIL);
 
 	return S_OK;
 }

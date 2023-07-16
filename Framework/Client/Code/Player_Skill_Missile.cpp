@@ -123,6 +123,10 @@ void CPlayer_Skill_Missile::Render_State(void)
 {
 }
 
+void CPlayer_Skill_Missile::Reset_State(void)
+{
+}
+
 HRESULT CPlayer_Skill_Missile::Shoot(void)
 {
 	

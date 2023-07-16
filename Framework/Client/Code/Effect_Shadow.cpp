@@ -59,6 +59,19 @@ void CEffect_Shadow::LateUpdate_Object(void)
 
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 
+	if (vPos.y > m_pOwner->Get_MinHeight())
+	{
+		_float fScale = (1.0f + m_pOwner->Get_MinHeight()) - vPos.y;
+
+		if (fScale < 0.0f)
+			fScale = 0.0f;
+		Set_Scale(m_vScale * fScale);
+	}
+	else
+	{
+		Set_Scale(m_vScale);
+	}
+
 	vPos.y = 0.001f;
 	m_pTransformCom->Set_Pos(&vPos);
 
@@ -117,6 +130,7 @@ void CEffect_Shadow::Set_Shadow(CGameObject* _pObj, _vec3& _vScale)
 	}
 
 	m_pTransformCom->Set_Scale(_vScale);
+	m_vScale = _vScale;
 	m_pTransformCom->RotationAxis(_vec3(1.0f, 0.0f, 0.0f), m_fAngle);
 
 	Set_Active(true);
@@ -148,3 +162,23 @@ void CEffect_Shadow::Free()
 {
 	__super::Free();
 }
+
+void CEffect_Shadow::Set_Scale(_vec3 _vScale)
+{
+	_float m_fAngle;
+
+	m_fAngle = D3DXToRadian(90.0f);
+
+	_matrix matWorld;
+	D3DXMatrixIdentity(&matWorld);
+	for (_uint i = 0; INFO_END > i; ++i)
+	{
+		_vec3 vInfo;
+		memcpy(&vInfo, &matWorld.m[i][0], sizeof(_vec3));
+		m_pTransformCom->Set_Info((MATRIX_INFO)i, &vInfo);
+	}
+
+	m_pTransformCom->Set_Scale(_vScale);
+	m_pTransformCom->RotationAxis(_vec3(1.0f, 0.0f, 0.0f), m_fAngle);
+}
+

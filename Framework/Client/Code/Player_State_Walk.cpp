@@ -129,6 +129,10 @@ void CPlayer_State_Walk::Render_State(void)
 
 }
 
+void CPlayer_State_Walk::Reset_State(void)
+{
+}
+
 void CPlayer_State_Walk::Key_Input(const _float& fTimeDelta)
 {	
 	if (KEY_HOLD(KEY::SHIFT))

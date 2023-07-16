@@ -415,9 +415,6 @@
     <Filter Include="02. GameObject\13. Effect\09. Player_Skill_Range">
       <UniqueIdentifier>{e8a6750c-8085-4d11-89ce-da99c0d9eee7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\13. Effect\10. Player_Skill_Turtle">
-      <UniqueIdentifier>{39ee2d3f-b815-4226-81f6-3cb4b4f34056}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\01. Player\State\14. Skill">
       <UniqueIdentifier>{b80af0bf-966a-4828-8ee9-0ac1c3b65538}</UniqueIdentifier>
     </Filter>
@@ -453,6 +450,9 @@
     </Filter>
     <Filter Include="02. GameObject\13. Effect\04. GetItem">
       <UniqueIdentifier>{0f6036b5-db16-4f1d-9654-32fbd6ac22f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\Skill\00. Player_Skill_Barrier\10. Player_Skill_Turtle">
+      <UniqueIdentifier>{39ee2d3f-b815-4226-81f6-3cb4b4f34056}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -872,7 +872,7 @@
       <Filter>02. GameObject\13. Effect\09. Player_Skill_Range</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Turtle.h">
-      <Filter>02. GameObject\13. Effect\10. Player_Skill_Turtle</Filter>
+      <Filter>02. GameObject\01. Player\Skill\00. Player_Skill_Barrier\10. Player_Skill_Turtle</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_State_Skill.h">
       <Filter>02. GameObject\01. Player\State\14. Skill</Filter>
@@ -895,9 +895,17 @@
     <ClInclude Include="..\Header\UseItem.h">
       <Filter>02. GameObject\10. Item</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Particle_MapCircle.h" />
     <ClInclude Include="..\Header\Effect_GetItem.h">
       <Filter>02. GameObject\13. Effect\04. GetItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Particle_MapCircle.h">
+      <Filter>17. Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CParticle_Stone.h">
+      <Filter>17. Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_StoneParticle.h">
+      <Filter>02. GameObject\13. Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1300,7 +1308,7 @@
       <Filter>02. GameObject\13. Effect\09. Player_Skill_Range</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Turtle.cpp">
-      <Filter>02. GameObject\13. Effect\10. Player_Skill_Turtle</Filter>
+      <Filter>02. GameObject\01. Player\Skill\00. Player_Skill_Barrier\10. Player_Skill_Turtle</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Skill.cpp">
       <Filter>02. GameObject\01. Player\State\14. Skill</Filter>
@@ -1323,9 +1331,17 @@
     <ClCompile Include="..\Code\UseItem.cpp">
       <Filter>02. GameObject\10. Item</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
     <ClCompile Include="..\Code\Effect_GetItem.cpp">
       <Filter>02. GameObject\13. Effect\04. GetItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Particle_MapCircle.cpp">
+      <Filter>17. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CParticle_Stone.cpp">
+      <Filter>17. Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_StoneParticle.cpp">
+      <Filter>02. GameObject\13. Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
