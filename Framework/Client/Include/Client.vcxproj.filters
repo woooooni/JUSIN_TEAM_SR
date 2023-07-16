@@ -454,6 +454,9 @@
     <Filter Include="02. GameObject\01. Player\Skill\00. Player_Skill_Barrier\10. Player_Skill_Turtle">
       <UniqueIdentifier>{39ee2d3f-b815-4226-81f6-3cb4b4f34056}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Player\State\15. Dance">
+      <UniqueIdentifier>{ba09a5d2-2887-4b84-a733-8f9e1a9211dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -907,6 +910,9 @@
     <ClInclude Include="..\Header\Effect_StoneParticle.h">
       <Filter>02. GameObject\13. Effect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Player_State_Dance.h">
+      <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1342,6 +1348,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Effect_StoneParticle.cpp">
       <Filter>02. GameObject\13. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Player_State_Dance.cpp">
+      <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
