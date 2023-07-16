@@ -122,7 +122,7 @@ void CPushStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS && m_bIsFlying)
 	{
-		CPool<CPushStone*>::Return_Obj(this);
+		CPool<CPushStone>::Return_Obj(this);
 		m_bIsClean = false;
 		m_bIsFlying = false;
 	}

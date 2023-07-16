@@ -13,9 +13,6 @@
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{06dc1b76-8beb-4d64-8e1c-41231208a3d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\01. Stage">
-      <UniqueIdentifier>{4a6f84dc-73b6-43fb-80a1-6b14c92a3ca7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject">
       <UniqueIdentifier>{9c45403b-7aaa-4a2a-b325-b8d24758c2f4}</UniqueIdentifier>
     </Filter>
@@ -33,9 +30,6 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI">
       <UniqueIdentifier>{1dc885c6-a95a-455c-8051-f205df8fbfa5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\02. Tutorial">
-      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Loading">
       <UniqueIdentifier>{ed736470-011d-4888-aca8-d5b2a2e61918}</UniqueIdentifier>
@@ -442,9 +436,6 @@
     <Filter Include="02. GameObject\17. Particle\02. Map_Circle">
       <UniqueIdentifier>{e60462c6-0732-4028-a09a-0117b8d8c551}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\02. Tutorial\00. Village">
-      <UniqueIdentifier>{9ed00668-8c13-45d6-a96e-d54248df9432}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\13. Effect\11. Get_Item">
       <UniqueIdentifier>{89c4dbac-75c7-4d0a-b4bb-b768411a8e1d}</UniqueIdentifier>
     </Filter>
@@ -459,6 +450,12 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI\02. Dialog">
       <UniqueIdentifier>{9ebf1511-d022-4236-bcea-0cc7e49ceb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Tutorial">
+      <UniqueIdentifier>{0e1d666b-e575-4957-831a-f9e9b3db20d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Tutorial\00. Village">
+      <UniqueIdentifier>{9ed00668-8c13-45d6-a96e-d54248df9432}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -790,9 +787,6 @@
     <ClInclude Include="..\Header\Effect_Shadow.h">
       <Filter>02. GameObject\13. Effect\01. Shadow</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\EtcItem.h">
-      <Filter>02. GameObject\10. Item\03. Etc</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\FistEffect.h">
       <Filter>02. GameObject\13. Effect\02. Fish</Filter>
     </ClInclude>
@@ -900,7 +894,7 @@
       <Filter>02. GameObject\17. Particle\02. Map_Circle</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Scene_TutorialVillage.h">
-      <Filter>01. Scene\02. Tutorial\00. Village</Filter>
+      <Filter>01. Scene\01. Tutorial\00. Village</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GameMgr.h">
       <Filter>98. Manager\01. Game</Filter>
@@ -917,6 +911,18 @@
     <ClInclude Include="..\Header\UI_Dialog.h">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\BreakStone.h" />
+    <ClInclude Include="..\Header\CParticle_Stone.h" />
+    <ClInclude Include="..\Header\Effect_DieSmoke.h" />
+    <ClInclude Include="..\Header\Effect_Explosion.h" />
+    <ClInclude Include="..\Header\Effect_LightningGround.h" />
+    <ClInclude Include="..\Header\Effect_StoneSpike.h" />
+    <ClInclude Include="..\Header\Effect_StoneParticle.h" />
+    <ClInclude Include="..\Header\HoleObj.h" />
+    <ClInclude Include="..\Header\DefaultItem.h" />
+    <ClInclude Include="..\Header\Player_State_Dance.h" />
+    <ClInclude Include="..\Header\QuizStatue.h" />
+    <ClInclude Include="..\Header\Stage1.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1230,9 +1236,6 @@
     <ClCompile Include="..\Code\Effect_Shadow.cpp">
       <Filter>02. GameObject\13. Effect\01. Shadow</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\EtcItem.cpp">
-      <Filter>02. GameObject\10. Item\03. Etc</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\FistEffect.cpp">
       <Filter>02. GameObject\13. Effect\02. Fish</Filter>
     </ClCompile>
@@ -1340,7 +1343,7 @@
       <Filter>02. GameObject\17. Particle\02. Map_Circle</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Scene_TutorialVillage.cpp">
-      <Filter>01. Scene\02. Tutorial\00. Village</Filter>
+      <Filter>01. Scene\01. Tutorial\00. Village</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GameMgr.cpp">
       <Filter>98. Manager\01. Game</Filter>
@@ -1357,6 +1360,18 @@
     <ClCompile Include="..\Code\UI_Dialog.cpp">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\BreakStone.cpp" />
+    <ClCompile Include="..\Code\CParticle_Stone.cpp" />
+    <ClCompile Include="..\Code\Effect_DieSmoke.cpp" />
+    <ClCompile Include="..\Code\Effect_Explosion.cpp" />
+    <ClCompile Include="..\Code\Effect_LightningGround.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneSpike.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneParticle.cpp" />
+    <ClCompile Include="..\Code\HoleObj.cpp" />
+    <ClCompile Include="..\Code\DefaultItem.cpp" />
+    <ClCompile Include="..\Code\Player_State_Dance.cpp" />
+    <ClCompile Include="..\Code\QuizStatue.cpp" />
+    <ClCompile Include="..\Code\Stage1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

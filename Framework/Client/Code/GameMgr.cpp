@@ -15,7 +15,7 @@ CGameMgr::~CGameMgr()
 
 HRESULT CGameMgr::Ready_GameMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
 {
-	// m_pPlayer = CPlayer::Create(_pGraphicDev);
+	m_pPlayer = CPlayer::Create(_pGraphicDev);
 	return S_OK;
 }
 
