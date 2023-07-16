@@ -28,7 +28,6 @@ HRESULT CEffect::Ready_Object(void)
 Engine::_int CEffect::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	return iExit;
 }

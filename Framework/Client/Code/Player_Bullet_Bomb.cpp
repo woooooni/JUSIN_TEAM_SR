@@ -6,7 +6,8 @@
 
 #include "Scene.h"
 #include "Terrain.h"
-
+#include "Pool.h"
+#include "Effect_Explosion.h"
 
 
 CPlayer_Bullet_Bomb::CPlayer_Bullet_Bomb(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -64,7 +65,19 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 
 	if (D3DXVec3Length(&vDir) < 0.2f)
 	{
-		Set_Active(false);
+		_vec3 vPos;
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		CGameObject* pExplosion = CPool<CEffect_Explosion>::Get_Obj();
+		if (pExplosion)
+			dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+		else
+		{
+			pExplosion = dynamic_cast<CEffect_Explosion*>(pExplosion)->Create(Engine::Get_Device());
+			if (pExplosion)
+				dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+		}
+
+		CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
 	}
 
 	if (D3DXVec3Length(&vDir) < 2.5f)

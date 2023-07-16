@@ -38,3 +38,7 @@ void CPlayer_State_GameOver::LateUpdate_State(void)
 void CPlayer_State_GameOver::Render_State(void)
 {
 }
+
+void CPlayer_State_GameOver::Reset_State(void)
+{
+}

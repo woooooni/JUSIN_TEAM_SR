@@ -15,10 +15,13 @@ public:
 	virtual _int			Update_State(const _float& fTimeDelta) override;
 	virtual void			LateUpdate_State(void) override;
 	virtual void			Render_State(void) override;
+	virtual void			Reset_State(void) override;
 
 
 
 private:
+	void					Update_Hat();
+
 	void					Key_Input(const _float& fTimeDelta);
 };
 

@@ -109,6 +109,13 @@ void CPlayer_Skill_GolemFist::Render_State(void)
 {
 }
 
+void CPlayer_Skill_GolemFist::Reset_State(void)
+{
+	dynamic_cast<CPlayer_Skill_Range*>(dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange())->Reset_Range();
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange()->Set_Active(false);
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(false);
+}
+
 void CPlayer_Skill_GolemFist::Key_Input(const _float& fTimeDelta)
 {
 	
@@ -151,14 +158,8 @@ void CPlayer_Skill_GolemFist::Key_Input(const _float& fTimeDelta)
 	}
 	else if (KEY_AWAY(KEY::K))
 	{
-		dynamic_cast<CPlayer_Skill_Range*>(dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange())->Reset_Range();
-		dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange()->Set_Active(false);
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
-
-		dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(false);
-
-
 		Shoot();
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 	}
 }
 

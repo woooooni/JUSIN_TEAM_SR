@@ -116,6 +116,10 @@ void CPlayer_State_Rolling::Render_State(void)
 {
 }
 
+void CPlayer_State_Rolling::Reset_State(void)
+{
+}
+
 void CPlayer_State_Rolling::Update_Hat()
 {
 	_vec3 vPos;

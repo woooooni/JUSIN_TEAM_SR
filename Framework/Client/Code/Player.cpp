@@ -22,6 +22,7 @@
 #include "Player_State_Drawing.h"
 #include "FieldObject.h"
 #include "Player_State_Skill.h"
+#include "Player_State_Dance.h"
 #include "Effect_Shadow.h"
 #include	"InventoryMgr.h"
 
@@ -158,12 +159,14 @@ HRESULT CPlayer::Ready_Object(void)
 
 	m_pAnimator->Add_Animation(L"Down", L"Proto_Texture_Player_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"GameOver", L"Proto_Texture_Player_GameOver", 0.1f);
+	m_pAnimator->Add_Animation(L"Dance", L"Proto_Texture_Player_Dance", 0.1f);
 
 	m_pAnimator->Add_Animation(L"GetItem", L"Proto_Texture_Player_GetItem", 0.1f);
 	m_pAnimator->Add_Animation(L"BalloonFly", L"Proto_Texture_Player_BalloonFly", 0.1f);
 	m_pAnimator->Add_Animation(L"Drawing", L"Proto_Texture_Player_Drawing", 0.1f);
 
 	m_pAnimator->Add_Animation(L"Drill", L"Proto_Texture_Player_Drill", 0.1f);
+
 
 	m_pAnimator->Play_Animation(L"Idle_Down", true);
 
@@ -187,6 +190,7 @@ HRESULT CPlayer::Ready_Object(void)
 	m_vecState.push_back(new Player_State_BallonFly(this));
 	m_vecState.push_back(new CPlayer_State_Drawing(this));
 	m_vecState.push_back(new CPlayer_State_Skill(this));
+	m_vecState.push_back(new CPlayer_State_Dance(this));
 
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 0.5f, 0.0f));
 	m_fMinHeight = 0.5f;
@@ -208,6 +212,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 
 	if (m_bStateChange)
 	{
+		m_vecState[(_uint)m_eState]->Reset_State();
 		m_eState = m_eChangeState;
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
@@ -536,7 +541,7 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 	}
 	else
-		Change_State(PLAYER_STATE::HIT);
+		Change_State_Now(PLAYER_STATE::HIT);
 
 }
 

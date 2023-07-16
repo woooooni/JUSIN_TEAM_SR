@@ -42,3 +42,7 @@ void CPlayer_State_Down::LateUpdate_State(void)
 void CPlayer_State_Down::Render_State(void)
 {
 }
+
+void CPlayer_State_Down::Reset_State(void)
+{
+}

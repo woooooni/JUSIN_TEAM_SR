@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "Terrain.h"
 #include "Pool.h"
+#include "Effect_LightningGround.h"
 
 
 CPlayer_Bullet_Lightning::CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -146,6 +147,16 @@ void CPlayer_Bullet_Lightning::Shoot(_vec3& _vPos, _vec3& _vDir, _uint _iMax, _u
 
 	m_iCurr = _iCurr + 1;
 	m_iMax = _iMax;
+
+	CGameObject* pGruond = CPool<CEffect_LightningGround>::Get_Obj();
+	if (pGruond)
+		dynamic_cast<CEffect_LightningGround*>(pGruond)->Get_Effect(_vPos, _vec3(2.0f, 2.0f, 2.0f));
+	else
+	{
+		pGruond = dynamic_cast<CEffect_LightningGround*>(pGruond)->Create(Engine::Get_Device());
+		if (pGruond)
+			dynamic_cast<CEffect_LightningGround*>(pGruond)->Get_Effect(_vPos, _vec3(2.0f, 2.0f, 2.0f));
+	}
 }
 
 HRESULT CPlayer_Bullet_Lightning::ShootNext()

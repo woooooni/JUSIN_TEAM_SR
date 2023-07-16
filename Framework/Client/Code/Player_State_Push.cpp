@@ -59,6 +59,10 @@ void CPlayer_State_Push::Render_State(void)
 
 }
 
+void CPlayer_State_Push::Reset_State(void)
+{
+}
+
 void CPlayer_State_Push::Key_Input(const _float& fTimeDelta)
 {
 	OBJ_DIR eInputDir = OBJ_DIR::DIR_END;

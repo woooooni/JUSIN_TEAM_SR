@@ -131,6 +131,10 @@ void CPlayer_State_Lift::Render_State(void)
 {
 }
 
+void CPlayer_State_Lift::Reset_State(void)
+{
+}
+
 _int CPlayer_State_Lift::Update_LiftReady(const _float& fTimeDelta)
 {
 

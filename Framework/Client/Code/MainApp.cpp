@@ -15,6 +15,10 @@
 #include "Effect_Shadow.h"
 #include "Scene_TutorialVillage.h"
 
+#include "CParticle_Stone.h"
+#include "Effect_DieSmoke.h"
+#include "Effect_Explosion.h"
+#include "Effect_LightningGround.h"
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
 {
@@ -270,7 +274,10 @@ HRESULT CMainApp::Ready_Pool()
 	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);
 	CPool<CPlayer_Bullet_Bomb>::Ready_Pool(m_pGraphicDev, 200);
 	CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 100);
-
+	CPool<CParticle_Stone>::Ready_Pool(m_pGraphicDev, 1000);
+	CPool<CEffect_DieSmoke>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CEffect_Explosion>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CEffect_LightningGround>::Ready_Pool(m_pGraphicDev, 100);
 
 	return S_OK;
 }
@@ -428,6 +435,7 @@ HRESULT CMainApp::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Barrier", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Barrier/Player_Skill_Barrier_%d.png", 1)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Dance", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Dance/Player_Dance_%d.png", 14)), E_FAIL);
 
 	return S_OK;
 }
@@ -826,6 +834,12 @@ HRESULT CMainApp::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Shadow", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Shadow/Shadow_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_MapCircle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/MapCircle/MapCircle_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_GetItem", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/GetItem/GetItem_%d.png", 1)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_ParticleStone", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Stone/Particle_Stone_%d.png", 1)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_DieSmoke", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/DieSmoke/DieSmoke_%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Explosion", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Explosion/Explosion_%d.png", 18)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_LightningGround", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/LightningGround/LightningGround_%d.png", 8)), E_FAIL);
 
 	return S_OK;
 }

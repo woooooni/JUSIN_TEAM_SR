@@ -120,6 +120,10 @@ void CPlayer_State_Swing::Render_State(void)
 {
 }
 
+void CPlayer_State_Swing::Reset_State(void)
+{
+}
+
 void CPlayer_State_Swing::Update_Hat()
 {
 	_vec3 vPos;

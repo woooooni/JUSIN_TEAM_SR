@@ -58,6 +58,10 @@ void Player_State_BallonFly::Render_State(void)
 {
 }
 
+void Player_State_BallonFly::Reset_State(void)
+{
+}
+
 _int Player_State_BallonFly::Update_FlyReady(const _float& fTimeDelta)
 {
 	if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() > 12)

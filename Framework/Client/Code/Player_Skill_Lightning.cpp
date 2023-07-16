@@ -90,6 +90,10 @@ void CPlayer_Skill_Lightning::Render_State(void)
 {
 }
 
+void CPlayer_Skill_Lightning::Reset_State(void)
+{
+}
+
 void CPlayer_Skill_Lightning::Key_Input(const _float& fTimeDelta)
 {
 	if (KEY_HOLD(KEY::K))

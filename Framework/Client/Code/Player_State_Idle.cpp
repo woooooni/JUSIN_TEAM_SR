@@ -16,6 +16,10 @@
 #include "Effect_Leaf.h"
 #include "Effect_Shadow.h"
 #include "Particle_MapCircle.h"
+#include "Effect_StoneParticle.h"
+#include "Effect_DieSmoke.h"
+#include "Effect_Explosion.h"
+#include "Effect_LightningGround.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -99,10 +103,27 @@ void CPlayer_State_Idle::LateUpdate_State(void)
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::BALLOONFLY);
 	}
+
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+		Update_Hat();
+
 }
 
 void CPlayer_State_Idle::Render_State(void)
 {
+}
+
+void CPlayer_State_Idle::Reset_State(void)
+{
+}
+
+void CPlayer_State_Idle::Update_Hat()
+{
+	_vec3 vPos;
+	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	vPos.y += 0.3f;
+	vPos.z -= 0.0001f;
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
 }
 
 void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
@@ -150,7 +171,7 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_HOLD(KEY::D))
 	{
-		//dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DOWN);
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DANCE);
 	}
 
 	if (KEY_TAP(KEY::R))
@@ -183,16 +204,28 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::H))
 	{
-		_vec3 vPos;
+		/*_vec3 vPos;
 		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-		CGameObject* pLeaf = CPool<CEffect_Leaf>::Get_Obj();
-		if (pLeaf)
-			dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos,_vec3(1.5f,2.0f,1.5f), 40);
+		CGameObject* pStone = CPool<CEffect_StoneParticle>::Get_Obj();
+		if (pStone)
+			dynamic_cast<CEffect_StoneParticle*>(pStone)->Get_Effect(vPos,_vec3(0.5f,1.0f,1.0f), 40);
 		else
 		{
-			pLeaf = dynamic_cast<CEffect_Leaf*>(pLeaf)->Create(Engine::Get_Device());
-			if (pLeaf)
-				dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.0f, 1.8f, 1.5f), 40);
+			pStone = dynamic_cast<CEffect_StoneParticle*>(pStone)->Create(Engine::Get_Device());
+			if (pStone)
+				dynamic_cast<CEffect_StoneParticle*>(pStone)->Get_Effect(vPos, _vec3(0.5f, 1.0f, 1.0f), 40);
+		}*/
+
+		_vec3 vPos;
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		CGameObject* pSmoke = CPool<CEffect_LightningGround>::Get_Obj();
+		if (pSmoke)
+			dynamic_cast<CEffect_LightningGround*>(pSmoke)->Get_Effect(vPos,_vec3(10.0f, 10.0f, 10.0f));
+		else
+		{
+			pSmoke = dynamic_cast<CEffect_LightningGround*>(pSmoke)->Create(Engine::Get_Device());
+			if (pSmoke)
+				dynamic_cast<CEffect_LightningGround*>(pSmoke)->Get_Effect(vPos, _vec3(2.0f, 2.0f, 2.0f));
 		}
 			
 	}
