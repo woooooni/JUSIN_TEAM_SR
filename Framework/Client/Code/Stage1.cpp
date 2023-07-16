@@ -17,64 +17,75 @@ HRESULT CStage1::Ready_Scene()
 
 _int CStage1::Update_Scene(const _float& fTimeDelta)
 {
-    return _int();
+    return __super::Update_Scene(fTimeDelta);
 }
 
 void CStage1::LateUpdate_Scene()
 {
+    __super::LateUpdate_Scene();
 }
 
 void CStage1::Render_Scene()
 {
+    
 }
 
 CStage1* CStage1::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CStage1* ret = new CStage1(pGraphicDev);
 
-    return nullptr;
+    NULL_CHECK_RETURN(ret, nullptr);
+    if (FAILED(ret->Ready_Scene()))
+    {
+        Safe_Release(ret);
+        MSG_BOX("Stage1 Create Failed");
+        return nullptr;
+    }
+
+    return ret;
 }
 
 void CStage1::Free()
 {
+    __super::Free();
 }
 
 HRESULT CStage1::Ready_Layer_Player()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CStage1::Ready_Layer_Camera()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CStage1::Ready_Layer_Terrrain()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CStage1::Ready_Layer_Environment()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CStage1::Ready_Layer_Monster()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CStage1::Ready_Layer_InterationObj()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CStage1::Ready_Layer_Effect()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 HRESULT CStage1::Ready_Layer_UI()
 {
-    return E_NOTIMPL;
+    return S_OK;
 }

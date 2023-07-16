@@ -1,6 +1,8 @@
 #include "..\Header\Logo.h"
 #include "Export_Function.h"
 #include "../Include/stdafx.h"
+#include	"Loading.h"
+#include	"UI_Shop.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -14,7 +16,7 @@ CLogo::~CLogo()
 HRESULT CLogo::Ready_Scene()
 {
 	__super::Ready_AllLayer();
-	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
+	/*FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
@@ -22,7 +24,7 @@ HRESULT CLogo::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);*/
 
 	D3DVIEWPORT9 vp;
 	vp.X = 0;
@@ -39,15 +41,27 @@ HRESULT CLogo::Ready_Scene()
 
 	FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
 
+	m_pLoading = CLoading::Create(m_pGraphicDev, SCENE_TYPE::LOGO);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Background", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_Test_AddSlot.png")), E_FAIL);
+
+	CUI_Shop* pUI = CUI_Shop::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pUI, E_FAIL);
+
+	FAILED_CHECK_RETURN(m_mapLayer.find(LAYER_TYPE::UI)->second->Add_GameObject(L"SRC", pUI), E_FAIL);
+
 
 	return S_OK;
 }
 
 Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
-	Check_Event_Start(10);
+
 
 	__super::Update_Scene(fTimeDelta);
+
+	if (m_pLoading->Get_Finish())
+		Set_Scene(m_pLoading->Get_Scene());
 
 	return 0;
 }

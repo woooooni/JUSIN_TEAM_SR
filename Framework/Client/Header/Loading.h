@@ -29,8 +29,6 @@ public:
 	_uint			Load_Stage1();
 	CScene* Get_Scene() { return m_pLoadingScene; }
 
-	_uint Load_Obj_Data(wstring _strFolderPath);
-	_uint	Load_Terrain_Data(wstring _strFolderPath);
 
 
 private:
@@ -47,5 +45,23 @@ public:
 
 private:
 	virtual void		Free();
+
+	HRESULT		Loading_Logo();
+
+	_uint	Load_Obj_Data(wstring _strFolderPath);
+	_uint	Load_Terrain_Data(wstring _strFolderPath);
+
+
+	HRESULT Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_Terrain_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+
 };
 
