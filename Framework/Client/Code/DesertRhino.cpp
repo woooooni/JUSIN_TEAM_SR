@@ -64,7 +64,7 @@ HRESULT CDesertRhino::Ready_Object(void)
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
 	m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
-	m_fMinHeight = 1.0f;
+	m_fMinHeight = 0.5f;
 
 	return S_OK;
 }

@@ -377,6 +377,7 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			m_iActiveArm += 2;
 			m_bLockon = false;
 			m_pMonsterAim->Set_Active(false);
+			if(!m_bDirty)
 			m_tStat.iHp -= 1;
 			if (m_iActiveArm > 5)
 			{

@@ -56,7 +56,7 @@ HRESULT CTrashBummer::Ready_Object(void)
 	Set_State(MONSTER_STATE::IDLE);
 	m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
 	m_tStat = { 3,3,1 };
-	m_fMinHeight = 1.0f;
+	m_fMinHeight = 0.5f;
 	return S_OK;
 }
 

@@ -162,7 +162,7 @@ void CRollingBug::Update_Attack(_float fTimeDelta)
 		D3DXVec3Normalize(&m_vBugDir, &m_vBugDir);
 		m_pTransformCom->Move_Pos(&m_vBugDir, fTimeDelta, 1.5f * Get_Speed());
 
-		if (D3DXVec3Length(&m_vPlayerDir) < 1.f);
+		if (D3DXVec3Length(&m_vPlayerDir) < 1.f)
 		{
 			Set_State(MONSTER_STATE::IDLE);
 

@@ -33,7 +33,7 @@ HRESULT CTrashBig::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashBig_Move_RightUp", L"Proto_Texture_TrashBig_Move_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Move_LeftDown", L"Proto_Texture_TrashBig_Move_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Move_LeftUp", L"Proto_Texture_TrashBig_Move_LeftUp", 0.1f);
-	m_fMinHeight = 1.0f;
+	m_fMinHeight = 0.5f;
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);

@@ -33,6 +33,8 @@ HRESULT CFistEffect::Ready_Object(void)
 
 _int CFistEffect::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK; 
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_EFFECT);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);

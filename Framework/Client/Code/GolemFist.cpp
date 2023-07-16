@@ -3,6 +3,8 @@
 #include "SunGollem.h"
 #include "FistEffect.h"
 #include "TrashBummer.h"
+#include "Effect_StoneSpike.h"
+
 CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
 {
 }
@@ -71,16 +73,29 @@ void CGolemFist::LateUpdate_Object(void)
 		if (Is_Active())
 		{			
 			if (m_bDirty == true)
-				if (m_bBummer == true&&rand()%99<33)
+			{
+				if (m_bBummer == true && rand() % 99 < 33)
 				{
 					CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
 					NULL_CHECK_RETURN(pTrashBummer, );
-					vPos.y = 1.f;
+					vPos.y = 0.5f;
 					pTrashBummer->Get_TransformCom()->Set_Pos(&vPos);
 					CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 					pLayer->Add_GameObject(L"GolemFist", pTrashBummer);
-
 				}
+				else
+				{
+					CEffect_StoneSpike* pFistEffect = CEffect_StoneSpike::Create(m_pGraphicDev);
+					NULL_CHECK_RETURN(pFistEffect, );
+					vPos.y = -0.5f;
+					pFistEffect->Get_TransformCom()->Set_Pos(&vPos);
+					pFistEffect->Set_Atk(m_iAtk);
+					CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+					pLayer->Add_GameObject(L"GolemFist", pFistEffect);
+					Set_Active(false);
+					m_pMonsterAim->Set_Active(false);
+				}
+			}
 			CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
 			NULL_CHECK_RETURN(pFistEffect, );
 			vPos.y = 0.001f;

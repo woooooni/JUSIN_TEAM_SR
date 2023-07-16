@@ -53,13 +53,17 @@ HRESULT CMothMage::Ready_Object(void)
 
 	m_pMothOrb= CMothOrb::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMothOrb, E_FAIL);
+	
+	 m_pUI	= CUI_MonsterHP::Create(m_pGraphicDev,MONSTERHP::UI_BACK);
+	NULL_CHECK_RETURN(m_pUI, E_FAIL);
+	m_pUI->Set_Owner(this);
 
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
 	m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
 	m_tStat = { 3,3,1 };
-	m_fMinHeight = 1.0f;
+	m_fMinHeight = 0.5f;
 	return S_OK;
 }
 
@@ -75,13 +79,13 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 	_int iExit = __super::Update_Object(fTimeDelta);
 	_vec3  vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK&& Get_State() != MONSTER_STATE::DIE)
+	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 		if (nullptr == pTarget)
 			return S_OK;
 		Set_Target(pTarget);
-		_vec3 vTargetPos,  vDir;
+		_vec3 vTargetPos, vDir;
 
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 
@@ -100,6 +104,11 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 	vPos.z -= 0.01f;
 	m_pMothOrb->Get_TransformCom()->Set_Pos(&vPos);
 	m_pMothOrb->Update_Object(fTimeDelta);
+	vPos.z -= 0.01f;
+	if (m_pUI->Is_Active())
+	{		m_pUI->Update_Object(fTimeDelta);
+	m_pUI->Get_TransformCom()->Set_Pos(&vPos);
+	}
 	return iExit;
 }
 void CMothMage::LateUpdate_Object(void)
@@ -107,7 +116,8 @@ void CMothMage::LateUpdate_Object(void)
 	if (!Is_Active())
 		return ;
 	__super::LateUpdate_Object();
-	
+	if (m_pUI->Is_Active())
+		m_pUI->LateUpdate_Object();
 	m_pMothOrb->LateUpdate_Object();
 }
 void CMothMage::Render_Object(void)
@@ -122,6 +132,8 @@ void CMothMage::Render_Object(void)
 
 	
 	m_pMothOrb->Render_Object();
+	if (m_pUI->Is_Active())
+		m_pUI->Render_Object();
 }
 
 

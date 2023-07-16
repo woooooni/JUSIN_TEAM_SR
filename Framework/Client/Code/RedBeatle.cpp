@@ -29,7 +29,7 @@ HRESULT CRedBeatle::Ready_Object(void)
 	Set_Speed(5.f);
 	m_tStat = { 3,3,0 };
 	m_pAnimator->Play_Animation(L"RedBeatle_Idle_Down", true);
-	m_fMinHeight = 1.0f;
+	m_fMinHeight = 0.5f;
 
 	return S_OK;
 }
