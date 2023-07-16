@@ -45,6 +45,8 @@ HRESULT CTrashBig::Ready_Object(void)
 
 _int CTrashBig::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	if (MONSTER_STATE::ATTACK != Get_State())
@@ -66,9 +68,16 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 
 	return iExit;
 }
-
+void CTrashBig::LateUpdate_Object(void)
+{
+	if (!Is_Active())
+		return ;
+	__super::LateUpdate_Object();
+}
 void CTrashBig::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 	__super::Render_Object();
@@ -78,9 +87,7 @@ void CTrashBig::Render_Object(void)
 }
 
 
-void CTrashBig::LateUpdate_Object(void)
-{
-}
+
 
 void CTrashBig::Update_Idle(_float fTimeDelta)
 {
@@ -246,6 +253,7 @@ void CTrashBig::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
 
+	__super::Collision_Enter(pCollider, _eCollisionGroup, _iColliderID);
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{

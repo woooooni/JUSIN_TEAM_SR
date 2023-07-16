@@ -202,7 +202,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				BulletPos.y -= 0.5f;
 				pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 				pBugBall->Set_Dir(vDir);
-				pBugBall->Set_Shooter(this);
+				pBugBall->Set_Owner(this);
 				pBugBall->Set_Atk(m_tStat.iAttack);
 				CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 				pLayer->Add_GameObject(L"BugBall", pBugBall);
@@ -375,7 +375,7 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		return;
 		
 		if(dynamic_cast<CBugBall*> (pCollider->GetOwner()))
-		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 		{
 			m_tStat.iHp -= 1;
 			

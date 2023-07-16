@@ -254,9 +254,15 @@ HRESULT CLogo::Ready_Layer_Monster()
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
 //
 //
-//	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
-//	NULL_CHECK_RETURN(pMothMage, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
+	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pMothMage, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
+	pMothMage = CMothMage::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pMothMage, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
+	 pMothMage = CMothMage::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pMothMage, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
 //	
 //	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
 //	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);

@@ -1,6 +1,6 @@
 #include "..\Header\Monster.h"
 #include "Export_Function.h"
-
+#include "Bullet.h"
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, _eObjId)
 	, m_eState(MONSTER_STATE::REGEN)
@@ -64,7 +64,10 @@ void CMonster::LateUpdate_Object(void)
 
 void CMonster::Render_Object(void)
 {
-	__super::Render_Object();
+	if (Is_Active())
+	{
+		__super::Render_Object();
+	}
 }
 
 HRESULT CMonster::Add_Component(void)
@@ -81,3 +84,136 @@ void CMonster::Free()
 	__super::Free();
 }
 
+void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+
+	switch (pCollider->GetOwner()->GetObj_Type())
+	{
+	case Engine::OBJ_TYPE::OBJ_ENVIRONMENT:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_SPAWNER:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_MONSTER:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_EFFECT:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_INTERACTION:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_BULLET:
+		if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner() == nullptr)
+			break;
+		if ( dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		{
+			m_tStat.iHp -= 1;
+			_vec3 vTargetPos;
+			_vec3 vPos;
+			_vec3 vDir;
+			pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			vDir = vPos - vTargetPos;
+			vDir.y = 0.0f;
+			D3DXVec3Normalize(&vDir, &vDir);
+
+			m_pRigidBodyCom->AddForce(vDir * 70.0f);
+
+		}
+		break;
+	default:
+		break;
+	}
+
+}
+
+void CMonster::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	switch (pCollider->GetOwner()->GetObj_Type())
+	{
+	case Engine::OBJ_TYPE::OBJ_ENVIRONMENT:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_SPAWNER:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_MONSTER:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_EFFECT:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_INTERACTION:
+		Push_Me(pCollider);
+		break;
+	case Engine::OBJ_TYPE::OBJ_BULLET:
+		if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner() == nullptr)
+		break;
+		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		m_tStat.iHp -= 1;
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = vPos - vTargetPos;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+
+		m_pRigidBodyCom->AddForce(vDir * 70.0f);
+
+	}
+		break;
+	default:
+		break;
+	}
+}
+
+void CMonster::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+}
+
+void CMonster::Push_Me(CCollider* other)
+{
+	if (!other->Is_Active() || !m_pColliderCom->Is_Active())
+		return;
+
+	if (other->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		return;
+
+
+	const _vec3& vLeftScale = ((CBoxCollider*)m_pColliderCom)->Get_Scale();
+	const _vec3& vLeftPos = ((CBoxCollider*)m_pColliderCom)->Get_Pos();
+	const _vec3& vRightScale = ((CBoxCollider*)other)->Get_Scale();
+	const _vec3& vRightPos = ((CBoxCollider*)other)->Get_Pos();
+
+	if (fabs(vRightPos.x - vLeftPos.x) < 0.5f * (vLeftScale.x + vRightScale.x)
+		&& fabs(vRightPos.y - vLeftPos.y) < 0.5f * (vLeftScale.y + vRightScale.y)
+		&& fabs(vRightPos.z - vLeftPos.z) < 0.5f * (vLeftScale.z + vRightScale.z))
+	{
+		float colX = 0.5f * (vLeftScale.x + vRightScale.x) - fabs(vRightPos.x - vLeftPos.x);
+		float colY = 0.5f * (vLeftScale.y + vRightScale.y) - fabs(vRightPos.y - vLeftPos.y);
+		float colZ = 0.5f * (vLeftScale.z + vRightScale.z) - fabs(vRightPos.z - vLeftPos.z);
+
+		if (colX < colZ)
+		{
+			if (vLeftPos.x > vRightPos.x)
+				m_pTransformCom->Move_Pos(&_vec3(colX * 0.5f, 0, 0), 1, 0.5);
+			else
+				m_pTransformCom->Move_Pos(&_vec3(colX * -0.5f, 0, 0),1, 0.5);
+		}
+
+		else if (colZ < colX)
+		{
+			if (vLeftPos.z > vRightPos.z)
+				m_pTransformCom->Move_Pos( &_vec3(0, 0, 0.5f * colZ),1, 0.5);
+			else
+				m_pTransformCom->Move_Pos( &_vec3(0, 0, -0.5f * colZ),1, 0.5 );
+
+		}
+	}
+
+}

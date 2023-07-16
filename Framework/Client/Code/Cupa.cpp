@@ -42,6 +42,8 @@ HRESULT CCupa::Ready_Object(void)
 
 _int CCupa::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	// Monster State¿¡ µû¸¥ Update
 
@@ -83,11 +85,15 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 
 void CCupa::LateUpdate_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	__super::LateUpdate_Object();
 }
 
 void CCupa::Render_Object(void)
 {
+	if (!Is_Active())
+		return;
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 

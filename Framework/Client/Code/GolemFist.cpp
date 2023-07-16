@@ -77,7 +77,7 @@ void CGolemFist::LateUpdate_Object(void)
 					NULL_CHECK_RETURN(pTrashBummer, );
 					vPos.y = 1.f;
 					pTrashBummer->Get_TransformCom()->Set_Pos(&vPos);
-					CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+					CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 					pLayer->Add_GameObject(L"GolemFist", pTrashBummer);
 
 				}

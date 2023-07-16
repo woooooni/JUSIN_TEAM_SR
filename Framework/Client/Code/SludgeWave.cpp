@@ -1,10 +1,10 @@
 #include "Export_Function.h"
 #include "SludgeWave.h"
-CSludgeWave::CSludgeWave(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
+CSludgeWave::CSludgeWave(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev,  OBJ_ID::MONSTER_SKILL)
 {
 }
 CSludgeWave::CSludgeWave(const CSludgeWave& rhs)
-	: Engine::CGameObject(rhs)
+	: CBullet(rhs)
 {
 
 }
@@ -34,8 +34,10 @@ HRESULT CSludgeWave::Ready_Object(void)
 _int CSludgeWave::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	if (m_fMoveTime < 9.9f&&m_bDuplicate)
+	if (Is_Active())
+	{
+		Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	if (m_fMoveTime < 9.9f && m_bDuplicate)
 	{
 		Create_Wave();
 		m_bDuplicate = false;
@@ -47,14 +49,18 @@ _int CSludgeWave::Update_Object(const _float& fTimeDelta)
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime -= 5.f * fTimeDelta;
+	}
 	return iExit;
 }
 
 void CSludgeWave::LateUpdate_Object(void)
 {
-	_vec3 vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	__super::LateUpdate_Object();
+	if (Is_Active())
+	{
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		__super::LateUpdate_Object();
+	}
 }
 
 void CSludgeWave::Render_Object(void)

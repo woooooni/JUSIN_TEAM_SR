@@ -62,7 +62,8 @@ HRESULT CTrashBummer::Ready_Object(void)
 
 _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 {
-
+	if (!Is_Active())
+		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
 	_vec3  vPos;
 
@@ -93,12 +94,15 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 }
 void CTrashBummer::LateUpdate_Object(void)
 {
-
+	if (!Is_Active())
+		return ;
 	__super::LateUpdate_Object();
 
 }
 void CTrashBummer::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 
@@ -251,7 +255,7 @@ void CTrashBummer::Trace(_float fTimeDelta)
 			BulletPos.z -= 0.01f;
 			pSludgeBall->Get_TransformCom()->Set_Pos(&BulletPos);
 			pSludgeBall->Set_Dst(vTargetPos);
-			pSludgeBall->Set_Shooter(this);
+			pSludgeBall->Set_Owner(this);
 			pSludgeBall->Set_Atk(m_tStat.iAttack);
 			pSludgeBall->Get_RigidBodyCom()->SetMass(10.f);
 			pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 150.0f, 0.0f));
@@ -275,6 +279,7 @@ void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
 
+	__super::Collision_Enter(pCollider, _eCollisionGroup, _iColliderID);
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
@@ -291,6 +296,10 @@ void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 		if (m_tStat.iHp < 1.f)
 			Set_State(MONSTER_STATE::DIE);
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER && pCollider->GetOwner()->GetObj_Id() == OBJ_ID::CLEAR_FIELD)
+	{
+		Set_State(MONSTER_STATE::DIE);
 	}
 	
 }

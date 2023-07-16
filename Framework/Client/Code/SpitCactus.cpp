@@ -34,6 +34,8 @@ HRESULT CSpitCactus::Ready_Object(void)
 
 _int CSpitCactus::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
@@ -41,11 +43,15 @@ _int CSpitCactus::Update_Object(const _float& fTimeDelta)
 }
 void CSpitCactus::LateUpdate_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	__super::LateUpdate_Object();
 }
 
 void CSpitCactus::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 	__super::Render_Object();
@@ -87,6 +93,7 @@ void CSpitCactus::Update_Attack(_float fTimeDelta)
 			_vec3 AxisY = { 0,1,0 };
 			pCactusNeedle->Get_TransformCom()->RotationAxis(AxisY, D3DXToRadian(45.f*(float)i));
 			pCactusNeedle->Set_Poison(m_bPoison);
+			pCactusNeedle->Set_Owner(this);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"CactusNeedle", pCactusNeedle);
 			m_bShoot = false;
@@ -162,7 +169,7 @@ void CSpitCactus::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
-
+	__super::Collision_Enter(pCollider, _eCollisionGroup, _iColliderID);
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
@@ -177,5 +184,11 @@ void CSpitCactus::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		m_tStat.iHp -= 1;
 		if (m_tStat.iHp < 1)
 			Set_State(MONSTER_STATE::DIE);
+	}
+	if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner() == nullptr)
+		return;
+	if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		m_tStat.iHp -= 1; 
 	}
 }

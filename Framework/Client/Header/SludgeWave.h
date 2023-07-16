@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Bullet.h"
 
 BEGIN(Engine)
 
@@ -9,7 +9,7 @@ class CTransform;
 
 END
 
-class CSludgeWave : public Engine::CGameObject
+class CSludgeWave : public CBullet
 {
 	CLONE(CSludgeWave)
 

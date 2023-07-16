@@ -1,11 +1,11 @@
 #include "PlantBall.h"
 #include "Export_Function.h"
 
-CPlantBall::CPlantBall(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
+CPlantBall::CPlantBall(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev, OBJ_ID::MONSTER_SKILL)
 {
 }
 CPlantBall::CPlantBall(const CPlantBall& rhs)
-	: Engine::CGameObject(rhs)
+	: CBullet(rhs)
 {
 
 }
@@ -117,7 +117,7 @@ void CPlantBall::Free()
 }
 void CPlantBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && m_pOwner->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
 	{
 		if (Is_Active())
 			Set_Active(false);

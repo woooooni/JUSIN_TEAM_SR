@@ -1,10 +1,10 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Bullet.h"
 
 
 class CCactusNeedle :
-	public CGameObject
+	public CBullet
 {
 
 	CLONE(CCactusNeedle)

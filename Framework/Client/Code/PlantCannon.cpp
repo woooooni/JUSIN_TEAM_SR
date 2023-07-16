@@ -35,8 +35,10 @@ HRESULT CPlantCannon::Ready_Object(void)
 _int CPlantCannon::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
-
+	if (Is_Active())
+	{
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
+	}
 	return iExit;
 }
 void CPlantCannon::LateUpdate_Object(void)
@@ -46,10 +48,13 @@ void CPlantCannon::LateUpdate_Object(void)
 
 void CPlantCannon::Render_Object(void)
 {
+	if (Is_Active())
+	{
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
-	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
+		__super::Render_Object();
+		m_pBufferCom->Render_Buffer();
+	}
 }
 
 void CPlantCannon::Update_Attack(_float fTimeDelta)
@@ -69,7 +74,7 @@ void CPlantCannon::Update_Attack(_float fTimeDelta)
 			vDir = { -1,0,0 };
 		pPlantBall->Get_TransformCom()->Set_Pos(&BulletPos);
 		pPlantBall->Set_Dir(vDir);
-		pPlantBall->Set_Shooter(this);
+		pPlantBall->Set_Owner(this);
 		pPlantBall->Set_Atk(m_tStat.iAttack);
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 		pLayer->Add_GameObject(L"PlantBall", pPlantBall);
@@ -159,7 +164,7 @@ void CPlantCannon::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
-
+	
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
@@ -174,5 +179,11 @@ void CPlantCannon::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 		m_tStat.iHp -= 1;
 		if (m_tStat.iHp < 1)
 			Set_State(MONSTER_STATE::DIE);
+	}
+	if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner() == nullptr)
+		return;
+	if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		m_tStat.iHp -= 1;
 	}
 }

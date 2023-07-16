@@ -48,6 +48,8 @@ HRESULT CTrashFast::Ready_Object(void)
 
 _int CTrashFast::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
 	if (MONSTER_STATE::ATTACK != Get_State()) // 공격상태가 아니면
@@ -76,11 +78,15 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 
 void CTrashFast::LateUpdate_Object(void)
 {
+	if (!Is_Active())
+		return;
 	__super::LateUpdate_Object();
 }
 
 void CTrashFast::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	__super::Render_Object();
@@ -268,7 +274,8 @@ void CTrashFast::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
-
+	__super::Collision_Enter( pCollider,  _eCollisionGroup,  _iColliderID);
+	
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{

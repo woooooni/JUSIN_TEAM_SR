@@ -1,11 +1,11 @@
 #include "SludgeBall.h"
 #include "Export_Function.h"
 
-CSludgeBall::CSludgeBall(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
+CSludgeBall::CSludgeBall(LPDIRECT3DDEVICE9 pGraphicDev) :CBullet(pGraphicDev, OBJ_ID::MONSTER_SKILL)
 {
 }
 CSludgeBall::CSludgeBall(const CSludgeBall& rhs)
-	: Engine::CGameObject(rhs)
+	: CBullet(rhs)
 {
 
 }
@@ -37,37 +37,40 @@ HRESULT CSludgeBall::Ready_Object(void)
 _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
-	m_pAnimator->Play_Animation(L"SludgeBall", true);
-	_vec3 vDir, vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = m_vDst - vPos;
-	vDir.y = 0.f;
+	if (Is_Active())
+	{
+		Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
+		m_pAnimator->Play_Animation(L"SludgeBall", true);
+		_vec3 vDir, vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = m_vDst - vPos;
+		vDir.y = 0.f;
 
-	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
-	{
-		if (Is_Active())
-			Set_Active(false);
-	}
-	else if (vPos.y <= 0.26f)
-	{
-		if ( m_pAnimator->GetCurrAnimation()->Get_Idx() < 6)
+		if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 		{
-			m_pAnimator->GetCurrAnimation()->Set_Idx(6);
-			m_pMonsterAim->Set_Active(false);
+			if (Is_Active())
+				Set_Active(false);
 		}
-		return iExit;
-	}
-	else if (m_pAnimator->GetCurrAnimation()->Get_Idx() >6)
-	{
-		m_pAnimator->GetCurrAnimation()->Set_Idx(1);
-	}
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 7.5f);
+		else if (vPos.y <= 0.26f)
+		{
+			if (m_pAnimator->GetCurrAnimation()->Get_Idx() < 6)
+			{
+				m_pAnimator->GetCurrAnimation()->Set_Idx(6);
+				m_pMonsterAim->Set_Active(false);
+			}
+			return iExit;
+		}
+		else if (m_pAnimator->GetCurrAnimation()->Get_Idx() > 6)
+		{
+			m_pAnimator->GetCurrAnimation()->Set_Idx(1);
+		}
+		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 7.5f);
 
-	m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ m_vDst.x,0.01f,m_vDst.z });
-	m_pMonsterAim->Set_Red(0);
-	m_pMonsterAim->Update_Object(fTimeDelta);
+		m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ m_vDst.x,0.01f,m_vDst.z });
+		m_pMonsterAim->Set_Red(0);
+		m_pMonsterAim->Update_Object(fTimeDelta);
+	}
 	return iExit;
 }
 
@@ -138,7 +141,7 @@ void CSludgeBall::Free()
 }
 void CSludgeBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && m_pOwner->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
 	{
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() < 6)
 		{

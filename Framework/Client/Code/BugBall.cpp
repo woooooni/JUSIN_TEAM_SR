@@ -1,11 +1,11 @@
 #include "BugBall.h"
 #include "Export_Function.h"
 
-CBugBall::CBugBall(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::BUG_BALL)
+CBugBall::CBugBall(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev, OBJ_ID::BUG_BALL)
 {
 }
 CBugBall::CBugBall(const CBugBall& rhs)
-	: Engine::CGameObject(rhs)
+	:CBullet(rhs)
 {
 
 }
@@ -117,7 +117,7 @@ void CBugBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 {
 
 
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER && m_pOwner->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
 	{
 		_vec3 vTargetPos;
 		_vec3 vPos;
@@ -128,21 +128,21 @@ void CBugBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
 		vDir *= -1;
-		Set_Shooter(pCollider->GetOwner());
+		Set_Owner(pCollider->GetOwner());
 		m_vDir = vDir;
 		m_fMoveTime = 20.f;
 	}
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
 	{
 		if (Is_Active())
 			Set_Active(false);
 	}
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER && Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
 		if (Is_Active())
 			Set_Active(false);
 	}
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS && m_pShooter->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS && Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
 		if (Is_Active())
 			Set_Active(false);
