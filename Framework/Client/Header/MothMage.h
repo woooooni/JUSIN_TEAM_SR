@@ -34,8 +34,10 @@ private:
     _vec3 m_vDir = { 0.f,0.f,0.f };
     _bool m_bShoot = false;
     virtual void Trace(_float fTimeDelta) override;
-
+    _bool m_bChase = false;
     virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+
+    void Set_Animation();
 
     CMothOrb* m_pMothOrb;
 };

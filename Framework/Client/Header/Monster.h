@@ -59,7 +59,7 @@ private:
 protected:
 	CGameObject*	m_pTarget;
 	MONSTERSTAT		m_tStat;
-	_vec3 m_vLook;
+	_vec3 m_vLook = {0.f,0.f,-1.f};
 	CUI_MonsterHP* m_pUI;
 	MONSTER_STATE m_ePreviousState;
 	OBJ_DIR m_eDir;

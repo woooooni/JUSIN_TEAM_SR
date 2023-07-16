@@ -41,18 +41,18 @@ HRESULT CTrashBummer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashBummer_Move_LeftUp", L"Proto_Texture_TrashBummer_Move_LeftUp", 0.1f);
 
 	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Down", L"Proto_Texture_TrashBummer_Attack_Down", 0.3f);
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Up", L"Proto_Texture_TrashBummer_Attack_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Left", L"Proto_Texture_TrashBummer_Attack_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Right", L"Proto_Texture_TrashBummer_Attack_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_RightDown", L"Proto_Texture_TrashBummer_Attack_RightDown", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_RightUp", L"Proto_Texture_TrashBummer_Attack_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftDown", L"Proto_Texture_TrashBummer_Attack_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftUp", L"Proto_Texture_TrashBummer_Attack_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Up", L"Proto_Texture_TrashBummer_Attack_Up", 0.3f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Left", L"Proto_Texture_TrashBummer_Attack_Left", 0.3f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_Right", L"Proto_Texture_TrashBummer_Attack_Right", 0.3f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_RightDown", L"Proto_Texture_TrashBummer_Attack_RightDown", 0.3f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_RightUp", L"Proto_Texture_TrashBummer_Attack_RightUp", 0.3f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftDown", L"Proto_Texture_TrashBummer_Attack_LeftDown", 0.3f);
+	m_pAnimator->Add_Animation(L"TrashBummer_Attack_LeftUp", L"Proto_Texture_TrashBummer_Attack_LeftUp", 0.3f);
 
 	m_pAnimator->Add_Animation(L"TrashBummer_Regen_Down", L"Proto_Texture_TrashBummer_Regen_Down", 0.4f);
 
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
-	Set_Speed(5.f);
+	Set_Speed(4.f);
 	Set_State(MONSTER_STATE::IDLE);
 	m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
 	m_tStat = { 3,3,1 };
@@ -82,7 +82,7 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
 
-		if (D3DXVec3Length(&vDir) <= 15.f)
+		if (D3DXVec3Length(&vDir) <= 10.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
 			m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
@@ -96,6 +96,7 @@ void CTrashBummer::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return ;
+	Set_Animation();
 	__super::LateUpdate_Object();
 
 }
@@ -161,14 +162,34 @@ void CTrashBummer::Update_Move(_float fTimeDelta)
 	vDir = m_vDst;
 	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
+	m_vLook = vDir;
 	m_pTarget = nullptr;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 }
 
 void CTrashBummer::Update_Attack(_float fTimeDelta)
 {
-	Trace(fTimeDelta);
+	_vec3 vTargetPos, vPos, vDir;
+	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	if (nullptr == pTarget)
+		return;
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
+	vDir = vTargetPos - vPos;
+	m_vLook = vDir;
+	if (D3DXVec3Length(&vDir) > 10.f && !m_bShoot)
+	{
+		Set_State(MONSTER_STATE::IDLE);
+	}
+	if (D3DXVec3Length(&vDir) < 10.f && D3DXVec3Length(&vDir) >= 4.f)
+	{
+		D3DXVec3Normalize(&vDir, &vDir);
+		m_vLook = vDir;
+		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
+	}
+	else
+		Trace(fTimeDelta);
 }
 HRESULT CTrashBummer::Add_Component(void)
 {
@@ -220,59 +241,38 @@ void CTrashBummer::Trace(_float fTimeDelta)
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 	if (nullptr == pTarget)
 		return;
-
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	vDir = vTargetPos - vPos;
-	vDir.y = 0.f;
+	m_vLook = vDir;
+	if (D3DXVec3Length(&vDir) < 7.f && m_bShoot && m_pAnimator->GetCurrAnimation()->Get_Idx() == 3)
+	{
+		D3DXVec3Normalize(&vDir, &vDir);
+		CSludgeBall* pSludgeBall = CSludgeBall::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pSludgeBall, );
+		_vec3 BulletPos = vPos;
+		BulletPos.y += 0.5f;
+		BulletPos.z -= 0.01f;
+		pSludgeBall->Get_TransformCom()->Set_Pos(&BulletPos);
+		pSludgeBall->Set_Dst(vTargetPos);
+		pSludgeBall->Set_Owner(this);
+		pSludgeBall->Set_Atk(m_tStat.iAttack);
+		pSludgeBall->Get_RigidBodyCom()->SetMass(10.f);
+		pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 150.0f, 0.0f));
+		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+		pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
+		Set_State(MONSTER_STATE::IDLE);
+		m_bShoot = false;
+	}
 
-	if (D3DXVec3Length(&vDir) > 15.f && !m_bShoot)
+
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
 		Set_State(MONSTER_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
-		m_bShoot = false;
-
-	}
-
-	else if (D3DXVec3Length(&vDir) <9.f && !m_bShoot)
-	{
-		m_pAnimator->Play_Animation(L"TrashBummer_Attack_Down", true);
-
 		m_bShoot = true;
-
 	}
-	else if (D3DXVec3Length(&vDir) < 9.f|| m_bShoot)
-	{
-	
-		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 3&&m_bShoot)
-		{
-			D3DXVec3Normalize(&vDir, &vDir);
-			CSludgeBall* pSludgeBall = CSludgeBall::Create(m_pGraphicDev);
-			NULL_CHECK_RETURN(pSludgeBall, );
-			_vec3 BulletPos= vPos;
-			BulletPos.y += 0.5f;
-			BulletPos.z -= 0.01f;
-			pSludgeBall->Get_TransformCom()->Set_Pos(&BulletPos);
-			pSludgeBall->Set_Dst(vTargetPos);
-			pSludgeBall->Set_Owner(this);
-			pSludgeBall->Set_Atk(m_tStat.iAttack);
-			pSludgeBall->Get_RigidBodyCom()->SetMass(10.f);
-			pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 150.0f, 0.0f));
-			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
-			pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
-			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
 
-			m_bShoot = false;
-		}
-
-	}
-	else {
-		m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
-		D3DXVec3Normalize(&vDir, &vDir);
-		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
-	}
 }
 void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
@@ -302,4 +302,215 @@ void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 		Set_State(MONSTER_STATE::DIE);
 	}
 	
+}
+void CTrashBummer::Set_Animation()
+{
+
+	OBJ_DIR eDir = OBJ_DIR::DIR_END;
+	D3DXVec3Normalize(&m_vLook, &m_vLook);
+	_vec3 vAxis(0.f, 0.f, 1.f);
+	_float fAngle = D3DXVec3Dot(&m_vLook, &vAxis);
+	fAngle = acosf(fAngle);
+
+	if (m_vLook.x < 0.0f)
+		fAngle = D3DX_PI * 2 - fAngle;
+
+
+	fAngle = D3DXToDegree(fAngle);
+
+
+
+	_uint iDir = fAngle / 22.5f;
+
+	if (iDir == 0 || iDir == 15 || iDir == 16)
+	{
+		eDir = OBJ_DIR::DIR_U;
+	}
+	else if (iDir == 1 || iDir == 2)
+	{
+		eDir = OBJ_DIR::DIR_RU;
+	}
+	else if (iDir == 3 || iDir == 4)
+	{
+		eDir = OBJ_DIR::DIR_R;
+	}
+	else if (iDir == 5 || iDir == 6)
+	{
+		eDir = OBJ_DIR::DIR_RD;
+	}
+	else if (iDir == 7 || iDir == 8)
+	{
+		eDir = OBJ_DIR::DIR_D;
+	}
+	else if (iDir == 9 || iDir == 10)
+	{
+		eDir = OBJ_DIR::DIR_LD;
+	}
+	else if (iDir == 11 || iDir == 12)
+	{
+		eDir = OBJ_DIR::DIR_L;
+	}
+	else if (iDir == 13 || iDir == 14)
+	{
+		eDir = OBJ_DIR::DIR_LU;
+	}
+	else
+		return;
+	MONSTER_STATE eState = Get_State();
+	_uint iIndex = m_pAnimator->GetCurrAnimation()->Get_Idx();
+	switch (eState)
+	{
+	case Engine::MONSTER_STATE::IDLE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashBummer_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::MOVE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashBummer_Move_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::REGEN:
+			m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
+		break;
+	case Engine::MONSTER_STATE::ATTACK:
+		if (m_bShoot)
+			switch (eDir)
+			{
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_LeftUp", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_RightUp", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_LeftDown", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"TrashBummer_Attack_RightDown", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
+			default:
+				break;
+			}
+		else
+			switch (eDir)
+			{
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_LeftUp", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_RightUp", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_LeftDown", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"TrashBummer_Move_RightDown", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
+			default:
+				break;
+			}
+		break;
+	case Engine::MONSTER_STATE::DIE:
+		m_pAnimator->Play_Animation(L"TrashBummer_Idle_Down", true);
+		break;
+	default:
+		break;
+	}
+	if (m_ePreviousState == eState)
+	{
+		if(m_ePreviousState != MONSTER_STATE::ATTACK)
+		m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
+		else if (m_bChase == m_bShoot && m_ePreviousState == MONSTER_STATE::ATTACK)
+		{
+			m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
+		}
+	}
+	m_bChase = m_bShoot;
+	m_ePreviousState = eState;
+	m_eDir = eDir;
 }

@@ -295,13 +295,13 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	//	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
 	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
 	//
-	//	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
-	//	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
+	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
 	//
-	//	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
-	//	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
+	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
 	//
 	//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
 	//	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
@@ -312,9 +312,9 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
 	//		*/
 	//
-	//	CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
-	//	NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
+		CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
+		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
 
 	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pMothMage, E_FAIL);

@@ -409,9 +409,6 @@
     <Filter Include="02. GameObject\11. FixedObj\03. Prop">
       <UniqueIdentifier>{b2d0bf4c-8897-41c6-88da-dec408d4ff0d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\02. Monster\08. TrashBummer">
-      <UniqueIdentifier>{f1cf7143-fd3d-40fb-ab05-b432e2692506}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\02. Monster\09. TrashSlime">
       <UniqueIdentifier>{b4f45c74-5de3-4838-a24e-f443cbd1a93a}</UniqueIdentifier>
     </Filter>
@@ -459,6 +456,9 @@
     </Filter>
     <Filter Include="01. Scene\100. Test">
       <UniqueIdentifier>{b5595ae0-4c42-47c3-aaba-16051343aaf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\02. Monster\08. TrashBummer">
+      <UniqueIdentifier>{f1cf7143-fd3d-40fb-ab05-b432e2692506}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

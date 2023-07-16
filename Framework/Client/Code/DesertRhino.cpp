@@ -168,10 +168,10 @@ void CDesertRhino::Update_Move(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::IDLE);
-	
 		}
 
 		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
+
 		if (vDst != m_vDst)
 			m_vDst = vDst;
 		m_fMoveTime = 0.f;
@@ -337,13 +337,12 @@ void CDesertRhino::Set_Animation()
 	MONSTER_STATE eState= Get_State();
 	if (m_ePreviousState == eState && eDir == m_eDir)
 		return;
-	m_ePreviousState = eState;
-	m_eDir = eDir;
+
 	_uint iIndex = m_pAnimator->GetCurrAnimation()->Get_Idx();
-	switch (m_ePreviousState)
+	switch (eState)
 	{
 	case Engine::MONSTER_STATE::IDLE:
-		switch (m_eDir)
+		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
 			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Up",true);
@@ -376,7 +375,7 @@ void CDesertRhino::Set_Animation()
 		}
 		break;
 	case Engine::MONSTER_STATE::MOVE:
-		switch (m_eDir)
+		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
 			m_pAnimator->Play_Animation(L"DesertRhino_Move_Up", true);
@@ -409,7 +408,7 @@ void CDesertRhino::Set_Animation()
 		}
 		break;
 	case Engine::MONSTER_STATE::REGEN:
-		switch (m_eDir)
+		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
 			m_pAnimator->Play_Animation(L"DesertRhino_Ready_Up", true);
@@ -442,7 +441,7 @@ void CDesertRhino::Set_Animation()
 		}
 		break;
 	case Engine::MONSTER_STATE::ATTACK:
-		switch (m_eDir)
+		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
 			m_pAnimator->Play_Animation(L"DesertRhino_Attack_Up", true);
@@ -475,7 +474,7 @@ void CDesertRhino::Set_Animation()
 		}
 		break;
 	case Engine::MONSTER_STATE::DIE:
-		switch (m_eDir)
+		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
 			m_pAnimator->Play_Animation(L"DesertRhino_Idle_Up", true);
@@ -510,6 +509,9 @@ void CDesertRhino::Set_Animation()
 	default:
 		break;
 	}
-	m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
+	if (m_ePreviousState == eState)
+		m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
+	m_ePreviousState = eState;
+	m_eDir = eDir;
 }
 

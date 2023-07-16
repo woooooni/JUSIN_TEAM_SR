@@ -33,6 +33,8 @@ class CTrashSlime :
 
         virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
+        void Set_Animation();
+
 
 };
 
