@@ -16,7 +16,7 @@ class CPlayer_Bullet_GolemFist : public CBullet
 {
 	CLONE(CPlayer_Bullet_GolemFist)
 private:
-	explicit CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
+	explicit CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CPlayer_Bullet_GolemFist(const CPlayer_Bullet_GolemFist& rhs);
 	virtual ~CPlayer_Bullet_GolemFist();
 
@@ -42,7 +42,7 @@ public:
 private:
 
 public:
-	static CPlayer_Bullet_GolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
+	static CPlayer_Bullet_GolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 

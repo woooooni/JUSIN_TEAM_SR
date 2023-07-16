@@ -201,7 +201,7 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	{
 		CEffect_Shadow* pShadow = CEffect_Shadow::Create(Engine::Get_Device());
 		NULL_CHECK(pShadow, E_FAIL);
-		dynamic_cast<CEffect_Shadow*>(pShadow)->Set_Shadow(m_pOwner, _vec3(0.8f, 0.6f, 1.0f));
+		dynamic_cast<CEffect_Shadow*>(pShadow)->Set_Shadow(m_pOwner, _vec3(1.2f, 1.0f, 1.0f));
 	}
 
 	if (KEY_TAP(KEY::B))

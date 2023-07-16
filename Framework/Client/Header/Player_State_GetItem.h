@@ -15,6 +15,9 @@ public:
 
 private:
 	bool	m_bFinished = false;
+	bool	m_bEffect = false;
+
+
 	_vec3	m_vStartPos;
 
 
@@ -25,5 +28,8 @@ private:
 	vector<_vec3> m_vecHatPos;
 	float m_fAngle[6];
 	float m_fScale[6];
+
+
+	CGameObject* m_pEffect = nullptr;
 };
 

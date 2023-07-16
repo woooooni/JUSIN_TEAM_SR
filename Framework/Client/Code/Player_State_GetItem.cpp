@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Texture.h"
 #include "KeyMgr.h"
+#include "Effect_GetItem.h"
+#include "Export_Function.h"
 
 
 CPlayer_State_GetItem::CPlayer_State_GetItem(CGameObject* _pOwner)
@@ -24,6 +26,13 @@ HRESULT CPlayer_State_GetItem::Ready_State(void)
 
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vStartPos);
 	m_bFinished = false;
+	m_bEffect = false;
+
+	if (!m_pEffect)
+	{
+		m_pEffect = CEffect_GetItem::Create(Engine::Get_Device());
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Effect_GetItem", m_pEffect);
+	}
 
 	return S_OK;
 }
@@ -37,16 +46,32 @@ _int CPlayer_State_GetItem::Update_State(const _float& fTimeDelta)
 
 	if (!dynamic_cast<CPlayer*>(m_pOwner)->Is_GetItem())
 	{
-		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
-		m_pOwner->Get_TransformCom()->Set_Pos(&m_vStartPos);
+		dynamic_cast<CEffect_GetItem*>(m_pEffect)->End_Effect();
+		if (!m_pEffect->Is_Active())
+		{
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
+			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+			m_pOwner->Get_TransformCom()->Set_Pos(&m_vStartPos);
+		}
 	}
 	
-	if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() > 2 && !m_bFinished)
+	if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() > 2 && !m_bEffect)
 	{
 		m_pOwner->Get_TransformCom()->Move_Pos(&_vec3(0.0f, 1.0f, 0.0f), 10.0f, fTimeDelta);
 		if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Is_Finished())
-			m_bFinished = true;
+			m_bEffect = true;
+	}
+
+	if (m_bEffect && !m_bFinished)
+	{
+		_vec3 vPos;
+
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		vPos.z -= 0.05f;
+		vPos.y += 1.5f;
+		dynamic_cast<CEffect_GetItem*>(m_pEffect)->Get_Effect(vPos, nullptr);
+		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Effect_GetItem", m_pEffect);
+		m_bFinished = true;
 	}
 	
 

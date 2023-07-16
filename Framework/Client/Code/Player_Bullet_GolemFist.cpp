@@ -7,8 +7,8 @@
 #include "Scene.h"
 #include "Terrain.h"
 
-CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
-    : CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL, _pOwner),
+CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev)
+    : CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL),
 	m_fStopTime(0.1f),
 	m_fAccTime(0.0f)
 {
@@ -138,9 +138,9 @@ void CPlayer_Bullet_GolemFist::Collision_Exit(CCollider* pCollider, COLLISION_GR
 {
 }
 
-CPlayer_Bullet_GolemFist* CPlayer_Bullet_GolemFist::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner)
+CPlayer_Bullet_GolemFist* CPlayer_Bullet_GolemFist::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CPlayer_Bullet_GolemFist* pInstance = new CPlayer_Bullet_GolemFist(pGraphicDev, _pOwner);
+	CPlayer_Bullet_GolemFist* pInstance = new CPlayer_Bullet_GolemFist(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

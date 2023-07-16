@@ -22,9 +22,10 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 {
 	if (!m_pGolemFist)
 	{
-		CPlayer_Bullet_GolemFist* pGolemFist = CPlayer_Bullet_GolemFist::Create(Engine::Get_Device(), m_pOwner);
+		CPlayer_Bullet_GolemFist* pGolemFist = CPlayer_Bullet_GolemFist::Create(Engine::Get_Device());
 		Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Player_Skill_GolemFist", pGolemFist);
 		m_pGolemFist = pGolemFist;
+		dynamic_cast<CBullet*>(m_pGolemFist)->Set_Owner(m_pOwner);
 	}
 
 
@@ -69,7 +70,10 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vPos);
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange()->Set_Active(true);
+	CGameObject* pRange = dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange();
+	pRange->Set_Active(true);
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillRange", pRange);
+
 
 	m_vPos.y -= m_pOwner->Get_MinHeight() - 0.001f;
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange()->Get_TransformCom()->Set_Pos(&m_vPos);
@@ -78,9 +82,10 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 	dynamic_cast<CPlayer_Skill_Range*>(dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange())->Set_Range(m_vScale, m_vPos);
 	m_bSkillStart = false;
 
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(true);
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Get_TransformCom()->Set_Pos(&(m_vPos + m_vDir));
-
+	CGameObject* pAim = dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim();
+	pAim->Set_Active(true);
+	pAim->Get_TransformCom()->Set_Pos(&(m_vPos + m_vDir));
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillAim", pAim);
 
 	m_fRotAngle = 0.0f;
 
@@ -164,4 +169,5 @@ void CPlayer_Skill_GolemFist::Shoot(void)
 	m_pGolemFist->Get_RigidBodyCom()->SetGround(false);
 	m_pGolemFist->Get_RigidBodyCom()->AddForce(_vec3(0.0f, -10.0f, 0.0f));
 	m_pGolemFist->Set_Active(true);
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillGolemFist", m_pGolemFist);
 }

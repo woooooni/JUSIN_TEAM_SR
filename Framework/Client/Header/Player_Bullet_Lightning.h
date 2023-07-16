@@ -16,7 +16,7 @@ class CPlayer_Bullet_Lightning : public CBullet
 {
 	CLONE(CPlayer_Bullet_Lightning)
 private:
-	explicit CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
+	explicit CPlayer_Bullet_Lightning(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CPlayer_Bullet_Lightning(const CPlayer_Bullet_Lightning& rhs);
 	virtual ~CPlayer_Bullet_Lightning();
 
@@ -43,7 +43,7 @@ public:
 private:
 
 public:
-	static CPlayer_Bullet_Lightning* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pOwner);
+	static CPlayer_Bullet_Lightning* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 

@@ -412,21 +412,6 @@
     <Filter Include="02. GameObject\13. Effect\03. Player_Skill_Aim">
       <UniqueIdentifier>{1caee045-0aac-4fff-86ce-d14be42de91a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\13. Effect\04. Player_Skill_Barrier">
-      <UniqueIdentifier>{2c7931f2-911c-482c-92da-17488e51407e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\05. Player_Skill_Drill">
-      <UniqueIdentifier>{5529a875-2686-4101-b138-95a3ba7c861b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\06. Player_Skill_GolemFist">
-      <UniqueIdentifier>{e037dc2c-3e99-4a81-9c50-ac4d5b12c2bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\08. Player_Skill_Missile">
-      <UniqueIdentifier>{48ad2ef0-c304-45f4-90a4-7b6fc40888e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\07. Player_Skill_Lightning">
-      <UniqueIdentifier>{acca675b-a08e-455c-945b-ae8b9c4ac156}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\13. Effect\09. Player_Skill_Range">
       <UniqueIdentifier>{e8a6750c-8085-4d11-89ce-da99c0d9eee7}</UniqueIdentifier>
     </Filter>
@@ -447,6 +432,27 @@
     </Filter>
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\01. Turret">
       <UniqueIdentifier>{8cffd656-a570-4179-b846-a4e0332ca644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\Skill">
+      <UniqueIdentifier>{1dcc66ad-61fd-48f5-939d-fcb60976e798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\Skill\00. Player_Skill_Barrier">
+      <UniqueIdentifier>{2c7931f2-911c-482c-92da-17488e51407e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\Skill\01. Player_Skill_Drill">
+      <UniqueIdentifier>{5529a875-2686-4101-b138-95a3ba7c861b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\Skill\02. Player_Skill_GolemFist">
+      <UniqueIdentifier>{e037dc2c-3e99-4a81-9c50-ac4d5b12c2bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\Skill\03. Player_Skill_Lightning">
+      <UniqueIdentifier>{acca675b-a08e-455c-945b-ae8b9c4ac156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\Skill\04. Player_Skill_Missile">
+      <UniqueIdentifier>{48ad2ef0-c304-45f4-90a4-7b6fc40888e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\04. GetItem">
+      <UniqueIdentifier>{0f6036b5-db16-4f1d-9654-32fbd6ac22f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -848,19 +854,19 @@
       <Filter>02. GameObject\13. Effect\03. Player_Skill_Aim</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Barrier.h">
-      <Filter>02. GameObject\13. Effect\04. Player_Skill_Barrier</Filter>
+      <Filter>02. GameObject\01. Player\Skill\00. Player_Skill_Barrier</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Drill.h">
-      <Filter>02. GameObject\13. Effect\05. Player_Skill_Drill</Filter>
+      <Filter>02. GameObject\01. Player\Skill\01. Player_Skill_Drill</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_GolemFist.h">
-      <Filter>02. GameObject\13. Effect\06. Player_Skill_GolemFist</Filter>
+      <Filter>02. GameObject\01. Player\Skill\02. Player_Skill_GolemFist</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Lightning.h">
-      <Filter>02. GameObject\13. Effect\07. Player_Skill_Lightning</Filter>
+      <Filter>02. GameObject\01. Player\Skill\03. Player_Skill_Lightning</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Missile.h">
-      <Filter>02. GameObject\13. Effect\08. Player_Skill_Missile</Filter>
+      <Filter>02. GameObject\01. Player\Skill\04. Player_Skill_Missile</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Range.h">
       <Filter>02. GameObject\13. Effect\09. Player_Skill_Range</Filter>
@@ -888,6 +894,10 @@
     </ClInclude>
     <ClInclude Include="..\Header\UseItem.h">
       <Filter>02. GameObject\10. Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Particle_MapCircle.h" />
+    <ClInclude Include="..\Header\Effect_GetItem.h">
+      <Filter>02. GameObject\13. Effect\04. GetItem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1272,19 +1282,19 @@
       <Filter>02. GameObject\13. Effect\03. Player_Skill_Aim</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Barrier.cpp">
-      <Filter>02. GameObject\13. Effect\04. Player_Skill_Barrier</Filter>
+      <Filter>02. GameObject\01. Player\Skill\00. Player_Skill_Barrier</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Drill.cpp">
-      <Filter>02. GameObject\13. Effect\05. Player_Skill_Drill</Filter>
+      <Filter>02. GameObject\01. Player\Skill\01. Player_Skill_Drill</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp">
-      <Filter>02. GameObject\13. Effect\06. Player_Skill_GolemFist</Filter>
+      <Filter>02. GameObject\01. Player\Skill\02. Player_Skill_GolemFist</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Lightning.cpp">
-      <Filter>02. GameObject\13. Effect\07. Player_Skill_Lightning</Filter>
+      <Filter>02. GameObject\01. Player\Skill\03. Player_Skill_Lightning</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Missile.cpp">
-      <Filter>02. GameObject\13. Effect\08. Player_Skill_Missile</Filter>
+      <Filter>02. GameObject\01. Player\Skill\04. Player_Skill_Missile</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Range.cpp">
       <Filter>02. GameObject\13. Effect\09. Player_Skill_Range</Filter>
@@ -1312,6 +1322,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\UseItem.cpp">
       <Filter>02. GameObject\10. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
+    <ClCompile Include="..\Code\Effect_GetItem.cpp">
+      <Filter>02. GameObject\13. Effect\04. GetItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
