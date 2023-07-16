@@ -71,7 +71,8 @@ HRESULT CDesertRhino::Ready_Object(void)
 
 _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 {
-
+	if (!Is_Active())
+		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
@@ -101,11 +102,14 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 
 void CDesertRhino::LateUpdate_Object(void)
 {
-
+	if (!Is_Active())
+		return ;
 	__super::LateUpdate_Object();
 }
 void CDesertRhino::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 
@@ -257,6 +261,7 @@ void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
 
+	__super::Collision_Enter(pCollider, _eCollisionGroup, _iColliderID);
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{

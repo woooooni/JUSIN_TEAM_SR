@@ -85,11 +85,11 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 	m_fMovePower += 1.0f;
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_pRigidBodyCom->AddForce(vDir * m_fMovePower);
-
 	_vec3 vVel = m_pRigidBodyCom->GetVelocity();
 
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 

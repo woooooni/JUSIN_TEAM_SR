@@ -1,11 +1,11 @@
 #include "CactusNeedle.h"
 #include "Export_Function.h"
 
-CCactusNeedle::CCactusNeedle(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
+CCactusNeedle::CCactusNeedle(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev,  OBJ_ID::MONSTER_SKILL)
 {
 }
 CCactusNeedle::CCactusNeedle(const CCactusNeedle& rhs)
-	: Engine::CGameObject(rhs)
+	: CBullet(rhs)
 {
 
 }
@@ -34,6 +34,8 @@ HRESULT CCactusNeedle::Ready_Object(void)
 
 _int CCactusNeedle::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
@@ -59,6 +61,8 @@ _int CCactusNeedle::Update_Object(const _float& fTimeDelta)
 
 void CCactusNeedle::LateUpdate_Object(void)
 {
+	if (!Is_Active())
+		return  ;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	__super::LateUpdate_Object();
@@ -68,6 +72,8 @@ void CCactusNeedle::LateUpdate_Object(void)
 
 void CCactusNeedle::Render_Object(void)
 {
+	if (!Is_Active())
+		return  ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 	__super::Render_Object();

@@ -37,6 +37,8 @@ HRESULT CRedBeatle::Ready_Object(void)
 
 _int CRedBeatle::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
@@ -45,11 +47,15 @@ _int CRedBeatle::Update_Object(const _float& fTimeDelta)
 
 void CRedBeatle::LateUpdate_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	__super::LateUpdate_Object();
 }
 
 void CRedBeatle::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	__super::Render_Object();
@@ -167,6 +173,7 @@ void CRedBeatle::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
+	__super::Collision_Enter(pCollider, _eCollisionGroup, _iColliderID);
 
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
@@ -181,8 +188,8 @@ void CRedBeatle::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 		D3DXVec3Normalize(&vDir, &vDir);
 
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
-		m_tStat.iHp -= 1.f;
-		if (m_tStat.iHp < 1.f)
+		m_tStat.iHp -= 1;
+		if (m_tStat.iHp < 1)
 			Set_State(MONSTER_STATE::DIE);
 	}
 }

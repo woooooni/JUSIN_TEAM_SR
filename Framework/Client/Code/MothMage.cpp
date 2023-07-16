@@ -65,6 +65,8 @@ HRESULT CMothMage::Ready_Object(void)
 
 _int CMothMage::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	if (m_tStat.iHp < 1.f && Get_State() != MONSTER_STATE::DIE)
 	{
 		m_pAnimator->Play_Animation(L"MothMage_Death_Down", false);
@@ -102,13 +104,16 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 }
 void CMothMage::LateUpdate_Object(void)
 {
-
+	if (!Is_Active())
+		return ;
 	__super::LateUpdate_Object();
 	
 	m_pMothOrb->LateUpdate_Object();
 }
 void CMothMage::Render_Object(void)
 {
+	if (!Is_Active())
+		return;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 
@@ -268,7 +273,7 @@ void CMothMage::Trace(_float fTimeDelta)
 			BulletPos.z -= 0.01f;
 			pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 			pBugBall->Set_Dir(vDir);
-			pBugBall->Set_Shooter(this);
+			pBugBall->Set_Owner(this);
 			pBugBall->Set_Atk(m_tStat.iAttack);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"BugBall", pBugBall);
@@ -289,7 +294,7 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
-
+	__super::Collision_Enter(pCollider, _eCollisionGroup, _iColliderID);
 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
@@ -306,21 +311,4 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 
 	}
-	if(dynamic_cast<CBugBall*> (pCollider->GetOwner()))
-		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Shooter()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
-		{
-			m_tStat.iHp -= 1;
-			_vec3 vTargetPos;
-			_vec3 vPos;
-			_vec3 vDir;
-			pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-			m_pTransformCom->Get_Info(INFO_POS, &vPos);
-			vDir = vPos - vTargetPos;
-			vDir.y = 0.0f;
-			D3DXVec3Normalize(&vDir, &vDir);
-
-			m_pRigidBodyCom->AddForce(vDir * 70.0f);
-
-		}
-
 }

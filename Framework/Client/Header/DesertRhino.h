@@ -33,7 +33,7 @@ private:
 
     virtual void Trace(_float fTimeDelta) override;
 
-    void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+    virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
 
 };

@@ -33,6 +33,8 @@ HRESULT CRollingBug::Ready_Object(void)
 
 _int CRollingBug::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+		return S_OK;
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
@@ -62,11 +64,15 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 
 void CRollingBug::LateUpdate_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	__super::LateUpdate_Object();
 }
 
 void CRollingBug::Render_Object(void)
 {
+	if (!Is_Active())
+		return ;
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
