@@ -38,8 +38,8 @@ HRESULT CMainApp::Ready_MainApp(void)
 	FAILED_CHECK_RETURN(Ready_Default_RenderState(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Proto_Component(m_pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Proto_Event(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Manager(m_pGraphicDev), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Pool(), E_FAIL);
 
 	return S_OK;
@@ -162,9 +162,6 @@ HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Proto_Object(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	//CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 200);
-
-
 	return S_OK;
 }
 
@@ -175,9 +172,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 	(*ppManagementClass)->AddRef();
 
 	Engine::CScene*		pScene = nullptr;
-
-	//pScene = CScene_Tool::Create(pGraphicDev);
-	pScene = CLogo::Create(pGraphicDev);
+	pScene = CScene_Tool::Create(pGraphicDev);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);

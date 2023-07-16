@@ -1,5 +1,7 @@
 #include "..\Header\Scene_TutorialVillage.h"
 #include "Export_Function.h"
+#include "Npc_Cow.h"
+#include "Npc_Sheep.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
