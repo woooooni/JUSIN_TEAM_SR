@@ -180,13 +180,17 @@ void CTrashBummer::Update_Attack(_float fTimeDelta)
 	m_vLook = vDir;
 	if (D3DXVec3Length(&vDir) > 10.f && !m_bShoot)
 	{
+		m_bShooting = false;
 		Set_State(MONSTER_STATE::IDLE);
+		m_bShoot = true;
 	}
 	if (D3DXVec3Length(&vDir) < 10.f && D3DXVec3Length(&vDir) >= 4.f)
 	{
+		m_bShooting = false;
 		D3DXVec3Normalize(&vDir, &vDir);
 		m_vLook = vDir;
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
+		m_bShoot = true;
 	}
 	else
 		Trace(fTimeDelta);
@@ -243,7 +247,7 @@ void CTrashBummer::Trace(_float fTimeDelta)
 		return;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
+	m_bShooting = true;
 	vDir = vTargetPos - vPos;
 	m_vLook = vDir;
 	if (D3DXVec3Length(&vDir) < 7.f && m_bShoot && m_pAnimator->GetCurrAnimation()->Get_Idx() == 3)
@@ -262,7 +266,7 @@ void CTrashBummer::Trace(_float fTimeDelta)
 		pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 150.0f, 0.0f));
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 		pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
-		Set_State(MONSTER_STATE::IDLE);
+		
 		m_bShoot = false;
 	}
 
@@ -430,7 +434,7 @@ void CTrashBummer::Set_Animation()
 			m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
 		break;
 	case Engine::MONSTER_STATE::ATTACK:
-		if (m_bShoot)
+		if ( m_bShooting)
 			switch (eDir)
 			{
 			case Engine::OBJ_DIR::DIR_U:
@@ -505,12 +509,12 @@ void CTrashBummer::Set_Animation()
 	{
 		if(m_ePreviousState != MONSTER_STATE::ATTACK)
 		m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
-		else if (m_bChase == m_bShoot && m_ePreviousState == MONSTER_STATE::ATTACK)
+		else if (m_bShootState == m_bShooting && m_ePreviousState == MONSTER_STATE::ATTACK)
 		{
 			m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
 		}
 	}
-	m_bChase = m_bShoot;
+	m_bShootState = m_bShooting;
 	m_ePreviousState = eState;
 	m_eDir = eDir;
 }
