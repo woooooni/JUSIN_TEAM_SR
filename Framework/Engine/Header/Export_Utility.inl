@@ -14,6 +14,10 @@ HRESULT		Set_Scene(CScene* pScene)
 {
 	return CManagement::GetInstance()->Set_Scene(pScene);
 }
+inline void Reserve_SceneChange(CScene* pScene)
+{
+	CManagement::GetInstance()->Reserve_SceneChange(pScene);
+}
 _int			Update_Scene(const _float& fTimeDelta)
 {
 	return CManagement::GetInstance()->Update_Scene(fTimeDelta);

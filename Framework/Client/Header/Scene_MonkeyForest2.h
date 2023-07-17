@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Scene.h"
-class CLoading;
 
-class CLogo final : public Engine::CScene
+
+class CScene_MonkeyForest2 : public Engine::CScene
 {
 private:
-	explicit CLogo(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CLogo();
+	explicit CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CScene_MonkeyForest2();
 
 public:
 	virtual HRESULT Ready_Scene() override;
@@ -28,11 +28,10 @@ private:
 
 
 public:
-	static CLogo*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CScene_MonkeyForest2* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free() override;
-
 
 };
 

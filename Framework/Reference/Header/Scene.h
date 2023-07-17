@@ -50,7 +50,6 @@ protected:
 	map<LAYER_TYPE, CLayer*>			m_mapLayer;
 	SCENE_TYPE							m_eType;
 	HWND								m_hVideoHandle;
-
 public:
 	virtual void	Free();
 };

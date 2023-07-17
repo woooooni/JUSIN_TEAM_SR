@@ -31,19 +31,7 @@ private:
 	HRESULT	Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement** ppManagementClass);
 	HRESULT	Ready_Proto_Event();
 	HRESULT Ready_Pool();
-	
 
-private:
-	HRESULT Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Terrain_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	CGraphicDev*			m_pGraphicDevClass;

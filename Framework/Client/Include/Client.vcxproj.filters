@@ -208,60 +208,6 @@
     <Filter Include="02. GameObject\07. EnvironmentObj\00. NearReactObj\00. NearReactMoonObj">
       <UniqueIdentifier>{1ee59d1e-0327-46c5-9636-6dedafcb2f72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\9. Boss">
-      <UniqueIdentifier>{1ec18c12-8a76-4d82-9d5d-f15ea6a367bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem">
-      <UniqueIdentifier>{7d0b66cf-ad05-47df-ab11-644dd3235276}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\00. Arm">
-      <UniqueIdentifier>{c96512d7-1ca4-4719-abbd-5b4edcef7ed3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\00. Arm\Right">
-      <UniqueIdentifier>{2add2d10-005a-4198-9664-bcc89fb1b301}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\00. Arm\Left">
-      <UniqueIdentifier>{f908dd5d-58f9-4dde-b1e1-ed3a0e14be07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\01. Hand">
-      <UniqueIdentifier>{b5b08609-5513-4b85-b49d-2425be3215e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\01. Hand\Right">
-      <UniqueIdentifier>{2c2ee7e0-41ea-4b9f-bac6-aa7940bf5885}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\01. Hand\Left">
-      <UniqueIdentifier>{abfd0e99-81ee-438d-b686-a044c3fdce15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\02. Head">
-      <UniqueIdentifier>{72792338-a1c3-4f6a-b97b-8b6d8a4039a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\03. Fist">
-      <UniqueIdentifier>{899c44e8-821f-4309-8a44-0eda66c1436f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\04. Leg">
-      <UniqueIdentifier>{856bfc90-fccb-4ce4-875c-08f1a40eb6c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\04. Leg\Right">
-      <UniqueIdentifier>{675c6cf7-3a74-4fc3-9fad-9bce12d3ae84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\04. Leg\Left">
-      <UniqueIdentifier>{96e13111-fc5e-46ac-b1a7-78c5721b1ff1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\05. Jaw">
-      <UniqueIdentifier>{c5b0401d-bc89-4b04-83a8-49c1b965c4d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\05. Jaw\Lower">
-      <UniqueIdentifier>{0fa374ae-4aac-4154-aed2-d5ac67eb55c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\05. Jaw\Upper">
-      <UniqueIdentifier>{650fd75b-5627-4589-ba9f-14a84ae67471}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\00. SunGolem\06. Face">
-      <UniqueIdentifier>{a00df816-fc45-4dc9-ab2c-41c6339597cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\9. Boss\01. SilkWorm">
-      <UniqueIdentifier>{649b6e3d-43ab-4e96-9a86-16bc76e0464e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\10. Item">
       <UniqueIdentifier>{219aa164-f041-43c3-b8e9-cd77000de277}</UniqueIdentifier>
     </Filter>
@@ -354,9 +300,6 @@
     </Filter>
     <Filter Include="02. GameObject\06. FieldObj\07. LightPuzzle\Piece">
       <UniqueIdentifier>{e568ebca-086c-4512-b392-a6f7a7970a90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\98. Loading">
-      <UniqueIdentifier>{8b367cce-79ab-4538-9139-c79399fe8812}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom">
       <UniqueIdentifier>{824720bc-8e9f-43fb-ba5c-6dce85374f70}</UniqueIdentifier>
@@ -457,8 +400,98 @@
     <Filter Include="01. Scene\01. Tutorial\00. Village">
       <UniqueIdentifier>{9ed00668-8c13-45d6-a96e-d54248df9432}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\99. Test">
+    <Filter Include="01. Scene\98. Test">
       <UniqueIdentifier>{9633a306-3a32-46ee-9a5c-b403fdee16e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Monkey_Forest">
+      <UniqueIdentifier>{044f895f-6983-4845-847a-8ac47829820a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Monkey_Forest\00. Monkey_Forest1">
+      <UniqueIdentifier>{52774833-40f5-4cd6-914b-8e25ce22ceac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Monkey_Forest\01. Monkey_Forest2">
+      <UniqueIdentifier>{2f2bdec8-3b86-4db9-9280-ca9251c06dc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Monkey_Forest\02. Monkey_Village">
+      <UniqueIdentifier>{e1c82e8f-effc-446d-86b2-a6d43ecb3f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Sungolem">
+      <UniqueIdentifier>{5179b64b-27c2-481a-ba22-9c2af293c4c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Sungolem\00. Sunglem_Cave">
+      <UniqueIdentifier>{40618d66-f1e0-4738-817c-7810bc0514a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Moon_Forest">
+      <UniqueIdentifier>{7a46cdd5-bc27-4342-9d19-f0f946b4d15a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\06. LoadingUI">
+      <UniqueIdentifier>{bea38cd9-dff7-402d-8d2a-3a1a97432488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\06. LoadingUI\00. Ogu">
+      <UniqueIdentifier>{fdfaba3b-5a06-4207-a7eb-97e726e773ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\06. LoadingUI\01. BackGround">
+      <UniqueIdentifier>{b17800ba-cf11-4b66-b6ff-31c7d4f8e900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss">
+      <UniqueIdentifier>{1ec18c12-8a76-4d82-9d5d-f15ea6a367bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem">
+      <UniqueIdentifier>{7d0b66cf-ad05-47df-ab11-644dd3235276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\00. Arm">
+      <UniqueIdentifier>{c96512d7-1ca4-4719-abbd-5b4edcef7ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\00. Arm\Right">
+      <UniqueIdentifier>{2add2d10-005a-4198-9664-bcc89fb1b301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\00. Arm\Left">
+      <UniqueIdentifier>{f908dd5d-58f9-4dde-b1e1-ed3a0e14be07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\01. Hand">
+      <UniqueIdentifier>{b5b08609-5513-4b85-b49d-2425be3215e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\01. Hand\Right">
+      <UniqueIdentifier>{2c2ee7e0-41ea-4b9f-bac6-aa7940bf5885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\01. Hand\Left">
+      <UniqueIdentifier>{abfd0e99-81ee-438d-b686-a044c3fdce15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\02. Head">
+      <UniqueIdentifier>{72792338-a1c3-4f6a-b97b-8b6d8a4039a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\03. Fist">
+      <UniqueIdentifier>{899c44e8-821f-4309-8a44-0eda66c1436f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\04. Leg">
+      <UniqueIdentifier>{856bfc90-fccb-4ce4-875c-08f1a40eb6c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\04. Leg\Right">
+      <UniqueIdentifier>{675c6cf7-3a74-4fc3-9fad-9bce12d3ae84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\04. Leg\Left">
+      <UniqueIdentifier>{96e13111-fc5e-46ac-b1a7-78c5721b1ff1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\05. Jaw">
+      <UniqueIdentifier>{c5b0401d-bc89-4b04-83a8-49c1b965c4d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\05. Jaw\Lower">
+      <UniqueIdentifier>{0fa374ae-4aac-4154-aed2-d5ac67eb55c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\05. Jaw\Upper">
+      <UniqueIdentifier>{650fd75b-5627-4589-ba9f-14a84ae67471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\00. SunGolem\06. Face">
+      <UniqueIdentifier>{a00df816-fc45-4dc9-ab2c-41c6339597cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\08. Boss\01. SilkWorm">
+      <UniqueIdentifier>{649b6e3d-43ab-4e96-9a86-16bc76e0464e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\09. Portal">
+      <UniqueIdentifier>{17b4fe35-a387-419f-9368-25170699e6ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\97. Loading">
+      <UniqueIdentifier>{75b845a7-a670-4b8f-990c-e90aef6cd7d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -511,10 +544,10 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\00. NearReactMoonObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SunGollem.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemHead.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\02. Head</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\02. Head</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\DesertRhino.h">
       <Filter>02. GameObject\02. Monster\00. Rhino</Filter>
@@ -604,34 +637,34 @@
       <Filter>02. GameObject\06. FieldObj\04. BlockObj</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemFist.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\03. Fist</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\03. Fist</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemLeftArm.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\00. Arm\Left</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\00. Arm\Left</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemLeftHand.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\01. Hand\Left</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\01. Hand\Left</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemLeftLeg.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\04. Leg\Left</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\04. Leg\Left</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemLowerJaw.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\05. Jaw\Lower</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\05. Jaw\Lower</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemRightArm.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\00. Arm\Right</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\00. Arm\Right</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemRightHand.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\01. Hand\Right</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\01. Hand\Right</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemParts.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemUpperJaw.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\05. Jaw\Upper</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\05. Jaw\Upper</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemRightLeg.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\04. Leg\Right</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\04. Leg\Right</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\HitObj.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
@@ -664,10 +697,10 @@
       <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\SilkWorm.h">
-      <Filter>02. GameObject\9. Boss\01. SilkWorm</Filter>
+      <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemFace.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\06. Face</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\06. Face</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Effect.h">
       <Filter>02. GameObject\13. Effect</Filter>
@@ -903,7 +936,7 @@
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GolemPart.h">
-      <Filter>02. GameObject\9. Boss\00. SunGolem</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc.h">
       <Filter>02. GameObject\15. NPC</Filter>
@@ -922,11 +955,38 @@
     <ClInclude Include="..\Header\DefaultItem.h" />
     <ClInclude Include="..\Header\Player_State_Dance.h" />
     <ClInclude Include="..\Header\QuizStatue.h" />
-    <ClInclude Include="..\Header\Stage1.h">
-      <Filter>01. Scene</Filter>
+    <ClInclude Include="..\Header\Scene_Test.h">
+      <Filter>01. Scene\98. Test</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Scene_Tool.h">
-      <Filter>01. Scene\99. Test</Filter>
+      <Filter>01. Scene\99. Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_MonkeyForest1.h">
+      <Filter>01. Scene\02. Monkey_Forest\00. Monkey_Forest1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_MonkeyForest2.h">
+      <Filter>01. Scene\02. Monkey_Forest\01. Monkey_Forest2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_MonkeyVillage.h">
+      <Filter>01. Scene\02. Monkey_Forest\02. Monkey_Village</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_MoonForest1.h">
+      <Filter>01. Scene\04. Moon_Forest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_SunGolemCave1.h">
+      <Filter>01. Scene\03. Sungolem\00. Sunglem_Cave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_LoadingOgu.h">
+      <Filter>02. GameObject\04. UI\06. LoadingUI\00. Ogu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_LoadingBackGround.h">
+      <Filter>02. GameObject\04. UI\06. LoadingUI\01. BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Portal.h">
+      <Filter>02. GameObject\09. Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_Loading.h">
+      <Filter>01. Scene\97. Loading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -971,10 +1031,10 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\00. NearReactMoonObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SunGollem.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemHead.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\02. Head</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\02. Head</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\DesertRhino.cpp">
       <Filter>02. GameObject\02. Monster\00. Rhino</Filter>
@@ -1061,31 +1121,31 @@
       <Filter>02. GameObject\06. FieldObj\04. BlockObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemFist.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\03. Fist</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\03. Fist</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemLeftArm.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\00. Arm\Left</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\00. Arm\Left</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemLeftHand.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\01. Hand\Left</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\01. Hand\Left</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemLeftLeg.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\04. Leg\Left</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\04. Leg\Left</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemLowerJaw.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\05. Jaw\Lower</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\05. Jaw\Lower</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemRightArm.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\00. Arm\Right</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\00. Arm\Right</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemRightHand.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\01. Hand\Right</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\01. Hand\Right</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemUpperJaw.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\05. Jaw\Upper</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\05. Jaw\Upper</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemRightLeg.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\04. Leg\Right</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\04. Leg\Right</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\HitObj.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj</Filter>
@@ -1118,10 +1178,10 @@
       <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\SilkWorm.cpp">
-      <Filter>02. GameObject\9. Boss\01. SilkWorm</Filter>
+      <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemFace.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem\06. Face</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem\06. Face</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect.cpp">
       <Filter>02. GameObject\13. Effect</Filter>
@@ -1354,7 +1414,7 @@
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GolemPart.cpp">
-      <Filter>02. GameObject\9. Boss\00. SunGolem</Filter>
+      <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc.cpp">
       <Filter>02. GameObject\15. NPC</Filter>
@@ -1373,11 +1433,38 @@
     <ClCompile Include="..\Code\DefaultItem.cpp" />
     <ClCompile Include="..\Code\Player_State_Dance.cpp" />
     <ClCompile Include="..\Code\QuizStatue.cpp" />
-    <ClCompile Include="..\Code\Stage1.cpp">
-      <Filter>01. Scene</Filter>
+    <ClCompile Include="..\Code\Scene_Test.cpp">
+      <Filter>01. Scene\98. Test</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Scene_Tool.cpp">
-      <Filter>01. Scene\99. Test</Filter>
+      <Filter>01. Scene\99. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_MonkeyForest1.cpp">
+      <Filter>01. Scene\02. Monkey_Forest\00. Monkey_Forest1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_MonkeyForest2.cpp">
+      <Filter>01. Scene\02. Monkey_Forest\01. Monkey_Forest2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_MonkeyVillage.cpp">
+      <Filter>01. Scene\02. Monkey_Forest\02. Monkey_Village</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_MoonForest1.cpp">
+      <Filter>01. Scene\04. Moon_Forest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_SunGolemCave1.cpp">
+      <Filter>01. Scene\03. Sungolem\00. Sunglem_Cave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_LoadingOgu.cpp">
+      <Filter>02. GameObject\04. UI\06. LoadingUI\00. Ogu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_LoadingBackGround.cpp">
+      <Filter>02. GameObject\04. UI\06. LoadingUI\01. BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Portal.cpp">
+      <Filter>02. GameObject\09. Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_Loading.cpp">
+      <Filter>01. Scene\97. Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

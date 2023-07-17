@@ -185,10 +185,4 @@ void CSpitCactus::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		if (m_tStat.iHp < 1)
 			Set_State(MONSTER_STATE::DIE);
 	}
-	if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner() == nullptr)
-		return;
-	if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
-	{
-		m_tStat.iHp -= 1; 
-	}
 }

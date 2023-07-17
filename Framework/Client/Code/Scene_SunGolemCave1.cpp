@@ -1,4 +1,4 @@
-#include "..\Header\Scene_TutorialVillage.h"
+#include "..\Header\Scene_SunGolemCave1.h"
 #include "../Include/stdafx.h"
 #include "Export_Function.h"
 #include "GameMgr.h"
@@ -7,16 +7,17 @@
 #include "Npc_Sheep.h"
 #include "Portal.h"
 
-CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
+CScene_SunGolemCave1::CScene_SunGolemCave1(LPDIRECT3DDEVICE9 pGraphicDev)
+	:CScene(pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1)
+{
+
+}
+
+CScene_SunGolemCave1::~CScene_SunGolemCave1()
 {
 }
 
-CScene_TutorialVillage::~CScene_TutorialVillage()
-{
-}
-
-HRESULT CScene_TutorialVillage::Ready_Scene()
+HRESULT CScene_SunGolemCave1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
@@ -33,18 +34,18 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	return S_OK;
 }
 
-_int CScene_TutorialVillage::Update_Scene(const _float& fTimeDelta)
+_int CScene_SunGolemCave1::Update_Scene(const _float& fTimeDelta)
 {
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
 
-void CScene_TutorialVillage::LateUpdate_Scene()
+void CScene_SunGolemCave1::LateUpdate_Scene()
 {
 	__super::LateUpdate_Scene();
 }
 
-void CScene_TutorialVillage::Render_Scene()
+void CScene_SunGolemCave1::Render_Scene()
 {
 	RECT rcPos = { WINCX / 2 - 10.f, 0,  WINCX / 2 + 10.f, 200.f };
 	_vec3 vPos;
@@ -56,13 +57,13 @@ void CScene_TutorialVillage::Render_Scene()
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 }
 
-HRESULT CScene_TutorialVillage::Ready_Prototype()
+HRESULT CScene_SunGolemCave1::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_Player()
+HRESULT CScene_SunGolemCave1::Ready_Layer_Player()
 {
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 	m_mapLayer[LAYER_TYPE::PLAYER]->Add_GameObject(L"Player", pPlayer);
@@ -70,15 +71,14 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Player()
 
 	_vec3 vStartPos;
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vStartPos);
-	vStartPos.x = 5.5f;
-	vStartPos.z = 6.5f;
+	vStartPos.x = 10.f;
+	vStartPos.z = -0.5f;
 	pPlayer->Get_TransformCom()->Set_Info(INFO_POS, &vStartPos);
-
 
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_Camera()
+HRESULT CScene_SunGolemCave1::Ready_Layer_Camera()
 {
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 0.1f, 1000.f);
 	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"MainCamera", pCamera);
@@ -89,7 +89,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Camera()
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_Terrrain()
+HRESULT CScene_SunGolemCave1::Ready_Layer_Terrrain()
 {
 	m_mapLayer[LAYER_TYPE::TERRAIN]->Add_GameObject(L"Terrain", CTerrain::Create(m_pGraphicDev));
 	m_mapLayer[LAYER_TYPE::TERRAIN]->Ready_Layer();
@@ -97,54 +97,43 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Terrrain()
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
+HRESULT CScene_SunGolemCave1::Ready_Layer_Environment()
 {
-	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
-	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
-
-
-	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
-	_vec3 vCowPos = _vec3(24.f, 0.5f, 13.f);
-	_vec3 vPortalPos = _vec3(51.8f, 0.5f, 46.5f);
-
-	pNpcSheep->Get_TransformCom()->Set_Info(INFO_POS, &vSheepPos);
-	pNpcCow->Get_TransformCom()->Set_Info(INFO_POS, &vCowPos);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MOON_FOREST1);
+	_vec3 vPortalPos = _vec3(9.f, 0.5f, 21.f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_Sheep", pNpcSheep);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_Cow", pNpcCow);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
+HRESULT CScene_SunGolemCave1::Ready_Layer_Monster()
 {
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
+HRESULT CScene_SunGolemCave1::Ready_Layer_InterationObj()
 {
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
+HRESULT CScene_SunGolemCave1::Ready_Layer_Effect()
 {
 	return S_OK;
 }
 
-HRESULT CScene_TutorialVillage::Ready_Layer_UI()
+HRESULT CScene_SunGolemCave1::Ready_Layer_UI()
 {
 	return S_OK;
 }
 
-CScene_TutorialVillage* CScene_TutorialVillage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CScene_SunGolemCave1* CScene_SunGolemCave1::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CScene_TutorialVillage* pInstance = new CScene_TutorialVillage(pGraphicDev);
+	CScene_SunGolemCave1* pInstance = new CScene_SunGolemCave1(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Scene()))
 	{
@@ -157,7 +146,7 @@ CScene_TutorialVillage* CScene_TutorialVillage::Create(LPDIRECT3DDEVICE9 pGraphi
 	return pInstance;
 }
 
-void CScene_TutorialVillage::Free()
+void CScene_SunGolemCave1::Free()
 {
 	__super::Free();
 }

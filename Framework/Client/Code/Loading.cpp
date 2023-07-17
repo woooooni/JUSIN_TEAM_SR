@@ -25,8 +25,15 @@
 #include "House.h"
 #include "Prop.h"
 #include "Grass.h"
-#include "Stage1.h"
+
+
 #include "Scene_TutorialVillage.h"
+#include "Scene_MonkeyForest1.h"
+#include "Scene_MonkeyForest2.h"
+#include "Scene_MonkeyVillage.h"
+#include "Scene_SunGolemCave1.h"
+#include "Scene_MoonForest1.h"
+
 #include "Scene_Tool.h"
 
 
@@ -54,29 +61,51 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	switch (pLoading->m_eID)
 	{
 	case Engine::SCENE_TYPE::LOGO:
-		FAILED_CHECK_RETURN(pLoading->Loading_Logo(), E_FAIL);
+		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
 		pLoading->m_pLoadingScene = CScene_TutorialVillage::Create(pLoading->m_pGraphicDev);
-		iFlag = pLoading->Load_TutorialVillage();
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/TutorialVillage");
 		break;
 
 	case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
+		pLoading->m_pLoadingScene = CScene_TutorialVillage::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/TutorialVillage");
+		break;
 
+	case Engine::SCENE_TYPE::MONKEY_FOREST1:
+		pLoading->m_pLoadingScene = CScene_MonkeyForest1::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MonkeyForest1");
 		break;
-	case Engine::SCENE_TYPE::STAGE2:
+
+	case Engine::SCENE_TYPE::MONKEY_FOREST2:
+		pLoading->m_pLoadingScene = CScene_MonkeyForest2::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MonkeyForest2");
 		break;
-	case Engine::SCENE_TYPE::STAGE3:
+
+	case Engine::SCENE_TYPE::MONKEY_VILLAGE:
+		pLoading->m_pLoadingScene = CScene_MonkeyVillage::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MonkeyVillage");
 		break;
+
+	case Engine::SCENE_TYPE::SUNGOLEM_CAVE1:
+		pLoading->m_pLoadingScene = CScene_SunGolemCave1::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/SungolemCave");
+		break;
+
+	case Engine::SCENE_TYPE::MOON_FOREST1:
+		pLoading->m_pLoadingScene = CScene_MoonForest1::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MoonForest");
+		break;
+
+
+
 	case Engine::SCENE_TYPE::TOOL:
-		FAILED_CHECK_RETURN(pLoading->Loading_Tool(), E_FAIL);
+		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
 		pLoading->m_pLoadingScene = CScene_Tool::Create(pLoading->m_pGraphicDev);
-		iFlag = pLoading->Load_Tool();
 		break;
-	case Engine::SCENE_TYPE::SCENE_END:
-		break;
+
 	default:
 		break;
 	}
-	Engine::Set_Scene(pLoading->Get_Scene());
 	LeaveCriticalSection(pLoading->Get_Crt());
 
 	pLoading->m_bFinish = true;
@@ -89,24 +118,17 @@ HRESULT CLoading::Ready_Loading(SCENE_TYPE eLoadingID)
 	InitializeCriticalSection(&m_Crt);
 
 	m_hThread = (HANDLE)_beginthreadex(nullptr, 0, Thread_Main, this, 0, nullptr);
-
 	m_eID = eLoadingID;
 
 
 	return S_OK;
 }
 
-
-_uint CLoading::Load_TutorialVillage()
+_uint CLoading::Load_Map_Data(const wstring& _strFolderPath)
 {
-	FAILED_CHECK_RETURN(Load_Terrain_Data(L"../Bin/Data/Test"), E_FAIL);
-	FAILED_CHECK_RETURN(Load_Obj_Data(L"../Bin/Data/Test"), E_FAIL);
+	FAILED_CHECK_RETURN(Load_Terrain_Data(_strFolderPath), E_FAIL);
+	FAILED_CHECK_RETURN(Load_Obj_Data(_strFolderPath), E_FAIL);
 
-	return S_OK;
-}
-
-_uint CLoading::Load_Tool()
-{
 	return S_OK;
 }
 
@@ -219,6 +241,7 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 
 		CTransform* pTransform = pObj->Get_TransformCom();
 		CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(pObj->Get_ColliderCom());
+
 		if (bTextureExist)
 		{
 			CTexture* pTexture = pObj->Get_TextureCom();
@@ -231,7 +254,8 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 		pTransform->Set_Info(INFO_POS, &vPos);
 		pTransform->Set_Scale(vScale);
 
-		pBoxCollider->Set_Scale(vColliderScale);
+		if(pBoxCollider)
+			pBoxCollider->Set_Scale(vColliderScale);
 
 		m_pLoadingScene->Get_Layer((LAYER_TYPE)iLayerType)->Add_GameObject(L"OBJ_" + to_wstring(iCount++), pObj);
 	}
@@ -254,7 +278,7 @@ _uint CLoading::Load_Terrain_Data(wstring _strFolderPath)
 
 	if (INVALID_HANDLE_VALUE == hTerrainFile)	// 파일 개방에 실패했다면
 	{
-		MessageBox(g_hWnd, _T("Save File"), L"Fail", MB_OK);
+		MessageBox(g_hWnd, _T("Load Terrain File Failed"), L"Fail", MB_OK);
 		return E_FAIL;
 	}
 
@@ -263,7 +287,7 @@ _uint CLoading::Load_Terrain_Data(wstring _strFolderPath)
 	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
 	if (pTerrain == nullptr || pPreTerrain == nullptr)
 	{
-		MessageBox(g_hWnd, _T("Get Terrain"), L"Fail", MB_OK);
+		MessageBox(g_hWnd, _T("Get Terrain Failed"), L"Fail", MB_OK);
 		CloseHandle(hTerrainFile);
 		return E_FAIL;
 	}
@@ -339,7 +363,7 @@ void CLoading::Free()
 	Safe_Release(m_pGraphicDev);
 }
 
-HRESULT CLoading::Loading_Logo()
+HRESULT CLoading::Load_Texture()
 {
 	FAILED_CHECK(Ready_Player_Texture(m_pGraphicDev));
 	FAILED_CHECK(Ready_Monster_Texture(m_pGraphicDev));
@@ -355,21 +379,6 @@ HRESULT CLoading::Loading_Logo()
 	return S_OK;
 }
 
-HRESULT CLoading::Loading_Tool()
-{
-	FAILED_CHECK(Ready_Player_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Monster_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Boss_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_UI_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Item_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Effect_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_InteractionObj_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Environment_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Terrain_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_NPC_Texture(m_pGraphicDev));
-
-	return S_OK;
-}
 
 
 
@@ -863,11 +872,10 @@ HRESULT CLoading::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_SkillRange", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_SkillRange_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Aim", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_Aim_%d.png", 1)), E_FAIL);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/SkyBox/SkyBox_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Coin", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/FieldObject/Item/Coin/Coin_%d.png", 4)), E_FAIL);
 
 	return S_OK;
-
 }
 
 HRESULT CLoading::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -1067,10 +1075,10 @@ HRESULT CLoading::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CLoading::Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 176)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 178)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 17)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 121)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 271)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 307)), E_FAIL);
 
 	return S_OK;
 
@@ -1095,6 +1103,7 @@ HRESULT CLoading::Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Doogee_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Doogee/Sprite_DooGee_Idle_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Doogee_Dig", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Doogee/Sprite_DooGee_Dig_%d.png", 12)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Doogee_React", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Doogee/Sprite_DooGee_Reaction_%d.png", 12)), E_FAIL);
+
 	return S_OK;
 
 }

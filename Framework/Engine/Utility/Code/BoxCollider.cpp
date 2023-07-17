@@ -14,7 +14,7 @@ CBoxCollider::CBoxCollider(LPDIRECT3DDEVICE9 _pDevice)
 CBoxCollider::CBoxCollider(const CBoxCollider & rhs)
 	: CCollider(rhs)
 {
-	m_pBuffer = dynamic_cast<CRcCubeCol*>(Engine::Clone_Proto(L"Proto_RcCubeCol"));
+
 }
 
 
@@ -25,9 +25,6 @@ CBoxCollider::~CBoxCollider()
 
 HRESULT CBoxCollider::Ready_BoxCollider()
 {
-	m_pBuffer = dynamic_cast<CRcCubeCol*>(Engine::Clone_Proto(L"Proto_RcCubeCol"));
-	NULL_CHECK_RETURN_MSG(m_pBuffer, E_FAIL, L"Clone Proto RcCubeCol Failed");
-
 	return S_OK;
 }
 
@@ -100,7 +97,6 @@ CBoxCollider * CBoxCollider::Create(LPDIRECT3DDEVICE9 _pDevice)
 
 void CBoxCollider::Free()
 {
-	Safe_Release(m_pBuffer);
 	CComponent::Free();
 }
 

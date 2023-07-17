@@ -17,7 +17,7 @@ CAnimator::CAnimator(const CAnimator & rhs)
 	, m_pCurAnimation(nullptr)
 {
 	for (auto iter = rhs.m_mapTexture.begin(); iter != rhs.m_mapTexture.end(); ++iter)
-		m_mapTexture.insert({ iter->first, (CTexture*)(iter->second->Clone()) });
+		m_mapTexture.insert({ iter->first, iter->second });
 }
 
 
@@ -99,8 +99,11 @@ CAnimator * CAnimator::Create(LPDIRECT3DDEVICE9 _pDevice)
 
 void CAnimator::Free()
 {
-	for_each(m_mapTexture.begin(), m_mapTexture.end(), CDeleteMap());
-	m_mapTexture.clear();
+	if (!m_bClone)
+	{
+		for_each(m_mapTexture.begin(), m_mapTexture.end(), CDeleteMap());
+		m_mapTexture.clear();
+	}
 }
 
 CComponent * CAnimator::Clone(void)

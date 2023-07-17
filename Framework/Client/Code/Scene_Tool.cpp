@@ -28,6 +28,7 @@
 #include "GameMgr.h"
 #include "Npc_Cow.h"
 #include "Npc_Sheep.h"
+#include "SkyBox.h"
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::TOOL)
@@ -526,6 +527,12 @@ HRESULT CScene_Tool::Ready_Layer_Camera()
 	Engine::CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
+
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pSkyBox, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pSkyBox), E_FAIL);
+
+
 	m_pCamera = pCamera;
 
 	pCamera->Set_CameraState(CAMERA_STATE::TOOL);

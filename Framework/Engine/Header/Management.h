@@ -16,15 +16,19 @@ private:
 
 public:
 	HRESULT			Set_Scene(CScene* pScene);
+	void			Reserve_SceneChange(CScene* pScene) { if (m_pReserveScene) return; m_pReserveScene = pScene; }
+
 	_int			Update_Scene(const _float& fTimeDelta);
 	void			LateUpdate_Scene();
 	void			Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 public:
-	CScene*			GetCurrScene() { return m_pScene; }
+	CScene*			GetCurrScene() { return m_pCurrScene; }
 
 private:
-	CScene*			m_pScene;
+	CScene*			m_pCurrScene;
+	CScene*			m_pReserveScene;
+
 
 public:
 	virtual void		Free();

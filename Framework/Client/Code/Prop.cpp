@@ -83,7 +83,7 @@ CProp* CProp::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("Tree Object Create Failed");
+		MSG_BOX("Prop Object Create Failed");
 		return nullptr;
 	}
 

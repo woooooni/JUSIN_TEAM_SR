@@ -20,17 +20,16 @@ HRESULT CSkyBox::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_pTransformCom->Set_Scale({ 100.f, 100.f, 100.f });
+	m_pTransformCom->Set_Scale({ 40.f, 40.f, 40.f });
 
 	return S_OK;
 }
 
 _int CSkyBox::Update_Object(const _float& fTimeDelta)
 {
-
-	_int iExit = __super::Update_Object(fTimeDelta);
-
 	Engine::Add_RenderGroup(RENDER_PRIORITY, this);
+	_int iExit = __super::Update_Object(fTimeDelta);
+	
 
 	return iExit;
 }
@@ -53,11 +52,11 @@ void CSkyBox::Render_Object(void)
 	
 	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
-	m_pTextureCom->Render_Texture(0);
+	m_pTextureCom->Set_Idx(3);
+	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-	
 }
 
 HRESULT CSkyBox::Add_Component(void)

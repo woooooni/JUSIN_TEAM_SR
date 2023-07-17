@@ -309,6 +309,7 @@
     <ClInclude Include="..\Header\Player_State_GetItem.h" />
     <ClInclude Include="..\Header\Player_State_Skill.h" />
     <ClInclude Include="..\Header\Pool.h" />
+    <ClInclude Include="..\Header\Portal.h" />
     <ClInclude Include="..\Header\Prop.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
@@ -329,6 +330,12 @@
     <ClInclude Include="..\Header\QuizStatue.h" />
     <ClInclude Include="..\Header\RedBeatle.h" />
     <ClInclude Include="..\Header\RollingBug.h" />
+    <ClInclude Include="..\Header\Scene_Loading.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest1.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest2.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyVillage.h" />
+    <ClInclude Include="..\Header\Scene_MoonForest1.h" />
+    <ClInclude Include="..\Header\Scene_SunGolemCave1.h" />
     <ClInclude Include="..\Header\Scene_Tool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -338,7 +345,6 @@
     <ClInclude Include="..\Header\SludgeBall.h" />
     <ClInclude Include="..\Header\SludgeWave.h" />
     <ClInclude Include="..\Header\SpitCactus.h" />
-    <ClInclude Include="..\Header\Stage1.h" />
     <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
     <ClInclude Include="..\Header\Scene_Test.h" />
@@ -354,6 +360,8 @@
     <ClInclude Include="..\Header\UI_Cursor.h" />
     <ClInclude Include="..\Header\UI_Dialog.h" />
     <ClInclude Include="..\Header\UI_ItemInfo.h" />
+    <ClInclude Include="..\Header\UI_LoadingBackGround.h" />
+    <ClInclude Include="..\Header\UI_LoadingOgu.h" />
     <ClInclude Include="..\Header\UI_MonsterHP.h" />
     <ClInclude Include="..\Header\UI_Pages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
@@ -495,6 +503,7 @@
     <ClCompile Include="..\Code\Player_State_GameOver.cpp" />
     <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
     <ClCompile Include="..\Code\Player_State_Skill.cpp" />
+    <ClCompile Include="..\Code\Portal.cpp" />
     <ClCompile Include="..\Code\Prop.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
@@ -515,6 +524,12 @@
     <ClCompile Include="..\Code\QuizStatue.cpp" />
     <ClCompile Include="..\Code\RedBeatle.cpp" />
     <ClCompile Include="..\Code\RollingBug.cpp" />
+    <ClCompile Include="..\Code\Scene_Loading.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest1.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest2.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyVillage.cpp" />
+    <ClCompile Include="..\Code\Scene_MoonForest1.cpp" />
+    <ClCompile Include="..\Code\Scene_SunGolemCave1.cpp" />
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -524,7 +539,6 @@
     <ClCompile Include="..\Code\SludgeBall.cpp" />
     <ClCompile Include="..\Code\SludgeWave.cpp" />
     <ClCompile Include="..\Code\SpitCactus.cpp" />
-    <ClCompile Include="..\Code\Stage1.cpp" />
     <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
     <ClCompile Include="..\Code\Scene_Test.cpp" />
@@ -540,6 +554,8 @@
     <ClCompile Include="..\Code\UI_Cursor.cpp" />
     <ClCompile Include="..\Code\UI_Dialog.cpp" />
     <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
+    <ClCompile Include="..\Code\UI_LoadingBackGround.cpp" />
+    <ClCompile Include="..\Code\UI_LoadingOgu.cpp" />
     <ClCompile Include="..\Code\UI_MonsterHP.cpp" />
     <ClCompile Include="..\Code\UI_Pages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />

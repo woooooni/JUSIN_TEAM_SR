@@ -91,7 +91,19 @@ HRESULT CTexture::Ready_Texture(TEXTUREID _eType, const _tchar * _pPath, const _
 
 		case TEX_CUBE:
 			// TODO :: Ex로 변경할 것.
-			FAILED_CHECK_RETURN(D3DXCreateCubeTextureFromFile(m_pGraphicDev, szFileName, (LPDIRECT3DCUBETEXTURE9*)&pTexture), E_FAIL);
+			FAILED_CHECK_RETURN(D3DXCreateCubeTextureFromFileEx(
+				m_pGraphicDev
+				,szFileName
+				,0 ,0
+				,0
+				, D3DFMT_UNKNOWN
+				, D3DPOOL_MANAGED
+				, D3DX_DEFAULT
+				, D3DX_DEFAULT
+				,0
+				,&tInfo
+				, NULL
+				,(LPDIRECT3DCUBETEXTURE9*)&pTexture), E_FAIL);
 			break;
 		}
 	
@@ -134,11 +146,10 @@ CComponent * CTexture::Clone()
 
 void CTexture::Free()
 {
-	if(!m_bClone)
+	if (!m_bClone)
+	{
 		for_each(m_vecTexture.begin(), m_vecTexture.end(), CDeleteObj());
-
-	m_vecTexture.clear();
-
-
+		m_vecTexture.clear();
+	}
 	CComponent::Free();
 }

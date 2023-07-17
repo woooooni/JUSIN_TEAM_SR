@@ -49,9 +49,14 @@ void CScene::LateUpdate_Scene()
 }
 void CScene::Free()
 {
-	for_each(m_mapLayer.begin(), m_mapLayer.end(), CDeleteMap());
+	for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
+	{
+		if (i == (_uint)LAYER_TYPE::PLAYER)
+			continue;
+		else		
+			m_mapLayer[(LAYER_TYPE)i]->Free();
+	}
 	m_mapLayer.clear();
-
 	Safe_Release(m_pGraphicDev);
 }
 

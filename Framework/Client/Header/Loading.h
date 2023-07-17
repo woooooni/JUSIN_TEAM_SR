@@ -3,10 +3,8 @@
 #include "Base.h"
 #include "Engine_Define.h"
 
-#include	"Scene.h"
-#include	"Stage1.h"
-#include	"Logo.h"
 
+#include "Scene.h"
 class CLoading : public CBase
 {
 public:
@@ -24,11 +22,10 @@ public:
 	static unsigned	int		CALLBACK Thread_Main(void* pArg);
 
 public:
-	HRESULT			Ready_Loading(SCENE_TYPE eLoadingID);
-	_uint			Load_TutorialVillage();
-	_uint			Load_Tool();
+	HRESULT Ready_Loading(SCENE_TYPE eLoadingID);
 
-
+public:
+	_uint Load_Map_Data(const wstring& _strFolderPath);
 	CScene* Get_Scene() { return m_pLoadingScene; }
 
 
@@ -45,17 +42,13 @@ private:
 public:
 	static		CLoading* Create(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE eID);
 
-private:
-	virtual void		Free();
-
-	HRESULT		Loading_Logo();
-	HRESULT		Loading_Tool();
 
 
 private:
+	HRESULT	Load_Texture();
 	_uint	Load_Obj_Data(wstring _strFolderPath);
 	_uint	Load_Terrain_Data(wstring _strFolderPath);
-
+	
 
 private:
 	HRESULT Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -68,6 +61,10 @@ private:
 	HRESULT Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_Terrain_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+
+
+private:
+	virtual void		Free();
 
 };
 

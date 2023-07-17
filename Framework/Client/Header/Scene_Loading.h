@@ -3,11 +3,11 @@
 #include "Scene.h"
 class CLoading;
 
-class CLogo final : public Engine::CScene
+class CScene_Loading final : public Engine::CScene
 {
 private:
-	explicit CLogo(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CLogo();
+	explicit CScene_Loading(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE _eNextSceneType);
+	virtual ~CScene_Loading();
 
 public:
 	virtual HRESULT Ready_Scene() override;
@@ -27,8 +27,12 @@ private:
 	virtual HRESULT			Ready_Layer_UI()				override;
 
 
+private:
+	SCENE_TYPE m_eNextScene;
+	CLoading* m_pLoading;
+
 public:
-	static CLogo*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CScene_Loading* Create(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE _eNextScene);
 
 private:
 	virtual void Free() override;
