@@ -59,7 +59,9 @@ private:
 protected:
 	CGameObject*	m_pTarget;
 	MONSTERSTAT		m_tStat;
-	CUI_MonsterHP* m_pUI;
+	CUI_MonsterHP*	m_pUIBack;
+	CUI_MonsterHP*	m_pUIFrame;
+	CUI_MonsterHP*	m_pUIGauge;
 protected:
 	virtual void Free() override;
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;

@@ -1,4 +1,3 @@
-
 #include "MothMage.h"
 #include "BugBall.h"
 #include "Export_Function.h"
@@ -15,13 +14,12 @@ CMothMage::~CMothMage()
 {
 }
 
-
-
 HRESULT CMothMage::Ready_Object(void)
 {
 	m_fMoveTime = 0.f;
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+
 	m_pAnimator->Add_Animation(L"MothMage_Idle_Down", L"Proto_Texture_MothMage_Idle_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Idle_Up", L"Proto_Texture_MothMage_Idle_Up", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Idle_Left", L"Proto_Texture_MothMage_Idle_Left", 0.1f);
@@ -50,20 +48,30 @@ HRESULT CMothMage::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftUp", L"Proto_Texture_MothMage_Attack_LeftUp", 0.1f);
 	m_pAnimator->Add_Animation(L"MothMage_Death_Down", L"Proto_Texture_MothMage_Death_Down", 0.1f);
 
-
 	m_pMothOrb= CMothOrb::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMothOrb, E_FAIL);
 	
-	 m_pUI	= CUI_MonsterHP::Create(m_pGraphicDev,MONSTERHP::UI_BACK);
-	NULL_CHECK_RETURN(m_pUI, E_FAIL);
-	m_pUI->Set_Owner(this);
+	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
+	if (m_pUIBack != nullptr)
+		m_pUIBack->Set_Owner(this);
+
+	m_pUIGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
+	if (m_pUIGauge != nullptr)
+		m_pUIGauge->Set_Owner(this);
+
+	m_pUIFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
+	if (m_pUIFrame != nullptr)
+		m_pUIFrame->Set_Owner(this);
 
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
+
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
+
 	m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
 	m_tStat = { 3,3,1 };
 	m_fMinHeight = 0.5f;
+
 	return S_OK;
 }
 
@@ -71,14 +79,19 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+
 	if (m_tStat.iHp < 1.f && Get_State() != MONSTER_STATE::DIE)
 	{
 		m_pAnimator->Play_Animation(L"MothMage_Death_Down", false);
 		Set_State(MONSTER_STATE::DIE);
 	}
+
 	_int iExit = __super::Update_Object(fTimeDelta);
-	_vec3  vPos;
+
+	_vec3  vPos, vScale;
+
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
@@ -89,7 +102,6 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 
-
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
 
@@ -97,43 +109,92 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
 			m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
-
 		}
 	}
+
 	vPos.y += 0.5f;
 	vPos.z -= 0.01f;
+
 	m_pMothOrb->Get_TransformCom()->Set_Pos(&vPos);
 	m_pMothOrb->Update_Object(fTimeDelta);
+
 	vPos.z -= 0.01f;
-	if (m_pUI->Is_Active())
-	{		m_pUI->Update_Object(fTimeDelta);
-	m_pUI->Get_TransformCom()->Set_Pos(&vPos);
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Update_Object(fTimeDelta);
+		m_pUIBack->Get_TransformCom()->Set_Pos(&vPos);
+
+		vPos.z -= 0.005f;
+		m_pUIGauge->Update_Object(fTimeDelta);
+
+		if (m_tStat.iHp == m_tStat.iMaxHp)
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vPos);
+		else if (m_tStat.iHp > 0 && m_tStat.iHp < m_tStat.iMaxHp)
+		{
+			_vec3 vMovePos = vPos;
+
+			_float fMaxHP = _float(m_tStat.iMaxHp);
+			_float fCurHP = _float(m_tStat.iHp);
+			_float fHP = fCurHP / fMaxHP;
+
+			_float fOriginWidth = _float(m_pUIGauge->Get_TextureCom()->Get_TextureDesc(0).Width);
+			_float fWidth = fOriginWidth - fOriginWidth * fHP;
+
+			_float fIndex = fWidth * 0.004f * 0.5f;
+
+			vMovePos = _vec3((vMovePos.x - fIndex), vMovePos.y, vMovePos.z );
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vMovePos);
+		}
+
+		vPos.z -= 0.005f;
+		m_pUIFrame->Update_Object(fTimeDelta);
+		m_pUIFrame->Get_TransformCom()->Set_Pos(&vPos);
 	}
+
 	return iExit;
 }
 void CMothMage::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return ;
+
 	__super::LateUpdate_Object();
-	if (m_pUI->Is_Active())
-		m_pUI->LateUpdate_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->LateUpdate_Object();
+		m_pUIGauge->LateUpdate_Object();
+		m_pUIFrame->LateUpdate_Object();
+	}
+
 	m_pMothOrb->LateUpdate_Object();
 }
+
 void CMothMage::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
-
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
 	
 	m_pMothOrb->Render_Object();
-	if (m_pUI->Is_Active())
-		m_pUI->Render_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Render_Object();
+		m_pUIGauge->Render_Object();
+		m_pUIFrame->Render_Object();
+	}
 }
 
 
@@ -146,7 +207,6 @@ void CMothMage::Update_Idle(_float fTimeDelta)
 			Set_State(MONSTER_STATE::MOVE);
 			m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
 		}
-
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -154,7 +214,6 @@ void CMothMage::Update_Idle(_float fTimeDelta)
 
 void CMothMage::Update_Die(_float fTimeDelta)
 {
-
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
 		if (Is_Active() == true)

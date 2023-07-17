@@ -45,12 +45,9 @@ public:
 
 private:
 	MONSTERHP	m_eUIType;
-	_vec3		m_vDefaultPos; // UI
 	_int		m_iMaxHP; // 몬스터 최대 체력
 	_int		m_iHP;	  // 몬스터 현재 체력
-	_bool		m_bShown = true; // UI를 띄웠는가?
-	_vec3		m_vMonsterPos; // 몬스터 현재 위치
-	CMonster* m_pOwner;
+	CMonster*	m_pOwner;
 public:
 	static  CUI_MonsterHP* Create(LPDIRECT3DDEVICE9 pGraphicDev, MONSTERHP eType);
 

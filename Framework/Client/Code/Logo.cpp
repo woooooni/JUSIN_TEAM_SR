@@ -100,6 +100,12 @@ HRESULT CLogo::Ready_Layer_Player()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
+	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pPlayer, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
+
+	pLayer->Ready_Layer();
+
 	return S_OK;
 }
 
@@ -108,6 +114,16 @@ HRESULT CLogo::Ready_Layer_Camera()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::CAMERA];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
+	Engine::CLayer* pPlayerLayer = m_mapLayer[LAYER_TYPE::PLAYER];
+
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(pPlayerLayer->Find_GameObject(L"Player"));
+
+	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
+	NULL_CHECK_RETURN(pCamera, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
+
+	pCamera->Set_TargetObj(pPlayer);
+	pLayer->Ready_Layer();
 	pLayer->Ready_Layer();
 
 	return S_OK;
@@ -117,6 +133,10 @@ HRESULT CLogo::Ready_Layer_Terrrain()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::TERRAIN];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pTerrain, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
 
 	pLayer->Ready_Layer();
 
@@ -137,6 +157,10 @@ HRESULT CLogo::Ready_Layer_Monster()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pMothMage, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
 
 	pLayer->Ready_Layer();
 
