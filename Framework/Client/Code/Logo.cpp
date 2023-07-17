@@ -32,30 +32,14 @@ HRESULT CLogo::Ready_Scene()
 
 	FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
 
-	m_pLoading = CLoading::Create(m_pGraphicDev, SCENE_TYPE::LOGO);
+	m_pLoading = CLoading::Create(m_pGraphicDev, SCENE_TYPE::TOOL);
 
-	/*FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Background", 
-		CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_Test_AddSlot.png")), E_FAIL);
-
-	CUI_Shop* pUI = CUI_Shop::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pUI, E_FAIL);
-
-	FAILED_CHECK_RETURN(m_mapLayer.find(LAYER_TYPE::UI)->second->Add_GameObject(L"SRC", pUI), E_FAIL);*/
-
-	//PlayVideo(g_hWnd, L"../Bin/Resource/Video/Intro.avi");
 	return S_OK;
 }
 
 Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
-	__super::Update_Scene(fTimeDelta);
-	
-	if (m_pLoading->Get_Finish())
-		Set_Scene(m_pLoading->Get_Scene());
-
-	
-
-	return 0;
+	return __super::Update_Scene(fTimeDelta);;
 }
 
 void CLogo::LateUpdate_Scene()
@@ -100,9 +84,6 @@ HRESULT CLogo::Ready_Layer_Player()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pPlayer, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
 
 	pLayer->Ready_Layer();
 
@@ -116,14 +97,6 @@ HRESULT CLogo::Ready_Layer_Camera()
 
 	Engine::CLayer* pPlayerLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(pPlayerLayer->Find_GameObject(L"Player"));
-
-	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
-	NULL_CHECK_RETURN(pCamera, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
-
-	pCamera->Set_TargetObj(pPlayer);
-	pLayer->Ready_Layer();
 	pLayer->Ready_Layer();
 
 	return S_OK;
@@ -134,9 +107,6 @@ HRESULT CLogo::Ready_Layer_Terrrain()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::TERRAIN];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTerrain, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
 
 	pLayer->Ready_Layer();
 
@@ -158,9 +128,6 @@ HRESULT CLogo::Ready_Layer_Monster()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pMothMage, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pMothMage), E_FAIL);
 
 	pLayer->Ready_Layer();
 

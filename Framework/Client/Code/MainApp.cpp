@@ -141,7 +141,6 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	// FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_PickingMgr(m_pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_KeyMgr(m_pGraphicDev, g_hWnd), E_FAIL);
@@ -167,11 +166,8 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	//pScene = CScene_Tool::Create(pGraphicDev);
-	
-	//pScene = CLogo::Create(pGraphicDev);
-	
-	pScene = CScene_Test::Create(pGraphicDev);
+	pScene = CLogo::Create(pGraphicDev);
+	// pScene = CScene_Test::Create(pGraphicDev);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);

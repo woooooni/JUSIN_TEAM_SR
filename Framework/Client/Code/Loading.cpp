@@ -27,6 +27,7 @@
 #include "Grass.h"
 #include "Stage1.h"
 #include "Scene_TutorialVillage.h"
+#include "Scene_Tool.h"
 
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -66,13 +67,16 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	case Engine::SCENE_TYPE::STAGE3:
 		break;
 	case Engine::SCENE_TYPE::TOOL:
+		FAILED_CHECK_RETURN(pLoading->Loading_Tool(), E_FAIL);
+		pLoading->m_pLoadingScene = CScene_Tool::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Tool();
 		break;
 	case Engine::SCENE_TYPE::SCENE_END:
 		break;
 	default:
 		break;
 	}
-
+	Engine::Set_Scene(pLoading->Get_Scene());
 	LeaveCriticalSection(pLoading->Get_Crt());
 
 	pLoading->m_bFinish = true;
@@ -98,6 +102,11 @@ _uint CLoading::Load_TutorialVillage()
 	FAILED_CHECK_RETURN(Load_Terrain_Data(L"../Bin/Data/Test"), E_FAIL);
 	FAILED_CHECK_RETURN(Load_Obj_Data(L"../Bin/Data/Test"), E_FAIL);
 
+	return S_OK;
+}
+
+_uint CLoading::Load_Tool()
+{
 	return S_OK;
 }
 
@@ -338,6 +347,22 @@ HRESULT CLoading::Loading_Logo()
 	FAILED_CHECK(Ready_UI_Texture(m_pGraphicDev));
 	FAILED_CHECK(Ready_Item_Texture(m_pGraphicDev));
 	FAILED_CHECK(Ready_Effect_Texture( m_pGraphicDev));
+	FAILED_CHECK(Ready_InteractionObj_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_Environment_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_Terrain_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_NPC_Texture(m_pGraphicDev));
+
+	return S_OK;
+}
+
+HRESULT CLoading::Loading_Tool()
+{
+	FAILED_CHECK(Ready_Player_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_Monster_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_Boss_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_UI_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_Item_Texture(m_pGraphicDev));
+	FAILED_CHECK(Ready_Effect_Texture(m_pGraphicDev));
 	FAILED_CHECK(Ready_InteractionObj_Texture(m_pGraphicDev));
 	FAILED_CHECK(Ready_Environment_Texture(m_pGraphicDev));
 	FAILED_CHECK(Ready_Terrain_Texture(m_pGraphicDev));

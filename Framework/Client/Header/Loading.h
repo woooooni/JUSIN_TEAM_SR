@@ -26,6 +26,9 @@ public:
 public:
 	HRESULT			Ready_Loading(SCENE_TYPE eLoadingID);
 	_uint			Load_TutorialVillage();
+	_uint			Load_Tool();
+
+
 	CScene* Get_Scene() { return m_pLoadingScene; }
 
 
@@ -46,11 +49,15 @@ private:
 	virtual void		Free();
 
 	HRESULT		Loading_Logo();
+	HRESULT		Loading_Tool();
 
+
+private:
 	_uint	Load_Obj_Data(wstring _strFolderPath);
 	_uint	Load_Terrain_Data(wstring _strFolderPath);
 
 
+private:
 	HRESULT Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
 	HRESULT Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
