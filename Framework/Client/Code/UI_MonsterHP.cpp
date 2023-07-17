@@ -19,7 +19,8 @@ HRESULT CUI_MonsterHP::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_vDefaultPos = { 0.f, 0.f, 0.f };
+	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
+	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
 
 	return S_OK;
 }
@@ -38,8 +39,10 @@ _int CUI_MonsterHP::Update_Object(const _float& fTimeDelta)
 		if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
 			Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 	}
+
 	else
 		Set_Active(false);
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -51,12 +54,44 @@ void CUI_MonsterHP::LateUpdate_Object(void)
 
 void CUI_MonsterHP::Render_Object(void)
 {
-	if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
-	{m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-	__super::Render_Object();
-	m_pTextureCom->Render_Texture(0);
-	m_pBufferCom->Render_Buffer();}
+	_vec3 vScale = _vec3(m_tInfo.fCX * 0.004f, m_tInfo.fCY * 0.008f, 0.f);
+	Get_TransformCom()->Set_Scale(vScale);
+
+	if ((m_iMaxHP != m_iHP) && (m_iHP != 0))
+	{
+		//m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+
+//		if (m_eUIType == MONSTERHP::UI_FRAME ||
+//			m_eUIType == MONSTERHP::UI_BACK ||
+//			(m_eUIType == MONSTERHP::UI_GAUGE && m_iMaxHP == m_iHP))
+//		{
+//			_vec3 vScale = _vec3(m_tInfo.fCX * 0.004f, m_tInfo.fCY * 0.008f, 0.f);
+//			Get_TransformCom()->Set_Scale(vScale);
+//		}
+
+		if ((m_eUIType == MONSTERHP::UI_GAUGE) &&
+			(m_iMaxHP > m_iHP))
+		{
+			_float fMaxHP = _float(m_iMaxHP);
+			_float fCurHP = _float(m_iHP);
+			_float fHP = fCurHP / fMaxHP;
+
+			_float fOriginWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+			_float fWidth = fOriginWidth * fHP;
+			_float fX = fOriginWidth - fWidth;
+
+			_vec3 vReScale = _vec3(fWidth, m_tInfo.fCY, 0.f);
+			vReScale = _vec3(vReScale.x * 0.004f, vReScale.y * 0.008f, 0.f);
+
+			m_pTransformCom->Set_Scale(vReScale);
+		}
+//		__super::Render_Object();
+
+		m_pTextureCom->Render_Texture(0);
+		m_pBufferCom->Render_Buffer();
+	}
 }
 
 HRESULT CUI_MonsterHP::Add_Component(void)
