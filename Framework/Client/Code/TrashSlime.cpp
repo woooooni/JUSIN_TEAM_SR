@@ -78,6 +78,7 @@ void CTrashSlime::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
+	Set_Animation();
 	__super::LateUpdate_Object();
 }
 void CTrashSlime::Render_Object(void)
@@ -146,6 +147,7 @@ void CTrashSlime::Update_Move(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst;
 	vDir.y = 0.f;
+	m_vLook = vDir;
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_pTarget = nullptr;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
@@ -213,6 +215,7 @@ void CTrashSlime::Trace(_float fTimeDelta)
 		return;
 	}
 	D3DXVec3Normalize(&vDir, &vDir);
+	m_vLook = vDir;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 
 }
@@ -239,4 +242,207 @@ void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		if (m_tStat.iHp < 1)
 			Set_State(MONSTER_STATE::DIE);
 	}
+}
+void CTrashSlime::Set_Animation()
+{
+
+	OBJ_DIR eDir = OBJ_DIR::DIR_END;
+	D3DXVec3Normalize(&m_vLook, &m_vLook);
+	_vec3 vAxis(0.f, 0.f, 1.f);
+	_float fAngle = D3DXVec3Dot(&m_vLook, &vAxis);
+	fAngle = acosf(fAngle);
+
+	if (m_vLook.x < 0.0f)
+		fAngle = D3DX_PI * 2 - fAngle;
+
+
+	fAngle = D3DXToDegree(fAngle);
+
+
+
+	_uint iDir = fAngle / 22.5f;
+
+	if (iDir == 0 || iDir == 15 || iDir == 16)
+	{
+		eDir = OBJ_DIR::DIR_U;
+	}
+	else if (iDir == 1 || iDir == 2)
+	{
+		eDir = OBJ_DIR::DIR_RU;
+	}
+	else if (iDir == 3 || iDir == 4)
+	{
+		eDir = OBJ_DIR::DIR_R;
+	}
+	else if (iDir == 5 || iDir == 6)
+	{
+		eDir = OBJ_DIR::DIR_RD;
+	}
+	else if (iDir == 7 || iDir == 8)
+	{
+		eDir = OBJ_DIR::DIR_D;
+	}
+	else if (iDir == 9 || iDir == 10)
+	{
+		eDir = OBJ_DIR::DIR_LD;
+	}
+	else if (iDir == 11 || iDir == 12)
+	{
+		eDir = OBJ_DIR::DIR_L;
+	}
+	else if (iDir == 13 || iDir == 14)
+	{
+		eDir = OBJ_DIR::DIR_LU;
+	}
+	else
+		return;
+	MONSTER_STATE eState = Get_State();
+	if (m_ePreviousState == eState && eDir == m_eDir)
+		return;
+
+	_uint iIndex = m_pAnimator->GetCurrAnimation()->Get_Idx();
+	switch (eState)
+	{
+	case Engine::MONSTER_STATE::IDLE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::MOVE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::REGEN:
+		m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", true);
+		break;
+	case Engine::MONSTER_STATE::ATTACK:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::DIE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+	if (m_ePreviousState == eState)
+		m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
+	m_ePreviousState = eState;
+	m_eDir = eDir;
 }

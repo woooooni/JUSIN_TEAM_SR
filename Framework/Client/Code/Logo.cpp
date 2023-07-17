@@ -1,6 +1,8 @@
 #include "..\Header\Logo.h"
 #include "Export_Function.h"
 #include "../Include/stdafx.h"
+#include	"Loading.h"
+#include	"UI_Shop.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -14,15 +16,6 @@ CLogo::~CLogo()
 HRESULT CLogo::Ready_Scene()
 {
 	__super::Ready_AllLayer();
-	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	D3DVIEWPORT9 vp;
 	vp.X = 0;
@@ -39,17 +32,14 @@ HRESULT CLogo::Ready_Scene()
 
 	FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
 
+	m_pLoading = CLoading::Create(m_pGraphicDev, SCENE_TYPE::TOOL);
 
 	return S_OK;
 }
 
 Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
-	Check_Event_Start(10);
-
-	__super::Update_Scene(fTimeDelta);
-
-	return 0;
+	return __super::Update_Scene(fTimeDelta);;
 }
 
 void CLogo::LateUpdate_Scene()
@@ -94,6 +84,9 @@ HRESULT CLogo::Ready_Layer_Player()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
+
+	pLayer->Ready_Layer();
+
 	return S_OK;
 }
 
@@ -101,6 +94,8 @@ HRESULT CLogo::Ready_Layer_Camera()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::CAMERA];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	Engine::CLayer* pPlayerLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 
 	pLayer->Ready_Layer();
 
@@ -111,6 +106,7 @@ HRESULT CLogo::Ready_Layer_Terrrain()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::TERRAIN];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
 
 	pLayer->Ready_Layer();
 
@@ -131,6 +127,7 @@ HRESULT CLogo::Ready_Layer_Monster()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
 
 	pLayer->Ready_Layer();
 

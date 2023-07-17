@@ -25,7 +25,9 @@
 #include "House.h"
 #include "Prop.h"
 #include "Grass.h"
-
+#include "GameMgr.h"
+#include "Npc_Cow.h"
+#include "Npc_Sheep.h"
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::TOOL)
@@ -92,6 +94,15 @@ void CScene_Tool::LateUpdate_Scene()
 void CScene_Tool::Render_Scene()
 {
 	CImGuiMgr::GetInstance()->Render_ImGui();
+
+	RECT rcPos = { WINCX / 2 - 10.f, 0,  WINCX / 2 + 10.f, 200.f };
+	_vec3 vPos;
+	m_pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+	wstring strPos = L"X : " + to_wstring(vPos.x) + L"\nY : " + to_wstring(vPos.y) + L"\nZ : " + to_wstring(vPos.z);
+	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+		D3DCOLOR_ARGB(100, 0, 0, 0));
 }
 
 void CScene_Tool::Free()
@@ -482,7 +493,7 @@ CScene_Tool* CScene_Tool::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("Logo Create Failed");
+		MSG_BOX("Tool_Scene Create Failed");
 		return nullptr;
 	}
 
@@ -491,6 +502,7 @@ CScene_Tool* CScene_Tool::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CScene_Tool::Ready_Prototype()
 {
+	FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev), E_FAIL);
 	return S_OK;
 }
 
@@ -498,11 +510,12 @@ HRESULT CScene_Tool::Ready_Layer_Player()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 
-	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
+	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 	NULL_CHECK_RETURN(pPlayer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
 	m_pPlayer = pPlayer;
 
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 
@@ -518,6 +531,7 @@ HRESULT CScene_Tool::Ready_Layer_Camera()
 	pCamera->Set_CameraState(CAMERA_STATE::TOOL);
 	pCamera->Set_TargetObj(m_pPlayer);
 
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 
@@ -530,6 +544,7 @@ HRESULT CScene_Tool::Ready_Layer_Terrrain()
 	NULL_CHECK_RETURN(pTerrain, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
 
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 
@@ -537,30 +552,39 @@ HRESULT CScene_Tool::Ready_Layer_Environment()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
 
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 
 HRESULT CScene_Tool::Ready_Layer_Monster()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
+
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 
 HRESULT CScene_Tool::Ready_Layer_InterationObj()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::INTERACTION_OBJ];
+
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 
 HRESULT CScene_Tool::Ready_Layer_Effect()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::EFFECT];
+
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 
 HRESULT CScene_Tool::Ready_Layer_UI()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
+
+	pLayer->Ready_Layer();
 	return S_OK;
 }
 

@@ -94,7 +94,7 @@ void CSpitCactus::Update_Attack(_float fTimeDelta)
 			pCactusNeedle->Get_TransformCom()->RotationAxis(AxisY, D3DXToRadian(45.f*(float)i));
 			pCactusNeedle->Set_Poison(m_bPoison);
 			pCactusNeedle->Set_Owner(this);
-			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 			pLayer->Add_GameObject(L"CactusNeedle", pCactusNeedle);
 			m_bShoot = false;
 		}

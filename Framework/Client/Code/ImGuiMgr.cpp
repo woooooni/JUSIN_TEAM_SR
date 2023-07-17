@@ -146,7 +146,7 @@ void CImGuiMgr::Update_ImGui(const _float& fTimeDelta)
 void CImGuiMgr::Render_ImGui()
 {
 	ImGui::Render();
-	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
+ 	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 }
 
 

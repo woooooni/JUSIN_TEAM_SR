@@ -25,13 +25,8 @@ HRESULT CUI_Shop::Ready_Object(void)
 	m_tInfo.fX = -178.f;
 	m_tInfo.fY = 70.f;
 
-	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
-	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
-
-//	CGameObject* pCursur = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"UI_Shop_Cursor");
-//	m_Cursor = pCursur;
-	
-	//bool bShown = dynamic_cast<CUI_ShortCutKey*>(pUI)->Get_Shown();
+	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
 	return S_OK;
 }

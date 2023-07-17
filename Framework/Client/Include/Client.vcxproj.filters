@@ -457,6 +457,9 @@
     <Filter Include="01. Scene\01. Tutorial\00. Village">
       <UniqueIdentifier>{9ed00668-8c13-45d6-a96e-d54248df9432}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\99. Test">
+      <UniqueIdentifier>{9633a306-3a32-46ee-9a5c-b403fdee16e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -560,9 +563,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\Player_State_GameOver.h">
       <Filter>02. GameObject\01. Player\State\13. GameOver</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Scene_Tool.h">
-      <Filter>01. Scene\99. Tool</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ImGuiMgr.h">
       <Filter>98. Manager\99. ImGui</Filter>
@@ -922,7 +922,12 @@
     <ClInclude Include="..\Header\DefaultItem.h" />
     <ClInclude Include="..\Header\Player_State_Dance.h" />
     <ClInclude Include="..\Header\QuizStatue.h" />
-    <ClInclude Include="..\Header\Stage1.h" />
+    <ClInclude Include="..\Header\Stage1.h">
+      <Filter>01. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_Tool.h">
+      <Filter>01. Scene\99. Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1144,9 +1149,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\InventoryMgr.cpp">
       <Filter>98. Manager\03. Inventory</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Scene_Tool.cpp">
-      <Filter>01. Scene\99. Tool</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Grass.cpp">
       <Filter>02. GameObject\11. FixedObj\02. Glass</Filter>
@@ -1371,7 +1373,12 @@
     <ClCompile Include="..\Code\DefaultItem.cpp" />
     <ClCompile Include="..\Code\Player_State_Dance.cpp" />
     <ClCompile Include="..\Code\QuizStatue.cpp" />
-    <ClCompile Include="..\Code\Stage1.cpp" />
+    <ClCompile Include="..\Code\Stage1.cpp">
+      <Filter>01. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_Tool.cpp">
+      <Filter>01. Scene\99. Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
