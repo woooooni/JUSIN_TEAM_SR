@@ -33,10 +33,13 @@ private:
     _vec3 m_vDst = { 0.f,0.f,0.f };
     _vec3 m_vDir = { 0.f,0.f,0.f };
     _bool m_bShoot = false;
+    _bool m_bShooting = false;
     virtual void Trace(_float fTimeDelta) override;
 
    virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
+   void Set_Animation();
+   _bool m_bShootState = false;
 
 };
 

@@ -68,7 +68,6 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 		if (D3DXVec3Length(&vDir) < 20.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK); // Player가 10.f안으로 오면 공격상태로 State 변환
-			m_pAnimator->Play_Animation(L"TrashFast_Move_Down", TRUE);
 		}
 
 	}
@@ -80,6 +79,7 @@ void CTrashFast::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
+	Set_Animation();
 	__super::LateUpdate_Object();
 }
 
@@ -101,7 +101,6 @@ void CTrashFast::Update_Idle(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::MOVE);
-			m_pAnimator->Play_Animation(L"TrashFast_Move_Down", TRUE);
 		}
 		m_fMoveTime = 0.f;
 	}
@@ -118,7 +117,6 @@ void CTrashFast::Update_Move(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", TRUE);
 		}
 		vDst = { float(rand() % 10) - 5.f, 1.f, float(rand() % 10) - 5.f };
 
@@ -131,13 +129,13 @@ void CTrashFast::Update_Move(_float fTimeDelta)
 	vDir = m_vDst;
 	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
-
+	m_vLook = vDir;
 	if (!m_bJump
 		&& m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
 	{
 		// void AddForce(_vec3 _vForce) { m_vForce += _vForce; }
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
-		m_pRigidBodyCom->AddForce(_vec3(0.0f, 120.0f, 0.0f));
+		m_pRigidBodyCom->AddForce(_vec3(0.0f, 50.0f, 0.0f));
 		m_pRigidBodyCom->SetGround(FALSE);
 		m_bJump = TRUE;
 	}
@@ -233,12 +231,13 @@ void CTrashFast::Trace(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = vTargetPos - vPos;
 	vDir.y = 0.f;
+	m_vLook = vDir;
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_pRigidBodyCom->IsGround())
 	{
 		if (D3DXVec3Length(&vDir) > 20.f)
 		{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", TRUE);
+		
 			return;
 		}
 		m_bJump = false;
@@ -246,7 +245,7 @@ void CTrashFast::Trace(_float fTimeDelta)
 	if (D3DXVec3Length(&vDir) > 20.f)
 	{
 		Set_State(MONSTER_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", TRUE);
+
 		return;
 	}
 
@@ -255,7 +254,7 @@ void CTrashFast::Trace(_float fTimeDelta)
 	if (!m_bJump && m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
 	{
 		m_pRigidBodyCom->AddForce(vDir * 80.0f); // vDir.y가 0임. y를 AddForce해줘야함.
-		m_pRigidBodyCom->AddForce(_vec3(0.0f, 120.0f, 0.0f));
+		m_pRigidBodyCom->AddForce(_vec3(0.0f, 50.0f, 0.0f));
 		m_pRigidBodyCom->SetGround(FALSE);
 		m_bJump = TRUE;
 	}
@@ -308,4 +307,207 @@ CTrashFast* CTrashFast::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pInstance;
+}
+void CTrashFast::Set_Animation()
+{
+
+	OBJ_DIR eDir = OBJ_DIR::DIR_END;
+	D3DXVec3Normalize(&m_vLook, &m_vLook);
+	_vec3 vAxis(0.f, 0.f, 1.f);
+	_float fAngle = D3DXVec3Dot(&m_vLook, &vAxis);
+	fAngle = acosf(fAngle);
+
+	if (m_vLook.x < 0.0f)
+		fAngle = D3DX_PI * 2 - fAngle;
+
+
+	fAngle = D3DXToDegree(fAngle);
+
+
+
+	_uint iDir = fAngle / 22.5f;
+
+	if (iDir == 0 || iDir == 15 || iDir == 16)
+	{
+		eDir = OBJ_DIR::DIR_U;
+	}
+	else if (iDir == 1 || iDir == 2)
+	{
+		eDir = OBJ_DIR::DIR_RU;
+	}
+	else if (iDir == 3 || iDir == 4)
+	{
+		eDir = OBJ_DIR::DIR_R;
+	}
+	else if (iDir == 5 || iDir == 6)
+	{
+		eDir = OBJ_DIR::DIR_RD;
+	}
+	else if (iDir == 7 || iDir == 8)
+	{
+		eDir = OBJ_DIR::DIR_D;
+	}
+	else if (iDir == 9 || iDir == 10)
+	{
+		eDir = OBJ_DIR::DIR_LD;
+	}
+	else if (iDir == 11 || iDir == 12)
+	{
+		eDir = OBJ_DIR::DIR_L;
+	}
+	else if (iDir == 13 || iDir == 14)
+	{
+		eDir = OBJ_DIR::DIR_LU;
+	}
+	else
+		return;
+	MONSTER_STATE eState = Get_State();
+	if (m_ePreviousState == eState && eDir == m_eDir)
+		return;
+
+	_uint iIndex = m_pAnimator->GetCurrAnimation()->Get_Idx();
+	switch (eState)
+	{
+	case Engine::MONSTER_STATE::IDLE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::MOVE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::REGEN:
+			m_pAnimator->Play_Animation(L"TrashFast_Regen_Down", true);
+		break;
+	case Engine::MONSTER_STATE::ATTACK:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashFast_Move_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::DIE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashFast_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+	if (m_ePreviousState == eState)
+		m_pAnimator->GetCurrAnimation()->Set_Idx(iIndex);
+	m_ePreviousState = eState;
+	m_eDir = eDir;
 }

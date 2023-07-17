@@ -44,5 +44,6 @@ private:
 
 public:
     static  CTrashFast* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+    void Set_Animation();
 };
 

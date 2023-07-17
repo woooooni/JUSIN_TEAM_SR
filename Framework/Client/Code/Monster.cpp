@@ -86,7 +86,8 @@ void CMonster::Free()
 
 void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		return;
 	switch (pCollider->GetOwner()->GetObj_Type())
 	{
 	case Engine::OBJ_TYPE::OBJ_ENVIRONMENT:
@@ -131,6 +132,8 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 
 void CMonster::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		return;
 	switch (pCollider->GetOwner()->GetObj_Type())
 	{
 	case Engine::OBJ_TYPE::OBJ_ENVIRONMENT:
