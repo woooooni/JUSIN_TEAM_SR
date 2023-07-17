@@ -460,6 +460,9 @@
     <Filter Include="01. Scene\99. Test">
       <UniqueIdentifier>{9633a306-3a32-46ee-9a5c-b403fdee16e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\06. Notification">
+      <UniqueIdentifier>{7936b785-f230-4a04-a308-e00cc1e8ad6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -928,6 +931,10 @@
     <ClInclude Include="..\Header\Scene_Tool.h">
       <Filter>01. Scene\99. Test</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Scene_Test.h" />
+    <ClInclude Include="..\Header\UI_Notification.h">
+      <Filter>02. GameObject\04. UI\06. Notification</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1378,6 +1385,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <Filter>01. Scene\99. Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_Test.cpp" />
+    <ClCompile Include="..\Code\UI_Notification.cpp">
+      <Filter>02. GameObject\04. UI\06. Notification</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
