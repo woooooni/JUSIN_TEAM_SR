@@ -46,6 +46,10 @@ HRESULT CScene_Loading::Ready_Scene()
 Engine::_int CScene_Loading::Update_Scene(const _float& fTimeDelta)
 {
 	_int iResult = __super::Update_Scene(fTimeDelta);
+
+	if (true == m_pLoading->Get_Finish())
+		Engine::Reserve_SceneChange(m_pLoading->Get_Scene());
+
 	return iResult;
 }
 
@@ -56,8 +60,7 @@ void CScene_Loading::LateUpdate_Scene()
 
 void CScene_Loading::Render_Scene()
 {
-	if (true == m_pLoading->Get_Finish())
-		Engine::Reserve_SceneChange(m_pLoading->Get_Scene());
+	
 }
 
 void CScene_Loading::Free()

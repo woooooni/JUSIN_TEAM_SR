@@ -68,8 +68,8 @@ HRESULT CScene_MoonForest1::Ready_Layer_Player()
 
 	_vec3 vPos;
 	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-	vPos.x = 4.5f;
-	vPos.z = 3.5f;
+	vPos.x = 55.5f;
+	vPos.z = 11.5f;
 
 	return S_OK;
 }

@@ -55,7 +55,6 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	CLoading* pLoading = reinterpret_cast<CLoading*>(pArg);
 
 	_uint	iFlag = 0;
-
 	EnterCriticalSection(pLoading->Get_Crt());
 
 	switch (pLoading->m_eID)
@@ -106,9 +105,8 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	default:
 		break;
 	}
-	LeaveCriticalSection(pLoading->Get_Crt());
-
 	pLoading->m_bFinish = true;
+	LeaveCriticalSection(pLoading->Get_Crt());
 
 	return iFlag;
 }
