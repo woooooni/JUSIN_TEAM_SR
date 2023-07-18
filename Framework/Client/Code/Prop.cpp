@@ -26,6 +26,7 @@ HRESULT CProp::Ready_Object(void)
 
 _int CProp::Update_Object(const _float& fTimeDelta)
 {
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	__super::Update_Object(fTimeDelta);
 	return S_OK;

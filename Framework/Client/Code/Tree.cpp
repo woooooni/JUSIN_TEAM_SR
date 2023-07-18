@@ -26,6 +26,7 @@ HRESULT CTree::Ready_Object(void)
 
 _int CTree::Update_Object(const _float& fTimeDelta)
 {
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Set_Billboard();
 	__super::Update_Object(fTimeDelta);
