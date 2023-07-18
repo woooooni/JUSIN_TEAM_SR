@@ -43,6 +43,7 @@ CScene_Tool::~CScene_Tool()
 
 HRESULT CScene_Tool::Ready_Scene()
 {
+	FAILED_CHECK_RETURN(CImGuiMgr::GetInstance()->Ready_ImGuiMgr(g_hWnd, m_pGraphicDev), E_FAIL);
 	__super::Ready_AllLayer();
 
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);

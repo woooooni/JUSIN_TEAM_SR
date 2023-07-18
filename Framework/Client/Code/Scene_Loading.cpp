@@ -32,9 +32,9 @@ HRESULT CScene_Loading::Ready_Scene()
 
 	m_pGraphicDev->SetViewport(&vp);
 
-	MATERIAL.Set_Material(MATERIAL.material, { 1.f, 1.f, 1.f, 0.f });
-	D3DMATERIAL9 mater = MATERIAL.material;
-	FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
+	//MATERIAL.Set_Material(MATERIAL.material, { 1.f, 1.f, 1.f, 0.f });
+	//D3DMATERIAL9 mater = MATERIAL.material;
+	//FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
 
 	Ready_Layer_UI();
 
