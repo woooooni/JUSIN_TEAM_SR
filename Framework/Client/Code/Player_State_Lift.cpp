@@ -110,20 +110,23 @@ _int CPlayer_State_Lift::Update_State(const _float& fTimeDelta)
 
 void CPlayer_State_Lift::LateUpdate_State(void)
 {
-	switch (m_eLiftState)
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
 	{
-	case LIFT_STATE::LIFTUP:
-		Update_Hat_LiftUp();
-		break;
-	case LIFT_STATE::LIFTIDLE:
-		Update_Hat_LiftIdle();
-		break;
-	case LIFT_STATE::LIFTWALK:
-		Update_Hat_LiftWalk();
-		break;
-	case LIFT_STATE::LIFTDOWN:
-		Update_Hat_LiftDown();
-		break;
+		switch (m_eLiftState)
+		{
+		case LIFT_STATE::LIFTUP:
+			Update_Hat_LiftUp();
+			break;
+		case LIFT_STATE::LIFTIDLE:
+			Update_Hat_LiftIdle();
+			break;
+		case LIFT_STATE::LIFTWALK:
+			Update_Hat_LiftWalk();
+			break;
+		case LIFT_STATE::LIFTDOWN:
+			Update_Hat_LiftDown();
+			break;
+		}
 	}
 }
 
