@@ -20,6 +20,7 @@
 #include "Effect_DieSmoke.h"
 #include "Effect_Explosion.h"
 #include "Effect_LightningGround.h"
+#include "Effect_GolemFist.h"
 
 #include "Scene_Loading.h"
 
@@ -263,12 +264,13 @@ HRESULT CMainApp::Ready_Pool()
 	CPool<CParticle_FixedLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CParticle_MovingLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);
-	CPool<CPlayer_Bullet_Bomb>::Ready_Pool(m_pGraphicDev, 200);
+	CPool<CPlayer_Bullet_Bomb>::Ready_Pool(m_pGraphicDev, 500);
 	CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CParticle_Stone>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CEffect_DieSmoke>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_Explosion>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_LightningGround>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CEffect_GolemFist>::Ready_Pool(m_pGraphicDev, 100);
 
 	return S_OK;
 }

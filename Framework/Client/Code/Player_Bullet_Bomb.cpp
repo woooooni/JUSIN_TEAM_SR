@@ -44,9 +44,10 @@ HRESULT CPlayer_Bullet_Bomb::Ready_Object(void)
 	m_fMinHeight = 0.4f;
 
 	m_pRigidBodyCom->SetGravity(false);
-	m_fOriginMaxVel = 10.0f;
+	m_fOriginMaxVel = m_fMaxVel = 10.0f;
 	m_pRigidBodyCom->SetMaxVelocity(m_fMaxVel);
 	m_pRigidBodyCom->SetFricCoeff(0.0f);
+	m_pRigidBodyCom->SetMass(1.0f);
 
 	return S_OK;
 }
@@ -77,6 +78,7 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 				dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
 		}
 
+		m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
 		CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
 	}
 
@@ -95,7 +97,7 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 		}
 	}
 
-	m_fMovePower += 1.0f;
+	m_fMovePower += 0.5f;
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_pRigidBodyCom->AddForce(vDir * m_fMovePower);
 	_vec3 vVel = m_pRigidBodyCom->GetVelocity();
@@ -171,9 +173,8 @@ HRESULT CPlayer_Bullet_Bomb::Ready_Component(void)
 void CPlayer_Bullet_Bomb::Shoot(CGameObject* _pTarget, _vec3& _vDir, _float _fPower, _vec3& _vPos)
 {
 	m_pTarget = _pTarget;
-	
 	m_pTransformCom->Set_Pos(&_vPos);
-	m_pRigidBodyCom->AddVelocity(_vDir * _fPower);
+	m_pRigidBodyCom->AddForce(_vDir * _fPower);
 
 	_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &m_vTargetPos);
 

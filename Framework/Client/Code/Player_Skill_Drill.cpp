@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "KeyMgr.h"
 #include "RigidBody.h"
+#include "Export_Function.h"
 
 CPlayer_Skill_Drill::CPlayer_Skill_Drill(CGameObject* _pOwner)
     : CPlayer_State(_pOwner), m_fSpeed(10.0f), m_fMinHeight(0.0f)
@@ -69,6 +70,8 @@ void CPlayer_Skill_Drill::Render_State(void)
 
 void CPlayer_Skill_Drill::Reset_State(void)
 {
+    m_pOwner->Set_MinHeight(m_fMinHeight);
+    dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(true);
 }
 
 void CPlayer_Skill_Drill::Update_Start(const _float& fTimeDelta)
@@ -92,7 +95,10 @@ void CPlayer_Skill_Drill::Update_Start(const _float& fTimeDelta)
             vPos.y = -1.0f;
             m_pOwner->Get_TransformCom()->Set_Pos(&vPos);
             m_eState = DRILL_STATE::INGROUND;
-            dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(true);
+
+            CGameObject* pAim = dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim();
+            pAim->Set_Active(true);
+            Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillAim", pAim);
 
             vPos.y = 0.1f;
             dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Get_TransformCom()->Set_Info(INFO_POS, &vPos);

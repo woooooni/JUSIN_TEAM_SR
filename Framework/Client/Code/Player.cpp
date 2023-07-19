@@ -26,6 +26,17 @@
 #include "Effect_Shadow.h"
 #include	"InventoryMgr.h"
 
+#include "Item_Hat_Drill.h"
+#include "Item_Hat_Light.h"
+#include "Item_Hat_Mask.h"
+#include "Item_Hat_Missile.h"
+#include "Item_Hat_Monkey.h"
+#include "Item_Hat_Turtle.h"
+#include "KeyMgr.h"
+#include "Player_Skill_Aim.h"
+#include "Player_Skill_Range.h"
+
+
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER, OBJ_ID::PLAYER)
 	, m_fSpeed(5.f)
@@ -199,6 +210,40 @@ HRESULT CPlayer::Ready_Object(void)
 	m_tPlayerStat.iMaxMp = m_tPlayerStat.iMp = 5;
 	m_tPlayerStat.iAttack = 5;
 
+
+	m_iHat = 0;
+
+	CGameObject* pHat = nullptr;
+	m_vecHats.push_back(pHat);
+
+	pHat = CItem_Hat_Drill::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+	pHat = CItem_Hat_Light::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+	pHat = CItem_Hat_Mask::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+	pHat = CItem_Hat_Missile::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+	pHat = CItem_Hat_Monkey::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+	pHat = CItem_Hat_Turtle::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+
+
+	CGameObject* pAim = CPlayer_Skill_Aim::Create(m_pGraphicDev);
+	if (pAim)
+		m_pAim = pAim;
+
+	CGameObject* pRange = CPlayer_Skill_Range::Create(m_pGraphicDev);
+	if (pRange)
+		m_pSkillRange = pRange;
+
 	return S_OK;
 }
 
@@ -209,6 +254,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], COLLISION_GROUP::COLLIDE_GRAB);
 	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK], COLLISION_GROUP::COLLIDE_SWING);
 
+	Key_Input(fTimeDelta);
 
 	if (m_bStateChange)
 	{
@@ -225,6 +271,14 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		m_pCollider[i]->Update_Component(fTimeDelta);
 	}
 
+
+	//모자 테스트
+	if(m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
+		m_vecHats[m_iHat]->Update_Object(fTimeDelta);
+
+
+
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 
 	return iExit;
@@ -237,6 +291,10 @@ void CPlayer::LateUpdate_Object(void)
 	{
 		m_pCollider[i]->LateUpdate_Component();
 	}
+
+
+	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
+		m_vecHats[m_iHat]->LateUpdate_Object();
 	__super::LateUpdate_Object();
 }
 
@@ -254,6 +312,10 @@ void CPlayer::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
+		m_vecHats[m_iHat]->Render_Object();
+
 }
 
 
@@ -354,6 +416,45 @@ void CPlayer::Free()
 		Safe_Delete(m_vecState[i]);
 
 	__super::Free();
+}
+
+void CPlayer::Key_Input(const _float& fTimeDelta)
+{
+	if (KEY_TAP(KEY::NUM_1))
+	{
+		m_iHat = 0;
+		Set_Hat(m_vecHats[m_iHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_2))
+	{
+		m_iHat = 1;
+		Set_Hat(m_vecHats[m_iHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_3))
+	{
+		m_iHat = 2;
+		Set_Hat(m_vecHats[m_iHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_4))
+	{
+		m_iHat = 3;
+		Set_Hat(m_vecHats[m_iHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_5))
+	{
+		m_iHat = 4;
+		Set_Hat(m_vecHats[m_iHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_6))
+	{
+		m_iHat = 5;
+		Set_Hat(m_vecHats[m_iHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_7))
+	{
+		m_iHat = 6;
+		Set_Hat(m_vecHats[m_iHat]);
+	}
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

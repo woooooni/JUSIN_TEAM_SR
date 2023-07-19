@@ -6,6 +6,8 @@
 
 #include "Scene.h"
 #include "Terrain.h"
+#include "Pool.h"
+#include "Effect_GolemFist.h"
 
 CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL),
@@ -40,7 +42,7 @@ HRESULT CPlayer_Bullet_GolemFist::Ready_Object(void)
 
 	m_pRigidBodyCom->SetMaxVelocity(100.0f);
 
-	m_fMinHeight = 0.73f;
+	m_fMinHeight = 0.70f;
 
 	return S_OK;
 }
@@ -53,11 +55,24 @@ _int CPlayer_Bullet_GolemFist::Update_Object(const _float& fTimeDelta)
 	if (m_pRigidBodyCom->IsGround())
 	{
 		m_fAccTime += fTimeDelta;
+		if (!m_bEffect)
+		{
+			_vec3 vPos;
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			CGameObject* pEffect = CPool<CEffect_GolemFist>::Get_Obj();
+			if (!pEffect)
+			{
+				pEffect = CEffect_GolemFist::Create(m_pGraphicDev);
+			}
+			dynamic_cast<CEffect_GolemFist*>(pEffect)->Get_Effect(vPos, _vec3(2.0f, 2.0f, 2.0f));
+
+		}
 
 		if (m_fAccTime > m_fStopTime)
 		{
 			m_fAccTime = 0.0f;
 			Set_Active(false);
+			m_bEffect = false;
 		}
 	}
 

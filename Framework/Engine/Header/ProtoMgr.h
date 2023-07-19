@@ -3,6 +3,7 @@
 #include "Engine_Define.h"
 #include "Base.h"
 #include "Component.h"
+#include <mutex>
 
 BEGIN(Engine)
 
@@ -23,7 +24,7 @@ private:
 
 private:
 	map<const _tchar*, CComponent*>		m_mapProto;
-
+	mutex m_mutex;
 public:
 	virtual void Free();
 };

@@ -988,6 +988,7 @@
     <ClInclude Include="..\Header\Scene_Loading.h">
       <Filter>01. Scene\97. Loading</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_GolemFist.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1466,6 +1467,7 @@
     <ClCompile Include="..\Code\Scene_Loading.cpp">
       <Filter>01. Scene\97. Loading</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

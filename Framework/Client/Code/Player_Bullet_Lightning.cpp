@@ -42,7 +42,7 @@ HRESULT CPlayer_Bullet_Lightning::Ready_Object(void)
 	Set_Active(false);
 
 
-	m_pTransformCom->Set_Scale(_vec3(1.5f, 8.0f, 0.0f));
+	m_pTransformCom->Set_Scale(_vec3(1.5f, 5.5f, 0.0f));
 
 	m_vDir = { 0.0f, 0.0f, 0.0f };
 

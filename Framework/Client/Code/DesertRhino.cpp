@@ -74,7 +74,7 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 	if (!Is_Active())
 		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
-	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
+	/*if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
 		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 		if (nullptr == pTarget)
@@ -93,7 +93,7 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		{
 			Set_State(MONSTER_STATE::REGEN);
 		}
-	}
+	}*/
 
 
 	return iExit;
@@ -121,7 +121,7 @@ void CDesertRhino::Render_Object(void)
 
 void CDesertRhino::Update_Idle(_float fTimeDelta)
 {
-	if (m_fMoveTime > 10.f)
+	/*if (m_fMoveTime > 10.f)
 	{
 		if (rand() % 10 > 8)
 		{
@@ -130,7 +130,7 @@ void CDesertRhino::Update_Idle(_float fTimeDelta)
 
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
+	m_fMoveTime += 10.f * fTimeDelta;*/
 }
 
 void CDesertRhino::Update_Die(_float fTimeDelta)

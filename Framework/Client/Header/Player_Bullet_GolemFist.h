@@ -49,6 +49,7 @@ private:
 	_float m_fStopTime;
 	_float m_fAccTime;
 
+	bool m_bEffect = false;
 private:
 	virtual void Free() override;
 };
