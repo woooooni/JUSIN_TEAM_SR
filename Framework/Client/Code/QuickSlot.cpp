@@ -17,37 +17,42 @@ CQuickSlot::~CQuickSlot()
 
 HRESULT CQuickSlot::Ready_Object(void)
 {
-	CComponent* pComponent = nullptr;
+	FAILED_CHECK_RETURN(Add_Slot(), E_FAIL);
 
-	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
-	D3DXMatrixIdentity(&m_matView);
-
-	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
-
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_QuickSlot"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
-
-	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
-
-	m_tInfo.fX = 0.f;
-	m_tInfo.fY = 0.f;
-	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+//	CComponent* pComponent = nullptr;
+//
+//	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
+//	D3DXMatrixIdentity(&m_matView);
+//
+//	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
+//	NULL_CHECK_RETURN(pComponent, E_FAIL);
+//	pComponent->SetOwner(this);
+//	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
+//
+//	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_QuickSlot"));
+//	NULL_CHECK_RETURN(pComponent, E_FAIL);
+//	pComponent->SetOwner(this);
+//	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+//
+//	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
+//	NULL_CHECK_RETURN(pComponent, E_FAIL);
+//	pComponent->SetOwner(this);
+//	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
+//
+//	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+//	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
 	return S_OK;
 }
 
 _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	//Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+
+	m_vecSlots[SLOT_ONE]->Update_Object(fTimeDelta);
+	m_vecSlots[SLOT_TWO]->Update_Object(fTimeDelta);
+	m_vecSlots[SLOT_THREE]->Update_Object(fTimeDelta);
+	m_vecSlots[SLOT_FOUR]->Update_Object(fTimeDelta);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -55,103 +60,50 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 
 void CQuickSlot::LateUpdate_Object(void)
 {
-	switch (m_tSlotInfo.eType)
-	{
-	case SLOTNUM::SLOT_ONE:
-		m_tInfo.fX = -536.f;
-		m_tInfo.fY = -320.f;
-		break;
+	m_vecSlots[SLOT_ONE]->LateUpdate_Object();
+	m_vecSlots[SLOT_TWO]->LateUpdate_Object();
+	m_vecSlots[SLOT_THREE]->LateUpdate_Object();
+	m_vecSlots[SLOT_FOUR]->LateUpdate_Object();
 
-	case SLOTNUM::SLOT_TWO:
-		m_tInfo.fX = -460.5f;
-		m_tInfo.fY = -320.f;
-		break;
-
-	case SLOTNUM::SLOT_THREE:
-		m_tInfo.fX = -385.f;
-		m_tInfo.fY = -320.f;
-		break;
-
-	case SLOTNUM::SLOT_FOUR:
-		m_tInfo.fX = -309.5f;
-		m_tInfo.fY = -320.f;
-		break;
-
-	default:
-		break;
-	}
 	__super::LateUpdate_Object();
 }
 
 void CQuickSlot::Render_Object(void)
 {
-		_matrix matPreView, matPreProj;
-		_vec3 vPos;
-
-		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-
-		switch (m_tSlotInfo.eType)
-		{
-		case SLOTNUM::SLOT_ONE:
-			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
-		(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
-			break;
-
-		case SLOTNUM::SLOT_TWO:
-			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-			break;
-
-		case SLOTNUM::SLOT_THREE:
-			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-			break;
-
-		case SLOTNUM::SLOT_FOUR:
-			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-			break;
-
-		default:
-			break;
-		}
-
-		m_pTransformCom->Set_Pos(&vPos);
-
-		_float fRatio = _float(WINCY) / _float(WINCX);
-
-		_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 0.85, m_tInfo.fCY * 0.85 * fRatio, 0.f);
-
-		m_pTransformCom->Set_Scale(vScale);
-		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-
-		m_pTextureCom->Render_Texture(0);
-		m_pBufferCom->Render_Buffer();
-
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+	m_vecSlots[SLOT_ONE]->Render_Object();
+	m_vecSlots[SLOT_TWO]->Render_Object();
+	m_vecSlots[SLOT_THREE]->Render_Object();
+	m_vecSlots[SLOT_FOUR]->Render_Object();
 
 	__super::Render_Object();
 }
 
-HRESULT CQuickSlot::Add_Component(void)
+HRESULT CQuickSlot::Add_Slot(void)
 {
+	m_vecSlots.reserve(SLOTNUM::SLOT_END);
+
+	CUI_SlotOne* p1stSlot = CUI_SlotOne::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(p1stSlot, E_FAIL);
+	m_vecSlots.push_back(p1stSlot);
+
+	CUI_SlotTwo* p2ndSlot = CUI_SlotTwo::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(p2ndSlot, E_FAIL);
+	m_vecSlots.push_back(p2ndSlot);
+
+	CUI_SlotThree* p3rdSlot = CUI_SlotThree::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(p3rdSlot, E_FAIL);
+	m_vecSlots.push_back(p3rdSlot);
+
+	CUI_SlotFour* p4thSlot = CUI_SlotFour::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(p4thSlot, E_FAIL);
+	m_vecSlots.push_back(p4thSlot);
+
 	return S_OK;
 }
 
-void CQuickSlot::Set_Type(SLOTNUM eType)
-{
-	m_tSlotInfo.eType = eType;
-}
-
-CQuickSlot* CQuickSlot::Create(LPDIRECT3DDEVICE9 pGraphicDev, SLOTNUM eType)
+CQuickSlot* CQuickSlot::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CQuickSlot* pInstance = new CQuickSlot(pGraphicDev);
-
-	pInstance->Set_Type(eType);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

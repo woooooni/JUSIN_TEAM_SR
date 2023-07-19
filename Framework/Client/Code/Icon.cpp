@@ -27,7 +27,7 @@ HRESULT CIcon::Ready_Object(void)
 
 _int CIcon::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	Key_Input();
 
@@ -154,7 +154,7 @@ void CIcon::Render_Object(void)
 
 	// Player HP TextOut //
 
-	_int MaxHP = 3;
+	_int MaxHP = 2;
 	_int HP = 1;
 
 	// 현재 MaxHP, HP 모두 0으로 되어있어 주석처리함. Player 세팅 완료시 사용
@@ -171,14 +171,12 @@ void CIcon::Render_Object(void)
 	wstring sTemp = wstring(strBuffer.begin(), strBuffer.end());
 	LPCWSTR swBuffer = sTemp.c_str();
 
-	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
 		swBuffer, lstrlen(swBuffer), &rc, DT_CENTER | DT_NOCLIP,
 		D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 	m_pTextureCom->Render_Texture(0);
 	m_pBufferCom->Render_Buffer();

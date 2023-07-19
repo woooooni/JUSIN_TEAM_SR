@@ -870,7 +870,7 @@ HRESULT CLoading::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_SkillRange", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_SkillRange_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Aim", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_Aim_%d.png", 1)), E_FAIL);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4)), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Coin", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/FieldObject/Item/Coin/Coin_%d.png", 4)), E_FAIL);
 
 	return S_OK;
@@ -1106,6 +1106,34 @@ HRESULT CLoading::Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Doogee_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Doogee/Sprite_DooGee_Idle_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Doogee_Dig", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Doogee/Sprite_DooGee_Dig_%d.png", 12)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Doogee_React", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Doogee/Sprite_DooGee_Reaction_%d.png", 12)), E_FAIL);
+	// Tutorial _ Artist
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Artist_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Artist/Idle/Sprite_Artist_%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Artist_Drawing", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Artist/Drawing/Sprite_Artist_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Artist_React", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Artist/React/Sprite_Artist_%d.png", 10)), E_FAIL);
+	// Monkey Village _ Dance Teacher
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_DanceTeacher_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/DanceTeacher_Monkey/Idle/Sprite_MonkeyDanceTeacher_%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_DanceTeacher_Dance", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/DanceTeacher_Monkey/Dance/Sprite_MonkeyDanceTeacher_%d.png", 9)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_DanceTeacher_React", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/DanceTeacher_Monkey/React/Sprite_MonkeyDanceTeacher_%d.png", 5)), E_FAIL);
+	// Monkey Village _ Dancer
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Dancer_Dance", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Dancer_Monkey/Dance/Sprite_MonkeyDance_%d.png", 33)), E_FAIL);
+	// Monkey Village _ Cheif
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Chief_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Chief_Monkey/Idle/Sprite_MonkeyChief_%d.png", 4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Chief_Magic", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Chief_Monkey/Magic/Sprite_MonkeyChief_Magic_%d.png", 10)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Chief_React", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Chief_Monkey/React/Sprite_MonkeyChief_%d.png", 7)), E_FAIL);
+	// Monkey Village _ Elite
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Elite_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Elite_Monkey/Sprite_MonkeyElite_%d.png", 13)), E_FAIL);
+	// Monkey Village _ Fishing
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_FishingMonkey_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Fishing_Monkey/Sprite_MonkeyFishing_%d.png", 6)), E_FAIL);
+	// Monkey Village _ Wholesaler
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Wholesaler_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Wholesaler_Monkey/Sprite_MonkeyWholesaler.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Wholesaler_Orangi_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Wholesaler_Monkey/Orangi_Monkey/Idle/Sprite_Orangi_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Wholesaler_Orangi_React", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Wholesaler_Monkey/Orangi_Monkey/React/Sprite_Orangi_%d.png", 5)), E_FAIL);
+	// Monkey Village _ Villager
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Villager_Hood_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Villager_Monkey/Sprite_MonkeyVillager1.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Villager_Fur_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Villager_Monkey/Sprite_MonkeyVillager2.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Villager_Leaves1_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Villager_Monkey/Sprite_MonkeyVillager3.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Villager_Leaves2_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Villager_Monkey/Sprite_MonkeyVillager4.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Villager_Dancer_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/1_Stage1/Monkey/Villager_Monkey/Sprite_MonkeyVillager5.png")), E_FAIL);
 
 	return S_OK;
 

@@ -1,5 +1,9 @@
 #pragma once
 #include "CUI.h"
+#include "UI_SlotOne.h"
+#include "UI_SlotTwo.h"
+#include "UI_SlotThree.h"
+#include "UI_SlotFour.h"
 
 BEGIN(Engine)
 
@@ -9,16 +13,10 @@ class CTexture;
 
 END
 
-typedef enum class SlotNum
+enum SLOTNUM
 {
 	SLOT_ONE, SLOT_TWO, SLOT_THREE, SLOT_FOUR,
 	SLOT_END
-
-}SLOTNUM;
-
-struct tagSlotInfo
-{
-	SLOTNUM		eType;
 };
 
 class CQuickSlot : public CUI
@@ -35,16 +33,14 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-private:
-	HRESULT			Add_Component(void);
-	void			Set_Type(SLOTNUM eType);
+public:
+	HRESULT			Add_Slot(void);
 
 private:
-	tagSlotInfo		m_tSlotInfo;
-	_vec3			m_vDefaultPos;
+	vector<CUI*>	m_vecSlots;
 
 public:
-	static  CQuickSlot* Create(LPDIRECT3DDEVICE9 pGraphicDev, SLOTNUM eType);
+	static  CQuickSlot* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;

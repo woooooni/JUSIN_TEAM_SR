@@ -77,7 +77,7 @@ _int CJellyBomb::Update_Object(const _float& fTimeDelta)
             Engine::Check_Event_Start(m_iExplodeEvent);
             m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
             dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 1.f, 4.f });
-            m_pAnimator->Play_Animation(L"Explode", false)
+            m_pAnimator->Play_Animation(L"Explode", false);
         }
         else
         {
