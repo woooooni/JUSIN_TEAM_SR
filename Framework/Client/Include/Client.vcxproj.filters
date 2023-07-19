@@ -493,6 +493,9 @@
     <Filter Include="01. Scene\97. Loading">
       <UniqueIdentifier>{75b845a7-a670-4b8f-990c-e90aef6cd7d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\04.">
+      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">

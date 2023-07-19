@@ -39,6 +39,7 @@ private:
 
 private:
 	_vec3		m_vScale = {1, 1, 1};
+	LPD3DXMESH	m_pMesh;
 
 
 };
