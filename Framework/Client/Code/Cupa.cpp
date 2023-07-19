@@ -1,6 +1,6 @@
 #include "Cupa.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CCupa::CCupa(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev, OBJ_ID::CUPA), m_fMoveTime(0.f)
 {
@@ -51,7 +51,7 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 	if (Get_State() != MONSTER_STATE::REGEN &&
 		Get_State() != MONSTER_STATE::ATTACK)
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
 			return S_OK;
 		// Player를 타켓으로 Set한다.

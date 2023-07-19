@@ -21,7 +21,7 @@
 #include "BalpanObj.h"
 #include "HitObj.h"
 #include "BlockObj.h"
-
+#include "GameMgr.h"
 #include "JellyStone.h"
 #include "JellyCombined.h"
 #include "Catapult.h"
@@ -160,6 +160,7 @@ CScene_Test* CScene_Test::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CScene_Test::Ready_Prototype()
 {
+	FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev), E_FAIL);
 	return S_OK;
 }
 
@@ -168,12 +169,11 @@ HRESULT CScene_Test::Ready_Prototype()
 HRESULT CScene_Test::Ready_Layer_Player()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
-	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	// Player
-	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
+	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 	NULL_CHECK_RETURN(pPlayer, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
+	m_pPlayer = pPlayer;
 
 	CItem_Hat_Monkey* pItemMonkeyHat = CItem_Hat_Monkey::Create(m_pGraphicDev, pPlayer);
 	NULL_CHECK_RETURN(pItemMonkeyHat, E_FAIL);

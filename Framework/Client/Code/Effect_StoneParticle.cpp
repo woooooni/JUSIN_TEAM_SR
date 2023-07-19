@@ -66,7 +66,7 @@ void CEffect_StoneParticle::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iCou
 
         vPos.x = (rand() % 100) * _vScale.x;
         vPos.y = (rand() % 100) * _vScale.y;
-        vPos.z = (rand() % 100) * 0.0001;
+        vPos.z = (rand() % 100) * 0.0001f;
 
         iTemp = rand() % 2;
         if (iTemp == 1)

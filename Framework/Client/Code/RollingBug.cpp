@@ -1,6 +1,6 @@
 #include "RollingBug.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 
 CRollingBug::CRollingBug(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev, OBJ_ID::ROLLING_BUG), m_fMoveTime(0.f)
@@ -37,7 +37,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return S_OK;
 

@@ -5,6 +5,7 @@
 #include "RedBeatle.h"
 #include "BlueBeatle.h"
 #include "GreenBeatle.h"
+#include "GameMgr.h"
 CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
 {
 }
@@ -251,7 +252,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				m_bSpawn = true;
 			}
 			_vec3 vTargetPos, vPos, vDir;
-			CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+			CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 			if (nullptr == pTarget)
 				return;
 			m_pTarget = pTarget;

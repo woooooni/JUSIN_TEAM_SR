@@ -1,6 +1,6 @@
 
 #include "DesertRhino.h"
-
+#include "GameMgr.h"
 #include "Export_Function.h"
 
 CDesertRhino::CDesertRhino(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -76,7 +76,7 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 	_int iExit = __super::Update_Object(fTimeDelta);
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
 			return S_OK;
 

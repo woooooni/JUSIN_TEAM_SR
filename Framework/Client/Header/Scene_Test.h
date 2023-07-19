@@ -3,7 +3,7 @@
 #include "Scene.h"
 
 
-
+class CPlayer;
 class CScene_Test final : public Engine::CScene
 {
 private:
@@ -30,9 +30,10 @@ private:
 
 public:
 	static CScene_Test*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	CPlayer* Get_Player() { return m_pPlayer; }
 
 private:
 	virtual void Free() override;
-
+	CPlayer* m_pPlayer;
 };
 

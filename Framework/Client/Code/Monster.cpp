@@ -120,7 +120,7 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 			vDir.y = 0.0f;
 			D3DXVec3Normalize(&vDir, &vDir);
 			if(m_bPushable)
-			m_pRigidBodyCom->AddForce(vDir * 10.0f);
+			m_pRigidBodyCom->AddForce(vDir * 70.0f);
 
 		}
 		break;
@@ -166,7 +166,7 @@ void CMonster::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
 
-		m_pRigidBodyCom->AddForce(vDir * 70.0f);
+		m_pRigidBodyCom->AddForce(vDir * 10.0f);
 
 	}
 		break;

@@ -2,7 +2,7 @@
 #include "TrashBummer.h"
 #include "SludgeBall.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CTrashBummer::CTrashBummer(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
 {
 }
@@ -70,7 +70,7 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
 			return S_OK;
 		Set_Target(pTarget);
@@ -170,7 +170,7 @@ void CTrashBummer::Update_Move(_float fTimeDelta)
 void CTrashBummer::Update_Attack(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
@@ -242,7 +242,7 @@ CTrashBummer* CTrashBummer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CTrashBummer::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
