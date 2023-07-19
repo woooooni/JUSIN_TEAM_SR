@@ -30,6 +30,12 @@ HRESULT CHitObj::Ready_Object(void)
 	FAILED_CHECK(m_pAnimator->Add_Animation(L"Monkey", L"Proto_Tex_MonkeyStatue", 0.f));
 	FAILED_CHECK(m_pAnimator->Add_Animation(L"Rat", L"Proto_Tex_RatStatue", 0.f));
 
+	m_pBlurAnimator = dynamic_cast<CAnimator*>(Clone_Proto(L"Proto_Animator"));	
+	FAILED_CHECK(m_pBlurAnimator->Add_Animation(L"Bug", L"Proto_Tex_BugStatue_Blur", 0.f));
+	FAILED_CHECK(m_pBlurAnimator->Add_Animation(L"Monkey", L"Proto_Tex_MonkeyStatue_Blur", 0.f));
+	FAILED_CHECK(m_pBlurAnimator->Add_Animation(L"Rat", L"Proto_Tex_RatStatue_Blur", 0.f));
+
+
     return S_OK;
 }
 
@@ -72,16 +78,24 @@ _int CHitObj::Update_Object(const _float& fTimeDelta)
 
 void CHitObj::LateUpdate_Object(void)
 {
+	__super::LateUpdate_Object();
 }
 
 void CHitObj::Render_Object(void)
 {
 
 	__super::Render_Object();
+
+	if (m_bHitted && m_eHitType == OBJ_HITTYPE::HIT_ONCE)
+	{
+		m_pBlurAnimator->Render_Component();
+		m_pBufferCom->Render_Buffer();
+	}
 }
 
 void CHitObj::Free()
 {
+	Safe_Release(m_pBlurAnimator);
     __super::Free();
 }
 
@@ -101,6 +115,7 @@ CHitObj* CHitObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const
 	ret->m_vOrigin = { p_Pos.x, 0.5f, p_Pos.z };
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
 	ret->m_pAnimator->Play_Animation(statuename, false);
+	ret->m_pBlurAnimator->Play_Animation(statuename, false);
 
     return ret;
 }
@@ -124,6 +139,7 @@ void CHitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 			Check_Event_Start(m_iEventNum);
 			m_fEffectTime = 0.5f;
 			Make_Toward();
+			
 
 			break;
 		case Engine::OBJ_HITTYPE::HIT_BREAK:

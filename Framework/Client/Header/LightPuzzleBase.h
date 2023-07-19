@@ -18,9 +18,11 @@ public:
 public:
 	void		Set_MakeLight() { m_bMakeLight = true; }
 	const _bool& Get_MakeLight() { return m_bMakeLight; }
+	virtual		void	Set_Lighting(const _bool& pBool) override;
 
 protected:
 	_bool		m_bMakeLight;
+	_uint		m_iMyEvent;
 
 public:
 	virtual void    Free() override;

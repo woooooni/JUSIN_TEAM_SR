@@ -221,6 +221,34 @@ void CScene_Tool::Save_Obj_Data(wstring _strFolderPath)
 			_uint iObjId = (_uint)pObj->GetObj_Id();
 			WriteFile(hObjFile, &iObjId, sizeof(_uint), &dwByte, nullptr);
 
+			if (iObjId == (_uint)OBJ_ID::GRASS)
+			{
+				CTransform* pTransform = pObj->Get_TransformCom();
+				CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(pObj->Get_ColliderCom());
+
+				_vec3 vRight, vUp, vLook, vPos, vScale;
+
+				pTransform->Get_Info(INFO_RIGHT, &vRight);
+				pTransform->Get_Info(INFO_UP, &vUp);
+				pTransform->Get_Info(INFO_LOOK, &vLook);
+				pTransform->Get_Info(INFO_POS, &vPos);
+				vScale = pTransform->Get_Scale();
+
+				WriteFile(hObjFile, &vRight, sizeof(_vec3), &dwByte, nullptr);
+				WriteFile(hObjFile, &vUp, sizeof(_vec3), &dwByte, nullptr);
+				WriteFile(hObjFile, &vLook, sizeof(_vec3), &dwByte, nullptr);
+				WriteFile(hObjFile, &vPos, sizeof(_vec3), &dwByte, nullptr);
+				WriteFile(hObjFile, &vScale, sizeof(_vec3), &dwByte, nullptr);
+
+				_vec3 vColliderScale = pCollider->Get_Scale();
+				WriteFile(hObjFile, &vColliderScale, sizeof(_vec3), &dwByte, nullptr);
+
+				_uint	src = (_uint) dynamic_cast<CGrass*>(pObj)->Get_Type();
+
+				WriteFile(hObjFile, &src, sizeof(_uint), &dwByte, nullptr);
+
+			}
+
 
 			CTransform* pTransform = pObj->Get_TransformCom();
 			CTexture* pTexture = pObj->Get_TextureCom();

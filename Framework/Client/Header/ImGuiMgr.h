@@ -74,6 +74,8 @@ private:
 	CGameObject* m_pSelectedObject;
 
 	_uint m_iObjNum;
+	_int	itemInex = 0;
+	_int	itemPercent = 0;
 
 	wstring m_strFolderPath;
 public:

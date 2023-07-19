@@ -30,13 +30,7 @@ public:
 public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
-	void	Reset() 
-	{ 
-		m_bHitted = false;
-		m_fExplodeTime = 0.f;
-		m_fBlurAlpha = 0.f;
-		Set_Active(true);
-	}
+	void	Reset();
 	const	_uint& Get_EventNum() { return m_iExplodeEvent; }
 
 
@@ -44,6 +38,7 @@ protected:
 	_bool		m_bHitted;
 	_uint		m_iExplodeEvent;
 	_float		m_fExplodeTime;
+	_bool		m_bExplosing;
 	CTexture* m_pBlurTex;
 	_float		m_fBlurAlpha;
 

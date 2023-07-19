@@ -207,6 +207,7 @@
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\BreakObj.h" />
     <ClInclude Include="..\Header\BreakStone.h" />
     <ClInclude Include="..\Header\Bullet.h" />
     <ClInclude Include="..\Header\ButterFly.h" />
@@ -404,6 +405,7 @@
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\BreakObj.cpp" />
     <ClCompile Include="..\Code\BreakStone.cpp" />
     <ClCompile Include="..\Code\Bullet.cpp" />
     <ClCompile Include="..\Code\ButterFly.cpp" />
