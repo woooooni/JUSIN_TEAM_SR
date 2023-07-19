@@ -172,6 +172,12 @@ void CCamera::Update_GameCamera(const _float& fTimeDelta)
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
+	if (KEY_TAP(KEY::F9))
+	{
+		m_pTargetObj = nullptr;
+		m_eState = CAMERA_STATE::TOOL;
+	}
+	
 	
 }
 

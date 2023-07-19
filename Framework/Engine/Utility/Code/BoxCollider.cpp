@@ -78,16 +78,6 @@ void CBoxCollider::Render_Component()
 	matWorld._22 = m_vScale.y;
 	matWorld._33 = m_vScale.z;
 
-
-
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, &matWorld);
-	D3DCOLORVALUE tValue;
-	tValue.a = 1.f;
-	tValue.r = 1.f;
-	tValue.g = 0.f;
-	tValue.b = 0.f;
-
-	m_pGraphicDev->SetMaterial(&(MATERIAL.Get_Meretial(tValue)));
 	
 	m_pMesh->DrawSubset(0);
 	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);

@@ -78,24 +78,7 @@ void CUIMgr::Late_Update_UIMgr()
 
 void CUIMgr::Render_UIMgr()
 {
-    m_vecIcon[HEART]->Render_Object();
-   // m_vecIcon[PLAYERHP_BACK]->Render_Object();
-    m_vecIcon[KEYBOARD]->Render_Object();
-    m_vecIcon[QUEST]->Render_Object();
-
-    //m_pDialog->Render_Object();
-    m_pHpBar->Render_Object();
-   // m_pShop->Render_Object();
-    //m_pShortCutKey->Render_Object();
-    m_pQuickSlot->Render_Object();
-
-    m_vecIcon[PLAYERHP_BACK]->Render_Object();
-    m_vecIcon[PLAYERHP_FRAME]->Render_Object();
-    m_vecIcon[KEYBUTTON_1]->Render_Object();
-    m_vecIcon[KEYBUTTON_2]->Render_Object();
-    m_vecIcon[KEYBUTTON_3]->Render_Object();
-    m_vecIcon[KEYBUTTON_4]->Render_Object();
-    m_vecIcon[KEYBUTTON_L]->Render_Object();
+    
 }
 
 HRESULT CUIMgr::Set_UI(SCENE_TYPE eType)
