@@ -119,8 +119,8 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 			vDir = vPos - vTargetPos;
 			vDir.y = 0.0f;
 			D3DXVec3Normalize(&vDir, &vDir);
-
-			m_pRigidBodyCom->AddForce(vDir * 70.0f);
+			if(m_bPushable)
+			m_pRigidBodyCom->AddForce(vDir * 10.0f);
 
 		}
 		break;
@@ -187,7 +187,8 @@ void CMonster::Push_Me(CCollider* other)
 	if (other->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 		return;
 
-
+	if (!m_bPushable)
+		return;	
 	const _vec3& vLeftScale = ((CBoxCollider*)m_pColliderCom)->Get_Scale();
 	const _vec3& vLeftPos = ((CBoxCollider*)m_pColliderCom)->Get_Pos();
 	const _vec3& vRightScale = ((CBoxCollider*)other)->Get_Scale();

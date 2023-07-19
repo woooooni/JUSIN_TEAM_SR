@@ -46,7 +46,7 @@ HRESULT CMothMage::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"MothMage_Attack_RightUp", L"Proto_Texture_MothMage_Attack_RightUp", 0.4f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftDown", L"Proto_Texture_MothMage_Attack_LeftDown", 0.4f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftUp", L"Proto_Texture_MothMage_Attack_LeftUp", 0.4f);
-	m_pAnimator->Add_Animation(L"MothMage_Death_Down", L"Proto_Texture_MothMage_Death_Down", 0.4f);
+	m_pAnimator->Add_Animation(L"MothMage_Death_Down", L"Proto_Texture_MothMage_Death_Down", 0.1f);
 
 	m_pMothOrb= CMothOrb::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMothOrb, E_FAIL);

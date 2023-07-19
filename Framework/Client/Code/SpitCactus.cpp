@@ -25,10 +25,12 @@ HRESULT CSpitCactus::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SpitCactus_Idle_Down", L"Proto_Texture_SpitCactus_Idle_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"SpitCactus_Attack_Down", L"Proto_Texture_SpitCactus_Attack_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"SpitCactus_Regen_Down", L"Proto_Texture_SpitCactus_Regen_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"SpitCactus_Death_Down", L"Proto_Texture_SpitCactus_Death_Down", 0.1f);
 	m_fMinHeight = 0.5f;
 	m_pTransformCom->Set_Pos(&_vec3(1.0f, 1.0f, 9.0f));
 	m_pAnimator->Play_Animation(L"SpitCactus_Regen_Down", true);
 	m_tStat = { 3,3,1 };
+	m_bPushable = false;
 	return S_OK;
 }
 
@@ -112,7 +114,7 @@ void CSpitCactus::Update_Move(_float fTimeDelta)
 }
 void CSpitCactus::Update_Die(_float fTimeDelta)
 {
-	if (Is_Active())
+	if (Is_Active()&&m_pAnimator->GetCurrAnimation()->Is_Finished())
 		Set_Active(false);
 }
 
@@ -183,6 +185,9 @@ void CSpitCactus::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		D3DXVec3Normalize(&vDir, &vDir);
 		m_tStat.iHp -= 1;
 		if (m_tStat.iHp < 1)
+		{
 			Set_State(MONSTER_STATE::DIE);
+			m_pAnimator->Play_Animation(L"SpitCactus_Death_Down", true);
+		}
 	}
 }

@@ -29,6 +29,8 @@ HRESULT CPlantCannon::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 2.f,2.f ,2.f });
 	m_pAnimator->Play_Animation(L"PlantCannon_Attack_Left", true);
 	m_tStat = { 3,3,1 };
+
+	m_bPushable = false;
 	return S_OK;
 }
 

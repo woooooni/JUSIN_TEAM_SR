@@ -33,7 +33,7 @@
 #include "Scene_MonkeyVillage.h"
 #include "Scene_SunGolemCave1.h"
 #include "Scene_MoonForest1.h"
-
+#include "Scene_Test.h"
 #include "Scene_Tool.h"
 
 
@@ -100,6 +100,11 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	case Engine::SCENE_TYPE::TOOL:
 		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
 		pLoading->m_pLoadingScene = CScene_Tool::Create(pLoading->m_pGraphicDev);
+		break;
+
+	case Engine::SCENE_TYPE::TEST:
+		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
+		pLoading->m_pLoadingScene = CScene_Test::Create(pLoading->m_pGraphicDev);
 		break;
 
 	default:
@@ -547,6 +552,9 @@ HRESULT CLoading::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SpitCactus_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/SpitCactus/Idle/Down/SpitCactus_%d.png", 1)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SpitCactus_Attack_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/SpitCactus/Attack/Down/SpitCactus_%d.png", 12)), E_FAIL);
+
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SpitCactus_Death_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/SpitCactus/Death/Down/SpitCactus_%d.png", 8)), E_FAIL);
+
 	//Needle
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_CactusNeedle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/Needle/CactusNeedle_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_CactusNeedlePoison", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/Needle/CactusNeedlePoison_%d.png", 1)), E_FAIL);
@@ -870,7 +878,7 @@ HRESULT CLoading::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_SkillRange", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_SkillRange_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Aim", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_Aim_%d.png", 1)), E_FAIL);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4)), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger%d.dds", 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Coin", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/FieldObject/Item/Coin/Coin_%d.png", 4)), E_FAIL);
 
 	return S_OK;

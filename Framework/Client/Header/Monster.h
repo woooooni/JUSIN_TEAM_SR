@@ -59,6 +59,7 @@ private:
 protected:
 	CGameObject*	m_pTarget;
 	MONSTERSTAT		m_tStat;
+	_bool m_bPushable = true;
 
 	CUI_MonsterHP*	m_pUIBack;
 	CUI_MonsterHP*	m_pUIFrame;

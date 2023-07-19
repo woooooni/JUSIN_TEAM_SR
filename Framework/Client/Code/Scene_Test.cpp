@@ -307,11 +307,9 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	//	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
 	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashFast", pTrashFast), E_FAIL);
 	//
-	//	CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
-	//	NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
-	//		*/
-	//
+		CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
+		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
 		CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
 		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
