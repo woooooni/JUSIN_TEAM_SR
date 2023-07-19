@@ -38,6 +38,7 @@ HRESULT CUI::Ready_Object(void)
 _int CUI::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+
 	CGameObject::Update_Object(fTimeDelta);
 	return S_OK;
 }

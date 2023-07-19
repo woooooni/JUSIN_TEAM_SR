@@ -10,19 +10,18 @@ class CTexture;
 
 END
 
-typedef enum class IconType
+enum ICONTYPE
 {
 	PLAYERHP_FRAME,
 	PLAYERHP_BACK,
 
 	HEART, KEYBOARD, QUEST,
-	SHOP_LKEY, KEYBUTTON_L,
+	KEYBUTTON_L,
 	KEYBUTTON_1, KEYBUTTON_2,
 	KEYBUTTON_3, KEYBUTTON_4,
 
 	ICONTYPE_END
-
-}ICONTYPE;
+};
 
 struct tagIconInfo
 {

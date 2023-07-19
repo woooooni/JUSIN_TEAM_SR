@@ -6,6 +6,7 @@
 #include "Npc_Cow.h"
 #include "Npc_Sheep.h"
 #include "Portal.h"
+#include "UIMgr.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -18,7 +19,6 @@ CScene_TutorialVillage::~CScene_TutorialVillage()
 
 HRESULT CScene_TutorialVillage::Ready_Scene()
 {
-	
 	__super::Ready_AllLayer();
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
@@ -35,12 +35,16 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 
 _int CScene_TutorialVillage::Update_Scene(const _float& fTimeDelta)
 {
+	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
+
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
 
 void CScene_TutorialVillage::LateUpdate_Scene()
 {
+	CUIMgr::GetInstance()->Late_Update_UIMgr();
+
 	__super::LateUpdate_Scene();
 }
 
@@ -54,11 +58,15 @@ void CScene_TutorialVillage::Render_Scene()
 	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 		D3DCOLOR_ARGB(100, 0, 0, 0));
+
+	CUIMgr::GetInstance()->Render_UIMgr();
 }
 
 HRESULT CScene_TutorialVillage::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
+	CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev);
+	
 	return S_OK;
 }
 

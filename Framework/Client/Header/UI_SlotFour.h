@@ -1,6 +1,5 @@
 #pragma once
 #include "CUI.h"
-#include "Player.h"
 
 BEGIN(Engine)
 
@@ -10,12 +9,14 @@ class CTexture;
 
 END
 
-class CUI_HPBar : public CUI
+class CUI_SlotFour : public CUI
 {
+	CLONE(CUI_SlotFour)
+
 private:
-	CUI_HPBar(LPDIRECT3DDEVICE9 pGraphicDev);
-	CUI_HPBar(const CUI_HPBar& rhs);
-	virtual ~CUI_HPBar();
+	explicit CUI_SlotFour(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CUI_SlotFour(const CUI_SlotFour& rhs);
+	virtual ~CUI_SlotFour();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -23,13 +24,8 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-private:
-	_vec3	m_vDefaultPos;
-	_int	m_iMaxHP = 2;
-	_int	m_iHP = 1;
-
 public:
-	static  CUI_HPBar* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CUI_SlotFour* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;

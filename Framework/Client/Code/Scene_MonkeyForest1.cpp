@@ -4,6 +4,7 @@
 #include "GameMgr.h"
 #include "Terrain.h"
 #include "Portal.h"
+#include "UIMgr.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
@@ -33,12 +34,16 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 
 _int CScene_MonkeyForest1::Update_Scene(const _float& fTimeDelta)
 {
+	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
+
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
 
 void CScene_MonkeyForest1::LateUpdate_Scene()
 {
+	CUIMgr::GetInstance()->Late_Update_UIMgr();
+
 	__super::LateUpdate_Scene();
 }
 
@@ -52,11 +57,15 @@ void CScene_MonkeyForest1::Render_Scene()
 	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 		D3DCOLOR_ARGB(100, 0, 0, 0));
+
+	CUIMgr::GetInstance()->Render_UIMgr();
 }
 
 HRESULT CScene_MonkeyForest1::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
+	CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev);
+	
 	return S_OK;
 }
 
