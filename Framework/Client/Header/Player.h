@@ -198,5 +198,9 @@ private:
 
 	bool m_bGrab = false;
 	//
+
+	vector<CGameObject*> m_vecHats;
+	_uint m_iHat;
+	void		Key_Input(const _float& fTimeDelta);
 };
 

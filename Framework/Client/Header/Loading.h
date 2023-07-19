@@ -51,16 +51,18 @@ private:
 	
 
 private:
-	HRESULT Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_Terrain_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
-	HRESULT Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev);
+	HRESULT Ready_Player_Texture();
+	HRESULT Ready_Monster_Texture();
+	HRESULT Ready_Boss_Texture();
+	HRESULT Ready_UI_Texture();
+	HRESULT Ready_Item_Texture();
+	HRESULT Ready_Effect_Texture();
+	HRESULT Ready_InteractionObj_Texture();
+	HRESULT Ready_Environment_Texture();
+	HRESULT Ready_Environment_Texture2();
+	HRESULT Ready_Environment_Texture3();
+	HRESULT Ready_Terrain_Texture();
+	HRESULT Ready_NPC_Texture();
 
 
 private:

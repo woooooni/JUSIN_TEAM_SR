@@ -129,8 +129,6 @@ void CPlayer_Skill_Missile::Reset_State(void)
 
 HRESULT CPlayer_Skill_Missile::Shoot(void)
 {
-	
-
 	_vec3 vPos;
 	_vec3 vTarget;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
@@ -153,7 +151,7 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 	D3DXMatrixRotationAxis(&matRot, &vLook, fAngle);
 	D3DXVec3TransformNormal(&vDir, &vDir, &matRot);
 
-	vLook *= (rand() % 11) * -0.1f;
+	vLook *= (rand() % 11 + 5) * -0.1f;
 	vDir += vLook;
 	D3DXVec3Normalize(&vDir, &vDir);
 	
@@ -167,7 +165,7 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 		pBomb->Set_Active(true);
 	}
 	FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Bomb", pBomb), E_FAIL);
-	dynamic_cast<CPlayer_Bullet_Bomb*>(pBomb)->Shoot(m_pTarget, vDir, 5.0f, vPos);
+	dynamic_cast<CPlayer_Bullet_Bomb*>(pBomb)->Shoot(m_pTarget, vDir, 25.0f, vPos);
 	dynamic_cast<CBullet*>(pBomb)->Set_Owner(pBomb);
 	++m_iBombCount;
 

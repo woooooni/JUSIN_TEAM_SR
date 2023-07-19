@@ -18,6 +18,8 @@ HRESULT CProtoMgr::Ready_Proto(const _tchar * pProtoTag, CComponent * pComponent
 	if (nullptr != pPrototype)
 		return E_FAIL;
 
+	lock_guard<mutex> guard(m_mutex);
+
 	m_mapProto.emplace(pProtoTag, pComponent);
 
 	return S_OK;

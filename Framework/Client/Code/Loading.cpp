@@ -35,7 +35,7 @@
 #include "Scene_MoonForest1.h"
 
 #include "Scene_Tool.h"
-
+#include <thread>
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDev(pGraphicDev)
@@ -363,16 +363,32 @@ void CLoading::Free()
 
 HRESULT CLoading::Load_Texture()
 {
-	FAILED_CHECK(Ready_Player_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Monster_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Boss_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_UI_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Item_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Effect_Texture( m_pGraphicDev));
-	FAILED_CHECK(Ready_InteractionObj_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Environment_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_Terrain_Texture(m_pGraphicDev));
-	FAILED_CHECK(Ready_NPC_Texture(m_pGraphicDev));
+	thread tLoadPlayer(&CLoading::Ready_Player_Texture, this);
+	thread tLoadMonster(&CLoading::Ready_Monster_Texture, this);
+	thread tLoadBoss(&CLoading::Ready_Boss_Texture, this);
+	thread tLoadUI(&CLoading::Ready_UI_Texture, this);
+	thread tLoadItem(&CLoading::Ready_Item_Texture, this);
+	thread tLoadEffect(&CLoading::Ready_Effect_Texture, this);
+	thread tLoadInteractionObj(&CLoading::Ready_InteractionObj_Texture, this);
+	thread tLoadEnvironment(&CLoading::Ready_Environment_Texture, this);
+	thread tLoadEnvironment2(&CLoading::Ready_Environment_Texture2, this);
+	thread tLoadEnvironment3(&CLoading::Ready_Environment_Texture3, this);
+	thread tLoadTerrain(&CLoading::Ready_Terrain_Texture, this);
+	thread tLoadNPC(&CLoading::Ready_NPC_Texture, this);
+
+
+	tLoadPlayer.join();
+	tLoadMonster.join();
+	tLoadBoss.join();
+	tLoadUI.join();
+	tLoadItem.join();
+	tLoadEffect.join();
+	tLoadInteractionObj.join();
+	tLoadEnvironment.join();
+	tLoadEnvironment2.join();
+	tLoadEnvironment3.join();
+	tLoadTerrain.join();
+	tLoadNPC.join();
 
 	return S_OK;
 }
@@ -380,7 +396,7 @@ HRESULT CLoading::Load_Texture()
 
 
 
-HRESULT CLoading::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_Player_Texture()
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_TurtleHat_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Turtle/Down/Player_Hat_Turtle_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_TurtleHat_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Turtle/Up/Player_Hat_Turtle_%d.png", 1)), E_FAIL);
@@ -411,7 +427,7 @@ HRESULT CLoading::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Item_DrillHat", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Hat/Player_Hat_Drill/Player_Hat_Drill_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Drill", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Drill/Player_Drill_%d.png", 23)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Lightning", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Lightning/Player_Skill_Lightning_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Lightning", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Lightning/Player_Skill_Lightning_%d.png", 8)), E_FAIL);
 
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Skill_Bomb_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Skill/Player_Skill_Bomb/Up/Player_Skill_Bomb_%d.png", 8)), E_FAIL);
@@ -539,7 +555,7 @@ HRESULT CLoading::Ready_Player_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 }
 
-HRESULT CLoading::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_Monster_Texture()
 {
 	// SpitCactus
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SpitCactus_Regen_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/SpitCactus/Regen/Down/SpitCactus_%d.png", 10)), E_FAIL);
@@ -757,7 +773,7 @@ HRESULT CLoading::Ready_Monster_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 }
 
-HRESULT CLoading::Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_Boss_Texture()
 {
 	//SunGolem
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SunGolem_Idle_Body", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Boss/SunGolem/Idle/Body/SunGolem_%d.png", 1)), E_FAIL);
@@ -829,7 +845,7 @@ HRESULT CLoading::Ready_Boss_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 }
 
-HRESULT CLoading::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_UI_Texture()
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_Page", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/AdventureBook/Page/N_Page_%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_HPGauge", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/UI_HP_GaugeBar.png")), E_FAIL);
@@ -876,7 +892,7 @@ HRESULT CLoading::Ready_UI_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	return S_OK;
 }
 
-HRESULT CLoading::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_Item_Texture()
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Items", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Item/ItemSprite/Sprite_Item_%d.png", (_uint)ITEM_CODE::ITEM_END)), E_FAIL);
 
@@ -917,7 +933,7 @@ HRESULT CLoading::Ready_Item_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 }
 
-HRESULT CLoading::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_Effect_Texture()
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_FistEffect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/FistEffect/FistEffect_%d.png", 9)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_StoneSpike", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/StoneSpike/StoneSpikeEffect_%d.png", 9)), E_FAIL);
@@ -938,7 +954,7 @@ HRESULT CLoading::Ready_Effect_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 }
 
-HRESULT CLoading::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_InteractionObj_Texture()
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Stone", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StonePushable.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Stone_Clean", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StonePushableClean.png")), E_FAIL);
@@ -1076,25 +1092,37 @@ HRESULT CLoading::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 
 }
 
-HRESULT CLoading::Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_Environment_Texture()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 178)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 17)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 121)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 307)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 178)), E_FAIL);
 
 	return S_OK;
 
 }
 
-HRESULT CLoading::Ready_Terrain_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_Environment_Texture2()
+{
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 17)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 121)), E_FAIL);
+
+	return S_OK;
+}
+
+HRESULT CLoading::Ready_Environment_Texture3()
+{
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 307)), E_FAIL);
+
+	return S_OK;
+}
+
+HRESULT CLoading::Ready_Terrain_Texture()
 {
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Terrain", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain_%d.png", 3)), E_FAIL);
 	return S_OK;
 
 }
 
-HRESULT CLoading::Ready_NPC_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
+HRESULT CLoading::Ready_NPC_Texture()
 {
 	// NPC
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_NPC_Sheep_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/NPC/0_Tutorial/Sheep/Sprite_TutorialVillager_Sheep_%d.png", 6)), E_FAIL);
