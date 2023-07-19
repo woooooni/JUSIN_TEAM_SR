@@ -496,6 +496,42 @@
     <Filter Include="98. Manager\04.">
       <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\07. Notification">
+      <UniqueIdentifier>{3dca8bef-ec23-4bbc-bf27-8eb8fe6366c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest">
+      <UniqueIdentifier>{f46eaa5e-b3a3-4955-92f6-a481fc3c50a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\00. Chief">
+      <UniqueIdentifier>{cf59afeb-c091-4103-9dc8-9b62ca0cd1ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\00. Chief">
+      <UniqueIdentifier>{b66702a4-0cc5-424a-a6e1-243518e6e8bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\01. Elite">
+      <UniqueIdentifier>{86a13179-0c85-4b32-a668-dcb565405e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\01. Dance">
+      <UniqueIdentifier>{dc72e323-0f00-47a6-b6ab-7fca2fcbce24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager">
+      <UniqueIdentifier>{770a82ef-ebcf-4a5d-be85-3b8093f15fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\00. Villager">
+      <UniqueIdentifier>{c6a1e71f-f76e-4f94-a465-21e34498c9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler">
+      <UniqueIdentifier>{11ba59db-7dc0-4f86-9871-ac738d0385ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher">
+      <UniqueIdentifier>{4592ccc5-eba5-4e4a-8cd8-52f1a9ee5516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\01. Dancer">
+      <UniqueIdentifier>{e2b52a76-af19-4933-8d8a-3e30cce2cccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing">
+      <UniqueIdentifier>{61bb3243-d36f-4c17-85b0-90a7f87a2e73}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -991,6 +1027,37 @@
     <ClInclude Include="..\Header\Scene_Loading.h">
       <Filter>01. Scene\97. Loading</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\BreakObj.h" />
+    <ClInclude Include="..\Header\UI_Notification.h">
+      <Filter>02. GameObject\04. UI\07. Notification</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_Artist.h">
+      <Filter>02. GameObject\15. NPC\00. Tutorial\02. Artist</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_Chief.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\00. Chief</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_Elite.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\01. Elite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_Orangi.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_VillagerMonkey.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\00. Villager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_Wholesaler.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_DanceTeacher.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_Dancer.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\01. Dancer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_Fishing.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1468,6 +1535,37 @@
     </ClCompile>
     <ClCompile Include="..\Code\Scene_Loading.cpp">
       <Filter>01. Scene\97. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\BreakObj.cpp" />
+    <ClCompile Include="..\Code\UI_Notification.cpp">
+      <Filter>02. GameObject\04. UI\07. Notification</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_Artist.cpp">
+      <Filter>02. GameObject\15. NPC\00. Tutorial\02. Artist</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_Chief.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\00. Chief</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_Elite.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\01. Elite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_Orangi.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_VillagerMonkey.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\00. Villager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_Wholesaler.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_DanceTeacher.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_Dancer.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\01. Dancer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_Fishing.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
