@@ -184,7 +184,6 @@ HRESULT CMainApp::Ready_Proto_Event()
 	event->m_bIsCanReset = true;
 
 
-
 	FAILED_CHECK(Add_Event(event));
 
 	event = new EVENT;

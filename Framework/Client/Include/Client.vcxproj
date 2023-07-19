@@ -363,6 +363,7 @@
     <ClInclude Include="..\Header\UI_LoadingBackGround.h" />
     <ClInclude Include="..\Header\UI_LoadingOgu.h" />
     <ClInclude Include="..\Header\UI_MonsterHP.h" />
+    <ClInclude Include="..\Header\UI_Notification.h" />
     <ClInclude Include="..\Header\UI_Pages.h" />
     <ClInclude Include="..\Header\UI_AdventureBook.h" />
     <ClInclude Include="..\Header\UI_BookBackground.h" />
@@ -557,6 +558,7 @@
     <ClCompile Include="..\Code\UI_LoadingBackGround.cpp" />
     <ClCompile Include="..\Code\UI_LoadingOgu.cpp" />
     <ClCompile Include="..\Code\UI_MonsterHP.cpp" />
+    <ClCompile Include="..\Code\UI_Notification.cpp" />
     <ClCompile Include="..\Code\UI_Pages.cpp" />
     <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
     <ClCompile Include="..\Code\UI_BookBackground.cpp" />
