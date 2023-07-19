@@ -18,6 +18,7 @@ typedef struct tagEvent
 	list<_uint>		lEndKey;
 	list<CGameObject*> lSubscribers;
 	bool		m_bIsCanReset = false;
+	_bool		m_bIsCheckUpdate = false;
 } EVENT;
 
 
@@ -40,6 +41,9 @@ public:
 			return E_FAIL;
 
 		m_mapEvents.insert({ pEvent->iEventNum, pEvent });
+
+		if (pEvent->m_bIsCheckUpdate)
+			m_listCurActiveEvents.push_back(pEvent);
 	}
 
 	void		Set_Event();

@@ -86,7 +86,7 @@ void CHitObj::Render_Object(void)
 
 	__super::Render_Object();
 
-	if (m_bHitted && m_eHitType == OBJ_HITTYPE::HIT_ONCE)
+	if (!m_bHitted && m_eHitType == OBJ_HITTYPE::HIT_ONCE)
 	{
 		m_pBlurAnimator->Render_Component();
 		m_pBufferCom->Render_Buffer();

@@ -29,6 +29,8 @@
 #include "Npc_Cow.h"
 #include "Npc_Sheep.h"
 #include "SkyBox.h"
+#include	"HitObj.h"
+#include	"BlockObj.h"
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::TOOL)
@@ -203,6 +205,7 @@ void CScene_Tool::Save_Obj_Data(wstring _strFolderPath)
 			|| LAYER_TYPE(i) == LAYER_TYPE::CAMERA
 			|| LAYER_TYPE(i) == LAYER_TYPE::EFFECT
 			|| LAYER_TYPE(i) == LAYER_TYPE::TERRAIN
+			|| LAYER_TYPE(i) == LAYER_TYPE::INTERACTION_OBJ
 			|| LAYER_TYPE(i) == LAYER_TYPE::UI)
 			continue;
 
@@ -507,7 +510,8 @@ void CScene_Tool::Clear_Layer()
 			|| LAYER_TYPE(i) == LAYER_TYPE::CAMERA
 			|| LAYER_TYPE(i) == LAYER_TYPE::EFFECT
 			|| LAYER_TYPE(i) == LAYER_TYPE::TERRAIN
-			|| LAYER_TYPE(i) == LAYER_TYPE::UI)
+			|| LAYER_TYPE(i) == LAYER_TYPE::UI
+			|| LAYER_TYPE(i) == LAYER_TYPE::INTERACTION_OBJ)
 			continue;
 
 		m_mapLayer[(LAYER_TYPE)i]->Free();
@@ -589,6 +593,185 @@ HRESULT CScene_Tool::Ready_Layer_Environment()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
 
 	pLayer->Ready_Layer();
+
+	CHitObj* pHit = CHitObj::Create(m_pGraphicDev, 1, { 76.f, 0.f, 53.f });
+
+	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
+	pHit = CHitObj::Create(m_pGraphicDev, 2, { 73.5f, 0.f, 56.f });
+
+	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
+	pHit = CHitObj::Create(m_pGraphicDev, 3, { 79.5f, 0.f, 57.f });
+
+	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
+	pHit = CHitObj::Create(m_pGraphicDev, 4, { 71.5f, 0.f, 62.f });
+
+	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
+	pHit = CHitObj::Create(m_pGraphicDev, 5, { 79.5f, 0.f, 65.f });
+
+	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
+	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 69.5f, 0.f, 54.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 70.5f, 0.f, 54.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 69.5f, 0.f, 61.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 69.5f, 0.f, 62.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 70.5f, 0.f, 62.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 70.5f, 0.f, 61.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 71.5f, 0.f, 63.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 72.5f, 0.f, 63.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 71.5f, 0.f, 64.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 72.5f, 0.f, 64.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 73.5f, 0.f, 67.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 73.5f, 0.f, 68.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 74.5f, 0.f, 67.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 74.5f, 0.f, 68.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 55.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 55.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 56.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 56.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 63.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 63.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 64.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 64.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 75.5f, 0.f, 57.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 75.5f, 0.f, 58.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 76.5f, 0.f, 57.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 76.5f, 0.f, 58.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 71.5f, 0.f, 57.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 72.5f, 0.f, 57.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 71.5f, 0.f, 58.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 72.5f, 0.f, 58.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 73.5f, 0.f, 59.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 74.5f, 0.f, 59.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 73.5f, 0.f, 60.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 74.5f, 0.f, 60.f }, false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 75.5f, 0.f, 67.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 76.5f, 0.f, 67.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 75.5f, 0.f, 68.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 76.5f, 0.f, 68.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Ready_Layer();
+
 	return S_OK;
 }
 

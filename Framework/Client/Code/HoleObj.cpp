@@ -68,7 +68,7 @@ CHoleObj* CHoleObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, con
 	}
 
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
-	ret->Set_MinHeight(0.003f);
+	ret->Set_MinHeight(0.01f);
 	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 	return ret;
 }
