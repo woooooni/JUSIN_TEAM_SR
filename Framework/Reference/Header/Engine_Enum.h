@@ -183,13 +183,16 @@ namespace Engine
 		//ETC
 		LEAF,
 		TWIG,
+
+		//ETC_SPECIAL
 		BUTTERFLY,
 		SASUM,
 		ITEM_END,
 
 		CONSUME_END = LEAF,
 		EQUIP_END = HP_SMALL,
-		ETC_END = ITEM_END
+		ETC_END = BUTTERFLY,
+
 
 	};
 	

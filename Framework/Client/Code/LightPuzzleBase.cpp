@@ -59,6 +59,18 @@ void CLightPuzzleBase::Render_Object(void)
 
 }
 
+void CLightPuzzleBase::Set_Lighting(const _bool& pBool)
+{
+	if (m_bIsLighting != pBool)
+	{
+		m_bIsLighting = pBool;
+		if (m_bIsLighting)
+		{
+			Check_Event_Start(m_iMyEvent);
+		}
+	}
+}
+
 void CLightPuzzleBase::Free()
 {
 	__super::Free();
@@ -108,6 +120,8 @@ CLightPuzzleBase* CLightPuzzleBase::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint&
 		ret->m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
 	}
+
+	ret->m_iMyEvent = p_EventNum;
 
 	return ret;
 }

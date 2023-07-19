@@ -3,7 +3,7 @@
 #include    "Player.h"
 
 CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) : 
-    CFieldObject(p_Dev, OBJ_ID::JELLY_BOMB), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0)
+    CFieldObject(p_Dev, OBJ_ID::JELLY_BOMB), m_pBlurTex(nullptr), m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0), m_bExplosing(false)
     , m_fBlurAlpha(0.f)
                     
 {
@@ -14,6 +14,7 @@ CJellyBomb::CJellyBomb(LPDIRECT3DDEVICE9 p_Dev) :
 
 CJellyBomb::CJellyBomb(const CJellyBomb& rhs) : CFieldObject(rhs), m_pBlurTex(rhs.m_pBlurTex), m_bHitted(rhs.m_bHitted), m_fExplodeTime(rhs.m_fExplodeTime), m_iExplodeEvent(rhs.m_iExplodeEvent)
                                                , m_fBlurAlpha(rhs.m_fBlurAlpha)
+                                                , m_bExplosing(rhs.m_bExplosing)
 {
 }
 
@@ -28,6 +29,7 @@ HRESULT CJellyBomb::Ready_Object(void)
 
 
     m_pAnimator->Add_Animation(L"Effect", L"Proto_Tex_JellyBomb_Effect", 0.1f);
+    m_pAnimator->Add_Animation(L"Explode", L"Proto_Tex_JellyBomb_Explode", 0.1f);
 
     CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_JellyBomb"));
     NULL_CHECK_RETURN(pComponent, E_FAIL);
@@ -52,19 +54,30 @@ HRESULT CJellyBomb::Ready_Object(void)
 
 _int CJellyBomb::Update_Object(const _float& fTimeDelta)
 {
-    if (Is_Active())
+    if (!m_bExplosing)
     {
         Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
         Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
-        Add_RenderGroup(RENDER_ALPHA, this);
     }
+    else
+    {
+        Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOMB);
+    }
+
+    Add_RenderGroup(RENDER_ALPHA, this);
+
 
     if (m_bHitted)
     {
         if (m_fExplodeTime <= 0.f)
         {
-            Set_Active(false);
+
+            m_bExplosing = true;
+            m_bHitted = false;
             Engine::Check_Event_Start(m_iExplodeEvent);
+            m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 1.f, 4.f });
+            m_pAnimator->Play_Animation(L"Explode", false)
         }
         else
         {
@@ -75,6 +88,7 @@ _int CJellyBomb::Update_Object(const _float& fTimeDelta)
                 m_fBlurAlpha = 1.f;
         }
     }
+
 
     return __super::Update_Object(fTimeDelta);
 }
@@ -93,42 +107,49 @@ void CJellyBomb::Render_Object(void)
     m_pTransformCom->Get_Info(INFO_UP, &up);
     look *= -0.005f;
     up *= 0.05f;
-
     m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
-    m_pTextureCom->Render_Texture();
-    m_pBufferCom->Render_Buffer();
 
-    mat._11 *= 0.7f;
-    mat._22 *= 0.7f;
-    mat._33 *= 0.7f;
-
-
-    mat._41 += look.x + up.x;
-    mat._42 += look.y + up.y;
-    mat._43 += look.z + up.z;
-
-
-    m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
-    m_pAnimator->Render_Component();
-    m_pBufferCom->Render_Buffer();
-
-    if (m_bHitted)
+    if (!m_bExplosing)
     {
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB((_uint)(255.f * m_fBlurAlpha), 255, 255, 255));
-        mat._11 /= 0.7f;
-        mat._22 /= 0.7f;
-        mat._33 /= 0.7f;
+        m_pTextureCom->Render_Texture();
+        m_pBufferCom->Render_Buffer();
+
+        mat._11 *= 0.7f;
+        mat._22 *= 0.7f;
+        mat._33 *= 0.7f;
 
 
-        mat._41 += look.x - up.x;
-        mat._42 += look.y - up.y;
-        mat._43 += look.z - up.z;
+        mat._41 += look.x + up.x;
+        mat._42 += look.y + up.y;
+        mat._43 += look.z + up.z;
+
 
         m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
-        m_pBlurTex->Render_Texture();
+        m_pAnimator->Render_Component();
         m_pBufferCom->Render_Buffer();
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 
+        if (m_bHitted)
+        {
+            m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB((_uint)(255.f * m_fBlurAlpha), 255, 255, 255));
+            mat._11 /= 0.7f;
+            mat._22 /= 0.7f;
+            mat._33 /= 0.7f;
+
+
+            mat._41 += look.x - up.x;
+            mat._42 += look.y - up.y;
+            mat._43 += look.z - up.z;
+
+            m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
+            m_pBlurTex->Render_Texture();
+            m_pBufferCom->Render_Buffer();
+            m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+        }
+    }
+    else
+    {
+        m_pAnimator->Render_Component();
+        m_pBufferCom->Render_Buffer();
     }
 }
 
@@ -184,4 +205,17 @@ void CJellyBomb::Event_End(_uint iEventNum)
 void CJellyBomb::Set_SubscribeEvent(_uint pEvent)
 {
     Engine::Add_Subscribe(pEvent, this);
+}
+
+void CJellyBomb::Reset()
+{
+    m_bHitted = false;
+    m_fExplodeTime = 0.f;
+    m_fBlurAlpha = 0.f;
+    m_bExplosing = false;
+    m_pTransformCom->Set_Scale({ 1.f, 1.f, 1.f });
+    dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.f, 1.f, 1.f });
+    m_pAnimator->Play_Animation(L"Effect", true);
+
+    Set_Active(true);
 }

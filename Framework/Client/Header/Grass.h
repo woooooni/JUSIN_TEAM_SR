@@ -52,6 +52,10 @@ public:
 		m_dropItemMap.insert({ name, percent });
 	}
 
+	GRASS_TYPE Get_Type() { return m_eGrassType; }
+
+	map<ITEM_CODE, _uint>& Get_ItemMap() { return m_dropItemMap; }
+
 protected:
 
 	HRESULT			Set_Grass();

@@ -21,6 +21,7 @@ m_fCurMoveTime(rhs.m_fCurMoveTime),
 m_fMaxMoveTime(rhs.m_fMaxMoveTime)
 , m_bIsReverse(rhs.m_bIsReverse)
 , m_eGrassType(rhs.m_eGrassType)
+, m_dropItemMap(rhs.m_dropItemMap)
 
 {
 }
@@ -197,7 +198,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
             if (rand() % 100 < iter.second)
             {
 
-                if (iter.first >= ITEM_CODE::HP_SMALL && iter.first <= ITEM_CODE::SPEED_BIG)
+                if (iter.first >= ITEM_CODE::HP_SMALL && iter.first < ITEM_CODE::CONSUME_END)
                 {
                     CUseItem* src = dynamic_cast<CUseItem*>(CPool<CUseItem>::Get_Obj());
 
@@ -215,7 +216,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
                     return;
 
                 }
-                else if (iter.first >= ITEM_CODE::LEAF && iter.first <= ITEM_CODE::TWIG)
+                else if (iter.first >= ITEM_CODE::LEAF && iter.first < ITEM_CODE::ETC_END)
                 {
                     CDefaultItem* src = dynamic_cast<CDefaultItem*>(CPool<CDefaultItem>::Get_Obj());
 

@@ -1025,6 +1025,8 @@ HRESULT CLoading::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_JellyBomb", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_JellyBomb.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_JellyBomb_Effect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_JellyBombEffect_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_JellyBomb_Blur", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_JellyBombWhite.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_JellyBomb_Explode", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Explosion/Sprite_JellyBombExplosion_%d.png", 16)), E_FAIL);
+
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_JellyBomb_Creator", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_JellyBombGenerator.png")), E_FAIL);
 
 	FAILED_CHECK_RETURN(Ready_Proto(L"Proto_Texture_NearPlant", CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_JungleBrackenReact_%d.png", 15)), E_FAIL);
@@ -1060,6 +1062,9 @@ HRESULT CLoading::Ready_InteractionObj_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakStone_Green", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_CrystalPuzzle_Green.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakStone_Breaking", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_CrystalPuzzle_%d.png", 6)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakObj_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StoneBreakable.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakObj_Breaking", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StoneBreakable_Destroy_%d.png", 8)), E_FAIL);
+
 
 	return S_OK;
 
@@ -1070,7 +1075,7 @@ HRESULT CLoading::Ready_Environment_Texture(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 176)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 17)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 121)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 271)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 307)), E_FAIL);
 
 	return S_OK;
 

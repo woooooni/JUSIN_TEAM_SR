@@ -460,6 +460,9 @@
     <Filter Include="01. Scene\99. Test">
       <UniqueIdentifier>{9633a306-3a32-46ee-9a5c-b403fdee16e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\08. BreakObject">
+      <UniqueIdentifier>{537edf5b-392d-45a6-9881-1b74aa149f96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -928,6 +931,10 @@
     <ClInclude Include="..\Header\Scene_Tool.h">
       <Filter>01. Scene\99. Test</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Scene_Test.h" />
+    <ClInclude Include="..\Header\BreakObj.h">
+      <Filter>02. GameObject\06. FieldObj\08. BreakObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1378,6 +1385,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <Filter>01. Scene\99. Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_Test.cpp" />
+    <ClCompile Include="..\Code\BreakObj.cpp">
+      <Filter>02. GameObject\06. FieldObj\08. BreakObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

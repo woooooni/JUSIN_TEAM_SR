@@ -25,6 +25,7 @@ public:
 	void			Set_Event(const _uint& pI) { m_iEventNum = pI; }
 	void			Set_HitType(const OBJ_HITTYPE& pH) { m_eHitType = pH; }
 protected:
+	CAnimator* m_pBlurAnimator;
 	OBJ_HITTYPE			m_eHitType;
 	HRESULT				Ready_Component();
 	float				m_fEffectTime;

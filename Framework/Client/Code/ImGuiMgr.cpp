@@ -21,6 +21,7 @@
 #include "SilkWorm.h"
 #include "House.h"
 #include "Prop.h"
+#include	"Grass.h"
 
 IMPLEMENT_SINGLETON(CImGuiMgr)
 CImGuiMgr::CImGuiMgr()
@@ -370,6 +371,142 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		ImGui::EndTabItem();
 	}
 
+	if (ImGui::BeginTabItem("Grass"))
+	{
+		_int	src = 0;
+
+		CGrass* tmp;
+
+
+		if (tmp = dynamic_cast<CGrass*>(m_pSelectedObject))
+		{
+			src = (_int)tmp->Get_Type();
+		}
+
+
+		if (ImGui::DragInt("GrassType", &src, 0.5f, 0, (_uint)GRASS_TYPE::GLOWING_REED_RED))
+		{
+			ResetSelectTarget();
+			if (src >= 0 || src <= (_uint)GRASS_TYPE::GLOWING_REED_RED)
+			{
+				m_pSelectedObject = CGrass::Create(m_pGraphicDev, (GRASS_TYPE)src);
+				SetAutoY(m_pSelectedObject);
+
+			}
+
+
+		}
+
+		
+
+
+
+		if (tmp = dynamic_cast<CGrass*>(m_pSelectedObject))
+		{
+			ImGui::BeginListBox("MyBox", ImVec2(400, 350));
+
+
+			string dst;
+
+
+			if (!tmp->Get_ItemMap().empty())
+			{
+				for (auto& iter : tmp->Get_ItemMap())
+				{
+					switch (iter.first)
+					{	
+					case ITEM_CODE::HP_SMALL:
+						dst = "HPSmall";
+						break;
+					case	ITEM_CODE::HP_MIDDLE:
+						dst = "HPMiddle";
+
+						break;
+					case	ITEM_CODE::HP_BIG:
+						dst = "HPBig";
+
+						break;
+
+					case	ITEM_CODE::SPEED_SMALL:
+						dst = "SpeedSmall";
+
+						break;
+
+					case	ITEM_CODE::SPEED_MIDDLE:
+						dst = "SpeedMiddle";
+						break;
+					case	ITEM_CODE::SPEED_BIG:
+						dst = "SpeedBig";
+						break;
+							
+					case	ITEM_CODE::LEAF:
+						dst = "Leaf";
+						break;
+
+					case	ITEM_CODE::TWIG:
+						dst = "Twig";
+						break;
+
+
+						default:
+						break;
+					}
+
+					dst += ":";
+
+					dst += to_string(iter.second);
+
+					if (ImGui::Selectable(dst.c_str(), itemInex == (int)iter.first))
+					{
+						itemInex = (int)iter.first;
+						itemPercent = iter.second;
+					}
+				}
+			}
+
+
+			ImGui::EndListBox();
+
+			if (ImGui::InputInt("ItemCode", &itemInex, (int)ITEM_CODE::HP_SMALL, (int)ITEM_CODE::TWIG))
+			{
+
+			}
+
+			if (ImGui::InputInt("ItemPercent", &itemPercent, 1, 100))
+			{
+
+			}
+
+			if (ImGui::Button("Add Item"))
+			{
+				if (itemInex < 0 || itemInex >(_int)ITEM_CODE::TWIG)
+				{
+
+				}
+				else
+				{
+					tmp->Get_ItemMap().insert({ (ITEM_CODE)itemInex, itemPercent });
+				}
+			}
+
+			if (ImGui::Button("Erase Item"))
+			{
+				if (itemInex < 0 || itemInex >(_int)ITEM_CODE::TWIG)
+				{
+
+				}
+				else
+				{
+					tmp->Get_ItemMap().erase((ITEM_CODE)itemInex);
+				}
+
+			}
+
+		}
+		ImGui::EndTabItem();
+
+	}
+
 	
 	ImGui::EndTabBar();
 }
@@ -561,6 +698,13 @@ void CImGuiMgr::CreateObj(_vec3& vHit)
 		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Prop" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
+	case OBJ_ID::GRASS:
+		pCloneObj = CGrass::Create(m_pGraphicDev, dynamic_cast<CGrass*>(m_pSelectedObject)->Get_Type());
+		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Prop" + to_wstring(m_iObjNum++), pCloneObj);
+
+
+		break;
 	default :
 		return;
 	}
