@@ -1,6 +1,6 @@
 #include "TrashFast.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 // TrashBig과 같은 패턴으로 Player공격
 // 이동거리가 더 길고 스피드도 빠름
 
@@ -55,7 +55,7 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 	if (MONSTER_STATE::ATTACK != Get_State()) // 공격상태가 아니면
 	{
 
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
 			return S_OK; 
 		Set_Target(pTarget); // Player로 타켓을 설정해둠

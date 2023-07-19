@@ -1,7 +1,7 @@
 #include "MothMage.h"
 #include "BugBall.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CMothMage::CMothMage(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
 {
 }
@@ -46,7 +46,7 @@ HRESULT CMothMage::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"MothMage_Attack_RightUp", L"Proto_Texture_MothMage_Attack_RightUp", 0.4f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftDown", L"Proto_Texture_MothMage_Attack_LeftDown", 0.4f);
 	m_pAnimator->Add_Animation(L"MothMage_Attack_LeftUp", L"Proto_Texture_MothMage_Attack_LeftUp", 0.4f);
-	m_pAnimator->Add_Animation(L"MothMage_Death_Down", L"Proto_Texture_MothMage_Death_Down", 0.4f);
+	m_pAnimator->Add_Animation(L"MothMage_Death_Down", L"Proto_Texture_MothMage_Death_Down", 0.1f);
 
 	m_pMothOrb= CMothOrb::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMothOrb, E_FAIL);
@@ -93,7 +93,7 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE)
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
 			return S_OK;
 		Set_Target(pTarget);
@@ -258,7 +258,7 @@ void CMothMage::Update_Attack(_float fTimeDelta)
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	
 	_vec3 vTargetPos, vPos, vDir;
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
@@ -329,7 +329,7 @@ CMothMage* CMothMage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMothMage::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return;
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);

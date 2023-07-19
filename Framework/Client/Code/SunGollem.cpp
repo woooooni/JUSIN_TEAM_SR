@@ -4,7 +4,7 @@
 #include "GolemParts.h"
 #include "SludgeWave.h"
 #include "PushStone.h"
-
+#include "GameMgr.h"
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN)
@@ -282,7 +282,7 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 void CSunGollem::Update_Attack(_float fTimeDelta)
 {
 
-	CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return;
 	Set_Target(pTarget);

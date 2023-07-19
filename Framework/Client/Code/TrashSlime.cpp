@@ -1,6 +1,6 @@
 #include "TrashSlime.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CTrashSlime::CTrashSlime(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_SLIME)
 {
 }
@@ -57,7 +57,7 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
-		CGameObject* pTarget = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
 			return S_OK; 
 		Set_Target(pTarget);
