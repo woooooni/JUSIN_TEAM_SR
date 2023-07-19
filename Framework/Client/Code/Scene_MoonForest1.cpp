@@ -6,6 +6,9 @@
 #include "Npc_Cow.h"
 #include "Npc_Sheep.h"
 #include "UIMgr.h"
+#include "JellyStone.h"
+#include "BalpanObj.h"
+#include "LightFlower.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -113,6 +116,23 @@ HRESULT CScene_MoonForest1::Ready_Layer_Monster()
 
 HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 {
+	CJellyStone* pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, { 62.f, 0.f, 45.f });
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"JellyStone", pJel);
+
+	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 20, { 61.f, 0.f, 50.f });
+	pBal->Set_Static();
+	pBal->Set_TargName(L"Jelly");
+	pBal->Set_Answer(JELLY_COLOR::YELLOW);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
+
+
+	CLightFlower* pLight = CLightFlower::Create(m_pGraphicDev, pBal, 0, { 61.f, 0.f, 53.f });
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLight);
+
+
 	return S_OK;
 }
 

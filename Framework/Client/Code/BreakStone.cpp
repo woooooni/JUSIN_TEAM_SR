@@ -135,6 +135,7 @@ void CBreakStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisi
 
 void CBreakStone::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+
 }
 
 void CBreakStone::Event_Start(_uint iEventNum)
@@ -145,4 +146,7 @@ void CBreakStone::Event_Start(_uint iEventNum)
 
 void CBreakStone::Event_End(_uint iEventNum)
 {
+	m_bBreak = true;
+	m_pAnimator->Play_Animation(L"Breaking", false);
+
 }

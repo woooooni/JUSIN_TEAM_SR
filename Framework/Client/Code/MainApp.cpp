@@ -192,21 +192,23 @@ HRESULT CMainApp::Ready_Proto_Event()
 
 	event = new EVENT;
 	event->iEventNum = 2;
+	event->m_bIsCanReset = true;
+
 
 	FAILED_CHECK(Add_Event(event));
 
 	event = new EVENT;
+
 	event->iEventNum = 3;
+	event->m_bIsCanReset = true;
 
-
-	event->lStartKey.push_back(1);
-	event->lStartKey.push_back(2);
 
 	FAILED_CHECK(Add_Event(event));
 
 	event = new EVENT;
 	event->iEventNum = 4;
-	event->lStartKey.push_back(3);
+	event->m_bIsCanReset = true;
+
 
 	FAILED_CHECK(Add_Event(event));
 
@@ -214,11 +216,13 @@ HRESULT CMainApp::Ready_Proto_Event()
 	event->iEventNum = 5;
 	event->m_bIsCanReset = true;
 
+
 	FAILED_CHECK(Add_Event(event));
 
 	event = new EVENT;
 	event->iEventNum = 6;
 	event->m_bIsCanReset = true;
+
 
 	FAILED_CHECK(Add_Event(event));
 
@@ -226,36 +230,92 @@ HRESULT CMainApp::Ready_Proto_Event()
 	event->iEventNum = 7;
 	event->m_bIsCanReset = true;
 
+
 	FAILED_CHECK(Add_Event(event));
+
 
 	event = new EVENT;
 	event->iEventNum = 8;
 	event->m_bIsCanReset = true;
 
+
 	FAILED_CHECK(Add_Event(event));
+
 
 	event = new EVENT;
 	event->iEventNum = 9;
 	event->m_bIsCanReset = true;
 
+
 	FAILED_CHECK(Add_Event(event));
 
 	event = new EVENT;
 	event->iEventNum = 10;
-	event->lStartKey.push_back(7);
-	event->lStartKey.push_back(8);
-	event->lStartKey.push_back(9);
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 11;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 12;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 13;
+	event->lEndKey.push_back(10);
+	event->lEndKey.push_back(11);
+	event->lEndKey.push_back(12);
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 14;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 15;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 16;
+
+	event->lEndKey.push_back(14);
+	event->lEndKey.push_back(15);
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 17;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 18;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 19;
+
+	event->lEndKey.push_back(17);
+	event->lEndKey.push_back(18);
+
+	event->m_bIsCheckUpdate = true;
 
 
 	FAILED_CHECK(Add_Event(event));
 
 	event = new EVENT;
-	event->iEventNum = 11;
+	event->iEventNum = 20;
+
 	event->m_bIsCanReset = true;
 
 	FAILED_CHECK(Add_Event(event));
-
-
 
 
 	return S_OK;

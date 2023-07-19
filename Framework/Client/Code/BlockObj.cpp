@@ -43,7 +43,7 @@ _int CBlockObj::Update_Object(const _float& fTimeDelta)
 			m_vBlockPos.y -= fTimeDelta;
 		else
 		{
-			m_pAnimator->Play_Animation(L"Unblock_Idle", false);
+			m_pAnimator->Play_Animation(L"Idle", false);
 			if (m_vBlockPos.y != 0.f)
 				m_vBlockPos.y = 0.f;
 		}
@@ -53,7 +53,7 @@ _int CBlockObj::Update_Object(const _float& fTimeDelta)
 	{
 		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
 
-		m_pAnimator->Play_Animation(L"Idle", false);
+		m_pAnimator->Play_Animation(L"Unblock_Idle", false);
 
 		if (m_vBlockPos.y < 0.5f)
 		{
@@ -111,6 +111,7 @@ CBlockObj* CBlockObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, c
 
 	ret->Set_SubscribeEvent(p_EventNum);
 	ret->m_iFollowingEvent = p_EventNum;
+
 	if (p_isFirstBlock)
 		ret->m_pAnimator->Play_Animation(L"Unblock_Idle", false);
 	else
@@ -176,6 +177,9 @@ void CBlockObj::Event_Start(_uint iEventNum)
 
 void CBlockObj::Event_End(_uint iEventNum)
 {
+	if (iEventNum == m_iFollowingEvent)
+		Change_State();
+
 }
 
 void CBlockObj::Set_SubscribeEvent(_uint pEvent)
