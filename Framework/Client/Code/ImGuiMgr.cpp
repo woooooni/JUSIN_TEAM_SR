@@ -154,6 +154,11 @@ void CImGuiMgr::Render_ImGui()
 
 void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 {
+	if (KEY_TAP(KEY::RBTN))
+	{
+		ResetSelectTarget();
+		return;
+	}
 
 	if (m_pSelectedObject != nullptr)
 	{
@@ -176,21 +181,10 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 			{
 				CreateObj(vHit);
 			}
-
-			if (KEY_TAP(KEY::RBTN))
-			{
-				ResetSelectTarget();
-				return;
-			}
 		}
 
 		m_pSelectedObject->Update_Object(0.f);
 		m_pSelectedObject->LateUpdate_Object();
-		
-
-		/*OBJ_TYPE eObjType = m_pSelectedObject->GetObj_Type();
-		if (eObjType == OBJ_TYPE::OBJ_MONSTER || eObjType == OBJ_TYPE::OBJ_ENVIRONMENT)
-			SetAutoY(m_pSelectedObject);*/
 	}
 
 	static ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_AutoSelectNewTabs | ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_FittingPolicyResizeDown;
@@ -371,141 +365,6 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 		ImGui::EndTabItem();
 	}
 
-	if (ImGui::BeginTabItem("Grass"))
-	{
-		_int	src = 0;
-
-		CGrass* tmp;
-
-
-		if (tmp = dynamic_cast<CGrass*>(m_pSelectedObject))
-		{
-			src = (_int)tmp->Get_Type();
-		}
-
-
-		if (ImGui::DragInt("GrassType", &src, 0.5f, 0, (_uint)GRASS_TYPE::GLOWING_REED_RED))
-		{
-			ResetSelectTarget();
-			if (src >= 0 || src <= (_uint)GRASS_TYPE::GLOWING_REED_RED)
-			{
-				m_pSelectedObject = CGrass::Create(m_pGraphicDev, (GRASS_TYPE)src);
-				SetAutoY(m_pSelectedObject);
-
-			}
-
-
-		}
-
-		
-
-
-
-		if (tmp = dynamic_cast<CGrass*>(m_pSelectedObject))
-		{
-			ImGui::BeginListBox("MyBox", ImVec2(400, 350));
-
-
-			string dst;
-
-
-			if (!tmp->Get_ItemMap().empty())
-			{
-				for (auto& iter : tmp->Get_ItemMap())
-				{
-					switch (iter.first)
-					{	
-					case ITEM_CODE::HP_SMALL:
-						dst = "HPSmall";
-						break;
-					case	ITEM_CODE::HP_MIDDLE:
-						dst = "HPMiddle";
-
-						break;
-					case	ITEM_CODE::HP_BIG:
-						dst = "HPBig";
-
-						break;
-
-					case	ITEM_CODE::SPEED_SMALL:
-						dst = "SpeedSmall";
-
-						break;
-
-					case	ITEM_CODE::SPEED_MIDDLE:
-						dst = "SpeedMiddle";
-						break;
-					case	ITEM_CODE::SPEED_BIG:
-						dst = "SpeedBig";
-						break;
-							
-					case	ITEM_CODE::LEAF:
-						dst = "Leaf";
-						break;
-
-					case	ITEM_CODE::TWIG:
-						dst = "Twig";
-						break;
-
-
-						default:
-						break;
-					}
-
-					dst += ":";
-
-					dst += to_string(iter.second);
-
-					if (ImGui::Selectable(dst.c_str(), itemInex == (int)iter.first))
-					{
-						itemInex = (int)iter.first;
-						itemPercent = iter.second;
-					}
-				}
-			}
-
-
-			ImGui::EndListBox();
-
-			if (ImGui::InputInt("ItemCode", &itemInex, (int)ITEM_CODE::HP_SMALL, (int)ITEM_CODE::TWIG))
-			{
-
-			}
-
-			if (ImGui::InputInt("ItemPercent", &itemPercent, 1, 100))
-			{
-
-			}
-
-			if (ImGui::Button("Add Item"))
-			{
-				if (itemInex < 0 || itemInex >(_int)ITEM_CODE::TWIG)
-				{
-
-				}
-				else
-				{
-					tmp->Get_ItemMap().insert({ (ITEM_CODE)itemInex, itemPercent });
-				}
-			}
-
-			if (ImGui::Button("Erase Item"))
-			{
-				if (itemInex < 0 || itemInex >(_int)ITEM_CODE::TWIG)
-				{
-
-				}
-				else
-				{
-					tmp->Get_ItemMap().erase((ITEM_CODE)itemInex);
-				}
-
-			}
-
-		}
-		ImGui::EndTabItem();
-
-	}
 
 	
 	ImGui::EndTabBar();

@@ -338,6 +338,7 @@ HRESULT CPlayer::Ready_Component(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vec3(0.5f, 0.5f, 0.5f));
 
 	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
 	{
@@ -402,7 +403,7 @@ void CPlayer::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
 	{
 		CFieldObject* src;
 		if((src = dynamic_cast<CFieldObject*>(pCollider->GetOwner())) && src->Get_ObjInfo().m_bIsPushable)
-		Collision_Stay_Push(pCollider, _eCollisionGroup, _iColliderID);
+			Collision_Stay_Push(pCollider, _eCollisionGroup, _iColliderID);
 	}	
 }
 void CPlayer::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
