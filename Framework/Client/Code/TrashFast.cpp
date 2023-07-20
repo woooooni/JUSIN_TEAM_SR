@@ -5,7 +5,7 @@
 // 이동거리가 더 길고 스피드도 빠름
 
 CTrashFast::CTrashFast(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CMonster(pGraphicDev, OBJ_ID::TRASH_BIG), m_fMoveTime(0.f)
+	:CMonster(pGraphicDev, OBJ_ID::TRASH_FAST), m_fMoveTime(0.f)
 {
 }
 

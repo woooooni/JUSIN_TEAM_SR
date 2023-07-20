@@ -22,6 +22,8 @@
 #include "House.h"
 #include "Prop.h"
 #include	"Grass.h"
+#include "TrashFast.h"
+#include "TrashBummer.h"
 
 IMPLEMENT_SINGLETON(CImGuiMgr)
 CImGuiMgr::CImGuiMgr()
@@ -239,6 +241,24 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 			SetAutoY(m_pSelectedObject);
 		}
 
+		if (ImGui::Button("TrashBoomer"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CTrashBummer::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
+		}
+
+		if (ImGui::Button("TrashFast"))
+		{
+			ResetSelectTarget();
+			m_pSelectedObject = CTrashFast::Create(m_pGraphicDev);
+			SetScaleRatio(m_pSelectedObject);
+			SetAutoY(m_pSelectedObject);
+		}
+
+
+
 		if (ImGui::Button("Spit_Cactus"))
 		{
 			ResetSelectTarget();
@@ -271,6 +291,7 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 			SetAutoY(m_pSelectedObject);
 		}
 
+		
 		ImGui::EndTabItem();
 	}
 
@@ -360,6 +381,20 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 					SetScaleRatio(m_pSelectedObject);
 					SetAutoY(m_pSelectedObject);
 				}
+			}
+		}
+		ImGui::EndTabItem();
+	}
+
+	if (ImGui::BeginTabItem("Environment"))
+	{
+		for (_uint i = 0; i < (_uint)GRASS_TYPE::GRASS_END; ++i)
+		{
+			string strButton = "Glass" + i;
+			if (ImGui::Button(strButton.c_str()))
+			{
+				ResetSelectTarget();
+				m_pSelectedObject = CGrass::Create(m_pGraphicDev, GRASS_TYPE(i));
 			}
 		}
 		ImGui::EndTabItem();
@@ -509,6 +544,17 @@ void CImGuiMgr::CreateObj(_vec3& vHit)
 		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"TrashSlime" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 
+	case OBJ_ID::TRASH_BUMMER:
+		pCloneObj = CTrashBummer::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"TrashBummer" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+	case OBJ_ID::TRASH_FAST:
+		pCloneObj = CTrashFast::Create(m_pGraphicDev);
+		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"TrashFast" + to_wstring(m_iObjNum++), pCloneObj);
+		break;
+
+
 	case OBJ_ID::SPIT_CACTUS:
 		pCloneObj = CSpitCactus::Create(m_pGraphicDev);
 		Engine::Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"SpitCactus" + to_wstring(m_iObjNum++), pCloneObj);
@@ -560,9 +606,7 @@ void CImGuiMgr::CreateObj(_vec3& vHit)
 	case OBJ_ID::GRASS:
 		pCloneObj = CGrass::Create(m_pGraphicDev, dynamic_cast<CGrass*>(m_pSelectedObject)->Get_Type());
 		pCloneObj->Get_TransformCom()->Set_Scale(m_pSelectedObject->Get_TransformCom()->Get_Scale());
-		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Prop" + to_wstring(m_iObjNum++), pCloneObj);
-
-
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Grass" + to_wstring(m_iObjNum++), pCloneObj);
 		break;
 	default :
 		return;
@@ -738,7 +782,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if(nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if(m_pTargetObject->GetObj_Id() != OBJ_ID::TILE)
+			if(m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pTargetObject);
 		}
 
@@ -764,7 +808,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE)
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pTargetObject);
 		}
 
@@ -781,7 +825,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE)
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pTargetObject);
 		}
 
@@ -851,7 +895,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 
@@ -868,7 +912,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 
@@ -894,7 +938,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pCollider)
 				pCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 
@@ -912,7 +956,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if(nullptr != pCollider)
 				pCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 

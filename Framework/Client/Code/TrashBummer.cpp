@@ -3,7 +3,7 @@
 #include "SludgeBall.h"
 #include "Export_Function.h"
 #include "GameMgr.h"
-CTrashBummer::CTrashBummer(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
+CTrashBummer::CTrashBummer(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_BUMMER)
 {
 }
 
