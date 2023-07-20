@@ -16,6 +16,8 @@ public:
 
 	virtual void    Free() override;
 
+	virtual void	Reset_Event()override;
+
 	static			CHoleObj* Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos = { 0, 0, 0 });
 
 	CLONE(CHoleObj);
@@ -27,6 +29,6 @@ public:
 
 protected:
 	_bool	m_bIn;
-
+	CGameObject* m_pStone;
 };
 

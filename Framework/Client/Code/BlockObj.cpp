@@ -111,6 +111,7 @@ CBlockObj* CBlockObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, c
 
 	ret->Set_SubscribeEvent(p_EventNum);
 	ret->m_iFollowingEvent = p_EventNum;
+	ret->m_bOriginState = p_isFirstBlock;
 
 	if (p_isFirstBlock)
 		ret->m_pAnimator->Play_Animation(L"Unblock_Idle", false);
@@ -180,6 +181,14 @@ void CBlockObj::Event_End(_uint iEventNum)
 	if (iEventNum == m_iFollowingEvent)
 		Change_State();
 
+}
+
+void CBlockObj::Reset_Event()
+{
+	if (m_bIsBlocking != m_bOriginState)
+	{
+		Change_State();
+	}
 }
 
 void CBlockObj::Set_SubscribeEvent(_uint pEvent)

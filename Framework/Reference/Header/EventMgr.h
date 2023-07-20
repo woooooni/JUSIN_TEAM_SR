@@ -129,6 +129,8 @@ private:
 		return true;
 	}
 
+public:
+
 
 	void		Add_Reset(const _uint& resetIndex, const _uint& eventKey)
 	{
@@ -146,8 +148,26 @@ private:
 				tmp->Reset_Event();
 			}
 			m_bEventSwitch[m_mapEvents.find(iter)->second->iEventNum] = false;
+
+			if (m_mapEvents.find(iter)->second->m_bIsCheckUpdate)
+			{
+				m_listCurActiveEvents.push_back(m_mapEvents.find(iter)->second);
+			}
 		}
 
+	}
+
+	void		Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex)
+	{
+		if (minIndex < 0 || minIndex > m_vecResetList.size() || maxIndex < 0 || maxIndex > m_vecResetList.size() || minIndex >= maxIndex)
+		{
+			return;
+		}
+
+		for (size_t i = minIndex; i <= maxIndex; i++)
+		{
+			Add_Reset(resetIndex , i);
+		}
 	}
 
 private:

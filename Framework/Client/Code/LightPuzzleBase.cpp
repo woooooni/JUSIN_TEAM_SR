@@ -71,6 +71,14 @@ void CLightPuzzleBase::Set_Lighting(const _bool& pBool)
 	}
 }
 
+void CLightPuzzleBase::Reset_Event()
+{
+	if (m_bIsLighting != m_bMakeLight)
+	{
+		m_bIsLighting = m_bMakeLight;
+	}
+}
+
 void CLightPuzzleBase::Free()
 {
 	__super::Free();

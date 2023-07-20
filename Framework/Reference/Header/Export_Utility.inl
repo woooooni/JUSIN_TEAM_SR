@@ -152,6 +152,22 @@ inline HRESULT Check_Event_Start(const _uint& pCheckNum)
 	return CEventMgr::GetInstance()->Check_Event_Start(pCheckNum);
 }
 
+inline void Add_Reset(const _uint& resetIndex, const _uint& eventKey)
+{
+	CEventMgr::GetInstance()->Add_Reset(resetIndex, eventKey);
+}
+
+inline void Reset(const _uint& resetIndex)
+{
+	CEventMgr::GetInstance()->Reset(resetIndex);
+
+}
+
+inline void Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex)
+{
+	CEventMgr::GetInstance()->Add_Reset(resetIndex, minIndex, maxIndex);
+}
+
 void			Release_Utility()
 {
 	CKeyMgr::GetInstance()->DestroyInstance();

@@ -99,7 +99,7 @@ CBalpanObj* CBalpanObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
 	ret->Get_TransformCom()->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 	ret->Get_TransformCom()->Set_Pos(&_vec3(p_Pos.x, 0.01f, p_Pos.z));
 	ret->Set_EventNum(p_EventNum);
-
+	Add_Subscribe(p_EventNum, ret);
 
 
     return ret;
@@ -192,7 +192,7 @@ void CBalpanObj::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisio
 	 m_bIsPushed = false; 		
 	 m_eColor = JELLY_COLOR::JELLY_END;
 
-	if (m_iPushedEventNum != 0)
+	if (m_iPushedEventNum != 0 && m_bIsAutoReset)
 		 Engine::Check_Event_Start(m_iPushedEventNum);
  }
 
@@ -252,6 +252,11 @@ void CBalpanObj::Set_Static()
 
  void CBalpanObj::Event_End(_uint iEventNum)
  {
+ }
+
+ void CBalpanObj::Reset_Event()
+ {
+	 Reset_Pushed();
  }
 
  void CBalpanObj::Collide(CCollider* pCollider)

@@ -116,7 +116,29 @@ HRESULT CDefaultItem::Change_Item(const ITEM_CODE& pCode)
 void CDefaultItem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
+	{
+		CPlayer* player = dynamic_cast<CPlayer*>(pCollider->GetOwner());
+
+		if (player->Is_GetItem())
+			return;
+
 		CInventoryMgr::GetInstance()->Add_Item(this);
+
+	}
+}
+
+void CDefaultItem::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
+	{
+		CPlayer* player = dynamic_cast<CPlayer*>(pCollider->GetOwner());
+
+		if (player->Is_GetItem())
+			return;
+
+		CInventoryMgr::GetInstance()->Add_Item(this);
+
+	}
 }
 
 CDefaultItem* CDefaultItem::Create(LPDIRECT3DDEVICE9 pGraphicDev,  OBJ_ID _eID, const ITEM_CODE& pCode)

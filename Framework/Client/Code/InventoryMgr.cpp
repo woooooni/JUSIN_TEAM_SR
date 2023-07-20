@@ -47,6 +47,9 @@ HRESULT CInventoryMgr::Add_Item(CGameObject* pItem)
 	if (iter == yourVec.end())
 	{
 		tem->Set_Active(false);
+		tem = dynamic_cast<CItem*>(tem->Clone());
+
+		NULL_CHECK_RETURN(tem, E_FAIL);
 		yourVec.push_back(tem);
 		tem->Set_InvenCount();
 	}
@@ -63,12 +66,19 @@ HRESULT CInventoryMgr::Add_Item(CGameObject* pItem)
 		(*iter)->Set_InvenCount();
 
 	}
+	CPlayer* player = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
+	NULL_CHECK_RETURN(player, E_FAIL);
 
 	if (!m_bHasRooted[(_uint)tem->Get_ItemCode()])
 	{
 		m_bHasRooted[(_uint)tem->Get_ItemCode()] = true;
 
-		//ÃÖÃÊ È¹µæ ÀÌº¥Æ® ÄÚµå
+		player->Set_GetItem(true);
+		player->Set_GetItemCode(tem->Get_ItemCode());
+	}
+	else
+	{
+		player->Set_ItemEffect(tem->Get_ItemCode());
 	}
 	
 	return S_OK;

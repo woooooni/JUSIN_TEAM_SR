@@ -73,6 +73,12 @@ void CLightPuzzlePiece::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eC
 
 }
 
+void CLightPuzzlePiece::Reset_Event()
+{
+	m_bIsLighting = false;
+	m_pTransformCom->Set_Pos(&originPos);
+}
+
 void CLightPuzzlePiece::Free()
 {
 	__super::Free();
@@ -90,6 +96,7 @@ CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uin
 		return nullptr;
 	}
 	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.01f, p_Pos.z));
+	ret->originPos = _vec3(p_Pos.x, 0.01f, p_Pos.z);
 
 
 	if (p_FirstName == L"Base")
