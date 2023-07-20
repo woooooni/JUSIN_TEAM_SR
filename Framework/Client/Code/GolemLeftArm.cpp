@@ -26,7 +26,7 @@ HRESULT CGolemLeftArm::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_LeftArm", L"Proto_Texture_SunGolem_Dirty_LeftArm", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_LeftArm", true);
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 0.7f, 0.7f,0.7f });
+	m_pTransformCom->Set_Scale({ 0.7f * 2.f, 0.7f * 2.f,0.7f * 2.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
 

@@ -116,7 +116,7 @@ HRESULT CMainApp::Ready_Default_RenderState()
 		return E_FAIL;
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	// m_pGraphicDev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_RGBA(51, 51, 51, 255));
 
 	D3DLIGHT9 tLightInfo;
@@ -195,7 +195,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TEST);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);

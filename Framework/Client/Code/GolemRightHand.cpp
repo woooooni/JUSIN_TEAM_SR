@@ -24,13 +24,13 @@ HRESULT CGolemRightHand::Ready_Object(void)
 	m_fMoveTime = 0.f;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_pAnimator->Add_Animation(L"SunGolem_Idle_RightHand", L"Proto_Texture_SunGolem_Idle_RightHand", 0.1f);
-	m_pAnimator->Add_Animation(L"SunGolem_Dirty_RightHand", L"Proto_Texture_SunGolem_Dirty_RightHand", 0.1f);
-	m_pAnimator->Add_Animation(L"SunGolem_Dirty_BummerRightHand", L"Proto_Texture_SunGolem_Dirty_BummerRightHand", 0.1f);
+	m_pAnimator->Add_Animation(L"SunGolem_Idle_RightHand", L"Proto_Texture_SunGolem_Idle_RightHand", 0.2f);
+	m_pAnimator->Add_Animation(L"SunGolem_Dirty_RightHand", L"Proto_Texture_SunGolem_Dirty_RightHand", 0.2f);
+	m_pAnimator->Add_Animation(L"SunGolem_Dirty_BummerRightHand", L"Proto_Texture_SunGolem_Dirty_BummerRightHand", 0.2f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_RightHand", true);
 
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 0.7f, 0.7f,0.7f });
+	m_pTransformCom->Set_Scale({ 0.7f * 2.f, 0.7f * 2.0f,0.7f * 2.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
 	return S_OK;
@@ -131,8 +131,11 @@ void CGolemRightHand::Update_Dirty(_float fTimeDelta)
 {
 	if (m_iArmNum != 1)
 		m_pAnimator->Play_Animation(L"SunGolem_Dirty_RightHand", true);
-	else
+	else 
+	{
+		m_pTransformCom->Set_Scale({ 0.7f * 2.5f, 0.7f * 2.5f,0.7f * 2.5f });
 		m_pAnimator->Play_Animation(L"SunGolem_Dirty_BummerRightHand", true);
+	}
 	_vec3 vDir;
 	if (m_bBreath)
 		vDir = { 0.f ,1.f ,0.f };

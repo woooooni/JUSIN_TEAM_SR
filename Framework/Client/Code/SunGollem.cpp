@@ -35,13 +35,13 @@ HRESULT CSunGollem::Ready_Object(void)
 	memset(m_bAttack, 1, sizeof(bool)*6);
 	memset(m_bSummon, 1, sizeof(bool) * 3);
 	m_vVerticalDir = { 0.f, 1.f ,0.f }; m_vVerticalDir = { 0.f, 1.f ,0.f };
-	m_pTransformCom->Set_Pos(&_vec3(4.0f, 2.0f, 4.0f));
+	m_pTransformCom->Set_Pos(&_vec3(4.0f, 3.0f, 4.0f));
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vRandomPos[0] = { vPos.x - 5, vPos.y, vPos.z };
 	m_vRandomPos[1] = { vPos.x , vPos.y, vPos.z };
 	m_vRandomPos[2] = { vPos.x + 5, vPos.y, vPos.z };
-	m_pTransformCom->Set_Scale({ 2,2,2 });	
+	m_pTransformCom->Set_Scale({ 3,4,3 });	
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({2.f, 2.f, 2.f });
 	m_fSpeed = 5.f;
 	Set_State(SUNGOLEM_STATE::REGEN);
@@ -50,7 +50,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
 	m_pMonsterAim->Set_Active(true);
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
-	m_fMinHeight = 2.0f;
+	m_fMinHeight = 3.0f;
 	return S_OK;
 }
 
@@ -144,6 +144,10 @@ HRESULT CSunGollem::Add_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 	
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
 	return S_OK;
 }
 
@@ -251,7 +255,7 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 	vDir.y = 0.f;
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 1.f);
-	if (vPos.y < 2.f&&m_fSpeed<0)
+	if (vPos.y < 3.f&&m_fSpeed<0)
 	{
 		//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.5f);
 			m_vVerticalDir= {0.f, 1.f ,0.f };
@@ -491,29 +495,29 @@ void CSunGollem::Create_Stone()
 
 HRESULT CSunGollem::Ready_Parts(void) 
 {
-	_vec3  vAxisZ, vPos;
+	_vec3  vAxisZ, vScale;
 	vAxisZ = {0.f,0.f,1.f};
-	vPos = {0.f,0.f,0.f};
+	vScale = {1.5f,2.f,1.5f};
 	_vec3 vPartPos[PARTSEND];
 
-	vPartPos[HEAD] = { vPos.x,		vPos.y + 0.5f,vPos.z - 0.01f };
-	vPartPos[UPPERJAW] = { vPos.x,		vPos.y + 0.1f,vPos.z - 0.011f };
-	vPartPos[LOWERJAW] = { vPos.x,		vPos.y - 0.2f,vPos.z - 0.0105f };
-	vPartPos[LEFTLEG] = { vPos.x - 0.6f,	vPos.y - 1.f,vPos.z - 0.01f };
-	vPartPos[RIGHTLEG] = { vPos.x + 0.6f,vPos.y - 1.f,vPos.z - 0.01f };
-	vPartPos[LEFTARM0] = { vPos.x - 1.5f,vPos.y - 0.5f,vPos.z - 0.0103f };
-	vPartPos[LEFTARM1] = { vPos.x - 1.75f,vPos.y + 0.5f,vPos.z - 0.0102f };
-	vPartPos[LEFTARM2] = { vPos.x - 1.5f,vPos.y + 1.5f,vPos.z - 0.0101f };
-	vPartPos[RIGHTARM0] = { vPos.x + 1.5f,vPos.y - 0.5f,vPos.z - 0.0103f };
-	vPartPos[RIGHTARM1] = { vPos.x + 1.75f,vPos.y + 0.5f,vPos.z - 0.0102f };
-	vPartPos[RIGHTARM2] = { vPos.x + 1.5f,vPos.y + 1.5f,vPos.z - 0.0101f };
-	vPartPos[LEFTHAND0] = { vPos.x - 1.9f,vPos.y - 0.5f,vPos.z - 0.0104f };
-	vPartPos[LEFTHAND1] = { vPos.x - 2.15f,vPos.y + 0.5f,vPos.z - 0.0103f };
-	vPartPos[LEFTHAND2] = { vPos.x - 1.9f,vPos.y + 1.5f,vPos.z - 0.0102f };
-	vPartPos[RIGHTHAND0] = { vPos.x + 1.9f,vPos.y - 0.5f,vPos.z - 0.0104f };
-	vPartPos[RIGHTHAND1] = { vPos.x + 2.15f,vPos.y + 0.5f,vPos.z - 0.0103f };
-	vPartPos[RIGHTHAND2] = { vPos.x + 1.9f,vPos.y + 1.5f,vPos.z - 0.0102f };
-	vPartPos[FACE] = { vPos.x,vPos.y + 0.5f,vPos.z - 0.012f };
+	vPartPos[HEAD] = { vScale.x*0.f,		vScale.y * 0.5f,vScale.z * - 0.01f };
+	vPartPos[UPPERJAW] = { vScale.x * 0.f,		vScale.y * 0.1f,vScale.z * - 0.011f };
+	vPartPos[LOWERJAW] = { vScale.x * 0.f,		vScale.y *- 0.2f,vScale.z * - 0.0105f };
+	vPartPos[LEFTLEG] = { vScale.x * - 0.6f,	vScale.y *- 1.f,vScale.z * - 0.01f };
+	vPartPos[RIGHTLEG] = { vScale.x * 0.6f,vScale.y * - 1.f,vScale.z * - 0.01f };
+	vPartPos[LEFTARM0] = { vScale.x * - 1.5f,vScale.y * - 0.5f,vScale.z * - 0.0103f };
+	vPartPos[LEFTARM1] = { vScale.x * - 1.75f,vScale.y * 0.5f,vScale.z * - 0.0102f };
+	vPartPos[LEFTARM2] = { vScale.x * - 1.5f,vScale.y * 1.5f,vScale.z * - 0.0101f };
+	vPartPos[RIGHTARM0] = { vScale.x * 1.5f,vScale.y * - 0.5f,vScale.z * - 0.0103f };
+	vPartPos[RIGHTARM1] = { vScale.x * 1.75f,vScale.y * 0.5f,vScale.z * - 0.0102f };
+	vPartPos[RIGHTARM2] = { vScale.x * 1.5f,vScale.y * 1.5f,vScale.z * - 0.0101f };
+	vPartPos[LEFTHAND0] = { vScale.x * - 1.9f,vScale.y * - 0.5f,vScale.z * - 0.0104f };
+	vPartPos[LEFTHAND1] = { vScale.x * - 2.15f,vScale.y * 0.5f,vScale.z * - 0.0103f };
+	vPartPos[LEFTHAND2] = { vScale.x * - 1.9f,vScale.y * 1.5f,vScale.z * - 0.0102f };
+	vPartPos[RIGHTHAND0] = { vScale.x * 1.9f,vScale.y * - 0.5f,vScale.z * - 0.0104f };
+	vPartPos[RIGHTHAND1] = { vScale.x * 2.15f,vScale.y * 0.5f,vScale.z * - 0.0103f };
+	vPartPos[RIGHTHAND2] = { vScale.x * 1.9f,vScale.y * 1.5f,vScale.z * - 0.0102f };
+	vPartPos[FACE] = { vScale.x * 0.f,vScale.y * 0.5f,vScale.z * - 0.012f };
 	//	HEAD, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
 	//	LEFTARM2, RIGHTARM0, RIGHTARM1, RIGHTARM2, LEFTHAND0,
 	//	LEFTHAND1, LEFTHAND2, RIGHTHAND0, RIGHTHAND1, RIGHTHAND2

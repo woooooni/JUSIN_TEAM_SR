@@ -26,8 +26,7 @@ HRESULT CGolemLowerJaw::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_LowerJaw", L"Proto_Texture_SunGolem_Dirty_LowerJaw", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_LowerJaw", true);
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 0.6f, 0.2f, 0.2f });
-
+	m_pTransformCom->Set_Scale({ 0.6f * 1.5f, 0.2f * 2.f, 0.2f * 1.5f });
 	Set_State(SUNGOLEM_STATE::REGEN);
 	return S_OK;
 }

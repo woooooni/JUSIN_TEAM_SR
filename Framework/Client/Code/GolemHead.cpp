@@ -24,7 +24,7 @@ HRESULT CGolemHead::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SunGolem_Dirty_Head", L"Proto_Texture_SunGolem_Dirty_Head", 0.1f);
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Head", true);
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 2.f,2.f,2.f });
+	m_pTransformCom->Set_Scale({ 2.f * 1.5f,2.f * 2.f,2.f * 1.5f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
 

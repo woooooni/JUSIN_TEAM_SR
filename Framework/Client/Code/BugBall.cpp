@@ -55,7 +55,7 @@ void CBugBall::LateUpdate_Object(void)
 		return ;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (vPos.y < 1.f)
+	if (vPos.y < 0.f)
 	{
 		if (Is_Active())
 			Set_Active(false);

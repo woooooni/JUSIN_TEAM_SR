@@ -26,7 +26,7 @@ HRESULT CGolemRightLeg::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_RightLeg", true);
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 
-	m_pTransformCom->Set_Scale({ 0.227f*3.f, 0.315f*3.f,1.f });
+	m_pTransformCom->Set_Scale({ 0.227f*3.f*1.5f, 0.315f*3.f * 2.f,1.f * 1.5f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
 	return S_OK;

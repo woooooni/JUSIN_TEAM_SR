@@ -30,7 +30,7 @@ HRESULT CGolemFist::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_Fist", true);
 
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 0.6f, 1.f, 1.f });
+	m_pTransformCom->Set_Scale({ 0.6f * 1.5f, 1.f * 2.f, 1.f * 1.5f });
 	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
 	m_pMonsterAim->Set_Active(true);
