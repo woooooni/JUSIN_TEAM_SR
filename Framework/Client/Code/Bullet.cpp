@@ -26,6 +26,7 @@ HRESULT CBullet::Ready_Object(void)
 
 _int CBullet::Update_Object(const _float& fTimeDelta)
 {
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BULLET);
 	return __super::Update_Object(fTimeDelta);
 }
 

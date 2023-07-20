@@ -43,6 +43,7 @@ HRESULT CPlayer_Bullet_GolemFist::Ready_Object(void)
 	m_pRigidBodyCom->SetMaxVelocity(100.0f);
 
 	m_fMinHeight = 0.70f;
+	Set_Atk(1.f);
 
 	return S_OK;
 }

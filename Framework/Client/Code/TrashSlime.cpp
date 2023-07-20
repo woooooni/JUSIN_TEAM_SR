@@ -239,8 +239,7 @@ void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 		m_tStat.iHp -= 1;
-		if (m_tStat.iHp < 1)
-			Set_State(MONSTER_STATE::DIE);
+
 	}
 }
 void CTrashSlime::Set_Animation()

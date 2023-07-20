@@ -41,6 +41,7 @@ HRESULT CPlayer_Bullet_Lightning::Ready_Object(void)
 
 	Set_Active(false);
 
+	Set_Atk(2.f);
 
 	m_pTransformCom->Set_Scale(_vec3(1.5f, 5.5f, 0.0f));
 
@@ -54,6 +55,7 @@ _int CPlayer_Bullet_Lightning::Update_Object(const _float& fTimeDelta)
 	if (!Is_Active())
 		return S_OK;
 
+	
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_bFinished)
 	{
 		CPool<CPlayer_Bullet_Lightning>::Return_Obj(this);

@@ -35,8 +35,7 @@ _int CBugBall::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
-		m_pAnimator->Play_Animation(L"BugBall", true);
+	m_pAnimator->Play_Animation(L"BugBall", true);
 
 	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 5.f);
 	if (m_fMoveTime < 0.f)
