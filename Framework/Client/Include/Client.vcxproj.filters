@@ -795,9 +795,6 @@
     <ClInclude Include="..\Header\UI_HPBar.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_Totem.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\RollingBug.h">
       <Filter>02. GameObject\02. Monster\05. RollingBug</Filter>
     </ClInclude>
@@ -1073,6 +1070,7 @@
     <ClInclude Include="..\Header\UI_SlotTwo.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_GolemFist.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1314,9 +1312,6 @@
       <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_HPBar.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\UI_Totem.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\02. HP</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\RollingBug.cpp">
@@ -1594,6 +1589,7 @@
     <ClCompile Include="..\Code\UI_SlotTwo.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

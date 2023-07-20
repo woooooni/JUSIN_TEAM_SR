@@ -109,11 +109,6 @@ HRESULT CScene_Test::Ready_Scene()
 	CPool<CJellyCombined>::Ready_Pool(m_pGraphicDev, 0);
 	CPool<CJellyBomb>::Ready_Pool(m_pGraphicDev, 0);
 
-	MATERIAL.Set_Material(MATERIAL.material, { 1.f, 1.f, 1.f, 0.f });
-
-	D3DMATERIAL9 mater = MATERIAL.material;
-
-	FAILED_CHECK(m_pGraphicDev->SetMaterial(&MATERIAL.material));
 
 
 	return S_OK;

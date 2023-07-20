@@ -86,7 +86,6 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	FAILED_CHECK_RETURN(Engine::Ready_InputDev(g_hInstance, g_hWnd), E_FAIL);
 	
-	(*ppGraphicDev)->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
@@ -94,9 +93,8 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
 
-	
 
 	return S_OK;
 }
@@ -118,9 +116,32 @@ HRESULT CMainApp::Ready_Default_RenderState()
 	if (nullptr == m_pGraphicDev)
 		return E_FAIL;
 
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	// m_pGraphicDev->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_RGBA(51, 51, 51, 255));
 
+	D3DLIGHT9 tLightInfo;
+	ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9));
 
+	tLightInfo.Type = D3DLIGHT_DIRECTIONAL;
+	tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 1.f };
+	tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f };
+	tLightInfo.Ambient = { 1.f, 1.f, 1.f, 1.f };
+	tLightInfo.Direction = { 0.5f, -0.5f, -0.5f };
+
+	D3DMATERIAL9 tMtrl = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
+
+	ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
+
+	tMtrl.Diffuse = { 1.f, 1.f, 1.f, 1.f };
+	tMtrl.Specular = { 0.2f, 0.2f, 0.2f, 0.2f };
+	tMtrl.Ambient = { 0.2f, 0.2f, 0.2f, 0.2f };
+	tMtrl.Emissive = { 0.f, 0.f, 0.f, 0.f };
+	tMtrl.Power = 0.5f;
+
+	m_pGraphicDev->SetMaterial(&tMtrl);
+	
+	FAILED_CHECK_RETURN(Engine::Ready_Light(m_pGraphicDev, &tLightInfo, 0), E_FAIL);
 
 	return S_OK;
 }
@@ -154,6 +175,8 @@ HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Ready_KeyMgr(pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_CollisionMgr(pGraphicDev), E_FAIL);
 
+
+
 	return S_OK;
 }
 
@@ -173,7 +196,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TEST);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);

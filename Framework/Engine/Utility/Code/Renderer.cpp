@@ -109,6 +109,7 @@ void CRenderer::Render_Effect(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -127,12 +128,14 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	for (auto iter : m_RenderGroup[RENDER_UI])
 		iter->Render_Object();
 
+
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 
 
 	pGraphicDev->SetTransform(D3DTS_VIEW, &m_matGameView);
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matPerspectiveProj);
+	pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 void CRenderer::Free()

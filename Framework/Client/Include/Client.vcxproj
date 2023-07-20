@@ -386,7 +386,6 @@
     <ClInclude Include="..\Header\UI_SlotOne.h" />
     <ClInclude Include="..\Header\UI_SlotThree.h" />
     <ClInclude Include="..\Header\UI_SlotTwo.h" />
-    <ClInclude Include="..\Header\UI_Totem.h" />
     <ClInclude Include="..\Header\UseItem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
@@ -595,7 +594,6 @@
     <ClCompile Include="..\Code\UI_SlotOne.cpp" />
     <ClCompile Include="..\Code\UI_SlotThree.cpp" />
     <ClCompile Include="..\Code\UI_SlotTwo.cpp" />
-    <ClCompile Include="..\Code\UI_Totem.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
     <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />
