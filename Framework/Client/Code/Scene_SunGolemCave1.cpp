@@ -37,6 +37,7 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 
 _int CScene_SunGolemCave1::Update_Scene(const _float& fTimeDelta)
 {
+	CUIMgr::GetInstance()->Set_BossHp(SCENE_TYPE::SUNGOLEM_CAVE1);
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
 	
 	__super::Update_Scene(fTimeDelta);

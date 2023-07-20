@@ -182,9 +182,8 @@ void CMothMage::Render_Object(void)
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 	__super::Render_Object();
-	m_pBufferCom->Render_Buffer();
 
-	
+	m_pBufferCom->Render_Buffer();
 	m_pMothOrb->Render_Object();
 
 	if (m_pUIBack->Is_Active() &&
