@@ -116,12 +116,23 @@ _int CPlayer_State_Walk::Update_State(const _float& fTimeDelta)
 void CPlayer_State_Walk::LateUpdate_State(void)
 {
 
+
 	if(dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
 		Update_Hat();
 
 
 	if(dynamic_cast<CPlayer*>(m_pOwner)->Is_Push())
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::PUSH);
+
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Is_GetItem())
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::GETTIEM);
+	}
+
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Is_BalloonFly())
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::BALLOONFLY);
+	}
 }
 
 void CPlayer_State_Walk::Render_State(void)
@@ -192,6 +203,9 @@ void CPlayer_State_Walk::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SWING);
 	}
 	
+
+
+
 }
 
 void CPlayer_State_Walk::Update_Hat()

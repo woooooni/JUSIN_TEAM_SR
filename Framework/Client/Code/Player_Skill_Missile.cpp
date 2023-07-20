@@ -13,7 +13,7 @@ CPlayer_Skill_Missile::CPlayer_Skill_Missile(CGameObject* _pOwner)
 	m_fShootTime(0.1f),
 	m_iMaxBombCount(6),
 	m_iBombCount(0),
-	m_fMaxLength(6.0f)
+	m_fMaxLength(8.0f)
 {
 }
 

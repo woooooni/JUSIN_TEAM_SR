@@ -37,6 +37,7 @@
 #include "Player_Skill_Range.h"
 #include "Effect_Item.h"
 #include "Pool.h"
+#include "Effect_Shadow.h"
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -240,12 +241,28 @@ HRESULT CPlayer::Ready_Object(void)
 
 	CGameObject* pAim = CPlayer_Skill_Aim::Create(m_pGraphicDev);
 	if (pAim)
+	{
+		pAim->Ready_Object();
 		m_pAim = pAim;
+	}
+		
 
 	CGameObject* pRange = CPlayer_Skill_Range::Create(m_pGraphicDev);
 	if (pRange)
+	{
+		pRange->Ready_Object();
 		m_pSkillRange = pRange;
+	}
+		
 
+	CGameObject* pShadow = CEffect_Shadow::Create(m_pGraphicDev);
+	if (pShadow)
+	{
+		pShadow->Ready_Object();
+		dynamic_cast<CEffect_Shadow*>(pShadow)->Set_Shadow(this, _vec3(1.2f, 1.0f, 1.0f));
+		m_pShadow = pShadow; 
+	}
+		
 
 	return S_OK;
 }
@@ -274,6 +291,9 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		m_pCollider[i]->Update_Component(fTimeDelta);
 	}
 
+	if (m_pShadow && m_pShadow->Is_Active())
+		m_pShadow->Update_Object(fTimeDelta);
+
 
 	//모자 테스트
 	if(m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
@@ -294,6 +314,9 @@ void CPlayer::LateUpdate_Object(void)
 	{
 		m_pCollider[i]->LateUpdate_Component();
 	}
+
+	if (m_pShadow && m_pShadow->Is_Active())
+		m_pShadow->LateUpdate_Object();
 
 
 	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
@@ -317,6 +340,9 @@ void CPlayer::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	if (m_pShadow && m_pShadow->Is_Active())
+		m_pShadow->Render_Object();
 
 	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
 		m_vecHats[m_iHat]->Render_Object();
