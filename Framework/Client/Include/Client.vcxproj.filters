@@ -1071,6 +1071,14 @@
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Effect_GolemFist.h" />
+    <ClInclude Include="..\Header\InvenTabButton.h" />
+    <ClInclude Include="..\Header\InventoryUI.h" />
+    <ClInclude Include="..\Header\Door.h">
+      <Filter>02. GameObject\11. FixedObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_Item.h">
+      <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1590,6 +1598,14 @@
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
+    <ClCompile Include="..\Code\InvenTabButton.cpp" />
+    <ClCompile Include="..\Code\InventoryUI.cpp" />
+    <ClCompile Include="..\Code\Door.cpp">
+      <Filter>02. GameObject\11. FixedObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_Item.cpp">
+      <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

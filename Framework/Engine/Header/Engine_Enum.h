@@ -170,7 +170,6 @@ namespace Engine
 
 	enum class ITEM_CODE
 	{
-		//EQUIP
 
 
 		//CONSUME
@@ -189,10 +188,14 @@ namespace Engine
 		//ETC_SPECIAL
 		BUTTERFLY,
 		SASUM,
+
+		//EQUIP
+
+
 		ITEM_END,
 
 		CONSUME_END = LEAF,
-		EQUIP_END = HP_SMALL,
+		EQUIP_END = ITEM_END,
 		ETC_END = BUTTERFLY,
 
 

@@ -135,7 +135,8 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 
 	pGraphicDev->SetTransform(D3DTS_VIEW, &m_matGameView);
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matPerspectiveProj);
-	pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+
+	pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 void CRenderer::Free()

@@ -1,62 +1,61 @@
-#include "Prop.h"
+#include "Door.h"
 #include "Export_Function.h"
+#include "KeyMgr.h"
 
-CProp::CProp(LPDIRECT3DDEVICE9 pGraphicDev)
+CDoor::CDoor(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CFixedObj(pGraphicDev, OBJ_ID::PROP)
 {
-	
 }
 
-CProp::CProp(const CProp& rhs)
+CDoor::CDoor(const CDoor& rhs)
 	: CFixedObj(rhs)
 {
-
 }
 
-CProp::~CProp()
+CDoor::~CDoor()
 {
-
 }
 
-HRESULT CProp::Ready_Object(void)
+HRESULT CDoor::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
+
+	Engine::Add_Subscribe(21079634, this);
+	m_pRigidBodyCom->SetGravity(-9.8f);
 	return S_OK;
 }
 
-_int CProp::Update_Object(const _float& fTimeDelta)
+_int CDoor::Update_Object(const _float& fTimeDelta)
 {
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	__super::Update_Object(fTimeDelta);
+
+	if (KEY_TAP(KEY::N))
+		Event_End(21079634);
+
 	return S_OK;
 }
 
-void CProp::LateUpdate_Object(void)
+void CDoor::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
 }
 
-void CProp::Render_Object(void)
+void CDoor::Render_Object(void)
 {
-	//Set_Billboard();
-
 	__super::Render_Object();
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
-
-	
 }
 
-void CProp::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+void CDoor::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	
-	
 }
 
-void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+void CDoor::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
 	{
@@ -98,7 +97,7 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 
 
 
-		/*if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
+		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
 		{
 			if (vDir.x < 0.f)
 			{
@@ -132,7 +131,7 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 		{
 			if (vDir.z < 0.f)
 			{
-  				vDir.z -= (fZ - fabs(vDir.z));
+				vDir.z -= (fZ - fabs(vDir.z));
 				vOtherPos = vPos + vDir;
 				pOtherTransform->Set_Pos(&vOtherPos);
 			}
@@ -143,18 +142,38 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 				pOtherTransform->Set_Pos(&vOtherPos);
 			}
 		}
-		*/
 		
+
 	}
-
 }
 
-void CProp::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+void CDoor::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-
 }
 
-HRESULT CProp::Ready_Component(void)
+void CDoor::Event_Start(_uint iEventNum)
+{
+	
+}
+
+void CDoor::Event_End(_uint iEventNum)
+{
+	m_fMinHeight = -(m_fMinHeight * 2.0f);
+	m_pRigidBodyCom->SetGround(false);
+}
+
+void CDoor::Set_Door(_vec3& _vPos, _vec3& _vScale)
+{
+	m_pTransformCom->Set_Pos(&_vPos);
+	m_pTransformCom->Set_Scale(_vScale);
+	m_fMinHeight = _vPos.y;
+	_vScale.x *= 2.0f;
+	_vScale.z = 0.2f;
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vScale);
+	Set_Active(true);
+}
+
+HRESULT CDoor::Ready_Component()
 {
 	CComponent* pComponent = nullptr;
 
@@ -168,7 +187,7 @@ HRESULT CProp::Ready_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Prop"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Door"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
@@ -179,24 +198,29 @@ HRESULT CProp::Ready_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+
 	return S_OK;
 }
 
-CProp* CProp::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CDoor* CDoor::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CProp* pInstance = new CProp(pGraphicDev);
+	CDoor* pInstance = new CDoor(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("Prop Object Create Failed");
+		MSG_BOX("Door Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
 
-void CProp::Free()
+void CDoor::Free()
 {
+	__super::Free();
 }

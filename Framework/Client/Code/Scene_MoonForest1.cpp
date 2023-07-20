@@ -9,6 +9,7 @@
 #include "JellyStone.h"
 #include "BalpanObj.h"
 #include "LightFlower.h"
+#include "Door.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -106,6 +107,9 @@ HRESULT CScene_MoonForest1::Ready_Layer_Terrrain()
 
 HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 {
+	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
+	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(54.0f, 2.0f, 72.0f), _vec3(4.0f, 6.0f, 1.5f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
 	return S_OK;
 }
 

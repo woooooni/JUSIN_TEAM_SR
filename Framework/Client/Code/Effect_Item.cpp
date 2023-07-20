@@ -1,5 +1,4 @@
-#include "Effect_GetItem.h"
-
+#include "Effect_Item.h"
 
 #include "Export_Function.h"
 #include "Bullet.h"
@@ -7,22 +6,23 @@
 
 #include "Scene.h"
 #include "Terrain.h"
+#include "Pool.h"
 
-CEffect_GetItem::CEffect_GetItem(LPDIRECT3DDEVICE9 pGraphicDev)
+CEffect_Item::CEffect_Item(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CEffect(pGraphicDev)
 {
 }
 
-CEffect_GetItem::CEffect_GetItem(const CEffect& rhs)
+CEffect_Item::CEffect_Item(const CEffect& rhs)
 	: CEffect(rhs)
 {
 }
 
-CEffect_GetItem::~CEffect_GetItem()
+CEffect_Item::~CEffect_Item()
 {
 }
 
-HRESULT CEffect_GetItem::Ready_Object(void)
+HRESULT CEffect_Item::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
@@ -37,27 +37,41 @@ HRESULT CEffect_GetItem::Ready_Object(void)
 	return S_OK;
 }
 
-_int CEffect_GetItem::Update_Object(const _float& fTimeDelta)
+_int CEffect_Item::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
 
+	_int iExit = __super::Update_Object(fTimeDelta);
 
 	switch (m_iTurn)
 	{
 	case 0:
 		m_vScale += _vec3(0.2f, 0.2f, 0.2f);
-		if (m_vScale.x > 3.0f)
+		if (m_vScale.x > 1.5f)
 			m_iTurn = 1;
 		break;
 	case 1:
-		if (m_vScale.x > 2.8f)
-			m_vScale -= _vec3(0.1f, 0.1f, 0.1f);
+		if (m_vScale.x > 1.3f)
+			m_vScale -= _vec3(0.05f, 0.05f, 0.05f);
+		else
+			m_iTurn = 2;
 		break;
 	case 2:
-		m_vScale -= _vec3(0.4f, 0.4f, 0.4f);
-		if (m_vScale.x <= 0.01f)
-			Set_Active(false);
+		m_pTransformCom->Move_Pos(&_vec3(0.0f, 1.0f, 0.0f), fTimeDelta, 0.5f);
+
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		if (vPos.y > 3.0f)
+		{
+			if (m_vScale.x <= 0.01f)
+			{
+				CPool<CEffect_Item>::Return_Obj(this);
+			}
+			else
+				m_vScale -= _vec3(0.1f, 0.1f, 0.1f);
+		}
+		
 		break;
 	}
 	m_pTransformCom->Set_Scale(m_vScale);
@@ -68,12 +82,12 @@ _int CEffect_GetItem::Update_Object(const _float& fTimeDelta)
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	_int iExit = __super::Update_Object(fTimeDelta);
+	
 
 	return iExit;
 }
 
-void CEffect_GetItem::LateUpdate_Object(void)
+void CEffect_Item::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -81,8 +95,7 @@ void CEffect_GetItem::LateUpdate_Object(void)
 	__super::LateUpdate_Object();
 }
 
-
-void CEffect_GetItem::Render_Object(void)
+void CEffect_Item::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -108,25 +121,26 @@ void CEffect_GetItem::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
-CEffect_GetItem* CEffect_GetItem::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CEffect_Item* CEffect_Item::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CEffect_GetItem* pInstance = new CEffect_GetItem(pGraphicDev);
+	CEffect_Item* pInstance = new CEffect_Item(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("Effect_GetItem Create Failed");
+		MSG_BOX("Effect_Item Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
 
-
-void CEffect_GetItem::Get_Effect(_vec3& _vPos, ITEM_CODE _eItemCode)
+void CEffect_Item::Get_Effect(_vec3& _vPos, ITEM_CODE _eItemCode)
 {
 	m_iTurn = 0;
+
+	_vPos.y += 2.0f;
 
 	_matrix matWorld;
 	D3DXMatrixIdentity(&matWorld);
@@ -144,9 +158,10 @@ void CEffect_GetItem::Get_Effect(_vec3& _vPos, ITEM_CODE _eItemCode)
 	Set_Active(true);
 
 	m_pTextureCom->Set_Idx((_uint)_eItemCode);
+	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"ItemEffect", this);
 }
 
-HRESULT CEffect_GetItem::Add_Component(void)
+HRESULT CEffect_Item::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -174,7 +189,7 @@ HRESULT CEffect_GetItem::Add_Component(void)
 	return S_OK;
 }
 
-void CEffect_GetItem::Free()
+void CEffect_Item::Free()
 {
 	__super::Free();
 }

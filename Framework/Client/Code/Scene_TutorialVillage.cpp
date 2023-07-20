@@ -10,6 +10,7 @@
 #include "LightFlower.h"
 #include "DesertRhino.h"
 #include "MothMage.h"
+#include "Door.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -112,7 +113,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
-	CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
+	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
 	_vec3 vCowPos = _vec3(24.f, 0.5f, 13.f);
@@ -125,9 +126,11 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_Sheep", pNpcSheep);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_Cow", pNpcCow);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Flower", pFlower);
+	//m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Flower", pFlower);
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+
 
 	return S_OK;
 }

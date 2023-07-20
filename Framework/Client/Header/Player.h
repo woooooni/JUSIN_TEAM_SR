@@ -141,6 +141,9 @@ public:
 	bool			Is_GetItem() { return m_bGetItem; }
 	void			Set_GetItem(bool _bGetItem) { m_bGetItem = _bGetItem; }
 
+	ITEM_CODE		Get_GetItemCode() { return m_eGetItemCode; }
+	void			Set_GetItemCode(ITEM_CODE _eItemCode) { m_eGetItemCode = _eItemCode; }
+
 	void			Set_BalloonFly(bool _bBalloonFly) { m_bBalloonFly = _bBalloonFly; }
 	void			Set_Flying(bool _bFlying) { m_bFlying = _bFlying; }
 	bool			Is_Flying() { return m_bFlying; }
@@ -152,6 +155,8 @@ public:
 	void			Set_Grab(bool _bGrab) { m_bGrab = _bGrab; }
 	bool			Is_Grab() { return m_bGrab; }
 	void			Reset_LiftObj() { m_pLiftObj = nullptr; }
+
+	void			Set_ItemEffect(ITEM_CODE eItemCode);
 
 private:
 	_vec3			m_vDir;
@@ -202,5 +207,7 @@ private:
 	vector<CGameObject*> m_vecHats;
 	_uint m_iHat;
 	void		Key_Input(const _float& fTimeDelta);
+
+	ITEM_CODE m_eGetItemCode;
 };
 

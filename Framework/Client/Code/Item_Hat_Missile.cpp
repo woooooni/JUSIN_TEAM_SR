@@ -21,6 +21,7 @@ HRESULT CItem_Hat_Missile::Ready_Object(void)
 {
 	__super::Ready_Object();
 
+	Add_Component();
 
 	m_pAnimator->Add_Animation(L"Missile_Up", L"Proto_Texture_Item_MissileHat_Up", 0.1f);
 	m_pAnimator->Add_Animation(L"Missile_Down", L"Proto_Texture_Item_MissileHat_Down", 0.1f);
@@ -94,7 +95,12 @@ CItem_Hat_Missile* CItem_Hat_Missile::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGam
 
 HRESULT CItem_Hat_Missile::Add_Component(void)
 {
-	return E_NOTIMPL;
+	CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Item_MissileHat_Down"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	return S_OK;
 }
 
 void CItem_Hat_Missile::Free()

@@ -32,8 +32,7 @@ HRESULT CPlayer_State_GetItem::Ready_State(void)
 	if (!m_pEffect)
 	{
 		m_pEffect = CEffect_GetItem::Create(Engine::Get_Device());
-		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Effect_GetItem", m_pEffect);
-	}
+	}                     
 
 	m_iIndex = 5;
 
@@ -83,7 +82,7 @@ _int CPlayer_State_GetItem::Update_State(const _float& fTimeDelta)
 		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 		vPos.z -= 0.05f;
 		vPos.y += 2.5f;
-		dynamic_cast<CEffect_GetItem*>(m_pEffect)->Get_Effect(vPos, nullptr);
+		dynamic_cast<CEffect_GetItem*>(m_pEffect)->Get_Effect(vPos, dynamic_cast<CPlayer*>(m_pOwner)->Get_GetItemCode());
 		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Effect_GetItem", m_pEffect);
 		m_bFinished = true;
 	}
