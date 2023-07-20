@@ -31,14 +31,11 @@ public:
 	_bool Is_Poison() { return m_bPoison; }
 	void Set_Dir(_vec3 _Dir) { m_vDir = _Dir; }
 	static CBugBall* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	void Set_Atk(_uint _iAtk) { if (m_iAtk == _iAtk) return; m_iAtk = _iAtk; }
-	_uint Get_Atk() { return  m_iAtk; }
 
 private:
 	OBJ_DIR m_eDir;
 	_vec3 m_vDir;
 	_bool	m_bPoison = false;
-	_uint m_iAtk=1;
 private:
 	_float m_fMoveTime=20.f;
 private:

@@ -5,10 +5,11 @@
 #include "Terrain.h"
 #include "Npc_VillagerMonkey.h"
 #include "Npc_Dancer.h"
-
 #include "Npc_Elite.h"
 #include "Npc_Chief.h"
-#include "Npc_Sheep.h"
+#include "Npc_Orangi.h"
+#include "Npc_Dancer.h"
+#include "Npc_DanceTeacher.h"
 #include "Portal.h"
 #include "UIMgr.h"
 
@@ -117,50 +118,130 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	
 	CNpc_Chief* pChief = CNpc_Chief::Create(m_pGraphicDev);
-	_vec3 vChiefPos = _vec3(141.5f, 0.5f, 115.f);
+	_vec3 vChiefPos = _vec3(141.f, 0.5f, 115.f);
 	pChief->Get_TransformCom()->Set_Info(INFO_POS, &vChiefPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Chief", pChief);
 
 	CNpc_Elite* pElite = CNpc_Elite::Create(m_pGraphicDev);
-	_vec3 vElitePos = _vec3(137.0f, 0.5f, 120.f);
+	_vec3 vElitePos = _vec3(137.0f, 1.1f, 120.f);
 	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite1", pElite);
 
 	 pElite = CNpc_Elite::Create(m_pGraphicDev);
-	 vElitePos = _vec3(144.5f, 0.5f, 120.f);
+	 vElitePos = _vec3(144.5f, 1.1f, 120.f);
 	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite2", pElite);
 
 	pElite = CNpc_Elite::Create(m_pGraphicDev);
-	vElitePos = _vec3(144.5f, 0.5f, 120.f);
+	vElitePos = _vec3(144.5f, 1.1f, 120.f);
 	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite3", pElite);
 
-	CNpc_VillagerMonkey* pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev,VILLAGERTYPE::MONKEY_DANCER);
-	_vec3 vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 121.f);
+	pElite = CNpc_Elite::Create(m_pGraphicDev);
+	vElitePos = _vec3(95.5f, 1.1f, 82.5f);
+	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite4", pElite);
+
+	pElite = CNpc_Elite::Create(m_pGraphicDev);
+	vElitePos = _vec3(98.f, 1.1f, 87.f);
+	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite5", pElite);
+
+	pElite = CNpc_Elite::Create(m_pGraphicDev);
+	vElitePos = _vec3(143.5f, 1.1f, 101.5f);
+	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite6", pElite);
+
+	pElite = CNpc_Elite::Create(m_pGraphicDev);
+	vElitePos = _vec3(103.5, 1.1f, 101.5f);
+	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite7", pElite);
+	VILLAGERTYPE VillagerTypeArray[5] = { VILLAGERTYPE::MONKEY_HOOD,VILLAGERTYPE::MONKEY_FUR,VILLAGERTYPE::MONKEY_LEAVES1,VILLAGERTYPE::MONKEY_LEAVES2,VILLAGERTYPE::MONKEY_DANCER};
+	CNpc_VillagerMonkey* pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand()%5]);
+	_vec3 vVillagerMonkeyPos = _vec3(123.f, 0.5f, 22.f);
 	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Dancer", pVillagerMonkey);
 	
-	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_FUR);
-	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 122.f);
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(122.f, 0.5f, 33.f);
 	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Fur", pVillagerMonkey);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
 
-	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_LEAVES1);
-	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 123.f);
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(121.f, 0.5f, 45.5f);
 	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Leaves1", pVillagerMonkey);
-
-	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_LEAVES2);
-	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 124.f);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(112.f, 0.5f, 60.5f);
 	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Leaves2", pVillagerMonkey);
-
-	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_HOOD);
-	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 125.f);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(107.f, 0.5f, 53.f);
 	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Hood", pVillagerMonkey);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(102.f, 0.5f, 37.f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(110.f, 0.5f, 20.5f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(112.5f, 0.5f, 35.3f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
 
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(54.f, 0.5f, 107.f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
+	vVillagerMonkeyPos = _vec3(82.f, 0.5f, 84.5f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand()%5]);
+	vVillagerMonkeyPos = _vec3(80.5f , 0.5f, 110.4f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand()%5]);
+	vVillagerMonkeyPos = _vec3(83.5f, 0.5f, 110.4f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand()%5]);
+	vVillagerMonkeyPos = _vec3(86.5f, 0.5f, 110.4f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
+
+	CNpc_DanceTeacher* pDanceTeacher = CNpc_DanceTeacher::Create(m_pGraphicDev);
+	_vec3 vDanceTeacherPos = _vec3(141.f, 0.5f, 92.5f);
+	pDanceTeacher->Get_TransformCom()->Set_Info(INFO_POS, &vDanceTeacherPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DanceTeacher", pDanceTeacher);
+	
+	pDanceTeacher = CNpc_DanceTeacher::Create(m_pGraphicDev);
+	 vDanceTeacherPos = _vec3(141.f, 0.5f, 92.5f);
+	pDanceTeacher->Get_TransformCom()->Set_Info(INFO_POS, &vDanceTeacherPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DanceTeacher", pDanceTeacher);
+
+	CNpc_Dancer* pDancer = CNpc_Dancer::Create(m_pGraphicDev);
+	_vec3 vDancerPos = _vec3(143.f, 0.5f, 90.5f);
+	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer1", pDancer);
+
+	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
+	vDancerPos = _vec3(139.f, 0.5f, 90.5f);
+	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer1", pDancer);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	CNpc_Orangi* pOrangi = CNpc_Orangi::Create(m_pGraphicDev);
+	_vec3 vOrangiPos = _vec3(59.f, 0.5f, 87.49f);
+	pOrangi->Get_TransformCom()->Set_Info(INFO_POS, &vOrangiPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Orangi", pOrangi);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
