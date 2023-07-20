@@ -82,34 +82,67 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 		pOtherTransform->Get_Info(INFO_POS, &vOtherPos);
 
 		_vec3 vDir = vOtherPos - vPos;
+		_float fX = (pBoxCollider->Get_Scale().x * 0.5f) + (pOtherBoxCollider->Get_Scale().x * 0.5f);
+		_float fY = (pBoxCollider->Get_Scale().y * 0.5f) + (pOtherBoxCollider->Get_Scale().y * 0.5f);
+		_float fZ = (pBoxCollider->Get_Scale().z * 0.5f) + (pOtherBoxCollider->Get_Scale().z * 0.5f);
 
-		/*if (vDir.x < vDir.z)
+
+		if (fabs(vDir.x) >= fX)
+			return;
+
+		if (fabs(vDir.y) >= fY)
+			return;
+
+		if (fabs(vDir.z) >= fZ)
+			return;
+
+
+
+		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
 		{
 			if (vDir.x < 0.f)
 			{
-				vPos = { vPos.x - pBoxCollider->Get_Scale().x / 2.f, vOtherPos.y, vOtherPos.z };
-				pOtherTransform->Set_Pos(&vPos);
+				vDir.x -= (fX - fabs(vDir.x));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
 			}
-			else if (vDir.x > 0.f)
+			else
 			{
-				vPos = { vPos.x + pBoxCollider->Get_Scale().x / 2.f, vPos.y, vPos.z };
-				pOtherTransform->Set_Pos(&vPos);
+				vDir.x += (fX - fabs(vDir.x));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
 			}
 		}
-		
-		else
+		else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
+		{
+			if (vDir.y < 0.f)
+			{
+				vDir.y -= (fY - fabs(vDir.y));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
+			else
+			{
+				vDir.y += (fY - fabs(vDir.y));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
+		}
+		else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x) && fZ - fabs(vDir.z) < fY - fabs(vDir.y))
 		{
 			if (vDir.z < 0.f)
 			{
-				vPos = { vPos.x, vPos.y, vPos.z - pBoxCollider->Get_Scale().z / 2.f };
-				pOtherTransform->Set_Pos(&vPos);
+  				vDir.z -= (fZ - fabs(vDir.z));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
 			}
-			else if (vDir.z > 0.f)
+			else
 			{
-				vPos = { vPos.x, vPos.y, vPos.z + pBoxCollider->Get_Scale().z / 2.f };
-				pOtherTransform->Set_Pos(&vPos);
+				vDir.z += (fZ - fabs(vDir.z));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
 			}
-		}*/
+		}
 		
 		
 	}

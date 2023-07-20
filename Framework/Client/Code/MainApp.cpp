@@ -96,6 +96,7 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
 
+	
 
 	return S_OK;
 }
@@ -117,7 +118,7 @@ HRESULT CMainApp::Ready_Default_RenderState()
 	if (nullptr == m_pGraphicDev)
 		return E_FAIL;
 
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 
 

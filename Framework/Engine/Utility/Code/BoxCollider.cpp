@@ -83,7 +83,7 @@ void CBoxCollider::Render_Component()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &matWorld);
 	D3DCOLORVALUE tValue;
 	tValue.a = 1.f;
-	tValue.r = 1.f;
+	tValue.r = 0.f;
 	tValue.g = 0.f;
 	tValue.b = 0.f;
 
