@@ -9,6 +9,8 @@
 #include "UIMgr.h"
 #include "DesertRhino.h"
 #include "MothMage.h"
+#include "UI_NewQuest.h"
+
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -84,7 +86,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Player()
 	vStartPos.z = 6.5f;
 	pPlayer->Get_TransformCom()->Set_Info(INFO_POS, &vStartPos);
 
-
 	return S_OK;
 }
 
@@ -159,6 +160,14 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_UI()
 {
+//	CUI_QuestionMark* pEx = CUI_QuestionMark::Create(m_pGraphicDev);
+//	_vec3 vExPos = _vec3(21.f, 0.5f, 6.f);
+//	pEx->Get_TransformCom()->Set_Info(INFO_POS, &vExPos);
+//	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI_Quest", pEx);
+
+//	CUI_NewQuest* pQuest = CUI_NewQuest::Create(m_pGraphicDev);
+//	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI_QuestWindow", pQuest);
+
 	return S_OK;
 }
 

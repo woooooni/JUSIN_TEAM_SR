@@ -40,16 +40,18 @@ HRESULT CNpc_Cow::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_NPC_Cow_Idle"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
-
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Cow_Idle", L"Proto_Texture_NPC_Cow_Idle", 0.5f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Cow_React", L"Proto_Texture_NPC_Cow_React", 0.5f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Tutorial_Cow_Idle", TRUE), E_FAIL);
 
+//	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
+	//if (m_pExclamation != nullptr)
+	//	m_pExclamation->Set_Owner(this);
+
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
 
 	return S_OK;
 }
@@ -92,6 +94,15 @@ _int CNpc_Cow::Update_Object(const _float& fTimeDelta)
 	//		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
 	//}
 
+	_vec3 vNpcPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vNpcPos);
+
+	vNpcPos.y += 1.f;
+	m_pQuestion->Get_TransformCom()->Set_Pos(&vNpcPos);
+
+	if (m_bQuestAccept) // 퀘스트를 받을 수 있는 상태면 (수락 전)
+		m_pQuestion->Update_Object(fTimeDelta);
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -121,6 +132,9 @@ void CNpc_Cow::LateUpdate_Object(void)
 	//	dynamic_cast<CNpcText*>(pUIText)->Set_Shown(false);
 	//}
 
+	if (m_bQuestAccept)
+		m_pQuestion->LateUpdate_Object();
+
 	__super::LateUpdate_Object();
 }
 
@@ -130,6 +144,9 @@ void CNpc_Cow::Render_Object(void)
 
 	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();
+
+	if (m_bQuestAccept)
+		m_pQuestion->Render_Object();
 
 	__super::Render_Object();
 }

@@ -535,6 +535,21 @@
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot">
       <UniqueIdentifier>{af6c14a3-5b92-4d7b-9761-925a611b3231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest">
+      <UniqueIdentifier>{4d188975-7b32-400a-9d17-42cff369ed75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest\00. Mark">
+      <UniqueIdentifier>{fcb1218e-6585-408d-b68f-1d3bea3f7fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest\01. QuestList">
+      <UniqueIdentifier>{1c02ee6c-333f-4465-a589-72998b5c883f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest\01. QuestList\00. NewQuest">
+      <UniqueIdentifier>{cec3ee6d-2022-47ad-8ac0-e56fac39d841}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest\01. QuestList\99. QuestIcon">
+      <UniqueIdentifier>{c4def00e-cf99-499c-bc00-71e6b713a478}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1073,6 +1088,19 @@
     <ClInclude Include="..\Header\UI_SlotTwo.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_GolemFist.h" />
+    <ClInclude Include="..\Header\UI_ExclamationMark.h">
+      <Filter>02. GameObject\04. UI\08. Quest\00. Mark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_QuestionMark.h">
+      <Filter>02. GameObject\04. UI\08. Quest\00. Mark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_QuestIcon.h">
+      <Filter>02. GameObject\04. UI\08. Quest\01. QuestList\99. QuestIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_NewQuest.h">
+      <Filter>02. GameObject\04. UI\08. Quest\01. QuestList\00. NewQuest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1593,6 +1621,19 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_SlotTwo.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
+    <ClCompile Include="..\Code\UI_ExclamationMark.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\00. Mark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_QuestionMark.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\00. Mark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_QuestIcon.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\01. QuestList\99. QuestIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_NewQuest.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\01. QuestList\00. NewQuest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
