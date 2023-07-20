@@ -7,6 +7,8 @@
 #include "Npc_Sheep.h"
 #include "Portal.h"
 #include "UIMgr.h"
+#include "DesertRhino.h"
+#include "MothMage.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -112,7 +114,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
 
-
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
 	_vec3 vCowPos = _vec3(24.f, 0.5f, 13.f);
 	_vec3 vPortalPos = _vec3(51.8f, 0.5f, 46.5f);
@@ -132,6 +133,17 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
 {
+	// Ã¼·Â¹Ù Test
+	CMothMage* pMothmage = CMothMage::Create(m_pGraphicDev);
+	_vec3 vMothmagePos = _vec3(14.f, 0.5f, 14.f);
+	pMothmage->Get_TransformCom()->Set_Info(INFO_POS, &vMothmagePos);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Mothmage", pMothmage);
+
+	CDesertRhino* pRhino = CDesertRhino::Create(m_pGraphicDev);
+	_vec3 vRhinoPos = _vec3(13.f, 0.5f, 12.f);
+	pRhino->Get_TransformCom()->Set_Info(INFO_POS, &vRhinoPos);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Rhino", pRhino);
+
 	return S_OK;
 }
 

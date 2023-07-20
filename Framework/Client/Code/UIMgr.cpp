@@ -98,26 +98,6 @@ void CUIMgr::Render_UIMgr()
     m_vecIcon[KEYBUTTON_L]->Render_Object();
 }
 
-//HRESULT CUIMgr::Set_UI(SCENE_TYPE eType)
-//{
-//   // enum class SCENE_TYPE { LOADING, TEST, LOGO, TUTORIAL_VILLAGE,
-//   // MONKEY_FOREST1, MONKEY_FOREST2, MONKEY_VILLAGE, SUNGOLEM_CAVE1, MOON_FOREST1, TOOL, SCENE_END };
-//
-//    CManagement* pManagement = CManagement::GetInstance();
-//
-//    return E_NOTIMPL;
-//}
-
-void CUIMgr::Set_BossHp(SCENE_TYPE eType)
-{
-   // m_pBossHpBar->
-}
-
-void CUIMgr::Set_PlayerInfo()
-{
-   // m_pHpBar->
-}
-
 HRESULT CUIMgr::Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev)
 {
     // 먼저 그려져도 되는 Icon들만

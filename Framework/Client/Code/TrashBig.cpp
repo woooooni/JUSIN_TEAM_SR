@@ -66,6 +66,7 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	
 	_vec3 vTargetPos, vPos, vDir;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
@@ -77,7 +78,6 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 		Set_Target(pTarget);
 
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
 
 		if (D3DXVec3Length(&vDir) < 5.f)
@@ -171,9 +171,6 @@ void CTrashBig::Update_Idle(_float fTimeDelta)
 	if (m_fMoveTime > 10.f)
 	{
 		if (rand() % 10 > 8)
-
-
-
 		{
 			Set_State(MONSTER_STATE::MOVE);
 		}

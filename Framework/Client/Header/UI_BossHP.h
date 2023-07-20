@@ -36,7 +36,9 @@ public:
 	
 private:
 	BOSSHP		m_eUIType;
-	BOSSNAME	m_eBossName;
+	BOSSNAME	m_eBossType;
+
+private:
 	_vec3		m_vDefaultPos;
 	_int		m_iMaxHP;
 	_int		m_iCurHP;

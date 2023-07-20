@@ -54,11 +54,61 @@ _int CMonster::Update_Object(const _float& fTimeDelta)
 			break;
 		}
 	}
+
+//	_vec3 vPos;
+//	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+//	
+//	vPos.y += 0.8f;
+//	vPos.z -= 0.01f;
+//
+//	if (m_pUIBack->Is_Active() &&
+//		m_pUIGauge->Is_Active() &&
+//		m_pUIFrame->Is_Active())
+//	{
+//		m_pUIBack->Update_Object(fTimeDelta);
+//		m_pUIBack->Get_TransformCom()->Set_Pos(&vPos);
+//
+//		vPos.z -= 0.005f;
+//		m_pUIGauge->Update_Object(fTimeDelta);
+//
+//		if (m_tStat.iHp == m_tStat.iMaxHp)
+//			m_pUIGauge->Get_TransformCom()->Set_Pos(&vPos);
+//		else if (m_tStat.iHp > 0 && m_tStat.iHp < m_tStat.iMaxHp)
+//		{
+//			_vec3 vMovePos = vPos;
+//
+//			_float fMaxHP = _float(m_tStat.iMaxHp);
+//			_float fCurHP = _float(m_tStat.iHp);
+//			_float fHP = fCurHP / fMaxHP;
+//
+//			_float fOriginWidth = _float(m_pUIGauge->Get_TextureCom()->Get_TextureDesc(0).Width);
+//			_float fWidth = fOriginWidth - fOriginWidth * fHP;
+//
+//			_float fIndex = fWidth * 0.004f * 0.5f;
+//
+//			vMovePos = _vec3((vMovePos.x - fIndex), vMovePos.y, vMovePos.z);
+//			m_pUIGauge->Get_TransformCom()->Set_Pos(&vMovePos);
+//		}
+//
+//		vPos.z -= 0.005f;
+//		m_pUIFrame->Update_Object(fTimeDelta);
+//		m_pUIFrame->Get_TransformCom()->Set_Pos(&vPos);
+//	}
+
 	return iExit;
 }
 
 void CMonster::LateUpdate_Object(void)
 {
+//	if (m_pUIBack->Is_Active() &&
+//		m_pUIGauge->Is_Active() &&
+//		m_pUIFrame->Is_Active())
+//	{
+//		m_pUIBack->LateUpdate_Object();
+//		m_pUIGauge->LateUpdate_Object();
+//		m_pUIFrame->LateUpdate_Object();
+//	}
+
 	__super::LateUpdate_Object();
 }
 

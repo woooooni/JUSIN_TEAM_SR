@@ -54,6 +54,15 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_eCOLORPATTERN = COLOR_BLUE;
 	m_tStat = { 25,25,1 };
 
+	m_pUIBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	NULL_CHECK_RETURN(m_pUIBack, E_FAIL);
+	m_pUIGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	NULL_CHECK_RETURN(m_pUIGauge, E_FAIL);
+	m_pUIFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	NULL_CHECK_RETURN(m_pUIFrame, E_FAIL);
+
+	m_pUIGauge->Set_Name(BOSSNAME::SILKWORM);
+
 	return S_OK;
 }
 
@@ -88,17 +97,38 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 		for (int i = 0; i < COLOR_END; i++)
 			if (m_pBeatles[i]->Is_Active())
 			m_pBeatles[i]->Update_Object(fTimeDelta);
+	
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Update_Object(fTimeDelta);
+		m_pUIGauge->Update_Object(fTimeDelta);
+		m_pUIFrame->Update_Object(fTimeDelta);
+	}
+	
 	return iExit;
 }
 void CSilkWorm::LateUpdate_Object(void)
 {
-
 	__super::LateUpdate_Object();	
+
 	if (m_bSpawn)
 		for (int i = 0; i < COLOR_END; i++)
 			if (m_pBeatles[i]->Is_Active())
 				m_pBeatles[i]->LateUpdate_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->LateUpdate_Object();
+		m_pUIGauge->LateUpdate_Object();
+		m_pUIFrame->LateUpdate_Object();
+	}
+
 }
+
 void CSilkWorm::Render_Object(void)
 {
 	if (Is_Active())
@@ -114,6 +144,15 @@ void CSilkWorm::Render_Object(void)
 					m_pBeatles[i]->Render_Object();
 	}
 	
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Render_Object();
+		m_pUIGauge->Render_Object();
+		m_pUIFrame->Render_Object();
+	}
+
 }
 
 

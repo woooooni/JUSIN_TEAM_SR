@@ -7,6 +7,7 @@
 #include "Npc_Sheep.h"
 #include "Portal.h"
 #include "UIMgr.h"
+#include "SunGollem.h"
 
 CScene_SunGolemCave1::CScene_SunGolemCave1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1)
@@ -37,7 +38,6 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 
 _int CScene_SunGolemCave1::Update_Scene(const _float& fTimeDelta)
 {
-	CUIMgr::GetInstance()->Set_BossHp(SCENE_TYPE::SUNGOLEM_CAVE1);
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
 	
 	__super::Update_Scene(fTimeDelta);
@@ -123,6 +123,12 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Environment()
 
 HRESULT CScene_SunGolemCave1::Ready_Layer_Monster()
 {
+	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+	_vec3 vSunGollemPos = _vec3(5.f, 0.5f, 5.f);
+	pSunGollem->Get_TransformCom()->Set_Info(INFO_POS, &vSunGollemPos);
+
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SunGollem", pSunGollem);
+
 	return S_OK;
 }
 

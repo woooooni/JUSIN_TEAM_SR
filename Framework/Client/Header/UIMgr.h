@@ -26,8 +26,6 @@ public:
 public:
 	HRESULT		Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev);
 	HRESULT		Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev);
-	void		Set_PlayerInfo(); // 체력을 받아와서 씬 전환때 적용시킴
-	void		Set_BossHp(SCENE_TYPE eType);
 
 private:
 	CUI_Dialog*		 m_pDialog = nullptr;
