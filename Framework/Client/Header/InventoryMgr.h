@@ -14,7 +14,10 @@ class CInventoryMgr : public CBase
 	DECLARE_SINGLETON(CInventoryMgr)
 
 public:
-	enum class INVENTORY_TYPE { EQUIPMENT, CONSUMPSION, ETC, INVENTORY_END };
+	enum class INVENTORY_TYPE 
+	{ 
+		EQUIPMENT, CONSUMPSION, ETC, INVENTORY_END 
+	};
 
 private:
 	explicit CInventoryMgr();
@@ -32,6 +35,11 @@ public:
 	void		Set_Player(CPlayer* pPlayer);
 
 	const	vector<CItem*>& Get_Inventory(INVENTORY_TYPE p_Type) { return m_vecInventory[(_uint)p_Type]; }
+
+	void		Erase_Item(const INVENTORY_TYPE& p_Type, const _uint& pIndex)
+	{
+		m_vecInventory[(_uint)p_Type].erase(m_vecInventory[(_uint)p_Type].begin() + pIndex);
+	}
 private:
 	vector<CItem*> m_vecInventory[(_uint)INVENTORY_TYPE::INVENTORY_END];
 	CPlayer* m_pPlayer;

@@ -45,8 +45,9 @@ void CDefaultItem::Render_Object(void)
 
 }
 
-HRESULT CDefaultItem::Use_Item(CPlayer* pPlayer)
+HRESULT CDefaultItem::Use_Item()
 {
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
 	if (!pPlayer)
 		return E_FAIL;
 
@@ -61,7 +62,6 @@ HRESULT CDefaultItem::Use_Item(CPlayer* pPlayer)
 		break;
 	case Engine::ITEM_CODE::HP_BIG:
 		pPlayer->Add_HP(5);
-
 		break;
 	case Engine::ITEM_CODE::SPEED_SMALL:
 		break;
@@ -135,6 +135,15 @@ CDefaultItem* CDefaultItem::Create(LPDIRECT3DDEVICE9 pGraphicDev,  OBJ_ID _eID, 
 
 	ret->m_eCode = pCode;
 	ret->m_pTextureCom->Set_Idx((_uint)pCode);
+
+	if (pCode >= ITEM_CODE::HP_SMALL && pCode < ITEM_CODE::CONSUME_END)
+	{
+		ret->m_eItemType = ITEM_TYPE::CONSUMPTION;
+	}
+	else if (pCode >= ITEM_CODE::LEAF && pCode < ITEM_CODE::ETC_END)
+	{
+		ret->m_eItemType = ITEM_TYPE::ETC;
+	}
 	return ret;
 }
 

@@ -91,6 +91,7 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 
 	_int iExit = __super::Update_Object(fTimeDelta);
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -215,7 +216,6 @@ void CDesertRhino::Update_Die(_float fTimeDelta)
 
 void CDesertRhino::Update_Regen(_float fTimeDelta)
 {
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	_vec3 vTargetPos, vPos, vDir;
 
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
@@ -263,7 +263,6 @@ void CDesertRhino::Update_Move(_float fTimeDelta)
 
 void CDesertRhino::Update_Attack(_float fTimeDelta)
 {
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	Trace(fTimeDelta);
 }
 

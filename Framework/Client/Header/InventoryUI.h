@@ -20,9 +20,21 @@ public:
 
 	static	CInventoryUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
+	void		Set_ButClicked(CInvenTabButton* pInv);
+
 protected:
 	vector<CInvenTabButton*> m_vecTabButton;
-	_uint		m_iCurIdx;
+	_uint		m_iCurPageIdx;
+	_uint		m_iCurItemIdx;
+
+	_bool		m_bIsRenderCurs;
+
+	CTexture* m_pCursurTex;
+	CTexture* m_pUseBtnTex;
+
+	UI_INFO		m_tCursorInfo;
+	UI_INFO		m_tBtnInfo;
+	UI_INFO		m_tExplainInfo;
 
 protected:
 	virtual void Free() override;

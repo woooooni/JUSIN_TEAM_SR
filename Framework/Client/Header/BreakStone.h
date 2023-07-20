@@ -32,6 +32,8 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
+
+
 protected:
 	JELLY_COLOR		m_eColor;
 	_bool			m_bBreak;

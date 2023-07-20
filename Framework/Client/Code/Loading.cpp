@@ -160,7 +160,7 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 	_uint iLayerType = 0, iObjId, iTextureIdx = 0;
 	_vec3 vRight, vUp, vLook, vPos, vScale, vColliderScale;
 	_bool bTextureExist;
-
+	_uint iGrassType = 0;
 	_uint iCount = 0;
 	while (true)
 	{
@@ -170,6 +170,9 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 			break;
 
 		ReadFile(hObjFile, &iObjId, sizeof(_uint), &dwByte, nullptr);
+
+		if (iObjId == _uint(OBJ_ID::GRASS))
+			ReadFile(hObjFile, &iGrassType, sizeof(_uint), &dwByte, nullptr);
 
 		ReadFile(hObjFile, &vRight, sizeof(_vec3), &dwByte, nullptr);
 		ReadFile(hObjFile, &vUp, sizeof(_vec3), &dwByte, nullptr);
@@ -238,6 +241,9 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 		case OBJ_ID::PROP:
 			pObj = CProp::Create(m_pGraphicDev);
 			break;
+
+		case OBJ_ID::GRASS:
+			pObj = CGrass::Create(m_pGraphicDev, GRASS_TYPE(iGrassType));
 		default:
 			continue;
 		}
@@ -880,6 +886,7 @@ HRESULT CLoading::Ready_UI_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_PlayerWallet", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_PlayerCoin.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Frame", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_Test_AddSlot.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_TabIcon", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_ItemTabIcon_%d.png",4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Button", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/Sprite_UI_MainComponents_InventoryButton.png")), E_FAIL);
 
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TextBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/Test_UITextBox_TextBox.png")), E_FAIL);
@@ -1105,7 +1112,7 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 
 HRESULT CLoading::Ready_Environment_Texture()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 178)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 183)), E_FAIL);
 
 	return S_OK;
 
@@ -1122,7 +1129,7 @@ HRESULT CLoading::Ready_Environment_Texture2()
 
 HRESULT CLoading::Ready_Environment_Texture3()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 307)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 344)), E_FAIL);
 
 	return S_OK;
 }

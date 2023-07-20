@@ -31,8 +31,8 @@ HRESULT CInventoryUI::Ready_Object(void)
 
 _int CInventoryUI::Update_Object(const _float& fTimeDelta)
 {
-	Add_RenderGroup(RENDER_ALPHA, this);
-	Debug_Input();
+	Add_RenderGroup(RENDER_UI, this);
+	// Debug_Input();
 	for (auto& iter : m_vecTabButton)
 	{
 		iter->Update_Object(fTimeDelta);

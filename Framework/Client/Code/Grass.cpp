@@ -7,6 +7,7 @@
 #include    <time.h>
 #include    "Effect_Leaf.h"
 
+
 CGrass::CGrass(LPDIRECT3DDEVICE9 pGr) : CFieldObject(pGr, OBJ_ID::GRASS), m_eGrassType(GRASS_TYPE::GRASS_END)
 , m_fCurMoveTime(0.f)
 , m_fMaxMoveTime(0.f)
@@ -21,7 +22,7 @@ m_fCurMoveTime(rhs.m_fCurMoveTime),
 m_fMaxMoveTime(rhs.m_fMaxMoveTime)
 , m_bIsReverse(rhs.m_bIsReverse)
 , m_eGrassType(rhs.m_eGrassType)
-, m_dropItemMap(rhs.m_dropItemMap)
+
 
 {
 }
@@ -89,8 +90,6 @@ void CGrass::LateUpdate_Object(void)
 
 void CGrass::Render_Object(void)
 {
-
-
     _matrix mat = *m_pTransformCom->Get_WorldMatrix();
     _matrix src;
     _matrix rot;
@@ -193,7 +192,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
 
 
 
-        for (auto& iter : m_dropItemMap)
+        /*for (auto& iter : m_dropItemMap[Engine::GetCurrScene()])
         {
             if (rand() % 100 < iter.second)
             {
@@ -234,7 +233,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
                     return;
                 }
             }
-        }
+        }*/
     }
     else if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
     {

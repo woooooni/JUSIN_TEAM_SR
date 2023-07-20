@@ -25,6 +25,9 @@ public:
 public:
 	virtual void Free() override;
 
+protected:
+	CInventoryUI* m_pOwner;
+
 
 };
 

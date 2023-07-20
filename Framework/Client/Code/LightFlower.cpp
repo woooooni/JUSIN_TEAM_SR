@@ -48,10 +48,25 @@ HRESULT CLightFlower::Ready_Object(void)
 
     m_pColliderCom->Set_Offset({ 0.f, 0.5f, 0.f });
 
+    D3DLIGHT9 tLight;
+    ZeroMemory(&tLight, sizeof(D3DLIGHT9));
 
+    tLight.Ambient = { 0.4f, 0.4f, 0.4f, 0.4f };
+    tLight.Diffuse = { 1.f, 0.f, 0.f, 1.f };
+    // tLight.Specular = { 0.f, 1.f, 1.f, 1.f };
 
+    _vec3 vLightPos;
+    m_pTransformCom->Get_Info(INFO_POS, &vLightPos);
 
+    vLightPos.y += 1.f;
 
+    tLight.Position = vLightPos;
+    tLight.Range = 10.f;
+    
+    // tLight.Attenuation0 = 0.f;
+    // tLight.Attenuation1 = 0.f;
+
+    Engine::Ready_Light(m_pGraphicDev, &tLight, 1);
 
 
     return S_OK;
@@ -148,12 +163,11 @@ CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 p_Dev, CGameObject* p_Balpa
     }
 
 
-
     ret->m_pBalPan = dynamic_cast<CBalpanObj*>(p_Balpan);
     ret->m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
     ret->m_pColliderCom->Set_Offset(_vec3({ 0.f, -1.f, 0.f }));
     ret->m_pTransformCom->Set_Pos(&(p_Pos));
-
+    ret->Add_Subscribe(p_EventNum);
     ret->Set_MinHeight(2.f);
 
 

@@ -3,7 +3,11 @@
 #include "Export_Function.h"
 #include "GameMgr.h"
 #include "Terrain.h"
-#include "Npc_Cow.h"
+#include "Npc_VillagerMonkey.h"
+#include "Npc_Dancer.h"
+
+#include "Npc_Elite.h"
+#include "Npc_Chief.h"
 #include "Npc_Sheep.h"
 #include "Portal.h"
 #include "UIMgr.h"
@@ -110,8 +114,53 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	_vec3 vPortalPos = _vec3(225.f, 0.5f, 222.f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 	dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(5.f, 5.f, 3.f));
-
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
+	
+	CNpc_Chief* pChief = CNpc_Chief::Create(m_pGraphicDev);
+	_vec3 vChiefPos = _vec3(141.5f, 0.5f, 115.f);
+	pChief->Get_TransformCom()->Set_Info(INFO_POS, &vChiefPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Chief", pChief);
+
+	CNpc_Elite* pElite = CNpc_Elite::Create(m_pGraphicDev);
+	_vec3 vElitePos = _vec3(137.0f, 0.5f, 120.f);
+	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite1", pElite);
+
+	 pElite = CNpc_Elite::Create(m_pGraphicDev);
+	 vElitePos = _vec3(144.5f, 0.5f, 120.f);
+	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite2", pElite);
+
+	pElite = CNpc_Elite::Create(m_pGraphicDev);
+	vElitePos = _vec3(144.5f, 0.5f, 120.f);
+	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite3", pElite);
+
+	CNpc_VillagerMonkey* pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev,VILLAGERTYPE::MONKEY_DANCER);
+	_vec3 vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 121.f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Dancer", pVillagerMonkey);
+	
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_FUR);
+	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 122.f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Fur", pVillagerMonkey);
+
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_LEAVES1);
+	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 123.f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Leaves1", pVillagerMonkey);
+
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_LEAVES2);
+	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 124.f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Leaves2", pVillagerMonkey);
+
+	pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VILLAGERTYPE::MONKEY_HOOD);
+	vVillagerMonkeyPos = _vec3(144.5f, 0.5f, 125.f);
+	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey_Hood", pVillagerMonkey);
+
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;

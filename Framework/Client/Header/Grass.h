@@ -31,11 +31,11 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-	void		Add_Subscribe(_uint iNum);
+public:
+	void Add_Subscribe(_uint iNum);
+	
 
-	virtual void    Free() override;
-
-	static			CGrass* Create(LPDIRECT3DDEVICE9 p_Dev, const GRASS_TYPE& p_Type, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
+	static CGrass* Create(LPDIRECT3DDEVICE9 p_Dev, const GRASS_TYPE& p_Type, const _uint& p_EventNum = 0, const _vec3 p_Pos = { 0, 0, 0 });
 
 public:
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
@@ -46,15 +46,7 @@ public:
 	virtual void Event_End(_uint iEventNum)	override;
 
 	list<GrassTexture*>& Get_TextureList() { return m_GrassList; }
-
-	void		Add_DropItem(const ITEM_CODE& name, const _uint& percent)
-	{
-		m_dropItemMap.insert({ name, percent });
-	}
-
 	GRASS_TYPE Get_Type() { return m_eGrassType; }
-
-	map<ITEM_CODE, _uint>& Get_ItemMap() { return m_dropItemMap; }
 
 protected:
 
@@ -62,10 +54,16 @@ protected:
 
 	GRASS_TYPE		m_eGrassType;
 	list<GrassTexture*>	m_GrassList;
-	_float		m_fMaxMoveTime;
-	_float		m_fCurMoveTime;
-	_bool		m_bIsReverse;
-	map<ITEM_CODE, _uint> m_dropItemMap;
+
+public:
+	static map<ITEM_CODE, _uint> m_dropItemMap[(_uint)SCENE_TYPE::SCENE_END];
+	_float m_fMaxMoveTime;
+	_float m_fCurMoveTime;
+	_bool m_bIsReverse;
+
+public:
+	virtual void Free() override;
+
 };
 
 
