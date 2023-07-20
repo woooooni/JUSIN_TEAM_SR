@@ -493,9 +493,6 @@
     <Filter Include="01. Scene\97. Loading">
       <UniqueIdentifier>{75b845a7-a670-4b8f-990c-e90aef6cd7d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98. Manager\04.">
-      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\07. Notification">
       <UniqueIdentifier>{3dca8bef-ec23-4bbc-bf27-8eb8fe6366c6}</UniqueIdentifier>
     </Filter>
@@ -534,6 +531,9 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot">
       <UniqueIdentifier>{af6c14a3-5b92-4d7b-9761-925a611b3231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. QuestMgr">
+      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1071,6 +1071,11 @@
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Effect_GolemFist.h" />
+    <ClInclude Include="..\Header\InvenTabButton.h" />
+    <ClInclude Include="..\Header\InventoryUI.h" />
+    <ClInclude Include="..\Header\QuestMgr.h">
+      <Filter>98. Manager\04. QuestMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1590,6 +1595,11 @@
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
+    <ClCompile Include="..\Code\InvenTabButton.cpp" />
+    <ClCompile Include="..\Code\InventoryUI.cpp" />
+    <ClCompile Include="..\Code\QuestMgr.cpp">
+      <Filter>98. Manager\04. QuestMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

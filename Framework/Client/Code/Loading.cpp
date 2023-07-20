@@ -1105,7 +1105,7 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 
 HRESULT CLoading::Ready_Environment_Texture()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 178)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tile", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Tile/Tile_%d.png", 182)), E_FAIL);
 
 	return S_OK;
 
@@ -1121,7 +1121,7 @@ HRESULT CLoading::Ready_Environment_Texture2()
 
 HRESULT CLoading::Ready_Environment_Texture3()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 307)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 344)), E_FAIL);
 
 	return S_OK;
 }

@@ -7,7 +7,7 @@
 #include "UIMgr.h"
 #include "HitObj.h"
 #include "BlockObj.h"
-
+#include "Npc_Artist.h"
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
 {
@@ -110,9 +110,12 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST2);
 	_vec3 vPortalPos = _vec3(74.5f, 0.5f, 83.0f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
-
-
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
+	CNpc_Artist* pArtist = CNpc_Artist::Create(m_pGraphicDev);
+	_vec3 vArtistPos = _vec3(39.5f, 1.25f, 28.91);
+	pArtist->Get_TransformCom()->Set_Info(INFO_POS, &vArtistPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Artist", pArtist);
+
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
