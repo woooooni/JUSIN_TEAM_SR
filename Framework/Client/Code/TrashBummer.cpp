@@ -245,6 +245,7 @@ void CTrashBummer::Update_Attack(_float fTimeDelta)
 
 	vDir = vTargetPos - vPos;
 	m_vLook = vDir;
+
 	if (D3DXVec3Length(&vDir) > 10.f && !m_bShoot)
 	{
 		m_bShooting = false;
@@ -254,6 +255,7 @@ void CTrashBummer::Update_Attack(_float fTimeDelta)
 	if (D3DXVec3Length(&vDir) < 10.f && D3DXVec3Length(&vDir) >= 4.f)
 	{
 		m_bShooting = false;
+		vDir.y = 0.f;
 		D3DXVec3Normalize(&vDir, &vDir);
 		m_vLook = vDir;
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());

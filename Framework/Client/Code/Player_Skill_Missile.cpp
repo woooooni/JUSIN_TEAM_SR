@@ -166,7 +166,7 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 	}
 	FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Bomb", pBomb), E_FAIL);
 	dynamic_cast<CPlayer_Bullet_Bomb*>(pBomb)->Shoot(m_pTarget, vDir, 25.0f, vPos);
-	dynamic_cast<CBullet*>(pBomb)->Set_Owner(pBomb);
+	dynamic_cast<CBullet*>(pBomb)->Set_Owner(m_pOwner);
 	++m_iBombCount;
 
 

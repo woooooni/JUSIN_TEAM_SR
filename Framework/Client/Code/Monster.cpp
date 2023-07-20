@@ -30,7 +30,9 @@ HRESULT CMonster::Ready_Object(void)
 
 _int CMonster::Update_Object(const _float& fTimeDelta)
 {
-	_int iExit = __super::Update_Object(fTimeDelta);
+	_int iExit = __super::Update_Object(fTimeDelta);		
+	if (m_tStat.iHp < 1||m_tStat.iMaxHp<m_tStat.iHp)
+		Set_State(MONSTER_STATE::DIE);
 	if (Is_Active())
 	{
 		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
@@ -156,11 +158,9 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 		Push_Me(pCollider);
 		break;
 	case Engine::OBJ_TYPE::OBJ_BULLET:
-		if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner() == nullptr)
-			break;
 		if ( dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 		{
-			m_tStat.iHp -= 1;
+			m_tStat.iHp -=	dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Atk(); 
 			_vec3 vTargetPos;
 			_vec3 vPos;
 			_vec3 vDir;
@@ -200,25 +200,6 @@ void CMonster::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 		break;
 	case Engine::OBJ_TYPE::OBJ_INTERACTION:
 		Push_Me(pCollider);
-		break;
-	case Engine::OBJ_TYPE::OBJ_BULLET:
-		if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner() == nullptr)
-		break;
-		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
-	{
-		m_tStat.iHp -= 1;
-		_vec3 vTargetPos;
-		_vec3 vPos;
-		_vec3 vDir;
-		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vDir = vPos - vTargetPos;
-		vDir.y = 0.0f;
-		D3DXVec3Normalize(&vDir, &vDir);
-
-		m_pRigidBodyCom->AddForce(vDir * 10.0f);
-
-	}
 		break;
 	default:
 		break;

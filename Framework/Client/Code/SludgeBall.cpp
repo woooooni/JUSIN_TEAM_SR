@@ -40,7 +40,6 @@ _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 	if (Is_Active())
 	{
 		Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
 		m_pAnimator->Play_Animation(L"SludgeBall", true);
 		_vec3 vDir, vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);

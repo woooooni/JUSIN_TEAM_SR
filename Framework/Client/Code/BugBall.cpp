@@ -35,8 +35,7 @@ _int CBugBall::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
-		m_pAnimator->Play_Animation(L"BugBall", true);
+	m_pAnimator->Play_Animation(L"BugBall", true);
 
 	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 5.f);
 	if (m_fMoveTime < 0.f)
@@ -55,7 +54,7 @@ void CBugBall::LateUpdate_Object(void)
 		return ;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (vPos.y < 1.f)
+	if (vPos.y < 0.f)
 	{
 		if (Is_Active())
 			Set_Active(false);

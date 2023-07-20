@@ -264,6 +264,7 @@ void CMothMage::Update_Attack(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	vDir = vTargetPos - vPos;
+	vDir.y = 0.f;
 	m_vLook = vDir;
 	if (D3DXVec3Length(&vDir) > 7.f && !m_bShoot)
 	{
@@ -336,14 +337,17 @@ void CMothMage::Trace(_float fTimeDelta)
 	m_bShooting = true;
 	vDir = vTargetPos - vPos;
 	m_vLook = vDir;
+
 	if (D3DXVec3Length(&vDir) < 4.f && m_bShoot && m_pAnimator->GetCurrAnimation()->Get_Idx() == 3)
 	{
-		D3DXVec3Normalize(&vDir, &vDir);
+
 		CBugBall* pBugBall = CBugBall::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pBugBall, );
 		_vec3 BulletPos = vPos;
 		BulletPos.y += 0.5f;
 		BulletPos.z -= 0.01f;
+		vDir = vTargetPos - BulletPos;
+		D3DXVec3Normalize(&vDir, &vDir);
 		pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 		pBugBall->Set_Dir(vDir);
 		pBugBall->Set_Owner(this);
