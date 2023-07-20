@@ -89,7 +89,7 @@ _int Player_State_BallonFly::Update_FlyEnd(const _float& fTimeDelta)
 {
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-	if (vPos.y > 1.0f)
+	if (vPos.y > m_pOwner->Get_MinHeight())
 	{
 		m_pOwner->Get_TransformCom()->Move_Pos(&_vec3(0.0f, -1.0f, 0.0f), 10.0f, fTimeDelta);
 
@@ -102,7 +102,7 @@ _int Player_State_BallonFly::Update_FlyEnd(const _float& fTimeDelta)
 	}
 	else
 	{
-		vPos.y = 1.0f;
+		vPos.y = m_pOwner->Get_MinHeight();
 		m_pOwner->Get_TransformCom()->Set_Pos(&vPos);
 
 		if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Is_Finished())

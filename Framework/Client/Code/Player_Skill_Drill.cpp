@@ -192,7 +192,7 @@ void CPlayer_Skill_Drill::Key_Input(const _float& fTimeDelta)
         m_pOwner->Get_TransformCom()->Move_Pos(OBJ_DIR::DIR_D, m_fSpeed, fTimeDelta);
     }
 
-    if (KEY_TAP(KEY::K))
+    if (KEY_TAP(KEY::Q))
     {
         m_eState = DRILL_STATE::OUTGROUND;
         dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(false);

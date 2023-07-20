@@ -147,7 +147,7 @@ HRESULT CPlayer_Skill_Lightning::Shoot(void)
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
 	_vec3 vAimPos = m_vPos + m_vDir;
 	vAimPos.y += 2.5f;
-	dynamic_cast<CPlayer_Bullet_Lightning*>(pLightning)->Shoot(vAimPos,m_vDir, 5, 0);
+	dynamic_cast<CPlayer_Bullet_Lightning*>(pLightning)->Shoot(vAimPos, m_vDir, 5, 0);
 
 	return 0;
 }

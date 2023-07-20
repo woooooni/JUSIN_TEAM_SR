@@ -56,7 +56,7 @@ void CBoxCollider::LateUpdate_Component()
 
 void CBoxCollider::Render_Component()
 {
-	if (!m_bRender)
+	/*if (!m_bRender)
 		return;
 
 	CTransform* pOwnerTransform = (CTransform*)(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
@@ -75,7 +75,7 @@ void CBoxCollider::Render_Component()
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &matWorld);
 	
 	m_pMesh->DrawSubset(0);
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);*/
 }
 
 CBoxCollider * CBoxCollider::Create(LPDIRECT3DDEVICE9 _pDevice)
