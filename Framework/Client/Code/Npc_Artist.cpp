@@ -40,9 +40,9 @@ HRESULT CNpc_Artist::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_Idle", L"Proto_Texture_NPC_Artist_Idle", 0.5f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_Drawing", L"Proto_Texture_NPC_Artist_Drawing", 0.5f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_React", L"Proto_Texture_NPC_Artist_React", 0.5f), E_FAIL);
+	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_Idle", L"Proto_Texture_NPC_Artist_Idle", 0.2f), E_FAIL);
+	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_Drawing", L"Proto_Texture_NPC_Artist_Drawing", 0.2f), E_FAIL);
+	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_React", L"Proto_Texture_NPC_Artist_React", 0.2f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Tutorial_Artist_Drawing", TRUE), E_FAIL);
 

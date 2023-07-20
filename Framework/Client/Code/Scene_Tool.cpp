@@ -227,30 +227,8 @@ void CScene_Tool::Save_Obj_Data(wstring _strFolderPath)
 
 			if (iObjId == (_uint)OBJ_ID::GRASS)
 			{
-				CTransform* pTransform = pObj->Get_TransformCom();
-				CBoxCollider* pCollider = dynamic_cast<CBoxCollider*>(pObj->Get_ColliderCom());
-
-				_vec3 vRight, vUp, vLook, vPos, vScale;
-
-				pTransform->Get_Info(INFO_RIGHT, &vRight);
-				pTransform->Get_Info(INFO_UP, &vUp);
-				pTransform->Get_Info(INFO_LOOK, &vLook);
-				pTransform->Get_Info(INFO_POS, &vPos);
-				vScale = pTransform->Get_Scale();
-
-				WriteFile(hObjFile, &vRight, sizeof(_vec3), &dwByte, nullptr);
-				WriteFile(hObjFile, &vUp, sizeof(_vec3), &dwByte, nullptr);
-				WriteFile(hObjFile, &vLook, sizeof(_vec3), &dwByte, nullptr);
-				WriteFile(hObjFile, &vPos, sizeof(_vec3), &dwByte, nullptr);
-				WriteFile(hObjFile, &vScale, sizeof(_vec3), &dwByte, nullptr);
-
-				_vec3 vColliderScale = pCollider->Get_Scale();
-				WriteFile(hObjFile, &vColliderScale, sizeof(_vec3), &dwByte, nullptr);
-
-				_uint	src = (_uint) dynamic_cast<CGrass*>(pObj)->Get_Type();
-
-				WriteFile(hObjFile, &src, sizeof(_uint), &dwByte, nullptr);
-
+				_uint iGlassType = _uint(dynamic_cast<CGrass*>(pObj)->Get_Type());
+				WriteFile(hObjFile, &iGlassType, sizeof(_uint), &dwByte, nullptr);
 			}
 
 
@@ -275,6 +253,7 @@ void CScene_Tool::Save_Obj_Data(wstring _strFolderPath)
 			WriteFile(hObjFile, &vScale, sizeof(_vec3), &dwByte, nullptr);
 			
 			// 4. Collider
+			
 			_vec3 vColliderScale = pCollider->Get_Scale();
 			WriteFile(hObjFile, &vColliderScale, sizeof(_vec3), &dwByte, nullptr);
 			
@@ -395,6 +374,7 @@ void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 
 	// data
 	_uint iLayerType = 0, iObjId, iTextureIdx = 0;
+	_uint iGlassType = 0;
 	_vec3 vRight, vUp, vLook, vPos, vScale, vColliderScale;
 	_bool bTextureExist;
 
@@ -407,6 +387,9 @@ void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 			break;
 
 		ReadFile(hObjFile, &iObjId, sizeof(_uint), &dwByte, nullptr);
+
+		if (iObjId == _uint(OBJ_ID::GRASS))
+			ReadFile(hObjFile, &iGlassType, sizeof(_uint), &dwByte, nullptr);
 
 		ReadFile(hObjFile, &vRight, sizeof(_vec3), &dwByte, nullptr);
 		ReadFile(hObjFile, &vUp, sizeof(_vec3), &dwByte, nullptr);
@@ -474,6 +457,10 @@ void CScene_Tool::Load_Obj_Data(wstring _strFolderPath)
 			break;
 		case OBJ_ID::PROP:
 			pObj = CProp::Create(m_pGraphicDev);
+			break;
+
+		case OBJ_ID::GRASS:
+			pObj = CGrass::Create(m_pGraphicDev, GRASS_TYPE(iGlassType));
 			break;
 		default:
 			continue;
@@ -593,184 +580,6 @@ HRESULT CScene_Tool::Ready_Layer_Environment()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
 
 	pLayer->Ready_Layer();
-
-	CHitObj* pHit = CHitObj::Create(m_pGraphicDev, 1, { 76.f, 0.f, 53.f });
-
-	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
-
-	pHit = CHitObj::Create(m_pGraphicDev, 2, { 73.5f, 0.f, 56.f });
-
-	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
-
-	pHit = CHitObj::Create(m_pGraphicDev, 3, { 79.5f, 0.f, 57.f });
-
-	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
-
-	pHit = CHitObj::Create(m_pGraphicDev, 4, { 71.5f, 0.f, 62.f });
-
-	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
-
-	pHit = CHitObj::Create(m_pGraphicDev, 5, { 79.5f, 0.f, 65.f });
-
-	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
-
-	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 69.5f, 0.f, 54.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 70.5f, 0.f, 54.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 69.5f, 0.f, 61.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 69.5f, 0.f, 62.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 70.5f, 0.f, 62.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 70.5f, 0.f, 61.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 71.5f, 0.f, 63.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 72.5f, 0.f, 63.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 71.5f, 0.f, 64.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 72.5f, 0.f, 64.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 73.5f, 0.f, 67.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 73.5f, 0.f, 68.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 74.5f, 0.f, 67.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 2, { 74.5f, 0.f, 68.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 55.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 55.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 56.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 56.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 63.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 63.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 75.5f, 0.f, 64.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 76.5f, 0.f, 64.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 75.5f, 0.f, 57.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 75.5f, 0.f, 58.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 76.5f, 0.f, 57.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 76.5f, 0.f, 58.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 71.5f, 0.f, 57.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 72.5f, 0.f, 57.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 71.5f, 0.f, 58.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 72.5f, 0.f, 58.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 73.5f, 0.f, 59.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 74.5f, 0.f, 59.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 73.5f, 0.f, 60.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 74.5f, 0.f, 60.f }, false);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 75.5f, 0.f, 67.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 76.5f, 0.f, 67.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 75.5f, 0.f, 68.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 5, { 76.5f, 0.f, 68.f }, true);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Ready_Layer();
 
 	return S_OK;
 }

@@ -90,8 +90,6 @@ void CGrass::LateUpdate_Object(void)
 
 void CGrass::Render_Object(void)
 {
-
-
     _matrix mat = *m_pTransformCom->Get_WorldMatrix();
     _matrix src;
     _matrix rot;

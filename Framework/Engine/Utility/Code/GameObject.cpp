@@ -142,7 +142,7 @@ void CGameObject::Set_Billboard()
 
 	m_pTransformCom->Set_Info(INFO_RIGHT, &(vRight));
 	m_pTransformCom->Set_Info(INFO_LOOK, &(vLook));
-
+	m_pTransformCom->Set_Info(INFO_UP, &(vObjUp));
 }
 
 CComponent * CGameObject::Find_Component(COMPONENT_TYPE eType, COMPONENTID eID)

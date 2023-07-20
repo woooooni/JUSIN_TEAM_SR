@@ -232,11 +232,7 @@ void CPlayer_Bullet_Bomb::Shoot(CGameObject* _pTarget, _vec3& _vDir, _float _fPo
 
 void CPlayer_Bullet_Bomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER )
-		{}
-	else if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS )
-		{}
-	else
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER )
 		return;
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
