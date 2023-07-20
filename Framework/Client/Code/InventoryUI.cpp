@@ -25,13 +25,14 @@ HRESULT CInventoryUI::Ready_Object(void)
 	NULL_CHECK_RETURN(pCom, E_FAIL);
 	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TEXTURE, pCom });
 
+
 	return S_OK;
 }
 
 _int CInventoryUI::Update_Object(const _float& fTimeDelta)
 {
 	Add_RenderGroup(RENDER_ALPHA, this);
-
+	Debug_Input();
 	for (auto& iter : m_vecTabButton)
 	{
 		iter->Update_Object(fTimeDelta);

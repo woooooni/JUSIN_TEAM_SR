@@ -114,7 +114,6 @@ void CLightFlower::Render_Object(void)
             return;
         }
 
-
         m_pGraphicDev->SetTransform(D3DTS_WORLD, &AreaWorld);
         m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, areaColor);
         m_pTextureCom->Render_Texture();
