@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "UIMgr.h"
 #include "LightFlower.h"
+#include	"DefaultItem.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -137,6 +138,65 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 {
+	CDefaultItem* def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_SMALL);
+	def->Get_TransformCom()->Set_Pos(&_vec3(11, 0, 3));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_SMALL);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_MIDDLE);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_BIG);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+
+
 	return S_OK;
 }
 

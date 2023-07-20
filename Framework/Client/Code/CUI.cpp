@@ -116,6 +116,25 @@ void CUI::Ready_TransWorld()
 
 }
 
+_matrix CUI::Trans_Matrix(const UI_INFO& pUI)
+{
+	_matrix mat;
+
+	D3DXMatrixIdentity(&mat);
+
+	_vec3 vPos = { ((2 * (pUI.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (pUI.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+
+	memcpy(&mat.m[3][0], &vPos, sizeof(_vec3));
+
+
+	mat._11 *= pUI.fCX;
+	mat._22 *= pUI.fCY;
+
+
+	return mat;
+
+}
+
 _vec3 CUI::Trans_WinPos(_vec3 origin)
 {
 	_matrix matPreView, matPreProj;

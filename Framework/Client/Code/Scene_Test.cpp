@@ -503,16 +503,11 @@ HRESULT CScene_Test::Ready_Layer_InterationObj()
 
 	CGrass* pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::GLOWING_REED_RED, 0, { 3, 0, 1 });
 	NULL_CHECK_RETURN(pGrass, E_FAIL);
-	pGrass->Add_DropItem(ITEM_CODE::TWIG, 80);
-	pGrass->Add_DropItem(ITEM_CODE::LEAF, 10);
 
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Grass", pGrass), E_FAIL);
 
 	pGrass = CGrass::Create(m_pGraphicDev, GRASS_TYPE::HEALTHBUSH, 0, { 4.5, 0, 1 });
 	NULL_CHECK_RETURN(pGrass, E_FAIL);
-	pGrass->Add_DropItem(ITEM_CODE::HP_SMALL, 50);
-	pGrass->Add_DropItem(ITEM_CODE::HP_MIDDLE, 30);
-	pGrass->Add_DropItem(ITEM_CODE::HP_BIG, 15);
 
 
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Grass", pGrass), E_FAIL);

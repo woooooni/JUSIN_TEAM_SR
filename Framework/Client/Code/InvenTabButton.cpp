@@ -1,5 +1,7 @@
 #include "InvenTabButton.h"
 #include	"Export_Function.h"
+#include	"KeyMgr.h"
+#include	"InventoryUI.h"
 
 CInvenTabButton::CInvenTabButton(LPDIRECT3DDEVICE9 pG) : CUI(pG)
 {
@@ -24,6 +26,19 @@ HRESULT CInvenTabButton::Ready_Object(void)
 
 _int CInvenTabButton::Update_Object(const _float& fTimeDelta)
 {
+	Add_RenderGroup(RENDER_UI, this);
+
+	if (CKeyMgr::GetInstance()->GetKeyState(KEY::LBTN) == KEY_STATE::TAP)
+	{
+		auto& pt = CKeyMgr::GetInstance()->GetMousePos();
+
+		if (pt.x > m_tInfo.fX - m_tInfo.fCX * 0.5f && pt.x < m_tInfo.fX + m_tInfo.fCX * 0.5f
+			&& pt.y > m_tInfo.fY - m_tInfo.fCY * 0.5f && pt.y < m_tInfo.fY + m_tInfo.fCY * 0.5f)
+		{
+			m_pOwner->Set_ButClicked(this);
+		}
+	}
+
 	return __super::Update_Object(fTimeDelta);
 }
 
@@ -34,7 +49,10 @@ void CInvenTabButton::LateUpdate_Object(void)
 
 void CInvenTabButton::Render_Object(void)
 {
+	Ready_TransWorld();
 	__super::Render_Object();
+	m_pTextureCom->Render_Texture();
+	m_pBufferCom->Render_Buffer();
 }
 
 CInvenTabButton* CInvenTabButton::Create(LPDIRECT3DDEVICE9 pGraphicDev, CInventoryUI* pOwner, const _vec3& pPos)
@@ -52,8 +70,10 @@ CInvenTabButton* CInvenTabButton::Create(LPDIRECT3DDEVICE9 pGraphicDev, CInvento
 
 	ret->m_tInfo.fX = pPos.x;
 	ret->m_tInfo.fY = pPos.y;
-	ret->m_tInfo.fCX = 100.f;
-	ret->m_tInfo.fCY = 100.f;
+	ret->m_tInfo.fCX = 50.f;
+	ret->m_tInfo.fCY = 50.f;
+
+	ret->m_pOwner = pOwner;
 	return ret;
 }
 

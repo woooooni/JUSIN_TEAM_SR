@@ -30,7 +30,7 @@ public:
 
 public:
 	static		CDefaultItem* Create(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID, const ITEM_CODE& pCode = ITEM_CODE::LEAF);
-	HRESULT			Use_Item(CPlayer* pPlayer);
+	virtual HRESULT			Use_Item() override;
 
 
 protected:

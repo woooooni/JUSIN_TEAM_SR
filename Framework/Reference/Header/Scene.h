@@ -51,6 +51,9 @@ protected:
 	SCENE_TYPE							m_eType;
 	HWND								m_hVideoHandle;
 public:
+
+	const SCENE_TYPE& Get_SceneType() { return m_eType; }
+
 	virtual void	Free();
 };
 
