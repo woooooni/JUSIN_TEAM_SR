@@ -153,7 +153,7 @@ CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 p_Dev, CGameObject* p_Balpa
     ret->m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
     ret->m_pColliderCom->Set_Offset(_vec3({ 0.f, -1.f, 0.f }));
     ret->m_pTransformCom->Set_Pos(&(p_Pos));
-
+    ret->Add_Subscribe(p_EventNum);
     ret->Set_MinHeight(2.f);
 
 

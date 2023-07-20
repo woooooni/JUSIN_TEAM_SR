@@ -73,6 +73,7 @@ public:
 	//이벤트 호출
 	virtual void Event_Start(_uint iEventNum) {};
 	virtual void Event_End(_uint iEventNum) {};
+	virtual void	Reset_Event() {};
 
 	
 private:

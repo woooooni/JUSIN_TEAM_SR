@@ -32,7 +32,7 @@ _int CBreakStone::Update_Object(const _float& fTimeDelta)
 {
 	if (m_bBreak && m_pAnimator->GetCurrAnimation()->Get_Idx() == (m_pAnimator->GetCurrAnimation()->Get_Size() - 1))
 	{
-		
+
 	}
 	else
 	{
