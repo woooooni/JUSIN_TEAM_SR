@@ -258,7 +258,9 @@
     <ClInclude Include="..\Header\ImGuiMgr.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Header\InvenTabButton.h" />
     <ClInclude Include="..\Header\InventoryMgr.h" />
+    <ClInclude Include="..\Header\InventoryUI.h" />
     <ClInclude Include="..\Header\Item.h" />
     <ClInclude Include="..\Header\Item_Hat.h" />
     <ClInclude Include="..\Header\Item_Hat_Drill.h" />
@@ -469,7 +471,9 @@
     <ClCompile Include="..\Code\ImGuiMgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Code\InvenTabButton.cpp" />
     <ClCompile Include="..\Code\InventoryMgr.cpp" />
+    <ClCompile Include="..\Code\InventoryUI.cpp" />
     <ClCompile Include="..\Code\Item.cpp" />
     <ClCompile Include="..\Code\Item_Hat.cpp" />
     <ClCompile Include="..\Code\Item_Hat_Drill.cpp" />

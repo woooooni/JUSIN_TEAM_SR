@@ -81,7 +81,7 @@ void CLightFlower::Render_Object(void)
     if (m_bIsOpened && m_pAnimator->GetCurrAnimation()->Get_Idx() == m_pAnimator->GetCurrAnimation()->Get_Size() - 1)
     {
         AreaWorld._41 = world->_41;
-        AreaWorld._42 = 0.001f;
+        AreaWorld._42 = 0.01f;
         AreaWorld._43 = world->_43;
 
         DWORD   areaColor;
@@ -150,6 +150,8 @@ CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 p_Dev, CGameObject* p_Balpa
     ret->m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
     ret->m_pColliderCom->Set_Offset(_vec3({ 0.f, -1.f, 0.f }));
     ret->m_pTransformCom->Set_Pos(&(p_Pos));
+
+    ret->Add_Subscribe(ret->m_pBalPan->Get_EventNum());
 
     ZeroMemory(&ret->m_Light, sizeof(D3DLIGHT9));
     ret->m_Light.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;

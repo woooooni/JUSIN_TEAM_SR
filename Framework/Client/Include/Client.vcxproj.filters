@@ -535,6 +535,9 @@
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot">
       <UniqueIdentifier>{af6c14a3-5b92-4d7b-9761-925a611b3231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Inventory">
+      <UniqueIdentifier>{06e6c6c8-787d-4bb5-bb2a-cdcf561bfa1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1073,6 +1076,13 @@
     <ClInclude Include="..\Header\UI_SlotTwo.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_GolemFist.h" />
+    <ClInclude Include="..\Header\InventoryUI.h">
+      <Filter>02. GameObject\04. UI\08. Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\InvenTabButton.h">
+      <Filter>02. GameObject\04. UI\08. Inventory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1593,6 +1603,13 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_SlotTwo.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
+    <ClCompile Include="..\Code\InventoryUI.cpp">
+      <Filter>02. GameObject\04. UI\08. Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\InvenTabButton.cpp">
+      <Filter>02. GameObject\04. UI\08. Inventory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

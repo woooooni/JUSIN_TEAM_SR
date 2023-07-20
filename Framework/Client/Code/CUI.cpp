@@ -25,8 +25,6 @@ HRESULT CUI::Ready_Object(void)
 	m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
 	NULL_CHECK_RETURN(m_pBufferCom, E_FAIL);
 
-	m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI"));
-	NULL_CHECK_RETURN(m_pTextureCom, E_FAIL);
 
 	m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(m_pTransformCom, E_FAIL);
@@ -50,6 +48,7 @@ void CUI::LateUpdate_Object(void)
 
 void CUI::Render_Object(void)
 {
+
 	CGameObject::Render_Object();
 }
 
@@ -74,6 +73,41 @@ void CUI::Debug_Input()
 	{
 		m_tInfo.fX += 1.f;
 	}
+}
+
+
+
+void CUI::Ready_TransWorld()
+{
+	_matrix matPreView, matPreProj;
+
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+
+	_vec3 vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11)  ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22) , 0.f };
+
+	m_pTransformCom->Set_Pos(&vPos);
+
+	_float fRatio = _float(WINCY) / _float(WINCX);
+	_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 1.1f, m_tInfo.fCY * fRatio * 1.1f, 0.f);
+
+	m_pTransformCom->Set_Scale(vScale);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+
+}
+
+_vec3 CUI::Trans_WinPos(_vec3 origin)
+{
+	_matrix matPreView, matPreProj;
+
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+
+	_vec3 vPos = { (2 * origin.x / WINCX) * (1 / matPreProj._11) ,	(-2 * origin.y / WINCY) * (1 / matPreProj._22), 0.f };
+
+	return 	vPos;
+
 }
 
 void CUI::Free()

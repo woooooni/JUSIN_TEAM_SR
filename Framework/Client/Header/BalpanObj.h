@@ -33,6 +33,7 @@ public:
 		m_wstrTargName = pName;
 	}
 	void		Set_EventNum(const _uint& pNum) { m_iPushedEventNum = pNum; }
+	const		_uint& Get_EventNum() { return m_iPushedEventNum; }
 	void		Add_ActivateState(const _uint& pNum);
 
 	void		Set_Static();

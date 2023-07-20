@@ -128,7 +128,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
 
 
-	CLightFlower* pLight = CLightFlower::Create(m_pGraphicDev, pBal, 0, { 61.f, 0.f, 53.f });
+	CLightFlower* pLight = CLightFlower::Create(m_pGraphicDev, pBal, 20, { 61.f, 0.f, 53.f });
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLight);
 

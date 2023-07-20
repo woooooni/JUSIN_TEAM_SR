@@ -25,6 +25,7 @@ public:
 	virtual _int	Update_Object(const _float& fTimeDelta)		override;
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
+	virtual void	Render_UI();
 
 	const ITEM_TYPE& Get_ItemType() { return m_eItemType; }
 	const	_uint& Get_InvenCount() { return m_iInvenCount; }

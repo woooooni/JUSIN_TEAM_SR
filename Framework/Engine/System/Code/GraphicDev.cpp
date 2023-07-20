@@ -38,6 +38,7 @@ HRESULT CGraphicDev::Ready_GraphicDev(HWND hWnd,
 	D3DPRESENT_PARAMETERS				d3dpp;
 	ZeroMemory(&d3dpp, sizeof(D3DPRESENT_PARAMETERS));
 
+
 	d3dpp.BackBufferWidth = iSizeX;
 	d3dpp.BackBufferHeight = iSizeY;
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;

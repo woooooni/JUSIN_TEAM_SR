@@ -28,6 +28,9 @@ protected:
 	_matrix		m_matView;
 	UI_INFO		m_tInfo;
 
+	void		Ready_TransWorld();
+	_vec3		Trans_WinPos(_vec3 origin);
+
 
 protected:
 	virtual void Free() override;

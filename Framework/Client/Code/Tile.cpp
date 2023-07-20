@@ -57,22 +57,22 @@ HRESULT CTile::Ready_Component()
 	m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
 	NULL_CHECK_RETURN(m_pBufferCom, E_FAIL);
 	m_pBufferCom->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, m_pBufferCom);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_BUFFER, m_pBufferCom });
 
 	m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(m_pTransformCom, E_FAIL);
 	m_pTransformCom->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, m_pTransformCom);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TRANSFORM, m_pTransformCom });
 
 	m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Tile"));
 	NULL_CHECK_RETURN(m_pTextureCom, E_FAIL);
 	m_pTextureCom->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, m_pTextureCom);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TEXTURE, m_pTextureCom });
 
 	m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
 	NULL_CHECK_RETURN(m_pColliderCom, E_FAIL);
 	m_pColliderCom->SetOwner(this);
-	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, m_pColliderCom);
+	m_mapComponent[ID_DYNAMIC].insert({ COMPONENT_TYPE::COM_BOX_COLLIDER, m_pColliderCom });
 
 	return S_OK;
 }
