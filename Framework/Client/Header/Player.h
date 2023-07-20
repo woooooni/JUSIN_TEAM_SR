@@ -209,5 +209,7 @@ private:
 	void		Key_Input(const _float& fTimeDelta);
 
 	ITEM_CODE m_eGetItemCode;
+
+	CGameObject* m_pShadow = nullptr;
 };
 

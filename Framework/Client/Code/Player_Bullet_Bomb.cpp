@@ -63,11 +63,29 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vTargetPos - vPos;
 
-	/*if (D3DXVec3Length(&vDir) < 0.2f)
+	if (!m_pTarget->Is_Active())
 	{
-		
-		
-	}*/
+		if (D3DXVec3Length(&vDir) < 0.2f)
+		{
+			_vec3 vPos;
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			CGameObject* pExplosion = CPool<CEffect_Explosion>::Get_Obj();
+			if (pExplosion)
+				dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+			else
+			{
+				pExplosion = dynamic_cast<CEffect_Explosion*>(pExplosion)->Create(Engine::Get_Device());
+				if (pExplosion)
+					dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+			}
+
+			m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
+
+			CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
+
+		}
+	}
+	
 
 	if (D3DXVec3Length(&vDir) < 2.5f)
 	{
@@ -77,7 +95,7 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 			m_pTransformCom->Set_Scale(m_vScale);
 		}
 		
-		if (m_fMaxVel > 4.0f)
+		if (m_fMaxVel > 5.0f)
 		{
 			m_fMaxVel -= 0.5f;
 			m_pRigidBodyCom->SetMaxVelocity(m_fMaxVel);
@@ -234,8 +252,9 @@ void CPlayer_Bullet_Bomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP 
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER )
 		return;
+
 	_vec3 vPos;
-	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	CGameObject* pExplosion = CPool<CEffect_Explosion>::Get_Obj();
 	if (pExplosion)
 		dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));

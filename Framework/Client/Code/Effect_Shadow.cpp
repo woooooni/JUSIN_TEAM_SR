@@ -31,9 +31,7 @@ HRESULT CEffect_Shadow::Ready_Object(void)
 
 	m_pAnimator->Play_Animation(L"Shadow", false);
 
-	Set_Active(false);
-
-	Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"Shadow", this);
+	Set_Active(true);
 
 	return S_OK;
 }
@@ -72,7 +70,7 @@ void CEffect_Shadow::LateUpdate_Object(void)
 		Set_Scale(m_vScale);
 	}
 
-	vPos.y = 0.001f;
+	vPos.y = 0.05f;
 	m_pTransformCom->Set_Pos(&vPos);
 
 	__super::LateUpdate_Object();
@@ -84,7 +82,7 @@ void CEffect_Shadow::Render_Object(void)
 		return;
 
 	
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(100, 255, 255, 255));
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(170, 255, 255, 255));
 
 
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());

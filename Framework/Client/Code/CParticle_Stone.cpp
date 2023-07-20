@@ -145,6 +145,7 @@ void CParticle_Stone::Random_Particle(_vec3& _vPos)
 	_float fScale = 0.05f + ((rand() % 10) * 0.005f);
 	_float fAngle = _float(rand() % 360);
 	_float fForceX = (rand() % 21) * 2.0f + 10.0f;
+	_float fForceZ = (rand() % 21) * 1.0f + 5.0f;
 	_float fForceY = ((rand() % 10) * 5.0f) + 30.0f;
 
 	_int iX = rand() % 2;
@@ -155,7 +156,7 @@ void CParticle_Stone::Random_Particle(_vec3& _vPos)
 	m_pTransformCom->RotationAxis(_vec3(0.0f, 0.0f, 1.0f), fAngle);
 	m_pTransformCom->Set_Pos(&_vPos);
 
-	m_pRigidBodyCom->AddForce(_vec3(fForceX, fForceY, 0.0f));
+	m_pRigidBodyCom->AddForce(_vec3(fForceX, fForceY, fForceZ));
 
 }
 

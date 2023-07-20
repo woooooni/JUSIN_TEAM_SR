@@ -180,14 +180,6 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	}
 
 
-	if (KEY_TAP(KEY::Q))
-	{
-		//dynamic_cast<CPlayer*>(m_pOwner)->Set_GetItem(true);
-		//dynamic_cast<CPlayer*>(m_pOwner)->Set_GetItemCode(ITEM_CODE::HP_MIDDLE);
-		dynamic_cast<CPlayer*>(m_pOwner)->Set_ItemEffect(ITEM_CODE::HP_SMALL);
-	}
-
-
 	if (KEY_TAP(KEY::W))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(true);
@@ -198,7 +190,7 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DRAWING);
 	}
 
-	if (KEY_TAP(KEY::K))
+	if (KEY_TAP(KEY::Q))
 	{
 		if(dynamic_cast<CPlayer*>(m_pOwner)->Is_HaveSkill())
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SKILL);
@@ -232,14 +224,8 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 			
 	}
 
-	if (KEY_TAP(KEY::J))
-	{
-		CEffect_Shadow* pShadow = CEffect_Shadow::Create(Engine::Get_Device());
-		NULL_CHECK(pShadow, E_FAIL);
-		dynamic_cast<CEffect_Shadow*>(pShadow)->Set_Shadow(m_pOwner, _vec3(1.2f, 1.0f, 1.0f));
-	}
 
-	if (KEY_TAP(KEY::B))
+	if (KEY_TAP(KEY::B)) 
 	{
 		for (int i = 0; 100 > i; ++i)
 		{
