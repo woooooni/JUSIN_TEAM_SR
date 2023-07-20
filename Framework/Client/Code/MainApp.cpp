@@ -127,7 +127,7 @@ HRESULT CMainApp::Ready_Default_RenderState()
 	tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 1.f };
 	tLightInfo.Specular = { 1.f, 1.f, 1.f, 1.f };
 	tLightInfo.Ambient = { 1.f, 1.f, 1.f, 1.f };
-	tLightInfo.Direction = { 0.5f, -0.5f, -0.5f };
+	tLightInfo.Direction = { 1.f, -1.f, -1.f };
 
 	D3DMATERIAL9 tMtrl = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
 
