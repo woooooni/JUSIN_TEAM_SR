@@ -37,7 +37,7 @@ HRESULT CUI_LoadingBackGround::Ready_Object(void)
 _int CUI_LoadingBackGround::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
-	Debug_Input();
+	// Debug_Input();
 
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
@@ -50,9 +50,6 @@ void CUI_LoadingBackGround::LateUpdate_Object(void)
 
 void CUI_LoadingBackGround::Render_Object(void)
 {
-	_matrix matPreView, matPreProj;
-
-
 	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.001f };
 	
 	m_pTransformCom->Set_Pos(&vPos);

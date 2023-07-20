@@ -73,6 +73,26 @@ void CUI::Debug_Input()
 	{
 		m_tInfo.fX += 1.f;
 	}
+
+	if (KEY_HOLD(KEY::UP_ARROW))
+	{
+		m_tInfo.fY -= 1.f;
+	}
+
+	if (KEY_HOLD(KEY::DOWN_ARROW))
+	{
+		m_tInfo.fY += 1.f;
+	}
+
+	if (KEY_HOLD(KEY::LEFT_ARROW))
+	{
+		m_tInfo.fX -= 1.f;
+	}
+
+	if (KEY_HOLD(KEY::RIGHT_ARROW))
+	{
+		m_tInfo.fX += 1.f;
+	}
 }
 
 
@@ -84,13 +104,12 @@ void CUI::Ready_TransWorld()
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	_vec3 vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11)  ,
-					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22) , 0.f };
+
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	m_pTransformCom->Set_Pos(&vPos);
 
-	_float fRatio = _float(WINCY) / _float(WINCX);
-	_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 1.1f, m_tInfo.fCY * fRatio * 1.1f, 0.f);
+	_vec3 vScale = _vec3(m_tInfo.fCX, m_tInfo.fCY, 0.f);
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -104,7 +123,7 @@ _vec3 CUI::Trans_WinPos(_vec3 origin)
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	_vec3 vPos = { (2 * origin.x / WINCX) * (1 / matPreProj._11) ,	(-2 * origin.y / WINCY) * (1 / matPreProj._22), 0.f };
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	return 	vPos;
 
