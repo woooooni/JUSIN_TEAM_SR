@@ -351,6 +351,7 @@
     <ClInclude Include="..\Header\Scene_MonkeyForest2.h" />
     <ClInclude Include="..\Header\Scene_MonkeyVillage.h" />
     <ClInclude Include="..\Header\Scene_MoonForest1.h" />
+    <ClInclude Include="..\Header\Scene_SilkWorm.h" />
     <ClInclude Include="..\Header\Scene_SunGolemCave1.h" />
     <ClInclude Include="..\Header\Scene_Tool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -565,6 +566,7 @@
     <ClCompile Include="..\Code\Scene_MonkeyForest2.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyVillage.cpp" />
     <ClCompile Include="..\Code\Scene_MoonForest1.cpp" />
+    <ClCompile Include="..\Code\Scene_SilkWorm.cpp" />
     <ClCompile Include="..\Code\Scene_SunGolemCave1.cpp" />
     <ClCompile Include="..\Code\Scene_Tool.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

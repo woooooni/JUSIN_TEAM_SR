@@ -111,7 +111,7 @@ private:
 
 public:
 	virtual CGameObject* Clone(void)		PURE;
-	virtual void		Free();
+	virtual void Free();
 };
 
 

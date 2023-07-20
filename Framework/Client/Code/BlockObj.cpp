@@ -1,7 +1,7 @@
 #include "../Include/stdafx.h"
 #include "BlockObj.h"
 #include "Export_Function.h"
-#include "CParticle_Stone.h"
+#include "Effect_StoneParticle.h"
 
 CBlockObj::CBlockObj(LPDIRECT3DDEVICE9 p_Dev) 
 	: CFieldObject(p_Dev, OBJ_ID::BLOCK_OBJ)
@@ -196,8 +196,13 @@ void CBlockObj::Change_State()
 		CLayer* pLayerEff = Engine::Get_Layer(LAYER_TYPE::EFFECT);
 		NULL_CHECK_RETURN(pLayerEff, );
 
-		CParticle_Stone* pParticle = CParticle_Stone::Create(m_pGraphicDev);
+		CEffect_StoneParticle* pParticle = CEffect_StoneParticle::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pParticle, );
+		NULL_CHECK_RETURN(m_pTransformCom, );
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vPos.z -= .5f;
+		pParticle->Get_Effect(vPos, _vec3(1.f, 1.f, 1.f), 50);
 
 		pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
 		

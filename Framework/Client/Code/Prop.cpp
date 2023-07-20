@@ -101,7 +101,7 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 
 
 
-		/*if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
+		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
 		{
 			if (vDir.x < 0.f)
 			{
@@ -146,7 +146,7 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 				pOtherTransform->Set_Pos(&vOtherPos);
 			}
 		}
-		*/
+		
 		
 	}
 
