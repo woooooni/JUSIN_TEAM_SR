@@ -341,6 +341,7 @@
     <ClInclude Include="..\Header\Player_State_Swing.h" />
     <ClInclude Include="..\Header\Player_State_Walk.h" />
     <ClInclude Include="..\Header\PushStone.h" />
+    <ClInclude Include="..\Header\QuestMgr.h" />
     <ClInclude Include="..\Header\QuickSlot.h" />
     <ClInclude Include="..\Header\QuizStatue.h" />
     <ClInclude Include="..\Header\RedBeatle.h" />
@@ -554,6 +555,7 @@
     <ClCompile Include="..\Code\Player_State_Swing.cpp" />
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
     <ClCompile Include="..\Code\PushStone.cpp" />
+    <ClCompile Include="..\Code\QuestMgr.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\QuizStatue.cpp" />
     <ClCompile Include="..\Code\RedBeatle.cpp" />
