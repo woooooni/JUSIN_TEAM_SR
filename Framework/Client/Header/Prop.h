@@ -33,6 +33,9 @@ public:
 
 
 private:
+	_bool Is_Door(_uint iIdx);
+
+private:
 	HRESULT Ready_Component();
 
 public:

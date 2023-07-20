@@ -1,7 +1,7 @@
 #include "../Include/stdafx.h"
 #include "BlockObj.h"
 #include "Export_Function.h"
-
+#include "CParticle_Stone.h"
 
 CBlockObj::CBlockObj(LPDIRECT3DDEVICE9 p_Dev) 
 	: CFieldObject(p_Dev, OBJ_ID::BLOCK_OBJ)
@@ -191,4 +191,15 @@ void CBlockObj::Set_SubscribeEvent(_uint pEvent)
 void CBlockObj::Change_State()
 {
 	m_bIsBlocking = !m_bIsBlocking;
+	if (true == m_bIsBlocking)
+	{
+		CLayer* pLayerEff = Engine::Get_Layer(LAYER_TYPE::EFFECT);
+		NULL_CHECK_RETURN(pLayerEff, );
+
+		CParticle_Stone* pParticle = CParticle_Stone::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pParticle, );
+
+		pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
+		
+	}
 }

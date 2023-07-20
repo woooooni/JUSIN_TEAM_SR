@@ -26,7 +26,9 @@ HRESULT CProp::Ready_Object(void)
 
 _int CProp::Update_Object(const _float& fTimeDelta)
 {
-	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
+	if(!Is_Door(m_pTextureCom->Get_Idx()))
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_WALL);
+
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
@@ -58,7 +60,8 @@ void CProp::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGro
 
 void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER 
+		|| _eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER)
 	{
 		_float fDeltaX = 0.f, fDeltaY = 0.f, fDeltaZ = 0.f;
 
@@ -152,6 +155,24 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 void CProp::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 
+}
+
+_bool CProp::Is_Door(_uint iIdx)
+{
+	return !(iIdx != 125
+		&& iIdx != 128
+		&& iIdx != 149
+		&& iIdx != 150
+		&& iIdx != 151
+		&& iIdx != 157
+		&& iIdx != 187
+		&& iIdx != 188
+		&& iIdx != 189
+		&& iIdx != 190
+		&& iIdx != 191
+		&& iIdx != 202
+		&& iIdx != 245
+		&& iIdx != 246);
 }
 
 HRESULT CProp::Ready_Component(void)

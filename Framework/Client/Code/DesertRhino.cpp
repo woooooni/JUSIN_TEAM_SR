@@ -212,7 +212,6 @@ void CDesertRhino::Update_Die(_float fTimeDelta)
 
 void CDesertRhino::Update_Regen(_float fTimeDelta)
 {
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	_vec3 vTargetPos, vPos, vDir;
 
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
