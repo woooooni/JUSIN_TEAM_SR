@@ -480,51 +480,92 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
-	_vec3 vTargetPos;
-	_vec3 vPos;
-	_vec3 vDir;
-	pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = vTargetPos - vPos;
 
-	if (vDir.x > 0.0f && fabs(vDir.x) > fabs(vDir.z))
-	{
-		eTargetDir = OBJ_DIR::DIR_R;
-	}
-	else if (vDir.z > 0.0f && fabs(vDir.z) > fabs(vDir.x))
-	{
-		eTargetDir = OBJ_DIR::DIR_U;
-	}
-	else if (vDir.x < 0.0f && fabs(vDir.x) > fabs(vDir.z))
-	{
-		eTargetDir = OBJ_DIR::DIR_L;
-	}
-	else if (vDir.z < 0.0f && fabs(vDir.x) < fabs(vDir.z))
-	{
-		eTargetDir = OBJ_DIR::DIR_D;
-	}
+	_vec3 vPos, vOtherPos;
+
+	CTransform* pTransform = m_pTransformCom;
+	CTransform* pOtherTransform = pCollider->GetOwner()->Get_TransformCom();
+
+	CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pColliderCom);
+	CBoxCollider* pOtherBoxCollider = dynamic_cast<CBoxCollider*>(pCollider);
+
+
+	NULL_CHECK_RETURN(pTransform, );
+	NULL_CHECK_RETURN(pOtherTransform, );
+	NULL_CHECK_RETURN(pBoxCollider, );
+	NULL_CHECK_RETURN(pOtherBoxCollider, );
+
+	pTransform->Get_Info(INFO_POS, &vPos);
+	pOtherTransform->Get_Info(INFO_POS, &vOtherPos);
+
+	_vec3 vDir = vOtherPos - vPos;
+	_float fX = (pBoxCollider->Get_Scale().x * 0.5f) + (pOtherBoxCollider->Get_Scale().x * 0.5f);
+	_float fY = (pBoxCollider->Get_Scale().y * 0.5f) + (pOtherBoxCollider->Get_Scale().y * 0.5f);
+	_float fZ = (pBoxCollider->Get_Scale().z * 0.5f) + (pOtherBoxCollider->Get_Scale().z * 0.5f);
+
+
+	if (fabs(vDir.x) >= fX)
+		return;
+
+	if (fabs(vDir.y) >= fY)
+		return;
+
+	if (fabs(vDir.z) >= fZ)
+		return;
+
+	
+
 
 	if (m_eState == PLAYER_STATE::PUSH)
 	{
-		if (eTargetDir == OBJ_DIR::DIR_R && fabs(vDir.x) < 0.9f)
+		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
 		{
-			vTargetPos = { vPos.x + 0.9f, vTargetPos.y, vTargetPos.z };
-			pCollider->GetOwner()->Get_TransformCom()->Set_Pos(&vTargetPos);
+			if (vDir.x < 0.f)
+			{
+				eTargetDir = OBJ_DIR::DIR_L;
+				vDir.x -= (fX - fabs(vDir.x));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
+			else
+			{
+				eTargetDir = OBJ_DIR::DIR_R;
+				vDir.x += (fX - fabs(vDir.x));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
 		}
-		else if (eTargetDir == OBJ_DIR::DIR_L && fabs(vDir.x) < 0.9f)
+		else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
 		{
-			vTargetPos = { vPos.x - 0.9f, vTargetPos.y, vTargetPos.z };
-			pCollider->GetOwner()->Get_TransformCom()->Set_Pos(&vTargetPos);
+			if (vDir.y < 0.f)
+			{
+				vDir.y -= (fY - fabs(vDir.y));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
+			else
+			{
+				vDir.y += (fY - fabs(vDir.y));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
 		}
-		else if (eTargetDir == OBJ_DIR::DIR_U && fabs(vDir.z) < 0.9f)
+		else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x) && fZ - fabs(vDir.z) < fY - fabs(vDir.y))
 		{
-			vTargetPos = { vTargetPos.x, vTargetPos.y, vPos.z + 0.9f };
-			pCollider->GetOwner()->Get_TransformCom()->Set_Pos(&vTargetPos);
-		}
-		else if (eTargetDir == OBJ_DIR::DIR_D && fabs(vDir.z) < 0.9f)
-		{
-			vTargetPos = { vTargetPos.x, vTargetPos.y, vPos.z - 0.9f };
-			pCollider->GetOwner()->Get_TransformCom()->Set_Pos(&vTargetPos);
+			if (vDir.z < 0.f)
+			{
+				eTargetDir = OBJ_DIR::DIR_D;
+				vDir.z -= (fZ - fabs(vDir.z));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
+			else
+			{
+				eTargetDir = OBJ_DIR::DIR_U;
+				vDir.z += (fZ - fabs(vDir.z));
+				vOtherPos = vPos + vDir;
+				pOtherTransform->Set_Pos(&vOtherPos);
+			}
 		}
 	}
 	else if (pCollider->GetOwner() == m_pLiftObj)
@@ -533,30 +574,64 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 	}
 	else
 	{
-		if (eTargetDir == OBJ_DIR::DIR_R && fabs(vDir.x) < 0.9f)
+		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
 		{
-			vPos = { vTargetPos.x - 0.9f, vPos.y, vPos.z };
-			m_pTransformCom->Set_Pos(&vPos);
+			if (vDir.x < 0.f)
+			{
+				eTargetDir = OBJ_DIR::DIR_L;
+				vDir.x -= (fX - fabs(vDir.x));
+				vDir *= -1.0f;
+				vPos = vOtherPos + vDir;
+				pTransform->Set_Pos(&vPos);
+			}
+			else
+			{
+				eTargetDir = OBJ_DIR::DIR_R;
+				vDir.x += (fX - fabs(vDir.x));
+				vDir *= -1.0f;
+				vPos = vOtherPos + vDir;
+				pTransform->Set_Pos(&vPos);
+			}
 		}
-		else if (eTargetDir == OBJ_DIR::DIR_L && fabs(vDir.x) < 0.9f)
+		else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
 		{
-			vPos = { vTargetPos.x + 0.9f, vPos.y, vPos.z };
-			m_pTransformCom->Set_Pos(&vPos);
+			if (vDir.y < 0.f)
+			{
+				vDir.y -= (fY - fabs(vDir.y));
+				vDir *= -1.0f;
+				vPos = vOtherPos + vDir;
+				pTransform->Set_Pos(&vPos);
+			}
+			else
+			{
+				vDir.y += (fY - fabs(vDir.y));
+				vDir *= -1.0f;
+				vPos = vOtherPos + vDir;
+				pTransform->Set_Pos(&vPos);
+			}
 		}
-		else if (eTargetDir == OBJ_DIR::DIR_U && fabs(vDir.z) < 0.9f)
+		else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x) && fZ - fabs(vDir.z) < fY - fabs(vDir.y))
 		{
-			vPos = { vPos.x, vPos.y, vTargetPos.z - 0.9f };
-			m_pTransformCom->Set_Pos(&vPos);
-		}
-		else if (eTargetDir == OBJ_DIR::DIR_D && fabs(vDir.z) < 0.9f)
-		{
-			vPos = { vPos.x, vPos.y, vTargetPos.z + 0.9f };
-			m_pTransformCom->Set_Pos(&vPos);
+			if (vDir.z < 0.f)
+			{
+				eTargetDir = OBJ_DIR::DIR_D;
+				vDir.z -= (fZ - fabs(vDir.z));
+				vDir *= -1.0f;
+				vPos = vOtherPos + vDir;
+				pTransform->Set_Pos(&vPos);
+			}
+			else
+			{
+				eTargetDir = OBJ_DIR::DIR_U;
+				vDir.z += (fZ - fabs(vDir.z));
+				vDir *= -1.0f;
+				vPos = vOtherPos + vDir;
+				pTransform->Set_Pos(&vPos);
+			}
 		}
 
 		if (m_eDir == eTargetDir)
 			m_bPush = true;
-
 	}
 }
 
