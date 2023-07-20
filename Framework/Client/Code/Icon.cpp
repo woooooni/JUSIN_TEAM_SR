@@ -152,15 +152,9 @@ void CIcon::Render_Object(void)
 
 	m_pTransformCom->Set_Pos(&vPos);
 
-	// Player HP TextOut //
-
-	_int MaxHP = 3;
-	_int HP = 2;
-
-	// 현재 MaxHP, HP 모두 0으로 되어있어 주석처리함. Player 세팅 완료시 사용
-	//CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-	//MaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
-	//HP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
+	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	_int MaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
+	_int HP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
 
 	RECT rc = { 0, 28, 440, WINCY / 2 };
 

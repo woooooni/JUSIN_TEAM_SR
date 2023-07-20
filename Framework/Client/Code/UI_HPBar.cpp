@@ -40,14 +40,14 @@ HRESULT CUI_HPBar::Ready_Object(void)
 
 _int CUI_HPBar::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+	//Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
-	// 현재 MaxHP, HP 모두 0으로 되어있어 주석처리함. Player 세팅 완료시 사용
+	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	m_iMaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
+	m_iHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
 	
-	//CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-	//m_iMaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
-	//m_iHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
-	
+	//Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }

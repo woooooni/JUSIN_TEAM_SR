@@ -32,16 +32,22 @@ HRESULT CTrashFast::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ vScale.x * 0.6f, vScale.y * 0.6f, vScale.x });
 
 	m_fMinHeight = 0.5f; // 최소y값
-	m_tStat = { 1,1,1 };
-	//typedef struct tagMonsterstats
-	//{
-	//	_uint iMaxHp = 0;
-	//	_uint iHp = 0;
-	//	_uint iAttack = 0;
-	//}MONSTERSTAT;
+	m_tStat = { 2,2,1 };
 
 	m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", TRUE);
 	Set_State(MONSTER_STATE::IDLE);
+
+	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
+	if (m_pUIBack != nullptr)
+		m_pUIBack->Set_Owner(this);
+
+	m_pUIGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
+	if (m_pUIGauge != nullptr)
+		m_pUIGauge->Set_Owner(this);
+
+	m_pUIFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
+	if (m_pUIFrame != nullptr)
+		m_pUIFrame->Set_Owner(this);
 
 	return S_OK;
 }
@@ -52,6 +58,9 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
+	_vec3 vTargetPos, vPos, vDir;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
 	if (MONSTER_STATE::ATTACK != Get_State()) // 공격상태가 아니면
 	{
 
@@ -60,9 +69,7 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 			return S_OK; 
 		Set_Target(pTarget); // Player로 타켓을 설정해둠
 
-		_vec3 vTargetPos, vPos, vDir;
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
 
 		if (D3DXVec3Length(&vDir) < 20.f)
@@ -71,6 +78,44 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 		}
 
 	}
+
+	vPos.y += 0.5f;
+	vPos.z -= 0.01f;
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Update_Object(fTimeDelta);
+		m_pUIBack->Get_TransformCom()->Set_Pos(&vPos);
+
+		vPos.z -= 0.005f;
+		m_pUIGauge->Update_Object(fTimeDelta);
+
+		if (m_tStat.iHp == m_tStat.iMaxHp)
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vPos);
+		else if (m_tStat.iHp > 0 && m_tStat.iHp < m_tStat.iMaxHp)
+		{
+			_vec3 vMovePos = vPos;
+
+			_float fMaxHP = _float(m_tStat.iMaxHp);
+			_float fCurHP = _float(m_tStat.iHp);
+			_float fHP = fCurHP / fMaxHP;
+
+			_float fOriginWidth = _float(m_pUIGauge->Get_TextureCom()->Get_TextureDesc(0).Width);
+			_float fWidth = fOriginWidth - fOriginWidth * fHP;
+
+			_float fIndex = fWidth * 0.004f * 0.5f;
+
+			vMovePos = _vec3((vMovePos.x - fIndex), vMovePos.y, vMovePos.z);
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vMovePos);
+		}
+
+		vPos.z -= 0.005f;
+		m_pUIFrame->Update_Object(fTimeDelta);
+		m_pUIFrame->Get_TransformCom()->Set_Pos(&vPos);
+	}
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -79,8 +124,19 @@ void CTrashFast::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
+
 	Set_Animation();
+
 	__super::LateUpdate_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->LateUpdate_Object();
+		m_pUIGauge->LateUpdate_Object();
+		m_pUIFrame->LateUpdate_Object();
+	}
 }
 
 void CTrashFast::Render_Object(void)
@@ -92,6 +148,15 @@ void CTrashFast::Render_Object(void)
 	__super::Render_Object();
 
 	m_pBufferCom->Render_Buffer();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Render_Object();
+		m_pUIGauge->Render_Object();
+		m_pUIFrame->Render_Object();
+	}
 }
 
 void CTrashFast::Update_Idle(_float fTimeDelta)

@@ -60,13 +60,6 @@ HRESULT CDesertRhino::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"DesertRhino_Attack_LeftDown", L"Proto_Texture_DesertRhino_Attack_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"DesertRhino_Attack_LeftUp", L"Proto_Texture_DesertRhino_Attack_LeftUp", 0.1f);
 
-	m_pTransformCom->Set_Info(INFO_POS, &_vec3(10.0f, 1.0f, 10.0f));
-	Set_Speed(5.f);
-	Set_State(MONSTER_STATE::IDLE);
-	m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
-	m_fMinHeight = 0.5f;
-	m_tStat = { 3, 3, 1 };
-
 	// HpBar
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)
@@ -80,6 +73,15 @@ HRESULT CDesertRhino::Ready_Object(void)
 	if (m_pUIFrame != nullptr)
 		m_pUIFrame->Set_Owner(this);
 
+	m_pTransformCom->Set_Info(INFO_POS, &_vec3(10.0f, 1.0f, 10.0f));
+	
+	Set_Speed(5.f);
+	Set_State(MONSTER_STATE::IDLE);
+
+	m_pAnimator->Play_Animation(L"DesertRhino_Idle_Down", true);
+	m_tStat = { 3, 3, 1 };
+	m_fMinHeight = 0.5f;
+
 	return S_OK;
 }
 
@@ -91,6 +93,7 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 	_int iExit = __super::Update_Object(fTimeDelta);
 
 	_vec3 vTargetPos, vPos, vDir;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
@@ -101,7 +104,6 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		Set_Target(pTarget);
 
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
@@ -112,7 +114,7 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 		}
 	}
 
-	vPos.y += 0.5f;
+	vPos.y += 0.8f;
 	vPos.z -= 0.01f;
 
 	if (m_pUIBack->Is_Active() &&
@@ -158,6 +160,7 @@ void CDesertRhino::LateUpdate_Object(void)
 		return ;
 
 	Set_Animation();
+	__super::LateUpdate_Object();
 
 	if (m_pUIBack->Is_Active() &&
 		m_pUIGauge->Is_Active() &&
@@ -167,17 +170,17 @@ void CDesertRhino::LateUpdate_Object(void)
 		m_pUIGauge->LateUpdate_Object();
 		m_pUIFrame->LateUpdate_Object();
 	}
-
-	__super::LateUpdate_Object();
 }
 
 void CDesertRhino::Render_Object(void)
 {
 	if (!Is_Active())
 		return ;
+
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 	
 	__super::Render_Object();
+
 	m_pBufferCom->Render_Buffer();
 
 	if (m_pUIBack->Is_Active() &&
@@ -192,16 +195,16 @@ void CDesertRhino::Render_Object(void)
 
 void CDesertRhino::Update_Idle(_float fTimeDelta)
 {
-//	if (m_fMoveTime > 10.f)
-//	{
-//		if (rand() % 10 > 8)
-//		{
-//			Set_State(MONSTER_STATE::MOVE);
-//		}
-//
-//		m_fMoveTime = 0.f;
-//	}
-//	m_fMoveTime += 10.f * fTimeDelta;
+	if (m_fMoveTime > 10.f)
+	{
+		if (rand() % 10 > 8)
+		{
+			Set_State(MONSTER_STATE::MOVE);
+		}
+
+		m_fMoveTime = 0.f;
+	}
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CDesertRhino::Update_Die(_float fTimeDelta)

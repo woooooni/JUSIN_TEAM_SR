@@ -30,6 +30,20 @@ HRESULT CBlueBeatle::Ready_Object(void)
 	Set_Speed(5.f);
 	m_fMinHeight = 0.5f;
 	m_pAnimator->Play_Animation(L"BlueBeatle_Idle_Down", true);
+	
+	// HpBar
+	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
+	if (m_pUIBack != nullptr)
+		m_pUIBack->Set_Owner(this);
+
+	m_pUIGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
+	if (m_pUIGauge != nullptr)
+		m_pUIGauge->Set_Owner(this);
+
+	m_pUIFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
+	if (m_pUIFrame != nullptr)
+		m_pUIFrame->Set_Owner(this);
+
 	return S_OK;
 }
 
@@ -38,8 +52,49 @@ _int CBlueBeatle::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
+
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	vPos.y += 0.5f;
+	vPos.z -= 0.01f;
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Update_Object(fTimeDelta);
+		m_pUIBack->Get_TransformCom()->Set_Pos(&vPos);
+
+		vPos.z -= 0.005f;
+		m_pUIGauge->Update_Object(fTimeDelta);
+
+		if (m_tStat.iHp == m_tStat.iMaxHp)
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vPos);
+		else if (m_tStat.iHp > 0 && m_tStat.iHp < m_tStat.iMaxHp)
+		{
+			_vec3 vMovePos = vPos;
+
+			_float fMaxHP = _float(m_tStat.iMaxHp);
+			_float fCurHP = _float(m_tStat.iHp);
+			_float fHP = fCurHP / fMaxHP;
+
+			_float fOriginWidth = _float(m_pUIGauge->Get_TextureCom()->Get_TextureDesc(0).Width);
+			_float fWidth = fOriginWidth - fOriginWidth * fHP;
+
+			_float fIndex = fWidth * 0.004f * 0.5f;
+
+			vMovePos = _vec3((vMovePos.x - fIndex), vMovePos.y, vMovePos.z);
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vMovePos);
+		}
+
+		vPos.z -= 0.005f;
+		m_pUIFrame->Update_Object(fTimeDelta);
+		m_pUIFrame->Get_TransformCom()->Set_Pos(&vPos);
+	}
 
 	return iExit;
 }
@@ -48,17 +103,38 @@ void CBlueBeatle::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return ;
+
 	__super::LateUpdate_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->LateUpdate_Object();
+		m_pUIGauge->LateUpdate_Object();
+		m_pUIFrame->LateUpdate_Object();
+	}
 }
 
 void CBlueBeatle::Render_Object(void)
 {
 	if (!Is_Active())
 		return ;
+
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	__super::Render_Object();
+
 	m_pBufferCom->Render_Buffer();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Render_Object();
+		m_pUIGauge->Render_Object();
+		m_pUIFrame->Render_Object();
+	}
 }
 
 

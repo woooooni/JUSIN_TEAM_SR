@@ -36,10 +36,10 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	// Test : SunGollem
-	if (m_eBossName == BOSSNAME::SUNGOLLEM)
+	if (m_eBossType == BOSSNAME::SUNGOLLEM)
 	{
 		CGameObject* pBoss_Sungollem = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
-
+		
 		if (pBoss_Sungollem != nullptr)
 		{
 			m_iMaxHP = dynamic_cast<CSunGollem*>(pBoss_Sungollem)->Get_Stat().iMaxHp;
@@ -47,14 +47,14 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 		}
 	}
 
-	if (m_eBossName == BOSSNAME::SILKWORM)
+	if (m_eBossType == BOSSNAME::SILKWORM)
 	{
 		CGameObject* pBoss_Silkworm = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SilkWorm");
 
 		if (pBoss_Silkworm != nullptr)
 		{
-			m_iMaxHP = dynamic_cast<CSunGollem*>(pBoss_Silkworm)->Get_Stat().iMaxHp;
-			m_iCurHP = dynamic_cast<CSunGollem*>(pBoss_Silkworm)->Get_Stat().iHp;
+			m_iMaxHP = dynamic_cast<CSilkWorm*>(pBoss_Silkworm)->Get_Stat().iMaxHp;
+			m_iCurHP = dynamic_cast<CSilkWorm*>(pBoss_Silkworm)->Get_Stat().iHp;
 		}
 
 	}
@@ -73,6 +73,9 @@ void CUI_BossHP::LateUpdate_Object(void)
 
 	m_tInfo.fX = WINCX / 2.f - fIndex * 1.4f;
 
+	if (m_iCurHP == 0)
+		Set_Active(false);
+
 	__super::LateUpdate_Object();
 }
 
@@ -81,8 +84,8 @@ void CUI_BossHP::Render_Object(void)
 	_matrix matPreView, matPreProj;
 	_float fCurHP, fMaxHP, fHP;
 
-	if (m_bShown)
-	{
+//	if (m_bShown)
+//	{
 		fMaxHP = _float(m_iMaxHP);
 		fCurHP = _float(m_iCurHP);
 		fHP = fCurHP / fMaxHP;
@@ -138,10 +141,11 @@ void CUI_BossHP::Render_Object(void)
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
+
 		RECT rc = { 0, 0, WINCX, WINCY / 9 };
 		TCHAR szBuf[256] = L"";
 
-		switch (m_eBossName)
+		switch (m_eBossType)
 		{
 		case BOSSNAME::SUNGOLLEM:
 			swprintf_s(szBuf, L"시련의 원숭이 석상");
@@ -161,7 +165,7 @@ void CUI_BossHP::Render_Object(void)
 			break;
 		}
 
-	}
+//	}
 }
 
 HRESULT CUI_BossHP::Add_Component(void)
@@ -218,7 +222,7 @@ void CUI_BossHP::Set_Type(BOSSHP eType)
 
 void CUI_BossHP::Set_Name(BOSSNAME eType)
 {
-	m_eBossName = eType;
+	m_eBossType = eType;
 }
 
 CUI_BossHP* CUI_BossHP::Create(LPDIRECT3DDEVICE9 pGraphicDev, BOSSHP eType)

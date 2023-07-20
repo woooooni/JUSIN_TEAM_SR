@@ -86,7 +86,6 @@ void CUIMgr::Render_UIMgr()
     
 }
 
-
 void CUIMgr::Set_PlayerInfo()
 {
    // m_pHpBar->

@@ -1,8 +1,11 @@
 #pragma once
 #include "Monster.h"
+#include "UI_BossHP.h"
+
 BEGIN(Engine)
 class RcCol;
 END
+
 class CSilkWorm :
     public CGameObject
 {
@@ -26,6 +29,9 @@ public:
     virtual void	LateUpdate_Object(void)						override;
 
     HRESULT	Add_Component(void);
+
+    // BossHPBar 연동으로 인해 추가함 (Test)
+    MONSTERSTAT Get_Stat() { return m_tStat; }
 public:
     static  CSilkWorm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
     SILKWORM_STATE Get_State() { return m_eState; }
@@ -49,5 +55,10 @@ private:
     _vec3 m_vOrigin;
     COLOR_STATE m_eCOLORPATTERN=COLOR_END;
     _bool m_bSpawn=false;
+
+private:
+    CUI_BossHP* m_pUIBack;
+    CUI_BossHP* m_pUIFrame;
+    CUI_BossHP* m_pUIGauge;
 };
 

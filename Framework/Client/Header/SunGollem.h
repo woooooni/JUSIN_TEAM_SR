@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "GolemPart.h"
 #include "MonsterAim.h"
+#include "UI_BossHP.h"
+
 BEGIN(Engine)
 	class CRcTex;
 class CTransform;
@@ -63,8 +65,11 @@ private:
 	_float			m_fSpeed = 5.f;
 	_float			m_fHealth = 6.f;
 	SUNGOLEM_STATE	m_eState;
+	MONSTERSTAT		m_tStat;
+	CUI_BossHP*		m_pUIBack;
+	CUI_BossHP*		m_pUIFrame;
+	CUI_BossHP*		m_pUIGauge;
 
-	MONSTERSTAT m_tStat;
 private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);
 	void Create_Wave(_vec3 vPos);

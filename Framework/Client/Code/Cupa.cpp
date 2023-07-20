@@ -23,6 +23,8 @@ HRESULT CCupa::Ready_Object(void)
 	Set_State(MONSTER_STATE::IDLE);
 	Set_Speed(5.f);
 
+	m_tStat = { 3, 3, 1 };
+
 	_vec3 vPos = _vec3(1.f, 1.f, 1.f);
 	_vec3 vScale = _vec3(2.f, 2.f, 2.f);
 
@@ -37,6 +39,18 @@ HRESULT CCupa::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"Cupa_Idle_Down", TRUE), E_FAIL);
 
+	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
+	if (m_pUIBack != nullptr)
+		m_pUIBack->Set_Owner(this);
+
+	m_pUIGauge = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_GAUGE);
+	if (m_pUIGauge != nullptr)
+		m_pUIGauge->Set_Owner(this);
+
+	m_pUIFrame = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_FRAME);
+	if (m_pUIFrame != nullptr)
+		m_pUIFrame->Set_Owner(this);
+
 	return S_OK;
 }
 
@@ -47,6 +61,9 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	// Monster State에 따른 Update
 
+	_vec3 vPlayerPos, vPos, vDir;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
 	//Attak상태가 아니면서, Regeneration상태도 아니면
 	if (Get_State() != MONSTER_STATE::REGEN &&
 		Get_State() != MONSTER_STATE::ATTACK)
@@ -56,11 +73,9 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 			return S_OK;
 		// Player를 타켓으로 Set한다.
 		Set_Target(pTarget);
-		_vec3 vPlayerPos, vPos, vDir;
 
 		// Player & Monster Positoin
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 		vDir = vPlayerPos - vPos; // DIrection Vec
 		m_vDir = vDir;
@@ -78,8 +93,44 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 		}
 	}
 	
-	__super::Update_Object(fTimeDelta);
+	vPos.y += 0.5f;
+	vPos.z -= 0.01f;
 
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Update_Object(fTimeDelta);
+		m_pUIBack->Get_TransformCom()->Set_Pos(&vPos);
+
+		vPos.z -= 0.005f;
+		m_pUIGauge->Update_Object(fTimeDelta);
+
+		if (m_tStat.iHp == m_tStat.iMaxHp)
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vPos);
+		else if (m_tStat.iHp > 0 && m_tStat.iHp < m_tStat.iMaxHp)
+		{
+			_vec3 vMovePos = vPos;
+
+			_float fMaxHP = _float(m_tStat.iMaxHp);
+			_float fCurHP = _float(m_tStat.iHp);
+			_float fHP = fCurHP / fMaxHP;
+
+			_float fOriginWidth = _float(m_pUIGauge->Get_TextureCom()->Get_TextureDesc(0).Width);
+			_float fWidth = fOriginWidth - fOriginWidth * fHP;
+
+			_float fIndex = fWidth * 0.004f * 0.5f;
+
+			vMovePos = _vec3((vMovePos.x - fIndex), vMovePos.y, vMovePos.z);
+			m_pUIGauge->Get_TransformCom()->Set_Pos(&vMovePos);
+		}
+
+		vPos.z -= 0.005f;
+		m_pUIFrame->Update_Object(fTimeDelta);
+		m_pUIFrame->Get_TransformCom()->Set_Pos(&vPos);
+	}
+
+	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }
 
@@ -87,7 +138,17 @@ void CCupa::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return ;
+
 	__super::LateUpdate_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->LateUpdate_Object();
+		m_pUIGauge->LateUpdate_Object();
+		m_pUIFrame->LateUpdate_Object();
+	}
 }
 
 void CCupa::Render_Object(void)
@@ -102,6 +163,15 @@ void CCupa::Render_Object(void)
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	__super::Render_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Render_Object();
+		m_pUIGauge->Render_Object();
+		m_pUIFrame->Render_Object();
+	}
 }
 
 void CCupa::Update_Idle(_float fTimeDelta)

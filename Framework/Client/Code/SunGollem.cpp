@@ -51,6 +51,16 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_pMonsterAim->Set_Active(true);
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
 	m_fMinHeight = 2.0f;
+
+	m_pUIBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	NULL_CHECK_RETURN(m_pUIBack, E_FAIL);
+	m_pUIGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	NULL_CHECK_RETURN(m_pUIGauge, E_FAIL);
+	m_pUIFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	NULL_CHECK_RETURN(m_pUIFrame, E_FAIL);
+
+	m_pUIGauge->Set_Name(BOSSNAME::SUNGOLLEM);
+
 	return S_OK;
 }
 
@@ -92,6 +102,16 @@ _int CSunGollem::Update_Object(const _float& fTimeDelta)
 			m_pParts[i]->Set_State(m_eState);
 		}
 	}
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Update_Object(fTimeDelta);
+		m_pUIGauge->Update_Object(fTimeDelta);
+		m_pUIFrame->Update_Object(fTimeDelta);
+	}
+
 	m_pMonsterAim->Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -104,6 +124,15 @@ void CSunGollem::LateUpdate_Object(void)
 			m_pParts[i]->LateUpdate_Object();
 	}
 	m_pMonsterAim->LateUpdate_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->LateUpdate_Object();
+		m_pUIGauge->LateUpdate_Object();
+		m_pUIFrame->LateUpdate_Object();
+	}
 }
 
 void CSunGollem::Render_Object(void)
@@ -120,6 +149,15 @@ void CSunGollem::Render_Object(void)
 			m_pParts[i]->Render_Object();
 	}
 	m_pMonsterAim->Render_Object();
+
+	if (m_pUIBack->Is_Active() &&
+		m_pUIGauge->Is_Active() &&
+		m_pUIFrame->Is_Active())
+	{
+		m_pUIBack->Render_Object();
+		m_pUIGauge->Render_Object();
+		m_pUIFrame->Render_Object();
+	}
 }
 
 HRESULT CSunGollem::Add_Component(void)
