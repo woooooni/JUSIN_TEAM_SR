@@ -158,6 +158,8 @@ void CParticle_Stone::Random_Particle(_vec3& _vPos)
 
 	m_pRigidBodyCom->AddForce(_vec3(fForceX, fForceY, fForceZ));
 
+	Set_Active(true);
+
 }
 
 CParticle_Stone* CParticle_Stone::Create(LPDIRECT3DDEVICE9 pGraphicDev)

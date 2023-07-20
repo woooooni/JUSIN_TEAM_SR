@@ -535,6 +535,9 @@
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot">
       <UniqueIdentifier>{af6c14a3-5b92-4d7b-9761-925a611b3231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\05. SilkWorm">
+      <UniqueIdentifier>{b99dce36-8902-4aa5-ab52-bb0572d1e772}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1079,6 +1082,10 @@
     <ClInclude Include="..\Header\Effect_Item.h">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\QuestMgr.h" />
+    <ClInclude Include="..\Header\Scene_SilkWorm.h">
+      <Filter>01. Scene\05. SilkWorm</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1605,6 +1612,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\Effect_Item.cpp">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\QuestMgr.cpp" />
+    <ClCompile Include="..\Code\Scene_SilkWorm.cpp">
+      <Filter>01. Scene\05. SilkWorm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

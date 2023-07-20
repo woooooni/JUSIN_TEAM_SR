@@ -27,6 +27,7 @@
 #include "Grass.h"
 
 
+
 #include "Scene_TutorialVillage.h"
 #include "Scene_MonkeyForest1.h"
 #include "Scene_MonkeyForest2.h"
@@ -35,6 +36,7 @@
 #include "Scene_MoonForest1.h"
 #include "Scene_Test.h"
 #include "Scene_Tool.h"
+#include "Scene_SilkWorm.h"
 #include <thread>
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -33,7 +33,6 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_eDir(rhs.m_eDir)
 	, m_bActive(true)
 	, m_fViewZ(rhs.m_fViewZ)
-	, m_pBufferCom(rhs.m_pBufferCom)
 	, m_pTransformCom(rhs.m_pTransformCom)
 	, m_pColliderCom(rhs.m_pColliderCom)
 	, m_pAnimator(rhs.m_pAnimator)
@@ -44,25 +43,52 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_fAlpha(rhs.m_fAlpha)
 	
 {
+
 	m_pGraphicDev->AddRef();
+
+
 	if (nullptr != m_pBufferCom)
+	{
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, m_pBufferCom);
+		m_pBufferCom->AddRef();
+	}
+		
 		
 	if (nullptr != m_pTransformCom)
+	{
+		m_pTransformCom->AddRef();
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, m_pTransformCom);
+	}
+		
 
 	if (nullptr != m_pTextureCom)
+	{
+		m_pTextureCom->AddRef();
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, m_pTextureCom);
+	}
+		
 
 
 	if (nullptr != m_pColliderCom)
+	{
+		m_pColliderCom->AddRef();
 		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, m_pColliderCom);
+	}
+		
 
 	if (nullptr != m_pAnimator)
-		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);	
+	{
+		m_pAnimator->AddRef();
+		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, m_pAnimator);
+	}
+		
 
 	if (nullptr != m_pRigidBodyCom)
+	{
+		m_pRigidBodyCom->AddRef();
 		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, m_pRigidBodyCom);
+	}
+		
 
 }
 
