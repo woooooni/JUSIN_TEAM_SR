@@ -86,14 +86,6 @@ void CUIMgr::Render_UIMgr()
     
 }
 
-void CUIMgr::Set_PlayerInfo()
-{
-   // m_pHpBar->
-}
-
-void CUIMgr::Set_BossHp(SCENE_TYPE eType)
-{
-}
 
 HRESULT CUIMgr::Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev)
 {
