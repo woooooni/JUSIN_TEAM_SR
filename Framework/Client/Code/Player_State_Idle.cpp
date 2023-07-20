@@ -182,7 +182,9 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::Q))
 	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Set_GetItem(true);
+		//dynamic_cast<CPlayer*>(m_pOwner)->Set_GetItem(true);
+		//dynamic_cast<CPlayer*>(m_pOwner)->Set_GetItemCode(ITEM_CODE::HP_MIDDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_ItemEffect(ITEM_CODE::HP_SMALL);
 	}
 
 

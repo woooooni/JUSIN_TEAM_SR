@@ -1,6 +1,6 @@
 #include "Item_Hat_Mask.h"
 #include "Animator.h"
-
+#include "Export_Function.h"
 
 CItem_Hat_Mask::CItem_Hat_Mask(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
@@ -20,6 +20,7 @@ HRESULT CItem_Hat_Mask::Ready_Object(void)
 {
 	__super::Ready_Object();
 
+	Add_Component();
 
 	m_pAnimator->Add_Animation(L"Mask_Up", L"Proto_Texture_Item_MaskHat_Up", 0.1f);
 	m_pAnimator->Add_Animation(L"Mask_Down", L"Proto_Texture_Item_MaskHat_Down", 0.1f);
@@ -93,7 +94,12 @@ CItem_Hat_Mask* CItem_Hat_Mask::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObjec
 
 HRESULT CItem_Hat_Mask::Add_Component(void)
 {
-	return E_NOTIMPL;
+	CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Item_MaskHat_Down"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	return S_OK;
 }
 
 void CItem_Hat_Mask::Free()

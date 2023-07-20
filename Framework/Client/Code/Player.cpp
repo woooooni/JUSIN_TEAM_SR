@@ -35,6 +35,8 @@
 #include "KeyMgr.h"
 #include "Player_Skill_Aim.h"
 #include "Player_Skill_Range.h"
+#include "Effect_Item.h"
+#include "Pool.h"
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -243,6 +245,7 @@ HRESULT CPlayer::Ready_Object(void)
 	CGameObject* pRange = CPlayer_Skill_Range::Create(m_pGraphicDev);
 	if (pRange)
 		m_pSkillRange = pRange;
+
 
 	return S_OK;
 }
@@ -458,6 +461,20 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		m_iHat = 6;
 		Set_Hat(m_vecHats[m_iHat]);
 	}
+}
+
+void CPlayer::Set_ItemEffect(ITEM_CODE eItemCode)
+{
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	CGameObject* pEffect = CPool<CEffect_Item>::Get_Obj();
+
+	if (!pEffect)
+		pEffect = CEffect_Item::Create(m_pGraphicDev);
+
+	dynamic_cast<CEffect_Item*>(pEffect)->Get_Effect(vPos, eItemCode);
+
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

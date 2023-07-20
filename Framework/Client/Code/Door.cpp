@@ -20,12 +20,8 @@ HRESULT CDoor::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_pTransformCom->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
-	m_fMinHeight = 0.5f;
 	Engine::Add_Subscribe(21079634, this);
-
 	m_pRigidBodyCom->SetGravity(-9.8f);
-
 	return S_OK;
 }
 
@@ -162,8 +158,19 @@ void CDoor::Event_Start(_uint iEventNum)
 
 void CDoor::Event_End(_uint iEventNum)
 {
-	m_fMinHeight = -0.5f;
+	m_fMinHeight = -(m_fMinHeight * 2.0f);
 	m_pRigidBodyCom->SetGround(false);
+}
+
+void CDoor::Set_Door(_vec3& _vPos, _vec3& _vScale)
+{
+	m_pTransformCom->Set_Pos(&_vPos);
+	m_pTransformCom->Set_Scale(_vScale);
+	m_fMinHeight = _vPos.y;
+	_vScale.x *= 2.0f;
+	_vScale.z = 0.2f;
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vScale);
+	Set_Active(true);
 }
 
 HRESULT CDoor::Ready_Component()

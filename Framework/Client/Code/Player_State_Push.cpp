@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "Player.h"
 #include "KeyMgr.h"
+#include "RigidBody.h"
 
 CPlayer_State_Push::CPlayer_State_Push(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
@@ -61,6 +62,18 @@ void CPlayer_State_Push::Render_State(void)
 
 void CPlayer_State_Push::Reset_State(void)
 {
+	CGameObject* pLiftObj = dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj();
+
+	if (pLiftObj)
+	{
+		_vec3 vPos;
+		pLiftObj->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+		if (vPos.y > pLiftObj->Get_MinHeight())
+		{
+			pLiftObj->Get_RigidBodyCom()->SetGround(false);
+		}
+	}
 }
 
 void CPlayer_State_Push::Key_Input(const _float& fTimeDelta)

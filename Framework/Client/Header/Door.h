@@ -40,8 +40,11 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum) override;
 
+	void		Set_Door(_vec3& _vPos, _vec3& _vScale);
 private:
 	HRESULT Ready_Component();
+
+	
 
 public:
 	static CDoor* Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -1,5 +1,7 @@
 #include "Item_Hat_Monkey.h"
 #include "Export_Function.h"
+#include "Texture.h"
+#include "Export_Function.h"
 
 CItem_Hat_Monkey::CItem_Hat_Monkey(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
@@ -19,6 +21,7 @@ HRESULT CItem_Hat_Monkey::Ready_Object(void)
 {
 	__super::Ready_Object();
 
+	Add_Component();
 
 	m_pAnimator->Add_Animation(L"Monkey_Up", L"Proto_Texture_Item_MonkeyHat_Up", 0.1f);
 	m_pAnimator->Add_Animation(L"Monkey_Down", L"Proto_Texture_Item_MonkeyHat_Down", 0.1f);
@@ -92,7 +95,12 @@ CItem_Hat_Monkey* CItem_Hat_Monkey::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameO
 
 HRESULT CItem_Hat_Monkey::Add_Component(void)
 {
-	return E_NOTIMPL;
+	CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Item_MonkeyHat_Down"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	return S_OK;
 }
 
 void CItem_Hat_Monkey::Free()

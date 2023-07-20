@@ -128,9 +128,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
-	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
-	pDoor->Get_TransformCom()->Set_Pos(&_vec3(0.0f, 0.0f, 0.0f));
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
+
 
 	return S_OK;
 }

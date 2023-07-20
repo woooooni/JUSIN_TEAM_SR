@@ -227,6 +227,7 @@
     <ClInclude Include="..\Header\Effect_Explosion.h" />
     <ClInclude Include="..\Header\Effect_GetItem.h" />
     <ClInclude Include="..\Header\Effect_GolemFist.h" />
+    <ClInclude Include="..\Header\Effect_Item.h" />
     <ClInclude Include="..\Header\Effect_Leaf.h" />
     <ClInclude Include="..\Header\Effect_LightningGround.h" />
     <ClInclude Include="..\Header\Effect_Shadow.h" />
@@ -441,6 +442,7 @@
     <ClCompile Include="..\Code\Effect_Explosion.cpp" />
     <ClCompile Include="..\Code\Effect_GetItem.cpp" />
     <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Effect_Item.cpp" />
     <ClCompile Include="..\Code\Effect_Leaf.cpp" />
     <ClCompile Include="..\Code\Effect_LightningGround.cpp" />
     <ClCompile Include="..\Code\Effect_Shadow.cpp" />

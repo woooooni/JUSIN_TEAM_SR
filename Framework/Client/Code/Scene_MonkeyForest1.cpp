@@ -7,6 +7,7 @@
 #include "UIMgr.h"
 #include "HitObj.h"
 #include "BlockObj.h"
+#include "Door.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
@@ -114,6 +115,11 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
+	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(74.5f, 3.0f, 81.5f), _vec3(9.0f, 9.0f, 1.5f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
+
 
 	return S_OK;
 }

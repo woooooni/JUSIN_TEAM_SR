@@ -1,12 +1,12 @@
 #pragma once
 #include "Effect.h"
-class CEffect_GetItem : public CEffect
+class CEffect_Item : public CEffect
 {
-	CLONE(CEffect_GetItem)
+	CLONE(CEffect_Item)
 protected:
-	explicit CEffect_GetItem(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CEffect_GetItem(const CEffect& rhs);
-	virtual ~CEffect_GetItem();
+	explicit CEffect_Item(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CEffect_Item(const CEffect& rhs);
+	virtual ~CEffect_Item();
 
 public:
 	virtual HRESULT Ready_Object(void)							override;
@@ -14,8 +14,8 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
-	static CEffect_GetItem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	
+	static CEffect_Item* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
 
 	void			Get_Effect(_vec3& _vPos, ITEM_CODE _eItemCode);
 	void			End_Effect() { m_iTurn = 2; }

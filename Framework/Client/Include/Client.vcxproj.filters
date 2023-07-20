@@ -1076,6 +1076,9 @@
     <ClInclude Include="..\Header\Door.h">
       <Filter>02. GameObject\11. FixedObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Item.h">
+      <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1599,6 +1602,9 @@
     <ClCompile Include="..\Code\InventoryUI.cpp" />
     <ClCompile Include="..\Code\Door.cpp">
       <Filter>02. GameObject\11. FixedObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_Item.cpp">
+      <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

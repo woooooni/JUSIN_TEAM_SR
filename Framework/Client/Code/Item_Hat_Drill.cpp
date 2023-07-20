@@ -1,5 +1,6 @@
 #include "Item_Hat_Drill.h"
 #include "Animator.h"
+#include "Export_Function.h"
 
 CItem_Hat_Drill::CItem_Hat_Drill(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
@@ -19,6 +20,7 @@ HRESULT CItem_Hat_Drill::Ready_Object(void)
 {
 	__super::Ready_Object();
 
+	Add_Component();
 
 	m_pAnimator->Add_Animation(L"Drill", L"Proto_Texture_Item_DrillHat", 0.1f);
 
@@ -85,7 +87,12 @@ CItem_Hat_Drill* CItem_Hat_Drill::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObj
 
 HRESULT CItem_Hat_Drill::Add_Component(void)
 {
-	return E_NOTIMPL;
+	CComponent* pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Item_DrillHat"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	return S_OK;
 }
 
 void CItem_Hat_Drill::Free()

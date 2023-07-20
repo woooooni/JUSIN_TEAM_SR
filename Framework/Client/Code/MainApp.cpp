@@ -22,6 +22,7 @@
 #include "Effect_Explosion.h"
 #include "Effect_LightningGround.h"
 #include "Effect_GolemFist.h"
+#include "Effect_Item.h"
 
 #include "Scene_Loading.h"
 
@@ -359,6 +360,7 @@ HRESULT CMainApp::Ready_Pool()
 	CPool<CEffect_Explosion>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_LightningGround>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_GolemFist>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CEffect_Item>::Ready_Pool(m_pGraphicDev, 100);
 
 	return S_OK;
 }
