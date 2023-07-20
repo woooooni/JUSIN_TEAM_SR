@@ -8,6 +8,7 @@ IMPLEMENT_SINGLETON(CEventMgr)
 Engine::CEventMgr::CEventMgr()
 {
 	ZeroMemory(m_bEventSwitch, sizeof(bool) * 1000);
+	
 }
 
 Engine::CEventMgr::~CEventMgr()

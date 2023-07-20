@@ -29,6 +29,7 @@ protected:
 	UI_INFO		m_tInfo;
 
 	void		Ready_TransWorld();
+	_matrix		Trans_Matrix(const UI_INFO& pUI);
 	_vec3		Trans_WinPos(_vec3 origin);
 
 

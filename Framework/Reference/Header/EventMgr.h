@@ -130,11 +130,32 @@ private:
 	}
 
 
+	void		Add_Reset(const _uint& resetIndex, const _uint& eventKey)
+	{
+		m_vecResetList[resetIndex].push_back(eventKey);
+	}
+	void		Reset(const _uint& resetIndex)
+	{
+		for (auto& iter : m_vecResetList[resetIndex])
+		{
+			if (m_mapEvents.find(iter) == m_mapEvents.end())
+				continue;
+
+			for (auto& tmp : m_mapEvents.find(iter)->second->lSubscribers)
+			{
+				tmp->Reset_Event();
+			}
+			m_bEventSwitch[m_mapEvents.find(iter)->second->iEventNum] = false;
+		}
+
+	}
+
 private:
 
 	void	Free();
 
 	list<EVENT*> m_listCurActiveEvents;
+	vector<vector<int>> m_vecResetList;
 
 	map<_uint, EVENT*> m_mapEvents;
 

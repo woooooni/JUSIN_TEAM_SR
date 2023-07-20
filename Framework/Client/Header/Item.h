@@ -44,18 +44,31 @@ public:
 	virtual	CGameObject* Get_ByPool() { return nullptr; };
 	virtual void				Add_Pool() {};
 
-	static	wstring		Get_ImgName(const ITEM_CODE& pCode);
+	static	wstring		Get_Explain(const ITEM_CODE& pCode);
 	const ITEM_CODE& Get_ItemCode() { return m_eCode; }
+
+	void		Set_UIPos(const _vec2& pV) 
+	{
+		m_tInfo.fX = pV.x; m_tInfo.fY = pV.y;
+		m_tInfo.fCX = 80.f; m_tInfo.fCY = 80.f;
+	}
+
+	virtual HRESULT		Use_Item() { return S_OK; }
+
+	_bool		Check_Clicked();
 
 protected:
 	virtual HRESULT	Add_Component(void);
 
 protected:
 	ITEM_TYPE m_eItemType;
+	UI_INFO		m_tInfo;
+
 private:
 	_uint		m_iInvenCount;
 
 protected:
 	virtual void Free() override;
+	void Ready_TransWorld();
 	ITEM_CODE	m_eCode;
 };

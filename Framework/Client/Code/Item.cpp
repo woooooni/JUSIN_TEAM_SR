@@ -6,7 +6,7 @@ CItem::CItem(LPDIRECT3DDEVICE9 pGraphicDev, ITEM_TYPE _eItemType, OBJ_ID _eID)
 	, m_eItemType(_eItemType)
 	, m_iInvenCount(0)
 	, m_eCode(ITEM_CODE::ITEM_END)
-
+	, m_tInfo({ 0.f, 0.f, 85.f, 85.f })
 
 {
 
@@ -49,14 +49,29 @@ void CItem::LateUpdate_Object(void)
 
 void CItem::Render_Object(void)
 {
+	
 	__super::Render_Object();
 }
 
 void CItem::Render_UI()
 {
+	Ready_TransWorld();
 	__super::Render_Object();
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
+}
+
+_bool CItem::Check_Clicked()
+{
+	auto& pt = CKeyMgr::GetInstance()->GetMousePos();
+
+	if (pt.x > m_tInfo.fX - m_tInfo.fCX * 0.5f && pt.x < m_tInfo.fX + m_tInfo.fCX * 0.5f
+		&& pt.y > m_tInfo.fY - m_tInfo.fCY * 0.5f && pt.y < m_tInfo.fY + m_tInfo.fCY * 0.5f)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 HRESULT CItem::Add_Component(void)
@@ -84,45 +99,45 @@ HRESULT CItem::Add_Component(void)
 	return S_OK;
 }
 
-wstring CItem::Get_ImgName(const ITEM_CODE& pCode)
+wstring CItem::Get_Explain(const ITEM_CODE& pCode)
 {
 	switch (pCode)
 	{
 	case Engine::ITEM_CODE::HP_SMALL:
-		return L"HP_Small";
+		return L"체력을 조금 회복하는 과일";
 		break;
 	case Engine::ITEM_CODE::HP_MIDDLE:
-		return L"HP_Middle";
+		return L"체력을 어느정도 회복하는 과일";
 
 		break;
 	case Engine::ITEM_CODE::HP_BIG:
-		return L"HP_Big";
+		return L"체력을 많이 회복하는 비싼 과일";
 
 		break;
 	case Engine::ITEM_CODE::SPEED_SMALL:
-		return L"Speed_Small";
+		return L"속도가 조금 올라가는 신비한 약초";
 
 		break;
 	case Engine::ITEM_CODE::SPEED_MIDDLE:
-		return L"Speed_Middle";
+		return L"속도가 어느정도 올라가는 신비한 약초";
 
 		break;
 	case Engine::ITEM_CODE::SPEED_BIG:
-		return L"Speed_Big";
+		return L"속도가 많이 올라가는 신비한 약초";
 
 		break;
 	case Engine::ITEM_CODE::LEAF:
-		return L"Leaf";
+		return L"흔한 나뭇잎";
 
 		break;
 	case Engine::ITEM_CODE::TWIG:
-		return L"Twig";
+		return L"흔한 나뭇가지";
 
 		break;
 
 	case ITEM_CODE::BUTTERFLY:
 
-		return L"Kabuto";
+		return L"아마도 나비";
 		break;
 	case Engine::ITEM_CODE::ITEM_END:
 		break;
@@ -141,3 +156,21 @@ void CItem::Free()
 	__super::Free();
 }
 
+void CItem::Ready_TransWorld()
+{
+	_matrix matPreView, matPreProj;
+
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+
+
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / matPreProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / matPreProj._22), 0.f };
+
+	m_pTransformCom->Set_Pos(&vPos);
+
+	_vec3 vScale = _vec3(m_tInfo.fCX, m_tInfo.fCY, 0.f);
+
+	m_pTransformCom->Set_Scale(vScale);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+
+}

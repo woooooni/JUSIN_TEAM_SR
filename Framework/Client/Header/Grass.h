@@ -47,14 +47,8 @@ public:
 
 	list<GrassTexture*>& Get_TextureList() { return m_GrassList; }
 
-	void		Add_DropItem(const ITEM_CODE& name, const _uint& percent)
-	{
-		m_dropItemMap.insert({ name, percent });
-	}
-
 	GRASS_TYPE Get_Type() { return m_eGrassType; }
 
-	map<ITEM_CODE, _uint>& Get_ItemMap() { return m_dropItemMap; }
 
 protected:
 
@@ -65,7 +59,8 @@ protected:
 	_float		m_fMaxMoveTime;
 	_float		m_fCurMoveTime;
 	_bool		m_bIsReverse;
-	map<ITEM_CODE, _uint> m_dropItemMap;
+public:
+	static map<ITEM_CODE, _uint> m_dropItemMap[(_uint)SCENE_TYPE::SCENE_END];
 };
 
 

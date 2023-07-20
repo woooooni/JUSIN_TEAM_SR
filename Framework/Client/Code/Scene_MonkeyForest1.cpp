@@ -8,6 +8,7 @@
 #include "HitObj.h"
 #include "BlockObj.h"
 #include "Door.h"
+#include "DefaultItem.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
