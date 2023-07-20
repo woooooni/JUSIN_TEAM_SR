@@ -878,6 +878,9 @@ HRESULT CLoading::Ready_UI_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_HorizontalLine", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_DotLineDetail.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_TextBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_ItemInfo_TextBox.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_PlayerWallet", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_PlayerCoin.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_Frame", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_Shop_Test_AddSlot.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Shop_TabIcon", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Shop/UI_ItemTabIcon_%d.png",4)), E_FAIL);
+
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_TextBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/Test_UITextBox_TextBox.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Icon_HPFrame", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Icon/UI_HP_Frame.png")), E_FAIL);

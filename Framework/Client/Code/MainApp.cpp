@@ -95,6 +95,8 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
 
+	
+
 
 	return S_OK;
 }

@@ -22,6 +22,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
    // m_pShortCutKey = CUI_ShortCutKey::Create(_pGraphicDev);
     m_pQuickSlot = CQuickSlot::Create(_pGraphicDev);
 
+    m_pCurrentUI = CInventoryUI::Create(_pGraphicDev);
    // NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
    // NULL_CHECK_RETURN(m_pShop, E_FAIL);
@@ -47,6 +48,8 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
    //m_pShortCutKey->Update_Object(fTimeDelta);
     m_pQuickSlot->Update_Object(fTimeDelta);
 
+    m_pCurrentUI->Update_Object(fTimeDelta);
+
     m_vecIcon[PLAYERHP_FRAME]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_1]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_2]->Update_Object(fTimeDelta);
@@ -67,6 +70,8 @@ void CUIMgr::Late_Update_UIMgr()
    //m_pShop->LateUpdate_Object();
    //m_pShortCutKey->LateUpdate_Object();
     m_pQuickSlot->LateUpdate_Object();
+
+    m_pCurrentUI->LateUpdate_Object();
 
     m_vecIcon[PLAYERHP_FRAME]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_1]->LateUpdate_Object();

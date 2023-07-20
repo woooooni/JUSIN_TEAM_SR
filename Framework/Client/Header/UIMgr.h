@@ -8,6 +8,7 @@
 #include "UI_ShortCutKey.h"
 #include "Icon.h"
 #include "UI_BossHP.h"
+#include	"InventoryUI.h"
 
 class CUIMgr : public CBase
 {
@@ -29,10 +30,44 @@ public:
 	void		Set_PlayerInfo(); // 체력을 받아와서 씬 전환때 적용시킴
 	void		Set_BossHp(SCENE_TYPE eType);
 
+	HRESULT		Change_UI(SCENE_TYPE pUI)
+	{
+		switch (pUI)
+		{
+		case Engine::SCENE_TYPE::LOADING:
+			break;
+		case Engine::SCENE_TYPE::TEST:
+			break;
+		case Engine::SCENE_TYPE::LOGO:
+			break;
+		case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
+			break;
+		case Engine::SCENE_TYPE::MONKEY_FOREST1:
+			break;
+		case Engine::SCENE_TYPE::MONKEY_FOREST2:
+			break;
+		case Engine::SCENE_TYPE::MONKEY_VILLAGE:
+			break;
+		case Engine::SCENE_TYPE::SUNGOLEM_CAVE1:
+			break;
+		case Engine::SCENE_TYPE::MOON_FOREST1:
+			break;
+		case Engine::SCENE_TYPE::TOOL:
+			break;
+		case Engine::SCENE_TYPE::SCENE_END:
+			break;
+		default:
+			break;
+		}
+	}
+
 private:
 	CUI_Dialog*		 m_pDialog = nullptr;
 	CUI_HPBar*		 m_pHpBar= nullptr;
 	CUI_Shop*		 m_pShop = nullptr;
+
+	CUI* m_pCurrentUI = nullptr;
+
 	CUI_ShortCutKey* m_pShortCutKey = nullptr;
 	CQuickSlot*		 m_pQuickSlot = nullptr;
 	CUI_BossHP*		 m_pBossHpBar = nullptr;

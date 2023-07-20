@@ -52,6 +52,13 @@ void CItem::Render_Object(void)
 	__super::Render_Object();
 }
 
+void CItem::Render_UI()
+{
+	__super::Render_Object();
+	m_pTextureCom->Render_Texture();
+	m_pBufferCom->Render_Buffer();
+}
+
 HRESULT CItem::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
