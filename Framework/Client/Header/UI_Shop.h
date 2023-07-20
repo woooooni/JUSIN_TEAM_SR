@@ -37,6 +37,8 @@ private:
 private:
 	_bool				m_bShown = FALSE;
 	list<CItem*>		m_ItemList;		   // 아이템 리스트
+	CUI_Cursor*			m_pCursor;
+	vector<CUI*>		m_vecShopIcon;
 
 public:
 	static  CUI_Shop* Create(LPDIRECT3DDEVICE9 pGraphicDev);

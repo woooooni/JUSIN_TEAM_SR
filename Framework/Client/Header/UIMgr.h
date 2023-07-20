@@ -7,6 +7,7 @@
 #include "UI_Shop.h"
 #include "UI_ShortCutKey.h"
 #include "Icon.h"
+#include "UI_BossHP.h"
 
 class CUIMgr : public CBase
 {
@@ -26,7 +27,7 @@ public:
 	HRESULT		Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev);
 	HRESULT		Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev);
 	void		Set_PlayerInfo(); // 체력을 받아와서 씬 전환때 적용시킴
-	HRESULT		Set_UI(SCENE_TYPE eType);
+	void		Set_BossHp(SCENE_TYPE eType);
 
 private:
 	CUI_Dialog*		 m_pDialog = nullptr;
@@ -34,6 +35,7 @@ private:
 	CUI_Shop*		 m_pShop = nullptr;
 	CUI_ShortCutKey* m_pShortCutKey = nullptr;
 	CQuickSlot*		 m_pQuickSlot = nullptr;
+	CUI_BossHP*		 m_pBossHpBar = nullptr;
 
 private:
 	vector<CUI*>	m_vecIcon;

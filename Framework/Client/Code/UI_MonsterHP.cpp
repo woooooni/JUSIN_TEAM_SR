@@ -29,7 +29,7 @@ _int CUI_MonsterHP::Update_Object(const _float& fTimeDelta)
 {
 	
 	if (m_pOwner != nullptr && m_pOwner->Is_Active())
-	{
+	{ 
 		_uint iMaxHp = (m_pOwner)->Get_Stat().iMaxHp;
 		_uint iHp = (m_pOwner)->Get_Stat().iHp;
 

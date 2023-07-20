@@ -154,15 +154,15 @@ void CIcon::Render_Object(void)
 
 	// Player HP TextOut //
 
-	_int MaxHP = 2;
-	_int HP = 1;
+	_int MaxHP = 3;
+	_int HP = 2;
 
 	// 현재 MaxHP, HP 모두 0으로 되어있어 주석처리함. Player 세팅 완료시 사용
 	//CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
 	//MaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
 	//HP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
 
-	RECT rc = { 0, 25, 440, WINCY / 2 };
+	RECT rc = { 0, 28, 440, WINCY / 2 };
 
 	string strMaxHP = to_string(MaxHP);
 	string strHP = to_string(HP);

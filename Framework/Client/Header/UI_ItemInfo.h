@@ -11,24 +11,24 @@ class CTexture;
 
 END
 
-// 구조체 이름 바꾸기
-
-typedef enum class UI_ShopItem
+//typedef enum class SHOPITEMTYPE
+enum SHOPITEMTYPE
 {
 	UISHOP_BRANCH,
 	UISHOP_CLOTH,
 	UISHOP_LEAF,
-	UISHOP_BRANCH_INFO,
-	UISHOP_CLOTH_INFO,
-	UISHOP_LEAF_INFO,
 
 	SHOPKEY_L,
 	SHOP_WALLET, SHOP_PRICETAG,
 	SHOP_TEXTBOX, SHOP_IMGBOX,
 	SHOP_VERLINE, SHOP_HORLINE,
+
+	UISHOP_BRANCH_INFO,
+	UISHOP_CLOTH_INFO,
+	UISHOP_LEAF_INFO,
 	SHOPITEM_END
 
-}SHOPITEMTYPE;
+};
 
 struct tagShopItemInfo
 {
@@ -54,6 +54,11 @@ public:
 private:
 	HRESULT			Add_Component(void);
 	void			Set_Type(SHOPITEMTYPE eType);
+	void			Set_Cursor(_uint _iX, _uint _iY)
+	{
+		m_iCursorX = _iX;
+		m_iCursorY = _iY;
+	}
 	void			Key_Input();
 
 private:

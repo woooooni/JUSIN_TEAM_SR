@@ -40,7 +40,7 @@ HRESULT CUI_HPBar::Ready_Object(void)
 
 _int CUI_HPBar::Update_Object(const _float& fTimeDelta)
 {
-	//Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	// 현재 MaxHP, HP 모두 0으로 되어있어 주석처리함. Player 세팅 완료시 사용
 	

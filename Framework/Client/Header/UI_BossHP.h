@@ -1,17 +1,12 @@
 #pragma once
 #include "CUI.h"
 #include "Monster.h"
-#include "SunGollem.h"
 
 typedef enum class BossHP
-{
-	UI_FRAME,
-	UI_GAUGE,
-	UI_BACK,
+{UI_FRAME, UI_GAUGE, UI_BACK, MONSTERHP_END}BOSSHP;
 
-	MONSTERHP_END
-
-}BOSSHP;
+enum BOSSNAME
+{SUNGOLLEM, SILKWORM, BOSSNAME_END};
 
 BEGIN(Engine)
 
@@ -37,9 +32,11 @@ public:
 public:
 	HRESULT	Add_Component(void);
 	void	Set_Type(BOSSHP eType);
-
+	void	Set_Name(BOSSNAME eType);
+	
 private:
 	BOSSHP		m_eUIType;
+	BOSSNAME	m_eBossName;
 	_vec3		m_vDefaultPos;
 	_int		m_iMaxHP;
 	_int		m_iCurHP;

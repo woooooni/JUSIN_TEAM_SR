@@ -1,5 +1,7 @@
 #include "UI_BossHP.h"
 #include "Export_Function.h"
+#include "SunGollem.h"
+#include "SilkWorm.h"
 
 CUI_BossHP::CUI_BossHP(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
 {
@@ -34,12 +36,27 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	// Test : SunGollem
-	CGameObject* pBossMonster = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
-
-	if (pBossMonster != nullptr)
+	if (m_eBossName == BOSSNAME::SUNGOLLEM)
 	{
-		m_iMaxHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iMaxHp;
-		m_iCurHP = dynamic_cast<CSunGollem*>(pBossMonster)->Get_Stat().iHp;
+		CGameObject* pBoss_Sungollem = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
+
+		if (pBoss_Sungollem != nullptr)
+		{
+			m_iMaxHP = dynamic_cast<CSunGollem*>(pBoss_Sungollem)->Get_Stat().iMaxHp;
+			m_iCurHP = dynamic_cast<CSunGollem*>(pBoss_Sungollem)->Get_Stat().iHp;
+		}
+	}
+
+	if (m_eBossName == BOSSNAME::SILKWORM)
+	{
+		CGameObject* pBoss_Silkworm = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SilkWorm");
+
+		if (pBoss_Silkworm != nullptr)
+		{
+			m_iMaxHP = dynamic_cast<CSunGollem*>(pBoss_Silkworm)->Get_Stat().iMaxHp;
+			m_iCurHP = dynamic_cast<CSunGollem*>(pBoss_Silkworm)->Get_Stat().iHp;
+		}
+
 	}
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -121,13 +138,28 @@ void CUI_BossHP::Render_Object(void)
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
-		// Boss에 따른 이름 출력 : Test
 		RECT rc = { 0, 0, WINCX, WINCY / 9 };
 		TCHAR szBuf[256] = L"";
-		swprintf_s(szBuf, L"시련의 원숭이 석상");
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		switch (m_eBossName)
+		{
+		case BOSSNAME::SUNGOLLEM:
+			swprintf_s(szBuf, L"시련의 원숭이 석상");
+
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+				szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+			break;
+
+		case BOSSNAME::SILKWORM:
+			swprintf_s(szBuf, L"타락한 누에 용사");
+
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+				szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+			break;
+
+		default:
+			break;
+		}
 
 	}
 }
@@ -182,6 +214,11 @@ HRESULT CUI_BossHP::Add_Component(void)
 void CUI_BossHP::Set_Type(BOSSHP eType)
 {
 	m_eUIType = eType;
+}
+
+void CUI_BossHP::Set_Name(BOSSNAME eType)
+{
+	m_eBossName = eType;
 }
 
 CUI_BossHP* CUI_BossHP::Create(LPDIRECT3DDEVICE9 pGraphicDev, BOSSHP eType)

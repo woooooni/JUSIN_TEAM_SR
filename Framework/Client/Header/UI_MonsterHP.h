@@ -38,16 +38,17 @@ public:
 	virtual void		Render_Object(void) override;
 
 public:
-	HRESULT	Add_Component(void);
-	void	Set_Type(MONSTERHP eType);
-	CMonster* Get_Owner() { return m_pOwner; }
+	HRESULT			Add_Component(void);
+	void			Set_Type(MONSTERHP eType);
+	CMonster*		Get_Owner() { return m_pOwner; }
 	void			Set_Owner(CMonster* _pOwner) { m_pOwner = _pOwner; }
 
 private:
 	MONSTERHP	m_eUIType;
+	CMonster* m_pOwner;
 	_int		m_iMaxHP; // 몬스터 최대 체력
 	_int		m_iHP;	  // 몬스터 현재 체력
-	CMonster*	m_pOwner;
+
 public:
 	static  CUI_MonsterHP* Create(LPDIRECT3DDEVICE9 pGraphicDev, MONSTERHP eType);
 

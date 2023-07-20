@@ -145,10 +145,10 @@ void CUI_Cursor::Render_Object(void)
 		__super::Render_Object();
 
 		m_pBufferCom->Render_Buffer();
-	}
 
-	//	else
-	//		m_pTransformCom->Set_Pos(&m_vDefaultPos);
+		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+	}
 }
 
 HRESULT CUI_Cursor::Ready_Component()

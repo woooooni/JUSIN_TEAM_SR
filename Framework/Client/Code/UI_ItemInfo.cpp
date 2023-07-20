@@ -1,6 +1,6 @@
 #include "UI_ItemInfo.h"
 #include "Export_Function.h"
-
+#include "UI_Shop.h"
 
 CUI_ItemInfo::CUI_ItemInfo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev), m_tItemInfo{}
@@ -31,7 +31,7 @@ HRESULT CUI_ItemInfo::Ready_Object(void)
 
 _int CUI_ItemInfo::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	Key_Input();
 
@@ -41,10 +41,10 @@ _int CUI_ItemInfo::Update_Object(const _float& fTimeDelta)
 
 void CUI_ItemInfo::LateUpdate_Object(void)
 {
-	CGameObject* pCursor = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_Shop_Cursor");
-
-	m_iCursorX = dynamic_cast<CUI_Cursor*>(pCursor)->Get_CursorXPos();
-	m_iCursorY = dynamic_cast<CUI_Cursor*>(pCursor)->Get_CursorYPos();
+//	CGameObject* pCursor = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_Shop_Cursor");
+//
+//	m_iCursorX = dynamic_cast<CUI_Cursor*>(pCursor)->Get_CursorXPos();
+//	m_iCursorY = dynamic_cast<CUI_Cursor*>(pCursor)->Get_CursorYPos();
 
 	__super::LateUpdate_Object();
 }
@@ -165,8 +165,10 @@ void CUI_ItemInfo::Render_Object(void)
 
 		m_pTransformCom->Set_Scale(vScale);
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+//		m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+//		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
 		m_pTextureCom->Render_Texture(0);
 		m_pBufferCom->Render_Buffer();
@@ -212,8 +214,10 @@ void CUI_ItemInfo::Render_Object(void)
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+//			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+//			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+			m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
 			m_pTextureCom->Render_Texture(0);
 			m_pBufferCom->Render_Buffer();
@@ -231,8 +235,8 @@ void CUI_ItemInfo::Render_Object(void)
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+			m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
 			m_pTextureCom->Render_Texture(0);
 			m_pBufferCom->Render_Buffer();
@@ -250,8 +254,8 @@ void CUI_ItemInfo::Render_Object(void)
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+			m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
 			m_pTextureCom->Render_Texture(0);
 			m_pBufferCom->Render_Buffer();
@@ -432,6 +436,18 @@ void CUI_ItemInfo::Key_Input()
 		else
 			m_bShown = FALSE;
 	}
+
+	if (KEY_TAP(KEY::LEFT_ARROW) && m_iCursorX > 0)
+		m_iCursorX--;
+
+	if (KEY_TAP(KEY::RIGHT_ARROW) && m_iCursorX < 4)
+		m_iCursorX++;
+
+	if (KEY_TAP(KEY::DOWN_ARROW) && m_iCursorY < 2)
+		m_iCursorY++;
+
+	if (KEY_TAP(KEY::UP_ARROW) && m_iCursorY > 0)
+		m_iCursorY--;
 }
 
 CUI_ItemInfo* CUI_ItemInfo::Create(LPDIRECT3DDEVICE9 pGraphicDev, SHOPITEMTYPE eType)
