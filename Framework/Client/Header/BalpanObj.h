@@ -42,6 +42,8 @@ public:
 
 	void		Set_Answer(const JELLY_COLOR& pAnswer) { m_eCorrectColor = pAnswer; }
 
+	void		Set_StartActive(const JELLY_COLOR& pColor);
+
 protected:
 	virtual HRESULT		Ready_Component();
 	virtual void Event_Start(_uint iEventNum) override;

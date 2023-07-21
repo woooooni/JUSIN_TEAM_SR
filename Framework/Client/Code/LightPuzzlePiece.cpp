@@ -95,8 +95,8 @@ CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uin
 		MSG_BOX("LightPuzzlePiece Create Failed");
 		return nullptr;
 	}
-	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.01f, p_Pos.z));
-	ret->originPos = _vec3(p_Pos.x, 0.01f, p_Pos.z);
+	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.02f, p_Pos.z));
+	ret->originPos = _vec3(p_Pos.x, 0.02f, p_Pos.z);
 
 
 	if (p_FirstName == L"Base")
@@ -159,5 +159,6 @@ CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uin
 	}
 	ret->m_pAnimator->Play_Animation(p_FirstName, false);
 	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
+	ret->Set_MinHeight(0.02f);
 	return ret;
 }

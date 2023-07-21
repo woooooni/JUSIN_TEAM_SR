@@ -10,6 +10,9 @@
 #include "BalpanObj.h"
 #include "LightFlower.h"
 #include "Door.h"
+#include	"LightPuzzleBase.h"
+#include	"LightPuzzlePiece.h"
+#include	"LightPuzzleTerrain.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -109,6 +112,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 {
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(54.0f, 2.0f, 72.0f), _vec3(4.0f, 6.0f, 1.5f));
+	Add_Subscribe(21, pDoor);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
 	return S_OK;
 }
@@ -120,21 +124,88 @@ HRESULT CScene_MoonForest1::Ready_Layer_Monster()
 
 HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 {
-	CJellyStone* pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, { 62.f, 0.f, 45.f });
+	CJellyStone* pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 0, { 62.f, 0.f, 45.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"JellyStone", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 0, { 65.f, 0.f, 45.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"JellyStone", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::BLUE, 0, { 68.f, 0.f, 45.f });
+
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"JellyStone", pJel);
+
 
 	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 20, { 61.f, 0.f, 50.f });
 	pBal->Set_Static();
 	pBal->Set_TargName(L"Jelly");
 	pBal->Set_Answer(JELLY_COLOR::YELLOW);
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
 
 
 	CLightFlower* pLight = CLightFlower::Create(m_pGraphicDev, pBal, 20, { 61.f, 0.f, 53.f });
+	NULL_CHECK_RETURN(pLight, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLight);
+
+
+	CLightPuzzleTerrain* pTer = CLightPuzzleTerrain::Create(m_pGraphicDev, 4, 5, { 45.f, 0.01f, 45.f });
+	NULL_CHECK_RETURN(pTer, E_FAIL);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Ter", pTer);
+
+	CLightPuzzleBase* pBase = CLightPuzzleBase::Create(m_pGraphicDev, 21, pTer->Get_TilePos(0, 2));
+	NULL_CHECK_RETURN(pBase, E_FAIL);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
+
+
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(2, 0), L"Vertical");
+	NULL_CHECK_RETURN(pBase, E_FAIL);
+	pBase->Reverse_Puzzle(false);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
+
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 23, pTer->Get_TilePos(3, 2), L"Three");
+	NULL_CHECK_RETURN(pBase, E_FAIL);
+	pBase->Set_MakeLight();
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
+
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 21, pTer->Get_TilePos(3, 4), L"Corner");
+	NULL_CHECK_RETURN(pBase, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
+
+	CLightPuzzlePiece* pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 43, 0, 43 }, L"Corner");
+	NULL_CHECK_RETURN(pPiece, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
+	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 44, 0, 43 }, L"Base");
+	NULL_CHECK_RETURN(pPiece, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
+
+	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 46, 0, 43 }, L"Horizon");
+	NULL_CHECK_RETURN(pPiece, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
+
+	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 47, 0, 43 }, L"Corner");
+	NULL_CHECK_RETURN(pPiece, E_FAIL);
+	pPiece->Reverse_Puzzle(true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
+
+
+
+
 
 
 	return S_OK;

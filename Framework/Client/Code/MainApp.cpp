@@ -154,6 +154,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RcCube", CCubeTex::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RcCubeCol", CRcCubeCol::Create(m_pGraphicDev)), E_FAIL); 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_TerrainTex", CTerrainTex::Create(m_pGraphicDev, 257, 257, 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_LightPuzzle1", CRcPuzzleBuff::Create(m_pGraphicDev, 5, 6, 1)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Transform", CTransform::Create(m_pGraphicDev)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Animator", CAnimator::Create(m_pGraphicDev)), E_FAIL);
@@ -343,6 +344,56 @@ HRESULT CMainApp::Ready_Proto_Event()
 
 	FAILED_CHECK(Add_Event(event));
 
+	event = new EVENT;
+	event->iEventNum = 21;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 22;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 23;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 24;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 25;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 26;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 27;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 28;
+	event->lEndKey.push_back(25);
+	event->lEndKey.push_back(26);
+	event->lEndKey.push_back(27);
+
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
 
 	return S_OK;
 }

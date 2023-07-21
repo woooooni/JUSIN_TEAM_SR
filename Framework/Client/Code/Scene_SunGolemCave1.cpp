@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "UIMgr.h"
 #include "SunGollem.h"
+#include	"Catapult.h"
 
 CScene_SunGolemCave1::CScene_SunGolemCave1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1)
@@ -134,6 +135,11 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Monster()
 
 HRESULT CScene_SunGolemCave1::Ready_Layer_InterationObj()
 {
+	CCatapult* pCat = CCatapult::Create(m_pGraphicDev, 0, { 10.f, 0.f, 5.f });
+	NULL_CHECK_RETURN(pCat, E_FAIL);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Catapult", pCat);
+
+
 	return S_OK;
 }
 

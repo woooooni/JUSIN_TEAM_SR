@@ -153,7 +153,9 @@ void CDoor::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 
 void CDoor::Event_Start(_uint iEventNum)
 {
-	
+	m_fMinHeight = -(m_fMinHeight * 2.0f);
+	m_pRigidBodyCom->SetGround(false);
+
 }
 
 void CDoor::Event_End(_uint iEventNum)

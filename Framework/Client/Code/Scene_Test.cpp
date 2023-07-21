@@ -106,7 +106,6 @@ HRESULT CScene_Test::Ready_Scene()
 	m_pGraphicDev->SetViewport(&vp);
 
 	CPool<CJellyStone>::Ready_Pool(m_pGraphicDev, 0);
-	CPool<CJellyCombined>::Ready_Pool(m_pGraphicDev, 0);
 	CPool<CJellyBomb>::Ready_Pool(m_pGraphicDev, 0);
 
 
@@ -420,21 +419,18 @@ HRESULT CScene_Test::Ready_Layer_InterationObj()
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlockObj", pBlock), E_FAIL);
 
 	
-	CJellyStone* pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::CYAN, 0, { 8, 1, 10 });
+	CJellyStone* pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 0, { 8, 1, 10 });
 	NULL_CHECK_RETURN(pJelly, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
 
-	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::MAGENTA, 0, { 5, 1, 10 });
+	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 0, { 5, 1, 10 });
 	NULL_CHECK_RETURN(pJelly, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
 
-	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLLOR_NORMAL::YELLOW, 0, { 11, 1, 10 });
+	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 0, { 11, 1, 10 });
 	NULL_CHECK_RETURN(pJelly, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Normal", pJelly), E_FAIL);
 
-	CJellyCombined* pCombine = CJellyCombined::Create(m_pGraphicDev, JELLY_COLLOR_COMBINE::RED, 0, { 5, 1, 13 });
-	NULL_CHECK_RETURN(pCombine, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Jelly_Combined", pCombine), E_FAIL);
 
 	CCatapult* pCata = CCatapult::Create(m_pGraphicDev, 0, { 5, 1 , 20 });
 	NULL_CHECK_RETURN(pCata, E_FAIL);

@@ -14,6 +14,7 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
 public:
 	void		Set_MakeLight() { m_bMakeLight = true; }
@@ -21,6 +22,8 @@ public:
 	virtual		void	Set_Lighting(const _bool& pBool) override;
 
 	virtual void		Reset_Event()override;
+
+
 
 protected:
 	_bool		m_bMakeLight;
