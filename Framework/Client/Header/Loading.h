@@ -63,7 +63,7 @@ private:
 	HRESULT Ready_Environment_Texture3();
 	HRESULT Ready_Terrain_Texture();
 	HRESULT Ready_NPC_Texture();
-
+	HRESULT Ready_Pool();
 
 private:
 	virtual void		Free();

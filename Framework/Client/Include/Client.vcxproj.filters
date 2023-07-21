@@ -1086,6 +1086,15 @@
     <ClInclude Include="..\Header\Scene_SilkWorm.h">
       <Filter>01. Scene\05. SilkWorm</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_ExclamationMark.h" />
+    <ClInclude Include="..\Header\UI_NewQuest.h" />
+    <ClInclude Include="..\Header\UI_QuestIcon.h" />
+    <ClInclude Include="..\Header\UI_QuestionMark.h" />
+    <ClInclude Include="..\Header\Effect_Hit.h" />
+    <ClInclude Include="..\Header\Effect_Block.h" />
+    <ClInclude Include="..\Header\Effect_Stun.h" />
+    <ClInclude Include="..\Header\Effect_CatapultHit.h" />
+    <ClInclude Include="..\Header\Effect_Dig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1617,6 +1626,15 @@
     <ClCompile Include="..\Code\Scene_SilkWorm.cpp">
       <Filter>01. Scene\05. SilkWorm</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\UI_ExclamationMark.cpp" />
+    <ClCompile Include="..\Code\UI_NewQuest.cpp" />
+    <ClCompile Include="..\Code\UI_QuestIcon.cpp" />
+    <ClCompile Include="..\Code\UI_QuestionMark.cpp" />
+    <ClCompile Include="..\Code\Effect_Hit.cpp" />
+    <ClCompile Include="..\Code\Effect_Block.cpp" />
+    <ClCompile Include="..\Code\Effect_Stun.cpp" />
+    <ClCompile Include="..\Code\Effect_CatapultHit.cpp" />
+    <ClCompile Include="..\Code\Effect_Dig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

@@ -158,6 +158,8 @@ public:
 
 	void			Set_ItemEffect(ITEM_CODE eItemCode);
 
+
+	CGameObject* Get_Shadow() { return m_pShadow; }
 private:
 	_vec3			m_vDir;
 	_float			m_fSpeed;

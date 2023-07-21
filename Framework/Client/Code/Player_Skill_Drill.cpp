@@ -5,6 +5,8 @@
 #include "KeyMgr.h"
 #include "RigidBody.h"
 #include "Export_Function.h"
+#include "Effect_Dig.h"
+#include "Pool.h"
 
 CPlayer_Skill_Drill::CPlayer_Skill_Drill(CGameObject* _pOwner)
     : CPlayer_State(_pOwner), m_fSpeed(10.0f), m_fMinHeight(0.0f)
@@ -23,6 +25,7 @@ HRESULT CPlayer_Skill_Drill::Ready_State(void)
     m_fMinHeight = m_pOwner->Get_MinHeight();
     m_pOwner->Set_MinHeight(-1.0f);
     m_bJump = false;
+    dynamic_cast<CPlayer*>(m_pOwner)->Get_Shadow()->Set_Active(false);
 
     dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
 
@@ -72,14 +75,35 @@ void CPlayer_Skill_Drill::Reset_State(void)
 {
     m_pOwner->Set_MinHeight(m_fMinHeight);
     dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(true);
+    dynamic_cast<CPlayer*>(m_pOwner)->Get_Shadow()->Set_Active(true);
+    dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Offset(_vec3(0.0f, 0.0f, 0.0f));
+    dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Active(false);
+    m_pOwner->Get_ColliderCom()->Set_Active(true);
 }
 
 void CPlayer_Skill_Drill::Update_Start(const _float& fTimeDelta)
 {
+    if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() == 5)
+    {
+        _vec3 vPos;
+        m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+        CGameObject* pEffect = CPool<CEffect_Dig>::Get_Obj();
+        if (!pEffect)
+        {
+            pEffect = CEffect_Dig::Create(Engine::Get_Device());
+            pEffect->Ready_Object();
+        }
+        dynamic_cast<CEffect_Dig*>(pEffect)->Get_Effect(vPos, _vec3(2.0f, 2.0f, 2.0f), 2.0f);
+
+    }
+
     if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() > 5)
     {
         _vec3 vPos;
         m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+       
 
         if (vPos.y > -1.0f)
         {
@@ -95,6 +119,7 @@ void CPlayer_Skill_Drill::Update_Start(const _float& fTimeDelta)
             vPos.y = -1.0f;
             m_pOwner->Get_TransformCom()->Set_Pos(&vPos);
             m_eState = DRILL_STATE::INGROUND;
+            m_pOwner->Get_ColliderCom()->Set_Active(false);
 
             CGameObject* pAim = dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim();
             pAim->Set_Active(true);
@@ -141,7 +166,19 @@ void CPlayer_Skill_Drill::LateUpdate_OutGround()
         m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
         vPlayerPos.y = -0.2f;
         m_pOwner->Get_TransformCom()->Set_Pos(&vPlayerPos);
+
+        CGameObject* pEffect = CPool<CEffect_Dig>::Get_Obj();
+        if (!pEffect)
+        {
+            pEffect = CEffect_Dig::Create(Engine::Get_Device());
+            pEffect->Ready_Object();
+        }
+        dynamic_cast<CEffect_Dig*>(pEffect)->Get_Effect(vPlayerPos, _vec3(2.0f, 2.0f, 2.0f), 2.0f);
+
+        dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Offset(_vec3(0.0f, 0.5f, 0.0f));
+        dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Active(true);
     }
+
     if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() == 21 && !m_bJump)
     {
         m_pOwner->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 1.0f, 0.0f) * 150.0f);
@@ -159,6 +196,16 @@ void CPlayer_Skill_Drill::LateUpdate_OutGround()
         }
         else
         {
+            if(!dynamic_cast<CPlayer*>(m_pOwner)->Get_Shadow()->Is_Active())
+                dynamic_cast<CPlayer*>(m_pOwner)->Get_Shadow()->Set_Active(true);
+
+            if (dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Is_Active())
+            {
+                dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Offset(_vec3(0.0f, 0.0f, 0.0f));
+                dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerCol(COLLIDER_PLAYER::COLLIDER_ATTACK)->Set_Active(false);
+            }
+           
+
             m_pOwner->Set_MinHeight(m_fMinHeight);
             m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Set_Idx(22);
         }
