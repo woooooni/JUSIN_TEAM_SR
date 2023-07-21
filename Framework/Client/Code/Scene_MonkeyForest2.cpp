@@ -42,6 +42,11 @@ HRESULT CScene_MonkeyForest2::Ready_Scene()
 
 _int CScene_MonkeyForest2::Update_Scene(const _float& fTimeDelta)
 {
+	if (KEY_TAP(KEY::R))
+	{
+		Reset(0);
+	}
+
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
 
 	__super::Update_Scene(fTimeDelta);
@@ -132,25 +137,39 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 {
 	CHoleObj* pHole = CHoleObj::Create(m_pGraphicDev, 0, { 51.f, 0, 7.5f });
 
+	Add_Subscribe(6, pHole);
+
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Hole", pHole);
 
 	pHole = CHoleObj::Create(m_pGraphicDev, 0, {46.5f, 0, 3.f });
+	Add_Subscribe(6, pHole);
+
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Hole", pHole);
 
 	pHole = CHoleObj::Create(m_pGraphicDev, 0, { 26.5f, 0, 26.5f });
+	Add_Subscribe(6, pHole);
+
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Hole", pHole);
 
 	CPushStone* pPush = CPushStone::Create({ 26.f, 0.f, 12.f }, m_pGraphicDev);
 
+	Add_Subscribe(6, pPush);
+
+
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Stone_Push", pPush);
 
 	pPush = CPushStone::Create({ 30.f, 0.f, 14.5f }, m_pGraphicDev);
 
+	Add_Subscribe(6, pPush);
+
+
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Stone_Push", pPush);
 
 	pPush = CPushStone::Create({ 46.f, 0.f, 26.5f }, m_pGraphicDev);
+
+	Add_Subscribe(6, pPush);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Stone_Push", pPush);
 
@@ -422,6 +441,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pBStone = CBreakStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 16, { 47.5f, 0.f, 28.5f });
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"BreakStone", pBStone);
 
+	Engine::Add_Reset(0, 6, 19);
 
 	return S_OK;
 }

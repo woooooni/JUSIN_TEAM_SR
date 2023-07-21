@@ -20,6 +20,8 @@ public:
 	const _bool& Get_MakeLight() { return m_bMakeLight; }
 	virtual		void	Set_Lighting(const _bool& pBool) override;
 
+	virtual void		Reset_Event()override;
+
 protected:
 	_bool		m_bMakeLight;
 	_uint		m_iMyEvent;

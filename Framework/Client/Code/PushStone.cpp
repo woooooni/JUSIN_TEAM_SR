@@ -7,11 +7,12 @@ CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev)
 												: CFieldObject(pDev, OBJ_ID::PUSH_STONE) 
 												, m_bIsFlying(false)
 												, m_bIsClean(false)
+	, m_bIsOff(false)
 {
 	m_tInfo.m_bIsPushable = true;
 }
 
-CPushStone::CPushStone(const CPushStone& rhs) : CFieldObject(rhs), m_bIsFlying(rhs.m_bIsFlying), m_bIsClean(rhs.m_bIsClean)
+CPushStone::CPushStone(const CPushStone& rhs) : CFieldObject(rhs), m_bIsFlying(rhs.m_bIsFlying), m_bIsClean(rhs.m_bIsClean), m_bIsOff(rhs.m_bIsOff)
 {
 }
 
@@ -40,7 +41,7 @@ HRESULT CPushStone::Ready_Object(void)
 
 _int CPushStone::Update_Object(const _float& fTimeDelta)
 {
-	if (Is_Active())
+	if (!m_bIsOff)
 	{
 		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
 		Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
@@ -113,6 +114,7 @@ CPushStone* CPushStone::Create(const _vec3& p_Pos, LPDIRECT3DDEVICE9 pGraphicDev
 		return nullptr;
 	}
 	pInstance->m_pTransformCom->Set_Pos(&p_Pos);
+	pInstance->m_bOriginPos = p_Pos;
 
 	return pInstance;
 
@@ -136,6 +138,13 @@ void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisio
 	if(!m_bIsFlying)
 		Push_Me(pCollider);
 	m_pColliderCom->Update_Component(0.f);
+}
+
+void CPushStone::Reset_Event()
+{
+	m_bIsClean = false; m_bIsFlying = false;
+	m_bIsOff = false;
+	m_pTransformCom->Set_Pos(&m_bOriginPos);
 }
 
 HRESULT CPushStone::Ready_Component()

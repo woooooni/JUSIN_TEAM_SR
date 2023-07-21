@@ -150,3 +150,24 @@ void CBreakStone::Event_End(_uint iEventNum)
 	m_pAnimator->Play_Animation(L"Breaking", false);
 
 }
+
+void CBreakStone::Reset_Event()
+{
+	m_bBreak = false;
+	switch (m_eColor)
+	{
+	case JELLY_COLOR::YELLOW:
+		m_pAnimator->Play_Animation(L"Yellow", false);
+		break;
+	case JELLY_COLOR::GREEN:
+		m_pAnimator->Play_Animation(L"Green", false);
+		break;
+	case JELLY_COLOR::RED:
+		m_pAnimator->Play_Animation(L"Red", false);
+		break;
+
+	default:
+		break;
+	}
+
+}

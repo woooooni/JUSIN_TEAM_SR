@@ -29,6 +29,8 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
+	virtual void	Reset_Event()override;
+
 public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
 
@@ -36,6 +38,7 @@ public:
 protected:
 	_uint	m_iEventNum = 0;
 	_uint	m_iFollowingEvent = 0;
+	_bool	m_bOriginState;
 	bool    m_bIsBlocking = false;
 	_vec3	m_vBlockPos;
 

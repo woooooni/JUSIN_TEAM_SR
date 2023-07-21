@@ -9,6 +9,7 @@ Engine::CEventMgr::CEventMgr()
 {
 	ZeroMemory(m_bEventSwitch, sizeof(bool) * 1000);
 	
+	m_vecResetList.resize(100);
 }
 
 Engine::CEventMgr::~CEventMgr()

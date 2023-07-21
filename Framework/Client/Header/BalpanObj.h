@@ -46,6 +46,8 @@ protected:
 	virtual HRESULT		Ready_Component();
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
+	virtual void Reset_Event()	override;
+
 
 	void		Collide(CCollider* pCollider);
 

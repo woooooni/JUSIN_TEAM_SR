@@ -3,11 +3,11 @@
 #include	"PushStone.h"
 #include	"Pool.h"
 
-CHoleObj::CHoleObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::BALPAN_OBJ), m_bIn(false)
+CHoleObj::CHoleObj(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::BALPAN_OBJ), m_bIn(false), m_pStone(nullptr)
 {
 }
 
-CHoleObj::CHoleObj(const CHoleObj& rhs) : CFieldObject(rhs), m_bIn(rhs.m_bIn)
+CHoleObj::CHoleObj(const CHoleObj& rhs) : CFieldObject(rhs), m_bIn(rhs.m_bIn), m_pStone(rhs.m_pStone)
 {
 }
 
@@ -53,6 +53,17 @@ void CHoleObj::Free()
 	__super::Free();
 }
 
+void CHoleObj::Reset_Event()
+{
+	if (m_bIn)
+	{
+		m_bIn = false;
+		m_pAnimator->Play_Animation(L"Idle", false);
+		m_pStone->Reset_Event();
+		m_pStone = nullptr;
+	}
+}
+
 CHoleObj* CHoleObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum, const _vec3 p_Pos)
 {
 	CHoleObj* ret = new CHoleObj(p_Dev);
@@ -79,9 +90,9 @@ void CHoleObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 	if (tmp = dynamic_cast<CPushStone*>(pCollider->GetOwner()))
 	{
 		m_bIn = true;
-		CPool<CPushStone>::Return_Obj(tmp);
+		tmp->Set_Off();
 		m_pAnimator->Play_Animation(L"In", false);
-		
+		m_pStone = tmp;
 	}
 }
 

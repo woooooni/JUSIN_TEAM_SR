@@ -87,6 +87,10 @@ inline void		Set_Event();
 inline HRESULT		Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber);
 inline HRESULT		Check_Event_Start(const _uint& pCheckNum);
 
+inline void		Add_Reset(const _uint& resetIndex, const _uint& eventKey);
+inline void		Reset(const _uint& resetIndex);
+
+inline void		Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex);
 
 
 
