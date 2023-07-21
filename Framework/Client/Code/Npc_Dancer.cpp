@@ -40,18 +40,29 @@ HRESULT CNpc_Dancer::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_Dancer_Dance", L"Proto_Texture_NPC_Dancer_Dance", 0.2f), E_FAIL);
+	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_Dancer_Dance", L"Proto_Texture_NPC_Dancer_Dance", 0.1f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Monkey_Dancer_Dance", TRUE), E_FAIL);
-
+	
+	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
+	m_fMinHeight = 0.5f;
 	return S_OK;
 }
 
 _int CNpc_Dancer::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-
+	
 	_int iExit = __super::Update_Object(fTimeDelta);
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	_int iIdx = m_pAnimator->GetCurrAnimation()->Get_Idx();
+	if ( vPos.y <= 0.5f && (iIdx == 0 || iIdx == 6 || iIdx == 13 || iIdx == 20 || iIdx == 27))
+		m_pRigidBodyCom->AddForce(_vec3(0.f, 5.f , 0.f));
+
 	return iExit;
 }
 
