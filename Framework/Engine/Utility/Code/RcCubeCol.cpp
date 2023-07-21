@@ -14,6 +14,7 @@ CRcCubeCol::CRcCubeCol(LPDIRECT3DDEVICE9 pGraphicDev)
 CRcCubeCol::CRcCubeCol(const CRcCubeCol& rhs)
 	: CVIBuffer(rhs)
 {
+
 }
 
 
@@ -26,10 +27,10 @@ HRESULT CRcCubeCol::Ready_Buffer(void)
 	m_dwFVF = FVF_CUBECOL;
 
 	m_dwVtxCnt = 8;
-	m_dwVtxSize = sizeof(VTXCUBE);
+	m_dwVtxSize = sizeof(VTXCUBE_COL);
 
 	m_dwIdxSize = sizeof(INDEX32);
-	m_dwTriCnt = 16;
+	m_dwTriCnt = 12;
 
 	m_IdxFmt = D3DFMT_INDEX32;
 
@@ -38,25 +39,27 @@ HRESULT CRcCubeCol::Ready_Buffer(void)
 	VTXCUBE_COL* pVertices = nullptr;
 
 	m_pVB->Lock(0, /*m_iStride * m_iNumVertices*/0, (void**)&pVertices, 0);
-	pVertices[0].vPosition = _vec3(-m_fCX * 0.5f, m_fCY * 0.5f, -m_fCZ * 0.5f);
-	pVertices[1].vPosition = _vec3(m_fCX * 0.5f, m_fCY * 0.5f, -m_fCZ * 0.5f);
-	pVertices[2].vPosition = _vec3(m_fCX * 0.5f, -m_fCY * 0.5f, -m_fCZ * 0.5f);
-	pVertices[3].vPosition = _vec3(-m_fCX * 0.5f, -m_fCY * 0.5f, -m_fCZ * 0.5f);
+	// 전면
+	pVertices[0].vPosition = { -1.f, 1.f, -1.f };
+	pVertices[1].vPosition = { 1.f, 1.f, -1.f };
+	pVertices[2].vPosition = { 1.f, -1.f, -1.f };
+	pVertices[3].vPosition = { -1.f, -1.f, -1.f };
 
-	pVertices[4].vPosition = _vec3(-m_fCX * 0.5f, m_fCY * 0.5f, m_fCZ * 0.5f);
-	pVertices[5].vPosition = _vec3(m_fCX * 0.5f, m_fCY * 0.5f, m_fCZ * 0.5f);
-	pVertices[6].vPosition = _vec3(m_fCX * 0.5f, -m_fCY * 0.5f, m_fCZ * 0.5f);
-	pVertices[7].vPosition = _vec3(-m_fCX * 0.5f, -m_fCY * 0.5f, m_fCZ * 0.5f);
+	// 후면
+	pVertices[4].vPosition = { -1.f, 1.f, 1.f };
+	pVertices[5].vPosition = { 1.f, 1.f, 1.f };
+	pVertices[6].vPosition = { 1.f, -1.f, 1.f };
+	pVertices[7].vPosition = { -1.f, -1.f, 1.f };
 
 	pVertices[0].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
-	pVertices[1].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
+	pVertices[1].dwColor = D3DXCOLOR(1.f, 0.f, 1.f, 1.f);
 	pVertices[2].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
-	pVertices[3].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
+	pVertices[3].dwColor = D3DXCOLOR(1.f, 0.f, 1.f, 1.f);
 
 	pVertices[4].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
-	pVertices[5].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
+	pVertices[5].dwColor = D3DXCOLOR(1.f, 0.f, 1.f, 1.f);
 	pVertices[6].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
-	pVertices[7].dwColor = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
+	pVertices[7].dwColor = D3DXCOLOR(1.f, 0.f, 1.f, 1.f);
 
 	m_pVB->Unlock();
 

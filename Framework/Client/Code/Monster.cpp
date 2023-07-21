@@ -117,9 +117,8 @@ void CMonster::LateUpdate_Object(void)
 void CMonster::Render_Object(void)
 {
 	if (Is_Active())
-	{
 		__super::Render_Object();
-	}
+
 }
 
 HRESULT CMonster::Add_Component(void)
