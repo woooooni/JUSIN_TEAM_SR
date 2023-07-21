@@ -7,6 +7,8 @@ class CRcTex;
 class CCollider;
 class CTransform;
 class CAnimator;
+//class CUI_ExclamationMark;
+//class CUI_QuestionMark;
 
 END
 
@@ -26,6 +28,10 @@ public:
 	virtual _int		Update_Object(const _float& fTimeDelta) override;
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
+
+//protected:
+//	CUI_ExclamationMark* m_pExclamation = nullptr;
+//	CUI_QuestionMark*	 m_pQuestion = nullptr;
 
 public:
 	static CNpc* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos);

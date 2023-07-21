@@ -35,12 +35,11 @@ _int CUI_Notification::Update_Object(const _float& fTimeDelta)
 
 	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-
 	_float fRatio = _float(WINCY) / _float(WINCX);
-	//_vec3 vScale = _vec3(fWidth * fRatio * 2.1f, fHeight * fRatio * 2.1f, 0.f);
 
 	m_fMaxWidth = fWidth * fRatio * 2.1f;
-	m_fMaxHeight = fHeight * fRatio * 2.1f;
+	//m_fMaxHeight = fHeight * fRatio * 2.1f;
+	m_fMaxHeight = fHeight * fRatio * 2.1f * 0.79f;
 
 	if (m_fCurWidth < m_fMaxWidth)
 		m_fCurWidth += m_fCurWidth * fRatio * fTimeDelta * m_fSpeed;
