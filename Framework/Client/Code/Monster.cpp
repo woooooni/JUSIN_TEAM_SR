@@ -1,6 +1,8 @@
 #include "..\Header\Monster.h"
 #include "Export_Function.h"
 #include "Bullet.h"
+#include "Pool.h"
+#include "Effect_DieSmoke.h"
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, _eObjId)
 	, m_eState(MONSTER_STATE::REGEN)
@@ -34,8 +36,7 @@ _int CMonster::Update_Object(const _float& fTimeDelta)
 	if (m_tStat.iHp < 1||m_tStat.iMaxHp<m_tStat.iHp)
 		Set_State(MONSTER_STATE::DIE);
 	if (Is_Active())
-	{
-		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
+	{	
 		Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 		switch (m_eState)
 		{
@@ -251,4 +252,19 @@ void CMonster::Push_Me(CCollider* other)
 		}
 	}
 
+}
+
+void CMonster::On_Death()
+{
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	CGameObject* pSmoke = CPool<CEffect_DieSmoke>::Get_Obj();
+	if (pSmoke)
+		dynamic_cast<CEffect_DieSmoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f,2.f, 2.f));
+	else
+	{
+		pSmoke = dynamic_cast<CEffect_DieSmoke*>(pSmoke)->Create(Engine::Get_Device());
+		if (pSmoke)
+			dynamic_cast<CEffect_DieSmoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f));
+	}
 }

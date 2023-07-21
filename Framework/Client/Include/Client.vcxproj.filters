@@ -538,6 +538,9 @@
     <Filter Include="01. Scene\05. SilkWorm">
       <UniqueIdentifier>{b99dce36-8902-4aa5-ab52-bb0572d1e772}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\03. MonkeyBarrelCleaner">
+      <UniqueIdentifier>{a8a16f01-3e5c-442f-a957-63bb7ca8c411}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -668,9 +671,6 @@
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imstb_truetype.h">
       <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\TrashBig.h">
-      <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BlueBeatle.h">
       <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
@@ -1085,6 +1085,16 @@
     <ClInclude Include="..\Header\QuestMgr.h" />
     <ClInclude Include="..\Header\Scene_SilkWorm.h">
       <Filter>01. Scene\05. SilkWorm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_ExclamationMark.h" />
+    <ClInclude Include="..\Header\UI_NewQuest.h" />
+    <ClInclude Include="..\Header\UI_QuestIcon.h" />
+    <ClInclude Include="..\Header\UI_QuestionMark.h" />
+    <ClInclude Include="..\Header\MonkeyBarrelCleaner.h">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\03. MonkeyBarrelCleaner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\TrashBig.h">
+      <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1511,9 +1521,6 @@
     <ClCompile Include="..\Code\GolemPart.cpp">
       <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Npc.cpp">
-      <Filter>02. GameObject\15. NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\UI_Dialog.cpp">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
     </ClCompile>
@@ -1616,6 +1623,16 @@
     <ClCompile Include="..\Code\QuestMgr.cpp" />
     <ClCompile Include="..\Code\Scene_SilkWorm.cpp">
       <Filter>01. Scene\05. SilkWorm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_ExclamationMark.cpp" />
+    <ClCompile Include="..\Code\UI_NewQuest.cpp" />
+    <ClCompile Include="..\Code\UI_QuestIcon.cpp" />
+    <ClCompile Include="..\Code\UI_QuestionMark.cpp" />
+    <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp">
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\03. MonkeyBarrelCleaner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc.cpp">
+      <Filter>02. GameObject\15. NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

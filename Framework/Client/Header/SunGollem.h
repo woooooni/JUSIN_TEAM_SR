@@ -78,6 +78,7 @@ protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
 	bool m_bBreath = false;
+	bool m_bJump = false;
 	_vec3 m_vVerticalDir = { 0,0,0 };
 	_vec3 m_vRandomPos[3] = {};
 	_vec3 m_vTargetPos = {};

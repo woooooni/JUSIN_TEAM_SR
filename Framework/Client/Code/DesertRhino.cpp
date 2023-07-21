@@ -211,7 +211,10 @@ void CDesertRhino::Update_Idle(_float fTimeDelta)
 void CDesertRhino::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
+	{
 		Set_Active(false);
+		On_Death();
+	}
 }
 
 void CDesertRhino::Update_Regen(_float fTimeDelta)

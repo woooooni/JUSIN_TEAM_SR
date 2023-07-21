@@ -47,8 +47,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-
+	
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return S_OK;
@@ -193,7 +192,11 @@ void CRollingBug::Update_Idle(_float fTimeDelta)
 
 void CRollingBug::Update_Die(_float fTimeDelta)
 {
-
+	if (Is_Active())
+	{
+		On_Death();
+		Set_Active(false);
+	}
 }
 
 void CRollingBug::Update_Regen(_float fTimeDelta)

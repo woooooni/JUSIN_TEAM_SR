@@ -86,6 +86,7 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 	}
 
 	_int iExit = __super::Update_Object(fTimeDelta);
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
 	_vec3  vPos, vScale;
 
@@ -216,7 +217,8 @@ void CMothMage::Update_Die(_float fTimeDelta)
 	{
 		if (Is_Active() == true)
 		{
-			Set_Active(false);
+			Set_Active(false); 
+			On_Death();
 			m_pMothOrb->Set_Active(false);
 		}
 	}

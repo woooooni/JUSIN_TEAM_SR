@@ -282,6 +282,7 @@
     <ClInclude Include="..\Header\LightPuzzlePiece.h" />
     <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
     <ClInclude Include="..\Header\Loading.h" />
+    <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
     <ClInclude Include="..\Header\MonsterAim.h" />
     <ClInclude Include="..\Header\MothMage.h" />
     <ClInclude Include="..\Header\MothOrb.h" />
@@ -502,6 +503,7 @@
     <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
     <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
     <ClCompile Include="..\Code\Loading.cpp" />
+    <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
     <ClCompile Include="..\Code\MonsterAim.cpp" />
     <ClCompile Include="..\Code\MothMage.cpp" />
     <ClCompile Include="..\Code\MothOrb.cpp" />

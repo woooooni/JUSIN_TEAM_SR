@@ -227,8 +227,10 @@ void CTrashFast::Update_Attack(_float fTimeDelta)
 
 void CTrashFast::Update_Die(_float fTimeDelta)
 {
-	if (Is_Active())
+	if (Is_Active()) {
+		On_Death();
 		Set_Active(FALSE);
+	}
 }
 
 void CTrashFast::Update_Regen(_float fTimeDelta)

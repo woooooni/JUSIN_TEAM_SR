@@ -75,5 +75,6 @@ protected:
 	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)	;
 	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)	override;
 	void Push_Me(CCollider* other);
+	void On_Death();
 };
 
