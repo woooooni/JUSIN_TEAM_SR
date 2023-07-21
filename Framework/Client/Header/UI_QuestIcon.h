@@ -25,13 +25,18 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+public:
+	void			Set_Owner(CUI* _pOwner) { m_pOwner = _pOwner; }
+	void			Set_Shown(_bool _bshown) { m_bShown = _bshown; }
+
 private:
 	HRESULT			Add_Component(void);
 	void			Set_Type(QUESTICON eType);
-	void			Key_Input();
 
 private:
 	QUESTICON		m_eIconType;
+	_bool			m_bShown = false;
+	CUI*			m_pOwner = nullptr;
 
 public:
 	static  CUI_QuestIcon* Create(LPDIRECT3DDEVICE9 pGraphicDev, QUESTICON eType);

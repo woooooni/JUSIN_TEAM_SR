@@ -27,7 +27,8 @@ _int CUI_QuestIcon::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
-	Key_Input();
+	if (!m_pOwner->Is_Active())
+		Set_Active(false);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -40,80 +41,97 @@ void CUI_QuestIcon::LateUpdate_Object(void)
 
 void CUI_QuestIcon::Render_Object(void)
 {
-	_matrix matPreView, matPreProj;
-	_vec3	vPos, vScale;
-	_float fWidth, fHeight, fRatio;
-
-	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-
-	switch (m_eIconType)
+	if (m_bShown)
 	{
-	case QUESTICON::QUEST_TITLE:
-		vPos = { (2 * (m_tInfo.fX + 420.f) / WINCX) * (1 / m_matProj._11) ,
-				(-2 * (m_tInfo.fY + 150.f) / WINCY) * (1 / m_matProj._22), 0.f };
+		_matrix matPreView, matPreProj;
+		_vec3	vPos, vScale;
+		_float fWidth, fHeight, fRatio;
+	
+		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+	
+		switch (m_eIconType)
+		{
+		case QUESTICON::QUEST_TITLE:
+			vPos = { (2 * (m_tInfo.fX + 420.f) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY + 150.f) / WINCY) * (1 / m_matProj._22), 0.f };
+			m_pTransformCom->Set_Pos(&vPos);
+	
+			fRatio = _float(WINCY) / _float(WINCX);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 3.f, m_tInfo.fCY * fRatio * 3.f, 0.f);
+			break;
+	
+		case QUESTICON::QUEST_CONTENTS:
+			vPos = { (2 * (m_tInfo.fX + 420.f) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY + 340.f) / WINCY) * (1 / m_matProj._22), 0.f };
+			m_pTransformCom->Set_Pos(&vPos);
+	
+			fRatio = _float(WINCY) / _float(WINCX);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.5f, m_tInfo.fCY * fRatio, 0.f);
+			break;
+	
+		case QUESTICON::QUEST_ICON:
+			vPos = { (2 * (m_tInfo.fX + 245.f) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY + 280.f) / WINCY) * (1 / m_matProj._22), 0.f };
+			m_pTransformCom->Set_Pos(&vPos);
+	
+			fRatio = _float(WINCY) / _float(WINCX);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.6f, m_tInfo.fCY * 1.5 * fRatio, 0.f);
+			break;
+	
+		case QUESTICON::QUEST_CLOSE:
+			vPos = { (2 * (m_tInfo.fX + 1120.f) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY + 750.f) / WINCY) * (1 / m_matProj._22), 0.f };
+			m_pTransformCom->Set_Pos(&vPos);
+	
+			fRatio = _float(WINCY) / _float(WINCX);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.2f, m_tInfo.fCY * fRatio * 1.2f, 0.f);
+			break;
+	
+		default:
+			break;
+		}
+	
 		m_pTransformCom->Set_Pos(&vPos);
+	
+		// 퀘스트 창 Title
+		RECT rcTitle = { 0, 0, WINCX, WINCY/2 - 50.f};
+		TCHAR szTitleBuf[256] = L"";
 
-		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(m_tInfo.fCX * fRatio * 3.f, m_tInfo.fCY * fRatio * 3.f, 0.f);
-		break;
+		swprintf_s(szTitleBuf, L"퀘스트를 받았다!");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szTitleBuf, lstrlen(szTitleBuf), &rcTitle, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	case QUESTICON::QUEST_CONTENTS:
-		vPos = { (2 * (m_tInfo.fX + 420.f) / WINCX) * (1 / m_matProj._11) ,
-				(-2 * (m_tInfo.fY + 340.f) / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
+		// 퀘스트 명
+		RECT rcQuest = { WINCX/4 + 10, 0, WINCX, WINCY - 90};
+		TCHAR szQuestBuf[256] = L"";
 
-		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(m_tInfo.fCX * fRatio * 1.5f, m_tInfo.fCY * fRatio, 0.f);
-		break;
+		swprintf_s(szQuestBuf, L"태양의 마을 찾기");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szQuestBuf, lstrlen(szQuestBuf), &rcQuest, DT_VCENTER | DT_NOCLIP,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	case QUESTICON::QUEST_ICON:
-		vPos = { (2 * (m_tInfo.fX + 245.f) / WINCX) * (1 / m_matProj._11) ,
-				(-2 * (m_tInfo.fY + 280.f) / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
+		// 퀘스트 내용
+		RECT rcContents = { 0, 120, WINCX, WINCY};
+		TCHAR szConBuf[256] = L"";
 
-		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(m_tInfo.fCX * fRatio * 1.6f, m_tInfo.fCY * 1.5 * fRatio, 0.f);
-		break;
-
-	case QUESTICON::QUEST_CLOSE:
-		vPos = { (2 * (m_tInfo.fX + 1120.f) / WINCX) * (1 / m_matProj._11) ,
-				(-2 * (m_tInfo.fY + 750.f) / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
-		vScale = _vec3(m_tInfo.fCX * fRatio * 1.2f, m_tInfo.fCY * fRatio * 1.2f, 0.f);
-		break;
-
-	default:
-		break;
+		swprintf_s(szConBuf, L"알 수 없는 목소리가 동쪽의 해가 뜨는 마을로 가라고 한다.\n동쪽... 동쪽은 오른쪽이라고 배웠다.");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+			szConBuf, lstrlen(szConBuf), &rcContents, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+	
+		m_pTransformCom->Set_Scale(vScale);
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	
+		m_pTextureCom->Render_Texture(0);
+		m_pBufferCom->Render_Buffer();
+	
+		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+	
+		__super::Render_Object();
 	}
-
-	m_pTransformCom->Set_Pos(&vPos);
-
-//	RECT rc = { 0, 28, 440, WINCY / 2 };
-//
-//	string strMaxHP = to_string(MaxHP);
-//	string strHP = to_string(HP);
-//	string strBuffer = strHP + " / " + strMaxHP;
-//
-//	wstring sTemp = wstring(strBuffer.begin(), strBuffer.end());
-//	LPCWSTR swBuffer = sTemp.c_str();
-//
-//	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
-//		swBuffer, lstrlen(swBuffer), &rc, DT_CENTER | DT_NOCLIP,
-//		D3DCOLOR_ARGB(255, 255, 255, 255));
-
-	m_pTransformCom->Set_Scale(vScale);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-
-	m_pTextureCom->Render_Texture(0);
-	m_pBufferCom->Render_Buffer();
-
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
-
-	__super::Render_Object();
 }
 
 HRESULT CUI_QuestIcon::Add_Component(void)
@@ -186,10 +204,6 @@ HRESULT CUI_QuestIcon::Add_Component(void)
 void CUI_QuestIcon::Set_Type(QUESTICON eType)
 {
 	m_eIconType = eType;
-}
-
-void CUI_QuestIcon::Key_Input()
-{
 }
 
 CUI_QuestIcon* CUI_QuestIcon::Create(LPDIRECT3DDEVICE9 pGraphicDev, QUESTICON eType)

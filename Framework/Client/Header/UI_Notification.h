@@ -22,6 +22,9 @@ public:
 
 public:
 	HRESULT	Add_Component(void);
+	void	Set_Owner(CUI* _pOwner) { m_pOwner = _pOwner; }
+	_float	Get_CurWidth() { return m_fCurWidth; }
+	_float	Get_MaxWidth() { return m_fMaxWidth; }
 
 private:
 	_float	m_fMaxWidth;
@@ -29,6 +32,7 @@ private:
 	_float	m_fCurWidth;
 	_float	m_fCurHeight;
 	_float	m_fSpeed = 10.f;
+	CUI*	m_pOwner = nullptr;
 
 public:
 	static  CUI_Notification* Create(LPDIRECT3DDEVICE9 pGraphicDev);

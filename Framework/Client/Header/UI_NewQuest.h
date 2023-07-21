@@ -1,6 +1,7 @@
 #pragma once
 #include "CUI.h"
 #include "UI_QuestIcon.h"
+#include "UI_Notification.h"
 
 BEGIN(Engine)
 class CRcTex;
@@ -27,6 +28,9 @@ public:
 	HRESULT	Add_Component(void);
 
 private:
+	void	Key_Input();
+
+private:
 	_float	m_fMaxWidth;
 	_float	m_fMaxHeight;
 	_float	m_fCurWidth;
@@ -39,6 +43,7 @@ private:
 	CUI_QuestIcon* m_pTitleBox = nullptr;
 	CUI_QuestIcon* m_pContentsBox = nullptr;
 	CUI_QuestIcon* m_pExclamIcon = nullptr;
+	CUI_Notification* m_pWindow = nullptr;
 
 public:
 	static  CUI_NewQuest* Create(LPDIRECT3DDEVICE9 pGraphicDev);
