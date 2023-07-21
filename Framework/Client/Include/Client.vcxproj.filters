@@ -544,6 +544,9 @@
     <Filter Include="04. Quest">
       <UniqueIdentifier>{1552f99f-0ead-42d7-875e-80bf670e82a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\05. Sound">
+      <UniqueIdentifier>{d4b82715-4fad-49bb-a141-368f12150d95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
