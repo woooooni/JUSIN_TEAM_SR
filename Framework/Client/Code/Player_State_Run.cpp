@@ -86,7 +86,7 @@ HRESULT CPlayer_State_Run::Ready_State(void)
 
 _int CPlayer_State_Run::Update_State(const _float& fTimeDelta)
 {
-	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 30.f, fTimeDelta);
+	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 10.f, fTimeDelta);
 	if (m_fAccTime > m_fKeyDelayTime)
 	{
 		Key_Input(fTimeDelta);

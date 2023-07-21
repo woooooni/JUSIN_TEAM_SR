@@ -84,7 +84,7 @@ void CPlayer_Skill_Turtle::Reset_State(void)
 
 void CPlayer_Skill_Turtle::Key_Input(const _float& fTimeDelta)
 {
-	if (KEY_HOLD(KEY::K))
+	if (KEY_HOLD(KEY::Q))
 	{
 
 	}

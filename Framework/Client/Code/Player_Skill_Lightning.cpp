@@ -96,7 +96,7 @@ void CPlayer_Skill_Lightning::Reset_State(void)
 
 void CPlayer_Skill_Lightning::Key_Input(const _float& fTimeDelta)
 {
-	if (KEY_HOLD(KEY::K))
+	if (KEY_HOLD(KEY::Q))
 	{
 		if (KEY_HOLD(KEY::LEFT_ARROW))
 		{
@@ -118,7 +118,7 @@ void CPlayer_Skill_Lightning::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Get_TransformCom()->Set_Pos(&vAimPos);
 
 	}
-	else if (KEY_AWAY(KEY::K))
+	else if (KEY_AWAY(KEY::Q))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 
