@@ -310,10 +310,10 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 void CPlayer::LateUpdate_Object(void)
 {
 	m_vecState[(_uint)m_eState]->LateUpdate_State();
+
 	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
-	{
 		m_pCollider[i]->LateUpdate_Component();
-	}
+
 
 	if (m_pShadow && m_pShadow->Is_Active())
 		m_pShadow->LateUpdate_Object();
@@ -321,6 +321,7 @@ void CPlayer::LateUpdate_Object(void)
 
 	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
 		m_vecHats[m_iHat]->LateUpdate_Object();
+
 	__super::LateUpdate_Object();
 }
 
@@ -331,11 +332,6 @@ void CPlayer::Render_Object(void)
 	m_pGraphicDev->SetRenderState
 	(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-
-	for (int i = 0; (_uint)COLLIDER_PLAYER::COLLIDER_END > i; ++i)
-	{
-		m_pCollider[i]->Render_Component();
-	}
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 

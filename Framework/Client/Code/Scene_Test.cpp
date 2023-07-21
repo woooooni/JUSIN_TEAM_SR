@@ -73,6 +73,8 @@
 #include	"ClearBomb.h"
 #include	"ClearField.h"
 #include	"PlantCannon.h"
+#include "Test_Cube.h"
+
 CScene_Test::CScene_Test(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
 {
@@ -244,6 +246,9 @@ HRESULT CScene_Test::Ready_Layer_Environment()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
+	/*CTest_Cube* pCube = CTest_Cube::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pCube, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Test_Cube", pCube), E_FAIL);*/
 	//CNpc_Cow* pNPCCow = CNpc_Cow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
 	//NULL_CHECK_RETURN(pNPCCow, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);

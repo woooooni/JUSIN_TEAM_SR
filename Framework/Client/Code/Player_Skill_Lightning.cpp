@@ -121,13 +121,8 @@ void CPlayer_Skill_Lightning::Key_Input(const _float& fTimeDelta)
 	else if (KEY_AWAY(KEY::Q))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
-
 		Shoot();
-
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(false);
-
-
-		
 	}
 }
 
