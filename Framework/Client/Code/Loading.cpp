@@ -59,7 +59,7 @@
 #include "Effect_Stun.h"
 #include "Effect_CatapultHit.h"
 #include "Effect_Dig.h"
-
+#include "Effect_Smoke.h"
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDev(pGraphicDev)
@@ -1005,6 +1005,7 @@ HRESULT CLoading::Ready_Effect_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Stun", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/StunEffect/StunEffect_%d.png", 16)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_CatapultHit", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/CatapultHit/CatapultHit_%d.png", 10)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_DigEffect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/DigEffect/DigEffect_%d.png", 4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Smoke", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/SmokeEffect/SmokeEffect_%d.png", 1)), E_FAIL);
 
 
 	return S_OK;
@@ -1244,6 +1245,7 @@ HRESULT CLoading::Ready_Pool()
 	CPool<CEffect_Stun>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_CatapultHit>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_Dig>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CEffect_Smoke>::Ready_Pool(m_pGraphicDev, 200);
 
 	return S_OK;
 }

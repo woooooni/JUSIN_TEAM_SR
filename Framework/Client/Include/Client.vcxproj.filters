@@ -1095,6 +1095,7 @@
     <ClInclude Include="..\Header\Effect_Stun.h" />
     <ClInclude Include="..\Header\Effect_CatapultHit.h" />
     <ClInclude Include="..\Header\Effect_Dig.h" />
+    <ClInclude Include="..\Header\Effect_Smoke.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1635,6 +1636,7 @@
     <ClCompile Include="..\Code\Effect_Stun.cpp" />
     <ClCompile Include="..\Code\Effect_CatapultHit.cpp" />
     <ClCompile Include="..\Code\Effect_Dig.cpp" />
+    <ClCompile Include="..\Code\Effect_Smoke.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

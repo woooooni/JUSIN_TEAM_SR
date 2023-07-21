@@ -45,11 +45,16 @@ public:
 	static CPlayer_Bullet_GolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
+	void	FistSmokeEffect();
 
 	_float m_fStopTime;
 	_float m_fAccTime;
 
+	_float m_fEffectTime;
+
 	bool m_bEffect = false;
+
+
 private:
 	virtual void Free() override;
 };

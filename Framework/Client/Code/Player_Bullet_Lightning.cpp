@@ -41,11 +41,15 @@ HRESULT CPlayer_Bullet_Lightning::Ready_Object(void)
 
 	Set_Active(false);
 
-	Set_Atk(2.f);
+	Set_Atk(1.f);
 
 	m_pTransformCom->Set_Scale(_vec3(1.5f, 5.5f, 0.0f));
 
 	m_vDir = { 0.0f, 0.0f, 0.0f };
+
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vec3(1.5f, 7.0f, 1.5f));
+
+	m_pColliderCom->Set_Active(false);
 
 	return S_OK;
 }
@@ -55,7 +59,10 @@ _int CPlayer_Bullet_Lightning::Update_Object(const _float& fTimeDelta)
 	if (!Is_Active())
 		return S_OK;
 
-	
+	if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 1)
+		m_pColliderCom->Set_Active(true);
+
+
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_bFinished)
 	{
 		CPool<CPlayer_Bullet_Lightning>::Return_Obj(this);
@@ -138,6 +145,7 @@ HRESULT CPlayer_Bullet_Lightning::Ready_Component(void)
 
 void CPlayer_Bullet_Lightning::Shoot(_vec3& _vPos, _vec3& _vDir, _uint _iMax, _uint _iCurr)
 {
+	m_pColliderCom->Set_Active(false);
 	m_pTransformCom->Set_Pos(&_vPos);
 	m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 	m_pAnimator->GetCurrAnimation()->Set_Finished(false);

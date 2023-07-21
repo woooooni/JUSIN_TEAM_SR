@@ -95,7 +95,7 @@ CEffect_LightningGround* CEffect_LightningGround::Create(LPDIRECT3DDEVICE9 pGrap
 void CEffect_LightningGround::Get_Effect(_vec3& _vPos, _vec3& _vScale)
 {
 	_vPos.z -= 0.001f;
-	_vPos.y = 0.001f;
+	_vPos.y = 0.008f;
 
 	_float m_fAngle;
 
