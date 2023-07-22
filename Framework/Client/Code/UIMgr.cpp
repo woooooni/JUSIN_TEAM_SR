@@ -1,5 +1,6 @@
 #include "Export_Function.h"
 #include "UIMgr.h"
+#include "Pool.h"
 
 IMPLEMENT_SINGLETON(CUIMgr)
 
@@ -83,7 +84,6 @@ void CUIMgr::Late_Update_UIMgr()
 
 void CUIMgr::Render_UIMgr()
 {
-    
 }
 
 
@@ -129,6 +129,18 @@ HRESULT CUIMgr::Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev)
     CIcon* pButtonL = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_L);
     m_vecIcon.push_back(pButtonL);
 
+    return S_OK;
+}
+
+HRESULT CUIMgr::Add_Window(ITEM_CODE eType)
+{
+//    CGameObject* pEffect = CPool<CEffect_Item>::Get_Obj();
+//
+//    if (!pEffect)
+//        pEffect = CEffect_Item::Create(m_pGraphicDev);
+//
+//    dynamic_cast<CEffect_Item*>(pEffect)->Get_Effect(vPos, eItemCode);
+//
     return S_OK;
 }
 

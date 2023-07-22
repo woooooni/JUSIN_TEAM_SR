@@ -47,11 +47,11 @@ public:
 
 private:
     virtual void    Trace(_float fTimeDelta)         override;
+    virtual void    Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+    void            Set_Animation();
 
 private:
     tagRollingBugInfo   m_tBugInfo;
-    //    _vec3               m_vDefaultPos;
-    //    _vec3               m_vDest = { 0.f, 10.f, 0.f };
     _vec3               m_vBugDir = { 0.f, 10.f, 0.f };
     _vec3               m_vPlayerDir = { 0.f, 0.f, 0.f };
     _float              m_fMoveTime;

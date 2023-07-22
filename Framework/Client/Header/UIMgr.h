@@ -8,7 +8,7 @@
 #include "UI_ShortCutKey.h"
 #include "Icon.h"
 #include "UI_BossHP.h"
-#include	"InventoryUI.h"
+#include "InventoryUI.h"
 
 class CUIMgr : public CBase
 {
@@ -27,6 +27,7 @@ public:
 public:
 	HRESULT		Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev);
 	HRESULT		Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev);
+	HRESULT		Add_Window(ITEM_CODE eType);
 
 	HRESULT		Change_UI(SCENE_TYPE pUI)
 	{
