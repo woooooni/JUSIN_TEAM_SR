@@ -53,6 +53,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 
+	
 
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 
@@ -62,19 +63,23 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 	Set_Target(pTarget);
 
 	_vec3 vPlayerPos, vOriginPos, vPos;
-
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vOriginPos = m_tBugInfo.vDefaultPos;
 
-	m_vBugDir = vOriginPos - vPos;
-	m_vPlayerDir = vPlayerPos - vPos;
+	if (Get_State() != MONSTER_STATE::STUN)
+	{
+		
+		vOriginPos = m_tBugInfo.vDefaultPos;
 
-	if (D3DXVec3Length(&m_vPlayerDir) <= 7.f)
-		Set_State(MONSTER_STATE::ATTACK);
+		m_vBugDir = vOriginPos - vPos;
+		m_vPlayerDir = vPlayerPos - vPos;
 
-	if (D3DXVec3Length(&m_vPlayerDir) > 7.f)
-		Set_State(MONSTER_STATE::IDLE);
+		if (D3DXVec3Length(&m_vPlayerDir) <= 7.f)
+			Set_State(MONSTER_STATE::ATTACK);
+
+		if (D3DXVec3Length(&m_vPlayerDir) > 7.f)
+			Set_State(MONSTER_STATE::IDLE);
+	}
 
 	vPos.y += 0.5f;
 	vPos.z -= 0.01f;

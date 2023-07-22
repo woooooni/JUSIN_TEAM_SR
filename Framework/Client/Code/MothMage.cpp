@@ -95,7 +95,7 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE)
+	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE && Get_State() != MONSTER_STATE::STUN)
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
@@ -287,6 +287,7 @@ void CMothMage::Update_Attack(_float fTimeDelta)
 	else
 	Trace(fTimeDelta);
 }
+
 HRESULT CMothMage::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;

@@ -60,42 +60,42 @@ HRESULT CPlayer_State_Swing::Ready_State(void)
 	{
 	case OBJ_DIR::DIR_U:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Up", FALSE);
-		m_vSwingDir = { 0.0f, 0.0f, 0.5f };
+		m_vSwingDir = { 0.0f, 0.0f, 1.0f };
 		m_iSwingIdx = 2;
 		break;
 	case OBJ_DIR::DIR_D:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Down", FALSE);
-		m_vSwingDir = { 0.0f, 0.0f, -0.5f };
+		m_vSwingDir = { 0.0f, 0.0f, -1.0f };
 		m_iSwingIdx = 2;
 		break;
 	case OBJ_DIR::DIR_L:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Left", FALSE);
-		m_vSwingDir = { -0.5f, 0.0f, 0.0f };
+		m_vSwingDir = { -1.0f, 0.0f, 0.0f };
 		m_iSwingIdx = 3;
 		break;
 	case OBJ_DIR::DIR_R:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_Right", FALSE);
-		m_vSwingDir = { 0.5f, 0.0f, 0.0f };
+		m_vSwingDir = { 1.0f, 0.0f, 0.0f };
 		m_iSwingIdx = 3;
 		break;
 	case OBJ_DIR::DIR_LD:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_LeftDown", FALSE);
-		m_vSwingDir = { -0.5f, 0.0f, -0.5f };
+		m_vSwingDir = { -1.0f, 0.0f, -1.0f };
 		m_iSwingIdx = 3;
 		break;
 	case OBJ_DIR::DIR_LU:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_LeftUp", FALSE);
-		m_vSwingDir = { -0.5f, 0.0f, 0.5f };
+		m_vSwingDir = { -1.0f, 0.0f, 1.0f };
 		m_iSwingIdx = 3;
 		break;
 	case OBJ_DIR::DIR_RU:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_RightUp", FALSE);
-		m_vSwingDir = { 0.5f, 0.0f, 0.5f };
+		m_vSwingDir = { 1.0f, 0.0f, 1.0f };
 		m_iSwingIdx = 3;
 		break;
 	case OBJ_DIR::DIR_RD:
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Swing_RightDown", FALSE);
-		m_vSwingDir = { 0.5f, 0.0f, -0.5f };
+		m_vSwingDir = { 1.0f, 0.0f, -1.0f };
 		m_iSwingIdx = 3;
 		break;
 	}

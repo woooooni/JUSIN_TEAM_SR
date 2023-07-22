@@ -41,9 +41,8 @@ _int CEffect_Stun::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 
 
-	m_fAccTime += fTimeDelta;
 
-	if (m_fAccTime > m_fEffectTime)
+	if (*m_fEffectTime < 0.0f || !m_pOwner->Is_Active())
 	{
 		Set_Active(false);
 		CPool<CEffect_Stun>::Return_Obj(this);
@@ -101,9 +100,8 @@ CEffect_Stun* CEffect_Stun::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
-void CEffect_Stun::Get_Effect(CGameObject* _pObj, _vec3& _vOffSet, _vec3& _vScale, _float fTime)
+void CEffect_Stun::Get_Effect(CGameObject* _pObj, _vec3& _vOffSet, _vec3& _vScale, _float* fTime)
 {
-	m_fAccTime = 0.0f;
 	m_fEffectTime = fTime;
 
 	m_pOwner = _pObj;

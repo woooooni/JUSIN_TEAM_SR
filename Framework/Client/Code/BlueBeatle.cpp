@@ -164,6 +164,7 @@ void CBlueBeatle::Update_Attack(_float fTimeDelta)
 {
 }
 
+
 void CBlueBeatle::Update_Move(_float fTimeDelta)
 {
 

@@ -160,6 +160,7 @@ void CGreenBeatle::Update_Attack(_float fTimeDelta)
 {
 }
 
+
 void CGreenBeatle::Update_Move(_float fTimeDelta)
 {
 	_vec3 vDir, vPos, vDst;

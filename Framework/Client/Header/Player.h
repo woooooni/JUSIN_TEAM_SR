@@ -130,6 +130,8 @@ public:
 	};
 
 	bool			Is_HaveSkill() { return dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Is_HaveSkill(); }
+	PLAYER_SKILL	Get_Skill() { return dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Get_Skill(); }
+
 
 	void			Set_SkillRange(CGameObject* _pObj) { m_pSkillRange = _pObj; }
 	CGameObject*	Get_SkillRange() { return m_pSkillRange; }

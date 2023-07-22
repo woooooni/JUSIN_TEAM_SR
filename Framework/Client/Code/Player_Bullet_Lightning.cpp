@@ -62,6 +62,9 @@ _int CPlayer_Bullet_Lightning::Update_Object(const _float& fTimeDelta)
 	if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 1)
 		m_pColliderCom->Set_Active(true);
 
+	if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 4)
+		m_pColliderCom->Set_Active(false);
+
 
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_bFinished)
 	{
