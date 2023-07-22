@@ -6,20 +6,20 @@
 // Globals
 const float fZoom = 5.0f;
 
-CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev)
+CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev, HWND _hWnd)
 	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_CAMERA, OBJ_ID::CAMERA)
 	, m_fFov(4.f)
 	, m_pTargetObj(nullptr)
-	, m_fDist(1.f)
+	, m_fDist(0.2f)
 	, m_fFollowSpeed(5.f)
 	, m_fShakeForce(2.f)
 	, m_fAlpha(0.f)
-	, m_pVeilTex(nullptr)
 	, m_fNear(1.0f)
 	, m_fFar(1000.0f)
 	, m_fMoveSpeed(10.f)
 	, m_eState(CAMERA_STATE::GAME)
-	, m_hWnd(nullptr)
+	, m_hWnd(_hWnd)
+	, m_vOffset({0.f, 5.f, -10.f})
 {
 
 }
@@ -32,7 +32,7 @@ CCamera::CCamera(const CCamera& rhs)
 	, m_fFollowSpeed(rhs.m_fFollowSpeed)
 	, m_fShakeForce(rhs.m_fShakeForce)
 	, m_fAlpha(rhs.m_fAlpha)
-	, m_pVeilTex(rhs.m_pVeilTex)
+	// , m_pVeilTex(rhs.m_pVeilTex)
 	, m_fMoveSpeed(10.f)
 	, m_eState(CAMERA_STATE::GAME)
 	, m_hWnd(rhs.m_hWnd)
@@ -75,6 +75,9 @@ _int CCamera::Update_Object(const _float& fTimeDelta)
 	case CAMERA_STATE::TOOL:
 		Update_ToolCamera(fTimeDelta);
 		break;
+
+	default:
+		break;
 	}
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -90,6 +93,9 @@ void CCamera::LateUpdate_Object(void)
 		break;
 	case CAMERA_STATE::TOOL:
 		LateUpdate_ToolCamera();
+		break;
+
+	default:
 		break;
 	}
 
@@ -122,7 +128,7 @@ void CCamera::Follow(const _float& fTimeDelta)
 	if (m_pTargetObj == nullptr)
 		return;
 
-	CTransform* pTargetTransform = dynamic_cast<CTransform*>(m_pTargetObj->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, COMPONENTID::ID_STATIC));
+	CTransform* pTargetTransform = m_pTargetObj->Get_TransformCom();
 	if (pTargetTransform == nullptr)
 		return;
 
@@ -132,20 +138,22 @@ void CCamera::Follow(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vCameraPos);
 	pTargetTransform->Get_Info(INFO_POS, &vTargetPos);
 
-	m_pTransformCom->Set_Info(INFO_LOOK, &vTargetPos);
+	_vec3 vLook;
+	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
 
 	vDir = vTargetPos - vCameraPos;
-
 	_float fLen = D3DXVec3Length(&vDir);
+
+	m_fDist = 0.f;
 	if (fLen < m_fDist)
 		return;
-
-	D3DXVec3Normalize(&vDir, &vDir);
-	vCameraPos.x = vTargetPos.x;
-	vCameraPos.y = vTargetPos.y + 5.f;
-	vCameraPos.z = vTargetPos.z - 10.f;
+	
+	D3DXVec3Lerp(&vDir, &(vCameraPos), &(vTargetPos + m_vOffset), 2.f * fTimeDelta);
+	vCameraPos = vDir;
+	vLook = vCameraPos - m_vOffset;
 
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
+	m_pTransformCom->Set_Info(INFO_LOOK, &vLook);
 
 }
 
@@ -197,8 +205,8 @@ void CCamera::LateUpdate_GameCamera()
 
 		if (CAM_EFFECT::SHAKE == effect.eEffect)
 		{
-			float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
-			float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
+			_float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
+			_float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
 
 			// Look, Pos 둘 다 적용시켜야 움직임이 자연스러움
 			vCamPos.x += fOffsetX;
@@ -254,8 +262,6 @@ void CCamera::Update_ToolCamera(const _float& fTimeDelta)
 
 	_vec3 vPos, vLook, vRight, vUp;
 
-	
-
 	ZeroMemory(&vPos, sizeof(_vec3));
 	ZeroMemory(&vLook, sizeof(_vec3));
 	ZeroMemory(&vUp, sizeof(_vec3));
@@ -273,13 +279,6 @@ void CCamera::Update_ToolCamera(const _float& fTimeDelta)
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-
-	if (!m_bMouse)
-	{
-		POINT Mouse = {WINCX * 0.5f, WINCY * 0.5f};
-		ClientToScreen(m_hWnd, &Mouse);
-		SetCursorPos(Mouse.x, Mouse.y);
-	}
 }
 
 void CCamera::LateUpdate_ToolCamera()
@@ -323,21 +322,6 @@ void CCamera::FadeOut(float _fTime)
 	m_fAlpha = 0.f;
 
 	m_lCamEffect.push_back(effect);
-}
-
-void CCamera::Check_FadeOut()
-{
-	if (!m_bFadeOut)
-		return;
-}
-
-
-void CCamera::Key_Input_Game(const _float& fTimeDelta)
-{
-	POINT pt = { WINCX / 2, WINCY / 2 };
-	ShowCursor(false);
-	ClientToScreen(m_hWnd, &pt);
-	SetCursorPos(pt.x, pt.y);
 }
 
 void CCamera::Key_Input_Tool(const _float& fTimeDelta)
@@ -456,17 +440,24 @@ void CCamera::Mouse_Move(const _float& fTimeDelta)
 			m_fFov = (D3DX_PI / 2.0f);
 	}
 
-	if (GetAsyncKeyState('8') & 0x8000)
+	if (KEY_TAP(KEY::NUM_8))
+		CamShake(1.f);
+
+	if (KEY_TAP(KEY::F4))
 	{
-		CamShake(10.f);
+		m_vOffset *= 2.f;
+	}
+
+	if (KEY_TAP(KEY::F5))
+	{
+		m_vOffset /= 2.f;
 	}
 }
 
 CCamera* CCamera::Create(HWND _hWnd, LPDIRECT3DDEVICE9 pGraphicDev, _float fNear, _float fFar)
 {
-	CCamera* pInstance = new CCamera(pGraphicDev);
+	CCamera* pInstance = new CCamera(pGraphicDev, _hWnd);
 
-	pInstance->Set_Handle(_hWnd);
 	pInstance->Set_Near(fNear);
 	pInstance->Set_Far(fFar);
 

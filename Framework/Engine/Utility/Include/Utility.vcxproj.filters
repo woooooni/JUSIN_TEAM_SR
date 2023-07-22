@@ -97,6 +97,9 @@
     <Filter Include="05. Component\00. VIBuffer\06. CubeCol">
       <UniqueIdentifier>{4acd586c-c404-42aa-a299-a231f28e327f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\07. SoundMgr">
+      <UniqueIdentifier>{869fe32c-c5b7-4d83-8cd8-82b8f38ec936}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Scene.h">
@@ -189,6 +192,9 @@
     <ClInclude Include="..\..\Header\RcCubeCol.h">
       <Filter>05. Component\00. VIBuffer\06. CubeCol</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\SoundMgr.h">
+      <Filter>00. Manager\07. SoundMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Scene.cpp">
@@ -277,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\RcCubeCol.cpp">
       <Filter>05. Component\00. VIBuffer\06. CubeCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SoundMgr.cpp">
+      <Filter>00. Manager\07. SoundMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

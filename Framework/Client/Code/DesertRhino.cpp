@@ -178,10 +178,10 @@ void CDesertRhino::Render_Object(void)
 	if (!Is_Active())
 		return ;
 
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	
-	__super::Render_Object();
 
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+
+	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
 	if (m_pUIBack->Is_Active() &&

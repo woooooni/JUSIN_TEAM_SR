@@ -201,6 +201,7 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\RcCubeCol.h" />
     <ClInclude Include="..\..\Header\RcPuzzleBuff.h" />
     <ClInclude Include="..\..\Header\RigidBody.h" />
+    <ClInclude Include="..\..\Header\SoundMgr.h" />
     <ClInclude Include="..\..\Header\TerrainTex.h" />
     <ClInclude Include="..\..\Header\RcTex.h" />
     <ClInclude Include="..\..\Header\Renderer.h" />
@@ -232,6 +233,7 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\RcCubeCol.cpp" />
     <ClCompile Include="..\Code\RcPuzzleBuff.cpp" />
     <ClCompile Include="..\Code\RigidBody.cpp" />
+    <ClCompile Include="..\Code\SoundMgr.cpp" />
     <ClCompile Include="..\Code\TerrainTex.cpp" />
     <ClCompile Include="..\Code\RcTex.cpp" />
     <ClCompile Include="..\Code\Renderer.cpp" />

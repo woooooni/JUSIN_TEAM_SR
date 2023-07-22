@@ -66,7 +66,15 @@ namespace Engine
 
 	// Camera
 	enum class CAMERA_STATE { GAME, TOOL, END };
-	enum class SKYBOX_TYPE { };
+	enum class SKYBOX_TYPE {  SKY_END };
+
+
+	// Quest
+	enum class QUEST_PROGRESS { BEFORE, CONTINUE, COMPLETE, PROGRESS_END };
+	enum class QUEST_TYPE { CONVERSATION, HUNTING, END };
+
+	// NPC
+	enum class NPC_CODE { NPC_SHEEP, NPC_COW, CODE_END };
 
 	enum COLOR_STATE{
 		COLOR_RED=0,
