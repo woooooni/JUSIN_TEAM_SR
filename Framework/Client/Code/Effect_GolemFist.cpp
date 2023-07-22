@@ -94,7 +94,7 @@ CEffect_GolemFist* CEffect_GolemFist::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CEffect_GolemFist::Get_Effect(_vec3& _vPos, _vec3& _vScale)
 {
 	_vPos.z -= 0.001f;
-	_vPos.y = 0.001f;
+	_vPos.y = 0.008f;
 	_float m_fAngle;
 
 	m_fAngle = D3DXToRadian(90.0f);

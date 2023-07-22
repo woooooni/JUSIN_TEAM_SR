@@ -2,6 +2,9 @@
 #include "BugBall.h"
 #include "Export_Function.h"
 #include "GameMgr.h"
+#include "Pool.h"
+#include "Effect_Hit.h"
+
 CMothMage::CMothMage(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::MORTH_MAGE)
 {
 }
@@ -378,9 +381,26 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		_vec3 vTargetPos;
 		_vec3 vPos;
 		_vec3 vDir;
+		_vec3 vEffectPos;
+
 		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vPos - vTargetPos;
+
+		vEffectPos = vDir;
+		D3DXVec3Normalize(&vEffectPos, &vEffectPos);
+		vEffectPos *= 0.5f;
+		vEffectPos += vPos;
+		vEffectPos.z = vPos.z - 0.05f;
+
+		CGameObject* pEffect = CPool<CEffect_Hit>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Hit::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Hit*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f));
+
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
 		m_vLook = vDir*-1.f;

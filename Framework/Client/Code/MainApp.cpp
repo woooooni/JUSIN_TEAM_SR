@@ -12,6 +12,7 @@
 #include "Particle_MovingLeaf.h"
 #include "Effect_Leaf.h"
 #include "Scene_Test.h"
+
 #include "Pool.h"
 #include "Effect_Shadow.h"
 #include "Scene_TutorialVillage.h"
@@ -22,6 +23,8 @@
 #include "Effect_LightningGround.h"
 #include "Effect_GolemFist.h"
 #include "Effect_Item.h"
+#include "Effect_Block.h"
+#include "Effect_Hit.h"
 
 #include "Scene_Loading.h"
 
@@ -93,7 +96,7 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
 
 	return S_OK;
 }
@@ -349,17 +352,7 @@ HRESULT CMainApp::Ready_Proto_Event()
 
 HRESULT CMainApp::Ready_Pool()
 {
-	CPool<CParticle_FixedLeaf>::Ready_Pool(m_pGraphicDev, 1000);
-	CPool<CParticle_MovingLeaf>::Ready_Pool(m_pGraphicDev, 1000);
-	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);
-	CPool<CPlayer_Bullet_Bomb>::Ready_Pool(m_pGraphicDev, 500);
-	CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 100);
-	CPool<CParticle_Stone>::Ready_Pool(m_pGraphicDev, 1000);
-	CPool<CEffect_DieSmoke>::Ready_Pool(m_pGraphicDev, 100);
-	CPool<CEffect_Explosion>::Ready_Pool(m_pGraphicDev, 100);
-	CPool<CEffect_LightningGround>::Ready_Pool(m_pGraphicDev, 100);
-	CPool<CEffect_GolemFist>::Ready_Pool(m_pGraphicDev, 100);
-	CPool<CEffect_Item>::Ready_Pool(m_pGraphicDev, 100);
+	
 
 	return S_OK;
 }

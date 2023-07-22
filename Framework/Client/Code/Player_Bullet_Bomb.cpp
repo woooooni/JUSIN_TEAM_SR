@@ -48,7 +48,7 @@ HRESULT CPlayer_Bullet_Bomb::Ready_Object(void)
 	m_pRigidBodyCom->SetMaxVelocity(m_fMaxVel);
 	m_pRigidBodyCom->SetFricCoeff(0.0f);
 	m_pRigidBodyCom->SetMass(1.0f);
-	Set_Atk(5.f);
+	Set_Atk(1);
 	return S_OK;
 }
 
@@ -109,7 +109,6 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_BULLET);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 

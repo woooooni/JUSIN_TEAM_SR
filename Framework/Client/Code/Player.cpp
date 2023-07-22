@@ -38,6 +38,8 @@
 #include "Effect_Item.h"
 #include "Pool.h"
 #include "Effect_Shadow.h"
+#include "Effect_Block.h"
+
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -111,14 +113,14 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Jump_RightUp", L"Proto_Texture_Player_Jump_RightUp", 0.05f);
 	m_pAnimator->Add_Animation(L"Jump_RightDown", L"Proto_Texture_Player_Jump_RightDown", 0.05f);
 
-	m_pAnimator->Add_Animation(L"Swing_Down", L"Proto_Texture_Player_Swing_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"Swing_Up", L"Proto_Texture_Player_Swing_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"Swing_Left", L"Proto_Texture_Player_Swing_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"Swing_Right", L"Proto_Texture_Player_Swing_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"Swing_LeftUp", L"Proto_Texture_Player_Swing_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Swing_LeftDown", L"Proto_Texture_Player_Swing_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"Swing_RightUp", L"Proto_Texture_Player_Swing_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Swing_RightDown", L"Proto_Texture_Player_Swing_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Swing_Down", L"Proto_Texture_Player_Swing_Down", 0.07f);
+	m_pAnimator->Add_Animation(L"Swing_Up", L"Proto_Texture_Player_Swing_Up", 0.07f);
+	m_pAnimator->Add_Animation(L"Swing_Left", L"Proto_Texture_Player_Swing_Left", 0.07f);
+	m_pAnimator->Add_Animation(L"Swing_Right", L"Proto_Texture_Player_Swing_Right", 0.07f);
+	m_pAnimator->Add_Animation(L"Swing_LeftUp", L"Proto_Texture_Player_Swing_LeftUp", 0.07f);
+	m_pAnimator->Add_Animation(L"Swing_LeftDown", L"Proto_Texture_Player_Swing_LeftDown", 0.07f);
+	m_pAnimator->Add_Animation(L"Swing_RightUp", L"Proto_Texture_Player_Swing_RightUp", 0.07f);
+	m_pAnimator->Add_Animation(L"Swing_RightDown", L"Proto_Texture_Player_Swing_RightDown", 0.07f);
 
 	m_pAnimator->Add_Animation(L"Hit_Down", L"Proto_Texture_Player_Hit_Down", 0.2f);
 	m_pAnimator->Add_Animation(L"Hit_Up", L"Proto_Texture_Player_Hit_Up", 0.2f);
@@ -329,8 +331,7 @@ void CPlayer::Render_Object(void)
 {
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState
-	(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
@@ -756,6 +757,19 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 	if (m_eState == PLAYER_STATE::SKILL && dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Get_Skill() == PLAYER_SKILL::TURTLE)
 	{
+		vDir = vTargetPos - vPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+		_vec3 vEffectPos = vPos + (vDir * 0.5f);
+		CGameObject* pEffect = CPool<CEffect_Block>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Block::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Block*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f));
+
+		m_pRigidBodyCom->AddForce(vDir * -20.0f);
+		pCollider->GetOwner()->Get_RigidBodyCom()->AddForce(vDir * 120.0f);
 
 	}
 	else

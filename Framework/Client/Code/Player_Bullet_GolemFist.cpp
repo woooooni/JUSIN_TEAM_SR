@@ -8,6 +8,7 @@
 #include "Terrain.h"
 #include "Pool.h"
 #include "Effect_GolemFist.h"
+#include "Effect_Smoke.h"
 
 CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL),
@@ -43,7 +44,7 @@ HRESULT CPlayer_Bullet_GolemFist::Ready_Object(void)
 	m_pRigidBodyCom->SetMaxVelocity(100.0f);
 
 	m_fMinHeight = 0.70f;
-	Set_Atk(1.f);
+	Set_Atk(5);
 
 	return S_OK;
 }
@@ -64,16 +65,43 @@ _int CPlayer_Bullet_GolemFist::Update_Object(const _float& fTimeDelta)
 			if (!pEffect)
 			{
 				pEffect = CEffect_GolemFist::Create(m_pGraphicDev);
+				pEffect->Ready_Object();
 			}
-			dynamic_cast<CEffect_GolemFist*>(pEffect)->Get_Effect(vPos, _vec3(2.0f, 2.0f, 2.0f));
+			dynamic_cast<CEffect_GolemFist*>(pEffect)->Get_Effect(vPos, _vec3(3.0f, 3.0f, 3.0f));
 
+			FistSmokeEffect();
+			m_bEffect = true;
 		}
 
 		if (m_fAccTime > m_fStopTime)
 		{
 			m_fAccTime = 0.0f;
 			Set_Active(false);
+			m_fEffectTime = 0.05f;
 			m_bEffect = false;
+		}
+	}
+	else
+	{
+		m_fEffectTime -= fTimeDelta;
+		if (m_fEffectTime < 0.0f)
+		{
+			_vec3 vPos;
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			vPos.y += 1.0f;
+
+			for (_uint i = 0; 5 > i; ++i)
+			{
+				CGameObject* pEffect = CPool<CEffect_Smoke>::Get_Obj();
+
+				if (!pEffect)
+				{
+					pEffect = CEffect_Smoke::Create(m_pGraphicDev);
+					pEffect->Ready_Object();
+				}
+				dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vPos, _vec3(1.5f, 1.5f, 1.5f));
+			}
+			m_fEffectTime = 0.05f;
 		}
 	}
 
@@ -167,6 +195,38 @@ CPlayer_Bullet_GolemFist* CPlayer_Bullet_GolemFist::Create(LPDIRECT3DDEVICE9 pGr
 	}
 
 	return pInstance;
+}
+
+void CPlayer_Bullet_GolemFist::FistSmokeEffect()
+{
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	_vec3 vDir = { 0.0f, -0.4f, 1.0f };
+
+	_float fAngle;
+	for (_int i = 0; 10 > i; ++i)
+	{
+		_vec3 vEffectPos = vDir;
+		fAngle = 36.0f * i;
+
+		fAngle = D3DXToRadian(fAngle);
+
+		_matrix matRot;
+		D3DXMatrixRotationAxis(&matRot, &_vec3(0.0f, 1.0f, 0.0f), fAngle);
+
+		D3DXVec3TransformNormal(&vEffectPos, &vEffectPos, &matRot);
+		vEffectPos += vPos;
+
+
+		CGameObject* pEffect = CPool<CEffect_Smoke>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Smoke::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.0f, 1.0f, 1.0f), 186, 132, 72);
+	}
 }
 
 void CPlayer_Bullet_GolemFist::Free()

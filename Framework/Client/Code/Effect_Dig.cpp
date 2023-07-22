@@ -1,4 +1,4 @@
-#include "Effect_LightningGround.h"
+#include "Effect_Dig.h"
 
 #include "Export_Function.h"
 #include "Bullet.h"
@@ -8,44 +8,54 @@
 #include "Terrain.h"
 #include "Pool.h"
 
+CEffect_Dig::CEffect_Dig(LPDIRECT3DDEVICE9 pGraphicDev)
+    :CEffect(pGraphicDev)
+{
 
-CEffect_LightningGround::CEffect_LightningGround(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CEffect(pGraphicDev)
+}
+
+CEffect_Dig::CEffect_Dig(const CEffect& rhs)
+    : CEffect(rhs)
 {
 }
 
-CEffect_LightningGround::CEffect_LightningGround(const CEffect& rhs)
-	: CEffect(rhs)
+CEffect_Dig::~CEffect_Dig()
 {
 }
 
-CEffect_LightningGround::~CEffect_LightningGround()
+HRESULT CEffect_Dig::Ready_Object(void)
 {
+    FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+
+    m_pAnimator->Add_Animation(L"Dig", L"Proto_Texture_Effect_DigEffect", 0.05f);
+
+    m_pAnimator->Play_Animation(L"Dig", false);
+
+    Set_Active(false);
+
+    return S_OK;
 }
 
-HRESULT CEffect_LightningGround::Ready_Object(void)
-{
-	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
-	m_pAnimator->Add_Animation(L"LightningGround", L"Proto_Texture_Effect_LightningGround", 0.1f);
-
-	m_pAnimator->Play_Animation(L"LightningGround", false);
-
-	Set_Active(false);
-
-	return S_OK;
-}
-
-_int CEffect_LightningGround::Update_Object(const _float& fTimeDelta)
+_int CEffect_Dig::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
 
-	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+
+	
+
+	if (m_fAccTime > m_fEffectTime)
 	{
-		Set_Active(false);
-		CPool<CEffect_LightningGround>::Return_Obj(this);
+		m_iAlpha -= 1;
+		if (m_iAlpha < 10)
+		{
+			m_iAlpha = 0;
+			Set_Active(false);
+			CPool<CEffect_Dig>::Return_Obj(this);
+		}
 	}
+	else
+		m_fAccTime += fTimeDelta;
 
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
@@ -55,7 +65,7 @@ _int CEffect_LightningGround::Update_Object(const _float& fTimeDelta)
 	return iExit;
 }
 
-void CEffect_LightningGround::LateUpdate_Object(void)
+void CEffect_Dig::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -64,10 +74,12 @@ void CEffect_LightningGround::LateUpdate_Object(void)
 	__super::LateUpdate_Object();
 }
 
-void CEffect_LightningGround::Render_Object(void)
+void CEffect_Dig::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
+
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
 
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -75,27 +87,31 @@ void CEffect_LightningGround::Render_Object(void)
 
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
-CEffect_LightningGround* CEffect_LightningGround::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CEffect_Dig* CEffect_Dig::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CEffect_LightningGround* pInstance = new CEffect_LightningGround(pGraphicDev);
+	CEffect_Dig* pInstance = new CEffect_Dig(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("Effect_LightningGround Create Failed");
+		MSG_BOX("Effect_Dig Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
 
-void CEffect_LightningGround::Get_Effect(_vec3& _vPos, _vec3& _vScale)
+void CEffect_Dig::Get_Effect(_vec3& _vPos, _vec3& _vScale, _float fTime)
 {
-	_vPos.z -= 0.001f;
-	_vPos.y = 0.008f;
+	m_iAlpha = 255;
+	m_fAccTime = 0.0f;
+	m_fEffectTime = fTime;
+	_vPos.y = 0.06f;
 
 	_float m_fAngle;
 
@@ -117,10 +133,10 @@ void CEffect_LightningGround::Get_Effect(_vec3& _vPos, _vec3& _vScale)
 	m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 	m_pAnimator->GetCurrAnimation()->Set_Finished(false);
 	Set_Active(true);
-	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"DieSmokeEffect", this);
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Dig", this);
 }
 
-HRESULT CEffect_LightningGround::Add_Component(void)
+HRESULT CEffect_Dig::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -142,7 +158,7 @@ HRESULT CEffect_LightningGround::Add_Component(void)
 	return S_OK;
 }
 
-void CEffect_LightningGround::Free()
+void CEffect_Dig::Free()
 {
 	__super::Free();
 }

@@ -1,4 +1,4 @@
-#include "Effect_LightningGround.h"
+#include "Effect_Stun.h"
 
 #include "Export_Function.h"
 #include "Bullet.h"
@@ -8,43 +8,45 @@
 #include "Terrain.h"
 #include "Pool.h"
 
-
-CEffect_LightningGround::CEffect_LightningGround(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CEffect(pGraphicDev)
+CEffect_Stun::CEffect_Stun(LPDIRECT3DDEVICE9 pGraphicDev)
+    :CEffect(pGraphicDev)
 {
 }
 
-CEffect_LightningGround::CEffect_LightningGround(const CEffect& rhs)
-	: CEffect(rhs)
+CEffect_Stun::CEffect_Stun(const CEffect& rhs)
+    : CEffect(rhs)
 {
 }
 
-CEffect_LightningGround::~CEffect_LightningGround()
+CEffect_Stun::~CEffect_Stun()
 {
 }
 
-HRESULT CEffect_LightningGround::Ready_Object(void)
+HRESULT CEffect_Stun::Ready_Object(void)
 {
-	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
+    FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_pAnimator->Add_Animation(L"LightningGround", L"Proto_Texture_Effect_LightningGround", 0.1f);
+    m_pAnimator->Add_Animation(L"StunEffect", L"Proto_Texture_Effect_Stun", 0.05f);
 
-	m_pAnimator->Play_Animation(L"LightningGround", false);
+    m_pAnimator->Play_Animation(L"StunEffect", true);
 
-	Set_Active(false);
+    Set_Active(false);
 
-	return S_OK;
+    return S_OK;
 }
 
-_int CEffect_LightningGround::Update_Object(const _float& fTimeDelta)
+_int CEffect_Stun::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
 
-	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+
+	m_fAccTime += fTimeDelta;
+
+	if (m_fAccTime > m_fEffectTime)
 	{
 		Set_Active(false);
-		CPool<CEffect_LightningGround>::Return_Obj(this);
+		CPool<CEffect_Stun>::Return_Obj(this);
 	}
 
 
@@ -55,16 +57,23 @@ _int CEffect_LightningGround::Update_Object(const _float& fTimeDelta)
 	return iExit;
 }
 
-void CEffect_LightningGround::LateUpdate_Object(void)
+void CEffect_Stun::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
+
+	_vec3 vPos;
+	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+	vPos += m_vOffSet;
+
+	m_pTransformCom->Set_Pos(&vPos);
 
 
 	__super::LateUpdate_Object();
 }
 
-void CEffect_LightningGround::Render_Object(void)
+void CEffect_Stun::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -77,29 +86,29 @@ void CEffect_LightningGround::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
-CEffect_LightningGround* CEffect_LightningGround::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CEffect_Stun* CEffect_Stun::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CEffect_LightningGround* pInstance = new CEffect_LightningGround(pGraphicDev);
+	CEffect_Stun* pInstance = new CEffect_Stun(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("Effect_LightningGround Create Failed");
+		MSG_BOX("Effect_Hit Create Failed");
 		return nullptr;
 	}
 
 	return pInstance;
 }
 
-void CEffect_LightningGround::Get_Effect(_vec3& _vPos, _vec3& _vScale)
+void CEffect_Stun::Get_Effect(CGameObject* _pObj, _vec3& _vOffSet, _vec3& _vScale, _float fTime)
 {
-	_vPos.z -= 0.001f;
-	_vPos.y = 0.008f;
+	m_fAccTime = 0.0f;
+	m_fEffectTime = fTime;
 
-	_float m_fAngle;
+	m_pOwner = _pObj;
 
-	m_fAngle = D3DXToRadian(90.0f);
+	m_vOffSet = _vOffSet;
 
 	_matrix matWorld;
 	D3DXMatrixIdentity(&matWorld);
@@ -110,17 +119,15 @@ void CEffect_LightningGround::Get_Effect(_vec3& _vPos, _vec3& _vScale)
 		m_pTransformCom->Set_Info((MATRIX_INFO)i, &vInfo);
 	}
 
-	m_pTransformCom->Set_Pos(&_vPos);
 	m_pTransformCom->Set_Scale(_vScale);
-	m_pTransformCom->RotationAxis(_vec3(1.0f, 0.0f, 0.0f), m_fAngle);
 
 	m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 	m_pAnimator->GetCurrAnimation()->Set_Finished(false);
 	Set_Active(true);
-	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"DieSmokeEffect", this);
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"StunEffect", this);
 }
 
-HRESULT CEffect_LightningGround::Add_Component(void)
+HRESULT CEffect_Stun::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -142,7 +149,7 @@ HRESULT CEffect_LightningGround::Add_Component(void)
 	return S_OK;
 }
 
-void CEffect_LightningGround::Free()
+void CEffect_Stun::Free()
 {
 	__super::Free();
 }

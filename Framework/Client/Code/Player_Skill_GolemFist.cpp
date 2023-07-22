@@ -66,7 +66,7 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 	}
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
 	m_vDir *= 1.5f;
-	m_vDir.y += 0.0001f;
+	m_vDir.y += 0.001f;
 
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vPos);
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
@@ -75,9 +75,7 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillRange", pRange);
 
 
-	m_vPos.y -= m_pOwner->Get_MinHeight() - 0.001f;
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange()->Get_TransformCom()->Set_Pos(&m_vPos);
-
+	m_vPos.y = 0.008f;
 	m_vScale = { 1.0f,1.0f,1.0f };
 	dynamic_cast<CPlayer_Skill_Range*>(dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange())->Set_Range(m_vScale, m_vPos);
 	m_bSkillStart = false;

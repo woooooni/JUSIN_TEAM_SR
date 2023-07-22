@@ -1,12 +1,12 @@
 #pragma once
 #include "Effect.h"
-class CEffect_GolemFist : public CEffect
+class CEffect_Block : public CEffect
 {
-	CLONE(CEffect_GolemFist)
+	CLONE(CEffect_Block)
 protected:
-	explicit CEffect_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CEffect_GolemFist(const CEffect& rhs);
-	virtual ~CEffect_GolemFist();
+	explicit CEffect_Block(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CEffect_Block(const CEffect& rhs);
+	virtual ~CEffect_Block();
 
 public:
 	virtual HRESULT Ready_Object(void)							override;
@@ -14,7 +14,7 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
-	static CEffect_GolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CEffect_Block* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
 	void			Get_Effect(_vec3& _vPos, _vec3& _vScale);
@@ -24,8 +24,5 @@ protected:
 
 protected:
 	virtual void Free() override;
-
-private:
-
 };
 

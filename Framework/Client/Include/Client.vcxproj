@@ -223,16 +223,22 @@
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Block.h" />
+    <ClInclude Include="..\Header\Effect_CatapultHit.h" />
     <ClInclude Include="..\Header\Effect_DieSmoke.h" />
+    <ClInclude Include="..\Header\Effect_Dig.h" />
     <ClInclude Include="..\Header\Effect_Explosion.h" />
     <ClInclude Include="..\Header\Effect_GetItem.h" />
     <ClInclude Include="..\Header\Effect_GolemFist.h" />
+    <ClInclude Include="..\Header\Effect_Hit.h" />
     <ClInclude Include="..\Header\Effect_Item.h" />
     <ClInclude Include="..\Header\Effect_Leaf.h" />
     <ClInclude Include="..\Header\Effect_LightningGround.h" />
     <ClInclude Include="..\Header\Effect_Shadow.h" />
+    <ClInclude Include="..\Header\Effect_Smoke.h" />
     <ClInclude Include="..\Header\Effect_StoneSpike.h" />
     <ClInclude Include="..\Header\Effect_StoneParticle.h" />
+    <ClInclude Include="..\Header\Effect_Stun.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\FistEffect.h" />
@@ -451,16 +457,22 @@
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_Block.cpp" />
+    <ClCompile Include="..\Code\Effect_CatapultHit.cpp" />
     <ClCompile Include="..\Code\Effect_DieSmoke.cpp" />
+    <ClCompile Include="..\Code\Effect_Dig.cpp" />
     <ClCompile Include="..\Code\Effect_Explosion.cpp" />
     <ClCompile Include="..\Code\Effect_GetItem.cpp" />
     <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Effect_Hit.cpp" />
     <ClCompile Include="..\Code\Effect_Item.cpp" />
     <ClCompile Include="..\Code\Effect_Leaf.cpp" />
     <ClCompile Include="..\Code\Effect_LightningGround.cpp" />
     <ClCompile Include="..\Code\Effect_Shadow.cpp" />
+    <ClCompile Include="..\Code\Effect_Smoke.cpp" />
     <ClCompile Include="..\Code\Effect_StoneSpike.cpp" />
     <ClCompile Include="..\Code\Effect_StoneParticle.cpp" />
+    <ClCompile Include="..\Code\Effect_Stun.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp" />
