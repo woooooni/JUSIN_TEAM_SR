@@ -39,7 +39,7 @@
 #include "Pool.h"
 #include "Effect_Shadow.h"
 #include "Effect_Block.h"
-
+#include "Effect_Hit.h"
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -266,6 +266,12 @@ HRESULT CPlayer::Ready_Object(void)
 	}
 		
 
+	m_iAlpha = 255;
+
+	m_fAccInvinTime = 0.0f;
+	m_fInvinTime = 2.0f;
+	m_fBlinkTime = 0.05;
+
 	return S_OK;
 }
 
@@ -302,6 +308,29 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		m_vecHats[m_iHat]->Update_Object(fTimeDelta);
 
 
+	if (m_bInvincible)
+	{
+		m_fAccInvinTime += fTimeDelta;
+		m_fBlinkTime -= fTimeDelta;
+
+		if (m_fBlinkTime < 0.0f)
+		{
+			if (m_iAlpha == 255)
+				m_iAlpha = 50;
+			else
+				m_iAlpha = 255;
+
+			m_fBlinkTime = 0.05f;
+		}
+
+		
+
+		if (m_fAccInvinTime > m_fInvinTime)
+		{
+			m_bInvincible = false;
+			m_iAlpha = 255;
+		}
+	}
 
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -331,7 +360,7 @@ void CPlayer::Render_Object(void)
 {
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
 
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
@@ -422,7 +451,12 @@ void CPlayer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 		Collision_Enter_Hit(pCollider, _eCollisionGroup, _iColliderID);
 	}
 
-
+	if (m_pColliderCom->Get_Id() == _iColliderID && 
+		pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_BULLET &&
+		dynamic_cast<CBullet*>(pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	{
+		Collision_Enter_BulletHit(pCollider, _eCollisionGroup, _iColliderID);
+	}
 }
 void CPlayer::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
@@ -695,6 +729,10 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 	if (m_eState == PLAYER_STATE::HIT)
 		return;
 
+	if (m_bInvincible)
+		return;
+
+
 	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
 	_vec3 vTargetPos;
 	_vec3 vPos;
@@ -773,7 +811,121 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 	}
 	else
+	{
+		vDir = vTargetPos - vPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+		_vec3 vEffectPos = vPos + (vDir * 0.5f);
+		CGameObject* pEffect = CPool<CEffect_Hit>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Hit::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Hit*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f), 255, 0, 0);
 		Change_State_Now(PLAYER_STATE::HIT);
+	}
+		
 
+}
+
+void CPlayer::Collision_Enter_BulletHit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (m_eState == PLAYER_STATE::HIT)
+		return;
+
+	if (m_bInvincible)
+		return;
+
+	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
+	_vec3 vTargetPos;
+	_vec3 vPos;
+	_vec3 vDir;
+	_vec3 vAxis = { 0.0f, 0.0f, 1.0f };
+	pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = vTargetPos - vPos;
+	vDir.y = 0.0f;
+	D3DXVec3Normalize(&vDir, &vDir);
+
+	_float fAngle = D3DXVec3Dot(&vDir, &vAxis);
+	fAngle = acosf(fAngle);
+
+	if (vDir.x < 0.0f)
+		fAngle = D3DX_PI * 2 - fAngle;
+
+
+	fAngle = D3DXToDegree(fAngle);
+
+
+
+	_uint iDir = fAngle / 22.5f;
+
+	if (iDir == 0 || iDir == 15 || iDir == 16)
+	{
+		eTargetDir = OBJ_DIR::DIR_U;
+	}
+	else if (iDir == 1 || iDir == 2)
+	{
+		eTargetDir = OBJ_DIR::DIR_RU;
+	}
+	else if (iDir == 3 || iDir == 4)
+	{
+		eTargetDir = OBJ_DIR::DIR_R;
+	}
+	else if (iDir == 5 || iDir == 6)
+	{
+		eTargetDir = OBJ_DIR::DIR_RD;
+	}
+	else if (iDir == 7 || iDir == 8)
+	{
+		eTargetDir = OBJ_DIR::DIR_D;
+	}
+	else if (iDir == 9 || iDir == 10)
+	{
+		eTargetDir = OBJ_DIR::DIR_LD;
+	}
+	else if (iDir == 11 || iDir == 12)
+	{
+		eTargetDir = OBJ_DIR::DIR_L;
+	}
+	else if (iDir == 13 || iDir == 14)
+	{
+		eTargetDir = OBJ_DIR::DIR_LU;
+	}
+
+	m_eDir = eTargetDir;
+
+
+	if (m_eState == PLAYER_STATE::SKILL && dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Get_Skill() == PLAYER_SKILL::TURTLE)
+	{
+		vDir = vTargetPos - vPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+		_vec3 vEffectPos = vPos + (vDir * 0.5f);
+		CGameObject* pEffect = CPool<CEffect_Block>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Block::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Block*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f));
+
+		m_pRigidBodyCom->AddForce(vDir * -20.0f);
+		//pCollider->GetOwner()->Get_RigidBodyCom()->AddForce(vDir * 120.0f);
+
+	}
+	else
+	{
+		vDir = vTargetPos - vPos;
+		D3DXVec3Normalize(&vDir, &vDir);
+		_vec3 vEffectPos = vPos + (vDir * 0.5f);
+		CGameObject* pEffect = CPool<CEffect_Hit>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Hit::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Hit*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f), 255, 0, 0);
+		Change_State_Now(PLAYER_STATE::HIT);
+	}
 }
 

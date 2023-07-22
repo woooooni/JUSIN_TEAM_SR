@@ -160,6 +160,7 @@ public:
 
 	void			Set_ItemEffect(ITEM_CODE eItemCode);
 
+	void		Set_Invincible() { m_fAccInvinTime = 0.0f; m_bInvincible = true; }
 
 	CGameObject* Get_Shadow() { return m_pShadow; }
 private:
@@ -178,6 +179,7 @@ private:
 	void Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 	void Collision_Enter_Grab(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 	void Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+	void Collision_Enter_BulletHit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 
 private:
 	virtual void Free() override;
@@ -215,5 +217,14 @@ private:
 	ITEM_CODE m_eGetItemCode;
 
 	CGameObject* m_pShadow = nullptr;
+
+
+	
+
+	_uint m_iAlpha;
+	bool m_bInvincible = false;
+	_float m_fInvinTime;
+	_float m_fAccInvinTime;
+	_float m_fBlinkTime;
 };
 
