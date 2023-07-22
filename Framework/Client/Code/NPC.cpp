@@ -1,5 +1,7 @@
 #include "Export_Function.h"
-#include "Npc.h"
+#include "../Header/Npc.h"
+#include "UI_QuestionMark.h"
+#include "UI_ExclamationMark.h"
 
 CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
@@ -29,11 +31,6 @@ HRESULT CNpc::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_NPC_Sheep_Idle"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
-
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
@@ -44,12 +41,13 @@ HRESULT CNpc::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
-	// NPC TEST
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Sheep", L"Proto_Texture_NPC_Sheep_Idle", 0.1f), E_FAIL);
-	//FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Sheep", L"Proto_Texture_NPC_Sheep_React", 0.1f), E_FAIL);
+	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
+	if (m_pExclamation != nullptr)
+		m_pExclamation->Set_Owner(this);
 
-	// IDle , React 2가지 상태있음. 설정 추가필요
-	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Tutorial_Sheep", TRUE), E_FAIL);
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
 
 	return S_OK;
 }
@@ -57,14 +55,34 @@ HRESULT CNpc::Ready_Object(void)
 _int CNpc::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	
+
+//	_vec3 vNpcPos;
+//	m_pExclamation->Get_TransformCom()->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vNpcPos);
+//
+//	vNpcPos.y += 1.f;
+//	m_pExclamation->Get_TransformCom()->Set_Pos(&vNpcPos);
+
+	//if (m_bQuestAccept) // 퀘스트를 받을 수 있는 상태면 (수락 전)
+		//m_pQuestion->Update_Object(fTimeDelta);
+
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	vPos.y += 1.f;
+	m_pExclamation->Get_TransformCom()->Set_Pos(&vPos);
+
+	if (!m_bQuestAccept)
+		m_pExclamation->Update_Object(fTimeDelta);
+
 	_int iExit = __super::Update_Object(fTimeDelta);
-	
 	return iExit;
 }
 
 void CNpc::LateUpdate_Object(void)
 {
+	if (!m_bQuestAccept)
+		m_pExclamation->LateUpdate_Object();
+
 	__super::LateUpdate_Object();
 }
 
@@ -75,25 +93,28 @@ void CNpc::Render_Object(void)
 	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();
 
+	if (!m_bQuestAccept)
+		m_pExclamation->Render_Object();
+
 	__super::Render_Object();
 }
 
-CNpc* CNpc::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos)
-{
-	CNpc* pInstance = new CNpc(pGraphicDev);
-
-	if (FAILED(pInstance->Ready_Object()))
-	{
-		Safe_Release(pInstance);
-
-		MSG_BOX("NPC Create Failed");
-		return nullptr;
-	}
-
-	pInstance->Get_TransformCom()->Set_Pos(&vPos);
-
-	return pInstance;
-}
+//CNpc* CNpc::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos)
+//{
+//	CNpc* pInstance = new CNpc(pGraphicDev);
+//
+//	if (FAILED(pInstance->Ready_Object()))
+//	{
+//		Safe_Release(pInstance);
+//
+//		MSG_BOX("NPC Create Failed");
+//		return nullptr;
+//	}
+//
+//	pInstance->Get_TransformCom()->Set_Pos(&vPos);
+//
+//	return pInstance;
+//}
 
 void CNpc::Free()
 {

@@ -13,6 +13,7 @@
 #include	"LightPuzzleBase.h"
 #include	"LightPuzzlePiece.h"
 #include	"LightPuzzleTerrain.h"
+#include "RollingBug.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -119,6 +120,12 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 
 HRESULT CScene_MoonForest1::Ready_Layer_Monster()
 {
+	CRollingBug* pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(64.f, 0.5f, 52.f), BUGCOLORTYPE::YELLOW);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(58.f, 0.5f, 52.f), BUGCOLORTYPE::PINK);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
 	return S_OK;
 }
 

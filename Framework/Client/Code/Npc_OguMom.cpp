@@ -1,6 +1,7 @@
 #include "Npc_OguMom.h"
-#include "../Include/stdafx.h"
 #include "Export_Function.h"
+#include "UI_QuestionMark.h"
+#include "UI_ExclamationMark.h"
 
 CNpc_OguMom::CNpc_OguMom(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev)
@@ -44,6 +45,14 @@ HRESULT CNpc_OguMom::Ready_Object(void)
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_OguMom_Greeting", L"Proto_Texture_NPC_OguMom_Greeting", 0.3f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_OguMom_React", L"Proto_Texture_NPC_OguMom_React", 0.3f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_OguMom_Greeting", TRUE), E_FAIL);
+
+	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
+	if (m_pExclamation != nullptr)
+		m_pExclamation->Set_Owner(this);
+
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
 
 	return S_OK;
 }

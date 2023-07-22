@@ -14,6 +14,8 @@
 #include "DefaultItem.h"
 #include "UI_NewItem.h"
 #include "Npc_OguMom.h"
+#include "TrashFast.h"
+#include "Cupa.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -143,15 +145,21 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
 {
 	// Ã¼·Â¹Ù Test
-	CMothMage* pMothmage = CMothMage::Create(m_pGraphicDev);
-	_vec3 vMothmagePos = _vec3(14.f, 0.5f, 14.f);
-	pMothmage->Get_TransformCom()->Set_Info(INFO_POS, &vMothmagePos);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Mothmage", pMothmage);
+//	CMothMage* pMothmage = CMothMage::Create(m_pGraphicDev);
+//	_vec3 vMothmagePos = _vec3(14.f, 0.5f, 14.f);
+//	pMothmage->Get_TransformCom()->Set_Info(INFO_POS, &vMothmagePos);
+//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Mothmage", pMothmage);
+//
+//	CDesertRhino* pRhino = CDesertRhino::Create(m_pGraphicDev);
+//	_vec3 vRhinoPos = _vec3(13.f, 0.5f, 12.f);
+//	pRhino->Get_TransformCom()->Set_Info(INFO_POS, &vRhinoPos);
+//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Rhino", pRhino);
 
-	CDesertRhino* pRhino = CDesertRhino::Create(m_pGraphicDev);
-	_vec3 vRhinoPos = _vec3(13.f, 0.5f, 12.f);
-	pRhino->Get_TransformCom()->Set_Info(INFO_POS, &vRhinoPos);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Rhino", pRhino);
+//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
+//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"TrashFast", pTrashFast);
+//
+//	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
+//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Cupa", pMonCupa);
 
 	return S_OK;
 }

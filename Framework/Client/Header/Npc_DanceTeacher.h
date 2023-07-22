@@ -1,5 +1,5 @@
 #pragma once
-#include "NPC.h"
+#include "Npc.h"
 
 BEGIN(Engine)
 

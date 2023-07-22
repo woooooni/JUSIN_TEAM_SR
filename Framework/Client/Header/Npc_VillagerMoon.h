@@ -1,6 +1,6 @@
 #pragma once
-#include "NPC.h"
-#include <Npc_VillagerMonkey.h>
+#include "Npc.h"
+//#include <Npc_VillagerMonkey.h>
 
 typedef enum class MoonVillagerType
 {

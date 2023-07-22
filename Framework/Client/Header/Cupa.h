@@ -1,12 +1,8 @@
 #pragma once
 #include "Monster.h"
 
-// ¹Ì¿Ï¼º //
-
 BEGIN(Engine)
-
 class RcCol;
-
 END
 
 class CCupa : public CMonster
@@ -33,11 +29,14 @@ public:
 
 private:
     virtual void    Trace(_float fTimeDelta)         override;
-
+    virtual void    Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+    void            Set_Animation();
 private:
     _float      m_fMoveTime;
     _vec3       m_vDst = { 0.f, 10.f, 0.f };
     _vec3       m_vDir = { 0.f, 0.f, 0.f };
+    _vec3       m_vArrived = { 0.f, 0.f, 0.f };
+    _bool       m_bJump = false;
 
 public:
     HRESULT	    Add_Component(void);

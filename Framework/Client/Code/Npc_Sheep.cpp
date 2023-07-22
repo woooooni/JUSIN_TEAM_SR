@@ -1,6 +1,7 @@
-#include "../Include/stdafx.h"
 #include "Npc_Sheep.h"
 #include "Export_Function.h"
+#include "UI_QuestionMark.h"
+#include "UI_ExclamationMark.h"
 
 CNpc_Sheep::CNpc_Sheep(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev)
@@ -26,6 +27,10 @@ HRESULT CNpc_Sheep::Ready_Object(void)
 	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
 	if (m_pExclamation != nullptr)
 		m_pExclamation->Set_Owner(this);
+
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
 
 	return S_OK;
 }
@@ -71,13 +76,7 @@ _int CNpc_Sheep::Update_Object(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vNpcPos);
 
 	vNpcPos.y += 1.f;
-	//m_pQuestion->Get_TransformCom()->Set_Pos(&vNpcPos);
 	m_pExclamation->Get_TransformCom()->Set_Pos(&vNpcPos);
-
-	//if (m_bQuestAccept) // 퀘스트를 받을 수 있는 상태면 (수락 전)
-		//m_pQuestion->Update_Object(fTimeDelta);
-	if (!m_bQuestAccept)
-		m_pExclamation->Update_Object(fTimeDelta);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -108,9 +107,6 @@ void CNpc_Sheep::LateUpdate_Object(void)
 	//	dynamic_cast<CNpcText*>(pUIText)->Set_Shown(false);
 	// }
 
-	if (!m_bQuestAccept)
-		m_pExclamation->LateUpdate_Object();
-
 	__super::LateUpdate_Object();
 }
 
@@ -121,9 +117,9 @@ void CNpc_Sheep::Render_Object(void)
 	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();
 
-	if (!m_bQuestAccept)
-		m_pExclamation->Render_Object();
-
+//	if (!m_bQuestAccept)
+//		m_pExclamation->Render_Object();
+//
 	__super::Render_Object();
 }
 

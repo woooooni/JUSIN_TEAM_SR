@@ -1010,9 +1010,6 @@
     <ClInclude Include="..\Header\GolemPart.h">
       <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Npc.h">
-      <Filter>02. GameObject\15. NPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\UI_Dialog.h">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
     </ClInclude>
@@ -1149,6 +1146,9 @@
     <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
     <ClInclude Include="..\Header\Quest.h" />
     <ClInclude Include="..\Header\Test_Cube.h" />
+    <ClInclude Include="..\Header\Npc.h">
+      <Filter>02. GameObject\15. NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1574,9 +1574,6 @@
     <ClCompile Include="..\Code\GolemPart.cpp">
       <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Npc.cpp">
-      <Filter>02. GameObject\15. NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\UI_Dialog.cpp">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
     </ClCompile>
@@ -1713,6 +1710,9 @@
     <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
     <ClCompile Include="..\Code\Quest.cpp" />
     <ClCompile Include="..\Code\Test_Cube.cpp" />
+    <ClCompile Include="..\Code\Npc.cpp">
+      <Filter>02. GameObject\15. NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

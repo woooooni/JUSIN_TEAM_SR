@@ -279,10 +279,10 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 //	NULL_CHECK_RETURN(pMonRolling_Yellow, E_FAIL);
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Yellow", pMonRolling_Yellow), E_FAIL);
 	//
-	////	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
-	////	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
-	////	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
-	//
+//	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Cupa", pMonCupa), E_FAIL);
+//	//
 	//	/*CBlueBeatle* pBlueBeatle = CBlueBeatle::Create(m_pGraphicDev);
 	//	NULL_CHECK_RETURN(pBlueBeatle, E_FAIL);
 	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle), E_FAIL);
@@ -303,10 +303,10 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 //	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
 	//
-	//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
-	//	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashFast", pTrashFast), E_FAIL);
-	//
+//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashFast", pTrashFast), E_FAIL);
+
 //		CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
 //		NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
 //		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
@@ -327,14 +327,14 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 //	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
 //
-//	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
-//	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
-//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
+	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
-
+//	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
+//
 
 //	CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
 //	pMonkeyBarrelCleaner->Set_Right(false);

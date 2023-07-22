@@ -1,6 +1,5 @@
 #include "UI_QuestionMark.h"
 #include "Export_Function.h"
-#include "Npc.h"
 
 CUI_QuestionMark::CUI_QuestionMark(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)

@@ -32,6 +32,7 @@ public:
 
 public:
     HRESULT	Add_Component(void);
+    void    Set_Animation();
 
 private:
     virtual void Trace(_float fTimeDelta)   override;
@@ -44,6 +45,5 @@ private:
 
 public:
     static  CTrashFast* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-    void Set_Animation();
 };
 
