@@ -336,39 +336,39 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
 
 
-	CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(false);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f,0.5f,1.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(false);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f, 0.5f, 3.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(true);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 1.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-	
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(true);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 2.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-	
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(true);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 3.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-
-	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
+//	CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+//	pMonkeyBarrelCleaner->Set_Right(false);
+//	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f,0.5f,1.f));
+//	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+//
+//	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+//	pMonkeyBarrelCleaner->Set_Right(false);
+//	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f, 0.5f, 3.f));
+//	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+//
+//	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+//	pMonkeyBarrelCleaner->Set_Right(true);
+//	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 1.f));
+//	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+//	
+//	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+//	pMonkeyBarrelCleaner->Set_Right(true);
+//	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 2.f));
+//	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+//	
+//	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+//	pMonkeyBarrelCleaner->Set_Right(true);
+//	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 3.f));
+//	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+//
+//	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
 	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
