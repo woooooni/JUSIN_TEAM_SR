@@ -87,39 +87,21 @@ void CUI_QuestIcon::Render_Object(void)
 			fRatio = _float(WINCY) / _float(WINCX);
 			vScale = _vec3(m_tInfo.fCX * fRatio * 1.2f, m_tInfo.fCY * fRatio * 1.2f, 0.f);
 			break;
+
+		case QUESTICON::QUEST_SLOT:
+			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
+					(-2 * (m_tInfo.fY - 20.f) / WINCY) * (1 / m_matProj._22), 0.f };
+			m_pTransformCom->Set_Pos(&vPos);
+
+			fRatio = _float(WINCY) / _float(WINCX);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 2.5f, m_tInfo.fCY * fRatio * 2.5f, 0.f);
+			break;
 	
 		default:
 			break;
 		}
 	
 		m_pTransformCom->Set_Pos(&vPos);
-	
-		// 퀘스트 창 Title
-		RECT rcTitle = { 0, 0, WINCX, WINCY/2 - 50.f};
-		TCHAR szTitleBuf[256] = L"";
-
-		swprintf_s(szTitleBuf, L"퀘스트를 받았다!");
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
-			szTitleBuf, lstrlen(szTitleBuf), &rcTitle, DT_CENTER | DT_VCENTER | DT_NOCLIP,
-			D3DCOLOR_ARGB(255, 255, 255, 255));
-
-		// 퀘스트 명
-		RECT rcQuest = { WINCX/4 + 10, 0, WINCX, WINCY - 90};
-		TCHAR szQuestBuf[256] = L"";
-
-		swprintf_s(szQuestBuf, L"태양의 마을 찾기");
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
-			szQuestBuf, lstrlen(szQuestBuf), &rcQuest, DT_VCENTER | DT_NOCLIP,
-			D3DCOLOR_ARGB(255, 255, 255, 255));
-
-		// 퀘스트 내용
-		RECT rcContents = { 0, 120, WINCX, WINCY};
-		TCHAR szConBuf[256] = L"";
-
-		swprintf_s(szConBuf, L"알 수 없는 목소리가 동쪽의 해가 뜨는 마을로 가라고 한다.\n동쪽... 동쪽은 오른쪽이라고 배웠다.");
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-			szConBuf, lstrlen(szConBuf), &rcContents, DT_CENTER | DT_VCENTER | DT_NOCLIP,
-			D3DCOLOR_ARGB(255, 255, 255, 255));
 	
 		m_pTransformCom->Set_Scale(vScale);
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -191,6 +173,16 @@ HRESULT CUI_QuestIcon::Add_Component(void)
 
 		m_tInfo.fX = -605.f;
 		m_tInfo.fY = -330.f;
+		break;
+
+	case QUESTICON::QUEST_SLOT:
+		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Icon_QuickSlot"));
+		NULL_CHECK_RETURN(pComponent, E_FAIL);
+		pComponent->SetOwner(this);
+		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+		m_tInfo.fX = 0.f;
+		m_tInfo.fY = 0.f;
 		break;
 
 	default:

@@ -55,7 +55,6 @@
 #include "Player_Skill_Aim.h"
 
 #include "Cupa.h"
-#include "RollingBug.h"
 #include "TrashSlime.h"
 #include "TrashFast.h"
 #include "Item_Hat_Monkey.h"
@@ -63,6 +62,7 @@
 #include "SpitCactus.h"
 #include "MothMage.h"
 #include "SilkWorm.h"
+#include "RollingBug.h"
 
 #include "Item_Hat_Turtle.h"
 #include "Item_Hat_Drill.h"
@@ -73,6 +73,7 @@
 #include	"ClearBomb.h"
 #include	"ClearField.h"
 #include	"PlantCannon.h"
+
 CScene_Test::CScene_Test(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
 {
@@ -170,35 +171,35 @@ HRESULT CScene_Test::Ready_Layer_Player()
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
 	m_pPlayer = pPlayer;
 
-	CItem_Hat_Monkey* pItemMonkeyHat = CItem_Hat_Monkey::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemMonkeyHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MonkeyHat", pItemMonkeyHat), E_FAIL);
+//	CItem_Hat_Monkey* pItemMonkeyHat = CItem_Hat_Monkey::Create(m_pGraphicDev, pPlayer);
+//	NULL_CHECK_RETURN(pItemMonkeyHat, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MonkeyHat", pItemMonkeyHat), E_FAIL);
+//
+//
+//	CItem_Hat_Turtle* pItemTurtleHat = CItem_Hat_Turtle::Create(m_pGraphicDev, pPlayer);
+//	NULL_CHECK_RETURN(pItemTurtleHat, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_TurtleHat", pItemTurtleHat), E_FAIL);
+//
+//
+//	CItem_Hat_Drill* pItemDrillHat = CItem_Hat_Drill::Create(m_pGraphicDev, pPlayer);
+//	NULL_CHECK_RETURN(pItemDrillHat, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_DrillHat", pItemDrillHat), E_FAIL);
+//
+//	CItem_Hat_Light* pItemLightHat = CItem_Hat_Light::Create(m_pGraphicDev, pPlayer);
+//	NULL_CHECK_RETURN(pItemLightHat, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_LightHat", pItemLightHat), E_FAIL);
+//
+//	CItem_Hat_Mask* pItemMaskHat = CItem_Hat_Mask::Create(m_pGraphicDev, pPlayer);
+//	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
+//
+//	CItem_Hat_Missile* pItemMissileHat = CItem_Hat_Missile::Create(m_pGraphicDev, pPlayer);
+//	NULL_CHECK_RETURN(pItemMissileHat, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MissileHat", pItemMissileHat), E_FAIL);
 
 
-	CItem_Hat_Turtle* pItemTurtleHat = CItem_Hat_Turtle::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemTurtleHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_TurtleHat", pItemTurtleHat), E_FAIL);
 
-
-	CItem_Hat_Drill* pItemDrillHat = CItem_Hat_Drill::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemDrillHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_DrillHat", pItemDrillHat), E_FAIL);
-
-	CItem_Hat_Light* pItemLightHat = CItem_Hat_Light::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemLightHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_LightHat", pItemLightHat), E_FAIL);
-
-	CItem_Hat_Mask* pItemMaskHat = CItem_Hat_Mask::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemMaskHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MaskHat", pItemMaskHat), E_FAIL);
-
-	CItem_Hat_Missile* pItemMissileHat = CItem_Hat_Missile::Create(m_pGraphicDev, pPlayer);
-	NULL_CHECK_RETURN(pItemMissileHat, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Item_MissileHat", pItemMissileHat), E_FAIL);
-
-
-
-	pPlayer->Set_Hat(pItemMaskHat);
+//	pPlayer->Set_Hat(pItemMaskHat);
 
 	pLayer->Ready_Layer();
 
@@ -244,14 +245,6 @@ HRESULT CScene_Test::Ready_Layer_Environment()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	//CNpc_Cow* pNPCCow = CNpc_Cow::Create(m_pGraphicDev, { 10, 1, 3 }, NPCTYPE::TUT_COW);
-	//NULL_CHECK_RETURN(pNPCCow, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Cow", pNPCCow), E_FAIL);
-
-	//CNpcSheep* pNPCSheep = CNpcSheep::Create(m_pGraphicDev, { 18, 1, 7 }, NPCTYPE::TUT_SHEEP);
-	//NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
-
 	pLayer->Ready_Layer();
 
 	return S_OK;
@@ -262,17 +255,17 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	//	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(20.f, 1.f, 20.f), BUGCOLORTYPE::PINK);
-	//	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Pink", pMonRolling_Pink), E_FAIL);
-	//
-	//	CRollingBug* pMonRolling_Blue = CRollingBug::Create(m_pGraphicDev, _vec3(6.f, 1.f, 4.f), BUGCOLORTYPE::BLUE);
-	//	NULL_CHECK_RETURN(pMonRolling_Blue, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Blue", pMonRolling_Blue), E_FAIL);
-	//
-	//	CRollingBug* pMonRolling_Yellow = CRollingBug::Create(m_pGraphicDev, _vec3(8.f, 1.f, 2.f), BUGCOLORTYPE::YELLOW);
-	//	NULL_CHECK_RETURN(pMonRolling_Yellow, E_FAIL);
-	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Yellow", pMonRolling_Yellow), E_FAIL);
+//	CRollingBug* pMonRolling_Pink = CRollingBug::Create(m_pGraphicDev, _vec3(2.f, 0.5f, 3.f), BUGCOLORTYPE::PINK);
+//	NULL_CHECK_RETURN(pMonRolling_Pink, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Pink", pMonRolling_Pink), E_FAIL);
+//
+//	CRollingBug* pMonRolling_Blue = CRollingBug::Create(m_pGraphicDev, _vec3(6.f, 0.5f, 4.f), BUGCOLORTYPE::BLUE);
+//	NULL_CHECK_RETURN(pMonRolling_Blue, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Blue", pMonRolling_Blue), E_FAIL);
+//
+//	CRollingBug* pMonRolling_Yellow = CRollingBug::Create(m_pGraphicDev, _vec3(8.f, 0.5f, 2.f), BUGCOLORTYPE::YELLOW);
+//	NULL_CHECK_RETURN(pMonRolling_Yellow, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Monster_Rolling_Yellow", pMonRolling_Yellow), E_FAIL);
 	//
 	////	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
 	////	NULL_CHECK_RETURN(pMonCupa, E_FAIL);
@@ -290,41 +283,41 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	//	NULL_CHECK_RETURN(pGreenBeatle, E_FAIL);
 	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle), E_FAIL);
 	//
-	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
-	//
-	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
+//	CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pTrashBig, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashBig", pTrashBig), E_FAIL);
+//	//
+//	CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pTrashSlime, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime), E_FAIL);
 	//
 	//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
 	//	NULL_CHECK_RETURN(pTrashFast, E_FAIL);
 	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashFast", pTrashFast), E_FAIL);
 	//
-		CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
-		NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
-		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
-		CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
-		NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
-		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
-
-	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pMothMage, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
+//		CSpitCactus* pSpitCactus = CSpitCactus::Create(m_pGraphicDev);
+//		NULL_CHECK_RETURN(pSpitCactus, E_FAIL);
+//		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SpitCactus", pSpitCactus), E_FAIL);
+//		CTrashBummer* pTrashBummer = CTrashBummer::Create(m_pGraphicDev);
+//		NULL_CHECK_RETURN(pTrashBummer, E_FAIL);
+//		FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashBummer", pTrashBummer), E_FAIL);
+//
+//	CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pMothMage, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MothMage", pMothMage), E_FAIL);
 
 	//	CPlantCannon* pPlantCannon = CPlantCannon::Create(m_pGraphicDev);
 	//	NULL_CHECK_RETURN(pPlantCannon, E_FAIL);
 	//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"PlantCannon", pPlantCannon), E_FAIL);
 
 
-	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
-
-	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
+//	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
+//
+//	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
 	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);

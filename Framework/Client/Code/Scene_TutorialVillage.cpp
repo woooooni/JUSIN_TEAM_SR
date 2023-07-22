@@ -12,7 +12,8 @@
 #include "MothMage.h"
 #include "Door.h"
 #include "DefaultItem.h"
-#include "UI_NewQuest.h"
+#include "UI_NewItem.h"
+#include "Npc_OguMom.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -131,7 +132,10 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
-
+	CNpc_OguMom* pMom = CNpc_OguMom::Create(m_pGraphicDev);
+	_vec3 vMomPos = _vec3(12.f, 0.5f, 12.f);
+	pMom->Get_TransformCom()->Set_Info(INFO_POS, &vMomPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_OguMom", pMom);
 
 	return S_OK;
 }
@@ -223,8 +227,9 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_UI()
 {
-	CUI_NewQuest* pQuest = CUI_NewQuest::Create(m_pGraphicDev);
-	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI_QuestWindow", pQuest);
+	// Test
+//	CUI_NewItem* pItemWindow = CUI_NewItem::Create(m_pGraphicDev);
+//	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI_QuestWindow", pItemWindow);
 
 	return S_OK;
 }

@@ -37,9 +37,11 @@ _int CUI_Notification::Update_Object(const _float& fTimeDelta)
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	_float fRatio = _float(WINCY) / _float(WINCX);
 
-	m_fMaxWidth = fWidth * fRatio * 2.1f;
-	//m_fMaxHeight = fHeight * fRatio * 2.1f;
-	m_fMaxHeight = fHeight * fRatio * 2.1f * 0.79f;
+	//	m_fWidthRatio = fWidthRatio;
+	// m_fHeightRatio = fHeightRatio;
+	//m_fMaxHeight = fHeight * fRatio * 2.1f * 0.79f;
+	m_fMaxWidth = fWidth * fRatio * 2.1f * m_fWidthRatio;
+	m_fMaxHeight = fHeight * fRatio * 2.1f * m_fHeightRatio;
 
 	if (m_fCurWidth < m_fMaxWidth)
 		m_fCurWidth += m_fCurWidth * fRatio * fTimeDelta * m_fSpeed;
@@ -112,9 +114,17 @@ HRESULT CUI_Notification::Add_Component(void)
 	return S_OK;
 }
 
-CUI_Notification* CUI_Notification::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+void CUI_Notification::Set_Ratio(_float fWidthRatio, _float fHeightRatio)
+{
+	m_fWidthRatio = fWidthRatio;
+	m_fHeightRatio = fHeightRatio;
+}
+
+CUI_Notification* CUI_Notification::Create(LPDIRECT3DDEVICE9 pGraphicDev, _float fWidthRatio, _float fHeightRatio)
 {
 	CUI_Notification* pInstance = new CUI_Notification(pGraphicDev);
+
+	pInstance->Set_Ratio(fWidthRatio, fHeightRatio);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

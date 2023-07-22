@@ -538,6 +538,36 @@
     <Filter Include="01. Scene\05. SilkWorm">
       <UniqueIdentifier>{b99dce36-8902-4aa5-ab52-bb0572d1e772}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest">
+      <UniqueIdentifier>{500c69b4-3a8a-472a-bc75-1ee5dbddab35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest\00. Icon">
+      <UniqueIdentifier>{726bda0e-7d00-47fc-b384-d550bac1c993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\09. Window">
+      <UniqueIdentifier>{04970149-d6c3-4453-a97b-51dfa6f82646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\09. Window\00. NewItem">
+      <UniqueIdentifier>{85a484d6-22e1-4a50-9abf-856a384f8242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\09. Window\01. NewQuest">
+      <UniqueIdentifier>{a3ce1897-4460-4198-9689-895980df271d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest\01. Mark">
+      <UniqueIdentifier>{1cf8b921-9376-44d3-9e79-c0fe2e9f3ffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\02. Moon_Forest">
+      <UniqueIdentifier>{2b0e0ace-40a2-4022-8648-f604c897c1b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\02. Moon_Forest\00. NueHero">
+      <UniqueIdentifier>{80ed0911-10fc-453a-bca5-7269426a7ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\02. Moon_Forest\02. Villager">
+      <UniqueIdentifier>{369bfd9f-8310-40a9-8904-514f0548639f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\00. Tutorial\04. Mom">
+      <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1086,6 +1116,30 @@
     <ClInclude Include="..\Header\Scene_SilkWorm.h">
       <Filter>01. Scene\05. SilkWorm</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_QuestIcon.h">
+      <Filter>02. GameObject\04. UI\08. Quest\00. Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_NewQuest.h">
+      <Filter>02. GameObject\04. UI\09. Window\01. NewQuest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_QuestionMark.h">
+      <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_ExclamationMark.h">
+      <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_NewItem.h">
+      <Filter>02. GameObject\04. UI\09. Window\00. NewItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_NueHero.h">
+      <Filter>02. GameObject\15. NPC\02. Moon_Forest\00. NueHero</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_VillagerMoon.h">
+      <Filter>02. GameObject\15. NPC\02. Moon_Forest\02. Villager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Npc_OguMom.h">
+      <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1616,6 +1670,30 @@
     <ClCompile Include="..\Code\QuestMgr.cpp" />
     <ClCompile Include="..\Code\Scene_SilkWorm.cpp">
       <Filter>01. Scene\05. SilkWorm</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_QuestIcon.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\00. Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_NewQuest.cpp">
+      <Filter>02. GameObject\04. UI\09. Window\01. NewQuest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_QuestionMark.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_ExclamationMark.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_NewItem.cpp">
+      <Filter>02. GameObject\04. UI\09. Window\00. NewItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_NueHero.cpp">
+      <Filter>02. GameObject\15. NPC\02. Moon_Forest\00. NueHero</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_VillagerMoon.cpp">
+      <Filter>02. GameObject\15. NPC\02. Moon_Forest\02. Villager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Npc_OguMom.cpp">
+      <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

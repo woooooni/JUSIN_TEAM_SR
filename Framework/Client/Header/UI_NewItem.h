@@ -3,20 +3,22 @@
 #include "UI_QuestIcon.h"
 #include "UI_Notification.h"
 
+class CItem;
+
 BEGIN(Engine)
 class CRcTex;
 class CTransform;
 class CTexture;
 END;
 
-class CUI_NewQuest : public CUI
+class CUI_NewItem : public CUI
 {
-	CLONE(CUI_NewQuest)
+	CLONE(CUI_NewItem)
 
 private:
-	CUI_NewQuest(LPDIRECT3DDEVICE9 pGraphicDev);
-	CUI_NewQuest(const CUI_NewQuest& rhs);
-	virtual ~CUI_NewQuest();
+	CUI_NewItem(LPDIRECT3DDEVICE9 pGraphicDev);
+	CUI_NewItem(const CUI_NewItem& rhs);
+	virtual ~CUI_NewItem();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
@@ -26,26 +28,21 @@ public:
 
 private:
 	void	Key_Input();
+	void	Get_ItemInfo(ITEM_CODE _eCodeType);
 
 private:
 	_float	m_fMaxWidth;
-	_float	m_fMaxHeight;
 	_float	m_fCurWidth;
-	_float	m_fCurHeight;
-	_float	m_fSpeed = 10.f;
 	_float	m_bShown = false;
 
 private:
-	CUI_QuestIcon* m_pCloseKey = nullptr;
-	CUI_QuestIcon* m_pTitleBox = nullptr;
-	CUI_QuestIcon* m_pContentsBox = nullptr;
-	CUI_QuestIcon* m_pExclamIcon = nullptr;
-	CUI_Notification* m_pWindow = nullptr;
+	CUI_QuestIcon* m_pCloseKey = nullptr; // 닫기버튼
+	CUI_QuestIcon* m_pFrame = nullptr; // 아이템 Frame
+	CUI_Notification* m_pWindow = nullptr; // 창
 
 public:
-	static  CUI_NewQuest* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static  CUI_NewItem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void		Free() override;
 };
-

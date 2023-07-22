@@ -296,9 +296,12 @@
     <ClInclude Include="..\Header\Npc_DanceTeacher.h" />
     <ClInclude Include="..\Header\Npc_Elite.h" />
     <ClInclude Include="..\Header\Npc_Fishing.h" />
+    <ClInclude Include="..\Header\Npc_NueHero.h" />
+    <ClInclude Include="..\Header\Npc_OguMom.h" />
     <ClInclude Include="..\Header\Npc_Orangi.h" />
     <ClInclude Include="..\Header\Npc_Sheep.h" />
     <ClInclude Include="..\Header\Npc_VillagerMonkey.h" />
+    <ClInclude Include="..\Header\Npc_VillagerMoon.h" />
     <ClInclude Include="..\Header\Npc_Wholesaler.h" />
     <ClInclude Include="..\Header\PlantBall.h" />
     <ClInclude Include="..\Header\PlantCannon.h" />
@@ -381,6 +384,7 @@
     <ClInclude Include="..\Header\UI_LoadingBackGround.h" />
     <ClInclude Include="..\Header\UI_LoadingOgu.h" />
     <ClInclude Include="..\Header\UI_MonsterHP.h" />
+    <ClInclude Include="..\Header\UI_NewItem.h" />
     <ClInclude Include="..\Header\UI_NewQuest.h" />
     <ClInclude Include="..\Header\UI_Notification.h" />
     <ClInclude Include="..\Header\UI_Pages.h" />
@@ -516,9 +520,12 @@
     <ClCompile Include="..\Code\Npc_DanceTeacher.cpp" />
     <ClCompile Include="..\Code\Npc_Elite.cpp" />
     <ClCompile Include="..\Code\Npc_Fishing.cpp" />
+    <ClCompile Include="..\Code\Npc_NueHero.cpp" />
+    <ClCompile Include="..\Code\Npc_OguMom.cpp" />
     <ClCompile Include="..\Code\Npc_Orangi.cpp" />
     <ClCompile Include="..\Code\Npc_Sheep.cpp" />
     <ClCompile Include="..\Code\Npc_VillagerMonkey.cpp" />
+    <ClCompile Include="..\Code\Npc_VillagerMoon.cpp" />
     <ClCompile Include="..\Code\Npc_Wholesaler.cpp" />
     <ClCompile Include="..\Code\PlantBall.cpp" />
     <ClCompile Include="..\Code\PlantCannon.cpp" />
@@ -600,6 +607,7 @@
     <ClCompile Include="..\Code\UI_LoadingBackGround.cpp" />
     <ClCompile Include="..\Code\UI_LoadingOgu.cpp" />
     <ClCompile Include="..\Code\UI_MonsterHP.cpp" />
+    <ClCompile Include="..\Code\UI_NewItem.cpp" />
     <ClCompile Include="..\Code\UI_NewQuest.cpp" />
     <ClCompile Include="..\Code\UI_Notification.cpp" />
     <ClCompile Include="..\Code\UI_Pages.cpp" />

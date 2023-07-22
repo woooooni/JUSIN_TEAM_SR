@@ -123,7 +123,6 @@ void CDefaultItem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 			return;
 
 		CInventoryMgr::GetInstance()->Add_Item(this);
-
 	}
 }
 

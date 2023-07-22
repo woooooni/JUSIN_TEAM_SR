@@ -15,7 +15,10 @@ CUI_NewQuest::~CUI_NewQuest()
 
 HRESULT CUI_NewQuest::Ready_Object(void)
 {
-	m_pWindow = CUI_Notification::Create(m_pGraphicDev);
+	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
+	D3DXMatrixIdentity(&m_matView);
+
+	m_pWindow = CUI_Notification::Create(m_pGraphicDev, 1.f, 0.79f);
 	if (m_pWindow != nullptr)
 		m_pWindow->Set_Owner(this);
 	
@@ -34,17 +37,6 @@ HRESULT CUI_NewQuest::Ready_Object(void)
 	m_pCloseKey = CUI_QuestIcon::Create(m_pGraphicDev, QUESTICON::QUEST_CLOSE);
 	if (m_pCloseKey != nullptr)
 		m_pCloseKey->Set_Owner(this);
-
-	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
-//	m_tInfo.fX = WINCX / 2.f;
-//	m_tInfo.fY = WINCY / 2.f;
-//
-//	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
-//	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
-//
-//	m_fCurWidth = 64.f;
-//	m_fCurHeight = 43.f;
 
 	return S_OK;
 }
@@ -102,6 +94,8 @@ void CUI_NewQuest::LateUpdate_Object(void)
 		m_pTitleBox->Set_Shown(true);
 		m_pContentsBox->Set_Shown(true);
 		m_pExclamIcon->Set_Shown(true);
+
+		m_bShown = true;
 	}
 
 	__super::LateUpdate_Object();
@@ -131,31 +125,36 @@ void CUI_NewQuest::Render_Object(void)
 //		m_pTextureCom->Render_Texture(0);
 //		m_pBufferCom->Render_Buffer();
 //	}
-}
 
-HRESULT CUI_NewQuest::Add_Component(void)
-{
-	CComponent* pComponent = nullptr;
+	if (m_bShown)
+	{
+		// 퀘스트 창 Title
+		RECT rcTitle = { 0, 0, WINCX, WINCY / 2 - 50.f };
+		TCHAR szTitleBuf[256] = L"";
 
-	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
-	D3DXMatrixIdentity(&m_matView);
+		swprintf_s(szTitleBuf, L"퀘스트를 받았다!");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szTitleBuf, lstrlen(szTitleBuf), &rcTitle, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
+		// 퀘스트 명
+		RECT rcQuest = { WINCX / 4 + 10, 0, WINCX, WINCY - 90 };
+		TCHAR szQuestBuf[256] = L"";
 
-	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
+		swprintf_s(szQuestBuf, L"태양의 마을 찾기");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szQuestBuf, lstrlen(szQuestBuf), &rcQuest, DT_VCENTER | DT_NOCLIP,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_NoticeFrame"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+		// 퀘스트 내용
+		RECT rcContents = { 0, 120, WINCX, WINCY };
+		TCHAR szConBuf[256] = L"";
 
-	return S_OK;
+		swprintf_s(szConBuf, L"알 수 없는 목소리가 동쪽의 해가 뜨는 마을로 가라고 한다.\n동쪽... 동쪽은 오른쪽이라고 배웠다.");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+			szConBuf, lstrlen(szConBuf), &rcContents, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+			D3DCOLOR_ARGB(255, 255, 255, 255));
+	}
 }
 
 void CUI_NewQuest::Key_Input()
