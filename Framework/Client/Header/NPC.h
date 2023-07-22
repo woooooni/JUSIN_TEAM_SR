@@ -1,25 +1,17 @@
 #pragma once
 #include "GameObject.h"
 
-BEGIN(Engine)
 
-class CRcTex;
-class CCollider;
-class CTransform;
-class CAnimator;
-//class CUI_ExclamationMark;
-//class CUI_QuestionMark;
-
-END
+class CUI_ExclamationMark;
+class CUI_QuestionMark;
 
 // Stage별 ENUM값으로 렌더 다르게 -> 충돌(?)시 대화창 다르게 나오게
-class CNpc
-	: public CGameObject
+class CNpc : public CGameObject
 {
 	CLONE(CNpc)
 
 protected:
-	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE _eCode);
 	explicit CNpc(const CNpc& rhs);
 	virtual ~CNpc();
 
@@ -29,12 +21,18 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-//protected:
-//	CUI_ExclamationMark* m_pExclamation = nullptr;
-//	CUI_QuestionMark*	 m_pQuestion = nullptr;
 
 public:
-	static CNpc* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos);
+	NPC_CODE Get_NpcCode() { return m_eCode; }
+
+private:
+	NPC_CODE m_eCode;
+
+protected:
+	CUI_ExclamationMark* m_pExclamation = nullptr;
+	CUI_QuestionMark*	 m_pQuestion = nullptr;
+
+
 
 protected:
 	virtual void Free() override;

@@ -187,6 +187,7 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\CollisionMgr.h" />
     <ClInclude Include="..\..\Header\Component.h" />
     <ClInclude Include="..\..\Header\EventMgr.h" />
+    <ClInclude Include="..\..\Header\InteractionMgr.h" />
     <ClInclude Include="..\..\Header\Export_Utility.h" />
     <ClInclude Include="..\..\Header\GameObject.h" />
     <ClInclude Include="..\..\Header\KeyMgr.h" />
@@ -220,6 +221,7 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\CollisionMgr.cpp" />
     <ClCompile Include="..\Code\Component.cpp" />
     <ClCompile Include="..\Code\EventMgr.cpp" />
+    <ClCompile Include="..\Code\InteractionMgr.cpp" />
     <ClCompile Include="..\Code\GameObject.cpp" />
     <ClCompile Include="..\Code\KeyMgr.cpp" />
     <ClCompile Include="..\Code\Layer.cpp" />

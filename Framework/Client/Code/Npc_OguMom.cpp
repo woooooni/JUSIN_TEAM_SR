@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_OguMom::CNpc_OguMom(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_MOM)
 {
 }
 

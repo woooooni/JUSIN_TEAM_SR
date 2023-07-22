@@ -9,6 +9,7 @@
 #include "LightMgr.h"
 #include "KeyMgr.h"
 #include "CollisionMgr.h"
+#include "InteractionMgr.h"
 #include "EventMgr.h"
 
 #include "TriCol.h"
@@ -62,8 +63,8 @@ inline BOOL				IsPicking(CGameObject* _pObj, _vec3* _vHit);
 
 // LightMgr
 inline 	HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
-	const D3DLIGHT9* pLightInfo,
-	const _uint& iIndex);
+const D3DLIGHT9* pLightInfo,
+const _uint& iIndex);
 
 // KeyMgr
 
@@ -80,7 +81,7 @@ inline void		Update_Collision();
 inline void		CheckGroupType(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight);
 inline void		Reset();
 
-// EventMgr
+// InteractionMgr
 
 inline HRESULT		Add_Event(EVENT* pEvent);
 inline void		Set_Event();
@@ -92,7 +93,11 @@ inline void		Reset(const _uint& resetIndex);
 
 inline void		Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex);
 
-
+// EventMgr
+inline HRESULT Ready_EventMgr();
+inline void Update_EventMgr(const _float& fTimeDelta);
+inline void DeleteObjEvt(CGameObject* pObj);
+inline vector<CGameObject*>& Get_DelteObj_Vec(OBJ_TYPE _eObjType);
 
 #include "Export_Utility.inl"
 

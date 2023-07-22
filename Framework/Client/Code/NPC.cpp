@@ -1,8 +1,9 @@
 #include "Export_Function.h"
 #include "Npc.h"
 
-CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev)
+CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE eCode)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
+	, m_eCode(eCode)
 {
 }
 
@@ -57,7 +58,6 @@ HRESULT CNpc::Ready_Object(void)
 _int CNpc::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	
 	_int iExit = __super::Update_Object(fTimeDelta);
 	
 	return iExit;
@@ -78,22 +78,7 @@ void CNpc::Render_Object(void)
 	__super::Render_Object();
 }
 
-CNpc* CNpc::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos)
-{
-	CNpc* pInstance = new CNpc(pGraphicDev);
 
-	if (FAILED(pInstance->Ready_Object()))
-	{
-		Safe_Release(pInstance);
-
-		MSG_BOX("NPC Create Failed");
-		return nullptr;
-	}
-
-	pInstance->Get_TransformCom()->Set_Pos(&vPos);
-
-	return pInstance;
-}
 
 void CNpc::Free()
 {

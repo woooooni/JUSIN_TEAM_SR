@@ -610,6 +610,9 @@
     <Filter Include="02. GameObject\01. Player\State\15. Dance">
       <UniqueIdentifier>{38808e8e-0226-4aea-9883-4b27309801e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\05. Event">
+      <UniqueIdentifier>{895aa68c-49d6-42dc-9e1e-f2b0e88961d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">

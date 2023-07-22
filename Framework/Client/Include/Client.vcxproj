@@ -620,7 +620,9 @@
     <ClCompile Include="..\Code\UI_BossHP.cpp" />
     <ClCompile Include="..\Code\UI_Cursor.cpp" />
     <ClCompile Include="..\Code\UI_Dialog.cpp" />
-    <ClCompile Include="..\Code\UI_ExclamationMark.cpp" />
+    <ClCompile Include="..\Code\UI_ExclamationMark.cpp">
+      <FileType>CppCode</FileType>
+    </ClCompile>
     <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
     <ClCompile Include="..\Code\UI_LoadingBackGround.cpp" />
     <ClCompile Include="..\Code\UI_LoadingOgu.cpp" />

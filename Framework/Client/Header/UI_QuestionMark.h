@@ -1,18 +1,12 @@
 #pragma once
 #include "CUI.h"
-#include "Npc.h"
 
-BEGIN(Engine)
-class CRcTex;
-class CTransform;
-class CTexture;
-END;
-
+class CNpc;
 class CUI_QuestionMark : public CUI
 {
 private:
-	CUI_QuestionMark(LPDIRECT3DDEVICE9 pGraphicDev);
-	CUI_QuestionMark(const CUI_QuestionMark& rhs);
+	explicit CUI_QuestionMark(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CUI_QuestionMark(const CUI_QuestionMark& rhs);
 	virtual ~CUI_QuestionMark();
 
 public:

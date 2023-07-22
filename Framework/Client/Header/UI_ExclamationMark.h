@@ -1,18 +1,12 @@
 #pragma once
 #include "CUI.h"
-#include "Npc.h"
 
-BEGIN(Engine)
-class CRcTex;
-class CTransform;
-class CTexture;
-END;
-
+class CNpc;
 class CUI_ExclamationMark : public CUI
 {
 private:
-	CUI_ExclamationMark(LPDIRECT3DDEVICE9 pGraphicDev);
-	CUI_ExclamationMark(const CUI_ExclamationMark& rhs);
+	explicit CUI_ExclamationMark(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CUI_ExclamationMark(const CUI_ExclamationMark& rhs);
 	virtual ~CUI_ExclamationMark();
 
 public:

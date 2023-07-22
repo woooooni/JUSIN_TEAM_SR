@@ -1,9 +1,5 @@
 #pragma once
 #include "Npc.h"
-#include "UI_ShortCutKey.h"
-#include "NPCText.h"
-#include "UI_QuestionMark.h"
-#include "UI_ExclamationMark.h"
 
 BEGIN(Engine)
 
@@ -13,6 +9,9 @@ class CTransform;
 class CAnimator;
 
 END
+
+class CUI_ExclamationMark;
+class CUI_QuestionMark;
 
 class CNpc_Cow : public CNpc
 {

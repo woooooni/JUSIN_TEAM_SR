@@ -1,9 +1,10 @@
 #include "../Include/stdafx.h"
 #include "Npc_Sheep.h"
 #include "Export_Function.h"
+#include "UI_ExclamationMark.h"
 
 CNpc_Sheep::CNpc_Sheep(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_SHEEP)
 {
 }
 

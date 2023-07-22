@@ -1,14 +1,6 @@
 #pragma once
 #include "NPC.h"
 
-BEGIN(Engine)
-
-class CRcTex;
-class CCollider;
-class CTransform;
-class CAnimator;
-
-END
 
 class CNpc_Dancer : public CNpc
 {

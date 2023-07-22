@@ -1,9 +1,10 @@
 #include "../Include/stdafx.h"
 #include "Npc_Cow.h"
 #include "Export_Function.h"
+#include "UI_QuestionMark.h"
 
 CNpc_Cow::CNpc_Cow(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_COW)
 {
 }
 

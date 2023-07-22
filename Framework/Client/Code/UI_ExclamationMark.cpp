@@ -1,6 +1,8 @@
 #include "UI_ExclamationMark.h"
 #include "Export_Function.h"
 
+
+
 CUI_ExclamationMark::CUI_ExclamationMark(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
 {
