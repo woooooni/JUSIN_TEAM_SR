@@ -90,7 +90,6 @@ HRESULT CTexture::Ready_Texture(TEXTUREID _eType, const _tchar * _pPath, const _
 			break;
 
 		case TEX_CUBE:
-			// TODO :: Ex로 변경할 것.
 			FAILED_CHECK_RETURN(D3DXCreateCubeTextureFromFileEx(
 				m_pGraphicDev
 				,szFileName

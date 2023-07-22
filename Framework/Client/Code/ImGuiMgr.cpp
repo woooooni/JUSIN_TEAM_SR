@@ -1125,14 +1125,28 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 
 
 			pTargetTransform->Set_Info(INFO_POS, &vPos);
-			pTargetTransform->Set_Scale(vScale);
-
-			CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
-			if (nullptr != pBoxCollider)
-				pBoxCollider->Set_Scale(vScale);
+			pTargetTransform->Set_Scale(vScale);	
 
 			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::TERRAIN)
 				SetAutoY(m_pTargetObject);
+		}
+
+		CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pTargetObject->Get_ColliderCom());
+		if (nullptr != pBoxCollider)
+		{
+			_vec3 vColliderScale = pBoxCollider->Get_Scale();
+			_float fColliderScale[3] = { vColliderScale.x, vColliderScale.y, vColliderScale.z };
+			// BoxCollider
+			ImGui::Text("");
+			ImGui::Text("Collider Scale");
+			ImGui::Text("x\t\t\ty\t\t\tz");
+
+			ImGui::DragFloat3("##Collider_Scale", fColliderScale, 0.1f, 1.f, 100.f);
+			vColliderScale.x = fColliderScale[0];
+			vColliderScale.y = fColliderScale[1];
+			vColliderScale.z = fColliderScale[2];
+
+			pBoxCollider->Set_Scale(vColliderScale);
 		}
 	}
 	ImGui::End();
