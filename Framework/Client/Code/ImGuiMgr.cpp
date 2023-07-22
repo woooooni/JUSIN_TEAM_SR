@@ -390,7 +390,7 @@ void CImGuiMgr::UpdateObjectTool(const _float& fTimeDelta)
 	{
 		for (_uint i = 0; i < (_uint)GRASS_TYPE::GRASS_END; ++i)
 		{
-			string strButton = "Glass" + i;
+			string strButton = "Glass" + to_string(i);
 			if (ImGui::Button(strButton.c_str()))
 			{
 				ResetSelectTarget();
