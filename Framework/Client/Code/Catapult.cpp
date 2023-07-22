@@ -55,6 +55,12 @@ HRESULT CCatapult::Ready_Object(void)
 
 	m_pColliderCom->Set_Offset({ 0, 0.5f, 0 });
 
+	m_pBodyBufferCom = dynamic_cast<CCubeTex*>(Clone_Proto(L"Proto_RcCube"));
+	NULL_CHECK_RETURN(m_pBodyBufferCom, E_FAIL);
+
+	m_pCubeTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Catapult_Cube"));
+	NULL_CHECK_RETURN(m_pCubeTex, E_FAIL);
+
 	return S_OK;
 }
 
@@ -113,16 +119,35 @@ void CCatapult::Render_Object(void)
 	
 	__super::Render_Object();
 
+
+
 	_matrix	mat;
 
-	D3DXMatrixRotationX(&mat, D3DXToRadian(m_fThrowAngle));
 	_vec3 vec, myPos;
 
 	m_pTransformCom->Get_Info(INFO_POS, &myPos);
 
+
+	D3DXMatrixIdentity(&mat);
+
+	mat._11 = 0.5f;
+	mat._22 = 0.2f;
+	mat._33 = 1.f;
+
+	memcpy(&mat.m[3][0], &myPos, sizeof(_vec3));
+
+	mat._42 += 0.2f;
+
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
+	m_pCubeTex->Render_Texture();
+	m_pBodyBufferCom->Render_Buffer();
+
+
+	D3DXMatrixRotationX(&mat, D3DXToRadian(m_fThrowAngle));
+
 	D3DXVec3TransformCoord(&vec, &m_vCenterPos, &mat);
 	mat._41 += vec.x + myPos.x ;
-	mat._42 += vec.y + myPos.y + 0.02f;
+	mat._42 += vec.y + myPos.y + 0.42f;
 	mat._43 += vec.z + myPos.z;
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);

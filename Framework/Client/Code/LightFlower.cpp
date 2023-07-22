@@ -98,7 +98,7 @@ void CLightFlower::Render_Object(void)
     if (m_bIsOpened && m_pAnimator->GetCurrAnimation()->Get_Idx() == m_pAnimator->GetCurrAnimation()->Get_Size() - 1)
     {
         AreaWorld._41 = world->_41;
-        AreaWorld._42 = 0.001f;
+        AreaWorld._42 = 0.01f;
         AreaWorld._43 = world->_43;
 
         DWORD   areaColor;
@@ -130,9 +130,11 @@ void CLightFlower::Render_Object(void)
         }
 
         m_pGraphicDev->SetTransform(D3DTS_WORLD, &AreaWorld);
+        m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, false);
         m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, areaColor);
         m_pTextureCom->Render_Texture();
         m_pBufferCom->Render_Buffer();
+        m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, true);
         m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255,255,255,255));
     }
 }

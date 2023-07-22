@@ -107,7 +107,7 @@ CBalpanObj* CBalpanObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
 
 void CBalpanObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {	
-	if ((m_listActivateNum.empty() && ((pCollider->GetOwner()->Get_Name() == m_wstrTargName))) || ((m_wstrTargName == L"Jelly") && (dynamic_cast<CJellyStone*>(pCollider->GetOwner()) || dynamic_cast<CJellyCombined*>(pCollider->GetOwner()))))
+	if ((m_listActivateNum.empty() && ((pCollider->GetOwner()->Get_Name() == m_wstrTargName))) || ((m_wstrTargName == L"Jelly") && (dynamic_cast<CJellyStone*>(pCollider->GetOwner()))))
 	{
 		if (m_bIsPushed)
 			return;
@@ -142,7 +142,7 @@ void CBalpanObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 
 void CBalpanObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if ((m_listActivateNum.empty() && ((pCollider->GetOwner()->Get_Name() == m_wstrTargName))) || ((m_wstrTargName == L"Jelly") && (dynamic_cast<CJellyStone*>(pCollider->GetOwner()) || dynamic_cast<CJellyCombined*>(pCollider->GetOwner()))))
+	if ((m_listActivateNum.empty() && ((pCollider->GetOwner()->Get_Name() == m_wstrTargName))) || ((m_wstrTargName == L"Jelly") && (dynamic_cast<CJellyStone*>(pCollider->GetOwner()))))
 	{
 		if (m_bIsStoneSwitch)
 		{
@@ -178,22 +178,21 @@ void CBalpanObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisio
 void CBalpanObj::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 
-	if (m_bIsAutoReset && m_bIsPushed && (pCollider->GetOwner()->Get_Name() == m_wstrTargName || ((m_wstrTargName == L"Jelly") && (dynamic_cast<CJellyCombined*>(pCollider->GetOwner()) || dynamic_cast<CJellyStone*>(pCollider->GetOwner())) )))
+	if (m_bIsAutoReset && m_bIsPushed && (pCollider->GetOwner()->Get_Name() == m_wstrTargName || ((m_wstrTargName == L"Jelly") &&  dynamic_cast<CJellyStone*>(pCollider->GetOwner()))))
 	{
 		Reset_Pushed();
 		if(!m_bIsStoneSwitch)
 			m_pAnimator->Play_Animation(L"Idle", false);
-
-
 	}
 }
 
  void CBalpanObj::Reset_Pushed() {
 	 m_bIsPushed = false; 		
-	 m_eColor = JELLY_COLOR::JELLY_END;
 
-	if (m_iPushedEventNum != 0 && m_bIsAutoReset)
+	if (m_iPushedEventNum != 0 && m_bIsAutoReset && ((m_eColor == m_eCorrectColor && m_eCorrectColor != JELLY_COLOR::JELLY_END) || m_eCorrectColor == JELLY_COLOR::JELLY_END))
 		 Engine::Check_Event_Start(m_iPushedEventNum);
+	m_eColor = JELLY_COLOR::JELLY_END;
+
  }
 
  void CBalpanObj::Set_AutoReset() { m_bIsAutoReset = !m_bIsAutoReset; }
@@ -213,7 +212,14 @@ void CBalpanObj::Set_Static()
 	m_pAnimator->Play_Animation(L"Static", false);
 }
 
- HRESULT CBalpanObj::Ready_Component()
+void CBalpanObj::Set_StartActive(const JELLY_COLOR& pColor)
+{
+	m_eColor = pColor;
+	m_bIsPushed = true;
+	Check_Event_Start(m_iPushedEventNum);
+}
+
+HRESULT CBalpanObj::Ready_Component()
 {
 	CComponent* pComponent = nullptr;
 
@@ -273,49 +279,15 @@ void CBalpanObj::Set_Static()
 	 {
 		 if (dynamic_cast<CJellyStone*>(pCollider->GetOwner()))
 		 {
-			 switch (dynamic_cast<CJellyStone*>(pCollider->GetOwner())->Get_JellyColor())
-			 {
-			 case JELLY_COLLOR_NORMAL::CYAN:
-				 m_eColor = JELLY_COLOR::CYAN;
-				 break;
-			 case JELLY_COLLOR_NORMAL::MAGENTA:
-				 m_eColor = JELLY_COLOR::MAGENTA;
-
-				 break;
-			 case JELLY_COLLOR_NORMAL::YELLOW:
-				 m_eColor = JELLY_COLOR::YELLOW;
-				 break;
-
-			 default:
-				 break;
-			 }
+			 m_eColor = dynamic_cast<CJellyStone*>(pCollider->GetOwner())->Get_JellyColor();
 		 }
-		 else if (dynamic_cast<CJellyCombined*>(pCollider->GetOwner()))
-		 {
-			 switch (dynamic_cast<CJellyCombined*>(pCollider->GetOwner())->Get_JellyColor())
-			 {
-			 case JELLY_COLLOR_COMBINE::RED:
-				 m_eColor = JELLY_COLOR::RED;
-				 break;
-			 case JELLY_COLLOR_COMBINE::GREEN:
-				 m_eColor = JELLY_COLOR::GREEN;
 
-				 break;
-			 case JELLY_COLLOR_COMBINE::BLUE:
-				 m_eColor = JELLY_COLOR::BLUE;
-				 break;
-
-			 default:
-				 break;
-			 }
-		 }
 	 }
 
 	 if (m_iPushedEventNum != 0)
 	 {
 		 if (m_wstrTargName == L"Jelly" && m_eCorrectColor != JELLY_COLOR::JELLY_END && m_eColor != m_eCorrectColor)
 		 {
-			 m_bIsPushed = false;
 			 return;
 		 }
 

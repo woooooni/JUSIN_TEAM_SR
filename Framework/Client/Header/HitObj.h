@@ -20,6 +20,7 @@ public:
 
 public:
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
+	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 
 public:
 	void			Set_Event(const _uint& pI) { m_iEventNum = pI; }

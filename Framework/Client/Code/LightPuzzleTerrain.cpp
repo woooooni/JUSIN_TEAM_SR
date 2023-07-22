@@ -145,7 +145,7 @@ CLightPuzzleTerrain* CLightPuzzleTerrain::Create(LPDIRECT3DDEVICE9 p_Dev, const 
 	ret->m_pColliderCom->Set_Offset({(_float)tileX * 0.5f , 0, (_float)tileY * 0.5f});
 
 	dynamic_cast<CBoxCollider*>(ret->m_pColliderCom)->Set_Scale({ (float)tileX, 1.f, (float)tileY });
-	ret->m_pTransformCom->Set_Pos(& _vec3( p_Pos.x, 0.001f, p_Pos.z ));
+	ret->m_pTransformCom->Set_Pos(& _vec3( p_Pos.x, 0.007f, p_Pos.z ));
 
 	return ret;
 }
@@ -288,15 +288,13 @@ HRESULT CLightPuzzleTerrain::Make_LightRoute()
 	for (auto& iter : m_vecLightMap)
 	{
 		iter->m_bIsLighting = false;
-		if (iter->m_pOnTileObj)
-			iter->m_pOnTileObj->Set_Lighting(false);
+
 	}
 
 	for (auto& iter : m_vecLightMap)
 	{
 		if (iter->m_pOnTileObj && dynamic_cast<CLightPuzzleBase*>(iter->m_pOnTileObj) && dynamic_cast<CLightPuzzleBase*>(iter->m_pOnTileObj)->Get_MakeLight())
 		{
-			iter->m_pOnTileObj->Set_Lighting(true);
 			iter->m_bIsLighting = true;
 			roundingList.push_back(iter);
 			break;
@@ -324,7 +322,6 @@ HRESULT CLightPuzzleTerrain::Make_LightRoute()
 				{
 					if (iter2 == _vec2(-1, 0))
 					{
-						tmp->m_pOnTileObj->Set_Lighting(true);
 						tmp->m_bIsLighting = true;
 						roundingList.push_back(tmp);
 						break;
@@ -342,7 +339,6 @@ HRESULT CLightPuzzleTerrain::Make_LightRoute()
 				{
 					if (iter2 == _vec2(1, 0))
 					{
-						tmp->m_pOnTileObj->Set_Lighting(true);
 						tmp->m_bIsLighting = true;
 						roundingList.push_back(tmp);
 						break;
@@ -361,7 +357,6 @@ HRESULT CLightPuzzleTerrain::Make_LightRoute()
 				{
 					if (iter2 == _vec2(0, -1))
 					{
-						tmp->m_pOnTileObj->Set_Lighting(true);
 						tmp->m_bIsLighting = true;
 						roundingList.push_back(tmp);
 						break;
@@ -380,7 +375,6 @@ HRESULT CLightPuzzleTerrain::Make_LightRoute()
 				{
 					if (iter2 == _vec2(0, 1))
 					{
-						tmp->m_pOnTileObj->Set_Lighting(true);
 						tmp->m_bIsLighting = true;
 						roundingList.push_back(tmp);
 						break;
@@ -393,6 +387,14 @@ HRESULT CLightPuzzleTerrain::Make_LightRoute()
 
 
 
+	}
+
+	for (auto& iter : m_vecLightMap)
+	{
+		if (iter->m_pOnTileObj && iter->m_pOnTileObj->Get_Lighting() != iter->m_bIsLighting)
+		{
+			iter->m_pOnTileObj->Set_Lighting(iter->m_bIsLighting);
+		}
 	}
 
 	return S_OK;

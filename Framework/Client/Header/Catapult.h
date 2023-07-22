@@ -1,5 +1,12 @@
 #pragma once
 #include "FieldObject.h"
+
+BEGIN(Engine)
+
+class CCubeTex;
+
+END
+
 class CCatapult :    public CFieldObject
 {
 	CLONE(CCatapult)
@@ -37,6 +44,9 @@ protected:
 	_vec3 m_vCenterPos;
 	_float m_fThrowAngle;
 	_bool m_bIsThrowing;
+
+	CCubeTex* m_pBodyBufferCom;
+	CTexture* m_pCubeTex;
 
 	void			Throw_Stone();
 
