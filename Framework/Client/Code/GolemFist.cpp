@@ -4,12 +4,13 @@
 #include "FistEffect.h"
 #include "TrashBummer.h"
 #include "Effect_StoneSpike.h"
-
-CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, OBJ_ID::MONSTER_SKILL)
+#include "Effect_Smoke.h"
+#include "Pool.h"
+CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev,OBJ_ID::MONSTER_SKILL)
 {
 }
 CGolemFist::CGolemFist(const CGolemFist& rhs)
-	: Engine::CGameObject(rhs)
+	: CBullet(rhs)
 {
 
 }
@@ -90,9 +91,10 @@ void CGolemFist::LateUpdate_Object(void)
 					vPos.y = -0.5f;
 					pFistEffect->Get_TransformCom()->Set_Pos(&vPos);
 					pFistEffect->Set_Atk(m_iAtk);
+					pFistEffect->Set_Owner(m_pOwner);
 					CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 					pLayer->Add_GameObject(L"GolemFist", pFistEffect);
-					Set_Active(false);
+			
 					m_pMonsterAim->Set_Active(false);
 				}
 			}
@@ -100,11 +102,23 @@ void CGolemFist::LateUpdate_Object(void)
 			NULL_CHECK_RETURN(pFistEffect, );
 			vPos.y = 0.001f;
 			pFistEffect->Get_TransformCom()->Set_Pos(&vPos);
-			pFistEffect->Set_Atk(m_iAtk);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"GolemFist", pFistEffect);
 			Set_Active(false);
 			m_pMonsterAim->Set_Active(false);
+			vPos.y = 0.5f;
+			for (int i = 0; i < 6; i++)
+			{
+				CGameObject* pSmoke = CPool<CEffect_Smoke>::Get_Obj();
+				if (pSmoke)
+					dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(1.f, 1.f, 1.f), 148, 150, 148);
+				else
+				{
+					pSmoke = dynamic_cast<CEffect_Smoke*>(pSmoke)->Create(Engine::Get_Device());
+					if (pSmoke)
+						dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(1.f, 1.f, 1.f), 148, 150, 148);
+				}
+			}
 		}
 	}
 	m_pMonsterAim->LateUpdate_Object();
@@ -135,6 +149,11 @@ HRESULT CGolemFist::Add_Component(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
+
+	pComponent = m_pColliderCom = dynamic_cast<CBoxCollider*>(Engine::Clone_Proto(L"Proto_BoxCollider"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);

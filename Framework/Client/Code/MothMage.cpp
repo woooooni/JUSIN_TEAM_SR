@@ -82,7 +82,8 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
-
+	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
+		Set_State(MONSTER_STATE::DIE);
 	if (m_tStat.iHp < 1.f && Get_State() != MONSTER_STATE::DIE)
 	{
 		Set_State(MONSTER_STATE::DIE);

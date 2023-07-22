@@ -39,6 +39,7 @@ public:
     void            Fire() { m_bIsFlying = true; };
 
     _bool Is_Flying() { return m_bIsFlying; }
+    _bool Is_Clean() { return m_bIsClean; }
 
     void        Set_Clean() { m_bIsClean = true; }
     const _bool& Get_Clean() { return m_bIsClean; }

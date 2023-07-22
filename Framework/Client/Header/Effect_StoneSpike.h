@@ -1,10 +1,10 @@
 #pragma once
-#include "Effect.h"
+#include "Bullet.h"
 
 
 
 class CEffect_StoneSpike :
-	public CEffect
+	public CBullet
 {
 
 	CLONE(CEffect_StoneSpike)
@@ -23,9 +23,7 @@ public:
 private:
 	HRESULT	Add_Component(void);
 public:
-	void Set_Atk(_int _iAtk) { m_iAtk = _iAtk; }
 	static CEffect_StoneSpike* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:
 	virtual void Free() override;
-	_int m_iAtk = 0;
 };

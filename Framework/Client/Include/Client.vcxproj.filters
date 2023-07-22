@@ -76,9 +76,6 @@
     <Filter Include="02. GameObject\01. Player\State\05. Push">
       <UniqueIdentifier>{e476448a-0b83-4264-9c9f-dafc8e085a06}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\01. Player\State\06. Jump">
-      <UniqueIdentifier>{b96c953e-7f16-40f0-a75a-3b2d6205a76a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\01. Player\State\07. Drawing">
       <UniqueIdentifier>{1cce87a3-671d-4609-acaf-5bda5828b3d7}</UniqueIdentifier>
     </Filter>
@@ -304,6 +301,24 @@
     <Filter Include="02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom">
       <UniqueIdentifier>{824720bc-8e9f-43fb-ba5c-6dce85374f70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\15. NPC">
+      <UniqueIdentifier>{90d7681b-34b9-4ce9-adfd-aa397b8596cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\00. Tutorial">
+      <UniqueIdentifier>{72e16abb-9044-4958-9999-738721d1c00d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16. Bullet">
+      <UniqueIdentifier>{8e47839c-903c-4d9d-905a-f2a39b6335b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16. Bullet\00. Player_Bullet_Bomb">
+      <UniqueIdentifier>{9d7dda0b-beea-4416-bb96-40d0d5feb6da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16. Bullet\01. Player_GolemFist">
+      <UniqueIdentifier>{753ea422-85e3-4459-91ba-af755dd609ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16. Bullet\02. Player_Lightning">
+      <UniqueIdentifier>{ae5708be-76bd-4cfc-94db-fd97dbfb7909}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\13. Effect\03. Player_Skill_Aim">
       <UniqueIdentifier>{1caee045-0aac-4fff-86ce-d14be42de91a}</UniqueIdentifier>
     </Filter>
@@ -349,8 +364,29 @@
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\02. ClearBomb\00. ClearField">
       <UniqueIdentifier>{3217d82d-f638-453f-b95d-18cac4c38f69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\17. Particle">
+      <UniqueIdentifier>{931b85ae-36fa-4b66-aed0-2d20d14d3d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\17. Particle\00. FixedLeaf">
+      <UniqueIdentifier>{03ce479a-ddee-43f4-b7f9-921093b9a1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\17. Particle\01. MovingLeaf">
+      <UniqueIdentifier>{bf7bf5c3-2b67-401f-9b60-93b86fa31425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\17. Particle\02. Map_Circle">
+      <UniqueIdentifier>{e60462c6-0732-4028-a09a-0117b8d8c551}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\13. Effect\11. Get_Item">
       <UniqueIdentifier>{89c4dbac-75c7-4d0a-b4bb-b768411a8e1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\00. Tutorial\01. Sheep">
+      <UniqueIdentifier>{a8d2101f-5108-4b7c-8e0a-bb13e3f6d61d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\00. Tutorial\00. Cow">
+      <UniqueIdentifier>{9db1526a-cd70-4827-befc-b185c87cd029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\00. Tutorial\02. Artist">
+      <UniqueIdentifier>{0ef56b14-a3d5-46b3-905b-218d6f3e6df2}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\04. UI\02. Dialog">
       <UniqueIdentifier>{9ebf1511-d022-4236-bcea-0cc7e49ceb8d}</UniqueIdentifier>
@@ -454,8 +490,44 @@
     <Filter Include="01. Scene\97. Loading">
       <UniqueIdentifier>{75b845a7-a670-4b8f-990c-e90aef6cd7d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\04.">
+      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\04. UI\07. Notification">
       <UniqueIdentifier>{3dca8bef-ec23-4bbc-bf27-8eb8fe6366c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest">
+      <UniqueIdentifier>{f46eaa5e-b3a3-4955-92f6-a481fc3c50a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\00. Chief">
+      <UniqueIdentifier>{cf59afeb-c091-4103-9dc8-9b62ca0cd1ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\00. Chief">
+      <UniqueIdentifier>{b66702a4-0cc5-424a-a6e1-243518e6e8bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\01. Elite">
+      <UniqueIdentifier>{86a13179-0c85-4b32-a668-dcb565405e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\01. Dance">
+      <UniqueIdentifier>{dc72e323-0f00-47a6-b6ab-7fca2fcbce24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager">
+      <UniqueIdentifier>{770a82ef-ebcf-4a5d-be85-3b8093f15fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\00. Villager">
+      <UniqueIdentifier>{c6a1e71f-f76e-4f94-a465-21e34498c9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler">
+      <UniqueIdentifier>{11ba59db-7dc0-4f86-9871-ac738d0385ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher">
+      <UniqueIdentifier>{4592ccc5-eba5-4e4a-8cd8-52f1a9ee5516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\01. Dancer">
+      <UniqueIdentifier>{e2b52a76-af19-4933-8d8a-3e30cce2cccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing">
+      <UniqueIdentifier>{61bb3243-d36f-4c17-85b0-90a7f87a2e73}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot">
       <UniqueIdentifier>{af6c14a3-5b92-4d7b-9761-925a611b3231}</UniqueIdentifier>
@@ -463,89 +535,6 @@
     <Filter Include="01. Scene\05. SilkWorm">
       <UniqueIdentifier>{b99dce36-8902-4aa5-ab52-bb0572d1e772}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\14. NPC">
-      <UniqueIdentifier>{90d7681b-34b9-4ce9-adfd-aa397b8596cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\00. Tutorial">
-      <UniqueIdentifier>{72e16abb-9044-4958-9999-738721d1c00d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\00. Tutorial\01. Sheep">
-      <UniqueIdentifier>{a8d2101f-5108-4b7c-8e0a-bb13e3f6d61d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\00. Tutorial\00. Cow">
-      <UniqueIdentifier>{9db1526a-cd70-4827-befc-b185c87cd029}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\00. Tutorial\02. Artist">
-      <UniqueIdentifier>{0ef56b14-a3d5-46b3-905b-218d6f3e6df2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest">
-      <UniqueIdentifier>{f46eaa5e-b3a3-4955-92f6-a481fc3c50a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\00. Chief">
-      <UniqueIdentifier>{cf59afeb-c091-4103-9dc8-9b62ca0cd1ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\00. Chief\00. Chief">
-      <UniqueIdentifier>{b66702a4-0cc5-424a-a6e1-243518e6e8bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\00. Chief\01. Elite">
-      <UniqueIdentifier>{86a13179-0c85-4b32-a668-dcb565405e72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\01. Dance">
-      <UniqueIdentifier>{dc72e323-0f00-47a6-b6ab-7fca2fcbce24}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher">
-      <UniqueIdentifier>{4592ccc5-eba5-4e4a-8cd8-52f1a9ee5516}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\01. Dance\01. Dancer">
-      <UniqueIdentifier>{e2b52a76-af19-4933-8d8a-3e30cce2cccc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\02. Villager">
-      <UniqueIdentifier>{770a82ef-ebcf-4a5d-be85-3b8093f15fd9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\00. Villager">
-      <UniqueIdentifier>{c6a1e71f-f76e-4f94-a465-21e34498c9aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\01. Saler">
-      <UniqueIdentifier>{11ba59db-7dc0-4f86-9871-ac738d0385ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\02. Fishing">
-      <UniqueIdentifier>{61bb3243-d36f-4c17-85b0-90a7f87a2e73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\15. Bullet">
-      <UniqueIdentifier>{8e47839c-903c-4d9d-905a-f2a39b6335b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\15. Bullet\00. Player_Bullet_Bomb">
-      <UniqueIdentifier>{9d7dda0b-beea-4416-bb96-40d0d5feb6da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\15. Bullet\01. Player_GolemFist">
-      <UniqueIdentifier>{753ea422-85e3-4459-91ba-af755dd609ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\15. Bullet\02. Player_Lightning">
-      <UniqueIdentifier>{ae5708be-76bd-4cfc-94db-fd97dbfb7909}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\16. Particle">
-      <UniqueIdentifier>{931b85ae-36fa-4b66-aed0-2d20d14d3d20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\16. Particle\00. FixedLeaf">
-      <UniqueIdentifier>{03ce479a-ddee-43f4-b7f9-921093b9a1ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\16. Particle\01. MovingLeaf">
-      <UniqueIdentifier>{bf7bf5c3-2b67-401f-9b60-93b86fa31425}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\16. Particle\02. Map_Circle">
-      <UniqueIdentifier>{e60462c6-0732-4028-a09a-0117b8d8c551}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\17. TestCube">
-      <UniqueIdentifier>{fdeccfbf-d989-4209-a558-ffa9f931fd3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\04. Quest">
-      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Quest">
-      <UniqueIdentifier>{1552f99f-0ead-42d7-875e-80bf670e82a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\05. Sound">
-      <UniqueIdentifier>{d4b82715-4fad-49bb-a141-368f12150d95}</UniqueIdentifier>
     <Filter Include="02. GameObject\04. UI\08. Quest">
       <UniqueIdentifier>{500c69b4-3a8a-472a-bc75-1ee5dbddab35}</UniqueIdentifier>
     </Filter>
@@ -575,6 +564,9 @@
     </Filter>
     <Filter Include="02. GameObject\15. NPC\00. Tutorial\04. Mom">
       <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\01. Player\State\07. Drawing\06. Jump">
+      <UniqueIdentifier>{b96c953e-7f16-40f0-a75a-3b2d6205a76a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -654,7 +646,7 @@
       <Filter>02. GameObject\01. Player\State\05. Push</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_State_Jump.h">
-      <Filter>02. GameObject\01. Player\State\06. Jump</Filter>
+      <Filter>02. GameObject\01. Player\State\07. Drawing\06. Jump</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_State_Drawing.h">
       <Filter>02. GameObject\01. Player\State\07. Drawing</Filter>
@@ -822,10 +814,10 @@
       <Filter>02. GameObject\02. Monster\06. Cupa</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Cow.h">
-      <Filter>02. GameObject\14. NPC\00. Tutorial\00. Cow</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\00. Cow</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Sheep.h">
-      <Filter>02. GameObject\14. NPC\00. Tutorial\01. Sheep</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\01. Sheep</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\RedBeatle.h">
       <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
@@ -862,7 +854,7 @@
     <ClInclude Include="..\Header\PlantCannon.h" />
     <ClInclude Include="..\Header\SludgeWave.h" />
     <ClInclude Include="..\Header\Bullet.h">
-      <Filter>02. GameObject\15. Bullet</Filter>
+      <Filter>02. GameObject\16. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Item_Hat.h">
       <Filter>02. GameObject\10. Item\00. Hat</Filter>
@@ -934,19 +926,19 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_FixedLeaf.h">
-      <Filter>02. GameObject\16. Particle\00. FixedLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\00. FixedLeaf</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_MovingLeaf.h">
-      <Filter>02. GameObject\16. Particle\01. MovingLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\01. MovingLeaf</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Bomb.h">
-      <Filter>02. GameObject\15. Bullet\00. Player_Bullet_Bomb</Filter>
+      <Filter>02. GameObject\16. Bullet\00. Player_Bullet_Bomb</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_GolemFist.h">
-      <Filter>02. GameObject\15. Bullet\01. Player_GolemFist</Filter>
+      <Filter>02. GameObject\16. Bullet\01. Player_GolemFist</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Bullet_Lightning.h">
-      <Filter>02. GameObject\15. Bullet\02. Player_Lightning</Filter>
+      <Filter>02. GameObject\16. Bullet\02. Player_Lightning</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_Skill_Aim.h">
       <Filter>02. GameObject\13. Effect\03. Player_Skill_Aim</Filter>
@@ -1004,7 +996,7 @@
       <Filter>03. Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Particle_MapCircle.h">
-      <Filter>02. GameObject\16. Particle\02. Map_Circle</Filter>
+      <Filter>02. GameObject\17. Particle\02. Map_Circle</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Scene_TutorialVillage.h">
       <Filter>01. Scene\01. Tutorial\00. Village</Filter>
@@ -1019,7 +1011,7 @@
       <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc.h">
-      <Filter>02. GameObject\14. NPC</Filter>
+      <Filter>02. GameObject\15. NPC</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UI_Dialog.h">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
@@ -1073,31 +1065,31 @@
       <Filter>02. GameObject\04. UI\07. Notification</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Artist.h">
-      <Filter>02. GameObject\14. NPC\00. Tutorial\02. Artist</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\02. Artist</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Chief.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\00. Chief\00. Chief</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\00. Chief</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Elite.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\00. Chief\01. Elite</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\01. Elite</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Orangi.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_VillagerMonkey.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\00. Villager</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\00. Villager</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Wholesaler.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_DanceTeacher.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Dancer.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\01. Dance\01. Dancer</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\01. Dancer</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_Fishing.h">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UI_SlotFour.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
@@ -1120,21 +1112,10 @@
     <ClInclude Include="..\Header\Effect_Item.h">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\QuestMgr.h" />
     <ClInclude Include="..\Header\Scene_SilkWorm.h">
       <Filter>01. Scene\05. SilkWorm</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_ExclamationMark.h" />
-    <ClInclude Include="..\Header\UI_NewQuest.h" />
-    <ClInclude Include="..\Header\UI_QuestIcon.h" />
-    <ClInclude Include="..\Header\UI_QuestionMark.h" />
-    <ClInclude Include="..\Header\Test_Cube.h">
-      <Filter>02. GameObject\17. TestCube</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\QuestMgr.h">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Quest.h">
-      <Filter>04. Quest</Filter>
     <ClInclude Include="..\Header\UI_QuestIcon.h">
       <Filter>02. GameObject\04. UI\08. Quest\00. Icon</Filter>
     </ClInclude>
@@ -1159,6 +1140,15 @@
     <ClInclude Include="..\Header\Npc_OguMom.h">
       <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Block.h" />
+    <ClInclude Include="..\Header\Effect_CatapultHit.h" />
+    <ClInclude Include="..\Header\Effect_Dig.h" />
+    <ClInclude Include="..\Header\Effect_Hit.h" />
+    <ClInclude Include="..\Header\Effect_Smoke.h" />
+    <ClInclude Include="..\Header\Effect_Stun.h" />
+    <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
+    <ClInclude Include="..\Header\Quest.h" />
+    <ClInclude Include="..\Header\Test_Cube.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1229,7 +1219,7 @@
       <Filter>02. GameObject\01. Player\State\05. Push</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Jump.cpp">
-      <Filter>02. GameObject\01. Player\State\06. Jump</Filter>
+      <Filter>02. GameObject\01. Player\State\07. Drawing\06. Jump</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Drawing.cpp">
       <Filter>02. GameObject\01. Player\State\07. Drawing</Filter>
@@ -1388,10 +1378,10 @@
       <Filter>02. GameObject\02. Monster\06. Cupa</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Cow.cpp">
-      <Filter>02. GameObject\14. NPC\00. Tutorial\00. Cow</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\00. Cow</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Sheep.cpp">
-      <Filter>02. GameObject\14. NPC\00. Tutorial\01. Sheep</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\01. Sheep</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\RedBeatle.cpp">
       <Filter>02. GameObject\02. Monster\02. Beatle</Filter>
@@ -1428,7 +1418,7 @@
     <ClCompile Include="..\Code\PlantCannon.cpp" />
     <ClCompile Include="..\Code\SludgeWave.cpp" />
     <ClCompile Include="..\Code\Bullet.cpp">
-      <Filter>02. GameObject\15. Bullet</Filter>
+      <Filter>02. GameObject\16. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Item_Hat.cpp">
       <Filter>02. GameObject\10. Item\00. Hat</Filter>
@@ -1500,19 +1490,19 @@
       <Filter>02. GameObject\07. EnvironmentObj\00. NearReactObj\01. Mushroom</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_FixedLeaf.cpp">
-      <Filter>02. GameObject\16. Particle\00. FixedLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\00. FixedLeaf</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_MovingLeaf.cpp">
-      <Filter>02. GameObject\16. Particle\01. MovingLeaf</Filter>
+      <Filter>02. GameObject\17. Particle\01. MovingLeaf</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp">
-      <Filter>02. GameObject\15. Bullet\00. Player_Bullet_Bomb</Filter>
+      <Filter>02. GameObject\16. Bullet\00. Player_Bullet_Bomb</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp">
-      <Filter>02. GameObject\15. Bullet\01. Player_GolemFist</Filter>
+      <Filter>02. GameObject\16. Bullet\01. Player_GolemFist</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp">
-      <Filter>02. GameObject\15. Bullet\02. Player_Lightning</Filter>
+      <Filter>02. GameObject\16. Bullet\02. Player_Lightning</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_Skill_Aim.cpp">
       <Filter>02. GameObject\13. Effect\03. Player_Skill_Aim</Filter>
@@ -1570,7 +1560,7 @@
       <Filter>03. Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Particle_MapCircle.cpp">
-      <Filter>02. GameObject\16. Particle\02. Map_Circle</Filter>
+      <Filter>02. GameObject\17. Particle\02. Map_Circle</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Scene_TutorialVillage.cpp">
       <Filter>01. Scene\01. Tutorial\00. Village</Filter>
@@ -1585,7 +1575,7 @@
       <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc.cpp">
-      <Filter>02. GameObject\14. NPC</Filter>
+      <Filter>02. GameObject\15. NPC</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_Dialog.cpp">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
@@ -1639,31 +1629,31 @@
       <Filter>02. GameObject\04. UI\07. Notification</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Artist.cpp">
-      <Filter>02. GameObject\14. NPC\00. Tutorial\02. Artist</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\02. Artist</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Chief.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\00. Chief\00. Chief</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\00. Chief</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Elite.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\00. Chief\01. Elite</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\00. Chief\01. Elite</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Orangi.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_VillagerMonkey.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\00. Villager</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\00. Villager</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Wholesaler.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\01. Saler</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_DanceTeacher.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\00. DanceTeacher</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Dancer.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\01. Dance\01. Dancer</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\01. Dance\01. Dancer</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_Fishing.cpp">
-      <Filter>02. GameObject\14. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
+      <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_SlotFour.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
@@ -1686,21 +1676,10 @@
     <ClCompile Include="..\Code\Effect_Item.cpp">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\QuestMgr.cpp" />
     <ClCompile Include="..\Code\Scene_SilkWorm.cpp">
       <Filter>01. Scene\05. SilkWorm</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_ExclamationMark.cpp" />
-    <ClCompile Include="..\Code\UI_NewQuest.cpp" />
-    <ClCompile Include="..\Code\UI_QuestIcon.cpp" />
-    <ClCompile Include="..\Code\UI_QuestionMark.cpp" />
-    <ClCompile Include="..\Code\Test_Cube.cpp">
-      <Filter>02. GameObject\17. TestCube</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\QuestMgr.cpp">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Quest.cpp">
-      <Filter>04. Quest</Filter>
     <ClCompile Include="..\Code\UI_QuestIcon.cpp">
       <Filter>02. GameObject\04. UI\08. Quest\00. Icon</Filter>
     </ClCompile>
@@ -1725,6 +1704,15 @@
     <ClCompile Include="..\Code\Npc_OguMom.cpp">
       <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_Block.cpp" />
+    <ClCompile Include="..\Code\Effect_CatapultHit.cpp" />
+    <ClCompile Include="..\Code\Effect_Dig.cpp" />
+    <ClCompile Include="..\Code\Effect_Hit.cpp" />
+    <ClCompile Include="..\Code\Effect_Smoke.cpp" />
+    <ClCompile Include="..\Code\Effect_Stun.cpp" />
+    <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
+    <ClCompile Include="..\Code\Quest.cpp" />
+    <ClCompile Include="..\Code\Test_Cube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

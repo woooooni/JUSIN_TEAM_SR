@@ -125,9 +125,7 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Environment()
 HRESULT CScene_SunGolemCave1::Ready_Layer_Monster()
 {
 	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
-	_vec3 vSunGollemPos = _vec3(5.f, 0.5f, 5.f);
-	pSunGollem->Get_TransformCom()->Set_Info(INFO_POS, &vSunGollemPos);
-
+	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SunGollem", pSunGollem);
 
 	return S_OK;

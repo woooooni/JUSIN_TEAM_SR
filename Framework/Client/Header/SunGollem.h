@@ -48,7 +48,7 @@ public:
 
 public:
 	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
-public:
+private:
 	virtual void Update_Idle(_float fTimeDelta)	;
 	virtual void Update_Dirty(_float fTimeDelta);
 	virtual void Update_Move(_float fTimeDelta)	;
@@ -56,6 +56,7 @@ public:
 	virtual void Update_Die(_float fTimeDelta)	;
 	virtual void Update_Regen(_float fTimeDelta);
 
+public:
 	static CSunGollem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
@@ -74,6 +75,8 @@ private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);
 	void Create_Wave(_vec3 vPos);
 	void Create_Stone();
+	void Create_Effect();
+	void Create_Monkey();
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;

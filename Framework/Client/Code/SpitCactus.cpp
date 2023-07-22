@@ -52,6 +52,8 @@ _int CSpitCactus::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
+		Set_State(MONSTER_STATE::DIE);
 	_int iExit = __super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
@@ -185,8 +187,10 @@ void CSpitCactus::Update_Move(_float fTimeDelta)
 }
 void CSpitCactus::Update_Die(_float fTimeDelta)
 {
-	if (Is_Active()&&m_pAnimator->GetCurrAnimation()->Is_Finished())
+	if (Is_Active() && m_pAnimator->GetCurrAnimation()->Is_Finished()) {
+		On_Death();
 		Set_Active(false);
+	}
 }
 
 
