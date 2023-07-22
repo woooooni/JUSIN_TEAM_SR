@@ -794,6 +794,13 @@ HRESULT CLoading::Ready_Monster_Texture()
 	//PlantBall
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_PlantBall", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Projectile/PlantBall/PlantBall_%d.png", 4)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MonkeyBarrelCleaner_Attack_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MonkeyBarrelCleaner/Attack/Right/MonkeyBarrelCleaner_%d.png", 4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MonkeyBarrelCleaner_Attack_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MonkeyBarrelCleaner/Attack/Left/MonkeyBarrelCleaner_%d.png", 4)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MonkeyBarrelCleaner_Movement_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MonkeyBarrelCleaner/Movement/Right/MonkeyBarrelCleaner_%d.png", 11)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MonkeyBarrelCleaner_Movement_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MonkeyBarrelCleaner/Movement/Left/MonkeyBarrelCleaner_%d.png", 11)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MonkeyBarrelCleaner_Idle_Right", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MonkeyBarrelCleaner/Idle/Right/MonkeyBarrelCleaner_%d.png", 2)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_MonkeyBarrelCleaner_Idle_Left", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/MonkeyBarrelCleaner/Idle/Left/MonkeyBarrelCleaner_%d.png", 2)), E_FAIL);
+	
 	return S_OK;
 
 }

@@ -58,8 +58,6 @@ _int CCupa::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	// Monster State¿¡ µû¸¥ Update
 
 	_vec3 vPlayerPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -191,6 +189,11 @@ void CCupa::Update_Idle(_float fTimeDelta)
 
 void CCupa::Update_Die(_float fTimeDelta)
 {
+	if (Is_Active()) 
+	{
+		Set_Active(false);
+		On_Death();
+	}
 }
 
 void CCupa::Update_Regen(_float fTimeDelta)

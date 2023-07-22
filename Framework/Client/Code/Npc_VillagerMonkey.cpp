@@ -39,7 +39,7 @@ HRESULT CNpc_VillagerMonkey::Ready_Object(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
-
+	m_pTransformCom->Set_Scale(_vec3(1.5f, 1.5f, 1.5f));
 	switch (m_eType)
 	{
 	case VILLAGERTYPE::MONKEY_HOOD:

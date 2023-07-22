@@ -44,7 +44,7 @@ HRESULT CNpc_Orangi::Ready_Object(void)
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_Orangi_React", L"Proto_Texture_NPC_Wholesaler_Orangi_React", 0.5f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Monkey_Orangi_Idle", TRUE), E_FAIL);
-
+	m_pTransformCom->Set_Scale(_vec3(1.5f, 1.5f, 1.5f));
 	return S_OK;
 }
 

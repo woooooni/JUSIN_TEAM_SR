@@ -39,6 +39,7 @@ HRESULT CNpc_DanceTeacher::Ready_Object(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
+	m_pTransformCom->Set_Scale(_vec3(1.65f, 1.65f, 1.65f));
 
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_DanceTeacher_Idle", L"Proto_Texture_NPC_DanceTeacher_Idle", 0.5f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_DanceTeacher_Dance", L"Proto_Texture_NPC_DanceTeacher_Dance", 0.2f), E_FAIL);

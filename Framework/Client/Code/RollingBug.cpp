@@ -53,6 +53,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 
+
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 
 	if (nullptr == pTarget)

@@ -182,7 +182,11 @@ void CTrashBig::Update_Idle(_float fTimeDelta)
 void CTrashBig::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
+	{
 		Set_Active(false);
+		On_Death();
+	}
+
 }
 
 void CTrashBig::Update_Regen(_float fTimeDelta)

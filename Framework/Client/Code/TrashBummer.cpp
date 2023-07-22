@@ -79,10 +79,11 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);
 	_vec3  vPos;
+	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
+   	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
@@ -199,8 +200,11 @@ void CTrashBummer::Update_Idle(_float fTimeDelta)
 
 void CTrashBummer::Update_Die(_float fTimeDelta)
 {
-	if (Is_Active())
+	if (Is_Active()) 
+	{
+		On_Death();
 		Set_Active(false);
+	}
 }
 
 void CTrashBummer::Update_Regen(_float fTimeDelta)

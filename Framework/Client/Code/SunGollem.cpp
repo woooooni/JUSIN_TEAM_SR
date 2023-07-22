@@ -8,7 +8,7 @@
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN)
-	, m_fSpeed(5.f)
+	, m_fSpeed(20.f)
 {
 }
 CSunGollem::CSunGollem(const CSunGollem& rhs)
@@ -34,7 +34,7 @@ HRESULT CSunGollem::Ready_Object(void)
 
 	memset(m_bAttack, 1, sizeof(bool)*6);
 	memset(m_bSummon, 1, sizeof(bool) * 3);
-	m_vVerticalDir = { 0.f, 1.f ,0.f }; m_vVerticalDir = { 0.f, 1.f ,0.f };
+	m_vVerticalDir = { 0.f, 1.f ,0.f };
 	m_pTransformCom->Set_Pos(&_vec3(4.0f, 3.0f, 4.0f));
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -280,28 +280,28 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 void CSunGollem::Update_Move(_float fTimeDelta)
 {
 
-	
-
-	m_fSpeed -= m_fMoveTime * m_fMoveTime*0.01f;
-
-
 	_vec3 vPos;
 	_vec3 vDir;
-
-	m_pTransformCom->Move_Pos(&m_vVerticalDir, fTimeDelta, m_fSpeed);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	
+
 	vDir = m_vRandomPos[m_iRand] - vPos;
 	vDir.y = 0.f;
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 1.f);
-	if (vPos.y < 3.f&&m_fSpeed<0)
+	m_pTransformCom->Move_Pos(&vDir,5.f,fTimeDelta );
+	if (!m_bJump)
+	{
+		m_pRigidBodyCom->AddForce(_vec3(0.0f, 150.0f, 0.0f));
+		m_pRigidBodyCom->SetGround(false);
+		m_bJump = true;
+	}
+	if (m_pRigidBodyCom->IsGround() && m_pRigidBodyCom->GetVelocity().y <= 0.0f)
 	{
 		//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.5f);
-			m_vVerticalDir= {0.f, 1.f ,0.f };
-			m_fSpeed = 15.f;
-			m_iRand = rand() % 3 ;
+		m_vVerticalDir = { 0.f, 1.f ,0.f };
+		m_iRand = rand() % 3;
 		m_fMoveTime = 0.f;
+		D3DXVec3Normalize(&vDir, &vDir);
+		m_pRigidBodyCom->AddForce(vDir *80.f);
 		Set_State(SUNGOLEM_STATE::ATTACK);
 		if (m_bDirty && m_tStat.iHp < 4)
 			Create_Wave(vPos);
@@ -311,15 +311,15 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 		for (_uint i = 0; i < ObjectVec.size(); ++i)
 		{
 			if (ObjectVec[i]->Get_Name() == L"Stone")
-				iStoneNum++;				
+				iStoneNum++;
 		}
 		if (iStoneNum < 6)
 		{
 			Create_Stone();
 			Create_Stone();
 		}
+		m_bJump = false;
 	}
-	m_fMoveTime += 10 * fTimeDelta;
 
 }
 

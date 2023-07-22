@@ -184,7 +184,9 @@ void CTrashSlime::Update_Idle(_float fTimeDelta)
 void CTrashSlime::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
-		Set_Active(false);
+	{
+	Set_Active(false);
+	On_Death();}	
 }
 
 void CTrashSlime::Update_Regen(_float fTimeDelta)
