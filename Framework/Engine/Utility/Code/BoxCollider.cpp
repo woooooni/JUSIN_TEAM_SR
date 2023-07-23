@@ -3,6 +3,7 @@
 #include "KeyMgr.h"
 
 
+_bool g_bRender = false;
 CBoxCollider::CBoxCollider(LPDIRECT3DDEVICE9 _pDevice)
 	: CCollider(_pDevice, COMPONENT_TYPE::COM_BOX_COLLIDER, COLLIDER_TYPE::COLLIDER_BOX)
 {
@@ -111,7 +112,7 @@ void CBoxCollider::LateUpdate_Component()
 
 void CBoxCollider::Render_Component()
 {
-	if (!m_bRender)
+	if (!g_bRender)
 		return;
 
 	_matrix matPrevMatrix;
@@ -170,7 +171,7 @@ CComponent* CBoxCollider::Clone(void)
 void CBoxCollider::InputCollider()
 {
 	if (KEY_TAP(KEY::F2))
-		m_bRender = !m_bRender;
+		g_bRender = !g_bRender;
 }
 
 void CBoxCollider::OnCollisionEnter(CCollider * _pOther, COLLISION_GROUP _eGroup)

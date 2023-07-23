@@ -15,11 +15,16 @@ public:
     virtual void		LateUpdate_Object(void) override;
     virtual void		Render_Object(void) override;
 
+public:
+    void Set_Alpha(_float _fAlpha) { m_fAlpha = _fAlpha; }
 private:
     HRESULT Ready_Component();
 
 public:
     static  CUI_Veil* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+private:
+    _float m_fAlpha;
 
 private:
     virtual void		Free() override;

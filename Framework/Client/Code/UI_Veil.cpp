@@ -3,11 +3,13 @@
 
 CUI_Veil::CUI_Veil(LPDIRECT3DDEVICE9 _pGraphicDev)
     :CUI(_pGraphicDev)
+	, m_fAlpha(0.f)
 {
 }
 
 CUI_Veil::CUI_Veil(const CUI_Veil& rhs)
     : CUI(rhs)
+	, m_fAlpha(rhs.m_fAlpha)
 {
 }
 
@@ -56,10 +58,13 @@ void CUI_Veil::Render_Object(void)
 
 	m_pTransformCom->Set_Pos(&vPos);
 
+	
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 HRESULT CUI_Veil::Ready_Component()
