@@ -23,6 +23,7 @@ public:
 public:
 	HRESULT	Add_Component(void);
 	void	Set_Ratio(_float fWidthRatio, _float fHeightRatio);
+	void	Set_InitSize(_float _fCurWidth, _float _fCurHeight);
 	void	Set_Owner(CUI* _pOwner) { m_pOwner = _pOwner; }
 	_float	Get_CurWidth() { return m_fCurWidth; }
 	_float	Get_MaxWidth() { return m_fMaxWidth; }

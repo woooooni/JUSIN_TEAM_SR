@@ -31,15 +31,26 @@ HRESULT CUI_Notification::Ready_Object(void)
 
 _int CUI_Notification::Update_Object(const _float& fTimeDelta)
 {
+//	if (!Is_Active())
+//	{
+//		m_fCurWidth = 64.f;
+//		m_fCurHeight = 43.f;
+//	}
+
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+
+	_int iExit = __super::Update_Object(fTimeDelta);
+	return iExit;
+}
+
+void CUI_Notification::LateUpdate_Object(void)
+{
+	float fTimeDelta = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
 
 	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	_float fRatio = _float(WINCY) / _float(WINCX);
 
-	//	m_fWidthRatio = fWidthRatio;
-	// m_fHeightRatio = fHeightRatio;
-	//m_fMaxHeight = fHeight * fRatio * 2.1f * 0.79f;
 	m_fMaxWidth = fWidth * fRatio * 2.1f * m_fWidthRatio;
 	m_fMaxHeight = fHeight * fRatio * 2.1f * m_fHeightRatio;
 
@@ -49,12 +60,6 @@ _int CUI_Notification::Update_Object(const _float& fTimeDelta)
 	if (m_fCurHeight < m_fMaxHeight)
 		m_fCurHeight += m_fCurHeight * fRatio * fTimeDelta * m_fSpeed;
 
-	_int iExit = __super::Update_Object(fTimeDelta);
-	return iExit;
-}
-
-void CUI_Notification::LateUpdate_Object(void)
-{
 	__super::LateUpdate_Object();
 }
 
@@ -62,7 +67,6 @@ void CUI_Notification::Render_Object(void)
 {
 	CUI::Render_Object();
 
-	float fTimeDelta = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
 
 	_matrix matPreView, matPreProj;
 
@@ -77,9 +81,7 @@ void CUI_Notification::Render_Object(void)
 	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
-
 	_float fRatio = _float(WINCY) / _float(WINCX);
-	//_vec3 vScale = _vec3(fWidth * fRatio * 2.1f, fHeight * fRatio * 2.1f , 0.f);
 
 	_vec3 vScale = _vec3(m_fCurWidth, m_fCurHeight, 0.f);
 	m_pTransformCom->Set_Scale(vScale);
@@ -118,6 +120,12 @@ void CUI_Notification::Set_Ratio(_float fWidthRatio, _float fHeightRatio)
 {
 	m_fWidthRatio = fWidthRatio;
 	m_fHeightRatio = fHeightRatio;
+}
+
+void CUI_Notification::Set_InitSize(_float _fCurWidth, _float _fCurHeight)
+{
+	m_fCurWidth = _fCurWidth;
+	m_fCurHeight = _fCurHeight;
 }
 
 CUI_Notification* CUI_Notification::Create(LPDIRECT3DDEVICE9 pGraphicDev, _float fWidthRatio, _float fHeightRatio)

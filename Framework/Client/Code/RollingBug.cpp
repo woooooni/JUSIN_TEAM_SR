@@ -70,6 +70,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 		vOriginPos = m_tBugInfo.vDefaultPos;
 		m_vBugDir = vOriginPos - vPos;
 		m_vPlayerDir = vPlayerPos - vPos;
+
 		if (D3DXVec3Length(&m_vPlayerDir) <= 15.f)
 		{
 			m_vLook = m_vPlayerDir;
@@ -80,13 +81,15 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 		{
 			m_vLook = m_vBugDir;
 			Set_State(MONSTER_STATE::MOVE);
+
+			if (D3DXVec3Length(&m_vBugDir) < 1.f)
+			{
+				m_vLook = _vec3(0.f, 0.f, -1.f);
+				Set_State(MONSTER_STATE::IDLE);
+			}
+
 		}
 
-		if (D3DXVec3Length(&m_vBugDir) < 1.f)
-		{
-			m_vLook = _vec3(0.f, 0.f, -1.f);
-			Set_State(MONSTER_STATE::IDLE);
-		}
 	}
 
 	vPos.y += 0.5f;
@@ -284,11 +287,11 @@ void CRollingBug::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 		vDir = vPos - vPlayerPos;
-		vDir.y = 0.5f;
+		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);
 
 		m_tStat.iHp -= 1;
-		m_pRigidBodyCom->AddForce(vDir * 40.0f);
+		m_pRigidBodyCom->AddForce(vDir * 100.0f);
 
 		if (m_tStat.iHp < 1.f)
 			Set_State(MONSTER_STATE::DIE);

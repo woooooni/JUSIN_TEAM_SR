@@ -58,7 +58,7 @@ HRESULT CScene_Tool::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
+	//FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
@@ -554,9 +554,9 @@ HRESULT CScene_Tool::Ready_Layer_Camera()
 	NULL_CHECK_RETURN(pCamera, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
 
-	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSkyBox, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pSkyBox), E_FAIL);
+//	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev);
+//	NULL_CHECK_RETURN(pSkyBox, E_FAIL);
+//	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SkyBox", pSkyBox), E_FAIL);
 
 	m_pCamera = pCamera;
 

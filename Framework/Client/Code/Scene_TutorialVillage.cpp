@@ -144,34 +144,17 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
 {
-	// Ã¼·Â¹Ù Test
-//	CMothMage* pMothmage = CMothMage::Create(m_pGraphicDev);
-//	_vec3 vMothmagePos = _vec3(14.f, 0.5f, 14.f);
-//	pMothmage->Get_TransformCom()->Set_Info(INFO_POS, &vMothmagePos);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Mothmage", pMothmage);
-//
-//	CDesertRhino* pRhino = CDesertRhino::Create(m_pGraphicDev);
-//	_vec3 vRhinoPos = _vec3(13.f, 0.5f, 12.f);
-//	pRhino->Get_TransformCom()->Set_Info(INFO_POS, &vRhinoPos);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Rhino", pRhino);
-
-//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"TrashFast", pTrashFast);
-//
-//	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Cupa", pMonCupa);
-
 	return S_OK;
 }
 
 HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 {
 	CDefaultItem* def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_SMALL);
-	def->Get_TransformCom()->Set_Pos(&_vec3(11, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(11, 0, 5));
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(12, 0, 4));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
@@ -181,45 +164,45 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_SMALL);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(14, 0, 8));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_MIDDLE);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(15, 0, 5));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_BIG);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(16, 0, 5));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(17, 0, 5));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(18, 0, 5));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(19, 0, 5));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(20, 0, 5));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
+	def->Get_TransformCom()->Set_Pos(&_vec3(21, 0, 5));
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 

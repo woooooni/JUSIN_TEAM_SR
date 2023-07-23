@@ -26,14 +26,20 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-private:
-	void	Key_Input();
+public:
 	void	Get_ItemInfo(ITEM_CODE _eCodeType);
+
+private:
+	HRESULT	Add_Component(void);
+	void	Key_Input();
+	void	Set_Item(ITEM_CODE _eCodeType);
 
 private:
 	_float	m_fMaxWidth;
 	_float	m_fCurWidth;
 	_float	m_bShown = false;
+	wstring m_strItemInfo; // Item 기능 설명
+	wstring m_strItemName; // Item 이름
 
 private:
 	CUI_QuestIcon* m_pCloseKey = nullptr; // 닫기버튼

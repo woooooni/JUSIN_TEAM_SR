@@ -71,7 +71,7 @@ private:
 	CUI_BossHP*		m_pUIBack;
 	CUI_BossHP*		m_pUIFrame;
 	CUI_BossHP*		m_pUIGauge;
-	_uint			m_iDirtyHp = 0;
+	_int			m_iDirtyHp = 0;
 
 private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);

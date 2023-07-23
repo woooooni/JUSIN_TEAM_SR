@@ -242,7 +242,6 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 
 	m_tStat.iMaxHp = 30;
 	m_tStat.iAttack = 2;
-	m_tStat.iHp += 1;
 	m_bDirty = true;
 
 	/*if (m_bBreath)
@@ -252,20 +251,21 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);*/
 
-	m_tStat.iMaxHp = 25;
-
 	if (m_tStat.iMaxHp > m_iDirtyHp)
 		m_iDirtyHp += _uint(100 * fTimeDelta);
 
 	if (m_tStat.iMaxHp < m_iDirtyHp)
-		m_iDirtyHp == m_tStat.iMaxHp;
-
-	/*m_tStat = { 25, m_iDirtyHp, 2 };*/
-
-	if (m_fMoveTime > 10.f)
 	{
+		m_iDirtyHp = m_tStat.iMaxHp;
 		Set_State(SUNGOLEM_STATE::IDLE);
 	}
+
+	m_tStat.iHp = m_iDirtyHp;
+//
+//	if (m_fMoveTime > 10.f)
+//	{
+//		Set_State(SUNGOLEM_STATE::IDLE);
+//	}
 
 	// Ãß°¡
 	m_pUIBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);

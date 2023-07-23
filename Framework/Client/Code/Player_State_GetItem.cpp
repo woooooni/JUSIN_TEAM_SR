@@ -6,6 +6,7 @@
 #include "KeyMgr.h"
 #include "Effect_GetItem.h"
 #include "Export_Function.h"
+#include "UI_NewItem.h"
 
 
 CPlayer_State_GetItem::CPlayer_State_GetItem(CGameObject* _pOwner)
@@ -32,8 +33,11 @@ HRESULT CPlayer_State_GetItem::Ready_State(void)
 	if (!m_pEffect)
 	{
 		m_pEffect = CEffect_GetItem::Create(Engine::Get_Device());
-	}                     
-
+	}        
+	//추가
+	if (!m_pWindow)
+		m_pWindow = CUI_NewItem::Create(Engine::Get_Device());
+	//
 	m_iIndex = 5;
 
 	return S_OK;
@@ -84,6 +88,10 @@ _int CPlayer_State_GetItem::Update_State(const _float& fTimeDelta)
 		vPos.y += 2.5f;
 		dynamic_cast<CEffect_GetItem*>(m_pEffect)->Get_Effect(vPos, dynamic_cast<CPlayer*>(m_pOwner)->Get_GetItemCode());
 		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Effect_GetItem", m_pEffect);
+		//추가
+		dynamic_cast<CUI_NewItem*>(m_pWindow)->Get_ItemInfo(dynamic_cast<CPlayer*>(m_pOwner)->Get_GetItemCode());
+		Engine::Get_Layer(LAYER_TYPE::UI)->Add_GameObject(L"UI_GetItem", m_pWindow);
+		//
 		m_bFinished = true;
 	}
 	

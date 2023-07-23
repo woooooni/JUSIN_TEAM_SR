@@ -3,7 +3,6 @@
 #include	"Pool.h"
 #include	"Player.h"
 #include	"UseItem.h"
-#include "UIMgr.h"
 
 
 IMPLEMENT_SINGLETON(CInventoryMgr)
@@ -78,7 +77,6 @@ HRESULT CInventoryMgr::Add_Item(CGameObject* pItem)
 
 		player->Set_GetItem(true);
 		player->Set_GetItemCode(tem->Get_ItemCode());
-		//CUIMgr::GetInstance()->Add_Window(tem->Get_ItemCode());
 	}
 	else
 	{
