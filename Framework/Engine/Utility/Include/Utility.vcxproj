@@ -123,12 +123,13 @@ call CopyUtility.bat</Command>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;UTILITY_EXPORTS;%(PreprocessorDefinitions);ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../../ThirdParty;../../Header;../../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../../ThirdParty;../../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>fmodex_vc.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodex64_vc.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>cd /d $(SolutionDir)

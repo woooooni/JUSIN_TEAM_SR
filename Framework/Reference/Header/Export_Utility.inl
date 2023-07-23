@@ -190,6 +190,36 @@ inline vector<CGameObject*>& Get_DelteObj_Vec(OBJ_TYPE _eObjType)
 	return CEventMgr::GetInstance()->Get_DelteObj_Vec(_eObjType);
 }
 
+inline HRESULT Ready_SoundMgr()
+{
+	return CSoundMgr::GetInstance()->Ready_SoundMgr();
+}
+
+inline void Play_Sound(TCHAR* pSoundKey, CHANNELID eID, float fVolume)
+{
+	CSoundMgr::GetInstance()->Play_Sound(pSoundKey, eID, fVolume);
+}
+
+inline void Play_BGM(TCHAR* pSoundKey, float fVolume)
+{
+	CSoundMgr::GetInstance()->Play_BGM(pSoundKey, fVolume);
+}
+
+inline void Stop_Sound(CHANNELID eID)
+{
+	CSoundMgr::GetInstance()->Stop_Sound(eID);
+}
+
+inline void Stop_All()
+{
+	CSoundMgr::GetInstance()->Stop_All();
+}
+
+inline void Set_ChannelVolume(CHANNELID eID, float fVolume)
+{
+	CSoundMgr::GetInstance()->Set_ChannelVolume(eID, fVolume);
+}
+
 void			Release_Utility()
 {
 	CKeyMgr::GetInstance()->DestroyInstance();
@@ -202,5 +232,6 @@ void			Release_Utility()
 	CManagement::GetInstance()->DestroyInstance();
 	CInteractionMgr::GetInstance()->DestroyInstance();
 	CEventMgr::GetInstance()->DestroyInstance();
+	CSoundMgr::GetInstance()->DestroyInstance();
 }
 

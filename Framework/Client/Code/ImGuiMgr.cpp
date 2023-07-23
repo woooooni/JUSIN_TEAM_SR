@@ -1127,7 +1127,7 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			pTargetTransform->Set_Info(INFO_POS, &vPos);
 			pTargetTransform->Set_Scale(vScale);	
 
-			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::TERRAIN)
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::TERRAIN && m_pTargetObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pTargetObject);
 		}
 

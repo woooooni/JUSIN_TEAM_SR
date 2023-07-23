@@ -36,11 +36,15 @@ public:
     void Set_NpcCode(NPC_CODE _eNpcCode) { m_eNpcCode = _eNpcCode; }
     NPC_CODE Get_NpcCode() { return m_eNpcCode; }
 
+    // For Hunting Quest
     _uint Get_CurrCount() { return m_iCurCount; }
     _uint Get_MaxCount() { return m_iMaxCount; }
 
 public:
     void Update_Quest(_float& fTimeDelta);
+
+public:
+    void Accept_Quest();
     void Clear_Quest();
 
 private:

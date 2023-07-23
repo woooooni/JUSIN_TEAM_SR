@@ -32,7 +32,6 @@ CCamera::CCamera(const CCamera& rhs)
 	, m_fFollowSpeed(rhs.m_fFollowSpeed)
 	, m_fShakeForce(rhs.m_fShakeForce)
 	, m_fAlpha(rhs.m_fAlpha)
-	// , m_pVeilTex(rhs.m_pVeilTex)
 	, m_fMoveSpeed(10.f)
 	, m_eState(CAMERA_STATE::GAME)
 	, m_hWnd(rhs.m_hWnd)
@@ -49,13 +48,7 @@ HRESULT CCamera::Ready_Object(void)
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pTransformCom->Set_Pos(&_vec3(0.f, 5.f, -10.f));
 
-	//if (nullptr == m_pVeilTex)
-	//{
-		// 전 픽셀이 검은색인 Texture 생성
-		/*
-		Near에 화면사이즈의 사각형을 만들어서 Alpha값을 조절한다.
-		*/
-		//}
+	
 	m_eState = CAMERA_STATE::GAME;
 	m_fMoveSpeed = 10.0f;
 	

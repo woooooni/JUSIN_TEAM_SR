@@ -11,6 +11,7 @@
 #include "CollisionMgr.h"
 #include "InteractionMgr.h"
 #include "EventMgr.h"
+#include "SoundMgr.h"
 
 #include "TriCol.h"
 #include "RcCol.h"
@@ -98,6 +99,14 @@ inline HRESULT Ready_EventMgr();
 inline void Update_EventMgr(const _float& fTimeDelta);
 inline void DeleteObjEvt(CGameObject* pObj);
 inline vector<CGameObject*>& Get_DelteObj_Vec(OBJ_TYPE _eObjType);
+
+// SoundMgr
+inline HRESULT Ready_SoundMgr();
+inline	void Play_Sound(TCHAR* pSoundKey, CHANNELID eID, float fVolume);
+inline	void Play_BGM(TCHAR* pSoundKey, float fVolume);
+inline	void Stop_Sound(CHANNELID eID);
+inline	void Stop_All();
+inline	void Set_ChannelVolume(CHANNELID eID, float fVolume);
 
 #include "Export_Utility.inl"
 

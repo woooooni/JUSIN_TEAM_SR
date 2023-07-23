@@ -2,6 +2,7 @@
 #include "Export_Function.h"
 #include "Quest.h"
 #include "InventoryMgr.h"
+#include "QuestMgr.h"
 
 CQuest::CQuest(NPC_CODE _eNpcCode, 
 	QUEST_TYPE _eQuestType, 
@@ -50,6 +51,12 @@ void CQuest::Update_Quest(_float& fTimeDelta)
 			}
 		}
 	}
+}
+
+void CQuest::Accept_Quest()
+{
+	m_eQuestProgress = QUEST_PROGRESS::CONTINUE;
+	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
 }
 
 void CQuest::Clear_Quest()

@@ -1,51 +1,40 @@
 #pragma once
 #include "Base.h"
 #include "Engine_Define.h"
-#define SOUND_MAX 1.0f
-#define SOUND_MIN 0.0f
-#define SOUND_DEFAULT 0.5f
-#define SOUND_WEIGHT 0.1f
-
+#include "fmod.h"
+#include "fmod.hpp"
 BEGIN(Engine)
 
 class ENGINE_DLL CSoundMgr : public CBase
 {
-	DECLARE_SINGLETON(CSoundMgr)
+	DECLARE_SINGLETON(CSoundMgr)	
+
 private:
 	explicit CSoundMgr();
-	virtual ~CSoundMgr() = default;
+	virtual  ~CSoundMgr();
 
 public:
 	HRESULT Ready_SoundMgr();
-	
+
 public:
-	void Play_Sound(TCHAR* pSoundKey, const _uint& eID, const _float& fVolume);
-	void Play_BGM(TCHAR* pSoundKey, const _uint& eID, const _float& fVolume);
-
-	void Stop_Sound(const _uint& eID);
+	void Play_Sound(TCHAR* pSoundKey, CHANNELID eID, float fVolume);
+	void Play_BGM(TCHAR* pSoundKey, float fVolume);
+	void Stop_Sound(CHANNELID eID);
 	void Stop_All();
-
-	void Set_ChannelVolume(const _uint& eID, const _float& fVolume);
-
-	int Volume_Up(const _uint& eID, const _float& fVolume);
-	int Volume_Down(const _uint& eID, const _float& fVolume);
-
-	int Pause(const _uint& eID);
+	void Set_ChannelVolume(CHANNELID eID, float fVolume);
 
 private:
-	void LoadSoundFile();
+	void Load_SoundFile();
 
 private:
-	_float m_fVolume = SOUND_DEFAULT;
-	_float m_fBGMVolume = SOUND_DEFAULT;
-	// FMOD_BOOL m_bFmod;
+	// 사운드 리소스 정보를 갖는 객체 
+	map<TCHAR*, FMOD_SOUND*> m_mapSound;
 
-private:
-	enum { MAX_CHANNEL = 32 };
-	/*std::map<TCHAR*, FMOD::Sound*> m_mapSound;
+	// FMOD_CHANNEL : 재생하고 있는 사운드를 관리할 객체 
+	FMOD_CHANNEL* m_pChannelArr[MAXCHANNEL];
 
-	FMOD::System* m_pSystem;
-	_bool m_bPause = false;*/
+	// 사운드 ,채널 객체 및 장치를 관리하는 객체 
+	FMOD_SYSTEM* m_pSystem;
 
 public:
 	virtual void Free() override;
