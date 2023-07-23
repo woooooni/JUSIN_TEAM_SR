@@ -619,6 +619,9 @@
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\03. RabitObj">
       <UniqueIdentifier>{db05db0f-6c27-4177-89d0-a5767e611578}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99. Etc\Lib">
+      <UniqueIdentifier>{29b77bf7-57bc-4198-853c-bf80196b0c48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -725,30 +728,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\ImGuiMgr.h">
       <Filter>98. Manager\99. ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imconfig.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imgui.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imgui_internal.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imstb_textedit.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imstb_truetype.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TrashBig.h">
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
@@ -1238,6 +1217,52 @@
     <ClInclude Include="..\Header\RabitObj.h">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Particle_LargeStone.h" />
+    <ClInclude Include="..\..\ThirdParty\imconfig.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imgui_internal.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imstb_textedit.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\imstb_truetype.h">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\fmod.h">
+      <Filter>99. Etc\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\fmod.hpp">
+      <Filter>99. Etc\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\fmod_codec.h">
+      <Filter>99. Etc\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\fmod_dsp.h">
+      <Filter>99. Etc\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\fmod_errors.h">
+      <Filter>99. Etc\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\fmod_memoryinfo.h">
+      <Filter>99. Etc\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\ThirdParty\fmod_output.h">
+      <Filter>99. Etc\Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1336,27 +1361,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\ImGuiMgr.cpp">
       <Filter>98. Manager\99. ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TrashBig.cpp">
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
@@ -1839,6 +1843,28 @@
     </ClCompile>
     <ClCompile Include="..\Code\RabitObj.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Particle_LargeStone.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui.cpp">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
+      <Filter>98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

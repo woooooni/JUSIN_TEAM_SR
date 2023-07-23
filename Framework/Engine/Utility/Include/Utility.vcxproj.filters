@@ -204,6 +204,27 @@
     <ClInclude Include="..\..\Header\EventMgr.h">
       <Filter>00. Manager\08. EventMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod.hpp">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_codec.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_dsp.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_errors.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_memoryinfo.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_output.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Scene.cpp">

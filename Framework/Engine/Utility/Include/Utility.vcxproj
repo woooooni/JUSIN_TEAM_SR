@@ -128,7 +128,7 @@ call CopyUtility.bat</Command>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../../ThirdParty;../../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodex_vc.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>cd /d $(SolutionDir)
@@ -179,6 +179,13 @@ call CopyUtility.bat</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\ThirdParty\fmod.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod.hpp" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_codec.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_dsp.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_errors.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_memoryinfo.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_output.h" />
     <ClInclude Include="..\..\Header\Animator.h" />
     <ClInclude Include="..\..\Header\BoxCollider.h" />
     <ClInclude Include="..\..\Header\Camera.h" />

@@ -204,7 +204,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TOOL);
 
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
