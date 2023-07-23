@@ -244,5 +244,20 @@ namespace Engine
 		LBTN, RBTN,
 		TYPE_END
 	};
+
+	enum CHANNELID
+	{
+		SOUND_UI,
+		SOUND_VOICE,
+		SOUND_SKILL,
+		SOUND_EFFECT,
+		SOUND_HIT,
+		SOUND_MONSTER_HIT,
+		SOUND_BGM,
+		SOUND_ITEM,
+		SOUND_JUMP,
+		SOUND_BOSS,
+		MAXCHANNEL
+	};
 }
 #endif // Engine_Enum_h__

@@ -46,8 +46,8 @@ HRESULT CMainApp::Ready_MainApp(void)
 	FAILED_CHECK_RETURN(Ready_Default_RenderState(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Proto_Component(m_pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Proto_Event(), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Manager(m_pGraphicDev), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	//FAILED_CHECK_RETURN(Ready_Pool(), E_FAIL);
 
 	return S_OK;
@@ -58,6 +58,7 @@ int CMainApp::Update_MainApp(const float & fTimeDelta)
 	Engine::Update_InputDev();
 	Engine::Update_PickingMgr();
 	Engine::Update_KeyMgr();
+	
 
 	NULL_CHECK_RETURN(m_pManagementClass, -1);
 	m_pManagementClass->Update_Scene(fTimeDelta);
@@ -179,6 +180,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	FAILED_CHECK_RETURN(Engine::Ready_SoundMgr(), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_EventMgr(), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_PickingMgr(pGraphicDev, g_hWnd), E_FAIL);
@@ -205,7 +207,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 	Engine::CScene*		pScene = nullptr;
 
 	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
-
+	// Engine::Play_Sound(L"BGM_1_CentralArea.wav", CHANNELID::SOUND_BGM, .5f);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);

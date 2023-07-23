@@ -132,7 +132,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../ThirdParty;../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>fmodex_vc.lib;dinput8.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;Utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodex64_vc.lib;dinput8.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;Utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -403,6 +403,7 @@
     <ClInclude Include="..\Header\UI_SlotOne.h" />
     <ClInclude Include="..\Header\UI_SlotThree.h" />
     <ClInclude Include="..\Header\UI_SlotTwo.h" />
+    <ClInclude Include="..\Header\UI_Veil.h" />
     <ClInclude Include="..\Header\UseItem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
@@ -626,6 +627,7 @@
     <ClCompile Include="..\Code\UI_SlotThree.cpp" />
     <ClCompile Include="..\Code\UI_SlotTwo.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
+    <ClCompile Include="..\Code\UI_Veil.cpp" />
     <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">

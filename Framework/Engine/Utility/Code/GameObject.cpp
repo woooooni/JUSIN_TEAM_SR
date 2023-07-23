@@ -22,7 +22,6 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType, OBJ_ID 
 	, m_pRigidBodyCom(nullptr)
 	, m_fMinHeight(0.006f)
 	, m_eID(_eID)
-	, m_fAlpha(255.f)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -41,7 +40,6 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_pRigidBodyCom(rhs.m_pRigidBodyCom)
 	, m_fMinHeight(rhs.m_fMinHeight)
 	, m_eID(rhs.m_eID)
-	, m_fAlpha(rhs.m_fAlpha)
 	
 {
 
@@ -204,10 +202,10 @@ void CGameObject::Free()
 		m_mapComponent[i].clear();
 	}
 
-	Safe_Release(m_pGraphicDev);
-	Safe_Release(m_pBufferCom);
-	Safe_Release(m_pColliderCom);
-	Safe_Release(m_pTextureCom);
-	Safe_Release(m_pTransformCom);
-	Safe_Release(m_pAnimator);
+	m_pBufferCom = nullptr;
+	m_pTransformCom = nullptr;
+	m_pColliderCom = nullptr;
+	m_pAnimator = nullptr;
+	m_pTextureCom = nullptr;
+	m_pRigidBodyCom = nullptr;
 }

@@ -1,9 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Transform.h"
-#include "Texture.h"
 
-// class Texture;
 
 enum class CAM_EFFECT
 {

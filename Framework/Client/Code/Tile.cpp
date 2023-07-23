@@ -26,6 +26,8 @@ HRESULT CTile::Ready_Object(void)
 	_vec3 vPos(0.f, 0.005f, 0.f);
 	m_pTransformCom->Set_Info(INFO_POS, &vPos);
 
+	m_pColliderCom->SetEnable(false);
+
 	return S_OK;
 }
 

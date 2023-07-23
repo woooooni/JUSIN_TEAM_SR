@@ -1,7 +1,7 @@
 #ifndef Engine_Define_h__
 #define Engine_Define_h__
 
-#include <io.h>
+
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -21,6 +21,9 @@
 
 #include <Vfw.h>
 #pragma comment (lib, "Vfw32.lib")
+#include <io.h>
+
+
 
 
 

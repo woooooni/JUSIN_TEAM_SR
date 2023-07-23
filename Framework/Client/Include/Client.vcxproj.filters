@@ -622,6 +622,9 @@
     <Filter Include="99. Etc\Lib">
       <UniqueIdentifier>{29b77bf7-57bc-4198-853c-bf80196b0c48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\10. Veil">
+      <UniqueIdentifier>{f7a2054e-db25-43b9-8663-31fc26aa39b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1263,6 +1266,9 @@
     <ClInclude Include="..\..\ThirdParty\fmod_output.h">
       <Filter>99. Etc\Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_Veil.h">
+      <Filter>02. GameObject\04. UI\10. Veil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1865,6 +1871,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
       <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Veil.cpp">
+      <Filter>02. GameObject\04. UI\10. Veil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

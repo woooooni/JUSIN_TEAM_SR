@@ -10,6 +10,7 @@
 #include "UI_BossHP.h"
 #include "InventoryUI.h"
 #include "UI_NewItem.h"
+#include "UI_Veil.h"
 
 class CUIMgr : public CBase
 {
@@ -30,44 +31,21 @@ public:
 	HRESULT		Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev);
 	HRESULT		Add_Window(ITEM_CODE eType);
 
-	HRESULT		Change_UI(SCENE_TYPE pUI)
-	{
-		switch (pUI)
-		{
-		case Engine::SCENE_TYPE::LOADING:
-			break;
-		case Engine::SCENE_TYPE::TEST:
-			break;
-		case Engine::SCENE_TYPE::LOGO:
-			break;
-		case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
-			break;
-		case Engine::SCENE_TYPE::MONKEY_FOREST1:
-			break;
-		case Engine::SCENE_TYPE::MONKEY_FOREST2:
-			break;
-		case Engine::SCENE_TYPE::MONKEY_VILLAGE:
-			break;
-		case Engine::SCENE_TYPE::SUNGOLEM_CAVE1:
-			break;
-		case Engine::SCENE_TYPE::MOON_FOREST1:
-			break;
-		case Engine::SCENE_TYPE::TOOL:
-			break;
-		case Engine::SCENE_TYPE::SCENE_END:
-			break;
-		default:
-			break;
-		}
-	}
+
+public:
+	CUI_Dialog* Get_Dialog() { return m_pDialog; }
+	CUI_Veil* Get_Veil() { return m_pVeil; }
+	CUI_Shop* Get_ShopUI() { return m_pShop; }
+	CInventoryUI* Get_InventoryUI() { return m_pInventory; }
 
 private:
 	CUI_Dialog*		 m_pDialog = nullptr;
 	CUI_HPBar*		 m_pHpBar= nullptr;
 	CUI_Shop*		 m_pShop = nullptr;
 	CUI_NewItem* m_pItemWindow = nullptr;
+	CUI_Veil* m_pVeil = nullptr;
 
-	CUI* m_pCurrentUI = nullptr;
+	CInventoryUI* m_pInventory = nullptr;
 
 	CUI_ShortCutKey* m_pShortCutKey = nullptr;
 	CQuickSlot*		 m_pQuickSlot = nullptr;
