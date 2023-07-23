@@ -625,6 +625,9 @@
     <Filter Include="01. Scene\02. Monkey_Forest\03. Monkey_Forest3">
       <UniqueIdentifier>{84d2e101-14cb-46b8-8192-b58f3571278e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\07. EnvironmentObj\03. Nexus">
+      <UniqueIdentifier>{52f96e91-5773-4e05-81fe-0efa68f2cc8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1272,6 +1275,9 @@
     <ClInclude Include="..\Header\Scene_MonkeyForest3.h">
       <Filter>01. Scene\02. Monkey_Forest\03. Monkey_Forest3</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Nexus.h">
+      <Filter>02. GameObject\07. EnvironmentObj\03. Nexus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1880,6 +1886,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp">
       <Filter>01. Scene\02. Monkey_Forest\03. Monkey_Forest3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Nexus.cpp">
+      <Filter>02. GameObject\07. EnvironmentObj\03. Nexus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

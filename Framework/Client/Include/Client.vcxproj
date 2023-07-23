@@ -287,6 +287,7 @@
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactMushroom.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
+    <ClInclude Include="..\Header\Nexus.h" />
     <ClInclude Include="..\Header\Npc.h" />
     <ClInclude Include="..\Header\Npc_Artist.h" />
     <ClInclude Include="..\Header\Npc_Chief.h" />
@@ -511,6 +512,7 @@
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactMushroom.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
+    <ClCompile Include="..\Code\Nexus.cpp" />
     <ClCompile Include="..\Code\Npc.cpp" />
     <ClCompile Include="..\Code\Npc_Artist.cpp" />
     <ClCompile Include="..\Code\Npc_Chief.cpp" />

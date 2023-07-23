@@ -74,7 +74,7 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (MONSTER_STATE::ATTACK != Get_State())
+	if (MONSTER_STATE::ATTACK != Get_State() && MONSTER_STATE::STUN != Get_State())
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
@@ -504,6 +504,39 @@ void CTrashSlime::Set_Animation()
 		}
 		break;
 	case Engine::MONSTER_STATE::DIE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::STUN:
 		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
