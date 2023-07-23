@@ -114,6 +114,8 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 	_vec3 vPortalPos = _vec3(74.5f, 0.5f, 83.0f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
+
+
 	CNpc_Artist* pArtist = CNpc_Artist::Create(m_pGraphicDev);
 	_vec3 vArtistPos = _vec3(39.5f, 1.25f, 28.91);
 	pArtist->Get_TransformCom()->Set_Info(INFO_POS, &vArtistPos);

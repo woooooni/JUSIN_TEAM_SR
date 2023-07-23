@@ -234,6 +234,7 @@
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\FistEffect.h" />
     <ClInclude Include="..\Header\FixedObj.h" />
+    <ClInclude Include="..\Header\FloorDoor.h" />
     <ClInclude Include="..\Header\GameMgr.h" />
     <ClInclude Include="..\Header\GolemFace.h" />
     <ClInclude Include="..\Header\GolemFist.h" />
@@ -354,6 +355,7 @@
     <ClInclude Include="..\Header\Scene_Loading.h" />
     <ClInclude Include="..\Header\Scene_MonkeyForest1.h" />
     <ClInclude Include="..\Header\Scene_MonkeyForest2.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest3.h" />
     <ClInclude Include="..\Header\Scene_MonkeyVillage.h" />
     <ClInclude Include="..\Header\Scene_MoonForest1.h" />
     <ClInclude Include="..\Header\Scene_SilkWorm.h" />
@@ -457,6 +459,7 @@
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp" />
     <ClCompile Include="..\Code\FixedObj.cpp" />
+    <ClCompile Include="..\Code\FloorDoor.cpp" />
     <ClCompile Include="..\Code\GameMgr.cpp" />
     <ClCompile Include="..\Code\GolemFace.cpp" />
     <ClCompile Include="..\Code\GolemFist.cpp" />
@@ -575,6 +578,7 @@
     <ClCompile Include="..\Code\Scene_Loading.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyForest1.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyForest2.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyVillage.cpp" />
     <ClCompile Include="..\Code\Scene_MoonForest1.cpp" />
     <ClCompile Include="..\Code\Scene_SilkWorm.cpp" />
