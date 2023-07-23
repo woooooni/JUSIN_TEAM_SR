@@ -75,6 +75,7 @@
 #include "PlantCannon.h"
 #include "Test_Cube.h"
 #include "MonkeyBarrelCleaner.h"
+#include "FloorDoor.h"
 
 CScene_Test::CScene_Test(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -285,6 +286,13 @@ HRESULT CScene_Test::Ready_Layer_Environment()
 	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 3.f));
 	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+
+
+
+	
+	
+
+
 
 	pLayer->Ready_Layer();
 

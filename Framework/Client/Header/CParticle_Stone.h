@@ -32,6 +32,8 @@ private:
 	HRESULT			Ready_Component(void);
 public:
 	void			Random_Particle(_vec3& _vPos);
+	static void			Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iCount);
+
 
 public:
 	static CParticle_Stone* Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -32,6 +32,7 @@
 #include "Scene_MonkeyForest1.h"
 #include "Scene_MonkeyForest2.h"
 #include "Scene_MonkeyVillage.h"
+#include "Scene_MonkeyForest3.h"
 #include "Scene_SunGolemCave1.h"
 #include "Scene_MoonForest1.h"
 #include "Scene_Test.h"
@@ -109,6 +110,11 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	case Engine::SCENE_TYPE::MONKEY_VILLAGE:
 		pLoading->m_pLoadingScene = CScene_MonkeyVillage::Create(pLoading->m_pGraphicDev);
 		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MonkeyVillage");
+		break;
+
+	case Engine::SCENE_TYPE::MONKEY_FOREST3:
+		pLoading->m_pLoadingScene = CScene_MonkeyForest3::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MonkeyForest3");
 		break;
 
 	case Engine::SCENE_TYPE::SUNGOLEM_CAVE1:
@@ -949,7 +955,7 @@ HRESULT CLoading::Ready_UI_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_SkillRange", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_SkillRange_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Player_Aim", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Player/Player_Aim/Player_Aim_%d.png", 1)), E_FAIL);
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/SkyBox_%d.dds", 2)), E_FAIL);
+	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_SkyBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/SkyBox_%d.dds", 2)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Coin", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/FieldObject/Item/Coin/Coin_%d.png", 4)), E_FAIL);
 	
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_NoticeFrame", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/UI_FrameTutorial.png")), E_FAIL);
@@ -1188,6 +1194,8 @@ HRESULT CLoading::Ready_Environment_Texture2()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_House", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/House/ModelHouse_%d.png", 17)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Tree", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Tree/Tree_%d.png", 121)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Door", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Door/Door_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_FloorDoorLeft", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/FloorDoor/FloorDoorLeft/FloorDoorLeft_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_FloorDoorRight", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/FloorDoor/FloorDoorRight/FloorDoorRight_%d.png", 1)), E_FAIL);
 
 	return S_OK;
 }
