@@ -15,6 +15,10 @@ public:
 public:
 	HRESULT			Ready_Timer();
 	void			Update_Timer();
+
+public:
+	// 0 ~ 1까지 타임스케일을 설정.
+	void Set_TimeScale(_float fTimeScale) { m_fTimeScale = fTimeScale; }
 	
 private:
 	LARGE_INTEGER			m_FrameTime;
@@ -23,6 +27,7 @@ private:
 	LARGE_INTEGER			m_CpuTick;
 
 	_float					m_fTimeDelta;
+	_float					m_fTimeScale;
 
 public:
 	static CTimer*		Create(void);

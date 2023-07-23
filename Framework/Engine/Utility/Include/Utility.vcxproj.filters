@@ -103,6 +103,9 @@
     <Filter Include="00. Manager\08. EventMgr">
       <UniqueIdentifier>{fedb74c0-bda4-478d-8899-3ee361d8c423}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00. Manager\07. SoundMgr\Lib">
+      <UniqueIdentifier>{67821aff-8bbf-4c0f-b305-c74cf3f81050}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Scene.h">
