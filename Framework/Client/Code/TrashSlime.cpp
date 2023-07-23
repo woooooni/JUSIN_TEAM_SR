@@ -65,6 +65,8 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
+		Set_State(MONSTER_STATE::DIE);
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -334,8 +336,8 @@ void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 		m_pRigidBodyCom->AddForce(vDir * 100.0f);
 		m_tStat.iHp -= 1;
-		if (m_tStat.iHp < 1)
-			Set_State(MONSTER_STATE::DIE);
+		Set_State(MONSTER_STATE::DIE);
+
 
 	}
 }

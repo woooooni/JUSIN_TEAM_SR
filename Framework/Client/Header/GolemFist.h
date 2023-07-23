@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "MonsterAim.h"
-
+#include "Bullet.h"
 BEGIN(Engine)
 
 class CRcTex;
@@ -9,7 +9,7 @@ class CTransform;
 
 END
 
-class CGolemFist : public Engine::CGameObject
+class CGolemFist : public CBullet
 {
 	CLONE(CGolemFist)
 
@@ -35,13 +35,11 @@ public:
 public:
 	
 	static CGolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	void Set_Atk(_int _iAtk) { m_iAtk = _iAtk; }
 
 private:
 	CMonsterAim* m_pMonsterAim;
 	_bool	m_bBummer = false;
 	_bool	m_bDirty = false;
-	_int m_iAtk = 0;
 protected:
 	_float m_fMoveTime;
 protected:

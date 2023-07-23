@@ -2,11 +2,11 @@
 #include "Export_Function.h"
 
 CEffect_StoneSpike::CEffect_StoneSpike(LPDIRECT3DDEVICE9 pGraphicDev) 
-	: CEffect(pGraphicDev)
+	: CBullet(pGraphicDev,OBJ_ID::MONSTER_SKILL)
 {
 }
 CEffect_StoneSpike::CEffect_StoneSpike(const CEffect_StoneSpike& rhs)
-	: CEffect(rhs)
+	: CBullet(rhs)
 {
 
 }

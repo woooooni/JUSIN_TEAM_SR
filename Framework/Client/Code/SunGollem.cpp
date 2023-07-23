@@ -5,6 +5,9 @@
 #include "SludgeWave.h"
 #include "PushStone.h"
 #include "GameMgr.h"
+#include "MonkeyBarrelCleaner.h"
+#include "Effect_Smoke.h"
+#include "Pool.h"
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN)
@@ -35,16 +38,16 @@ HRESULT CSunGollem::Ready_Object(void)
 	memset(m_bAttack, 1, sizeof(bool)*6);
 	memset(m_bSummon, 1, sizeof(bool) * 3);
 	m_vVerticalDir = { 0.f, 1.f ,0.f };
-	m_pTransformCom->Set_Pos(&_vec3(4.0f, 3.0f, 4.0f));
+	m_pTransformCom->Set_Pos(&_vec3(9.0f, 3.0f, 14.0f));
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vRandomPos[0] = { vPos.x - 5, vPos.y, vPos.z };
 	m_vRandomPos[1] = { vPos.x , vPos.y, vPos.z };
 	m_vRandomPos[2] = { vPos.x + 5, vPos.y, vPos.z };
-	m_pTransformCom->Set_Scale({ 3,4,3 });	
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({2.f, 2.f, 2.f });
+	m_pTransformCom->Set_Scale({ 3.f, 4.f, 3.f });
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({3.f, 4.f, 3.f });
 	m_fSpeed = 5.f;
-	Set_State(SUNGOLEM_STATE::REGEN);
+	Set_State(SUNGOLEM_STATE::IDLE);
 	m_tStat = { 6,6,1 };
 	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
@@ -68,6 +71,7 @@ HRESULT CSunGollem::Ready_Object(void)
 
 _int CSunGollem::Update_Object(const _float& fTimeDelta)
 {
+
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
@@ -200,27 +204,7 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 		vDir = { 0.f,-1.f ,0.f };
 
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_bDirty && m_tStat.iHp < 4) {
-		if(m_fMoveTime > 3.f && m_bSummon[0])
-		{
-			Create_Wave(m_vRandomPos[0]);
-			Create_Wave({ m_vRandomPos[0].x+2.f,m_vRandomPos[0].y ,m_vRandomPos[0].z + 1.f });
-			m_bSummon[0] = false;
-		}
-		else if ( m_fMoveTime > 6.f && m_bSummon[1])
-		{
-			Create_Wave(m_vRandomPos[1]);
-			Create_Wave({ m_vRandomPos[1].x + 2.f,m_vRandomPos[1].y ,m_vRandomPos[1].z +1.f });
-			m_bSummon[1] = false;
-		}
-		else if ( m_fMoveTime >9.f && m_bSummon[2])
-		{
-			Create_Wave(m_vRandomPos[2]);
-			Create_Wave({ m_vRandomPos[2].x + 2.f,m_vRandomPos[2].y ,m_vRandomPos[2].z + 1.f });
 
-			m_bSummon[2] = false;
-		}
-	}
 	if (m_fMoveTime > 10.f)
 	{
 		if (m_bBreath)
@@ -232,23 +216,22 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			Set_State(SUNGOLEM_STATE::MOVE);
 		else if(rand() % 10 < 5)
 			Set_State(SUNGOLEM_STATE::ATTACK);
-		if (m_tStat.iHp < 1)
-		{
+	
+		m_fSpeed = 5.f;
+		m_fMoveTime = 0.f;
+		if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
 			if (!m_bDirty)
 			{
 				Set_State(SUNGOLEM_STATE::DIRTY);
-				m_bDirty = true;
+				
 				m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
 				m_pParts[FACE]->Set_Active(true);
+				Create_Monkey();
 			}
 			else
 			{
 				Set_State(SUNGOLEM_STATE::DIE);
 			}
-		}
-		m_fSpeed = 5.f;
-		m_fMoveTime = 0.f;
-
 	}
 
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -256,25 +239,16 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 
 void CSunGollem::Update_Dirty(_float fTimeDelta)
 {
-	_vec3 vDir;
 
-	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	m_tStat = { 8 ,8 ,2 };
-	if (m_fMoveTime > 10.f)
+	m_tStat.iMaxHp = 30;
+	m_tStat.iAttack = 2;
+	m_tStat.iHp += 1;
+	m_bDirty = true;
+	if (m_tStat.iHp==m_tStat.iMaxHp)
 	{
-		if (m_bBreath)
-			m_bBreath = false;
-		else
-			m_bBreath = true;
 		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
+
 }
 
 void CSunGollem::Update_Move(_float fTimeDelta)
@@ -296,14 +270,14 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 	}
 	if (m_pRigidBodyCom->IsGround() && m_pRigidBodyCom->GetVelocity().y <= 0.0f)
 	{
-		//Engine::CCameraMgr::GetInstance()->GetMainCamera()->CamShake(0.5f);
+		dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"))->CamShake(0.2f);
 		m_vVerticalDir = { 0.f, 1.f ,0.f };
 		m_iRand = rand() % 3;
 		m_fMoveTime = 0.f;
 		D3DXVec3Normalize(&vDir, &vDir);
 		m_pRigidBodyCom->AddForce(vDir *80.f);
 		Set_State(SUNGOLEM_STATE::ATTACK);
-		if (m_bDirty && m_tStat.iHp < 4)
+		if (m_bDirty && m_tStat.iHp < 15)
 			Create_Wave(vPos);
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
 		vector<Engine::CGameObject*> ObjectVec = pLayer->Get_GameObjectVec();
@@ -317,6 +291,11 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 		{
 			Create_Stone();
 			Create_Stone();
+
+		}
+		for (int i = 0; i < 15; i++)
+		{
+			Create_Effect();
 		}
 		m_bJump = false;
 	}
@@ -421,8 +400,6 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 			m_iActiveArm += 2;
 			m_bLockon = false;
 			m_pMonsterAim->Set_Active(false);
-			if(!m_bDirty)
-			m_tStat.iHp -= 1;
 			if (m_iActiveArm > 5)
 			{
 				m_pParts[LEFTARM0]->Set_Active(true);
@@ -506,8 +483,9 @@ void CSunGollem::Create_Fist(bool _BummerFist, _int _iSrc)
 	pGolemFist->Get_TransformCom()->Set_Pos(&m_vTargetPos);
 	pGolemFist->Set_Dirty(m_bDirty);
 	pGolemFist->Set_Bummer(_BummerFist);
-	pGolemFist->Set_Atk(m_tStat.iAttack);
-	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+	pGolemFist->Set_Atk(m_tStat.iAttack); 
+	pGolemFist->Set_Owner(this);
+	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 	pLayer->Add_GameObject(L"GolemFist", pGolemFist);
 
 }
@@ -518,19 +496,55 @@ void CSunGollem::Create_Wave(_vec3 vPos)
 	NULL_CHECK_RETURN(pSludgeWave, );
 	pSludgeWave->Get_TransformCom()->Set_Pos(&vPos);
 	pSludgeWave->Set_Atk(m_tStat.iAttack);
-	pSludgeWave->Set_Wave(20);
-	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+	pSludgeWave->Set_Owner(this);
+	pSludgeWave->Set_Wave(40);
+	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 	pLayer->Add_GameObject(L"SludgeWave", pSludgeWave);
 }
 
 void CSunGollem::Create_Stone()
 {
 
-	_vec3 vPos = { m_vRandomPos[1].x+(rand()%8)-4,7.f,m_vRandomPos[1].z + (rand() % 8) - 4 -5.f};
+	_vec3 vPos = { m_vRandomPos[1].x+(rand()%8)-4,7.f,m_vRandomPos[1].z + (rand() % 8) - 4 - 6.f};
 	CPushStone* pPushStone = CPushStone::Create(vPos,m_pGraphicDev);
 	NULL_CHECK_RETURN(pPushStone, );
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
 	pLayer->Add_GameObject(L"Stone", pPushStone);
+}
+void CSunGollem::Create_Effect()
+{
+	_vec3 vPos = { m_vRandomPos[1].x + float((rand() % 20) - 10),0.5f,m_vRandomPos[1].z + float(rand() % 20)- 10.f };
+	for (int i = 0; i < 6; i++)
+	{
+		CGameObject* pSmoke = CPool<CEffect_Smoke>::Get_Obj();
+		if (pSmoke)
+			dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f), 148, 150, 148);
+		else
+		{
+			pSmoke = dynamic_cast<CEffect_Smoke*>(pSmoke)->Create(Engine::Get_Device());
+			if (pSmoke)
+				dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f), 148, 150, 148);
+		}
+	}
+}
+
+void CSunGollem::Create_Monkey()
+{
+	_vec3 vPos[5] ={_vec3(-3.45f, 1.f,	4.75f), 
+					_vec3(-3.45f, 1.f,	8.5f), 
+					_vec3(21.45f, 1.f,	8.5f),
+					_vec3(21.45f, 1.f,	6.5f),
+					_vec3(21.45f, 1.f,	2.5f) };
+	for (int i = 0; i < 5; i++)
+	{
+		CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pMonkeyBarrelCleaner, );
+		if (i < 2)
+			pMonkeyBarrelCleaner->Set_Right(true);
+		pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&vPos[i]);
+		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
+		pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner);
+	}
 }
 
 HRESULT CSunGollem::Ready_Parts(void) 
@@ -622,14 +636,19 @@ HRESULT CSunGollem::Ready_Parts(void)
 void CSunGollem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 
-	if (m_eState == SUNGOLEM_STATE::MOVE|| m_eState == SUNGOLEM_STATE::DIRTY)
+	if ( m_eState == SUNGOLEM_STATE::DIRTY || m_eState == SUNGOLEM_STATE::DIE)
 		return;
 	if (dynamic_cast<CPushStone*>(pCollider->GetOwner()))
 	{
-		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() == true)
+		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying()&& dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Clean())
+		{
+			m_tStat.iHp -= 5;
+		}
+		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() && !dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Clean())
 		{
 			m_tStat.iHp -= 1;
 		}
+	
 	}
 
 

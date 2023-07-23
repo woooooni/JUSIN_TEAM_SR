@@ -1,6 +1,7 @@
 #include "Export_Function.h"
 #include "GolemFace.h"
 #include "SunGollem.h"
+
 CGolemFace::CGolemFace(LPDIRECT3DDEVICE9 pGraphicDev) : CGolemPart(pGraphicDev)
 
 {
@@ -27,8 +28,7 @@ HRESULT CGolemFace::Ready_Object(void)
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 3.f,4.f,3.f });
 	Set_Active(false);
-	//	Proto_Texture_SunGolem_Dirty_FaceDeath
-	Set_State(SUNGOLEM_STATE::REGEN);
+	Set_State(SUNGOLEM_STATE::DIRTY);
 
 	return S_OK;
 }
@@ -105,23 +105,6 @@ void CGolemFace::Update_Idle(_float fTimeDelta)
 void CGolemFace::Update_Dirty(_float fTimeDelta)
 {
 	
-
-	_vec3 vDir;
-	if (m_bBreath)
-		vDir = { 0.f,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
-	{
-		if (m_bBreath)
-			m_bBreath = false;
-		else
-			m_bBreath = true;
-		m_fMoveTime = 0.f;
-	}
-	m_fMoveTime += 10 * fTimeDelta;
 }
 
 void CGolemFace::Update_Move(_float fTimeDelta)
@@ -135,22 +118,12 @@ void CGolemFace::Update_Attack(_float fTimeDelta)
 void CGolemFace::Update_Die(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_FaceDeath", false);
-
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+		Set_Active(false);
 }
 
 void CGolemFace::Update_Regen(_float fTimeDelta)
 {
-	_vec3 vDir, vPos;
-	vDir = { 0.f,1.f ,0.f };
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-	if (vPos.y > 2.f)
-	{
-
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
-	}
 }
 CGolemFace* CGolemFace::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

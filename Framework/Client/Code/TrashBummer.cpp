@@ -80,6 +80,8 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
+		Set_State(MONSTER_STATE::DIE);
 	_int iExit = __super::Update_Object(fTimeDelta);
 	_vec3  vPos;
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);

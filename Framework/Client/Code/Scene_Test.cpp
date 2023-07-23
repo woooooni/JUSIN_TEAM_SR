@@ -93,7 +93,7 @@ HRESULT CScene_Test::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
-	//FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
@@ -256,6 +256,35 @@ HRESULT CScene_Test::Ready_Layer_Environment()
 	//CNpcSheep* pNPCSheep = CNpcSheep::Create(m_pGraphicDev, { 18, 1, 7 }, NPCTYPE::TUT_SHEEP);
 	//NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
+	CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+	pMonkeyBarrelCleaner->Set_Right(false);
+	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f, 0.5f, 1.f));
+	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+
+	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+	pMonkeyBarrelCleaner->Set_Right(false);
+	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f, 0.5f, 3.f));
+	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+
+	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+	pMonkeyBarrelCleaner->Set_Right(true);
+	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 1.f));
+	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+
+	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+	pMonkeyBarrelCleaner->Set_Right(true);
+	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 2.f));
+	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+
+	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+	pMonkeyBarrelCleaner->Set_Right(true);
+	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 3.f));
+	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
 
 	pLayer->Ready_Layer();
 
@@ -331,40 +360,11 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 //	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
+	//CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
 
 
-	CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(false);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f,0.5f,1.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(false);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f, 0.5f, 3.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(true);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 1.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-	
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(true);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 2.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
-	
-	pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
-	pMonkeyBarrelCleaner->Set_Right(true);
-	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 3.f));
-	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
 
 	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);

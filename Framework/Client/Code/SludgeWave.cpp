@@ -124,14 +124,16 @@ void CSludgeWave::Create_Wave()
 	if (m_iWave == 0)
 		return;
 	_vec3 vPos;
+
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos.z -= 0.5f;
-	vPos.y += 0.001f;
+	vPos.z -= 0.25f;
+	vPos.y +=  0.001f;
 	CSludgeWave* pSludgeWave = CSludgeWave::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSludgeWave, );
 	pSludgeWave->Get_TransformCom()->Set_Pos(&vPos);
 	pSludgeWave->Set_Atk(m_iAtk);
 	pSludgeWave->Set_Wave(m_iWave-1);
+	pSludgeWave->Set_Owner(m_pOwner);
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 	pLayer->Add_GameObject(L"SludgeWave", pSludgeWave);
 }

@@ -101,12 +101,12 @@ void CMonkeyBarrelCleaner::Update_Move(_float fTimeDelta)
 	else
 		vDir = { -1,0,0 };
 	m_pTransformCom->Move_Pos(&vDir, 1.f, fTimeDelta);
-	if (m_fMoveTime > 20.f&& m_pAnimator->GetCurrAnimation()->Is_Finished())
+	if (m_fMoveTime > 10.f&& m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_fMoveTime = 0.f;
 	}
-	if (m_fMoveTime < 20.f && m_pAnimator->GetCurrAnimation()->Get_Idx() == 7)
+	if (m_fMoveTime < 10.f && m_pAnimator->GetCurrAnimation()->Get_Idx() == 7)
 	{
 		m_pAnimator->GetCurrAnimation()->Set_Idx(1);
 	}
@@ -116,8 +116,8 @@ void CMonkeyBarrelCleaner::Update_Idle(_float fTimeDelta)
 {
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
-		m_fMoveTime += 1.f;
-		if (m_fMoveTime > 10.f)
+		m_fMoveTime += 10.f;
+		if (m_fMoveTime > 20.f)
 		{
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
 			vector<Engine::CGameObject*> ObjectVec = pLayer->Get_GameObjectVec();

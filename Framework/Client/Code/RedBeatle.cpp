@@ -190,7 +190,10 @@ void CRedBeatle::Update_Move(_float fTimeDelta)
 void CRedBeatle::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
+	{
+		On_Death();
 		Set_Active(false);
+	}
 }
 
 
