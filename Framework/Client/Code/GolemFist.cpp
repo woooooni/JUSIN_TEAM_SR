@@ -100,7 +100,7 @@ void CGolemFist::LateUpdate_Object(void)
 			}
 			CFistEffect* pFistEffect = CFistEffect::Create(m_pGraphicDev);
 			NULL_CHECK_RETURN(pFistEffect, );
-			vPos.y = 0.001f;
+			vPos.y = 0.009f;
 			pFistEffect->Get_TransformCom()->Set_Pos(&vPos);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 			pLayer->Add_GameObject(L"GolemFist", pFistEffect);

@@ -51,7 +51,7 @@ public:
 public:
 	void RotationAxis(const _vec3& vAxis, const _float& fAngle);
 	const _matrix* Compute_LookAtTarget(const _vec3* pTargetPos);
-	
+
 
 
 public:

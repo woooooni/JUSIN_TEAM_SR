@@ -26,7 +26,7 @@
 #include "JellyCombined.h"
 #include "Catapult.h"
 #include "LightPuzzleTerrain.h"
-
+#include "TrashPrist.h"
 #include "Coin.h"
 #include "QuickSlot.h"
 #include "NPCText.h"
@@ -256,7 +256,7 @@ HRESULT CScene_Test::Ready_Layer_Environment()
 	//CNpcSheep* pNPCSheep = CNpcSheep::Create(m_pGraphicDev, { 18, 1, 7 }, NPCTYPE::TUT_SHEEP);
 	//NULL_CHECK_RETURN(pNPCSheep, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"NPC_Tutorial_Sheep", pNPCSheep), E_FAIL);
-	CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
+	/*CMonkeyBarrelCleaner* pMonkeyBarrelCleaner = CMonkeyBarrelCleaner::Create(m_pGraphicDev);
 	pMonkeyBarrelCleaner->Set_Right(false);
 	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(7.f, 0.5f, 1.f));
 	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
@@ -284,7 +284,7 @@ HRESULT CScene_Test::Ready_Layer_Environment()
 	pMonkeyBarrelCleaner->Set_Right(true);
 	pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&_vec3(-6.f, 0.5f, 3.f));
 	NULL_CHECK_RETURN(pMonkeyBarrelCleaner, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner), E_FAIL);*/
 
 	pLayer->Ready_Layer();
 
@@ -365,9 +365,9 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	//NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
 	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"DesertRhino", pDesertRhino), E_FAIL);
 
-	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
+	//CTrashPrist* pTrashPrist = CTrashPrist::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pTrashPrist, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"TrashPrist", pTrashPrist), E_FAIL);
 
 //	CDesertRhino* pDesertRhino = CDesertRhino::Create(m_pGraphicDev);
 //	NULL_CHECK_RETURN(pDesertRhino, E_FAIL);
@@ -408,9 +408,9 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 //	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 //	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);*/
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
 
 	pLayer->Ready_Layer();
 
@@ -421,7 +421,7 @@ HRESULT CScene_Test::Ready_Layer_InterationObj()
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::INTERACTION_OBJ];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	CPushStone* pPush = CPushStone::Create(_vec3(1, 1, 3), m_pGraphicDev);
+	/*CPushStone* pPush = CPushStone::Create(_vec3(1, 1, 3), m_pGraphicDev);
 	NULL_CHECK_RETURN(pPush, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Stone", pPush), E_FAIL);
 
@@ -590,7 +590,7 @@ HRESULT CScene_Test::Ready_Layer_InterationObj()
 
 	CClearBomb* pCBomb = CClearBomb::Create(m_pGraphicDev, { 2, 0, 2 });
 	NULL_CHECK_RETURN(pCBomb, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ClearBomb", pCBomb), E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ClearBomb", pCBomb), E_FAIL);*/
 
 	pLayer->Ready_Layer();
 

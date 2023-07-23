@@ -6,6 +6,7 @@
 #include "BlueBeatle.h"
 #include "GreenBeatle.h"
 #include "GameMgr.h"
+#include "TrashPrist.h"
 CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
 {
 }
@@ -33,11 +34,11 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Down", L"Proto_Texture_BugBoss_Phase2_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Attack", L"Proto_Texture_BugBoss_Phase2_Attack", 0.2f);
 
-	m_pTransformCom->Set_Scale({ 3,3,3 });
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({3.f, 3.f, 3.f });
+	m_pTransformCom->Set_Scale({ 2.5f,3.f,3.f });
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.5f, 3.f, 3.f });
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(0.0f, 2.0f, 0.f));
-	m_bPhase2 = true;
-	m_pAnimator->Play_Animation(L"BugBoss_Phase2_Regen", false);
+	m_bPhase2 = false;
+	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Idle", false);
 	Set_State(SILKWORM_STATE::IDLE);
 	_float fiInterval = 10.f;
 	_vec3 vPos;
@@ -73,6 +74,11 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
+	if (m_tStat.iHp < 1.f)
+	{
+		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", true);
+		Set_State(SILKWORM_STATE::DIE);
+	}
 	switch (m_eState)
 	{
 	case Engine::SILKWORM_STATE::REGEN:	
@@ -107,7 +113,7 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 		m_pUIGauge->Update_Object(fTimeDelta);
 		m_pUIFrame->Update_Object(fTimeDelta);
 	}
-	
+
 	return iExit;
 }
 void CSilkWorm::LateUpdate_Object(void)
@@ -239,7 +245,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				NULL_CHECK_RETURN(pBugBall, );
 				_vec3 BulletPos;
 				m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
-				BulletPos.y -= 0.5f;
+				BulletPos.y = 0.5f;
 				pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 				pBugBall->Set_Dir(vDir);
 				pBugBall->Set_Owner(this);
@@ -247,6 +253,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 				pLayer->Add_GameObject(L"BugBall", pBugBall);
 				m_bShoot = false;
+
 			}
 		}
 		if (m_pAnimator->GetCurrAnimation()->Is_Finished())
@@ -259,9 +266,19 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 	else
 	{
 
-		if (m_pAnimator->GetCurrAnimation()->Get_Idx()>2)
+		if (m_pAnimator->GetCurrAnimation()->Get_Idx()==4)
 		{
+			if (!m_bRotate)
+			{
+				_vec3  vUp, vCurrentUp;
+				m_pTransformCom->Get_Info(INFO_UP, &vCurrentUp);
+				D3DXVec3Cross(&m_vAxis, &vCurrentUp, &m_vDir);
+				m_fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&m_vDir, &m_vDir), D3DXVec3Normalize(&vUp, &vCurrentUp)));
+				m_pTransformCom->RotationAxis(m_vAxis, m_fAngle);
+				m_bRotate = true;
+			}
 			Trace(fTimeDelta);
+
 		}
 		else
 		{
@@ -270,8 +287,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				for (int i = 0; i < COLOR_END; i++)
 					m_pBeatles[i]=nullptr;
 				_vec3 vRedPos, vGreenPos, vBluePos;
-				vRedPos = { m_vOrigin.x + float(rand() % 6) - 3.f,
-				m_vOrigin.y + float(rand() % 6) - 3.f,m_vOrigin.z + float(rand() % 6) - 3.f };
+				vRedPos = (m_vOrigin + m_vRandomPos[rand() % 8]) * 0.5f;
 				vGreenPos = { m_vOrigin.x + float(rand() % 6) - 3.f,
 				m_vOrigin.y + float(rand() % 6) - 3.f,m_vOrigin.z + float(rand() % 6) - 3.f };
 				vBluePos = { m_vOrigin.x + float(rand() % 6) - 3.f,
@@ -288,8 +304,13 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				m_pBeatles[COLOR_RED]= pRedBeatle;
 				m_pBeatles[COLOR_BLUE] = pBlueBeatle;
 				m_pBeatles[COLOR_GREEN] = pGreenBeatle;
+				CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+				pLayer->Add_GameObject(L"RedBeatle", pRedBeatle);
+				pLayer->Add_GameObject(L"BlueBeatle", pBlueBeatle);
+				pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle);
 				m_bSpawn = true;
 			}
+
 			_vec3 vTargetPos, vPos, vDir;
 			CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 			if (nullptr == pTarget)
@@ -306,9 +327,9 @@ void CSilkWorm::Update_Down(_float fTimeDelta)
 {
 	if (m_iHit > 6)
 	{
-	
-		m_fMoveTime += 4.f*fTimeDelta;
-		m_pAnimator->GetCurrAnimation()->Set_Idx(6-int(m_fMoveTime));
+
+		m_fMoveTime += 4.f * fTimeDelta;
+		m_pAnimator->GetCurrAnimation()->Set_Idx(6 - int(m_fMoveTime));
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 0)
 		{
 			m_fMoveTime = 0.f;
@@ -366,29 +387,44 @@ CSilkWorm* CSilkWorm::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CSilkWorm::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
+
 	vDir = m_vDir;
 	vDir.y = 0.f;
 	D3DXVec3Normalize(&vDir, &vDir);
 	float fAccel = 1.f+ 0.03f*m_fMoveTime* m_fMoveTime;
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, m_fSpeed* fAccel);
-
-	if (m_fMoveTime > 50.f)
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 10.f* fAccel);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	if (vPos.x < m_vRandomPos[0].x|| vPos.z < m_vRandomPos[0].z|| vPos.x > m_vRandomPos[3].x || vPos.z > m_vRandomPos[3].z)
 	{
-		m_pTransformCom->Set_Pos(&m_vRandomPos[rand() % 8]);
-
-		m_fMoveTime = 0.f;
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Attack", false);
-		
+		m_pTransformCom->Set_Pos(&m_vRandomPos[rand() % 8]);
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
+		if(m_bRotate )
+		{m_pTransformCom->RotationAxis(m_vAxis, -m_fAngle);
+		m_bRotate = false; }
+		m_pTransformCom->Set_Pos(&m_vRandomPos[rand() % 8]);
+		
 	}
-
-	if (false==(m_pBeatles[ m_eCOLORPATTERN]->Is_Active()))
+	 if (false==(m_pBeatles[ m_eCOLORPATTERN]->Is_Active()))
 	{
+		if (m_bRotate)
+		{m_pTransformCom->RotationAxis(m_vAxis, -m_fAngle);
+		m_bRotate = false; }
+		for (int i = 0; i < 3; i++)
+		{
+			CTrashPrist* pTrashPrist = CTrashPrist::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pTrashPrist, );
+			pTrashPrist->Get_TransformCom()->Set_Pos(&vPos);
+			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+			pLayer->Add_GameObject(L"RedBeatle", pTrashPrist);
+		}
+
 		Set_State(SILKWORM_STATE::DOWN);
+
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Down", false);
 		for (int i = 0; i < COLOR_END; i++)
 		{
@@ -403,21 +439,17 @@ void CSilkWorm::Trace(_float fTimeDelta)
 			m_eCOLORPATTERN = COLOR_GREEN;
 		else if (m_eCOLORPATTERN == COLOR_GREEN)
 			m_eCOLORPATTERN = COLOR_RED;
+		m_iHit = 0;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
-	
-
-
 }
 void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 		if (m_eState == SILKWORM_STATE::DIE)
 		return;
 		
-		if(dynamic_cast<CBugBall*> (pCollider->GetOwner()))
-		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBugBall*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET && dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 		{
-			m_tStat.iHp -= 1;
+			m_tStat.iHp -= dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Atk();
 			
 			_vec3 vTargetPos;
 			_vec3 vPos;
@@ -428,7 +460,8 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 			vDir.y = 0.0f;
 			D3DXVec3Normalize(&vDir, &vDir);
 			
-			
+			if(m_bPhase2)
+				m_iHit++;
 			if (m_tStat.iHp < 24.f && m_bPhase2 == false)
 			{
 				Set_State(SILKWORM_STATE::REGEN);
@@ -444,10 +477,6 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 
 			m_iHit++;
 			m_tStat.iHp -= 1;
-			if (m_tStat.iHp < 1.f)
-			{
-				m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", true);
-				Set_State(SILKWORM_STATE::DIE);
-			}
+	
 		}
 }

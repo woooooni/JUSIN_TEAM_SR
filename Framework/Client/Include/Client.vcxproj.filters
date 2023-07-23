@@ -622,6 +622,9 @@
     <Filter Include="99. Etc\Lib">
       <UniqueIdentifier>{29b77bf7-57bc-4198-853c-bf80196b0c48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\02. Monster\10. TrashPrist">
+      <UniqueIdentifier>{9a0552d3-68eb-42b1-be44-9604c175a77f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1263,6 +1266,9 @@
     <ClInclude Include="..\..\ThirdParty\fmod_output.h">
       <Filter>99. Etc\Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\TrashPrist.h">
+      <Filter>02. GameObject\02. Monster\10. TrashPrist</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1865,6 +1871,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
       <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\TrashPrist.cpp">
+      <Filter>02. GameObject\02. Monster\10. TrashPrist</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
