@@ -19,8 +19,6 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-public:
-	_bool	Get_Collision() { return m_bCollision; }
 
 public:
 	static  CNpc_Cow* Create(LPDIRECT3DDEVICE9 pGraphicDev);

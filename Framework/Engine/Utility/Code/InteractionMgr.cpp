@@ -8,7 +8,6 @@ IMPLEMENT_SINGLETON(CInteractionMgr)
 Engine::CInteractionMgr::CInteractionMgr()
 {
 	ZeroMemory(m_bEventSwitch, sizeof(bool) * 1000);
-	
 	m_vecResetList.resize(100);
 }
 

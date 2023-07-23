@@ -245,12 +245,12 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	m_tStat.iHp += 1;
 	m_bDirty = true;
 
-	if (m_bBreath)
+	/*if (m_bBreath)
 		vDir = { 0.,1.f ,0.f };
 	else
 		vDir = { 0.f, -1.f, 0.f };
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);*/
 
 	m_tStat.iMaxHp = 25;
 
@@ -260,7 +260,7 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	if (m_tStat.iMaxHp < m_iDirtyHp)
 		m_iDirtyHp == m_tStat.iMaxHp;
 
-	m_tStat = { 25, m_iDirtyHp, 2 };
+	/*m_tStat = { 25, m_iDirtyHp, 2 };*/
 
 	if (m_fMoveTime > 10.f)
 	{
