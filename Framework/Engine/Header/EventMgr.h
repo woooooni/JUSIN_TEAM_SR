@@ -1,186 +1,54 @@
 #pragma once
-#ifndef EventMgr_h__
-#define	EventMgr_h__
-#endif // !CollisionMgr_h__
 
-
-
-#include "Engine_Define.h"
 #include "Base.h"
+#include "Engine_Define.h"
 #include "GameObject.h"
 
 
+
 BEGIN(Engine)
-typedef struct tagEvent
+typedef struct tagEvt
 {
-	_uint iEventNum;
-	list<_uint>		lStartKey;
-	list<_uint>		lEndKey;
-	list<CGameObject*> lSubscribers;
-	bool		m_bIsCanReset = false;
-	_bool		m_bIsCheckUpdate = false;
-} EVENT;
+	EVENT_TYPE eEvent;
+	DWORD_PTR lParam;
+	DWORD_PTR wParam;
+} EVENT_DESC;
 
-
-
-class ENGINE_DLL CEventMgr
+class ENGINE_DLL CEventMgr : public CBase
 {
 	DECLARE_SINGLETON(CEventMgr)
 
 private:
-	explicit		CEventMgr();
-	~CEventMgr();
-
+	explicit CEventMgr();
+	virtual ~CEventMgr();
 
 public:
-	inline HRESULT		Add_Event(EVENT* pEvent)
+	HRESULT Ready_EventMgr();
+	void Update_EventMgr(const _float& fTimeDelta);
+	
+public:
+	void DeleteObjEvt(CGameObject* pObj)
 	{
-		auto iter = m_mapEvents.find(pEvent->iEventNum);
+		EVENT_DESC evt;
+		pObj->Set_Active(false);
+		evt.lParam = (DWORD_PTR)pObj;
+		evt.eEvent = EVENT_TYPE::DELETE_OBJECT;
 
-		if (iter != m_mapEvents.end())
-			return E_FAIL;
-
-		m_mapEvents.insert({ pEvent->iEventNum, pEvent });
-
-		if (pEvent->m_bIsCheckUpdate)
-			m_listCurActiveEvents.push_back(pEvent);
-	}
-
-	void		Set_Event();
-
-	inline HRESULT		Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber)
-	{
-		auto iter = m_mapEvents.find(pEventKey);
-
-		if (iter == m_mapEvents.end())
-			return E_FAIL;
-
-		iter->second->lSubscribers.push_back(pSubscriber);
-
-		return S_OK;
-	}
-
-	inline HRESULT		Check_Event_Start(const _uint& pCheckNum)
-	{
-		if (pCheckNum == 0)
-			return E_FAIL;
-
-		auto iter = m_mapEvents.find(pCheckNum);
-		if (iter == m_mapEvents.end())
-			return E_FAIL;
-		if (!iter->second->lStartKey.empty())
-		{
-			for (auto& iterB : iter->second->lStartKey)
-			{
-				if (!m_bEventSwitch[iterB])
-					return E_FAIL;
-			}
-		}
-
-		if (m_bEventSwitch[pCheckNum] && !iter->second->m_bIsCanReset)
-			return S_OK;
-
-		Start_Event(iter->second);
-		return S_OK;
-
-	}
-
-private:
-	void			Check_Event_End()
-	{
-		for (auto iter = m_listCurActiveEvents.begin(); iter != m_listCurActiveEvents.end();)
-		{
-			if (Check_EventSwitch((*iter)->lEndKey))
-			{
-				for (auto& iterB : (*iter)->lSubscribers)
-				{
-					iterB->Event_End((*iter)->iEventNum);
-					if((*iter)->m_bIsCanReset)
-						m_bEventSwitch[(*iter)->iEventNum] = false;
-				}
-				iter = m_listCurActiveEvents.erase(iter);
-			}
-			else
-				++iter;
-		}
-	}
-
-	void		Start_Event(EVENT* pEvent)
-	{
-		for (auto& iter : pEvent->lSubscribers)
-		{
-			iter->Event_Start(pEvent->iEventNum);
-		}
-		if (!pEvent->lEndKey.empty())
-			m_listCurActiveEvents.push_back(pEvent);
-
-		m_bEventSwitch[pEvent->iEventNum] = !m_bEventSwitch[pEvent->iEventNum];
-		Check_Event_End();
-
-	}
-
-	bool		Check_EventSwitch(const list<_uint>& pList)
-	{
-		for (auto iter : pList)
-		{
-			if (!m_bEventSwitch[iter])
-				return false;
-		}
-		return true;
+		AddEvent(evt);
 	}
 
 public:
+	vector<CGameObject*>& Get_DelteObj_Vec(OBJ_TYPE _eObjType) { return m_vecDeleteObj[(_uint)_eObjType]; }
 
-
-	void		Add_Reset(const _uint& resetIndex, const _uint& eventKey)
-	{
-		m_vecResetList[resetIndex].push_back(eventKey);
-	}
-	void		Reset(const _uint& resetIndex)
-	{
-		for (auto& iter : m_vecResetList[resetIndex])
-		{
-			if (m_mapEvents.find(iter) == m_mapEvents.end())
-				continue;
-
-			for (auto& tmp : m_mapEvents.find(iter)->second->lSubscribers)
-			{
-				tmp->Reset_Event();
-			}
-			m_bEventSwitch[m_mapEvents.find(iter)->second->iEventNum] = false;
-
-			if (m_mapEvents.find(iter)->second->m_bIsCheckUpdate)
-			{
-				m_listCurActiveEvents.push_back(m_mapEvents.find(iter)->second);
-			}
-		}
-
-	}
-
-	void		Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex)
-	{
-		if (minIndex < 0 || minIndex > m_vecResetList.size() || maxIndex < 0 || maxIndex > m_vecResetList.size() || minIndex >= maxIndex)
-		{
-			return;
-		}
-
-		for (size_t i = minIndex; i <= maxIndex; i++)
-		{
-			Add_Reset(resetIndex , i);
-		}
-	}
 
 private:
+	void AddEvent(const EVENT_DESC& _tDesc);
+	void Excute(const EVENT_DESC& _tDesc);
 
-	void	Free();
-
-	list<EVENT*> m_listCurActiveEvents;
-	vector<vector<int>> m_vecResetList;
-
-	map<_uint, EVENT*> m_mapEvents;
-
-	_bool m_bEventSwitch[1000];
-
+private:
+	vector<CGameObject*> m_vecDeleteObj[(_uint)OBJ_TYPE::OBJ_END];
+	vector<EVENT_DESC> m_vecEvent;
+public:
+	virtual void Free() override;
 };
-
 END

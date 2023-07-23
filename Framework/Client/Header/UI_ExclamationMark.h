@@ -2,12 +2,11 @@
 #include "CUI.h"
 
 class CNpc;
-
 class CUI_ExclamationMark : public CUI
 {
 private:
-	CUI_ExclamationMark(LPDIRECT3DDEVICE9 pGraphicDev);
-	CUI_ExclamationMark(const CUI_ExclamationMark& rhs);
+	explicit CUI_ExclamationMark(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CUI_ExclamationMark(const CUI_ExclamationMark& rhs);
 	virtual ~CUI_ExclamationMark();
 
 public:

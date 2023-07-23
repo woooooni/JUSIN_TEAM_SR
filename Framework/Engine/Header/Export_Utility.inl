@@ -134,38 +134,60 @@ inline void Reset()
 
 inline HRESULT Add_Event(EVENT* pEvent)
 {
-	return CEventMgr::GetInstance()->Add_Event(pEvent);
+	return CInteractionMgr::GetInstance()->Add_Event(pEvent);
 }
 
 inline void Set_Event()
 {
-	CEventMgr::GetInstance()->Set_Event();
+	CInteractionMgr::GetInstance()->Set_Event();
 }
 
 inline HRESULT Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber)
 {
-	return CEventMgr::GetInstance()->Add_Subscribe(pEventKey, pSubscriber);
+	return CInteractionMgr::GetInstance()->Add_Subscribe(pEventKey, pSubscriber);
 }
 
 inline HRESULT Check_Event_Start(const _uint& pCheckNum)
 {
-	return CEventMgr::GetInstance()->Check_Event_Start(pCheckNum);
+	return CInteractionMgr::GetInstance()->Check_Event_Start(pCheckNum);
 }
 
 inline void Add_Reset(const _uint& resetIndex, const _uint& eventKey)
 {
-	CEventMgr::GetInstance()->Add_Reset(resetIndex, eventKey);
+	CInteractionMgr::GetInstance()->Add_Reset(resetIndex, eventKey);
 }
 
 inline void Reset(const _uint& resetIndex)
 {
-	CEventMgr::GetInstance()->Reset(resetIndex);
+	CInteractionMgr::GetInstance()->Reset(resetIndex);
 
 }
 
 inline void Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex)
 {
-	CEventMgr::GetInstance()->Add_Reset(resetIndex, minIndex, maxIndex);
+	CInteractionMgr::GetInstance()->Add_Reset(resetIndex, minIndex, maxIndex);
+}
+
+// EventMgr
+
+inline HRESULT Ready_EventMgr()
+{
+	return CEventMgr::GetInstance()->Ready_EventMgr();
+}
+
+inline void Update_EventMgr(const _float& fTimeDelta)
+{
+	CEventMgr::GetInstance()->Update_EventMgr(fTimeDelta);
+}
+
+inline void DeleteObjEvt(CGameObject* pObj)
+{
+	CEventMgr::GetInstance()->DeleteObjEvt(pObj);
+}
+
+inline vector<CGameObject*>& Get_DelteObj_Vec(OBJ_TYPE _eObjType)
+{
+	return CEventMgr::GetInstance()->Get_DelteObj_Vec(_eObjType);
 }
 
 void			Release_Utility()
@@ -178,6 +200,7 @@ void			Release_Utility()
 	CCameraMgr::GetInstance()->DestroyInstance();
 	CProtoMgr::GetInstance()->DestroyInstance();
 	CManagement::GetInstance()->DestroyInstance();
+	CInteractionMgr::GetInstance()->DestroyInstance();
 	CEventMgr::GetInstance()->DestroyInstance();
 }
 

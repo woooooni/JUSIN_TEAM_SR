@@ -1,6 +1,9 @@
 #pragma once
 #include "Npc.h"
 
+class CUI_ExclamationMark;
+class CUI_QuestionMark;
+
 class CNpc_Cow : public CNpc
 {
 	CLONE(CNpc_Cow)

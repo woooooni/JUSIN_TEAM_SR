@@ -21,7 +21,6 @@ HRESULT CSkyBox::Ready_Object(void)
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	m_pTransformCom->Set_Scale({ 40.f, 40.f, 40.f });
-
 	return S_OK;
 }
 
@@ -52,7 +51,7 @@ void CSkyBox::Render_Object(void)
 	
 	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
-	m_pTextureCom->Set_Idx(3);
+	m_pTextureCom->Set_Idx(1);
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 

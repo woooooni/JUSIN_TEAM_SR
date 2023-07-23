@@ -6,6 +6,7 @@
 #include "ImGuiMgr.h"
 #include "GameMgr.h"
 #include "LightMgr.h"
+
 #include "Player_Bullet_Lightning.h"
 #include "Player_Bullet_Bomb.h"
 #include "Particle_FixedLeaf.h"
@@ -61,6 +62,7 @@ int CMainApp::Update_MainApp(const float & fTimeDelta)
 	NULL_CHECK_RETURN(m_pManagementClass, -1);
 	m_pManagementClass->Update_Scene(fTimeDelta);
 
+	
 	return 0;
 }
 
@@ -75,6 +77,8 @@ void CMainApp::Render_MainApp()
 {
 	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
+
+	// Engine::Update_EventMgr(0.f);
 	Engine::Render_End();
 }
 
@@ -175,12 +179,11 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	FAILED_CHECK_RETURN(Engine::Ready_EventMgr(), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_PickingMgr(pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_KeyMgr(pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_CollisionMgr(pGraphicDev), E_FAIL);
-
-
 
 	return S_OK;
 }

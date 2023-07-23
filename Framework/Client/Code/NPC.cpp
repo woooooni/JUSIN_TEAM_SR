@@ -3,8 +3,9 @@
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
 
-CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev)
+CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE eCode)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
+	, m_eCode(eCode)
 {
 }
 
@@ -74,6 +75,7 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 	if (!m_bQuestAccept)
 		m_pExclamation->Update_Object(fTimeDelta);
 
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -99,22 +101,6 @@ void CNpc::Render_Object(void)
 	__super::Render_Object();
 }
 
-//CNpc* CNpc::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3 vPos)
-//{
-//	CNpc* pInstance = new CNpc(pGraphicDev);
-//
-//	if (FAILED(pInstance->Ready_Object()))
-//	{
-//		Safe_Release(pInstance);
-//
-//		MSG_BOX("NPC Create Failed");
-//		return nullptr;
-//	}
-//
-//	pInstance->Get_TransformCom()->Set_Pos(&vPos);
-//
-//	return pInstance;
-//}
 
 void CNpc::Free()
 {

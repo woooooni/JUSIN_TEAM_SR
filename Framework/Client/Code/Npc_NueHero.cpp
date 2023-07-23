@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_NueHero::CNpc_NueHero(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_NUE_HERO)
 {
 }
 

@@ -10,7 +10,7 @@ class CNpc
 	CLONE(CNpc)
 
 protected:
-	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE _eCode);
 	explicit CNpc(const CNpc& rhs);
 	virtual ~CNpc();
 
@@ -20,9 +20,13 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+public:
+	NPC_CODE Get_NpcCode() { return m_eCode; }
+
+private:
+	NPC_CODE m_eCode;
+
 protected:
-	_bool				 m_bCollision = false;
-	_bool				 m_bQuestAccept = false;
 	CUI_ExclamationMark* m_pExclamation = nullptr;
 	CUI_QuestionMark*	 m_pQuestion = nullptr;
 

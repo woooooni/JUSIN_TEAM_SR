@@ -8,7 +8,7 @@
 
 BEGIN(Engine)
 
-class CSoundMgr : public CBase
+class ENGINE_DLL CSoundMgr : public CBase
 {
 	DECLARE_SINGLETON(CSoundMgr)
 private:
