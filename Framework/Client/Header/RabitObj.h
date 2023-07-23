@@ -1,35 +1,40 @@
 #pragma once
 #include "FieldObject.h"
-class CClearField :    public CFieldObject
+class CRabitObj :
+    public CFieldObject
 {
+public:
+	CLONE(CRabitObj);
 
 protected:
-
-	CClearField(LPDIRECT3DDEVICE9 p_Dev);
-	CClearField(const CClearField& rhs);
-	virtual ~CClearField();
+	CRabitObj(LPDIRECT3DDEVICE9 p_Dev);
+	CRabitObj(const CRabitObj& rhs);
+	virtual ~CRabitObj();
 
 public:
 	virtual HRESULT		Ready_Object(void) override;
 	virtual _int		Update_Object(const _float& fTimeDelta) override;
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
-	CLONE(CClearField)
+
+	void		Add_Subscribe(_uint iNum);
 
 	virtual void    Free() override;
 
-	static			CClearField* Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos = { 0, 0, 0 });
+	static			CRabitObj* Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3 p_Pos = { 0, 0, 0 });
+
+	void			Set_Up();
 
 public:
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
-
 protected:
-	_bool		m_bCreating;
-	_float		m_fFrame;
-	_float		m_fMaxFrame;
-	_float		m_fExistTime;
+	_vec3		m_vRabitPos;
+	_float		m_fMaxHeight;
+	_bool		m_bisUp;
+	_float		m_fUpTime;
+
 };
 

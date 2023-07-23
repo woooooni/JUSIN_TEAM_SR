@@ -25,6 +25,9 @@ HRESULT CDefaultItem::Ready_Object(void)
 
 _int CDefaultItem::Update_Object(const _float& fTimeDelta)
 {
+	if (m_bIsInInven)
+		return 0;
+
 	Add_RenderGroup(RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
 
@@ -34,6 +37,8 @@ _int CDefaultItem::Update_Object(const _float& fTimeDelta)
 
 void CDefaultItem::LateUpdate_Object(void)
 {
+	if (m_bIsInInven)
+		return;
 	__super::LateUpdate_Object();
 }
 

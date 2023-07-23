@@ -26,6 +26,7 @@ HRESULT CUseItem::Ready_Object(void)
 
 _int CUseItem::Update_Object(const _float& fTimeDelta)
 {
+
 	Add_RenderGroup(RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
 

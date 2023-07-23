@@ -73,6 +73,8 @@ private:
 	CQuickSlot*		 m_pQuickSlot = nullptr;
 	CUI_BossHP*		 m_pBossHpBar = nullptr;
 
+	_bool			m_bUpdateUI;
+
 private:
 	vector<CUI*>	m_vecIcon;
 

@@ -2,6 +2,7 @@
 #include "PushStone.h"
 #include "Export_Function.h"
 #include	"Pool.h"
+#include	"Effect_CatapultHit.h"
 
 CPushStone::CPushStone(LPDIRECT3DDEVICE9 pDev) 
 												: CFieldObject(pDev, OBJ_ID::PUSH_STONE) 
@@ -125,12 +126,26 @@ void CPushStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS && m_bIsFlying)
 	{
 		CPool<CPushStone>::Return_Obj(this);
+
+		CLayer* pLayerEff = Engine::Get_Layer(LAYER_TYPE::EFFECT);
+		NULL_CHECK_RETURN(pLayerEff, );
+
+		CEffect_CatapultHit* pParticle = CEffect_CatapultHit::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pParticle, );
+		NULL_CHECK_RETURN(m_pTransformCom, );
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vPos.z -= .5f;
+		pParticle->Get_Effect(vPos, _vec3(1.f, 1.f, 1.f));
+
+		pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
+
 	}
 }
 
 void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_WALL)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
 		return;
 
 	if(!m_bIsFlying)

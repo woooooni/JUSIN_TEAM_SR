@@ -7,6 +7,7 @@ CItem::CItem(LPDIRECT3DDEVICE9 pGraphicDev, ITEM_TYPE _eItemType, OBJ_ID _eID)
 	, m_iInvenCount(0)
 	, m_eCode(ITEM_CODE::ITEM_END)
 	, m_tInfo({ 0.f, 0.f, 85.f, 85.f })
+	, m_bIsInInven(false)
 
 {
 
@@ -17,6 +18,8 @@ CItem::CItem(const CItem& rhs)
 	, m_eItemType(rhs.m_eItemType)
 	,m_iInvenCount(rhs.m_iInvenCount)
 	, m_eCode(rhs.m_eCode)
+	, m_bIsInInven(rhs.m_bIsInInven)
+	, m_tInfo(rhs.m_tInfo)
 
 {
 
@@ -35,8 +38,10 @@ HRESULT CItem::Ready_Object(void)
 
 Engine::_int CItem::Update_Object(const _float& fTimeDelta)
 {
+	if (m_bIsInInven)
+		return 0;
+
 	_int iExit = __super::Update_Object(fTimeDelta);
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	
 	return iExit;
@@ -44,6 +49,8 @@ Engine::_int CItem::Update_Object(const _float& fTimeDelta)
 
 void CItem::LateUpdate_Object(void)
 {
+	if (m_bIsInInven)
+		return;
 	__super::LateUpdate_Object();
 }
 
