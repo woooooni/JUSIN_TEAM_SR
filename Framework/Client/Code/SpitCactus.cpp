@@ -182,6 +182,8 @@ void CSpitCactus::Update_Attack(_float fTimeDelta)
 	}
 }
 
+
+
 void CSpitCactus::Update_Move(_float fTimeDelta)
 {
 }

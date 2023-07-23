@@ -72,7 +72,7 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (MONSTER_STATE::ATTACK != Get_State())
+	if (MONSTER_STATE::ATTACK != Get_State() && Get_State() != MONSTER_STATE::STUN)
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 
@@ -243,7 +243,6 @@ void CTrashBig::Update_Attack(_float fTimeDelta)
 {
 	Trace(fTimeDelta);
 }
-
 
 HRESULT CTrashBig::Add_Component(void)
 {

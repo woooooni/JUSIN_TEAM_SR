@@ -60,6 +60,8 @@
 #include "Effect_CatapultHit.h"
 #include "Effect_Dig.h"
 #include "Effect_Smoke.h"
+#include "Particle_LargeStone.h"
+
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDev(pGraphicDev)
@@ -1273,6 +1275,7 @@ HRESULT CLoading::Ready_Pool()
 	CPool<CEffect_CatapultHit>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_Dig>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_Smoke>::Ready_Pool(m_pGraphicDev, 200);
+	CPool<CParticle_LargeStone>::Ready_Pool(m_pGraphicDev, 1000);
 
 	return S_OK;
 }

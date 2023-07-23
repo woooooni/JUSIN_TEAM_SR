@@ -17,11 +17,14 @@ public:
 	static CEffect_Hit* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
-	void			Get_Effect(_vec3& _vPos, _vec3& _vScale);
+	void			Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iR = 255, _uint _iG = 255, _uint _iB = 255);
 protected:
 	virtual HRESULT	Add_Component(void);
 
 
+	_uint m_iR;
+	_uint m_iG;
+	_uint m_iB;
 protected:
 	virtual void Free() override;
 };

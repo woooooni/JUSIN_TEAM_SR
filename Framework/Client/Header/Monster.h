@@ -45,12 +45,15 @@ public:
 	void		 Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
 	virtual void Trace(_float fTimeDelta) PURE;
 
+	void		Set_Stun(_float _fStunTime);
+
 public:
 	virtual void Update_Idle(_float fTimeDelta)		PURE;
 	virtual void Update_Regen(_float fTimeDelta)	PURE;
 	virtual void Update_Move(_float fTimeDelta)		PURE;
 	virtual void Update_Attack(_float fTimeDelta)	PURE;
 	virtual void Update_Die(_float fTimeDelta)		PURE;
+	virtual void Update_Stun(_float fTimeDelta);
 	
 private:
 	_float			m_fSpeed = 5.f;
@@ -68,6 +71,9 @@ protected:
 	_vec3 m_vLook = {0.f,0.f,-1.f};
 	MONSTER_STATE m_ePreviousState;
 	OBJ_DIR m_eDir;
+
+	_float m_fStunTime;
+
 
 protected:
 	virtual void Free() override;

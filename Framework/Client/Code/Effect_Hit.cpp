@@ -68,6 +68,7 @@ void CEffect_Hit::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, m_iR, m_iG, m_iB));
 
 	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -75,6 +76,8 @@ void CEffect_Hit::Render_Object(void)
 
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
+
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 CEffect_Hit* CEffect_Hit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -92,9 +95,13 @@ CEffect_Hit* CEffect_Hit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
-void CEffect_Hit::Get_Effect(_vec3& _vPos, _vec3& _vScale)
+void CEffect_Hit::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iR, _uint _iG, _uint _iB)
 {
 	_vPos.z -= 0.001f;
+	m_iR = _iR;
+	m_iG = _iG;
+	m_iB = _iB;
+
 	m_pTransformCom->Set_Pos(&_vPos);
 	m_pTransformCom->Set_Scale(_vScale);
 	m_pAnimator->GetCurrAnimation()->Set_Idx(0);

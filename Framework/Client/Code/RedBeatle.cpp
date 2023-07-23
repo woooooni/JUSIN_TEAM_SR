@@ -160,6 +160,7 @@ void CRedBeatle::Update_Attack(_float fTimeDelta)
 {
 }
 
+
 void CRedBeatle::Update_Move(_float fTimeDelta)
 {
 

@@ -9,6 +9,11 @@ CItem_Hat::CItem_Hat(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 
 CItem_Hat::CItem_Hat(const CItem_Hat& rhs) : CItem(rhs), m_pPlayer(rhs.m_pPlayer)
 {
+	m_vecAnimation = rhs.m_vecAnimation;
+	m_vecOffset = rhs.m_vecOffset;
+	m_vScale = rhs.m_vScale;
+	m_bLoop = rhs.m_bLoop;
+	m_eSkill = rhs.m_eSkill;
 }
 
 CItem_Hat::~CItem_Hat()

@@ -9,6 +9,7 @@
 #include "Pool.h"
 #include "Effect_GolemFist.h"
 #include "Effect_Smoke.h"
+#include "Particle_LargeStone.h"
 
 CPlayer_Bullet_GolemFist::CPlayer_Bullet_GolemFist(LPDIRECT3DDEVICE9 pGraphicDev)
     : CBullet(pGraphicDev, OBJ_ID::PLAYER_SKILL),
@@ -227,6 +228,9 @@ void CPlayer_Bullet_GolemFist::FistSmokeEffect()
 		}
 		dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.0f, 1.0f, 1.0f), 186, 132, 72);
 	}
+
+
+	CParticle_LargeStone::Get_Effect(vPos, _vec3(1.0f, 0.5f, 1.0f), 20);
 }
 
 void CPlayer_Bullet_GolemFist::Free()

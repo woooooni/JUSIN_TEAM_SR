@@ -79,6 +79,7 @@ void CPlayer_State_Hit::LateUpdate_State(void)
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_Invincible();
 	}
 
 	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())

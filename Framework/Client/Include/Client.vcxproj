@@ -310,6 +310,7 @@
     <ClInclude Include="..\Header\Npc_VillagerMonkey.h" />
     <ClInclude Include="..\Header\Npc_VillagerMoon.h" />
     <ClInclude Include="..\Header\Npc_Wholesaler.h" />
+    <ClInclude Include="..\Header\Particle_LargeStone.h" />
     <ClInclude Include="..\Header\PlantBall.h" />
     <ClInclude Include="..\Header\PlantCannon.h" />
     <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
@@ -543,6 +544,7 @@
     <ClCompile Include="..\Code\Npc_VillagerMonkey.cpp" />
     <ClCompile Include="..\Code\Npc_VillagerMoon.cpp" />
     <ClCompile Include="..\Code\Npc_Wholesaler.cpp" />
+    <ClCompile Include="..\Code\Particle_LargeStone.cpp" />
     <ClCompile Include="..\Code\PlantBall.cpp" />
     <ClCompile Include="..\Code\PlantCannon.cpp" />
     <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />

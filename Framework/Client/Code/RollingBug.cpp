@@ -61,24 +61,26 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 	Set_Target(pTarget);
 
 	_vec3 vPlayerPos, vOriginPos, vPos;
-
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vOriginPos = m_tBugInfo.vDefaultPos;
 
-	m_vBugDir = vOriginPos - vPos;
-	m_vPlayerDir = vPlayerPos - vPos;
-
-	if (D3DXVec3Length(&m_vPlayerDir) <= 15.f)
+	if (Get_State() != MONSTER_STATE::STUN)
 	{
-		m_vLook = m_vPlayerDir;
-		Set_State(MONSTER_STATE::ATTACK);
-	}
+		
+		vOriginPos = m_tBugInfo.vDefaultPos;
+		m_vBugDir = vOriginPos - vPos;
+		m_vPlayerDir = vPlayerPos - vPos;
+		if (D3DXVec3Length(&m_vPlayerDir) <= 15.f)
+		{
+			m_vLook = m_vPlayerDir;
+			Set_State(MONSTER_STATE::ATTACK);
+		}
 
-	if (D3DXVec3Length(&m_vPlayerDir) > 15.f)
-	{
-		m_vLook = m_vBugDir;
-		Set_State(MONSTER_STATE::MOVE);
+		if (D3DXVec3Length(&m_vPlayerDir) > 15.f)
+		{
+			m_vLook = m_vBugDir;
+			Set_State(MONSTER_STATE::MOVE);
+		}
 
 		if (D3DXVec3Length(&m_vBugDir) < 1.f)
 		{

@@ -17,7 +17,7 @@ public:
 	static CEffect_Stun* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 
-	void			Get_Effect(CGameObject* _pObj, _vec3& _vOffSet, _vec3& _vScale, _float fTime);
+	void			Get_Effect(CGameObject* _pObj, _vec3& _vOffSet, _vec3& _vScale, _float* fTime);
 protected:
 	virtual HRESULT	Add_Component(void);
 
@@ -27,8 +27,7 @@ protected:
 
 
 private:
-	_float m_fAccTime;
-	_float m_fEffectTime;
+	_float* m_fEffectTime;
 
 	CGameObject* m_pOwner = nullptr;
 	_vec3 m_vOffSet;

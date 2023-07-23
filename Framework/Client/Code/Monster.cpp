@@ -3,6 +3,9 @@
 #include "Bullet.h"
 #include "Pool.h"
 #include "Effect_DieSmoke.h"
+#include "Effect_Stun.h"
+#include "Player.h"
+
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, _eObjId)
 	, m_eState(MONSTER_STATE::REGEN)
@@ -54,6 +57,9 @@ _int CMonster::Update_Object(const _float& fTimeDelta)
 			break;
 		case MONSTER_STATE::DIE:
 			Update_Die(fTimeDelta);
+			break;
+		case MONSTER_STATE::STUN:
+			Update_Stun(fTimeDelta);
 			break;
 		}
 	}
@@ -131,6 +137,35 @@ void CMonster::Trace(_float fTimeDelta)
 {
 }
 
+void CMonster::Set_Stun(_float _fStunTime)
+{
+	m_fStunTime = _fStunTime;
+
+	m_eState = MONSTER_STATE::STUN;
+
+	CGameObject* pEffect = CPool<CEffect_Stun>::Get_Obj();
+
+	if (!pEffect)
+	{
+		pEffect = CEffect_Stun::Create(m_pGraphicDev);
+		pEffect->Ready_Object();
+	}
+	_float fScaleY = m_pTransformCom->Get_Scale().y * 0.5f;
+	dynamic_cast<CEffect_Stun*>(pEffect)->Get_Effect(this, _vec3(0.0f, fScaleY * 1.0f, 0.0f), _vec3(1.0f, 0.5f, 1.0f), &m_fStunTime);
+
+
+}
+
+void CMonster::Update_Stun(_float fTimeDelta)
+{
+	m_fStunTime -= fTimeDelta;
+
+	if (m_fStunTime < 0.0f)
+	{
+		m_eState = MONSTER_STATE::IDLE;
+	}
+}
+
 void CMonster::Free()
 {
 	__super::Free();
@@ -169,8 +204,19 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 			vDir = vPos - vTargetPos;
 			vDir.y = 0.0f;
 			D3DXVec3Normalize(&vDir, &vDir);
-			if(m_bPushable)
-			m_pRigidBodyCom->AddForce(vDir * 70.0f);
+			if (m_bPushable)
+			{
+				m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
+				m_pRigidBodyCom->AddForce(vDir * 70.0f);
+			}
+				
+
+			
+
+			if (dynamic_cast<CPlayer*>(dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner())->Get_Skill() == PLAYER_SKILL::LIGHTNING)
+			{
+				Set_Stun(3.0f);
+			}
 
 		}
 		break;
