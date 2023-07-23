@@ -48,7 +48,9 @@ HRESULT CInventoryMgr::Add_Item(CGameObject* pItem)
 	if (iter == yourVec.end())
 	{
 		tem->Set_Active(false);
-		tem = dynamic_cast<CItem*>(tem->Clone());
+
+		tem = tem->Clone();
+		tem->Set_Active(true);
 
 		NULL_CHECK_RETURN(tem, E_FAIL);
 		yourVec.push_back(tem);

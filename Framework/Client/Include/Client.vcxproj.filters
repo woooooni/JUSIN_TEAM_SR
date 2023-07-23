@@ -610,6 +610,15 @@
     <Filter Include="02. GameObject\01. Player\State\15. Dance">
       <UniqueIdentifier>{38808e8e-0226-4aea-9883-4b27309801e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\07. EnvironmentObj\02. NueFlower">
+      <UniqueIdentifier>{4005496d-a056-4bf7-a056-da790d447bf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16. Bullet\03. Turret_Bullet">
+      <UniqueIdentifier>{3b1166cd-54ff-4f20-8a1d-ec7140e045ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\03. RabitObj">
+      <UniqueIdentifier>{db05db0f-6c27-4177-89d0-a5767e611578}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1223,6 +1232,12 @@
     <ClInclude Include="..\Header\Player_State_Dance.h">
       <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\NueFlower.h">
+      <Filter>02. GameObject\07. EnvironmentObj\02. NueFlower</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\RabitObj.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1818,6 +1833,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Dance.cpp">
       <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\NueFlower.cpp">
+      <Filter>02. GameObject\07. EnvironmentObj\02. NueFlower</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RabitObj.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

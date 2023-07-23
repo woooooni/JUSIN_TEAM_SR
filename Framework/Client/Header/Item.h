@@ -41,6 +41,9 @@ public:
 			m_iInvenCount -= p_iCount;
 		}
 	}
+
+	CLONE(CItem);
+
 	virtual	CGameObject* Get_ByPool() { return nullptr; };
 	virtual void				Add_Pool() {};
 
@@ -57,12 +60,16 @@ public:
 
 	_bool		Check_Clicked();
 
+	void		Set_InInven() { m_bIsInInven = true; }
+
 protected:
 	virtual HRESULT	Add_Component(void);
 
 protected:
 	ITEM_TYPE m_eItemType;
 	UI_INFO		m_tInfo;
+
+	_bool		m_bIsInInven;
 
 private:
 	_uint		m_iInvenCount;

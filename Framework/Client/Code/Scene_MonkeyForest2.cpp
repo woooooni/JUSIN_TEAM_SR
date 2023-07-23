@@ -191,7 +191,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
 
-	pHit = CHitObj::Create(m_pGraphicDev, 9, { 24.5f , 0.f, 28.5f });
+	pHit = CHitObj::Create(m_pGraphicDev, 9, { 26.5f , 0.f, 28.5f });
 
 	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
 

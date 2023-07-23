@@ -4,7 +4,7 @@
 
 IMPLEMENT_SINGLETON(CUIMgr)
 
-CUIMgr::CUIMgr()
+CUIMgr::CUIMgr() : m_bUpdateUI(false)
 {
 }
 
@@ -23,7 +23,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
    // m_pShortCutKey = CUI_ShortCutKey::Create(_pGraphicDev);
     m_pQuickSlot = CQuickSlot::Create(_pGraphicDev);
 
-    // m_pCurrentUI = CInventoryUI::Create(_pGraphicDev);
+    m_pCurrentUI = CInventoryUI::Create(_pGraphicDev);
    // NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
    // NULL_CHECK_RETURN(m_pShop, E_FAIL);
@@ -57,6 +57,16 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_vecIcon[KEYBUTTON_3]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_4]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_L]->Update_Object(fTimeDelta);
+
+    if (KEY_TAP(KEY::I))
+    {
+        m_bUpdateUI = !m_bUpdateUI;
+    }
+
+    if (m_bUpdateUI)
+    {
+        m_pCurrentUI->Update_Object(fTimeDelta);
+    }
 }
 
 void CUIMgr::Late_Update_UIMgr()
@@ -80,6 +90,12 @@ void CUIMgr::Late_Update_UIMgr()
     m_vecIcon[KEYBUTTON_3]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_4]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_L]->LateUpdate_Object();
+
+    if (m_bUpdateUI)
+    {
+        m_pCurrentUI->LateUpdate_Object();
+    }
+
 }
 
 void CUIMgr::Render_UIMgr()

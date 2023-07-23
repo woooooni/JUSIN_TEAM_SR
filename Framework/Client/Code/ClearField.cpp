@@ -2,12 +2,13 @@
 #include    "Export_Function.h"
 #include    "PushStone.h"
 #include        "Pool.h"
+#include       <time.h>
 
-CClearField::CClearField(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::CLEAR_FIELD), m_bCreating(false), m_fFrame(0.f), m_fMaxFrame(0.f)
+CClearField::CClearField(LPDIRECT3DDEVICE9 p_Dev) : CFieldObject(p_Dev, OBJ_ID::CLEAR_FIELD), m_bCreating(false), m_fFrame(0.f), m_fMaxFrame(0.f), m_fExistTime(0.f)
 {
 }
 
-CClearField::CClearField(const CClearField& rhs) : CFieldObject(rhs), m_bCreating(rhs.m_bCreating), m_fFrame(0.f), m_fMaxFrame(0.f)
+CClearField::CClearField(const CClearField& rhs) : CFieldObject(rhs), m_bCreating(rhs.m_bCreating), m_fFrame(0.f), m_fMaxFrame(0.f), m_fExistTime(rhs.m_fExistTime)
 {
 }
 
@@ -83,7 +84,7 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
 
     }
 
-    if (m_fFrame >= 15.f)
+    if (m_fFrame >= 15.f || m_fExistTime >= 5.f)
     {
         CPool<CClearField>::Return_Obj(this);
         m_fFrame = 0.f;
@@ -96,6 +97,7 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
     {
         Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_TRIGGER);
         Add_RenderGroup(RENDER_ALPHA, this);
+        m_fExistTime += fTimeDelta;
     }
 
     return __super::Update_Object(fTimeDelta);
@@ -137,8 +139,11 @@ CClearField* CClearField::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
         return  nullptr;
 
     }
-    
-    ret->m_pTransformCom->Set_Pos(&p_Pos);
+    srand(unsigned(time(NULL)));
+
+
+
+    ret->m_pTransformCom->Set_Pos(&(p_Pos + _vec3(0, (rand() % 1000) * 0.0001f ,0)));
     ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 
     ret->Set_MinHeight(0.005f);
