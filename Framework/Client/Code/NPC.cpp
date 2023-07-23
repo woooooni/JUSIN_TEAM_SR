@@ -70,7 +70,7 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	vPos.y += 1.f;
-	m_pExclamation->Get_TransformCom()->Set_Pos(&vPos);
+	// m_pExclamation->Get_TransformCom()->Set_Pos(&vPos);
 
 
 
