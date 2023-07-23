@@ -72,8 +72,6 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 	vPos.y += 1.f;
 	m_pExclamation->Get_TransformCom()->Set_Pos(&vPos);
 
-	if (!m_bQuestAccept)
-		m_pExclamation->Update_Object(fTimeDelta);
 
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -82,9 +80,6 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 
 void CNpc::LateUpdate_Object(void)
 {
-	if (!m_bQuestAccept)
-		m_pExclamation->LateUpdate_Object();
-
 	__super::LateUpdate_Object();
 }
 
@@ -94,9 +89,6 @@ void CNpc::Render_Object(void)
 	
 	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();
-
-	if (!m_bQuestAccept)
-		m_pExclamation->Render_Object();
 
 	__super::Render_Object();
 }

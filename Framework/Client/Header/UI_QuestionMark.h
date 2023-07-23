@@ -1,4 +1,5 @@
 #pragma once
+#include "CUI.h"
 
 class CNpc;
 class CUI_QuestionMark : public CUI

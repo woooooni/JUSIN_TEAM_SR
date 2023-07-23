@@ -1081,7 +1081,7 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Turret_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Turret/RightDown/Sprite_Turret_All%d.png", 4)), E_FAIL);
 
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Jelly", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Explosion/Jelly/Sprite_JellyPushable_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Jelly", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Jelly/Sprite_JellyPushable_%d.png", 6)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Catapult_Sprites/Sprite_Catapult0.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Fire", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Catapult_Sprites/Sprite_Catapult%d.png", 10)), E_FAIL);
@@ -1161,7 +1161,7 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakObj_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StoneBreakable.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakObj_Breaking", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StoneBreakable_Destroy_%d.png", 8)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Cube", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/IA_Sprite/Explosion/Catapult_Body.dds")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Cube", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/IA_Sprite/Catapult_Body.dds")), E_FAIL);
 
 
 	return S_OK;

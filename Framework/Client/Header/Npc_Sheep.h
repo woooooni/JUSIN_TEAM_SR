@@ -22,8 +22,6 @@ public:
 private:
 	HRESULT Ready_Component();
 
-public:
-	_bool	Get_Collision() { return m_bCollision; }
 
 public:
 	static  CNpc_Sheep* Create(LPDIRECT3DDEVICE9 pGraphicDev);
