@@ -244,11 +244,44 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	m_tStat.iAttack = 2;
 	m_tStat.iHp += 1;
 	m_bDirty = true;
-	if (m_tStat.iHp==m_tStat.iMaxHp)
+
+	if (m_bBreath)
+		vDir = { 0.,1.f ,0.f };
+	else
+		vDir = { 0.f, -1.f, 0.f };
+
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
+
+	m_tStat.iMaxHp = 25;
+
+	if (m_tStat.iMaxHp > m_iDirtyHp)
+		m_iDirtyHp += _uint(100 * fTimeDelta);
+
+	if (m_tStat.iMaxHp < m_iDirtyHp)
+		m_iDirtyHp == m_tStat.iMaxHp;
+
+	m_tStat = { 25, m_iDirtyHp, 2 };
+
+	if (m_fMoveTime > 10.f)
 	{
 		Set_State(SUNGOLEM_STATE::IDLE);
 	}
 
+	// Ãß°¡
+	m_pUIBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	if (m_pUIBack == nullptr)
+		return;
+	m_pUIGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	if (m_pUIGauge == nullptr)
+		return;
+	m_pUIFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	if (m_pUIFrame == nullptr)
+		return;
+
+	m_pUIGauge->Set_Name(BOSSNAME::SUNGOLLEM_REBIRTH);
+	//
+
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CSunGollem::Update_Move(_float fTimeDelta)

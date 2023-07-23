@@ -1,5 +1,5 @@
 #pragma once
-#include "NPC.h"
+#include "Npc.h"
 
 typedef enum class VillagerType
 {

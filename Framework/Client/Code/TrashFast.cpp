@@ -4,9 +4,6 @@
 #include "Pool.h"
 #include "Effect_Hit.h"
 
-// TrashBig과 같은 패턴으로 Player공격
-// 이동거리가 더 길고 스피드도 빠름
-
 CTrashFast::CTrashFast(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev, OBJ_ID::TRASH_FAST), m_fMoveTime(0.f)
 {
@@ -37,6 +34,8 @@ HRESULT CTrashFast::Ready_Object(void)
 	m_fMinHeight = 0.5f; // 최소y값
 	m_tStat = { 2,2,1 };
 
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vec3(0.5f, 0.5f, 0.5f));
+
 	m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", TRUE);
 	Set_State(MONSTER_STATE::IDLE);
 
@@ -59,28 +58,29 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
 		Set_State(MONSTER_STATE::DIE);
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (MONSTER_STATE::ATTACK != Get_State()) // 공격상태가 아니면
-	{
-
+	if (MONSTER_STATE::ATTACK != Get_State())
+		{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
+	
 		if (nullptr == pTarget)
 			return S_OK; 
-		Set_Target(pTarget); // Player로 타켓을 설정해둠
+
+		Set_Target(pTarget);
 
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		vDir = vTargetPos - vPos;
 
 		if (D3DXVec3Length(&vDir) < 20.f)
 		{
-			Set_State(MONSTER_STATE::ATTACK); // Player가 10.f안으로 오면 공격상태로 State 변환
+			Set_State(MONSTER_STATE::ATTACK);
 		}
-
 	}
 
 	vPos.y += 0.5f;
@@ -130,7 +130,6 @@ void CTrashFast::LateUpdate_Object(void)
 		return;
 
 	Set_Animation();
-
 	__super::LateUpdate_Object();
 
 	if (m_pUIBack->Is_Active() &&
@@ -147,10 +146,10 @@ void CTrashFast::Render_Object(void)
 {
 	if (!Is_Active())
 		return ;
+
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	__super::Render_Object();
-
 	m_pBufferCom->Render_Buffer();
 
 	if (m_pUIBack->Is_Active() &&
@@ -202,7 +201,6 @@ void CTrashFast::Update_Move(_float fTimeDelta)
 	if (!m_bJump
 		&& m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
 	{
-		// void AddForce(_vec3 _vForce) { m_vForce += _vForce; }
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 		m_pRigidBodyCom->AddForce(_vec3(0.0f, 50.0f, 0.0f));
 		m_pRigidBodyCom->SetGround(FALSE);
@@ -324,7 +322,7 @@ void CTrashFast::Trace(_float fTimeDelta)
 
 	if (!m_bJump && m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
 	{
-		m_pRigidBodyCom->AddForce(vDir * 80.0f); // vDir.y가 0임. y를 AddForce해줘야함.
+		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 		m_pRigidBodyCom->AddForce(_vec3(0.0f, 50.0f, 0.0f));
 		m_pRigidBodyCom->SetGround(FALSE);
 		m_bJump = TRUE;
@@ -344,9 +342,9 @@ void CTrashFast::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
+
 	__super::Collision_Enter( pCollider,  _eCollisionGroup,  _iColliderID);
 	
-
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 	{
 		_vec3 vTargetPos;

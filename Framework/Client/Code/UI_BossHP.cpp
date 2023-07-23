@@ -47,6 +47,17 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 		}
 	}
 
+	if (m_eBossType == BOSSNAME::SUNGOLLEM_REBIRTH)
+	{
+		CGameObject* pBoss_Sungollem = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SunGollem");
+
+		if (pBoss_Sungollem != nullptr)
+		{
+			m_iMaxHP = dynamic_cast<CSunGollem*>(pBoss_Sungollem)->Get_Stat().iMaxHp;
+			m_iCurHP = dynamic_cast<CSunGollem*>(pBoss_Sungollem)->Get_Stat().iHp;
+		}
+	}
+
 	if (m_eBossType == BOSSNAME::SILKWORM)
 	{
 		CGameObject* pBoss_Silkworm = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SilkWorm");
@@ -149,6 +160,13 @@ void CUI_BossHP::Render_Object(void)
 		{
 		case BOSSNAME::SUNGOLLEM:
 			swprintf_s(szBuf, L"½Ã·ÃÀÇ ¿ø¼þÀÌ ¼®»ó");
+
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+				szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+			break;
+
+		case BOSSNAME::SUNGOLLEM_REBIRTH:
+			swprintf_s(szBuf, L"¿À¿°µÈ ¿ø¼þÀÌ ¼®»ó");
 
 			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 				szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));

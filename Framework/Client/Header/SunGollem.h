@@ -67,9 +67,11 @@ private:
 	_float			m_fHealth = 6.f;
 	SUNGOLEM_STATE	m_eState;
 	MONSTERSTAT		m_tStat;
+	// Hp UI를 위한 변수 추가.
 	CUI_BossHP*		m_pUIBack;
 	CUI_BossHP*		m_pUIFrame;
 	CUI_BossHP*		m_pUIGauge;
+	_uint			m_iDirtyHp = 0;
 
 private:
 	void Create_Fist(bool _BummerFist, _int _iSrc);

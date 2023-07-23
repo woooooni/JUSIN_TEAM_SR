@@ -647,7 +647,6 @@ HRESULT CLoading::Ready_Monster_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Idle_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Stand/LeftDown/Cupa_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Idle_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Stand/RightDown/Cupa_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Idle_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Stand/RightUp/Cupa_%d.png", 1)), E_FAIL);
-
 	// Monster Cupa Move
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Move_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Movement/Down/Cupa_%d.png", 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Move_Up", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Movement/Up/Cupa_%d.png", 4)), E_FAIL);
@@ -668,6 +667,8 @@ HRESULT CLoading::Ready_Monster_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Attack_RightUp", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Attack/RightUp/Cupa_%d.png", 2)), E_FAIL);
 	// Monster Cupa Regen
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Regen_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Regen/Down/Cupa_%d.png", 5)), E_FAIL);
+	// Monster Cupa Reaction
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Cupa_Reaction_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/Cupa/Reaction/Down/Cupa_%d.png", 4)), E_FAIL);
 
 	// Monster Rolling Bug Idle
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_RollingBug_Pink_Idle_Down", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Monster/RollingBug/Pink/Idle/Down/RollingBug_%d.png", 6)), E_FAIL);
@@ -1078,7 +1079,7 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Turret_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Turret/RightDown/Sprite_Turret_All%d.png", 4)), E_FAIL);
 
 
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Jelly", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Jelly/Sprite_JellyPushable_%d.png", 6)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Jelly", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Explosion/Jelly/Sprite_JellyPushable_%d.png", 6)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Catapult_Sprites/Sprite_Catapult0.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Fire", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Catapult_Sprites/Sprite_Catapult%d.png", 10)), E_FAIL);
@@ -1158,7 +1159,7 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakObj_Idle", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StoneBreakable.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_BreakObj_Breaking", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_StoneBreakable_Destroy_%d.png", 8)), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Cube", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/IA_Sprite/Catapult_Body.dds")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Catapult_Cube", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_CUBE, L"../Bin/Resource/IA_Sprite/Explosion/Catapult_Body.dds")), E_FAIL);
 
 
 	return S_OK;

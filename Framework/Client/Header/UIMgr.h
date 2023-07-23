@@ -9,6 +9,7 @@
 #include "Icon.h"
 #include "UI_BossHP.h"
 #include "InventoryUI.h"
+#include "UI_NewItem.h"
 
 class CUIMgr : public CBase
 {
@@ -64,6 +65,7 @@ private:
 	CUI_Dialog*		 m_pDialog = nullptr;
 	CUI_HPBar*		 m_pHpBar= nullptr;
 	CUI_Shop*		 m_pShop = nullptr;
+	CUI_NewItem* m_pItemWindow = nullptr;
 
 	CUI* m_pCurrentUI = nullptr;
 

@@ -21,7 +21,7 @@ HRESULT CRollingBug::Ready_Object(void)
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	Set_State(MONSTER_STATE::IDLE);
-	Set_Speed(1.f);
+	Set_Speed(3.5f);
 
 	m_tStat = { 3, 3, 1 }; // MaxHp, Hp, Attack
 
@@ -50,9 +50,8 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 	if (!Is_Active())
 		return S_OK;
 
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	__super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
-
 
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 
@@ -70,11 +69,23 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 	m_vBugDir = vOriginPos - vPos;
 	m_vPlayerDir = vPlayerPos - vPos;
 
-	if (D3DXVec3Length(&m_vPlayerDir) <= 7.f)
+	if (D3DXVec3Length(&m_vPlayerDir) <= 15.f)
+	{
+		m_vLook = m_vPlayerDir;
 		Set_State(MONSTER_STATE::ATTACK);
+	}
 
-	if (D3DXVec3Length(&m_vPlayerDir) > 7.f)
-		Set_State(MONSTER_STATE::IDLE);
+	if (D3DXVec3Length(&m_vPlayerDir) > 15.f)
+	{
+		m_vLook = m_vBugDir;
+		Set_State(MONSTER_STATE::MOVE);
+
+		if (D3DXVec3Length(&m_vBugDir) < 1.f)
+		{
+			m_vLook = _vec3(0.f, 0.f, -1.f);
+			Set_State(MONSTER_STATE::IDLE);
+		}
+	}
 
 	vPos.y += 0.5f;
 	vPos.z -= 0.01f;
@@ -91,6 +102,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 
 		if (m_tStat.iHp == m_tStat.iMaxHp)
 			m_pUIGauge->Get_TransformCom()->Set_Pos(&vPos);
+
 		else if (m_tStat.iHp > 0 && m_tStat.iHp < m_tStat.iMaxHp)
 		{
 			_vec3 vMovePos = vPos;
@@ -113,8 +125,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 		m_pUIFrame->Get_TransformCom()->Set_Pos(&vPos);
 	}
 
-	_int iExit = __super::Update_Object(fTimeDelta);
-	return iExit;
+	return S_OK;
 }
 
 void CRollingBug::LateUpdate_Object(void)
@@ -141,9 +152,8 @@ void CRollingBug::Render_Object(void)
 		return ;
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pBufferCom->Render_Buffer();
-
 	__super::Render_Object();
+	m_pBufferCom->Render_Buffer();
 
 	if (m_pUIBack->Is_Active() &&
 		m_pUIGauge->Is_Active() &&
@@ -165,43 +175,14 @@ void CRollingBug::Update_Idle(_float fTimeDelta)
 	vDir = vOriginPos - vPos;
 	m_vBugDir = vDir;
 
-	switch (m_tBugInfo.eType)
-	{
-	case BUGCOLORTYPE::PINK:
-		m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Down", TRUE);
-		break;
-
-	case BUGCOLORTYPE::BLUE:
-		m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Down", TRUE);
-		break;
-
-	case BUGCOLORTYPE::YELLOW:
-		m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Down", TRUE);
-		break;
-
-	default:
-		break;
-	}
-
-	if (D3DXVec3Length(&m_vPlayerDir) > 7.f)
+	if (D3DXVec3Length(&m_vPlayerDir) <= 15.f)
 	{
 		D3DXVec3Normalize(&m_vBugDir, &m_vBugDir);
 		m_pTransformCom->Move_Pos(&m_vBugDir, fTimeDelta, 1.5f * Get_Speed());
-
-		if (m_fMoveTime > 10.f)
-			m_fMoveTime = 0.f;
 	}
 
 	m_fMoveTime += 10.f * fTimeDelta;
-}
 
-void CRollingBug::Update_Die(_float fTimeDelta)
-{
-	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
-	{
-		if (Is_Active())
-			Set_Active(false);
-	}
 }
 
 void CRollingBug::Update_Regen(_float fTimeDelta)
@@ -211,56 +192,60 @@ void CRollingBug::Update_Regen(_float fTimeDelta)
 
 void CRollingBug::Update_Move(_float fTimeDelta)
 {
+	_vec3 vPos, vDir, vOriginPos;
 
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vOriginPos = m_tBugInfo.vDefaultPos;
+
+	vDir = vOriginPos - vPos;
+	m_vBugDir = vDir;
+
+	if (D3DXVec3Length(&m_vPlayerDir) > 15.f)
+	{
+		D3DXVec3Normalize(&m_vBugDir, &m_vBugDir);
+		m_pTransformCom->Move_Pos(&m_vBugDir, fTimeDelta, 0.5f * Get_Speed());
+		
+//		if (D3DXVec3Length(&m_vBugDir) < 1.f)
+//		{
+//			_vec3 vTmp = { float(rand() % 10), 0.f, float(rand() % 10) };
+//			m_vLook = vTmp;
+//			D3DXVec3Normalize(&vTmp, &vTmp);
+//			//m_pTransformCom->Move_Pos(&vTmp, fTimeDelta, 1.5f * Get_Speed());
+//
+			if (m_fMoveTime > 10.f)
+				m_fMoveTime = 0.f;
+//		}
+	}
+
+	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CRollingBug::Update_Attack(_float fTimeDelta)
 {
-	switch (m_tBugInfo.eType)
-	{
-	case BUGCOLORTYPE::PINK:
-		m_pAnimator->Play_Animation(L"RollingBug_Pink_Attack_UpDown", TRUE);
-		break;
-
-	case BUGCOLORTYPE::BLUE:
-		m_pAnimator->Play_Animation(L"RollingBug_Blue_Attack_UpDown", TRUE);
-		break;
-
-	case BUGCOLORTYPE::YELLOW:
-		m_pAnimator->Play_Animation(L"RollingBug_Yellow_Attack_LeftRight", TRUE);
-		break;
-	}
 
 	Trace(fTimeDelta);
 
-	if (D3DXVec3Length(&m_vPlayerDir) > 7.f)
+	if (D3DXVec3Length(&m_vPlayerDir) > 15.f)
 	{
 		D3DXVec3Normalize(&m_vBugDir, &m_vBugDir);
 		m_pTransformCom->Move_Pos(&m_vBugDir, fTimeDelta, 1.5f * Get_Speed());
 
 		if (D3DXVec3Length(&m_vPlayerDir) < 1.f)
 		{
+
 			Set_State(MONSTER_STATE::IDLE);
 
-			switch (m_tBugInfo.eType)
-			{
-			case BUGCOLORTYPE::PINK:
-				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Down", TRUE);
-				break;
-
-			case BUGCOLORTYPE::BLUE:
-				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Down", TRUE);
-				break;
-
-			case BUGCOLORTYPE::YELLOW:
-				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Down", TRUE);
-				break;
-
-			default:
-				break;
-			}
 		}
 
+	}
+}
+
+void CRollingBug::Update_Die(_float fTimeDelta)
+{
+	if (Is_Active())
+	{
+		Set_Active(false);
+		On_Death();
 	}
 }
 
@@ -274,7 +259,7 @@ void CRollingBug::Trace(_float fTimeDelta)
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_pTarget = nullptr;
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 2 * Get_Speed());
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 
 	if (m_fMoveTime > 10.f)
 		m_fMoveTime = 0.f;
@@ -323,7 +308,6 @@ void CRollingBug::Set_Animation()
 	fAngle = D3DXToDegree(fAngle);
 	_uint iDir = fAngle / 22.5f;
 
-
 	if (iDir == 0 || iDir == 15 || iDir == 16)
 	{
 		eDir = OBJ_DIR::DIR_U;
@@ -371,40 +355,117 @@ void CRollingBug::Set_Animation()
 	switch (eState)
 	{
 	case Engine::MONSTER_STATE::IDLE:
-
-		switch (eDir)
+		if (m_tBugInfo.eType == BUGCOLORTYPE::PINK)
 		{
-		case Engine::OBJ_DIR::DIR_U:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_Up", true);
-			break;
-		case Engine::OBJ_DIR::DIR_D:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
-			break;
-		case Engine::OBJ_DIR::DIR_L:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_Left", true);
-			break;
-		case Engine::OBJ_DIR::DIR_R:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_Right", true);
-			break;
-		case Engine::OBJ_DIR::DIR_LU:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_LeftUp", true);
-			break;
-		case Engine::OBJ_DIR::DIR_RU:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_RightUp", true);
-			break;
-		case Engine::OBJ_DIR::DIR_LD:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_LeftDown", true);
-			break;
-		case Engine::OBJ_DIR::DIR_RD:
-			m_pAnimator->Play_Animation(L"MothMage_Idle_RightDown", true);
-			break;
-		case Engine::OBJ_DIR::DIR_END:
-			return;
+			switch (eDir)
+			{
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
 
-		default:
+			default:
+				break;
+			}
 			break;
 		}
-		break;
+
+		if (m_tBugInfo.eType == BUGCOLORTYPE::BLUE)
+		{
+			switch (eDir)
+			{
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
+
+			default:
+				break;
+			}
+			break;
+		}
+
+		if (m_tBugInfo.eType == BUGCOLORTYPE::YELLOW)
+		{
+			switch (eDir)
+			{
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
+
+			default:
+				break;
+			}
+			break;
+		}
+
 
 
 	case Engine::MONSTER_STATE::MOVE:
@@ -425,16 +486,16 @@ void CRollingBug::Set_Animation()
 				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_LU:
-				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Up", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Left", true);
 				break;
 			case Engine::OBJ_DIR::DIR_RU:
-				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Up", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_LD:
-				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Down", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Left", true);
 				break;
 			case Engine::OBJ_DIR::DIR_RD:
-				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Down", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_END:
 				return;
@@ -462,16 +523,16 @@ void CRollingBug::Set_Animation()
 				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_LU:
-				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Up", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Left", true);
 				break;
 			case Engine::OBJ_DIR::DIR_RU:
-				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Up", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_LD:
-				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Down", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Left", true);
 				break;
 			case Engine::OBJ_DIR::DIR_RD:
-				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Down", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_END:
 				return;
@@ -499,16 +560,16 @@ void CRollingBug::Set_Animation()
 				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_LU:
-				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Up", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Left", true);
 				break;
 			case Engine::OBJ_DIR::DIR_RU:
-				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Up", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_LD:
-				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Down", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Left", true);
 				break;
 			case Engine::OBJ_DIR::DIR_RD:
-				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Down", true);
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Move_Right", true);
 				break;
 			case Engine::OBJ_DIR::DIR_END:
 				return;
@@ -524,33 +585,107 @@ void CRollingBug::Set_Animation()
 		{
 			switch (eDir)
 			{
-//			case Engine::OBJ_DIR::DIR_U:
-//				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Up", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_D:
-//				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Down", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_L:
-//				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Left", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_R:
-//				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Right", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_LU:
-//				m_pAnimator->Play_Animation(L"MothMage_Idle_LeftUp", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_RU:
-//				m_pAnimator->Play_Animation(L"MothMage_Idle_RightUp", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_LD:
-//				m_pAnimator->Play_Animation(L"MothMage_Idle_LeftDown", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_RD:
-//				m_pAnimator->Play_Animation(L"MothMage_Idle_RightDown", true);
-//				break;
-//			case Engine::OBJ_DIR::DIR_END:
-//				return;
-//
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
+
+			default:
+				break;
+			}
+			break;
+		}
+
+		if (m_tBugInfo.eType == BUGCOLORTYPE::BLUE)
+		{
+			switch (eDir)
+			{
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
+
+			default:
+				break;
+			}
+			break;
+		}
+
+		if (m_tBugInfo.eType == BUGCOLORTYPE::YELLOW)
+		{
+			switch (eDir)
+			{
+			case Engine::OBJ_DIR::DIR_U:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Up", true);
+				break;
+			case Engine::OBJ_DIR::DIR_D:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Down", true);
+				break;
+			case Engine::OBJ_DIR::DIR_L:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_R:
+				m_pAnimator->Play_Animation(L"RollingBugYellow_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LU:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RU:
+				m_pAnimator->Play_Animation(L"RollingBugYellow_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_LD:
+				m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Left", true);
+				break;
+			case Engine::OBJ_DIR::DIR_RD:
+				m_pAnimator->Play_Animation(L"RollingBugYellow_Idle_Right", true);
+				break;
+			case Engine::OBJ_DIR::DIR_END:
+				return;
+
 			default:
 				break;
 			}

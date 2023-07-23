@@ -1,17 +1,10 @@
 #pragma once
-#include "NPC.h"
-
-BEGIN(Engine)
-
-class CRcTex;
-class CCollider;
-class CTransform;
-class CAnimator;
-
-END
+#include "Npc.h"
 
 class CNpc_OguMom : public CNpc
 {
+	CLONE(CNpc_OguMom)
+
 private:
 	explicit CNpc_OguMom(LPDIRECT3DDEVICE9 pGraphicDev);
 	explicit CNpc_OguMom(const CNpc_OguMom& rhs);

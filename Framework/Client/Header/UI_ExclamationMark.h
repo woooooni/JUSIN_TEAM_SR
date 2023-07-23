@@ -1,12 +1,7 @@
 #pragma once
 #include "CUI.h"
-#include "Npc.h"
 
-BEGIN(Engine)
-class CRcTex;
-class CTransform;
-class CTexture;
-END;
+class CNpc;
 
 class CUI_ExclamationMark : public CUI
 {

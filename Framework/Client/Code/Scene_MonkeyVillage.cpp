@@ -16,6 +16,7 @@
 #include	"BlockObj.h"
 #include	"JellyStone.h"
 #include	"LightFlower.h"
+#include "RollingBug.h"
 
 CScene_MonkeyVillage::CScene_MonkeyVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE)
@@ -259,6 +260,27 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_Monster()
 {
+	CRollingBug* pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 151.f), BUGCOLORTYPE::YELLOW);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 159.f), BUGCOLORTYPE::PINK);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(215.f, 0.5f, 158.f), BUGCOLORTYPE::YELLOW);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(214.f, 0.5f, 149.f), BUGCOLORTYPE::PINK);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(218.f, 0.5f, 146.f), BUGCOLORTYPE::YELLOW);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(224.f, 0.5f, 148.f), BUGCOLORTYPE::PINK);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(223.f, 0.5f, 154.f), BUGCOLORTYPE::PINK);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+
 	return S_OK;
 }
 

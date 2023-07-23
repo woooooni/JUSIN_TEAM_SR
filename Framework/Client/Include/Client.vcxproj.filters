@@ -493,6 +493,9 @@
     <Filter Include="01. Scene\97. Loading">
       <UniqueIdentifier>{75b845a7-a670-4b8f-990c-e90aef6cd7d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\04.">
+      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02. GameObject\04. UI\07. Notification">
       <UniqueIdentifier>{3dca8bef-ec23-4bbc-bf27-8eb8fe6366c6}</UniqueIdentifier>
     </Filter>
@@ -564,51 +567,6 @@
     </Filter>
     <Filter Include="02. GameObject\15. NPC\00. Tutorial\04. Mom">
       <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\04. Quest">
-      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\17. Particle\03. Stone">
-      <UniqueIdentifier>{6215fcd5-104a-4077-9d2f-0f9231f506b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\12. Block">
-      <UniqueIdentifier>{09fb9ddb-3c42-4648-b220-1a421c396095}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\13. Dig">
-      <UniqueIdentifier>{4ac8be06-8339-48fd-8706-22be5016164a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\14. Die_Smoke">
-      <UniqueIdentifier>{4071ebfd-d685-457c-9e6c-ba7be25f3233}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\15. CatapultHit">
-      <UniqueIdentifier>{2015b41a-9e00-4590-8b13-3e3b6bdccf95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\16. Explosion">
-      <UniqueIdentifier>{252d83a6-ec85-4ec2-8d25-7642c861a38d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\17. GolemFist">
-      <UniqueIdentifier>{156f9a93-e857-4029-a72a-0fcdc8f08753}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\18. Hit">
-      <UniqueIdentifier>{02688dbc-37df-4a78-a98b-9fa51db3903d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\19. Lightning_Ground">
-      <UniqueIdentifier>{b9fe0e44-d5bb-4662-bed5-11419b3c8006}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\20. Smoke">
-      <UniqueIdentifier>{c01c6be2-86c2-49b7-af75-ed69c17507ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\21. StoneParticle">
-      <UniqueIdentifier>{041ef807-7653-4842-a6bc-d27584e06b5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\22. StoneSpike">
-      <UniqueIdentifier>{982fd7f0-57a8-4556-8c39-5c982029d2a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\13. Effect\23. Stun">
-      <UniqueIdentifier>{6a8de564-1761-4ea7-90b1-5f89f5c2d367}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObject\01. Player\State\15. Dance">
-      <UniqueIdentifier>{38808e8e-0226-4aea-9883-4b27309801e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1052,15 +1010,19 @@
     <ClInclude Include="..\Header\GolemPart.h">
       <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Npc.h">
-      <Filter>02. GameObject\15. NPC</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\UI_Dialog.h">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\BreakStone.h" />
+    <ClInclude Include="..\Header\CParticle_Stone.h" />
+    <ClInclude Include="..\Header\Effect_DieSmoke.h" />
+    <ClInclude Include="..\Header\Effect_Explosion.h" />
+    <ClInclude Include="..\Header\Effect_LightningGround.h" />
+    <ClInclude Include="..\Header\Effect_StoneSpike.h" />
+    <ClInclude Include="..\Header\Effect_StoneParticle.h" />
     <ClInclude Include="..\Header\HoleObj.h" />
     <ClInclude Include="..\Header\DefaultItem.h" />
+    <ClInclude Include="..\Header\Player_State_Dance.h" />
     <ClInclude Include="..\Header\QuizStatue.h" />
     <ClInclude Include="..\Header\Scene_Test.h">
       <Filter>01. Scene\98. Test</Filter>
@@ -1138,6 +1100,7 @@
     <ClInclude Include="..\Header\UI_SlotTwo.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_GolemFist.h" />
     <ClInclude Include="..\Header\InvenTabButton.h" />
     <ClInclude Include="..\Header\InventoryUI.h" />
     <ClInclude Include="..\Header\Door.h">
@@ -1146,6 +1109,7 @@
     <ClInclude Include="..\Header\Effect_Item.h">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\QuestMgr.h" />
     <ClInclude Include="..\Header\Scene_SilkWorm.h">
       <Filter>01. Scene\05. SilkWorm</Filter>
     </ClInclude>
@@ -1173,55 +1137,17 @@
     <ClInclude Include="..\Header\Npc_OguMom.h">
       <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_Block.h" />
+    <ClInclude Include="..\Header\Effect_CatapultHit.h" />
+    <ClInclude Include="..\Header\Effect_Dig.h" />
+    <ClInclude Include="..\Header\Effect_Hit.h" />
+    <ClInclude Include="..\Header\Effect_Smoke.h" />
+    <ClInclude Include="..\Header\Effect_Stun.h" />
     <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
+    <ClInclude Include="..\Header\Quest.h" />
     <ClInclude Include="..\Header\Test_Cube.h" />
-    <ClInclude Include="..\Header\Quest.h">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\CParticle_Stone.h">
-      <Filter>02. GameObject\17. Particle\03. Stone</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_Block.h">
-      <Filter>02. GameObject\13. Effect\12. Block</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_DieSmoke.h">
-      <Filter>02. GameObject\13. Effect\14. Die_Smoke</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_Dig.h">
-      <Filter>02. GameObject\13. Effect\13. Dig</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_CatapultHit.h">
-      <Filter>02. GameObject\13. Effect\15. CatapultHit</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_Explosion.h">
-      <Filter>02. GameObject\13. Effect\16. Explosion</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_GolemFist.h">
-      <Filter>02. GameObject\13. Effect\17. GolemFist</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_Hit.h">
-      <Filter>02. GameObject\13. Effect\18. Hit</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_LightningGround.h">
-      <Filter>02. GameObject\13. Effect\19. Lightning_Ground</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_Smoke.h">
-      <Filter>02. GameObject\13. Effect\20. Smoke</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_StoneParticle.h">
-      <Filter>02. GameObject\13. Effect\21. StoneParticle</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_StoneSpike.h">
-      <Filter>02. GameObject\13. Effect\22. StoneSpike</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Effect_Stun.h">
-      <Filter>02. GameObject\13. Effect\23. Stun</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\QuestMgr.h">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\Player_State_Dance.h">
-      <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
+    <ClInclude Include="..\Header\Npc.h">
+      <Filter>02. GameObject\15. NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1648,15 +1574,19 @@
     <ClCompile Include="..\Code\GolemPart.cpp">
       <Filter>02. GameObject\08. Boss\00. SunGolem</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Npc.cpp">
-      <Filter>02. GameObject\15. NPC</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\UI_Dialog.cpp">
       <Filter>02. GameObject\04. UI\02. Dialog</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\BreakStone.cpp" />
+    <ClCompile Include="..\Code\CParticle_Stone.cpp" />
+    <ClCompile Include="..\Code\Effect_DieSmoke.cpp" />
+    <ClCompile Include="..\Code\Effect_Explosion.cpp" />
+    <ClCompile Include="..\Code\Effect_LightningGround.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneSpike.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneParticle.cpp" />
     <ClCompile Include="..\Code\HoleObj.cpp" />
     <ClCompile Include="..\Code\DefaultItem.cpp" />
+    <ClCompile Include="..\Code\Player_State_Dance.cpp" />
     <ClCompile Include="..\Code\QuizStatue.cpp" />
     <ClCompile Include="..\Code\Scene_Test.cpp">
       <Filter>01. Scene\98. Test</Filter>
@@ -1734,6 +1664,7 @@
     <ClCompile Include="..\Code\UI_SlotTwo.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
     <ClCompile Include="..\Code\InvenTabButton.cpp" />
     <ClCompile Include="..\Code\InventoryUI.cpp" />
     <ClCompile Include="..\Code\Door.cpp">
@@ -1742,6 +1673,7 @@
     <ClCompile Include="..\Code\Effect_Item.cpp">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\QuestMgr.cpp" />
     <ClCompile Include="..\Code\Scene_SilkWorm.cpp">
       <Filter>01. Scene\05. SilkWorm</Filter>
     </ClCompile>
@@ -1769,55 +1701,17 @@
     <ClCompile Include="..\Code\Npc_OguMom.cpp">
       <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_Block.cpp" />
+    <ClCompile Include="..\Code\Effect_CatapultHit.cpp" />
+    <ClCompile Include="..\Code\Effect_Dig.cpp" />
+    <ClCompile Include="..\Code\Effect_Hit.cpp" />
+    <ClCompile Include="..\Code\Effect_Smoke.cpp" />
+    <ClCompile Include="..\Code\Effect_Stun.cpp" />
     <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
+    <ClCompile Include="..\Code\Quest.cpp" />
     <ClCompile Include="..\Code\Test_Cube.cpp" />
-    <ClCompile Include="..\Code\Quest.cpp">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CParticle_Stone.cpp">
-      <Filter>02. GameObject\17. Particle\03. Stone</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_Block.cpp">
-      <Filter>02. GameObject\13. Effect\12. Block</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_DieSmoke.cpp">
-      <Filter>02. GameObject\13. Effect\14. Die_Smoke</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_Dig.cpp">
-      <Filter>02. GameObject\13. Effect\13. Dig</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_CatapultHit.cpp">
-      <Filter>02. GameObject\13. Effect\15. CatapultHit</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_Explosion.cpp">
-      <Filter>02. GameObject\13. Effect\16. Explosion</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_GolemFist.cpp">
-      <Filter>02. GameObject\13. Effect\17. GolemFist</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_Hit.cpp">
-      <Filter>02. GameObject\13. Effect\18. Hit</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_LightningGround.cpp">
-      <Filter>02. GameObject\13. Effect\19. Lightning_Ground</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_Smoke.cpp">
-      <Filter>02. GameObject\13. Effect\20. Smoke</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_StoneParticle.cpp">
-      <Filter>02. GameObject\13. Effect\21. StoneParticle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_StoneSpike.cpp">
-      <Filter>02. GameObject\13. Effect\22. StoneSpike</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Effect_Stun.cpp">
-      <Filter>02. GameObject\13. Effect\23. Stun</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\QuestMgr.cpp">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\Player_State_Dance.cpp">
-      <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
+    <ClCompile Include="..\Code\Npc.cpp">
+      <Filter>02. GameObject\15. NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
