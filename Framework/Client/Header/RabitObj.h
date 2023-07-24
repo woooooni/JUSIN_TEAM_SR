@@ -30,11 +30,14 @@ public:
 	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
+
 protected:
 	_vec3		m_vRabitPos;
 	_float		m_fMaxHeight;
 	_bool		m_bisUp;
 	_float		m_fUpTime;
+	_bool		m_bHitted;
+	_float		m_fHitTIme;
 
 };
 

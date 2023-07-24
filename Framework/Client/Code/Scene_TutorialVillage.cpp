@@ -16,6 +16,7 @@
 #include "Npc_OguMom.h"
 #include "TrashFast.h"
 #include "Cupa.h"
+#include	"RabitObj.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -206,6 +207,10 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
+	CRabitObj* rab = CRabitObj::Create(m_pGraphicDev, { 17, 0, 1 });
+	NULL_CHECK_RETURN(rab, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Rabbit", rab);
 
 
 	return S_OK;

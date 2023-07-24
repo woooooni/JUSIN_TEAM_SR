@@ -4,9 +4,11 @@
 CRabitObj::CRabitObj(LPDIRECT3DDEVICE9 p_Dev)
     : CFieldObject(p_Dev, OBJ_ID::BENCH)
     , m_bisUp(false)
-    ,m_fUpTime(0.f)
-    ,m_fMaxHeight(1.f)
-    ,m_vRabitPos({0.f, -1.f, 0.f})
+    , m_fUpTime(0.f)
+    , m_fMaxHeight(1.f)
+    , m_vRabitPos({ 0.f, -1.f, 0.f })
+    , m_bHitted(false)
+    , m_fHitTIme(0.f)
 {
 }
 
@@ -27,8 +29,10 @@ HRESULT CRabitObj::Ready_Object(void)
 {
     FAILED_CHECK(Ready_Component());
 
-    m_pAnimator->Add_Animation(L"Up", L"Proto_Tex_Rabit_Up", 0.1f);
-    m_pAnimator->Add_Animation(L"Hit", L"Proto_Tex_Rabit_Up", 0.1f);
+    m_pAnimator->Add_Animation(L"Up", L"Proto_Tex_Rabit_Up", 0.1f);   
+    m_pAnimator->Add_Animation(L"Down", L"Proto_Tex_Rabit_Down", 0.1f);
+
+    m_pAnimator->Add_Animation(L"Hit", L"Proto_Tex_Rabit_Hit", 0.1f);
 
     CComponent* pCom = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Rabit_Hole"));
 
@@ -38,27 +42,53 @@ HRESULT CRabitObj::Ready_Object(void)
 
 _int CRabitObj::Update_Object(const _float& fTimeDelta)
 {
+    if (KEY_TAP(KEY::P))
+    {
+        Set_Up();
+    }
+    m_fMaxHeight = 0.4f;
+
     if (m_bisUp && m_vRabitPos.y < m_fMaxHeight)
     {
-        m_vRabitPos.y += fTimeDelta;
+        m_vRabitPos.y += fTimeDelta * 3.f;
         m_fUpTime += fTimeDelta;
 
     }
     else if (m_bisUp && m_fUpTime > 3.f)
     {
         m_bisUp = false;
-        m_vRabitPos.y -= fTimeDelta;
+        m_pAnimator->Play_Animation(L"Down", false);
     }
     else if (m_bisUp)
     {
         m_fUpTime += fTimeDelta;
 
     }
-    else if (m_vRabitPos.y < -1.f)
+    else if (!m_bisUp && m_fUpTime >= 3.f && m_vRabitPos.y > -1.f)
+    {
+        m_vRabitPos.y -= fTimeDelta * 3.f;
+    }
+    else if (!m_bisUp && m_vRabitPos.y < -1.f)
     {
         m_fUpTime = 0.f;
+        m_vRabitPos.y = -1.f;
     }
 
+    if (m_bHitted)
+    {
+        m_fHitTIme += fTimeDelta;
+    }
+
+    if (m_fHitTIme >= 0.2f)
+    {
+        m_bisUp = false;
+        m_fUpTime = 3.f;
+        m_bHitted = false;
+        m_fHitTIme = 0.f;
+    }
+
+    Add_RenderGroup(RENDER_ALPHA, this);
+    Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
 
     return __super::Update_Object(fTimeDelta);
 }
@@ -72,7 +102,10 @@ void CRabitObj::Render_Object(void)
 {
     if (m_fUpTime > 0.f)
     {
-        m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+        _matrix mat = *m_pTransformCom->Get_WorldMatrix();
+        mat._42 += m_vRabitPos.y;
+        m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
+
         m_pAnimator->Render_Component();
         m_pBufferCom->Render_Buffer();
     }
@@ -121,8 +154,9 @@ void CRabitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 {
     if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && m_bisUp)
     {
-        m_bisUp = false;
+        m_bHitted = true;
         m_pAnimator->Play_Animation(L"Hit", false);
+
     }
 }
 
