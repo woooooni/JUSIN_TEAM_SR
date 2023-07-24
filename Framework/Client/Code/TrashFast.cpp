@@ -36,8 +36,8 @@ HRESULT CTrashFast::Ready_Object(void)
 
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vec3(0.5f, 0.5f, 0.5f));
 
-	m_pAnimator->Play_Animation(L"TrashFast_Idle_Down", TRUE);
-	Set_State(MONSTER_STATE::IDLE);
+	m_pAnimator->Play_Animation(L"TrashFast_Regen_Down", TRUE);
+	Set_State(MONSTER_STATE::REGEN);
 
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)
@@ -65,7 +65,7 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (MONSTER_STATE::ATTACK != Get_State())
+	if (MONSTER_STATE::ATTACK != Get_State()&&MONSTER_STATE::REGEN != Get_State())
 		{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	
@@ -237,6 +237,10 @@ void CTrashFast::Update_Die(_float fTimeDelta)
 
 void CTrashFast::Update_Regen(_float fTimeDelta)
 {
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+	{
+		Set_State(MONSTER_STATE::IDLE);
+	}
 }
 
 HRESULT CTrashFast::Add_Component(void)
@@ -303,7 +307,7 @@ void CTrashFast::Trace(_float fTimeDelta)
 	m_vLook = vDir;
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_pRigidBodyCom->IsGround())
 	{
-		if (D3DXVec3Length(&vDir) > 20.f)
+		if (D3DXVec3Length(&vDir) > 20.f && !m_bSummonedByPrist)
 		{
 			Set_State(MONSTER_STATE::IDLE);
 		

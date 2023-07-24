@@ -74,7 +74,7 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (MONSTER_STATE::ATTACK != Get_State())
+	if (MONSTER_STATE::ATTACK != Get_State()&& MONSTER_STATE::REGEN != Get_State())
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
@@ -285,7 +285,7 @@ void CTrashSlime::Trace(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = vTargetPos - vPos;
 	vDir.y = 0.f;
-	if (D3DXVec3Length(&vDir) > 5.f)
+	if (D3DXVec3Length(&vDir) > 5.f && !m_bSummonedByPrist)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);

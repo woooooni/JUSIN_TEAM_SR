@@ -298,7 +298,7 @@ void CTrashBig::Trace(_float fTimeDelta)
 	m_vLook = vDir;
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished() && m_pRigidBodyCom->IsGround())
 	{
-		if (D3DXVec3Length(&vDir) > 5.f)
+		if (D3DXVec3Length(&vDir) > 5.f && !m_bSummonedByPrist)
 		{
 			Set_State(MONSTER_STATE::IDLE);
 
@@ -306,7 +306,7 @@ void CTrashBig::Trace(_float fTimeDelta)
 		}
 		m_bJump = false;
 	}
-	if (D3DXVec3Length(&vDir) > 5.f)
+	if (D3DXVec3Length(&vDir) > 5.f&&!m_bSummonedByPrist)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		return;

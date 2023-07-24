@@ -78,8 +78,8 @@ _int CTrashPrist::Update_Object(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	if (m_iCount > 10)
 	{
-		Summon_Monster();
-		Summon_Monster();
+		Summon_Monster(fTimeDelta);
+		Summon_Monster(fTimeDelta);
 	}
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
@@ -282,7 +282,7 @@ CTrashPrist* CTrashPrist::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("BlueBeatle Create Failed");
+		MSG_BOX("TrashPrist Create Failed");
 		return nullptr;
 	}
 
@@ -301,8 +301,8 @@ void CTrashPrist::Trace(_float fTimeDelta)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
-		Summon_Monster();
-		Summon_Monster();
+		Summon_Monster(fTimeDelta);
+		Summon_Monster(fTimeDelta);
 		return;
 	}
 	D3DXVec3Normalize(&vDir, &vDir);
@@ -311,12 +311,20 @@ void CTrashPrist::Trace(_float fTimeDelta)
 
 }
 
-void CTrashPrist::Summon_Monster()
+void CTrashPrist::Summon_Monster(_float fTimeDelta)
 {
+	
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 	_vec3 vPos, vSummonPos;
+	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
+	if (nullptr == pTarget)
+		return;
+
+	
+
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vSummonPos = vPos;
+
 	while (vSummonPos == vPos)
 	{
 		vSummonPos.x += float(rand() % 4 - 2);
@@ -331,6 +339,10 @@ void CTrashPrist::Summon_Monster()
 		if (pMothMage)
 		{
 			pMothMage->Get_TransformCom()->Set_Pos(&vSummonPos);
+			pMothMage->Set_Summoned_By_Prist(true);
+			pMothMage->Set_State(MONSTER_STATE::ATTACK);
+			pMothMage->Set_Target(pTarget);
+			pMothMage->Trace(fTimeDelta);
 			pLayer->Add_GameObject(L"MothMage", pMothMage);
 		}
 	}
@@ -340,6 +352,10 @@ void CTrashPrist::Summon_Monster()
 	if (pTrashBig)
 	{
 		pTrashBig->Get_TransformCom()->Set_Pos(&vSummonPos);
+		pTrashBig->Set_Summoned_By_Prist(true);
+		pTrashBig->Set_Target(pTarget);
+		pTrashBig->Set_State(MONSTER_STATE::ATTACK);
+		pTrashBig->Trace(fTimeDelta);
 		pLayer->Add_GameObject(L"CTrashBig", pTrashBig);
 	}
 	}	break;
@@ -349,6 +365,10 @@ void CTrashPrist::Summon_Monster()
 		if (pTrashSlime)
 		{
 			pTrashSlime->Get_TransformCom()->Set_Pos(&vSummonPos);
+			pTrashSlime->Set_Summoned_By_Prist(true);
+			pTrashSlime->Set_State(MONSTER_STATE::ATTACK);
+			pTrashSlime->Set_Target(pTarget);
+			pTrashSlime->Trace(fTimeDelta);
 			pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime);
 		}
 	}
@@ -359,6 +379,10 @@ void CTrashPrist::Summon_Monster()
 		if (pTrashFast)
 		{
 			pTrashFast->Get_TransformCom()->Set_Pos(&vSummonPos);
+			pTrashFast->Set_Summoned_By_Prist(true);
+			pTrashFast->Set_State(MONSTER_STATE::ATTACK);
+			pTrashFast->Set_Target(pTarget);
+			pTrashFast->Trace(fTimeDelta);
 			pLayer->Add_GameObject(L"TrashFast", pTrashFast);
 		}
 	}

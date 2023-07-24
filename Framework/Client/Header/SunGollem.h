@@ -61,7 +61,7 @@ public:
 
 
 protected:
-
+	_vec3 m_vPartPos[PARTSEND];
 private:
 	_float			m_fSpeed = 5.f;
 	_float			m_fHealth = 6.f;
