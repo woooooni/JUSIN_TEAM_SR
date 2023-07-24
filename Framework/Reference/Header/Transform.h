@@ -57,7 +57,7 @@ public:
 public:
 	HRESULT	Ready_Transform();
 
-private:
+public:
 	_vec3 m_vInfo[INFO_END];
 	_vec3 m_vScale;
 	_vec3 m_vAngle;

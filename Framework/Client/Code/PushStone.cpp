@@ -140,6 +140,10 @@ void CPushStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 
 		pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
 
+		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+		Play_Sound(L"SFX_41_Catapult_StoneHit.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
+
 	}
 }
 

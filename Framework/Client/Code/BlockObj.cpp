@@ -306,6 +306,9 @@ void CBlockObj::Change_State()
 		pParticle->Get_Effect(vPos, _vec3(1.f, 1.f, 1.f), 50);
 
 		pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
+
+		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+		Play_Sound(L"SFX_486_Totem_In.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
 		
 	}
 }

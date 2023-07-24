@@ -37,6 +37,9 @@ HRESULT CScene_MonkeyForest2::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_6_MiniDungeons.wav", 0.5f);
+
 	return S_OK;
 }
 

@@ -61,6 +61,9 @@ _int CRabitObj::Update_Object(const _float& fTimeDelta)
     {
         m_bisUp = false;
         m_pAnimator->Play_Animation(L"Down", false);
+        Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+        Play_Sound(L"SFX_228_Rabbit_In.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
+
     }
     else if (m_bisUp)
     {
@@ -153,7 +156,13 @@ CRabitObj* CRabitObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3 p_Pos)
     return ret;
 }
 
-void CRabitObj::Set_Up() { m_bisUp = true; m_pAnimator->Play_Animation(L"Up", false); }
+void CRabitObj::Set_Up() 
+{ 
+    m_bisUp = true; m_pAnimator->Play_Animation(L"Up", false);
+    Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+    Play_Sound(L"SFX_230_Rabbit_Out.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
+
+}
 
 void CRabitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
@@ -162,6 +171,9 @@ void CRabitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
         m_bHitted = true;
         m_pAnimator->Play_Animation(L"Hit", false);
         CRabbitMgr::GetInstance()->Add_Point();
+        Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+        Play_Sound(L"SFX_229_Rabbit_Hit.wav", CHANNELID::SOUND_HIT, .5f);
+
 
     }
 }

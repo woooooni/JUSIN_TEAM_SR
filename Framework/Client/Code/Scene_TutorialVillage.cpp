@@ -41,6 +41,10 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+
+
 	return S_OK;
 }
 
@@ -69,6 +73,8 @@ void CScene_TutorialVillage::Render_Scene()
 	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 		D3DCOLOR_ARGB(100, 0, 0, 0));
+
+
 }
 
 HRESULT CScene_TutorialVillage::Ready_Prototype()

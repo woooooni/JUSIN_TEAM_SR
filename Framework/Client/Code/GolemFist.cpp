@@ -119,6 +119,10 @@ void CGolemFist::LateUpdate_Object(void)
 						dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(1.f, 1.f, 1.f), 148, 150, 148);
 				}
 			}
+
+			Stop_Sound(CHANNELID::SOUND_BOSS);
+			Play_Sound(L"SFX_38_SunGolemFist.wav", CHANNELID::SOUND_BOSS, .5f);
+
 		}
 	}
 	m_pMonsterAim->LateUpdate_Object();
