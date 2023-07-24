@@ -62,6 +62,7 @@
 #include "Effect_Dig.h"
 #include "Effect_Smoke.h"
 #include "Particle_LargeStone.h"
+#include	"TurretBullet.h"
 
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -1107,6 +1108,8 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Turret_LeftDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Turret/LeftDown/Sprite_Turret_All%d.png", 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Turret_RightDown", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Turret/RightDown/Sprite_Turret_All%d.png", 4)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Turret_Bullet", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Turret/Bullet/laser_bullet.png")), E_FAIL);
+
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Jelly", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Jelly/Sprite_JellyPushable_%d.png", 6)), E_FAIL);
 
@@ -1196,7 +1199,6 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Rabit_Hit", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Rabbit/Hit/Sprite_RabbitHit_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Rabit_Hole", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_Rabbit_Hole_Combine.png")), E_FAIL);
-
 
 
 	return S_OK;
@@ -1313,6 +1315,7 @@ HRESULT CLoading::Ready_Pool()
 	CPool<CEffect_Dig>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_Smoke>::Ready_Pool(m_pGraphicDev, 200);
 	CPool<CParticle_LargeStone>::Ready_Pool(m_pGraphicDev, 1000);
+	CPool<CTurretBullet>::Ready_Pool(m_pGraphicDev, 100);
 
 	return S_OK;
 }
