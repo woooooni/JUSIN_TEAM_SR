@@ -53,45 +53,40 @@ void CUI_QuestIcon::Render_Object(void)
 		switch (m_eIconType)
 		{
 		case QUESTICON::QUEST_TITLE:
-			vPos = { (2 * (m_tInfo.fX + 420.f) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY + 150.f) / WINCY) * (1 / m_matProj._22), 0.f };
-			m_pTransformCom->Set_Pos(&vPos);
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 	
 			fRatio = _float(WINCY) / _float(WINCX);
 			vScale = _vec3(m_tInfo.fCX * fRatio * 3.f, m_tInfo.fCY * fRatio * 3.f, 0.f);
 			break;
 	
 		case QUESTICON::QUEST_CONTENTS:
-			vPos = { (2 * (m_tInfo.fX + 420.f) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY + 340.f) / WINCY) * (1 / m_matProj._22), 0.f };
-			m_pTransformCom->Set_Pos(&vPos);
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 	
 			fRatio = _float(WINCY) / _float(WINCX);
 			vScale = _vec3(m_tInfo.fCX * fRatio * 1.5f, m_tInfo.fCY * fRatio, 0.f);
 			break;
 	
 		case QUESTICON::QUEST_ICON:
-			vPos = { (2 * (m_tInfo.fX + 245.f) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY + 280.f) / WINCY) * (1 / m_matProj._22), 0.f };
-			m_pTransformCom->Set_Pos(&vPos);
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 	
 			fRatio = _float(WINCY) / _float(WINCX);
 			vScale = _vec3(m_tInfo.fCX * fRatio * 1.6f, m_tInfo.fCY * 1.5 * fRatio, 0.f);
 			break;
 	
 		case QUESTICON::QUEST_CLOSE:
-			vPos = { (2 * (m_tInfo.fX + 1120.f) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY + 750.f) / WINCY) * (1 / m_matProj._22), 0.f };
-			m_pTransformCom->Set_Pos(&vPos);
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 	
 			fRatio = _float(WINCY) / _float(WINCX);
 			vScale = _vec3(m_tInfo.fCX * fRatio * 1.2f, m_tInfo.fCY * fRatio * 1.2f, 0.f);
 			break;
 
 		case QUESTICON::QUEST_SLOT:
-			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY - 20.f) / WINCY) * (1 / m_matProj._22), 0.f };
-			m_pTransformCom->Set_Pos(&vPos);
+			vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 
 			fRatio = _float(WINCY) / _float(WINCX);
 			vScale = _vec3(m_tInfo.fCX * fRatio * 2.5f, m_tInfo.fCY * fRatio * 2.5f, 0.f);
@@ -141,8 +136,8 @@ HRESULT CUI_QuestIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -420.f;
-		m_tInfo.fY = -390.f;
+		m_tInfo.fX = 0.f;
+		m_tInfo.fY = -240.f;
 		break;
 
 	case QUESTICON::QUEST_CONTENTS:
@@ -151,8 +146,8 @@ HRESULT CUI_QuestIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -420.f;
-		m_tInfo.fY = -390.f;
+		m_tInfo.fX = 0.f;
+		m_tInfo.fY = -50.f;
 		break;
 
 	case QUESTICON::QUEST_CLOSE:
@@ -161,8 +156,8 @@ HRESULT CUI_QuestIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -605.f;
-		m_tInfo.fY = -390.f;
+		m_tInfo.fX = 515.f;
+		m_tInfo.fY = 360.f;
 		break;
 
 	case QUESTICON::QUEST_ICON:
@@ -171,8 +166,8 @@ HRESULT CUI_QuestIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -605.f;
-		m_tInfo.fY = -330.f;
+		m_tInfo.fX = -360.f;
+		m_tInfo.fY = -50.f;
 		break;
 
 	case QUESTICON::QUEST_SLOT:
@@ -182,7 +177,7 @@ HRESULT CUI_QuestIcon::Add_Component(void)
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
 		m_tInfo.fX = 0.f;
-		m_tInfo.fY = 0.f;
+		m_tInfo.fY = -20.f;
 		break;
 
 	default:

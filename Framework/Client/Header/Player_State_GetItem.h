@@ -32,7 +32,7 @@ private:
 
 	_uint m_iIndex;
 	bool m_bReverse = false;
-
+	CGameObject* m_pWindow = nullptr; // Ãß°¡
 	CGameObject* m_pEffect = nullptr;
 };
 

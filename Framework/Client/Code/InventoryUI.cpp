@@ -158,7 +158,7 @@ void CInventoryUI::Render_Object(void)
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, src.c_str(), src.length(), &rc, DT_CENTER | DT_WORDBREAK, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 
-
+		
 
 		rc = { WINCX - 100 - 50, WINCY - 100 - 50, WINCX - 100 + 50, WINCY - 100 + 50 };
 		wstring tmp;

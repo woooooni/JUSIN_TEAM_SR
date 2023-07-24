@@ -29,7 +29,6 @@ public:
 public:
 	HRESULT		Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev);
 	HRESULT		Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev);
-	HRESULT		Add_Window(ITEM_CODE eType);
 
 
 public:

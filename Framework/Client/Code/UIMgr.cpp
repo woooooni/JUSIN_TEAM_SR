@@ -22,14 +22,14 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     //m_pShop = CUI_Shop::Create(_pGraphicDev);
    // m_pShortCutKey = CUI_ShortCutKey::Create(_pGraphicDev);
     m_pQuickSlot = CQuickSlot::Create(_pGraphicDev);
-   // m_pItemWindow = CUI_NewItem::Create(_pGraphicDev);
+ //   m_pItemWindow = CUI_NewItem::Create(_pGraphicDev);
 
     m_pInventory = CInventoryUI::Create(_pGraphicDev);
    // NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
    // NULL_CHECK_RETURN(m_pShop, E_FAIL);
    // NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL);
-    //NULL_CHECK_RETURN(m_pItemWindow, E_FAIL);
+  //  NULL_CHECK_RETURN(m_pItemWindow, E_FAIL);
 
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
     // NULL_CHECK_RETURN(m_pVeil, E_FAIL);
@@ -153,18 +153,6 @@ HRESULT CUIMgr::Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev)
     CIcon* pButtonL = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_L);
     m_vecIcon.push_back(pButtonL);
 
-    return S_OK;
-}
-
-HRESULT CUIMgr::Add_Window(ITEM_CODE eType)
-{
-//    CGameObject* pEffect = CPool<CEffect_Item>::Get_Obj();
-//
-//    if (!pEffect)
-//        pEffect = CEffect_Item::Create(m_pGraphicDev);
-//
-//    dynamic_cast<CEffect_Item*>(pEffect)->Get_Effect(vPos, eItemCode);
-//
     return S_OK;
 }
 
