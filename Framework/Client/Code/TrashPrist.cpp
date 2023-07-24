@@ -1,49 +1,52 @@
-#include "TrashSlime.h"
+#include "TrashPrist.h"
 #include "Export_Function.h"
 #include "GameMgr.h"
 #include "Pool.h"
 #include "Effect_Hit.h"
-
-CTrashSlime::CTrashSlime(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_SLIME)
+#include "TrashSlime.h"
+#include "TrashFast.h"
+#include "TrashBig.h"
+#include "MothMage.h"
+CTrashPrist::CTrashPrist(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_SLIME)
 {
 }
 
-CTrashSlime::CTrashSlime(const CTrashSlime& rhs) : CMonster(rhs)
+CTrashPrist::CTrashPrist(const CTrashPrist& rhs) : CMonster(rhs)
 {
 }
 
-CTrashSlime::~CTrashSlime()
+CTrashPrist::~CTrashPrist()
 {
 }
 
-HRESULT CTrashSlime::Ready_Object(void)
+HRESULT CTrashPrist::Ready_Object(void)
 {
 	m_fMoveTime = 0.f;
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_Down",		L"Proto_Texture_TrashSlime_Idle_Down", 0.2f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_Up",			L"Proto_Texture_TrashSlime_Idle_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_Left",		L"Proto_Texture_TrashSlime_Idle_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_Right",		L"Proto_Texture_TrashSlime_Idle_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_RightDown",	L"Proto_Texture_TrashSlime_Idle_RightDown", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_RightUp",	L"Proto_Texture_TrashSlime_Idle_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_LeftDown",	L"Proto_Texture_TrashSlime_Idle_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Idle_LeftUp",		L"Proto_Texture_TrashSlime_Idle_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_Down",		L"Proto_Texture_TrashPrist_Idle_Down", 0.2f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_Up",			L"Proto_Texture_TrashPrist_Idle_Up", 0.2f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_Left",		L"Proto_Texture_TrashPrist_Idle_Left", 0.2f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_Right",		L"Proto_Texture_TrashPrist_Idle_Right", 0.2f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_RightDown",	L"Proto_Texture_TrashPrist_Idle_RightDown", 0.2f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_RightUp",	L"Proto_Texture_TrashPrist_Idle_RightUp", 0.2f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_LeftDown",	L"Proto_Texture_TrashPrist_Idle_LeftDown", 0.2f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Idle_LeftUp",		L"Proto_Texture_TrashPrist_Idle_LeftUp", 0.2f);
 	
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_Down",		L"Proto_Texture_TrashSlime_Move_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_Up",			L"Proto_Texture_TrashSlime_Move_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_Left",		L"Proto_Texture_TrashSlime_Move_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_Right",		L"Proto_Texture_TrashSlime_Move_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_RightDown",	L"Proto_Texture_TrashSlime_Move_RightDown", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_RightUp",	L"Proto_Texture_TrashSlime_Move_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_LeftDown",	L"Proto_Texture_TrashSlime_Move_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"TrashSlime_Move_LeftUp",		L"Proto_Texture_TrashSlime_Move_LeftUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_Down",		L"Proto_Texture_TrashPrist_Move_Down", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_Up",			L"Proto_Texture_TrashPrist_Move_Up", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_Left",		L"Proto_Texture_TrashPrist_Move_Left", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_Right",		L"Proto_Texture_TrashPrist_Move_Right", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_RightDown",	L"Proto_Texture_TrashPrist_Move_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_RightUp",	L"Proto_Texture_TrashPrist_Move_RightUp", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_LeftDown",	L"Proto_Texture_TrashPrist_Move_LeftDown", 0.1f);
+	m_pAnimator->Add_Animation(L"TrashPrist_Move_LeftUp",		L"Proto_Texture_TrashPrist_Move_LeftUp", 0.1f);
 	m_tStat = { 3,3,1 };
-	m_pAnimator->Add_Animation(L"TrashSlime_Regen_Down", L"Proto_Texture_TrashSlime_Regen_Down", 0.1f);
 	m_pTransformCom->Set_Pos(&_vec3(5.0f, 1.0f, 5.0f));
+	m_pTransformCom->Set_Scale(_vec3(2.f, 2.f, 2.f));
 	Set_Speed(2.f);
 	Set_State(MONSTER_STATE::REGEN);
-	m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", false);
+	m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", false);
 	m_fMinHeight = 0.5f;
 
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
@@ -61,7 +64,7 @@ HRESULT CTrashSlime::Ready_Object(void)
 	return S_OK;
 }
 
-_int CTrashSlime::Update_Object(const _float& fTimeDelta)
+_int CTrashPrist::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
@@ -73,7 +76,11 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
+	if (m_iCount > 10)
+	{
+		Summon_Monster();
+		Summon_Monster();
+	}
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
@@ -88,7 +95,7 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 		if (D3DXVec3Length(&vDir) < 5.f)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Down", true);
 		}
 	}
 
@@ -131,7 +138,7 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 
 	return iExit;
 }
-void CTrashSlime::LateUpdate_Object(void)
+void CTrashPrist::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -150,7 +157,8 @@ void CTrashSlime::LateUpdate_Object(void)
 	}
 }
 
-void CTrashSlime::Render_Object(void)
+
+void CTrashPrist::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -172,21 +180,22 @@ void CTrashSlime::Render_Object(void)
 }
 
 
-void CTrashSlime::Update_Idle(_float fTimeDelta)
+void CTrashPrist::Update_Idle(_float fTimeDelta)
 {
 	if (m_fMoveTime > 10.f)
 	{
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::MOVE);
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Down", true);
 		}
+		m_iCount++;
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
 }
 
-void CTrashSlime::Update_Die(_float fTimeDelta)
+void CTrashPrist::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
 	{
@@ -194,17 +203,20 @@ void CTrashSlime::Update_Die(_float fTimeDelta)
 	On_Death();}	
 }
 
-void CTrashSlime::Update_Regen(_float fTimeDelta)
+void CTrashPrist::Update_Regen(_float fTimeDelta)
 {
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
+		if (rand() % 10 > 8)
+		{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
+		}
 	}
 
 }
 
-void CTrashSlime::Update_Move(_float fTimeDelta)
+void CTrashPrist::Update_Move(_float fTimeDelta)
 {
 	_vec3 vDir, vPos, vDst;
 	if (m_fMoveTime > 5.f)
@@ -212,7 +224,7 @@ void CTrashSlime::Update_Move(_float fTimeDelta)
 		if (rand() % 10 > 8)
 		{
 			Set_State(MONSTER_STATE::IDLE);
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
 		}
 		vDst = { float(rand() % 10) - 5.f,0.f,float(rand() % 10) - 5.f };
 		if (vDst != m_vDst)
@@ -230,11 +242,11 @@ void CTrashSlime::Update_Move(_float fTimeDelta)
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 }
 
-void CTrashSlime::Update_Attack(_float fTimeDelta)
+void CTrashPrist::Update_Attack(_float fTimeDelta)
 {
 	Trace(fTimeDelta);
 }
-HRESULT CTrashSlime::Add_Component(void)
+HRESULT CTrashPrist::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
@@ -262,9 +274,9 @@ HRESULT CTrashSlime::Add_Component(void)
 	return S_OK;
 }
 
-CTrashSlime* CTrashSlime::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CTrashPrist* CTrashPrist::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CTrashSlime* pInstance = new CTrashSlime(pGraphicDev);
+	CTrashPrist* pInstance = new CTrashPrist(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
@@ -277,18 +289,20 @@ CTrashSlime* CTrashSlime::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
-void CTrashSlime::Trace(_float fTimeDelta)
+void CTrashPrist::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
 
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = vTargetPos - vPos;
+	vDir = vPos - vTargetPos;
 	vDir.y = 0.f;
-	if (D3DXVec3Length(&vDir) > 5.f)
+	if (D3DXVec3Length(&vDir) > 10.f)
 	{
 		Set_State(MONSTER_STATE::IDLE);
-		m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+		m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
+		Summon_Monster();
+		Summon_Monster();
 		return;
 	}
 	D3DXVec3Normalize(&vDir, &vDir);
@@ -296,7 +310,70 @@ void CTrashSlime::Trace(_float fTimeDelta)
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 
 }
-void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+
+void CTrashPrist::Summon_Monster()
+{
+	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+	_vec3 vPos, vSummonPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vSummonPos = vPos;
+	while (vSummonPos == vPos)
+	{
+		vSummonPos.x += float(rand() % 4 - 2);
+		vSummonPos.z += float(rand() % 4 - 2);
+	}
+
+	switch (rand()%4)
+	{
+	case 0:
+	{
+		CMothMage* pMothMage = CMothMage::Create(m_pGraphicDev);
+		if (pMothMage)
+		{
+			pMothMage->Get_TransformCom()->Set_Pos(&vSummonPos);
+			pLayer->Add_GameObject(L"MothMage", pMothMage);
+		}
+	}
+	break;
+	case 1:
+	{CTrashBig* pTrashBig = CTrashBig::Create(m_pGraphicDev);
+	if (pTrashBig)
+	{
+		pTrashBig->Get_TransformCom()->Set_Pos(&vSummonPos);
+		pLayer->Add_GameObject(L"CTrashBig", pTrashBig);
+	}
+	}	break;
+	case 2:
+	{
+		CTrashSlime* pTrashSlime = CTrashSlime::Create(m_pGraphicDev);
+		if (pTrashSlime)
+		{
+			pTrashSlime->Get_TransformCom()->Set_Pos(&vSummonPos);
+			pLayer->Add_GameObject(L"CTrashSlime", pTrashSlime);
+		}
+	}
+	break;
+	case 3:
+	{
+		CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
+		if (pTrashFast)
+		{
+			pTrashFast->Get_TransformCom()->Set_Pos(&vSummonPos);
+			pLayer->Add_GameObject(L"TrashFast", pTrashFast);
+		}
+	}
+	break;
+
+	}
+	m_iCount = 0;
+
+
+	
+
+	
+}
+
+void CTrashPrist::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (Get_State() == MONSTER_STATE::DIE)
 		return;
@@ -338,7 +415,7 @@ void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 	}
 }
-void CTrashSlime::Set_Animation()
+void CTrashPrist::Set_Animation()
 {
 
 	OBJ_DIR eDir = OBJ_DIR::DIR_END;
@@ -402,28 +479,28 @@ void CTrashSlime::Set_Animation()
 		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Up", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Up", true);
 			break;
 		case Engine::OBJ_DIR::DIR_D:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
 			break;
 		case Engine::OBJ_DIR::DIR_L:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Left", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Left", true);
 			break;
 		case Engine::OBJ_DIR::DIR_R:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Right", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Right", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_LeftUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_RightUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_LeftDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_RightDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_END:
 			return;
@@ -435,28 +512,28 @@ void CTrashSlime::Set_Animation()
 		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Up", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Up", true);
 			break;
 		case Engine::OBJ_DIR::DIR_D:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Down", true);
 			break;
 		case Engine::OBJ_DIR::DIR_L:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Left", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Left", true);
 			break;
 		case Engine::OBJ_DIR::DIR_R:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Right", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Right", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_LeftUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_RightUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_LeftDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_RightDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_END:
 			return;
@@ -465,34 +542,33 @@ void CTrashSlime::Set_Animation()
 		}
 		break;
 	case Engine::MONSTER_STATE::REGEN:
-		m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", true);
 		break;
 	case Engine::MONSTER_STATE::ATTACK:
 		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Up", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Up", true);
 			break;
 		case Engine::OBJ_DIR::DIR_D:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Down", true);
 			break;
 		case Engine::OBJ_DIR::DIR_L:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Left", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Left", true);
 			break;
 		case Engine::OBJ_DIR::DIR_R:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_Right", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_Right", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_LeftUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_RightUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_LeftDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_LeftDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Move_RightDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Move_RightDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_END:
 			return;
@@ -504,28 +580,28 @@ void CTrashSlime::Set_Animation()
 		switch (eDir)
 		{
 		case Engine::OBJ_DIR::DIR_U:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Up", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Up", true);
 			break;
 		case Engine::OBJ_DIR::DIR_D:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Down", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
 			break;
 		case Engine::OBJ_DIR::DIR_L:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Left", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Left", true);
 			break;
 		case Engine::OBJ_DIR::DIR_R:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_Right", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_Right", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_LeftUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RU:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightUp", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_RightUp", true);
 			break;
 		case Engine::OBJ_DIR::DIR_LD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_LeftDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_LeftDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_RD:
-			m_pAnimator->Play_Animation(L"TrashSlime_Idle_RightDown", true);
+			m_pAnimator->Play_Animation(L"TrashPrist_Idle_RightDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_END:
 			return;

@@ -48,6 +48,7 @@ const _matrix * CTransform::Compute_LookAtTarget(const _vec3 * pTargetPos)
 											D3DXVec3Normalize(&vUp, &m_vInfo[INFO_UP]))));
 }
 
+
 void CTransform::Move_Pos(OBJ_DIR _eDir, const _float& fSpeed, const _float& fTimeDelta)
 {
 	_vec3 vPos;
@@ -152,7 +153,6 @@ HRESULT CTransform::Ready_Transform()
 
 	return S_OK;
 }
-
 
 CTransform * CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

@@ -42,20 +42,22 @@ private:
     _vec3 m_vDst = { 0.f,0.f,0.f };
     _vec3 m_vDir = { 0.f,0.f,0.f };
     _bool m_bShoot = true;
+    _float m_fAngle = 0.f;
+    _vec3 m_vAxis;
      void Trace(_float fTimeDelta);
      CGameObject* m_pTarget;
     void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
     MONSTERSTAT m_tStat;
     SILKWORM_STATE	m_eState;
     _bool m_bPhase2 =false ;
-    _float			m_fSpeed = 5.f;
+    _bool m_bRotate = false;
+    _float			m_fSpeed = 7.f;
     _vec3 m_vRandomPos[8] = {};
     _int m_iHit = 0;
     CGameObject* m_pBeatles[COLOR_END];
     _vec3 m_vOrigin;
     COLOR_STATE m_eCOLORPATTERN=COLOR_END;
     _bool m_bSpawn=false;
-
 private:
     CUI_BossHP* m_pUIBack;
     CUI_BossHP* m_pUIFrame;
