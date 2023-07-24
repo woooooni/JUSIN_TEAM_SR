@@ -180,7 +180,7 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 
 	if (INVALID_HANDLE_VALUE == hObjFile)	// 파일 개방에 실패했다면
 	{
-		MessageBox(g_hWnd, _T("Save Obj File Failed"), L"Fail", MB_OK);
+		MessageBox(g_hWnd, _T("Load Obj File Failed"), L"Fail", MB_OK);
 		return E_FAIL;
 	}
 
@@ -190,9 +190,10 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 
 	// data
 	_uint iLayerType = 0, iObjId, iTextureIdx = 0;
+	_uint iGlassType = 0;
 	_vec3 vRight, vUp, vLook, vPos, vScale, vColliderScale;
 	_bool bTextureExist;
-	_uint iGrassType = 0;
+
 	_uint iCount = 0;
 	while (true)
 	{
@@ -204,7 +205,7 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 		ReadFile(hObjFile, &iObjId, sizeof(_uint), &dwByte, nullptr);
 
 		if (iObjId == _uint(OBJ_ID::GRASS))
-			ReadFile(hObjFile, &iGrassType, sizeof(_uint), &dwByte, nullptr);
+			ReadFile(hObjFile, &iGlassType, sizeof(_uint), &dwByte, nullptr);
 
 		ReadFile(hObjFile, &vRight, sizeof(_vec3), &dwByte, nullptr);
 		ReadFile(hObjFile, &vUp, sizeof(_vec3), &dwByte, nullptr);
@@ -275,14 +276,14 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 			break;
 
 		case OBJ_ID::GRASS:
-			pObj = CGrass::Create(m_pGraphicDev, GRASS_TYPE(iGrassType));
+			pObj = CGrass::Create(m_pGraphicDev, GRASS_TYPE(iGlassType));
+			break;
 		default:
 			continue;
 		}
 
 		CTransform* pTransform = pObj->Get_TransformCom();
 		CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(pObj->Get_ColliderCom());
-
 		if (bTextureExist)
 		{
 			CTexture* pTexture = pObj->Get_TextureCom();
@@ -295,15 +296,15 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 		pTransform->Set_Info(INFO_POS, &vPos);
 		pTransform->Set_Scale(vScale);
 
-		if(pBoxCollider)
-			pBoxCollider->Set_Scale(vColliderScale);
+		pBoxCollider->Set_Scale(vColliderScale);
 
 		m_pLoadingScene->Get_Layer((LAYER_TYPE)iLayerType)->Add_GameObject(L"OBJ_" + to_wstring(iCount++), pObj);
 	}
 
 	CloseHandle(hObjFile);
-	return S_OK;
+	// MessageBox(g_hWnd, _T("Load Obj Data Success"), L"Success", MB_OK);
 
+	return S_OK;
 }
 
 _uint CLoading::Load_Terrain_Data(wstring _strFolderPath)
