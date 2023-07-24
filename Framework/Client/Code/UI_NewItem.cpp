@@ -217,7 +217,7 @@ void CUI_NewItem::Set_Item(ITEM_CODE _eCodeType)
 		m_strItemName = L"³ª¹µ°¡Áö";
 		break;
 
-	case ITEM_CODE::BUTTERFLY:
+	case Engine::ITEM_CODE::BUTTERFLY:
 		m_strItemName = L"Àå¼öÇ³µ­ÀÌ Å»À» ¾´ ³ªºñ";
 		break;
 

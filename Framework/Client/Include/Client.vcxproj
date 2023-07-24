@@ -404,6 +404,7 @@
     <ClInclude Include="..\Header\UI_Shop.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="..\Header\UI_SlotFour.h" />
+    <ClInclude Include="..\Header\UI_SlotItems.h" />
     <ClInclude Include="..\Header\UI_SlotOne.h" />
     <ClInclude Include="..\Header\UI_SlotThree.h" />
     <ClInclude Include="..\Header\UI_SlotTwo.h" />
@@ -630,6 +631,7 @@
     <ClCompile Include="..\Code\UI_QuestionMark.cpp" />
     <ClCompile Include="..\Code\UI_Shop.cpp" />
     <ClCompile Include="..\Code\UI_SlotFour.cpp" />
+    <ClCompile Include="..\Code\UI_SlotItems.cpp" />
     <ClCompile Include="..\Code\UI_SlotOne.cpp" />
     <ClCompile Include="..\Code\UI_SlotThree.cpp" />
     <ClCompile Include="..\Code\UI_SlotTwo.cpp" />

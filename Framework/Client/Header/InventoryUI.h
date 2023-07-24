@@ -36,6 +36,7 @@ protected:
 	UI_INFO		m_tBtnInfo;
 	UI_INFO		m_tExplainInfo;
 
+
 protected:
 	virtual void Free() override;
 

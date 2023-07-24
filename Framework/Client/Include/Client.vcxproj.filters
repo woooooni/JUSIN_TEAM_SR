@@ -625,6 +625,12 @@
     <Filter Include="02. GameObject\04. UI\10. Veil">
       <UniqueIdentifier>{f7a2054e-db25-43b9-8663-31fc26aa39b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\00. SlotItems">
+      <UniqueIdentifier>{06c717d4-358f-4c38-8223-8a7140e4a522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots">
+      <UniqueIdentifier>{d32cf094-ef78-4a1f-8942-b74cc4d23c98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1117,18 +1123,6 @@
     <ClInclude Include="..\Header\Npc_Fishing.h">
       <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\UI_SlotFour.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\UI_SlotOne.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\UI_SlotThree.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Header\UI_SlotTwo.h">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\InvenTabButton.h" />
     <ClInclude Include="..\Header\InventoryUI.h" />
     <ClInclude Include="..\Header\Door.h">
@@ -1268,6 +1262,25 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_Veil.h">
       <Filter>02. GameObject\04. UI\10. Veil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FloorDoor.h" />
+    <ClInclude Include="..\Header\RabbitMgr.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest3.h" />
+    <ClInclude Include="..\Header\TrashPrist.h" />
+    <ClInclude Include="..\Header\UI_SlotFour.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_SlotOne.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_SlotThree.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_SlotTwo.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_SlotItems.h">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\00. SlotItems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1747,18 +1760,6 @@
     <ClCompile Include="..\Code\Npc_Fishing.cpp">
       <Filter>02. GameObject\15. NPC\01. Monkey_Forest\02. Villager\02. Fishing</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\UI_SlotFour.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\UI_SlotOne.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\UI_SlotThree.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\UI_SlotTwo.cpp">
-      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\InvenTabButton.cpp" />
     <ClCompile Include="..\Code\InventoryUI.cpp" />
     <ClCompile Include="..\Code\Door.cpp">
@@ -1874,6 +1875,25 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_Veil.cpp">
       <Filter>02. GameObject\04. UI\10. Veil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FloorDoor.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp" />
+    <ClCompile Include="..\Code\TrashPrist.cpp" />
+    <ClCompile Include="RabbitMgr.cpp" />
+    <ClCompile Include="..\Code\UI_SlotFour.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_SlotOne.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_SlotThree.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_SlotTwo.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\01. Slots</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_SlotItems.cpp">
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot\00. SlotItems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
