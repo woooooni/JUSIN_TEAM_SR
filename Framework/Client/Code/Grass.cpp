@@ -136,6 +136,12 @@ void CGrass::Free()
 {
     for_each(m_GrassList.begin(), m_GrassList.end(), [&](GrassTexture* iter)
         {
+            Safe_Release(iter->m_pTexture);
+            Safe_Delete(iter);
+        });
+    for_each(m_LightList.begin(), m_LightList.end(), [&](GrassTexture* iter)
+        {
+            Safe_Release(iter->m_pTexture);
             Safe_Delete(iter);
         });
     __super::Free();

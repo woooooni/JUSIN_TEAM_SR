@@ -54,6 +54,7 @@ protected:
 
 	GRASS_TYPE		m_eGrassType;
 	list<GrassTexture*>	m_GrassList;
+	list<GrassTexture*> m_LightList;
 
 public:
 	static map<ITEM_CODE, _uint> m_dropItemMap[(_uint)SCENE_TYPE::SCENE_END];

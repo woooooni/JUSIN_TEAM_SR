@@ -622,6 +622,9 @@
     <Filter Include="99. Etc\Lib">
       <UniqueIdentifier>{29b77bf7-57bc-4198-853c-bf80196b0c48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\03. RabitObj\00. RabbitMgr">
+      <UniqueIdentifier>{f8d5d09a-5c8a-4122-977e-2fbf10281d89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1263,6 +1266,9 @@
     <ClInclude Include="..\..\ThirdParty\fmod_output.h">
       <Filter>99. Etc\Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\RabbitMgr.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj\00. RabbitMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1865,6 +1871,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
       <Filter>98. Manager\99. ImGui\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="RabbitMgr.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj\00. RabbitMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
