@@ -210,7 +210,6 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 				m_pRigidBodyCom->AddForce(vDir * 70.0f);
 			}
 				
-
 			
 
 			if (dynamic_cast<CPlayer*>(dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner())->Get_Skill() == PLAYER_SKILL::LIGHTNING)
@@ -218,6 +217,23 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 				Set_Stun(3.0f);
 			}
 
+		}
+		if (dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Owner()->GetObj_Id() == OBJ_ID::TURRET)
+		{
+			m_tStat.iHp -= dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Atk();
+			_vec3 vTargetPos;
+			_vec3 vPos;
+			_vec3 vDir;
+			pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			vDir = vPos - vTargetPos;
+			vDir.y = 0.0f;
+			D3DXVec3Normalize(&vDir, &vDir);
+			if (m_bPushable)
+			{
+				m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
+				m_pRigidBodyCom->AddForce(vDir * 70.0f);
+			}
 		}
 		break;
 	default:

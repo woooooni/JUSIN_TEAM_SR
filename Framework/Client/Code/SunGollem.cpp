@@ -51,6 +51,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_tStat = { 6,6,1 };
 	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
+	m_pMonsterAim->Set_Red(100.f);
 	m_pMonsterAim->Set_Active(true);
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
 
@@ -254,7 +255,7 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	if (m_tStat.iMaxHp > m_iDirtyHp)
 		m_iDirtyHp += _uint(100 * fTimeDelta);
 
-	if (m_tStat.iMaxHp < m_iDirtyHp)
+	if (m_tStat.iMaxHp <= m_iDirtyHp)
 	{
 		m_iDirtyHp = m_tStat.iMaxHp;
 		Set_State(SUNGOLEM_STATE::IDLE);

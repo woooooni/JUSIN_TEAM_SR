@@ -90,6 +90,7 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
         m_fFrame = 0.f;
         m_fMaxFrame = 0.f;
         m_bCreating = true;
+        m_fExistTime = 0.f;
         m_pAnimator->Play_Animation(L"Appear", false);
 
     }

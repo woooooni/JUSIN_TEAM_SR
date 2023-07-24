@@ -136,21 +136,6 @@
     <Filter Include="02. GameObject\02. Monster\04. MothMage\Orb">
       <UniqueIdentifier>{99ce2f59-473e-48da-9820-d937415a7e56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98. Manager">
-      <UniqueIdentifier>{d3ea15ca-2d7c-47b8-8c2f-d26d0779445f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\99. ImGui">
-      <UniqueIdentifier>{ee1f8b2c-dc81-407f-9927-5606613f56e1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\99. ImGui\Lib">
-      <UniqueIdentifier>{2e155ec3-a416-474d-927c-997f236cad7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\01. Game">
-      <UniqueIdentifier>{addd15ce-37d3-4983-a363-35b0dab12fd8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\02. UI">
-      <UniqueIdentifier>{96a58e6b-a18d-405b-8e5a-bbc85249e196}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\04. UI\03. AdventureBook">
       <UniqueIdentifier>{4295009d-bbed-49af-be78-83404f7e0dfb}</UniqueIdentifier>
     </Filter>
@@ -162,9 +147,6 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI\01. Icon">
       <UniqueIdentifier>{52a116df-b0d1-49a0-bddd-79286103269a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="98. Manager\03. Inventory">
-      <UniqueIdentifier>{09146d52-6d44-40ef-8ce3-981c8bfc7d6f}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObject\02. Monster\02. Beatle">
       <UniqueIdentifier>{acb6a898-326f-4b16-b957-6ee1b5c2a9ee}</UniqueIdentifier>
@@ -565,9 +547,6 @@
     <Filter Include="02. GameObject\15. NPC\00. Tutorial\04. Mom">
       <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98. Manager\04. Quest">
-      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\17. Particle\03. Stone">
       <UniqueIdentifier>{6215fcd5-104a-4077-9d2f-0f9231f506b2}</UniqueIdentifier>
     </Filter>
@@ -624,6 +603,30 @@
     </Filter>
     <Filter Include="02. GameObject\04. UI\10. Veil">
       <UniqueIdentifier>{f7a2054e-db25-43b9-8663-31fc26aa39b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Loading\98. Manager">
+      <UniqueIdentifier>{d3ea15ca-2d7c-47b8-8c2f-d26d0779445f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Loading\98. Manager\99. ImGui">
+      <UniqueIdentifier>{ee1f8b2c-dc81-407f-9927-5606613f56e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Loading\98. Manager\99. ImGui\Lib">
+      <UniqueIdentifier>{2e155ec3-a416-474d-927c-997f236cad7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Loading\98. Manager\01. Game">
+      <UniqueIdentifier>{addd15ce-37d3-4983-a363-35b0dab12fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Loading\98. Manager\02. UI">
+      <UniqueIdentifier>{96a58e6b-a18d-405b-8e5a-bbc85249e196}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Loading\98. Manager\03. Inventory">
+      <UniqueIdentifier>{09146d52-6d44-40ef-8ce3-981c8bfc7d6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Loading\98. Manager\04. Quest">
+      <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\13. Effect\24. MothFlyLine">
+      <UniqueIdentifier>{797170e0-bce7-483a-870a-d7a8f13cc714}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -730,7 +733,7 @@
       <Filter>02. GameObject\01. Player\State\13. GameOver</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\ImGuiMgr.h">
-      <Filter>98. Manager\99. ImGui</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\TrashBig.h">
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
@@ -829,7 +832,7 @@
       <Filter>02. GameObject\04. UI\03. AdventureBook</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UIMgr.h">
-      <Filter>98. Manager\02. UI</Filter>
+      <Filter>03. Loading\98. Manager\02. UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\UI_ShortCutKey.h">
       <Filter>02. GameObject\04. UI\99. ETC</Filter>
@@ -838,7 +841,7 @@
       <Filter>02. GameObject\04. UI\03. AdventureBook\01. Pages</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\InventoryMgr.h">
-      <Filter>98. Manager\03. Inventory</Filter>
+      <Filter>03. Loading\98. Manager\03. Inventory</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Grass.h">
       <Filter>02. GameObject\11. FixedObj\02. Glass</Filter>
@@ -1035,7 +1038,7 @@
       <Filter>01. Scene\01. Tutorial\00. Village</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\GameMgr.h">
-      <Filter>98. Manager\01. Game</Filter>
+      <Filter>03. Loading\98. Manager\01. Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Effect_GetItem.h">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
@@ -1167,7 +1170,7 @@
     <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
     <ClInclude Include="..\Header\Test_Cube.h" />
     <ClInclude Include="..\Header\Quest.h">
-      <Filter>98. Manager\04. Quest</Filter>
+      <Filter>03. Loading\98. Manager\04. Quest</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CParticle_Stone.h">
       <Filter>02. GameObject\17. Particle\03. Stone</Filter>
@@ -1209,7 +1212,7 @@
       <Filter>02. GameObject\13. Effect\23. Stun</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\QuestMgr.h">
-      <Filter>98. Manager\04. Quest</Filter>
+      <Filter>03. Loading\98. Manager\04. Quest</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Player_State_Dance.h">
       <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
@@ -1222,28 +1225,28 @@
     </ClInclude>
     <ClInclude Include="..\Header\Particle_LargeStone.h" />
     <ClInclude Include="..\..\ThirdParty\imconfig.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imgui_internal.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imstb_textedit.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\imstb_truetype.h">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClInclude>
     <ClInclude Include="..\..\ThirdParty\fmod.h">
       <Filter>99. Etc\Lib</Filter>
@@ -1268,6 +1271,13 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_Veil.h">
       <Filter>02. GameObject\04. UI\10. Veil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\FloorDoor.h" />
+    <ClInclude Include="..\Header\RabbitMgr.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest3.h" />
+    <ClInclude Include="..\Header\TrashPrist.h" />
+    <ClInclude Include="..\Header\Effect_MothFlyLine.h">
+      <Filter>02. GameObject\13. Effect\24. MothFlyLine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1366,7 +1376,7 @@
       <Filter>02. GameObject\01. Player\State\13. GameOver</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\ImGuiMgr.cpp">
-      <Filter>98. Manager\99. ImGui</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\TrashBig.cpp">
       <Filter>02. GameObject\02. Monster\01. TrashBig</Filter>
@@ -1459,7 +1469,7 @@
       <Filter>02. GameObject\04. UI\03. AdventureBook</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UIMgr.cpp">
-      <Filter>98. Manager\02. UI</Filter>
+      <Filter>03. Loading\98. Manager\02. UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp">
       <Filter>02. GameObject\04. UI\99. ETC</Filter>
@@ -1468,7 +1478,7 @@
       <Filter>02. GameObject\04. UI\03. AdventureBook\01. Pages</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\InventoryMgr.cpp">
-      <Filter>98. Manager\03. Inventory</Filter>
+      <Filter>03. Loading\98. Manager\03. Inventory</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Grass.cpp">
       <Filter>02. GameObject\11. FixedObj\02. Glass</Filter>
@@ -1665,7 +1675,7 @@
       <Filter>01. Scene\01. Tutorial\00. Village</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\GameMgr.cpp">
-      <Filter>98. Manager\01. Game</Filter>
+      <Filter>03. Loading\98. Manager\01. Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect_GetItem.cpp">
       <Filter>02. GameObject\13. Effect\11. Get_Item</Filter>
@@ -1797,7 +1807,7 @@
     <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
     <ClCompile Include="..\Code\Test_Cube.cpp" />
     <ClCompile Include="..\Code\Quest.cpp">
-      <Filter>98. Manager\04. Quest</Filter>
+      <Filter>03. Loading\98. Manager\04. Quest</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CParticle_Stone.cpp">
       <Filter>02. GameObject\17. Particle\03. Stone</Filter>
@@ -1839,7 +1849,7 @@
       <Filter>02. GameObject\13. Effect\23. Stun</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\QuestMgr.cpp">
-      <Filter>98. Manager\04. Quest</Filter>
+      <Filter>03. Loading\98. Manager\04. Quest</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Player_State_Dance.cpp">
       <Filter>02. GameObject\01. Player\State\15. Dance</Filter>
@@ -1852,28 +1862,35 @@
     </ClCompile>
     <ClCompile Include="..\Code\Particle_LargeStone.cpp" />
     <ClCompile Include="..\..\ThirdParty\imgui.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp">
-      <Filter>98. Manager\99. ImGui\Lib</Filter>
+      <Filter>03. Loading\98. Manager\99. ImGui\Lib</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\UI_Veil.cpp">
       <Filter>02. GameObject\04. UI\10. Veil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FloorDoor.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp" />
+    <ClCompile Include="..\Code\TrashPrist.cpp" />
+    <ClCompile Include="RabbitMgr.cpp" />
+    <ClCompile Include="..\Code\Effect_MothFlyLine.cpp">
+      <Filter>02. GameObject\13. Effect\24. MothFlyLine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
