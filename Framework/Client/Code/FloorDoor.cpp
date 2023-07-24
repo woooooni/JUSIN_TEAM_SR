@@ -51,7 +51,7 @@ _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 	__super::Update_Object(fTimeDelta);
 
 	if (KEY_TAP(KEY::N))
-		Event_End(21079635);
+		Open_Door();
 
 	if (m_bOpenDelay)
 	{
@@ -64,7 +64,7 @@ _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 			
 	}
 
-	if (m_bOpen)
+	if (m_bOpen && !m_bFinish)
 	{
 		m_pTransformCom->Move_Pos(&m_vDir, 1.0f, fTimeDelta);
 
@@ -76,12 +76,12 @@ _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 
 		if (D3DXVec3Length(&(m_vStartPos - vPos)) > 5.0f)
 		{
-			m_bOpen = false;
+			m_bFinish = true;
 
 			if (m_vDir.x < 0.0f)
 			{
 				CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
-				_vec3 vPortalPos = _vec3(63.6f, 0.5f, 58.4f);
+				_vec3 vPortalPos = _vec3(63.6f, 0.5f, 54.4f);
 				pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 				dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 				Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"NextPortal", pPortal);
@@ -137,7 +137,9 @@ void CFloorDoor::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisio
 {
 }
 
-void CFloorDoor::Event_Start(_uint iEventNum)
+
+
+void CFloorDoor::Open_Door()
 {
 	m_bOpenDelay = true;
 
@@ -159,79 +161,6 @@ void CFloorDoor::Event_Start(_uint iEventNum)
 
 		vPos.x += 2.5f;
 
-		
-
-		for (_int i = 0; 20 > i; ++i)
-		{
-			vEffectPos = vPos;
-			vEffectPos.z -= 4.8f;
-			vEffectPos.z += i * (9.6f / 20.0f);
-
-			CGameObject* pEffect = CPool<CEffect_Smoke>::Get_Obj();
-			if (!pEffect)
-			{
-				pEffect = CEffect_Smoke::Create(m_pGraphicDev);
-				pEffect->Ready_Object();
-			}
-			dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.0f, 1.0f, 1.0f), 186, 132, 72);
-		}
-
-		_vec3 vDir = {0.0f, 0.0f, 5.0f};
-		_float fAngle;
-
-		for (_int i = 0; 360 > i; ++i)
-		{
-			vEffectPos = vDir;
-			fAngle = 0.0f;
-			fAngle += 1.0f * i;
-
-			fAngle = D3DXToRadian(fAngle);
-
-			_matrix matRot;
-			D3DXMatrixRotationAxis(&matRot, &_vec3(0.0f, 1.0f, 0.0f), fAngle);
-
-			D3DXVec3TransformNormal(&vEffectPos, &vEffectPos, &matRot);
-			vEffectPos += vPos;
-
-
-			CGameObject* pEffect = CPool<CEffect_Smoke>::Get_Obj();
-			if (!pEffect)
-			{
-				pEffect = CEffect_Smoke::Create(m_pGraphicDev);
-				pEffect->Ready_Object();
-			}
-			dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.0f, 1.0f, 1.0f), 186, 132, 72);
-		}
-
-	}
-
-
-	
-}
-
-void CFloorDoor::Event_End(_uint iEventNum)
-{
-	m_bOpenDelay = true;
-
-	_vec3 vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-	m_vStartPos = vPos;
-
-	m_fAccLargeTime = m_fLargeTime;
-	m_fAccStoneTime = m_fStoneTime;
-
-
-	if (m_vDir.x < 0.0f)
-	{
-		_vec3 vPos;
-		_vec3 vEffectPos;
-
-
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-		vPos.x += 2.5f;
-		vPos.y += 0.3f;
 
 
 		for (_int i = 0; 20 > i; ++i)

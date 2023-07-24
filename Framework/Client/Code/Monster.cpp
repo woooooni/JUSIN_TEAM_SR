@@ -61,6 +61,9 @@ _int CMonster::Update_Object(const _float& fTimeDelta)
 		case MONSTER_STATE::STUN:
 			Update_Stun(fTimeDelta);
 			break;
+		case MONSTER_STATE::DEFFENCEMODE:
+			Update_DefenceMode(fTimeDelta);
+			break;
 		}
 	}
 
@@ -156,6 +159,29 @@ void CMonster::Set_Stun(_float _fStunTime)
 
 }
 
+void CMonster::Set_DefenceMode(CGameObject* _pTarget)
+{
+	m_pTarget = _pTarget;
+	m_eState = MONSTER_STATE::DEFFENCEMODE;
+	_vec3 vPos;
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+	_vec3 vDir = { 0.0f, 0.0f, 1.0f };
+	_matrix matRot;
+
+	_float fAngle = (rand() % 361) * 1.0f;
+	D3DXToRadian(fAngle);
+
+	D3DXMatrixRotationAxis(&matRot, &_vec3(0.0f, 1.0f, 0.0f), fAngle);
+	D3DXVec3TransformNormal(&vDir, &vDir, &matRot);
+
+	_float fLength = (rand() % 101) * (4.0f / 100.0f);
+	
+	vDir *= fLength;
+
+	m_vTargetPos = vPos + vDir;
+}
+
 void CMonster::Update_Stun(_float fTimeDelta)
 {
 	m_fStunTime -= fTimeDelta;
@@ -164,6 +190,12 @@ void CMonster::Update_Stun(_float fTimeDelta)
 	{
 		m_eState = MONSTER_STATE::IDLE;
 	}
+}
+
+void CMonster::Update_DefenceMode(_float fTimeDelta)
+{
+
+
 }
 
 void CMonster::Free()

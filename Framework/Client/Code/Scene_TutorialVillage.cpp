@@ -116,7 +116,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
@@ -145,10 +145,10 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
 {
 	// Ã¼·Â¹Ù Test
-//	CMothMage* pMothmage = CMothMage::Create(m_pGraphicDev);
-//	_vec3 vMothmagePos = _vec3(14.f, 0.5f, 14.f);
-//	pMothmage->Get_TransformCom()->Set_Info(INFO_POS, &vMothmagePos);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Mothmage", pMothmage);
+	/*CMothMage* pMothmage = CMothMage::Create(m_pGraphicDev);
+	_vec3 vMothmagePos = _vec3(14.f, 0.5f, 14.f);
+	pMothmage->Get_TransformCom()->Set_Info(INFO_POS, &vMothmagePos);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Mothmage", pMothmage);*/
 //
 //	CDesertRhino* pRhino = CDesertRhino::Create(m_pGraphicDev);
 //	_vec3 vRhinoPos = _vec3(13.f, 0.5f, 12.f);

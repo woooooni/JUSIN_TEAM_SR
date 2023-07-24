@@ -1278,6 +1278,10 @@
     <ClInclude Include="..\Header\Nexus.h">
       <Filter>02. GameObject\07. EnvironmentObj\03. Nexus</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\DefenceEnter.h">
+      <Filter>02. GameObject\09. Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonsterSpawner.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1890,6 +1894,10 @@
     <ClCompile Include="..\Code\Nexus.cpp">
       <Filter>02. GameObject\07. EnvironmentObj\03. Nexus</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\DefenceEnter.cpp">
+      <Filter>02. GameObject\09. Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

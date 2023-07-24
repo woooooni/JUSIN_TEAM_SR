@@ -95,4 +95,5 @@ CPortal* CPortal::Create(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE _eNextScene)
 
 void CPortal::Free()
 {
+    __super::Free();
 }

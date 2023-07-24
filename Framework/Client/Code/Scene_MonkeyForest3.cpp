@@ -15,7 +15,9 @@
 #include "PushStone.h"
 #include "BreakStone.h"
 #include "FloorDoor.h"
-
+#include "Nexus.h"
+#include "DefenceEnter.h"
+#include "MonsterSpawner.h"
 
 CScene_MonkeyForest3::CScene_MonkeyForest3(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST3)
@@ -97,6 +99,7 @@ HRESULT CScene_MonkeyForest3::Ready_Layer_Player()
 HRESULT CScene_MonkeyForest3::Ready_Layer_Camera()
 {
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 0.1f, 1000.f);
+	pCamera->Get_TransformCom()->Set_Pos(&_vec3(63.6f, 10.0f, 0.0f));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"MainCamera", pCamera);
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
@@ -125,11 +128,52 @@ HRESULT CScene_MonkeyForest3::Ready_Layer_Environment()
 
 	CGameObject* pLeftDoor = CFloorDoor::Create(m_pGraphicDev);
 	dynamic_cast<CFloorDoor*>(pLeftDoor)->Set_Door(_vec3(61.3f, 0.00f, 53.9f), _vec3(5.0f, 10.0f, 0.0f), _vec3(-1.0f, 0.0f, 0.0f));
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pLeftDoor);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"LeftDoor", pLeftDoor);
 
 	CGameObject* pRightDoor = CFloorDoor::Create(m_pGraphicDev);
 	dynamic_cast<CFloorDoor*>(pRightDoor)->Set_Door(_vec3(66.25f, 0.00f, 53.9f), _vec3(5.0f, 10.0f, 0.0f), _vec3(1.0f, 0.0f, 0.0f));
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pRightDoor);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"RightDoor", pRightDoor);
+
+
+	CGameObject* pNexus = CNexus::Create(m_pGraphicDev);
+	pNexus->Get_TransformCom()->Set_Pos(&_vec3(63.775f, 2.6f, 53.9f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Nexus", pNexus);
+
+	CGameObject* pDefenceEnter = CDefenceEnter::Create(m_pGraphicDev);
+	pDefenceEnter->Get_TransformCom()->Set_Pos(&_vec3(64.0f, 2.6f, 16.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DefenceEnter", pDefenceEnter);
+
+	
+	CGameObject* pSpawner = CMonsterSpawner::Create(m_pGraphicDev);
+	pSpawner->Get_TransformCom()->Set_Pos(&_vec3(63.0f, 2.6f, 97.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MonsterSpawner", pSpawner);
+	dynamic_cast<CMonsterSpawner*>(pSpawner)->Set_Nexus(pNexus);
+	dynamic_cast<CNexus*>(pNexus)->Add_Spawner(pSpawner);
+
+	pSpawner = CMonsterSpawner::Create(m_pGraphicDev);
+	pSpawner->Get_TransformCom()->Set_Pos(&_vec3(32.0f, 2.6f, 91.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MonsterSpawner", pSpawner);
+	dynamic_cast<CMonsterSpawner*>(pSpawner)->Set_Nexus(pNexus);
+	dynamic_cast<CNexus*>(pNexus)->Add_Spawner(pSpawner);
+
+	pSpawner = CMonsterSpawner::Create(m_pGraphicDev);
+	pSpawner->Get_TransformCom()->Set_Pos(&_vec3(15.0f, 2.6f, 50.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MonsterSpawner", pSpawner);
+	dynamic_cast<CMonsterSpawner*>(pSpawner)->Set_Nexus(pNexus);
+	dynamic_cast<CNexus*>(pNexus)->Add_Spawner(pSpawner);
+
+	pSpawner = CMonsterSpawner::Create(m_pGraphicDev);
+	pSpawner->Get_TransformCom()->Set_Pos(&_vec3(96.0f, 2.6f, 96.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MonsterSpawner", pSpawner);
+	dynamic_cast<CMonsterSpawner*>(pSpawner)->Set_Nexus(pNexus);
+	dynamic_cast<CNexus*>(pNexus)->Add_Spawner(pSpawner);
+
+	pSpawner = CMonsterSpawner::Create(m_pGraphicDev);
+	pSpawner->Get_TransformCom()->Set_Pos(&_vec3(114.0f, 2.6f, 51.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MonsterSpawner", pSpawner);
+	dynamic_cast<CMonsterSpawner*>(pSpawner)->Set_Nexus(pNexus);
+	dynamic_cast<CNexus*>(pNexus)->Add_Spawner(pSpawner);
+
 
 	return S_OK;
 }

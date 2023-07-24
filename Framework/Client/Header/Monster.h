@@ -46,7 +46,7 @@ public:
 	virtual void Trace(_float fTimeDelta) PURE;
 
 	void		Set_Stun(_float _fStunTime);
-
+	void		Set_DefenceMode(CGameObject* _pTarget);
 public:
 	virtual void Update_Idle(_float fTimeDelta)		PURE;
 	virtual void Update_Regen(_float fTimeDelta)	PURE;
@@ -54,13 +54,17 @@ public:
 	virtual void Update_Attack(_float fTimeDelta)	PURE;
 	virtual void Update_Die(_float fTimeDelta)		PURE;
 	virtual void Update_Stun(_float fTimeDelta);
-	
+	virtual void Update_DefenceMode(_float fTimeDelta);
+
+
 private:
 	_float			m_fSpeed = 5.f;
 	MONSTER_STATE	m_eState;
 
 protected:
 	CGameObject*	m_pTarget;
+	_vec3			m_vTargetPos;
+
 	MONSTERSTAT		m_tStat;
 	_bool m_bPushable = true;
 
