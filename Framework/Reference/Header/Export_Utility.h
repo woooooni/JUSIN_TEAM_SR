@@ -107,6 +107,7 @@ inline	void Play_BGM(TCHAR* pSoundKey, float fVolume);
 inline	void Stop_Sound(CHANNELID eID);
 inline	void Stop_All();
 inline	void Set_ChannelVolume(CHANNELID eID, float fVolume);
+inline	FMOD_CHANNEL* Get_Channel(CHANNELID eID);
 
 #include "Export_Utility.inl"
 

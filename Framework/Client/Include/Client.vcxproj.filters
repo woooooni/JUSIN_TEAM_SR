@@ -1276,9 +1276,6 @@
     <ClInclude Include="..\Header\NueFlower.h">
       <Filter>02. GameObject\07. EnvironmentObj\02. NueFlower</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\RabbitMgr.h">
-      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\TurretBullet.h">
       <Filter>02. GameObject\16. Bullet\03. Turret_Bullet</Filter>
     </ClInclude>
@@ -1293,6 +1290,13 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_SlotItems.h">
       <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\DefenceEnter.h" />
+    <ClInclude Include="..\Header\Effect_MothFlyLine.h" />
+    <ClInclude Include="..\Header\MonsterSpawner.h" />
+    <ClInclude Include="..\Header\Nexus.h" />
+    <ClInclude Include="..\Header\RabbitMgr.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1901,9 +1905,6 @@
     <ClCompile Include="..\Code\FloorDoor.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp" />
     <ClCompile Include="..\Code\TrashPrist.cpp" />
-    <ClCompile Include="RabbitMgr.cpp">
-      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\TurretBullet.cpp">
       <Filter>02. GameObject\16. Bullet\03. Turret_Bullet</Filter>
     </ClCompile>
@@ -1918,6 +1919,13 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_SlotItems.cpp">
       <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DefenceEnter.cpp" />
+    <ClCompile Include="..\Code\Effect_MothFlyLine.cpp" />
+    <ClCompile Include="..\Code\MonsterSpawner.cpp" />
+    <ClCompile Include="..\Code\Nexus.cpp" />
+    <ClCompile Include="..\Code\RabbitMgr.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

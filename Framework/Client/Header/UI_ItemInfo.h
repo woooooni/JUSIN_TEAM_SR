@@ -70,6 +70,7 @@ private:
 	_uint				m_iCursorY = 0;
 	_uint				m_iPlayerMoney = 0;
 
+	CItem* m_pItem;
 public:
 	static  CUI_ItemInfo* Create(LPDIRECT3DDEVICE9 pGraphicDev, SHOPITEMTYPE eType);
 

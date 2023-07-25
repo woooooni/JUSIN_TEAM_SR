@@ -220,6 +220,11 @@ inline void Set_ChannelVolume(CHANNELID eID, float fVolume)
 	CSoundMgr::GetInstance()->Set_ChannelVolume(eID, fVolume);
 }
 
+inline FMOD_CHANNEL* Get_Channel(CHANNELID eID)
+{
+	return CSoundMgr::GetInstance()->Get_Channel(eID);
+}
+
 void			Release_Utility()
 {
 	CKeyMgr::GetInstance()->DestroyInstance();

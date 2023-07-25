@@ -308,7 +308,7 @@ void CBlockObj::Change_State()
 		pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
 
 		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
-		Play_Sound(L"SFX_486_Totem_In.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+		Play_Sound(L"SFX_22_StoneGateMove.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
 		
 	}
 }

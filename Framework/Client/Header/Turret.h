@@ -30,6 +30,8 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
+	const _float& Get_Energy() { return m_fEnergy; }
+
 protected:
 	wstring		m_wstrCurState;
 	CGameObject* m_pTarget;

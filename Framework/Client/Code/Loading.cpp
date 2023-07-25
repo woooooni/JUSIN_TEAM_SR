@@ -1176,6 +1176,7 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_LongGrass", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_MoonForest_RuinInsideObjects_LongGrass%d.png", 7)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_GlowingPlantsReed", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_MoonForest_GlowingPlants_Reed%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_GlowingPlantsReedRed", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_MoonForest_GlowingPlantsRed_Reed%d.png", 5)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Grass/Sprite_MoonForest_GlowingPlants_ReedLight%d.png", 5)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_LightMushroom_Hide", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/ReactMushroom/MushRoom/Hide/Sprite_MoonMushroomReact_Line_%d.png", 5)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_LightMushroom_Out", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/ReactMushroom/MushRoom/Out/Sprite_MoonMushroomReact_Line_%d.png", 10)), E_FAIL);

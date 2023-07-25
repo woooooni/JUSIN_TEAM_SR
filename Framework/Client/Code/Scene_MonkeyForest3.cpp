@@ -18,6 +18,7 @@
 #include "Nexus.h"
 #include "DefenceEnter.h"
 #include "MonsterSpawner.h"
+#include	"Turret.h"
 
 CScene_MonkeyForest3::CScene_MonkeyForest3(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST3)
@@ -187,6 +188,42 @@ HRESULT CScene_MonkeyForest3::Ready_Layer_Monster()
 
 HRESULT CScene_MonkeyForest3::Ready_Layer_InterationObj()
 {
+	CTurret* turret = CTurret::Create(m_pGraphicDev, 0, { 60.f, 0.f, 49.f });
+
+	NULL_CHECK_RETURN(turret, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
+
+ turret = CTurret::Create(m_pGraphicDev, 0, { 67.f, 0.f, 49.f });
+
+	NULL_CHECK_RETURN(turret, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
+
+turret = CTurret::Create(m_pGraphicDev, 0, { 58.f, 0.f, 53.5f });
+
+	NULL_CHECK_RETURN(turret, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
+
+ turret = CTurret::Create(m_pGraphicDev, 0, { 69.5f, 0.f, 53.5f });
+
+	NULL_CHECK_RETURN(turret, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
+
+ turret = CTurret::Create(m_pGraphicDev, 0, { 60.5f, 0.f, 58.5f });
+
+	NULL_CHECK_RETURN(turret, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
+
+	turret = CTurret::Create(m_pGraphicDev, 0, { 66.5f, 0.f, 58.5f });
+
+	NULL_CHECK_RETURN(turret, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
+
 
 	return S_OK;
 }

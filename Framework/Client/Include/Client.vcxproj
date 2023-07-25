@@ -586,6 +586,7 @@
     <ClCompile Include="..\Code\QuestMgr.cpp" />
     <ClCompile Include="..\Code\QuickSlot.cpp" />
     <ClCompile Include="..\Code\QuizStatue.cpp" />
+    <ClCompile Include="..\Code\RabbitMgr.cpp" />
     <ClCompile Include="..\Code\RabitObj.cpp" />
     <ClCompile Include="..\Code\RedBeatle.cpp" />
     <ClCompile Include="..\Code\RollingBug.cpp" />
@@ -651,7 +652,6 @@
     <ClCompile Include="..\Code\UI_Veil.cpp" />
     <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="RabbitMgr.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
