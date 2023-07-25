@@ -23,7 +23,7 @@ HRESULT CEffect_MothFlyLine::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"Effect_MothFlyLine", false);
 
 	m_pTransformCom->Set_Pos(&_vec3(-5.0f, 1.1f, 0.0f));
-	m_pTransformCom->Set_Scale({ 5.f,50.f, 5.f });
+	m_pTransformCom->Set_Scale({ 5.f,70.f, 5.f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 5.f,45.f, 5.f });
 	_vec3 AxisX = { 1,0,0 };
 	Set_ARGB(150, 100, 100, 255);
@@ -41,7 +41,10 @@ _int CEffect_MothFlyLine::Update_Object(const _float& fTimeDelta)
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_EFFECT);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	m_pTransformCom->Move_Pos(&m_vDir, 20.f, fTimeDelta);
+	_vec3 vPos, vDir;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = m_vDst - vPos;
+	m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir,&vDir), 50.f, fTimeDelta);
 	return iExit;
 }
 

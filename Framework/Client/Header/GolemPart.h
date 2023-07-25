@@ -32,8 +32,10 @@ public:
 	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
 
 	void	Set_Offset(_vec3 _Offset) { m_vOffset = _Offset; }
-	
+	void   Set_Index(_int _iIndex) { m_iIndex = _iIndex; }
 	void	Offset(_vec3 _vPos);
+	void Move_Offset(_vec3 _vPos, _float fTimeDelta, _float _fSpeed);
+
 public:
 	void		 Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
 	
@@ -49,9 +51,10 @@ protected:
 
 protected:
 	CGameObject*	m_pTarget;
-
+	_int m_iIndex;
 	_vec3	m_vOffset;
 protected:
+	void Move_Offset_ByDir(_vec3 _vDir, _float fTimeDelta, _float _fSpeed);
 	virtual void Free() override;
 };
 

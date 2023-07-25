@@ -210,7 +210,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TEST);
 	// Engine::Play_Sound(L"BGM_1_CentralArea.wav", CHANNELID::SOUND_BGM, .5f);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
