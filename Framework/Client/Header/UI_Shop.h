@@ -25,17 +25,18 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+	void	Add_Item(CItem* pItem, const SHOPITEMTYPE& pType)
+	{
+		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(pItem);
+	}
+
 private:
 	HRESULT Ready_Component();
 	void	Key_Input();
-	void	Add_Item(CItem* pItem)
-	{
-		m_ItemList.push_back(pItem);
-	}
 	void	Set_Item(); // Item setting
 
 private:
-	_bool				m_bShown = FALSE;
+	_bool				m_bShown = TRUE;
 	list<CItem*>		m_ItemList;		   // 아이템 리스트
 	CUI_Cursor*			m_pCursor;
 	vector<CUI*>		m_vecShopIcon;
