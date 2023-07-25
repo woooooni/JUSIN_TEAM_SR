@@ -12,6 +12,7 @@ CGrass::CGrass(LPDIRECT3DDEVICE9 pGr) : CFieldObject(pGr, OBJ_ID::GRASS), m_eGra
 , m_fCurMoveTime(0.f)
 , m_fMaxMoveTime(0.f)
 , m_bIsReverse(false)
+, m_fBlurTime(0.f)
 {
     m_tInfo.m_bIsAttackable = true;
 }
@@ -22,6 +23,7 @@ m_fCurMoveTime(rhs.m_fCurMoveTime),
 m_fMaxMoveTime(rhs.m_fMaxMoveTime)
 , m_bIsReverse(rhs.m_bIsReverse)
 , m_eGrassType(rhs.m_eGrassType)
+, m_fBlurTime(rhs.m_fBlurTime)
 
 
 {
@@ -53,6 +55,18 @@ _int CGrass::Update_Object(const _float& fTimeDelta)
             else
                 iter->m_fAngle += iter->m_vPosByCenter.x >= 0 ? -1.f * iter->m_fMaxAngle * 5 * fTimeDelta : iter->m_fMaxAngle * 5 * fTimeDelta;
         }
+
+        if (m_eGrassType == GRASS_TYPE::GLOWING_REED || m_eGrassType == GRASS_TYPE::GLOWING_REED_RED)
+        {
+            for (auto& iter : m_LightList)
+            {
+                if (!m_bIsReverse)
+                    iter->m_fAngle += iter->m_vPosByCenter.x >= 0 ? iter->m_fMaxAngle * 5 * fTimeDelta : -1.f * iter->m_fMaxAngle * 5 * fTimeDelta;
+                else
+                    iter->m_fAngle += iter->m_vPosByCenter.x >= 0 ? -1.f * iter->m_fMaxAngle * 5 * fTimeDelta : iter->m_fMaxAngle * 5 * fTimeDelta;
+            }
+
+        }
         m_fCurMoveTime += fTimeDelta;
         if (m_fCurMoveTime >= 0.2f)
         {
@@ -60,6 +74,7 @@ _int CGrass::Update_Object(const _float& fTimeDelta)
             m_fCurMoveTime = 0.f;
             m_bIsReverse = !m_bIsReverse;
         }
+
     }
     else
     {
@@ -77,7 +92,23 @@ _int CGrass::Update_Object(const _float& fTimeDelta)
             if (iter->m_fAngle != iter->m_fOriginAngle)
                 iter->m_fAngle = iter->m_fOriginAngle;
         }
+
+        if (m_eGrassType == GRASS_TYPE::GLOWING_REED || m_eGrassType == GRASS_TYPE::GLOWING_REED_RED)
+        {
+            for (auto& iter : m_LightList)
+            {
+                if (iter->m_fAngle != iter->m_fOriginAngle)
+                    iter->m_fAngle = iter->m_fOriginAngle;
+            }
+
+        }
+
     }
+
+    if (m_fBlurTime > 0.f)
+        m_fBlurTime -= fTimeDelta;
+    else if (m_fBlurTime < 0.f)
+        m_fBlurTime = 0.f;
 
 
     return __super::Update_Object(fTimeDelta);
@@ -125,6 +156,47 @@ void CGrass::Render_Object(void)
         iter->m_pTexture->Render_Texture();
         m_pBufferCom->Render_Buffer();
     }
+
+    mat._43 -= 0.01f;
+
+    if ((m_eGrassType == GRASS_TYPE::GLOWING_REED || m_eGrassType == GRASS_TYPE::GLOWING_REED_RED) && m_fBlurTime > 0.f)
+    {
+        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DXCOLOR(1.f, 1.f, 1.f, 0.25f));
+  
+
+        for (auto& iter : m_LightList)
+        {
+            D3DXMatrixScaling(&src, iter->m_fScale.x, iter->m_fScale.y, iter->m_fScale.z);
+            D3DXMatrixRotationZ(&rot, D3DXToRadian(iter->m_fAngle));
+
+            src = (src * rot);
+            D3DXVec3TransformCoord(&tmp, &iter->m_vRenderPos, &rot);
+
+            if (iter->m_iIsReverse)
+            {
+                D3DXMatrixRotationY(&rot, D3DXToRadian(180.f));
+                src *= rot;
+                D3DXVec3TransformCoord(&tmp, &tmp, &rot);
+
+            }
+
+            src *= mat;
+
+            src._41 += iter->m_vPosByCenter.x + tmp.x;
+            src._42 += tmp.y;
+            src._43 += iter->m_vPosByCenter.y + tmp.z;
+
+            m_pGraphicDev->SetTransform(D3DTS_WORLD, &src);
+            iter->m_pTexture->Set_Idx(iter->m_iTextureIndex);
+            iter->m_pTexture->Render_Texture();
+            m_pBufferCom->Render_Buffer();
+        }
+
+    }
+
+    m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+
+
 }
 
 void CGrass::Add_Subscribe(_uint iNum)
@@ -199,7 +271,7 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
         Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
         Play_Sound(L"SFX_25_LeafBushRemove.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
 
-
+        
         /*for (auto& iter : m_dropItemMap[Engine::GetCurrScene()])
         {
             if (rand() % 100 < iter.second)
@@ -247,19 +319,33 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
     {
         m_fMaxMoveTime = 0.5f;
 
-        CGameObject* pLeaf = CPool<CEffect_Leaf>::Get_Obj();
-        if (pLeaf)
-            dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
+        if (m_eGrassType == GRASS_TYPE::GLOWING_REED || m_eGrassType == GRASS_TYPE::GLOWING_REED_RED)
+        {
+            m_fBlurTime = 3.f;
+            //Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+
+            Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+            Play_Sound(L"SFX_154_GlowingReedTouch_3.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
+        }
         else
         {
-            pLeaf = dynamic_cast<CEffect_Leaf*>(pLeaf)->Create(Engine::Get_Device());
+            CGameObject* pLeaf = CPool<CEffect_Leaf>::Get_Obj();
             if (pLeaf)
                 dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
+            else
+            {
+                pLeaf = dynamic_cast<CEffect_Leaf*>(pLeaf)->Create(Engine::Get_Device());
+                if (pLeaf)
+                    dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
+            }
+
+            Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+
+            Play_Sound(L"SFX_24_LeafBushTouch.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+            
         }
 
-        Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
-
-        Play_Sound(L"SFX_24_LeafBushTouch.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
 
     }
 }
@@ -1027,7 +1113,7 @@ HRESULT CGrass::Set_Grass()
 
         m_GrassList.push_back(src);
 
-
+        Set_Blur();
 
         break;
     case Engine::GRASS_TYPE::GLOWING_REED_RED:
@@ -1143,6 +1229,8 @@ HRESULT CGrass::Set_Grass()
 
         m_GrassList.push_back(src);
 
+        Set_Blur();
+
         break;
     case Engine::GRASS_TYPE::GRASS_END:
         return E_FAIL;
@@ -1151,4 +1239,121 @@ HRESULT CGrass::Set_Grass()
     }
 
     return S_OK;
+}
+
+void CGrass::Set_Blur()
+{
+
+    GrassTexture* src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { 0.35f, 0.22f };
+    src->m_vRenderPos = { 0.f, 0.71f, 0.f };
+    src->m_fScale = { 0.17f, 1.01f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 0;
+    src->m_iIsReverse = 0;
+
+    m_LightList.push_back(src);
+
+    src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { 0.01f, -0.41f };
+    src->m_vRenderPos = { 0.f, 0.69f, 0.f };
+    src->m_fScale = { 0.14f, 0.93f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 1;
+    src->m_iIsReverse = 0;
+
+    m_LightList.push_back(src);
+
+    src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { -0.35f, -0.04f };
+    src->m_vRenderPos = { 0.f, 0.75f, 0.f };
+    src->m_fScale = { 0.19f, 1.f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 2;
+    src->m_iIsReverse = 0;
+
+    m_LightList.push_back(src);
+
+    src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { 0.6f, 0.f };
+    src->m_vRenderPos = { 0.f, 0.7f, 0.f };
+    src->m_fScale = { 0.22f, 0.95f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 3;
+    src->m_iIsReverse = 0;
+
+    m_LightList.push_back(src);
+
+    src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { -0.56f, -0.3f };
+    src->m_vRenderPos = { 0.f, 0.7f, 0.f };
+    src->m_fScale = { 0.18f, 0.94f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 4;
+    src->m_iIsReverse = 0;
+
+    m_LightList.push_back(src);
+
+    src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { -0.14f, 0.3f };
+    src->m_vRenderPos = { 0.f, 0.73f, 0.f };
+    src->m_fScale = { 0.18f, 0.93f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 0;
+    src->m_iIsReverse = 1;
+
+    m_LightList.push_back(src);
+
+    src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { -0.48f, 1.1f };
+    src->m_vRenderPos = { 0.f, 0.56f, 0.f };
+    src->m_fScale = { 0.25f, 1.f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 3;
+    src->m_iIsReverse = 1;
+
+    m_LightList.push_back(src);
+
+    src = new GrassTexture;
+    src->m_pTexture = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Tex_Grass_GlowingPlantsReedBlur"));
+    NULL_CHECK_RETURN(src->m_pTexture, );
+    src->m_vPosByCenter = { 0.23f, 0.87f };
+    src->m_vRenderPos = { 0.f, 0.69f, 0.f };
+    src->m_fScale = { 0.23f, 0.93f, 1.f };
+    src->m_fAngle = 0.f;
+    src->m_fOriginAngle = src->m_fAngle;
+    src->m_fMaxAngle = 3.f;
+    src->m_iTextureIndex = 2;
+    src->m_iIsReverse = 1;
+
+    m_LightList.push_back(src);
+
 }

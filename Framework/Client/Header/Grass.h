@@ -55,12 +55,16 @@ protected:
 	GRASS_TYPE		m_eGrassType;
 	list<GrassTexture*>	m_GrassList;
 	list<GrassTexture*> m_LightList;
+	_float		m_fBlurTime;
+
+	void		Set_Blur();
 
 public:
 	static map<ITEM_CODE, _uint> m_dropItemMap[(_uint)SCENE_TYPE::SCENE_END];
 	_float m_fMaxMoveTime;
 	_float m_fCurMoveTime;
 	_bool m_bIsReverse;
+
 
 public:
 	virtual void Free() override;

@@ -23,6 +23,11 @@ public:
 	void Stop_All();
 	void Set_ChannelVolume(CHANNELID eID, float fVolume);
 
+	FMOD_CHANNEL* Get_Channel(CHANNELID eID)
+	{
+		return m_pChannelArr[eID];
+	}
+
 private:
 	void Load_SoundFile();
 

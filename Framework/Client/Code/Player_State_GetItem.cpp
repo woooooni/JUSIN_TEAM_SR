@@ -92,7 +92,14 @@ _int CPlayer_State_GetItem::Update_State(const _float& fTimeDelta)
 		dynamic_cast<CUI_NewItem*>(m_pWindow)->Get_ItemInfo(dynamic_cast<CPlayer*>(m_pOwner)->Get_GetItemCode());
 		Engine::Get_Layer(LAYER_TYPE::UI)->Add_GameObject(L"UI_GetItem", m_pWindow);
 		//
+		FMOD_RESULT pRes = FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), true);
+
+		Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+		Play_Sound(L"SFX_147_OguItemAdd.wav", CHANNELID::SOUND_EFFECT_PLAYER, .5f);
 		m_bFinished = true;
+
+		FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), false);
+
 	}
 	
 

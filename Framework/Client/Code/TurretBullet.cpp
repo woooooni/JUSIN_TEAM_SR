@@ -39,7 +39,7 @@ _int CTurretBullet::Update_Object(const _float& fTimeDelta)
 
 	m_pTransformCom->Get_Info(INFO_POS, &pos);
 
-	pos += m_vDirection * fTimeDelta;
+	pos += m_vDirection * fTimeDelta * 10.f;
 
 	m_pTransformCom->Set_Pos(&pos);
 
