@@ -111,13 +111,30 @@ HRESULT CInventoryMgr::Use_Item(_uint pInt)
 	if (pInt < 0 || pInt >= tmp.size())
 		return E_FAIL;
 
-	CUseItem* src = dynamic_cast<CUseItem*>(tmp[pInt]);
+	CItem* src = (tmp[pInt]);
 	NULL_CHECK_RETURN(src, E_FAIL);
 
-	HRESULT ret = src->Use_Item(m_pPlayer);
+	HRESULT ret = src->Use_Item();
 
 	if (src->Get_InvenCount() == 0)
 		tmp.erase(tmp.begin() + pInt);
+
+	return ret;
+}
+
+HRESULT CInventoryMgr::Use_Item(ITEM_CODE pCode)
+{
+	auto& tmp = m_vecInventory[(_uint)INVENTORY_TYPE::CONSUMPSION];
+	
+	auto src = find_if(tmp.begin(), tmp.end(), [&](CItem* code)->bool
+		{
+			return code->Get_ItemCode() == pCode;
+		});
+
+	HRESULT ret = (*src)->Use_Item();
+
+	if ((*src)->Get_InvenCount() == 0)
+		tmp.erase(src);
 
 	return ret;
 }

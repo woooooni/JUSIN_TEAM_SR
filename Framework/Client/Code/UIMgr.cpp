@@ -51,7 +51,7 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_pHpBar->Update_Object(fTimeDelta);
    //m_pShop->Update_Object(fTimeDelta);
    //m_pShortCutKey->Update_Object(fTimeDelta);
-    m_pQuickSlot->Update_Object(fTimeDelta);
+
     //m_pItemWindow->Update_Object(fTimeDelta);
 
     // m_pCurrentUI->Update_Object(fTimeDelta);
@@ -68,12 +68,19 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     if (KEY_TAP(KEY::I))
     {
         m_bUpdateUI = !m_bUpdateUI;
+        m_pQuickSlot->Set_Use(!m_bUpdateUI);
     }
 
     if (m_bUpdateUI)
     {
         m_pInventory->Update_Object(fTimeDelta);
     }
+
+
+     m_pQuickSlot->Update_Object(fTimeDelta);
+
+
+
 }
 
 void CUIMgr::Late_Update_UIMgr()
