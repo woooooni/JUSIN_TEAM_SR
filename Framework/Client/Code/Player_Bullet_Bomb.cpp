@@ -49,6 +49,8 @@ HRESULT CPlayer_Bullet_Bomb::Ready_Object(void)
 	m_pRigidBodyCom->SetFricCoeff(0.0f);
 	m_pRigidBodyCom->SetMass(1.0f);
 	Set_Atk(1);
+
+	m_fBulletTime = 1.5f;
 	return S_OK;
 }
 
@@ -56,6 +58,27 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
+
+
+	m_fAccTime += fTimeDelta;
+	if (m_fAccTime > m_fBulletTime)
+	{
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		CGameObject* pExplosion = CPool<CEffect_Explosion>::Get_Obj();
+		if (pExplosion)
+			dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+		else
+		{
+			pExplosion = dynamic_cast<CEffect_Explosion*>(pExplosion)->Create(Engine::Get_Device());
+			if (pExplosion)
+				dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+		}
+
+		m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
+
+		CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
+	}
 
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &m_vTargetPos);
 	_vec3 vPos;
@@ -176,6 +199,7 @@ HRESULT CPlayer_Bullet_Bomb::Ready_Component(void)
 
 void CPlayer_Bullet_Bomb::Shoot(CGameObject* _pTarget, _vec3& _vDir, _float _fPower, _vec3& _vPos)
 {
+	m_fAccTime = 0.0f;
 	m_pTarget = _pTarget;
 	m_pTransformCom->Set_Pos(&_vPos);
 	m_pRigidBodyCom->AddForce(_vDir * _fPower);

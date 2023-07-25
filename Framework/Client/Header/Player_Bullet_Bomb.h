@@ -41,6 +41,9 @@ private:
 	 _vec3 m_vScale;
 	 _float m_fOriginMaxVel;
 	 _float m_fMaxVel;
+
+	 _float m_fAccTime;
+	 _float m_fBulletTime;
 private:
 	virtual void Free() override;
 };

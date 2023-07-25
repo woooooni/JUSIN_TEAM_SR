@@ -592,7 +592,7 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 	if (m_eState == PLAYER_STATE::PUSH)
 	{
-		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
+		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z))
 		{
 			if (vDir.x < 0.f)
 			{
@@ -609,7 +609,7 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 				pOtherTransform->Set_Pos(&vOtherPos);
 			}
 		}
-		else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
+		/*else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
 		{
 			if (vDir.y < 0.f)
 			{
@@ -623,8 +623,8 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 				vOtherPos = vPos + vDir;
 				pOtherTransform->Set_Pos(&vOtherPos);
 			}
-		}
-		else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x) && fZ - fabs(vDir.z) < fY - fabs(vDir.y))
+		}*/
+		else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x))
 		{
 			if (vDir.z < 0.f)
 			{
@@ -648,7 +648,7 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 	}
 	else
 	{
-		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
+		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z))
 		{
 			if (vDir.x < 0.f)
 			{
@@ -667,7 +667,7 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 				pTransform->Set_Pos(&vPos);
 			}
 		}
-		else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
+		/*else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
 		{
 			if (vDir.y < 0.f)
 			{
@@ -683,8 +683,8 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 				vPos = vOtherPos + vDir;
 				pTransform->Set_Pos(&vPos);
 			}
-		}
-		else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x) && fZ - fabs(vDir.z) < fY - fabs(vDir.y))
+		}*/
+		else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x))
 		{
 			if (vDir.z < 0.f)
 			{
@@ -726,10 +726,16 @@ void CPlayer::Collision_Enter_Grab(CCollider* pCollider, COLLISION_GROUP _eColli
 
 void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (m_eState == PLAYER_STATE::HIT)
+	if (m_eState == PLAYER_STATE::HIT || 
+		m_eState == PLAYER_STATE::DOWN || 
+		m_eState == PLAYER_STATE::GAMEOVER || 
+		m_bInvincible)
 		return;
 
-	if (m_bInvincible)
+
+	if (pCollider->GetOwner()->GetObj_Id() == OBJ_ID::BLUE_BEATLE ||
+		pCollider->GetOwner()->GetObj_Id() == OBJ_ID::RED_BEATLE ||
+		pCollider->GetOwner()->GetObj_Id() == OBJ_ID::GREEN_BEATLE)
 		return;
 
 
@@ -830,11 +836,13 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 void CPlayer::Collision_Enter_BulletHit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (m_eState == PLAYER_STATE::HIT)
+	if (m_eState == PLAYER_STATE::HIT ||
+		m_eState == PLAYER_STATE::DOWN ||
+		m_eState == PLAYER_STATE::GAMEOVER ||
+		m_bInvincible)
 		return;
 
-	if (m_bInvincible)
-		return;
+
 
 	OBJ_DIR eTargetDir = OBJ_DIR::DIR_END;
 	_vec3 vTargetPos;
