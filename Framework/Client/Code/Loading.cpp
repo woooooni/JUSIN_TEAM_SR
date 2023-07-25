@@ -1054,6 +1054,7 @@ HRESULT CLoading::Ready_Effect_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_DigEffect", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/DigEffect/DigEffect_%d.png", 4)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Smoke", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/SmokeEffect/SmokeEffect_%d.png", 1)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Effect_MothFlyLine", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/MothFlyLine/MothFlyLine_%d.png", 1)), E_FAIL);
 
 	return S_OK;
 

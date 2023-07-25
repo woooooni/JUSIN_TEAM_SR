@@ -27,13 +27,13 @@ public:
     HRESULT	Add_Component(void);
 public:
     static  CMothMage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
+    virtual void Trace(_float fTimeDelta) override;
 private:
     _float m_fMoveTime;
     _vec3 m_vDst = { 0.f,0.f,0.f };
     _vec3 m_vDir = { 0.f,0.f,0.f };
     _bool m_bShoot = false;
-    virtual void Trace(_float fTimeDelta) override;
+
     _bool m_bShootState = false;
     _bool m_bShooting=false;
     virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;

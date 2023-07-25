@@ -56,7 +56,7 @@ HRESULT CTrashBummer::Ready_Object(void)
 
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
 	Set_Speed(4.f);
-	Set_State(MONSTER_STATE::IDLE);
+	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
 	m_tStat = { 3,3,1 };
 	m_fMinHeight = 0.5f;
@@ -214,6 +214,11 @@ void CTrashBummer::Update_Die(_float fTimeDelta)
 
 void CTrashBummer::Update_Regen(_float fTimeDelta)
 {
+	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
+	{
+		Set_State(MONSTER_STATE::IDLE);
+		m_bShoot = true;
+	}
 }
 
 void CTrashBummer::Update_Move(_float fTimeDelta)

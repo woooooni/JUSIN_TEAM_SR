@@ -22,7 +22,7 @@ class CTrashPrist :
         virtual _int	Update_Object(const _float& fTimeDelta)		override;
         virtual void Render_Object(void) override;
         virtual void	LateUpdate_Object(void)						override;
-        void Summon_Monster();
+
         HRESULT	Add_Component(void);
     public:
         static  CTrashPrist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -31,6 +31,8 @@ class CTrashPrist :
         _int  m_iCount;
         _vec3 m_vDst = { 0.f,0.f,0.f };
         virtual void Trace(_float fTimeDelta) override;
+
+        void Summon_Monster(_float fTimeDelta);
 
         virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 

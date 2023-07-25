@@ -81,8 +81,8 @@ CJellyBombCreator* CJellyBombCreator::Create(LPDIRECT3DDEVICE9 p_Dev,	CJellyBomb
 	ret->m_pJellyBomb = pBomb;
 	Add_Subscribe(pBomb->Get_EventNum(), ret);
 
-	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
-	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.005, p_Pos.z));
+	ret->m_pTransformCom->RotationAxis({ 1.f, 0.f, 0.f }, D3DXToRadian(90.f));
+	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.005f, p_Pos.z));
 
 	return ret;
 }

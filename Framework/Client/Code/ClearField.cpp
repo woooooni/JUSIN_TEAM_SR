@@ -87,6 +87,12 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
     if (m_fFrame >= 15.f || m_fExistTime >= 5.f)
     {
         Engine::DeleteObjEvt(this);
+        CPool<CClearField>::Return_Obj(this);
+        m_fFrame = 0.f;
+        m_fMaxFrame = 0.f;
+        m_bCreating = true;
+        m_fExistTime = 0.f;
+        m_pAnimator->Play_Animation(L"Appear", false);
     }
     else
     {

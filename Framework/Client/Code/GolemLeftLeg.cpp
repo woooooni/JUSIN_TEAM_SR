@@ -139,17 +139,11 @@ void CGolemLeftLeg::Update_Die(_float fTimeDelta)
 
 void CGolemLeftLeg::Update_Regen(_float fTimeDelta)
 {
-	_vec3 vDir, vPos;
-	vDir = { 0,1 ,0 };
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	if (m_vOffset.y >= 0.25f)
+		m_vOffset.y -= fTimeDelta;
 
-	if (vPos.y > 2.f)
-	{
+	
 
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
-	}
 }
 CGolemLeftLeg* CGolemLeftLeg::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

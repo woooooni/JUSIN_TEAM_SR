@@ -272,7 +272,7 @@ void CMothMage::Update_Attack(_float fTimeDelta)
 	vDir = vTargetPos - vPos;
 	vDir.y = 0.f;
 	m_vLook = vDir;
-	if (D3DXVec3Length(&vDir) > 7.f && !m_bShoot)
+	if (D3DXVec3Length(&vDir) > 7.f && !m_bShoot && !m_bSummonedByPrist)
 	{
 		m_bShooting = false;
 		Set_State(MONSTER_STATE::IDLE);

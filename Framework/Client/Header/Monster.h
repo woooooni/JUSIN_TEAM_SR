@@ -46,6 +46,7 @@ public:
 	virtual void Trace(_float fTimeDelta) PURE;
 
 	void		Set_Stun(_float _fStunTime);
+	void Set_Summoned_By_Prist(_bool _bSummonedByPrist) { m_bSummonedByPrist = _bSummonedByPrist; }
 
 public:
 	virtual void Update_Idle(_float fTimeDelta)		PURE;
@@ -63,7 +64,7 @@ protected:
 	CGameObject*	m_pTarget;
 	MONSTERSTAT		m_tStat;
 	_bool m_bPushable = true;
-
+	_bool m_bSummonedByPrist = false;
 	CUI_MonsterHP*	m_pUIBack;
 	CUI_MonsterHP*	m_pUIFrame;
 	CUI_MonsterHP*	m_pUIGauge;

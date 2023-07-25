@@ -28,11 +28,12 @@ class CTrashBig :
 
         HRESULT	Add_Component(void);
     public:
-        static  CTrashBig* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+        static  CTrashBig* Create(LPDIRECT3DDEVICE9 pGraphicDev);      
+        virtual void Trace(_float fTimeDelta) override;
     private:
         _float m_fMoveTime;
         _vec3 m_vDst = { 0.f,0.f,0.f };
-        virtual void Trace(_float fTimeDelta) override;
+
         _bool m_bJump = false;
         virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 

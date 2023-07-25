@@ -27,7 +27,7 @@ HRESULT CSludgeWave::Ready_Object(void)
 	m_pTransformCom->Set_Pos(&_vec3(-2.0f,0.01f, -2.0f));	
 
 	m_pTransformCom->Set_Scale({ 3.0f, 1.f, 1.f });
-
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 3.f, 1.f, 1.f });
 	return S_OK;
 }
 
@@ -126,7 +126,7 @@ void CSludgeWave::Create_Wave()
 	_vec3 vPos;
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos.z -= 0.25f;
+	vPos.z -= 0.5f;
 	vPos.y +=  0.001f;
 	CSludgeWave* pSludgeWave = CSludgeWave::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSludgeWave, );

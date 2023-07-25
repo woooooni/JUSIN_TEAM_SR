@@ -232,6 +232,7 @@
     <ClInclude Include="..\Header\Effect_Stun.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\Effect_MothFlyLine.h" />
     <ClInclude Include="..\Header\FistEffect.h" />
     <ClInclude Include="..\Header\FixedObj.h" />
     <ClInclude Include="..\Header\FloorDoor.h" />
@@ -463,6 +464,7 @@
     <ClCompile Include="..\Code\Effect_Stun.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\Effect_MothFlyLine.cpp" />
     <ClCompile Include="..\Code\FistEffect.cpp" />
     <ClCompile Include="..\Code\FixedObj.cpp" />
     <ClCompile Include="..\Code\FloorDoor.cpp" />

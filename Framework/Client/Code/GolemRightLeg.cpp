@@ -125,8 +125,7 @@ void CGolemRightLeg::Update_Die(_float fTimeDelta)
 
 void CGolemRightLeg::Update_Regen(_float fTimeDelta)
 {
-
-
+		m_vOffset.y -= fTimeDelta;
 }
 CGolemRightLeg* CGolemRightLeg::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

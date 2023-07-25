@@ -39,18 +39,22 @@ public:
 
 private:
     _float m_fMoveTime;
+    _float m_fEffectCoolTime =0.f;
     _vec3 m_vDst = { 0.f,0.f,0.f };
     _vec3 m_vDir = { 0.f,0.f,0.f };
     _bool m_bShoot = true;
-    _float m_fAngle = 0.f;
-    _vec3 m_vAxis;
      void Trace(_float fTimeDelta);
-     CGameObject* m_pTarget;
+     void Create_Effect(_vec3 vPos);
+     void Create_Line();
+     void Create_NueFlower();
     void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+    CGameObject* m_pNueFlower[6] = {};
+    CGameObject* m_pTarget = nullptr;
+    CGameObject* m_pLine = nullptr;
     MONSTERSTAT m_tStat;
     SILKWORM_STATE	m_eState;
     _bool m_bPhase2 =false ;
-    _bool m_bRotate = false;
+    _bool m_bRotate[3] = {};
     _float			m_fSpeed = 7.f;
     _vec3 m_vRandomPos[8] = {};
     _int m_iHit = 0;

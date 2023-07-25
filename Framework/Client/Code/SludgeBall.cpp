@@ -64,7 +64,8 @@ _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 		{
 			m_pAnimator->GetCurrAnimation()->Set_Idx(1);
 		}
-		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 7.5f);
+		
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir, &vDir), fTimeDelta, 7.5f);
 
 		m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ m_vDst.x,0.01f,m_vDst.z });
 		m_pMonsterAim->Set_Red(0);
