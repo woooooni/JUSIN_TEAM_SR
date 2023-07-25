@@ -41,10 +41,7 @@ _int CEffect_MothFlyLine::Update_Object(const _float& fTimeDelta)
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_EFFECT);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	_vec3 vPos;
-	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-	vPos.y = 0.09f;
-	m_pTransformCom->Set_Pos(&vPos);
+	m_pTransformCom->Move_Pos(&m_vDir, 20.f, fTimeDelta);
 	return iExit;
 }
 

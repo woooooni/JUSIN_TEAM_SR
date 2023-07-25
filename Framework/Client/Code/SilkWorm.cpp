@@ -45,7 +45,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_bPhase2 = false;
 	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Idle", false);
 	Set_State(SILKWORM_STATE::IDLE);
-	_float fiInterval = 12.5f;
+	_float fiInterval = 20.f;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vOrigin = vPos;
@@ -257,6 +257,7 @@ void CSilkWorm::Update_Ready(_float fTimeDelta)
 			m_pTransformCom->Get_Info(INFO_POS, &vPos);
 			vDir = vTargetPos - vPos;
 			m_vDir = vTargetPos - vPos;
+			Create_Line();
 		}
 		else
 		{
@@ -381,7 +382,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				pLayer->Add_GameObject(L"GreenBeatle", pGreenBeatle);
 				m_bSpawn = true;
 			}
-			Create_Line();
+			
 		}
 	}
 }
@@ -507,6 +508,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
+		Create_Line();
 	}
 	 if (false==(m_pBeatles[ m_eCOLORPATTERN]->Is_Active()))
 	{
@@ -589,11 +591,14 @@ void CSilkWorm::Create_Line()
 	_vec3 vPos, vUp, vLook, vRight;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vPos.y = 0.09f;
+	m_vDir.y = 0.f;
+	D3DXVec3Normalize(&m_vDir, &m_vDir);
+	dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_Dir(m_vDir);
 	m_pLine->Get_TransformCom()->Set_Pos(&vPos);
 	m_pLine->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
 	m_pLine->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
 	m_pLine->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
-	m_vDir.y = 0.f;
+
 	float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&m_vDir, &m_vDir), D3DXVec3Normalize(&vUp, &-vUp)));
 	if (D3DXVec3Dot(&vRight, &m_vDir) > 0)
 	{
