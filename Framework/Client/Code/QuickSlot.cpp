@@ -71,7 +71,6 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 	m_vecSlots[SLOT_THREE]->Update_Object(fTimeDelta);
 	m_vecSlots[SLOT_FOUR]->Update_Object(fTimeDelta);
 
-
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -108,14 +107,17 @@ HRESULT CQuickSlot::Add_Slot(void)
 
 void CQuickSlot::Set_Item(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType)
 {
-
 	dynamic_cast<CUI_SlotItems*> (m_vecSlots[(_uint)_eSlotNum])->Set_ItemCode(_eCodeType);
 }
 
 _bool CQuickSlot::Get_Filled(SLOTNUM _eSlotNum)
 {
 	return dynamic_cast<CUI_SlotItems*> (m_vecSlots[(_uint)_eSlotNum])->Get_Filled();
+}
 
+const ITEM_CODE& CQuickSlot::Get_ItemCode(SLOTNUM _eSlotNum)
+{
+	return dynamic_cast<CUI_SlotItems*> (m_vecSlots[(_uint)_eSlotNum])->Get_ItemCode();
 }
 
 CQuickSlot* CQuickSlot::Create(LPDIRECT3DDEVICE9 pGraphicDev)

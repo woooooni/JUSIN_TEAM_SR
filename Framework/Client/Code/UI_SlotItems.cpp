@@ -43,7 +43,6 @@ HRESULT CUI_SlotItems::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
 
-
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
@@ -85,50 +84,37 @@ void CUI_SlotItems::Render_Object(void)
 				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 	m_pTransformCom->Set_Pos(&vPos);
 
-	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-
 	fRatio = _float(WINCY) / _float(WINCX);
 	vScale = _vec3(m_tInfo.fCX * fRatio * 0.5f, m_tInfo.fCY * fRatio * 0.5f, 0.f);
 
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-	m_pAnimator->Render_Component();
-	m_pBufferCom->Render_Buffer();
-
 	if (m_eCode != ITEM_CODE::ITEM_END)
 	{
 		m_pTextureCom->Render_Texture(0);
 		m_pBufferCom->Render_Buffer();
-
 	}
+
+	// Slot Render
+	_vec3 vSlotScale = _vec3(m_tInfo.fCX * fRatio * 0.83f, m_tInfo.fCY * fRatio * 0.83f, 0.f);
+
+	m_pTransformCom->Set_Scale(vSlotScale);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pAnimator->Render_Component();
+	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	// 아이템 개수
-//	for (_uint i = 0;
-//		i < CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx).size(); ++i)
-//	{
-//		auto iter = Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD);
-//		RECT rc = { (i % 5) * 115.f + 310.f + 30.f , (i / 5) * 115.f + 310.f + 30.f, (i % 5) * 115.f + 310.f + 40.f , (i / 5) * 115.f + 310.f + 40.f };
-//		wstring tmp = to_wstring(CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[i]->Get_InvenCount());
-//
-//		if (tmp == L"1")
-//			continue;
-//
-//		iter->DrawTextW(NULL, tmp.c_str(), tmp.length(), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE, D3DCOLOR_ARGB(255, 255, 255, 255));
-//	}
 }
 
 void CUI_SlotItems::Set_SlotNum(SLOTITEM_NUM eNum)
 {
 	m_eSlotNum = eNum;
 
-	m_tInfo.fX = -536.f + (_uint)eNum * 80;
+	m_tInfo.fX = -536.f + (_uint)eNum * 78;
 	m_tInfo.fY = -320.f;
-
 }
 
 void CUI_SlotItems::Set_ItemCode(const ITEM_CODE& pCOde)

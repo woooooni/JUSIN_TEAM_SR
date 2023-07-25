@@ -62,6 +62,8 @@ public:
 
 	void		Set_InInven() { m_bIsInInven = true; }
 
+	CTexture* Get_Texture();
+
 protected:
 	virtual HRESULT	Add_Component(void);
 

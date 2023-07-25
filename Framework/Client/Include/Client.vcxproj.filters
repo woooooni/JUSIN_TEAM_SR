@@ -631,6 +631,9 @@
     <Filter Include="02. GameObject\04. UI\11. Inven">
       <UniqueIdentifier>{e4bfcc87-0123-4dbf-8771-0be3b8fcc18c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\01. SlotItems">
+      <UniqueIdentifier>{5f80a0c3-34ce-4210-9cf0-058725e96ff4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1291,8 +1294,12 @@
     <ClInclude Include="..\Header\InventoryUI.h">
       <Filter>02. GameObject\04. UI\11. Inven</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\DefenceEnter.h" />
+    <ClInclude Include="..\Header\Effect_MothFlyLine.h" />
+    <ClInclude Include="..\Header\MonsterSpawner.h" />
+    <ClInclude Include="..\Header\Nexus.h" />
     <ClInclude Include="..\Header\UI_SlotItems.h">
-      <Filter>02. GameObject\04. UI\11. Inven</Filter>
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\01. SlotItems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1916,8 +1923,12 @@
     <ClCompile Include="..\Code\InventoryUI.cpp">
       <Filter>02. GameObject\04. UI\11. Inven</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\DefenceEnter.cpp" />
+    <ClCompile Include="..\Code\Effect_MothFlyLine.cpp" />
+    <ClCompile Include="..\Code\MonsterSpawner.cpp" />
+    <ClCompile Include="..\Code\Nexus.cpp" />
     <ClCompile Include="..\Code\UI_SlotItems.cpp">
-      <Filter>02. GameObject\04. UI\11. Inven</Filter>
+      <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\01. SlotItems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
