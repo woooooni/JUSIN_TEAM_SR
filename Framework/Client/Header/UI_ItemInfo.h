@@ -51,9 +51,12 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+
+	HRESULT			Set_Item(CItem* pItem);
+
 private:
 	HRESULT			Add_Component(void);
-	void			Set_Type(SHOPITEMTYPE eType);
+	void			Set_Type(SHOPITEMTYPE eType, const _uint& _ePrice = 1);
 	void			Set_Cursor(_uint _iX, _uint _iY)
 	{
 		m_iCursorX = _iX;
@@ -61,10 +64,11 @@ private:
 	}
 	void			Key_Input();
 
+
 private:
 	tagShopItemInfo		m_tItemInfo;
 	_vec3				m_vDefaultPos;
-	_bool				m_bShown = false;
+	_bool				m_bShown = true;
 	_bool				m_bCursorMove = false;
 	_uint				m_iCursorX = 0;
 	_uint				m_iCursorY = 0;
