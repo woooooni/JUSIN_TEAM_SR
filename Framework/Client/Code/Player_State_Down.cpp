@@ -18,6 +18,7 @@ HRESULT CPlayer_State_Down::Ready_State(void)
     m_pOwner->SetObj_Dir(OBJ_DIR::DIR_D);
     dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Down", FALSE);
 
+    dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
     return S_OK;
 }
 

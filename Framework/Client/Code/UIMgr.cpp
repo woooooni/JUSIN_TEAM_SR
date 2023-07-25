@@ -57,7 +57,7 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 
    //m_pDialog->Update_Object(fTimeDelta);
     m_pHpBar->Update_Object(fTimeDelta);
-   m_pShop->Update_Object(fTimeDelta);
+  // m_pShop->Update_Object(fTimeDelta);
 
    //m_pShortCutKey->Update_Object(fTimeDelta);
 

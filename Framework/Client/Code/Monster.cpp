@@ -144,19 +144,23 @@ void CMonster::Set_Stun(_float _fStunTime)
 {
 	m_fStunTime = _fStunTime;
 
-	m_eState = MONSTER_STATE::STUN;
-
-	CGameObject* pEffect = CPool<CEffect_Stun>::Get_Obj();
-
-	if (!pEffect)
+	if (m_eState == MONSTER_STATE::STUN)
+		return;
+	else
 	{
-		pEffect = CEffect_Stun::Create(m_pGraphicDev);
-		pEffect->Ready_Object();
+		m_eState = MONSTER_STATE::STUN;
+
+		CGameObject* pEffect = CPool<CEffect_Stun>::Get_Obj();
+
+		if (!pEffect)
+		{
+			pEffect = CEffect_Stun::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		_float fScaleY = m_pTransformCom->Get_Scale().y * 0.5f;
+		dynamic_cast<CEffect_Stun*>(pEffect)->Get_Effect(this, _vec3(0.0f, fScaleY * 1.0f, 0.0f), _vec3(1.0f, 0.5f, 1.0f), &m_fStunTime);
+
 	}
-	_float fScaleY = m_pTransformCom->Get_Scale().y * 0.5f;
-	dynamic_cast<CEffect_Stun*>(pEffect)->Get_Effect(this, _vec3(0.0f, fScaleY * 1.0f, 0.0f), _vec3(1.0f, 0.5f, 1.0f), &m_fStunTime);
-
-
 }
 
 void CMonster::Set_DefenceMode(CGameObject* _pTarget)

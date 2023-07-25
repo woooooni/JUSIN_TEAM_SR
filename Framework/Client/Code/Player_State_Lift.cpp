@@ -556,7 +556,7 @@ void CPlayer_State_Lift::Update_Hat_LiftUp()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftUp[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 
@@ -800,7 +800,7 @@ void CPlayer_State_Lift::Update_Hat_LiftIdle()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftIdle[(_uint)m_pOwner->GetObj_Dir()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 
@@ -849,7 +849,7 @@ void CPlayer_State_Lift::Update_Hat_LiftWalk()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftWalk[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 
@@ -1145,7 +1145,7 @@ void CPlayer_State_Lift::Update_Hat_LiftDown()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftDown[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 

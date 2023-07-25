@@ -37,11 +37,27 @@ HRESULT CNexus::Ready_Object(void)
 	m_fMinHeight = 0.2f;
 
 	m_fDefenceAccTime = 0.0f;
-	m_fDefenceTime = 30.0f;
+	m_fDefenceTime = 60.0f;
 
 	m_iMaxHp = m_iHp = 100;
 	m_iAlpha = 255;
 
+	CGameObject* pHpBar = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	NULL_CHECK_RETURN(pHpBar, E_FAIL);
+	m_vecHpBar.push_back(pHpBar);
+
+	pHpBar = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	NULL_CHECK_RETURN(pHpBar, E_FAIL);
+	m_vecHpBar.push_back(pHpBar);
+
+	pHpBar = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	NULL_CHECK_RETURN(pHpBar, E_FAIL);
+	m_vecHpBar.push_back(pHpBar);
+
+	for (auto& iter : m_vecHpBar)
+	{
+		dynamic_cast<CUI_BossHP*>(iter)->Set_Name(BOSSNAME::NEXUS);
+	}
 
 	return S_OK;
 }
@@ -57,6 +73,14 @@ _int CNexus::Update_Object(const _float& fTimeDelta)
 	if (m_bStart && !m_bClear)
 	{
 		m_fDefenceAccTime += fTimeDelta;
+
+		for (auto& iter : m_vecHpBar)
+		{
+			iter->Set_Active(true);
+			dynamic_cast<CUI_BossHP*>(iter)->Update_Object(fTimeDelta);
+		}
+
+		
 
 		if (!m_bFail && m_fDefenceAccTime >= m_fDefenceTime)
 		{
@@ -170,6 +194,14 @@ _int CNexus::Update_Object(const _float& fTimeDelta)
 
 void CNexus::LateUpdate_Object(void)
 {
+	if (m_bStart && !m_bClear)
+	{
+		for (auto& iter : m_vecHpBar)
+		{
+			dynamic_cast<CUI_BossHP*>(iter)->LateUpdate_Object();
+		}
+	}
+
 	__super::LateUpdate_Object();
 }
 
@@ -177,6 +209,19 @@ void CNexus::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
+
+	if (m_bStart && !m_bClear)
+	{
+		RECT rc = { WINCX / 2 - 50 + 1 , 60 , WINCX / 2 + 50 + 1 , 160 };
+		wstring szBuf;
+		szBuf = to_wstring(m_fDefenceTime - m_fDefenceAccTime);
+		szBuf = szBuf.substr(0, 5);
+
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+			szBuf.c_str(), INT(szBuf.size()), &rc, DT_LEFT | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	}
+
 
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
 
@@ -276,6 +321,8 @@ void CNexus::Start_Defence()
 	{
 		dynamic_cast<CMonsterSpawner*>(iter)->Set_Spawn(true);
 	}
+
+	
 }
 
 void CNexus::Reset_Defence()
