@@ -118,7 +118,7 @@ void CIcon::Render_Object(void)
 
 	case ICONTYPE::KEYBUTTON_3:
 		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY  / WINCY) * (1 / m_matProj._22), 0.f };
+				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		fRatio = _float(WINCY) / _float(WINCX);
@@ -293,7 +293,7 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -434.5f;
+		m_tInfo.fX = -432.6f;
 		m_tInfo.fY = -345.f;
 		break;
 
@@ -303,7 +303,7 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -358.f;
+		m_tInfo.fX = -354.2f;
 		m_tInfo.fY = -345.f;
 		break;
 
@@ -313,7 +313,7 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -282.f;
+		m_tInfo.fX = -277.f;
 		m_tInfo.fY = -345.f;
 		break;
 

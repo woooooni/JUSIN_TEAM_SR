@@ -81,6 +81,11 @@ _bool CItem::Check_Clicked()
 	return false;
 }
 
+CTexture* CItem::Get_Texture()
+{
+	return m_pTextureCom;
+}
+
 HRESULT CItem::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;

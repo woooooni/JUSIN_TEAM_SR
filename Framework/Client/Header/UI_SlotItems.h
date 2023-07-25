@@ -23,14 +23,15 @@ public:
 	virtual void		Render_Object(void) override;
 
 public:
-	void	Set_SlotNum(SLOTITEM_NUM eNum);
-	void	Set_ItemCode(const ITEM_CODE& pCOde);
-	const _bool& Get_Filled() {
-		return m_bFilledSlot;
-	}
-	void	Set_Filled(const _bool& pB) { m_bFilledSlot = pB; }
+	void			 Set_SlotNum(SLOTITEM_NUM eNum);
 
-	HRESULT Use_Item();
+	const ITEM_CODE& Get_ItemCode() { return m_eCode; }
+	void			 Set_ItemCode(const ITEM_CODE& pCOde);
+
+	const _bool&	 Get_Filled() { return m_bFilledSlot;}
+	void			 Set_Filled(const _bool& pB) { m_bFilledSlot = pB; }
+
+	HRESULT			 Use_Item();
 
 private:
 	HRESULT	Add_Component(void);
@@ -38,10 +39,8 @@ private:
 public:
 	SLOTITEM_NUM m_eSlotNum;
 
-
 private:
-	_bool	m_bFilledSlot = false;
-
+	_bool		m_bFilledSlot = false;
 	ITEM_CODE	m_eCode;
 
 public:

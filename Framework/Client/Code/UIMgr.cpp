@@ -1,9 +1,9 @@
 #include "Export_Function.h"
 #include "UIMgr.h"
 #include "Pool.h"
-#include    "Item_Hat_Drill.h"
-#include    "Item_Hat_Light.h"
-#include    "Item_Hat_Mask.h"
+#include  "Item_Hat_Drill.h"
+#include  "Item_Hat_Light.h"
+#include  "Item_Hat_Mask.h"
 
 
 IMPLEMENT_SINGLETON(CUIMgr)
@@ -58,10 +58,11 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
    //m_pDialog->Update_Object(fTimeDelta);
     m_pHpBar->Update_Object(fTimeDelta);
    m_pShop->Update_Object(fTimeDelta);
+
    //m_pShortCutKey->Update_Object(fTimeDelta);
 
     //m_pItemWindow->Update_Object(fTimeDelta);
-
+    m_pQuickSlot->Update_Object(fTimeDelta);
     // m_pCurrentUI->Update_Object(fTimeDelta);
 
     m_vecIcon[PLAYERHP_FRAME]->Update_Object(fTimeDelta);
@@ -83,9 +84,6 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     {
         m_pInventory->Update_Object(fTimeDelta);
     }
-
-
-     m_pQuickSlot->Update_Object(fTimeDelta);
 }
 
 void CUIMgr::Late_Update_UIMgr()
@@ -97,12 +95,16 @@ void CUIMgr::Late_Update_UIMgr()
 
    //m_pDialog->LateUpdate_Object();
     m_pHpBar->LateUpdate_Object();
-   //m_pShop->LateUpdate_Object();
+   m_pShop->LateUpdate_Object();
    //m_pShortCutKey->LateUpdate_Object();
     m_pQuickSlot->LateUpdate_Object();
     //m_pItemWindow->LateUpdate_Object();
 
     // m_pCurrentUI->LateUpdate_Object();
+    if (m_bUpdateUI)
+    {
+        m_pInventory->LateUpdate_Object();
+    }
 
     m_vecIcon[PLAYERHP_FRAME]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_1]->LateUpdate_Object();
@@ -110,11 +112,6 @@ void CUIMgr::Late_Update_UIMgr()
     m_vecIcon[KEYBUTTON_3]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_4]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_L]->LateUpdate_Object();
-
-    if (m_bUpdateUI)
-    {
-        m_pInventory->LateUpdate_Object();
-    }
 
 }
 
