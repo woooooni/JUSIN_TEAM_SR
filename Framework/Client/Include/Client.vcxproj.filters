@@ -631,6 +631,45 @@
     <Filter Include="02. GameObject\04. UI\11. Inven">
       <UniqueIdentifier>{e4bfcc87-0123-4dbf-8771-0be3b8fcc18c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest">
+      <UniqueIdentifier>{6b4421f5-a9a1-4b27-b288-2cd19c396285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Hunting">
+      <UniqueIdentifier>{2aa5e87d-bcfe-4eb4-b6ee-523860ce4a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Conversation">
+      <UniqueIdentifier>{7ba07604-3d80-4eb0-8873-f117b6690c5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests">
+      <UniqueIdentifier>{b714c822-78e9-46fe-a786-9c2495350547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\00">
+      <UniqueIdentifier>{3abaff4a-2a19-414a-bab5-a7f4ea2339f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\01">
+      <UniqueIdentifier>{c5bd919d-b925-4f81-9051-2345a8b49ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\02">
+      <UniqueIdentifier>{3de7c9a3-0a0a-4505-863d-62e3f976ecd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\03">
+      <UniqueIdentifier>{40bdbfb7-be12-4f74-a9bf-f7ad5ee06847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\04">
+      <UniqueIdentifier>{28cf479d-9747-4163-ae43-a4975f9e1423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\05">
+      <UniqueIdentifier>{a93ca53d-21d0-4af0-8319-39e77157e3d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\06">
+      <UniqueIdentifier>{93daa4e5-cf26-4971-9c6f-cb2f2bbddb74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\Sub">
+      <UniqueIdentifier>{163197c4-0044-4a9b-bbcf-0fc2be183e1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\07">
+      <UniqueIdentifier>{05ce5a9f-7430-43e6-9479-77baf516a52a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1170,9 +1209,6 @@
     </ClInclude>
     <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
     <ClInclude Include="..\Header\Test_Cube.h" />
-    <ClInclude Include="..\Header\Quest.h">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CParticle_Stone.h">
       <Filter>02. GameObject\17. Particle\03. Stone</Filter>
     </ClInclude>
@@ -1293,6 +1329,46 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_SlotItems.h">
       <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\DefenceEnter.h" />
+    <ClInclude Include="..\Header\Effect_MothFlyLine.h" />
+    <ClInclude Include="..\Header\MonsterSpawner.h" />
+    <ClInclude Include="..\Header\Nexus.h" />
+    <ClInclude Include="..\Header\Quest.h">
+      <Filter>98. Manager\04. Quest\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_Hunting.h">
+      <Filter>98. Manager\04. Quest\Quest\Hunting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_Conversation.h">
+      <Filter>98. Manager\04. Quest\Quest\Conversation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_Cow1.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\01</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_Sheep.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\00</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_Cow2.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\02</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_MonkeyCheif1.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\03</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_MonkeyCheif2.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\04</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_MonkeyCheif3.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\05</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_Artist1.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\Sub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_NueHero1.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\06</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_NueHero2.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\07</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1819,9 +1895,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
     <ClCompile Include="..\Code\Test_Cube.cpp" />
-    <ClCompile Include="..\Code\Quest.cpp">
-      <Filter>98. Manager\04. Quest</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CParticle_Stone.cpp">
       <Filter>02. GameObject\17. Particle\03. Stone</Filter>
     </ClCompile>
@@ -1918,6 +1991,46 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_SlotItems.cpp">
       <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DefenceEnter.cpp" />
+    <ClCompile Include="..\Code\Effect_MothFlyLine.cpp" />
+    <ClCompile Include="..\Code\MonsterSpawner.cpp" />
+    <ClCompile Include="..\Code\Nexus.cpp" />
+    <ClCompile Include="..\Code\Quest.cpp">
+      <Filter>98. Manager\04. Quest\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_Hunting.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Hunting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_Conversation.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Conversation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_Cow1.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\01</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_Sheep.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\00</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_Cow2.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\02</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_MonkeyCheif1.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\03</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_MonkeyCheif2.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\04</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_MonkeyChief3.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\05</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_Artist1.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\Sub</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_NueHero1.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\06</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_NueHero2.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\07</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

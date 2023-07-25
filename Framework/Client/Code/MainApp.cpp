@@ -6,6 +6,7 @@
 #include "ImGuiMgr.h"
 #include "GameMgr.h"
 #include "LightMgr.h"
+#include "QuestMgr.h"
 
 #include "Player_Bullet_Lightning.h"
 #include "Player_Bullet_Bomb.h"
@@ -184,10 +185,10 @@ HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_SoundMgr(), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_EventMgr(), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Font(pGraphicDev), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_PickingMgr(pGraphicDev, g_hWnd), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_KeyMgr(pGraphicDev, g_hWnd), E_FAIL);
-	FAILED_CHECK_RETURN(Ready_CollisionMgr(pGraphicDev), E_FAIL);
-
+	FAILED_CHECK_RETURN(Engine::Ready_PickingMgr(pGraphicDev, g_hWnd), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_KeyMgr(pGraphicDev, g_hWnd), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_CollisionMgr(pGraphicDev), E_FAIL);
+	FAILED_CHECK_RETURN(CQuestMgr::GetInstance()->Ready_QuestMgr(), E_FAIL);
 	return S_OK;
 }
 
