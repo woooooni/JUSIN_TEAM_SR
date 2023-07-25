@@ -45,7 +45,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_bPhase2 = false;
 	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Idle", false);
 	Set_State(SILKWORM_STATE::IDLE);
-	_float fiInterval = 20.f;
+	_float fiInterval = 25.f;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_vOrigin = vPos;
@@ -217,6 +217,8 @@ void CSilkWorm::Update_Regen(_float fTimeDelta)
 			m_pTransformCom->Get_Info(INFO_POS, &vPos);
 			vDir = vTargetPos - vPos;
 			m_vDir = vTargetPos - vPos;
+			Create_Line();
+			Create_NueFlower();
 			m_pAnimator->Play_Animation(L"BugBoss_Phase2_Attack", false);
 			Set_State(SILKWORM_STATE::ATTACK);
 		}
@@ -590,11 +592,14 @@ void CSilkWorm::Create_Line()
 	}
 	_vec3 vPos, vUp, vLook, vRight;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos.y = 0.09f;
+	vPos.y = 0.09f;	
+	m_pLine->Get_TransformCom()->Set_Pos(&vPos);
 	m_vDir.y = 0.f;
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
-	dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_Dir(m_vDir);
+	vPos -= m_vDir * 35.f;
 	m_pLine->Get_TransformCom()->Set_Pos(&vPos);
+	vPos += m_vDir * 70.f;
+	dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_Dst(vPos);
 	m_pLine->Get_TransformCom()->Get_Info(INFO_UP, &vUp);
 	m_pLine->Get_TransformCom()->Get_Info(INFO_LOOK, &vLook);
 	m_pLine->Get_TransformCom()->Get_Info(INFO_RIGHT, &vRight);
@@ -614,13 +619,13 @@ void CSilkWorm::Create_NueFlower()
 	_vec3 vDir, vFlowerDir,vFlowerPos,vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	_matrix matRot;
+	vDir = { 1.f,0.f,0.f };
 	for (int i = 0; i < 6; i++)
 	{
 		
-		_vec3 vPos, vUp, vLook, vRight;
 		D3DXVec3TransformNormal(&vFlowerDir, &vDir, D3DXMatrixRotationY(&matRot, D3DXToRadian((float)i * 60.f)));
-		vFlowerPos = vPos - vFlowerDir * 3.f;
-		m_pNueFlower[i] = CNueFlower::Create(m_pGraphicDev, vFlowerPos);
+
+		m_pNueFlower[i] = CNueFlower::Create(m_pGraphicDev, vPos, vFlowerDir,2.f,25.f);
 		NULL_CHECK_RETURN(m_pNueFlower[i], );
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::EFFECT);
 		pLayer->Add_GameObject(L"NueFlower", m_pNueFlower[i]);
