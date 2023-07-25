@@ -78,9 +78,6 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 
 
      m_pQuickSlot->Update_Object(fTimeDelta);
-
-
-
 }
 
 void CUIMgr::Late_Update_UIMgr()

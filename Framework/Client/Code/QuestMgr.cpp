@@ -27,7 +27,6 @@ void CQuestMgr::Update_QuestMgr(_float& fTimeDelta)
     {
         for (size_t idx = 0; idx < m_vecQuestList[i].size(); ++idx)
             m_vecQuestList[i][idx]->Update_Quest(fTimeDelta);
-
     }
 }
 
