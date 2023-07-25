@@ -628,6 +628,9 @@
     <Filter Include="02. GameObject\06. FieldObj\08. TriggerObj">
       <UniqueIdentifier>{c47fb144-2729-4206-8425-c38ee0d7975d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\11. Inven">
+      <UniqueIdentifier>{e4bfcc87-0123-4dbf-8771-0be3b8fcc18c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1132,8 +1135,6 @@
     <ClInclude Include="..\Header\UI_SlotTwo.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\InvenTabButton.h" />
-    <ClInclude Include="..\Header\InventoryUI.h" />
     <ClInclude Include="..\Header\Door.h">
       <Filter>02. GameObject\11. FixedObj</Filter>
     </ClInclude>
@@ -1283,6 +1284,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\TriggerObj.h">
       <Filter>02. GameObject\06. FieldObj\08. TriggerObj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\InvenTabButton.h">
+      <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\InventoryUI.h">
+      <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_SlotItems.h">
+      <Filter>02. GameObject\04. UI\11. Inven</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1774,8 +1784,6 @@
     <ClCompile Include="..\Code\UI_SlotTwo.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\01. QuickSlot\00. Slot</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\InvenTabButton.cpp" />
-    <ClCompile Include="..\Code\InventoryUI.cpp" />
     <ClCompile Include="..\Code\Door.cpp">
       <Filter>02. GameObject\11. FixedObj</Filter>
     </ClCompile>
@@ -1901,6 +1909,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\TriggerObj.cpp">
       <Filter>02. GameObject\06. FieldObj\08. TriggerObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\InvenTabButton.cpp">
+      <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\InventoryUI.cpp">
+      <Filter>02. GameObject\04. UI\11. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_SlotItems.cpp">
+      <Filter>02. GameObject\04. UI\11. Inven</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
