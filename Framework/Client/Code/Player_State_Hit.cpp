@@ -65,6 +65,10 @@ HRESULT CPlayer_State_Hit::Ready_State(void)
 
 	m_pOwner->Get_RigidBodyCom()->AddForce(vDir * 80.0f);
 
+	dynamic_cast<CPlayer*>(m_pOwner)->Minus_Hp(1);
+	
+
+
 	return S_OK;
 }
 
@@ -78,8 +82,16 @@ void CPlayer_State_Hit::LateUpdate_State(void)
 	if (dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Is_Finished())
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
-		dynamic_cast<CPlayer*>(m_pOwner)->Set_Invincible();
+		
+		if (dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerStat().iHp <= 0)
+		{
+			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DOWN);
+		}
+		else
+		{
+			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
+			dynamic_cast<CPlayer*>(m_pOwner)->Set_Invincible();
+		}
 	}
 
 	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())

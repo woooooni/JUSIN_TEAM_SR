@@ -409,6 +409,9 @@ void CLoading::Free()
 
 HRESULT CLoading::Load_Texture()
 {
+	thread tLoadEnvironment(&CLoading::Ready_Environment_Texture, this);
+	thread tLoadEnvironment2(&CLoading::Ready_Environment_Texture2, this);
+	thread tLoadEnvironment3(&CLoading::Ready_Environment_Texture3, this);
 	thread tLoadPlayer(&CLoading::Ready_Player_Texture, this);
 	thread tLoadMonster(&CLoading::Ready_Monster_Texture, this);
 	thread tLoadBoss(&CLoading::Ready_Boss_Texture, this);
@@ -416,9 +419,6 @@ HRESULT CLoading::Load_Texture()
 	thread tLoadItem(&CLoading::Ready_Item_Texture, this);
 	thread tLoadEffect(&CLoading::Ready_Effect_Texture, this);
 	thread tLoadInteractionObj(&CLoading::Ready_InteractionObj_Texture, this);
-	thread tLoadEnvironment(&CLoading::Ready_Environment_Texture, this);
-	thread tLoadEnvironment2(&CLoading::Ready_Environment_Texture2, this);
-	thread tLoadEnvironment3(&CLoading::Ready_Environment_Texture3, this);
 	thread tLoadTerrain(&CLoading::Ready_Terrain_Texture, this);
 	thread tLoadNPC(&CLoading::Ready_NPC_Texture, this);
 
@@ -1300,7 +1300,6 @@ HRESULT CLoading::Ready_NPC_Texture()
 
 HRESULT CLoading::Ready_Pool()
 {
-
 	CPool<CParticle_FixedLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CParticle_MovingLeaf>::Ready_Pool(m_pGraphicDev, 1000);
 	CPool<CEffect_Leaf>::Ready_Pool(m_pGraphicDev, 20);

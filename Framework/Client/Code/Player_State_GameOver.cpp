@@ -25,6 +25,7 @@ _int CPlayer_State_GameOver::Update_State(const _float& fTimeDelta)
 	if (dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Is_Finished())
 	{
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->GetCurrAnimation()->Set_Finished(false);
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerStat().iHp = dynamic_cast<CPlayer*>(m_pOwner)->Get_PlayerStat().iMaxHp;
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_U);
 	}

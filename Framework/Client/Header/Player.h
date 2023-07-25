@@ -140,6 +140,8 @@ public:
 	void			Set_Aim(CGameObject* _pObj) { m_pAim = _pObj; }
 
 	//ป๓ลย
+	PLAYER_STATE	Get_State() { return m_eState; }
+
 	bool			Is_GetItem() { return m_bGetItem; }
 	void			Set_GetItem(bool _bGetItem) { m_bGetItem = _bGetItem; }
 
