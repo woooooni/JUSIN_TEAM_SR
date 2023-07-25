@@ -80,7 +80,6 @@ void CScene_MonkeyForest2::Render_Scene()
 HRESULT CScene_MonkeyForest2::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-	CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev);
 
 	return S_OK;
 }

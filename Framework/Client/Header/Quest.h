@@ -10,19 +10,14 @@ public:
         QUEST_TYPE _eQuestType,
         wstring _strQuestTitle,
         wstring _strQuestDesc,
-        vector<wstring>& _vecDescBefore,
-        vector<wstring>& _vecDescContinue,
-        vector<wstring>& _vecDescComplete,
-        CItem* _pRewardItem,
-        OBJ_ID _eHuntingID = OBJ_ID::ID_END,
-        _uint _iCount = 0);
+        CItem* _pRewardItem);
 
     virtual ~CQuest() = default;
 
 public:
     const vector<wstring>& Get_NpcDesc(_uint iIdx) 
     { 
-        if (iIdx >= m_vecNpcDescList[_uint(m_eNpcCode)].size())
+        if (iIdx >= m_vecNpcDescList[_uint(m_eQuestProgress)].size())
             iIdx = 0;
         
         return m_vecNpcDescList[iIdx];
@@ -36,32 +31,28 @@ public:
     void Set_NpcCode(NPC_CODE _eNpcCode) { m_eNpcCode = _eNpcCode; }
     NPC_CODE Get_NpcCode() { return m_eNpcCode; }
 
-    // For Hunting Quest
-    _uint Get_CurrCount() { return m_iCurCount; }
-    _uint Get_MaxCount() { return m_iMaxCount; }
+    CItem* Get_Reward() { return m_pRewardItem; }
 
 public:
-    void Update_Quest(_float& fTimeDelta);
+    virtual void Update_Quest(_float& fTimeDelta) PURE;
 
 public:
-    void Accept_Quest();
-    void Clear_Quest();
+    virtual void Accept_Quest() PURE;
+    virtual void Clear_Quest() PURE;
 
-private:
+protected:
+    wstring m_strQuestTitle;
+    wstring m_strQuestDesc;
+    vector<wstring> m_vecNpcDescList[(_uint)QUEST_PROGRESS::PROGRESS_END];
+
+protected:
     NPC_CODE m_eNpcCode;
     QUEST_TYPE m_eQuestType;
     QUEST_PROGRESS m_eQuestProgress;
+    
     CItem* m_pRewardItem;
+    _uint m_iRewardCoin;
 
-    wstring m_strQuestTitle;
-    wstring m_strQuestDesc;
 
-    vector<wstring> m_vecNpcDescList[(_uint)QUEST_PROGRESS::PROGRESS_END];
-
-    // For Hunting Quest
-    OBJ_ID m_eHuntingID;
-
-    _uint m_iCurCount;
-    _uint m_iMaxCount;
 };
 

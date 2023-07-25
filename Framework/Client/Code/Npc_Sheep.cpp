@@ -20,6 +20,11 @@ CNpc_Sheep::~CNpc_Sheep()
 HRESULT CNpc_Sheep::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
+
+	CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pColliderCom);
+	if(pBoxCollider != nullptr)
+		pBoxCollider->Set_Scale(_vec3(2.f, 2.f, 2.f));
+
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Sheep_Idle", L"Proto_Texture_NPC_Sheep_Idle", 0.5f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Sheep_React", L"Proto_Texture_NPC_Sheep_React", 0.5f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Tutorial_Sheep_Idle", TRUE), E_FAIL);
@@ -39,39 +44,6 @@ _int CNpc_Sheep::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	//CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
-	//CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_ShortCutKey_Info");
-	//CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_TextBox");
-	//CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_Text");
-	//CGameObject* pNPCCow = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_Tutorial_Cow");
-
-	//_vec3 vPlayerPos, vNPCPos;
-	//bool bShown = dynamic_cast<CNpcTextBox*>(pUIBox)->Get_Shown();
-	//bool bCol = dynamic_cast<CNpc_Cow*>(pNPCCow)->Get_Collision();
-
-	//pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
-	//m_pTransformCom->Get_Info(INFO_POS, &vNPCPos);
-	//_float fLength = D3DXVec3Length(&(vPlayerPos - vNPCPos));
-
-	//if (fLength <= 2.f && !bCol)
-	//{
-	//	bool bShown = dynamic_cast<CNpcTextBox*>(pUIBox)->Get_Shown();
-
-	//	m_bCollision = true;
-	//	dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(true);
-
-	//	if (bShown)
-	//		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
-	//}
-
-	//else if (fLength > 2.f)
-	//{
-	//	m_bCollision = false;
-
-	//	if (!bCol)
-	//		dynamic_cast<CUI_ShortCutKey*>(pUI)->Set_Shown(false);
-	//}
-
 	_vec3 vNpcPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vNpcPos);
 
@@ -84,29 +56,6 @@ _int CNpc_Sheep::Update_Object(const _float& fTimeDelta)
 
 void CNpc_Sheep::LateUpdate_Object(void)
 {
-
-	//CGameObject* pUI = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_ShortCutKey_Info");
-	//CGameObject* pUIBox = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_TextBox");
-	//CGameObject* pUIText = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"NPC_Text");
-	//CGameObject* pNPCCow = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NPC_Tutorial_Cow");
-
-	//bool bCol = dynamic_cast<CNpc_Cow*>(pNPCCow)->Get_Collision();
-
-	//if (m_bCollision)
-	//{
-	//	if (GetAsyncKeyState('Z') & 0x8000)
-	//	{
-	//		dynamic_cast<CNpcText*>(pUIText)->Set_Type(TEXTTYPE::SHEEP);
-	//		dynamic_cast<CNpcTextBox*>(pUIBox)->Set_Shown(true);
-	//		dynamic_cast<CNpcText*>(pUIText)->Set_Shown(true);
-	//	}
-	//}
-	//else if (!m_bCollision && !bCol)
-	//{
-	//	dynamic_cast<CNpcTextBox*>(pUIBox)->Set_Shown(false);
-	//	dynamic_cast<CNpcText*>(pUIText)->Set_Shown(false);
-	// }
-
 	__super::LateUpdate_Object();
 }
 
@@ -117,9 +66,6 @@ void CNpc_Sheep::Render_Object(void)
 	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();
 
-//	if (!m_bQuestAccept)
-//		m_pExclamation->Render_Object();
-//
 	__super::Render_Object();
 }
 
