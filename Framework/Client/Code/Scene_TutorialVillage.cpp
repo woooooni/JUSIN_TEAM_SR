@@ -17,6 +17,7 @@
 #include "TrashFast.h"
 #include "Cupa.h"
 #include	"RabitObj.h"
+#include	"Turret.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -39,6 +40,10 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
+
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+
 
 	return S_OK;
 }
@@ -68,6 +73,8 @@ void CScene_TutorialVillage::Render_Scene()
 	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 		D3DCOLOR_ARGB(100, 0, 0, 0));
+
+
 }
 
 HRESULT CScene_TutorialVillage::Ready_Prototype()
@@ -211,6 +218,12 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(rab, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Rabbit", rab);
+
+	CTurret* turret = CTurret::Create(m_pGraphicDev, 0, { 50.f, 0.f, 20.f });
+
+	NULL_CHECK_RETURN(turret, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
 
 
 	return S_OK;

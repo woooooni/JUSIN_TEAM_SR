@@ -86,12 +86,7 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
 
     if (m_fFrame >= 15.f || m_fExistTime >= 5.f)
     {
-        CPool<CClearField>::Return_Obj(this);
-        m_fFrame = 0.f;
-        m_fMaxFrame = 0.f;
-        m_bCreating = true;
-        m_pAnimator->Play_Animation(L"Appear", false);
-
+        Engine::DeleteObjEvt(this);
     }
     else
     {
@@ -127,6 +122,15 @@ void CClearField::Free()
     __super::Free();
 }
 
+void CClearField::Reset() 
+{ 
+    m_bCreating = true; 
+    m_fFrame = 0.f;
+    m_pAnimator->Play_Animation(L"Appear", false);
+    m_fExistTime = 0.f;
+
+}
+
 CClearField* CClearField::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
 {
     CClearField* ret = new CClearField(p_Dev);
@@ -143,7 +147,7 @@ CClearField* CClearField::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
 
 
 
-    ret->m_pTransformCom->Set_Pos(&(p_Pos + _vec3(0, (rand() % 1000) * 0.0001f ,0)));
+    ret->m_pTransformCom->Set_Pos(&(p_Pos + _vec3(0, (rand() % 200) * 0.0005f + 0.01f , 0)));
     ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 
     ret->Set_MinHeight(0.005f);

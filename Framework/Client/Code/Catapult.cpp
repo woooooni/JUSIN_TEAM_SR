@@ -6,7 +6,7 @@
 CCatapult::CCatapult(LPDIRECT3DDEVICE9 p_Dev) 
 	: CFieldObject(p_Dev, OBJ_ID::CATAPULT)
 	, m_pThrowingStone(nullptr)
-	, m_vStonePos(0.f, 0.5f, -0.5f)
+	, m_vStonePos(0.f, 1.f, -0.8f)
 	, m_pRevTexture(nullptr)
 	, m_vCenterPos(0, 0.5f, 0)
 	, m_fThrowAngle(-90.f)
@@ -71,6 +71,7 @@ _int CCatapult::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDER_ALPHA, this);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
+	m_vStonePos = { 0.f, 1.1f, -0.8f };
 
 	if (m_pThrowingStone)
 	{
@@ -130,13 +131,13 @@ void CCatapult::Render_Object(void)
 
 	D3DXMatrixIdentity(&mat);
 
-	mat._11 = 0.5f;
-	mat._22 = 0.2f;
-	mat._33 = 1.f;
+	mat._11 = 0.4f;
+	mat._22 = 0.3f;
+	mat._33 = 0.6f;
 
 	memcpy(&mat.m[3][0], &myPos, sizeof(_vec3));
 
-	mat._42 += 0.2f;
+	mat._42 += 0.3f;
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
 	m_pCubeTex->Render_Texture();
@@ -147,8 +148,14 @@ void CCatapult::Render_Object(void)
 
 	D3DXVec3TransformCoord(&vec, &m_vCenterPos, &mat);
 	mat._41 += vec.x + myPos.x ;
-	mat._42 += vec.y + myPos.y + 0.42f;
+	mat._42 += vec.y + myPos.y + 0.62f;
 	mat._43 += vec.z + myPos.z;
+
+	_vec3 scoopZ;
+	memcpy(&scoopZ, &mat.m[2][0], sizeof(_vec3));
+	scoopZ *= 1.2f;
+	memcpy(&mat.m[2][0], &scoopZ,  sizeof(_vec3));
+
 
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
 
@@ -212,6 +219,9 @@ void CCatapult::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 	{
 		m_pThrowingStone = tmp;
 		m_pThrowingStone->Get_ColliderCom()->Set_Active(false);
+		Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+		Play_Sound(L"SFX_31_Catapult_Load.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
 	}
 }
 
@@ -262,5 +272,9 @@ void CCatapult::Throw_Stone()
 	dynamic_cast<CPushStone*>(m_pThrowingStone)->Fire();
 	m_pThrowingStone = nullptr;
 	m_bIsThrowing = true;
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+	Play_Sound(L"SFX_32_Catapult_Shoot.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
 
 }

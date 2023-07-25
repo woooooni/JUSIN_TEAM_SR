@@ -35,6 +35,7 @@
 #include "BalpanObj.h"
 #include "PushStone.h"
 #include "BreakStone.h"
+#include	"Catapult.h"
 
 
 CScene_Tool::CScene_Tool(LPDIRECT3DDEVICE9 pGraphicDev)

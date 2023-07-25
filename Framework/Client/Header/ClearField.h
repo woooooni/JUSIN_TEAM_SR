@@ -18,6 +18,8 @@ public:
 
 	virtual void    Free() override;
 
+	void	Reset();
+
 	static			CClearField* Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos = { 0, 0, 0 });
 
 public:

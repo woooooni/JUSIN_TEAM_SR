@@ -121,6 +121,10 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		m_bCreatedCombine = true;
 		src->m_bCreatedCombine = true;
 
+		Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+		Play_Sound(L"SFX_45_Jelly_Combine.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
+
 	}
 }
 

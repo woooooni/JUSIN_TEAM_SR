@@ -26,6 +26,7 @@
 #include "Effect_Item.h"
 #include "Effect_Block.h"
 #include "Effect_Hit.h"
+#include	"TurretBullet.h"
 
 #include "Scene_Loading.h"
 
@@ -402,6 +403,11 @@ HRESULT CMainApp::Ready_Proto_Event()
 	event->m_bIsCheckUpdate = true;
 
 	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 29;
+	FAILED_CHECK(Add_Event(event));
+
 
 	return S_OK;
 }

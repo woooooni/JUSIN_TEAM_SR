@@ -50,6 +50,8 @@ _int CEffect_Block::Update_Object(const _float& fTimeDelta)
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 
+
+
 	return iExit;
 }
 

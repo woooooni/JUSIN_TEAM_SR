@@ -10,6 +10,7 @@
 #include "Door.h"
 #include "DefaultItem.h"
 #include "Npc_Artist.h"
+#include	"RabbitMgr.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
@@ -34,12 +35,18 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_1_CentralArea.wav", 0.5f);
+
+
 	return S_OK;
 }
 
 _int CScene_MonkeyForest1::Update_Scene(const _float& fTimeDelta)
 {
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
+	CRabbitMgr::GetInstance()->Update_Object(fTimeDelta);
+
 
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
@@ -168,6 +175,13 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
 
+	pHit = CHitObj::Create(m_pGraphicDev, 29, { 54.f, 0.f, 35.f });
+
+	pHit->Set_HitType(OBJ_HITTYPE::HIT_ONCE);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
+
 	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 69.5f, 0.f, 54.f }, true);
 	
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
@@ -266,6 +280,14 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
+	pBlock = CBlockObj::Create(m_pGraphicDev, 29, { 53.5f, 0.f, 26.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 29, { 54.5f, 0.f, 26.f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+
 
 	pBlock = CBlockObj::Create(m_pGraphicDev, 4, { 76.5f, 0.f, 58.f }, true);
 
@@ -314,8 +336,7 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
-
-
+	CRabbitMgr::GetInstance()->Ready_Object(m_pGraphicDev, 5, 4, { 30, 0, 15 });
 
 
 
