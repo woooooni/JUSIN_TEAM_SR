@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
-
+#include "UI_ContinueMark.h"
 CNpc_Sheep::CNpc_Sheep(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev, NPC_CODE::NPC_SHEEP, L"¾ç ¾ÆÁÜ¸¶")
 {
@@ -36,6 +36,10 @@ HRESULT CNpc_Sheep::Ready_Object(void)
 	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
 	if (m_pQuestion != nullptr)
 		m_pQuestion->Set_Owner(this);
+
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	return S_OK;
 }

@@ -2,7 +2,9 @@
 #include "GameObject.h"
 
 class CUI_ExclamationMark;
+class CUI_ContinueMark;
 class CUI_QuestionMark;
+
 
 class CNpc
 	: public CGameObject
@@ -32,6 +34,7 @@ private:
 
 protected:
 	CUI_ExclamationMark* m_pExclamation = nullptr;
+	CUI_ContinueMark* m_pContinue = nullptr;
 	CUI_QuestionMark*	 m_pQuestion = nullptr;
 	wstring m_strNpcName;
 

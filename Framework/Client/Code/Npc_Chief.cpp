@@ -1,6 +1,9 @@
 #include "../Include/stdafx.h"
 #include "Npc_Chief.h"
 #include "Export_Function.h"
+#include "UI_ExclamationMark.h"
+#include "UI_ContinueMark.h"
+#include "UI_QuestionMark.h"
 
 CNpc_Chief::CNpc_Chief(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev, NPC_CODE::NPC_CHIEF, L"¿ø¼şÀÌ Á·Àå")
@@ -45,6 +48,18 @@ HRESULT CNpc_Chief::Ready_Object(void)
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_Chief_React", L"Proto_Texture_NPC_Chief_React", 0.5f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Monkey_Chief_Idle", TRUE), E_FAIL);
+
+	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
+	if (m_pExclamation != nullptr)
+		m_pExclamation->Set_Owner(this);
+
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
+
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	return S_OK;
 }

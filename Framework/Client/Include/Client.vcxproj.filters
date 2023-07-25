@@ -1375,6 +1375,9 @@
     <ClInclude Include="..\Header\Scene_MonkeyForest3.h">
       <Filter>01. Scene\02. Monkey_Forest\03. Monkey_Forest3</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_ContinueMark.h">
+      <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2036,6 +2039,9 @@
     <ClCompile Include="..\Code\RabbitMgr.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp">
       <Filter>01. Scene\02. Monkey_Forest\03. Monkey_Forest3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_ContinueMark.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

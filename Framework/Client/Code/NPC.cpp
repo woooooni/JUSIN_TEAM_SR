@@ -2,6 +2,7 @@
 #include "../Header/Npc.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
+#include "UI_ContinueMark.h"
 #include "QuestMgr.h"
 #include "Quest.h"
 #include "GameMgr.h"
@@ -55,6 +56,10 @@ HRESULT CNpc::Ready_Object(void)
 	if (m_pQuestion != nullptr)
 		m_pQuestion->Set_Owner(this);
 
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
+
 	return S_OK;
 }
 
@@ -73,8 +78,8 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 			bBeforeQuest = true;
 		if (!bContinueQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::CONTINUE)
 			bContinueQuest = true;
-		if (!bContinueQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::COMPLETE)
-			bContinueQuest = true;
+		if (!bCompleteQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::COMPLETE)
+			bCompleteQuest = true;
 	}
 
 	if (bCompleteQuest)
@@ -90,8 +95,8 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vPos.y += 1.f;
-		m_pQuestion->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
-		m_pQuestion->Update_Object(fTimeDelta);
+		m_pContinue->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+		m_pContinue->Update_Object(fTimeDelta);
 	}
 	else if (bBeforeQuest)
 	{
@@ -107,6 +112,8 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 			m_pExclamation->Set_Active(false);
 		if(m_pQuestion)
 			m_pQuestion->Set_Active(false);
+		if (m_pContinue)
+			m_pContinue->Set_Active(false);
 	}
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
@@ -206,6 +213,9 @@ void CNpc::Free()
 
 	if (m_pQuestion)
 		Safe_Release(m_pQuestion);
+
+	if (m_pContinue)
+		Safe_Release(m_pContinue);
 
 	__super::Free();
 }

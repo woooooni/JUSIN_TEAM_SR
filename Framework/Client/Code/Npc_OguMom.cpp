@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
-
+#include "UI_ContinueMark.h"
 CNpc_OguMom::CNpc_OguMom(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev, NPC_CODE::NPC_MOM, L"엄마 오구")
 {
@@ -53,6 +53,10 @@ HRESULT CNpc_OguMom::Ready_Object(void)
 	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
 	if (m_pQuestion != nullptr)
 		m_pQuestion->Set_Owner(this);
+
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	return S_OK;
 }

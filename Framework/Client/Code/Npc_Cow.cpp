@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
-
+#include "UI_ContinueMark.h"
 CNpc_Cow::CNpc_Cow(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev, NPC_CODE::NPC_COW, L"¼Ò ¾ÆÀú¾¾")
 {
@@ -54,6 +54,9 @@ HRESULT CNpc_Cow::Ready_Object(void)
 	if (m_pQuestion != nullptr)
 		m_pQuestion->Set_Owner(this);
 
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	return S_OK;
 }

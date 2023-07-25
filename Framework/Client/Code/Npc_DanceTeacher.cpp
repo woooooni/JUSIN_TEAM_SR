@@ -1,6 +1,9 @@
 #include "../Include/stdafx.h"
 #include "Npc_DanceTeacher.h"
 #include "Export_Function.h"
+#include "UI_ExclamationMark.h"
+#include "UI_QuestionMark.h"
+#include "UI_ContinueMark.h"
 
 CNpc_DanceTeacher::CNpc_DanceTeacher(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev, NPC_CODE::NPC_DANCETEACHER, L"Ãã ¼±»ı´Ô")
@@ -46,6 +49,18 @@ HRESULT CNpc_DanceTeacher::Ready_Object(void)
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_DanceTeacher_React", L"Proto_Texture_NPC_DanceTeacher_React", 0.5f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Monkey_DanceTeacher_Dance", TRUE), E_FAIL);
+
+	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
+	if (m_pExclamation != nullptr)
+		m_pExclamation->Set_Owner(this);
+
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
+
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	return S_OK;
 }
