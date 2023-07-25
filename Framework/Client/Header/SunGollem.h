@@ -93,6 +93,8 @@ protected:
 	bool m_bAttack[6];
 	bool m_bLockon = false;
 	bool m_bDirty = false;
+	_int m_iIndex;
+	_float m_fTime=0.f;
 protected:
 	virtual void Free() override;
 	

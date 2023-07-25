@@ -139,8 +139,31 @@ void CGolemLeftLeg::Update_Die(_float fTimeDelta)
 
 void CGolemLeftLeg::Update_Regen(_float fTimeDelta)
 {
-	if (m_vOffset.y >= 0.25f)
-		m_vOffset.y -= fTimeDelta;
+	switch (m_iIndex)
+	{
+	case 0:
+		m_vOffset.y = -1.5f;
+		break;
+	case 1:
+		Move_Offset(_vec3(m_vOffset.x, -2.f, m_vOffset.z),fTimeDelta,1.f);
+		break;
+	case 2:
+		Move_Offset(_vec3(m_vOffset.x, -1.5f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 3:
+		Move_Offset(_vec3(m_vOffset.x, -2.f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 6:
+		Move_Offset(_vec3(m_vOffset.x, -1.5f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 7:
+		Move_Offset(_vec3(m_vOffset.x, -2.f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 8:
+
+	default:
+		break;
+	}
 
 	
 

@@ -75,6 +75,18 @@ void CGolemPart::Offset(_vec3 _vPos)
 	m_pTransformCom->Set_Pos(&vPos);
 }
 
+void CGolemPart::Move_Offset(_vec3 _vPos,_float fTimeDelta,_float _fSpeed)
+{
+	_vec3 vDir = _vPos - m_vOffset;
+	D3DXVec3Normalize(&vDir, &vDir);
+	m_vOffset += vDir * fTimeDelta * _fSpeed;
+}
+
+void CGolemPart::Move_Offset_ByDir(_vec3 _vDir, _float fTimeDelta, _float _fSpeed)
+{
+	D3DXVec3Normalize(&_vDir, &_vDir);
+	m_vOffset += _vDir * fTimeDelta * _fSpeed;
+}
 void CGolemPart::Free()
 {
 	__super::Free();
