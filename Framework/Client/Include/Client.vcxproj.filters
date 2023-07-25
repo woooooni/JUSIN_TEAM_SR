@@ -670,6 +670,9 @@
     <Filter Include="98. Manager\04. Quest\Quest\Quests\07">
       <UniqueIdentifier>{05ce5a9f-7430-43e6-9479-77baf516a52a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\02. Monkey_Forest\03. Monkey_Forest3">
+      <UniqueIdentifier>{debe9661-5471-49c6-95a9-3efcfa71c671}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1307,7 +1310,6 @@
       <Filter>02. GameObject\04. UI\10. Veil</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\FloorDoor.h" />
-    <ClInclude Include="..\Header\Scene_MonkeyForest3.h" />
     <ClInclude Include="..\Header\TrashPrist.h" />
     <ClInclude Include="..\Header\NueFlower.h">
       <Filter>02. GameObject\07. EnvironmentObj\02. NueFlower</Filter>
@@ -1369,6 +1371,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\Quest_NueHero2.h">
       <Filter>98. Manager\04. Quest\Quest\Quests\07</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_MonkeyForest3.h">
+      <Filter>01. Scene\02. Monkey_Forest\03. Monkey_Forest3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1972,11 +1977,7 @@
       <Filter>02. GameObject\04. UI\10. Veil</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\FloorDoor.cpp" />
-    <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp" />
     <ClCompile Include="..\Code\TrashPrist.cpp" />
-    <ClCompile Include="RabbitMgr.cpp">
-      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\TurretBullet.cpp">
       <Filter>02. GameObject\16. Bullet\03. Turret_Bullet</Filter>
     </ClCompile>
@@ -2031,6 +2032,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\Quest_NueHero2.cpp">
       <Filter>98. Manager\04. Quest\Quest\Quests\07</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RabbitMgr.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp">
+      <Filter>01. Scene\02. Monkey_Forest\03. Monkey_Forest3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

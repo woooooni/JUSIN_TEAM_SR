@@ -125,8 +125,7 @@ void CUI_ItemInfo::Render_Object(void)
 		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_CLOTH_INFO
 			&& m_iCursorX == 0 && m_iCursorY == 0)
 		{
-			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
+			vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
 			fRatio = _float(WINCY) / _float(WINCX);
@@ -146,8 +145,7 @@ void CUI_ItemInfo::Render_Object(void)
 		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_LEAF_INFO
 			&& m_iCursorX == 2 && m_iCursorY == 0)
 		{
-			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
+			vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
 			fRatio = _float(WINCY) / _float(WINCX);
@@ -165,8 +163,7 @@ void CUI_ItemInfo::Render_Object(void)
 		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_BRANCH_INFO
 			&& m_iCursorX == 1 && m_iCursorY == 0)
 		{
-			vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
-					(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
+			vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
 			fRatio = _float(WINCY) / _float(WINCX);
@@ -204,7 +201,6 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 	switch (m_tItemInfo.eType)
 	{
 	case SHOPITEMTYPE::UISHOP_BRANCH:
-
 		m_tInfo.fX = -335.f;
 		m_tInfo.fY = -90.f;
 		break;

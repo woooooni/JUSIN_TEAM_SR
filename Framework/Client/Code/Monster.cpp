@@ -5,7 +5,7 @@
 #include "Effect_DieSmoke.h"
 #include "Effect_Stun.h"
 #include "Player.h"
-
+#include "EventMgr.h"
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, _eObjId)
 	, m_eState(MONSTER_STATE::REGEN)
@@ -363,4 +363,6 @@ void CMonster::On_Death()
 		if (pSmoke)
 			dynamic_cast<CEffect_DieSmoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f));
 	}
+
+	CEventMgr::GetInstance()->DeleteObjEvt(this);
 }

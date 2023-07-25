@@ -325,6 +325,11 @@ CTrashBig* CTrashBig::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
+void CTrashBig::Free()
+{
+	__super::Free();
+}
+
 void CTrashBig::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;

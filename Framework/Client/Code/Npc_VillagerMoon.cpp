@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_VillagerMoon::CNpc_VillagerMoon(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_MOON_VILLAGER)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_MOON_VILLAGER, L"¥ﬁΩ£ ¡÷πŒ")
 {
 }
 

@@ -4,7 +4,7 @@
 #include "UI_ExclamationMark.h"
 
 CNpc_OguMom::CNpc_OguMom(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_MOM)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_MOM, L"엄마 오구")
 {
 }
 

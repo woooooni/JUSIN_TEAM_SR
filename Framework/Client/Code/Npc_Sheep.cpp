@@ -4,7 +4,7 @@
 #include "UI_ExclamationMark.h"
 
 CNpc_Sheep::CNpc_Sheep(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_SHEEP)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_SHEEP, L"¾ç ¾ÆÁÜ¸¶")
 {
 }
 
@@ -111,5 +111,6 @@ CNpc_Sheep* CNpc_Sheep::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CNpc_Sheep::Free()
 {
+	__super::Free();
 }
 

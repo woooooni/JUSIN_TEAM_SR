@@ -24,15 +24,16 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
    // m_pDialog = CUI_Dialog::Create(_pGraphicDev);
     m_pHpBar = CUI_HPBar::Create(_pGraphicDev);
     m_pShop = CUI_Shop::Create(_pGraphicDev);
-   // m_pShortCutKey = CUI_ShortCutKey::Create(_pGraphicDev);
+    m_pShortCutKey = CUI_ShortCutKey::Create(_pGraphicDev);
     m_pQuickSlot = CQuickSlot::Create(_pGraphicDev);
- //   m_pItemWindow = CUI_NewItem::Create(_pGraphicDev);
+    m_pDialog = CUI_Dialog::Create(_pGraphicDev);
+
 
     m_pInventory = CInventoryUI::Create(_pGraphicDev);
-   // NULL_CHECK_RETURN(m_pDialog, E_FAIL);
+    NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
     NULL_CHECK_RETURN(m_pShop, E_FAIL);
-   // NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL);
+    NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL);
   //  NULL_CHECK_RETURN(m_pItemWindow, E_FAIL);
 
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
@@ -49,14 +50,13 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
 
 void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 {
-
     m_vecIcon[HEART]->Update_Object(fTimeDelta);
     m_vecIcon[PLAYERHP_BACK]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBOARD]->Update_Object(fTimeDelta);
     m_vecIcon[QUEST]->Update_Object(fTimeDelta);
 
    //m_pDialog->Update_Object(fTimeDelta);
-    m_pHpBar->Update_Object(fTimeDelta);
+   m_pHpBar->Update_Object(fTimeDelta);
    m_pShop->Update_Object(fTimeDelta);
 
    //m_pShortCutKey->Update_Object(fTimeDelta);
@@ -72,7 +72,11 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_vecIcon[KEYBUTTON_4]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_L]->Update_Object(fTimeDelta);
 
-    // m_pVeil->Update_Object(fTimeDelta);
+    if (m_pShortCutKey->Is_Active())
+        m_pShortCutKey->Update_Object(fTimeDelta);
+
+    if (m_pDialog->Is_Active())
+        m_pDialog->Update_Object(fTimeDelta);
 
     if (KEY_TAP(KEY::I))
     {
@@ -95,7 +99,7 @@ void CUIMgr::Late_Update_UIMgr()
 
    //m_pDialog->LateUpdate_Object();
     m_pHpBar->LateUpdate_Object();
-   m_pShop->LateUpdate_Object();
+    m_pShop->LateUpdate_Object();
    //m_pShortCutKey->LateUpdate_Object();
     m_pQuickSlot->LateUpdate_Object();
     //m_pItemWindow->LateUpdate_Object();

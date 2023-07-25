@@ -4,7 +4,7 @@
 #include "UI_ExclamationMark.h"
 
 CNpc_Artist::CNpc_Artist(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_ARTIST)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_ARTIST, L"∏Ù∆º¡Ó")
 {
 }
 

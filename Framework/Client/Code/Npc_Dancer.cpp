@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_Dancer::CNpc_Dancer(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_DANCER)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_DANCER, L"´í¼­ ¿ø¼þÀÌ")
 {
 }
 

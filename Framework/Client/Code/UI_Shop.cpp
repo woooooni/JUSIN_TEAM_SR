@@ -22,8 +22,8 @@ HRESULT CUI_Shop::Ready_Object(void)
 	m_pCursor = CUI_Cursor::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pCursor, E_FAIL);
 
-	m_tInfo.fX = -178.f;
-	m_tInfo.fY = 70.f;
+	m_tInfo.fX = WINCX / 2.f;
+	m_tInfo.fY = WINCY / 2.f;
 
 	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
@@ -87,16 +87,18 @@ HRESULT CUI_Shop::Ready_Object(void)
 
 _int CUI_Shop::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
-
 	Key_Input();
+	if (m_bShown)
+	{
+		Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
-	m_pCursor->Update_Object(fTimeDelta);
+		m_pCursor->Update_Object(fTimeDelta);
 
-	for (auto& iter : m_vecShopIcon)
-		iter->Update_Object(fTimeDelta);
+		for (auto& iter : m_vecShopIcon)
+			iter->Update_Object(fTimeDelta);
 
-	__super::Update_Object(fTimeDelta);
+		__super::Update_Object(fTimeDelta);
+	}
 	return S_OK;
 }
 
@@ -112,36 +114,22 @@ void CUI_Shop::LateUpdate_Object(void)
 
 void CUI_Shop::Render_Object(void)
 {
-	if (m_bShown)
-	{
-		_matrix matPreView, matPreProj;
+	_matrix matPreView, matPreProj;
 
-		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
-		_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX ) * (1 / m_matProj._11) ,
-						((-2 * (m_tInfo.fY)) / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
+	m_pTransformCom->Set_Pos(&vPos);
 
-		_float fRatio = _float(WINCY) / _float(WINCX);
-		_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 2.f, m_tInfo.fCY * fRatio * 2.f, 0.f);
+	_float fRatio = _float(WINCY) / _float(WINCX);
+	_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 2.f, m_tInfo.fCY * fRatio * 2.f, 0.f);
 
-		m_pTransformCom->Set_Scale(vScale);
-		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pTransformCom->Set_Scale(vScale);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-		m_pTextureCom->Render_Texture(0);
-		m_pBufferCom->Render_Buffer();
+	m_pTextureCom->Render_Texture(0);
+	m_pBufferCom->Render_Buffer();
 
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
-
-		for (auto& iter : m_vecShopIcon)
-			iter->Render_Object();
-
-		m_pCursor->Render_Object();
-
-		__super::Render_Object();
-	}
+	__super::Render_Object();
 }
 
 HRESULT CUI_Shop::Ready_Component()

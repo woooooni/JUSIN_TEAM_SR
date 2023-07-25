@@ -40,7 +40,7 @@ void CEventMgr::Update_EventMgr(const _float& fTimeDelta)
 	
 }
 
-void CEventMgr::AddEvent(const EVENT_DESC& _tDesc)
+void CEventMgr::AddEvent(const EVENT_DESC _tDesc)
 {
 	m_vecEvent.push_back(_tDesc);
 }

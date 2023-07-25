@@ -197,7 +197,10 @@ void CBlueBeatle::Update_Move(_float fTimeDelta)
 void CBlueBeatle::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
+	{
 		Set_Active(false);
+		On_Death();
+	}
 }
 
 

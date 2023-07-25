@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_Chief::CNpc_Chief(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_CHIEF)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_CHIEF, L"원숭이 족장")
 {
 }
 

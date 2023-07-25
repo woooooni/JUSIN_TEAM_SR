@@ -240,6 +240,8 @@ void CMothMage::Update_Die(_float fTimeDelta)
 			Set_Active(false); 
 			On_Death();
 			m_pMothOrb->Set_Active(false);
+			CEventMgr::GetInstance()->DeleteObjEvt(m_pMothOrb);
+			m_pMothOrb = nullptr;
 		}
 	}
 }

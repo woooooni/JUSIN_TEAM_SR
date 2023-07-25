@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_Fishing::CNpc_Fishing(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_FISHING)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_FISHING, L"³¬½Ã²Û ¿ø¼þÀÌ")
 {
 }
 

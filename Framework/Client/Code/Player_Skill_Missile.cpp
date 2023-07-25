@@ -89,8 +89,9 @@ HRESULT CPlayer_Skill_Missile::Ready_State(void)
 
 _int CPlayer_Skill_Missile::Update_State(const _float& fTimeDelta)
 {
-	if (!m_pTarget)
+	if (!m_pTarget || m_pTarget->Is_Active() == false)
 	{
+		m_pTarget = nullptr;
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::IDLE);
 		return 0;
 	}
@@ -131,7 +132,16 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 {
 	_vec3 vPos;
 	_vec3 vTarget;
+
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+	if (false == m_pTarget->Is_Active() || !m_pTarget)
+	{
+		m_pTarget = nullptr;
+		return S_OK;
+	}
+		
+
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTarget);
 	vPos -= m_vDir;
 	
@@ -175,6 +185,7 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 
 bool CPlayer_Skill_Missile::Find_Target(void)
 {
+	m_pTarget = nullptr;
 	vector<CGameObject*>& vecMonsters = Engine::Get_Layer(LAYER_TYPE::MONSTER)->Get_GameObjectVec();
 
 	_vec3 vPos;
@@ -189,6 +200,9 @@ bool CPlayer_Skill_Missile::Find_Target(void)
 	for (auto iter : vecMonsters)
 	{
 		if (iter->GetObj_Type() != OBJ_TYPE::OBJ_MONSTER)
+			continue;
+
+		if (!iter->Is_Active() || !iter)
 			continue;
 
 		CTransform* pTranform = iter->Get_TransformCom();

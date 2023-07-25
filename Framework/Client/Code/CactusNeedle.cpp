@@ -52,7 +52,11 @@ _int CCactusNeedle::Update_Object(const _float& fTimeDelta)
 	if (m_fMoveTime < 0.f)
 	{
 		if (Is_Active())
+		{
 			Set_Active(false);
+			CEventMgr::GetInstance()->DeleteObjEvt(this);
+		}
+			
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime -= 10.f * fTimeDelta;
