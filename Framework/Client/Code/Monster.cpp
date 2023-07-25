@@ -188,7 +188,10 @@ void CMonster::Update_Stun(_float fTimeDelta)
 
 	if (m_fStunTime < 0.0f)
 	{
-		m_eState = MONSTER_STATE::IDLE;
+		if(m_bDefenceMode)
+			m_eState = MONSTER_STATE::DEFFENCEMODE;
+		else
+			m_eState = MONSTER_STATE::IDLE;
 	}
 }
 

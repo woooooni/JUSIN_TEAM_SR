@@ -5,6 +5,7 @@
 #include "MothMage.h"
 #include "DesertRhino.h"
 #include "TrashBig.h"
+#include "Pool.h"
 
 
 CMonsterSpawner::CMonsterSpawner(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -28,7 +29,7 @@ HRESULT CMonsterSpawner::Ready_Object(void)
 	m_fSpawnTime = 10.0f;
 	m_fAccTime = 0.0f;
 
-	m_iMonsterCount = 10;
+	m_iMonsterCount = 5;
 	m_fSpawnDelay = 0.05;
 	m_iAccCount = 0;
 
@@ -129,19 +130,25 @@ void CMonsterSpawner::SpawnMonsters()
 
 	if (iMonsterType < 7)
 	{
-		pMonster = CTrashBig::Create(m_pGraphicDev);
+		pMonster = CPool<CTrashBig>::Get_Obj();
+		if (!pMonster)
+			pMonster = CTrashBig::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pMonster, );
 		Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"TrashBig", pMonster);
 	}
 	else if (iMonsterType == 7 || iMonsterType == 8)
 	{
-		pMonster = CDesertRhino::Create(m_pGraphicDev);
+		pMonster = CPool<CDesertRhino>::Get_Obj();
+		if (!pMonster)
+			pMonster = CDesertRhino::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pMonster, );
 		Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"DesertRhino", pMonster);
 	}
 	else
 	{
-		pMonster = CMothMage::Create(m_pGraphicDev);
+		pMonster = CPool<CMothMage>::Get_Obj();
+		if (!pMonster)
+			pMonster = CMothMage::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pMonster, );
 		Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"MothMage", pMonster);
 	}

@@ -49,7 +49,7 @@ private:
 
     CMothOrb* m_pMothOrb;
 
-    _bool m_bDefenceMode = false;
+
 
     _float m_fShootTime;
     _float m_fAccShootTime;

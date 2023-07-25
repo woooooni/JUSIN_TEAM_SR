@@ -285,6 +285,7 @@ void CDesertRhino::Update_DefenceMode(_float fTimeDelta)
 	m_vLook = vDir;
 	m_vDir = vDir;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed() * 0.5f);
+	m_bDefenceMode = true;
 }
 
 

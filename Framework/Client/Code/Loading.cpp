@@ -64,6 +64,7 @@
 #include "Particle_LargeStone.h"
 
 
+
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
 	: m_pGraphicDev(pGraphicDev)
 	, m_bFinish(false)
@@ -1292,6 +1293,9 @@ HRESULT CLoading::Ready_Pool()
 	CPool<CEffect_Dig>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_Smoke>::Ready_Pool(m_pGraphicDev, 200);
 	CPool<CParticle_LargeStone>::Ready_Pool(m_pGraphicDev, 1000);
+	CPool<CTrashBig>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CDesertRhino>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CMothMage>::Ready_Pool(m_pGraphicDev, 100);
 
 	return S_OK;
 }

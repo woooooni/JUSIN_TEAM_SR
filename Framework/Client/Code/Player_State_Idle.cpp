@@ -157,7 +157,7 @@ void CPlayer_State_Idle::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
 }
 

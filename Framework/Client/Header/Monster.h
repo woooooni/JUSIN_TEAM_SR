@@ -78,7 +78,7 @@ protected:
 
 	_float m_fStunTime;
 
-
+	_bool m_bDefenceMode = false;
 protected:
 	virtual void Free() override;
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;

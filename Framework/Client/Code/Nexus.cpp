@@ -39,7 +39,7 @@ HRESULT CNexus::Ready_Object(void)
 	m_fDefenceAccTime = 0.0f;
 	m_fDefenceTime = 30.0f;
 
-	m_iMaxHp = m_iHp = 1000;
+	m_iMaxHp = m_iHp = 100;
 	m_iAlpha = 255;
 
 

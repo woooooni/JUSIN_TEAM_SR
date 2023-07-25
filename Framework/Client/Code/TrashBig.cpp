@@ -278,6 +278,8 @@ void CTrashBig::Update_DefenceMode(_float fTimeDelta)
 	{
 		m_bJump = false;
 	}
+
+	m_bDefenceMode = true;
 }
 
 HRESULT CTrashBig::Add_Component(void)
