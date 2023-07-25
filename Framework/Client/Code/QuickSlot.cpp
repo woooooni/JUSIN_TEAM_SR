@@ -82,7 +82,6 @@ void CQuickSlot::LateUpdate_Object(void)
 	m_vecSlots[SLOT_THREE]->LateUpdate_Object();
 	m_vecSlots[SLOT_FOUR]->LateUpdate_Object();
 
-
 	__super::LateUpdate_Object();
 }
 

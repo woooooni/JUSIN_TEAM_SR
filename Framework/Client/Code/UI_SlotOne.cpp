@@ -37,8 +37,6 @@ HRESULT CUI_SlotOne::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	m_tInfo.fX = -536.f;
-	m_tInfo.fY = -320.f;
 	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
@@ -55,9 +53,6 @@ _int CUI_SlotOne::Update_Object(const _float& fTimeDelta)
 
 void CUI_SlotOne::LateUpdate_Object(void)
 {
-	m_tInfo.fX = -536.f;
-	m_tInfo.fY = -320.f;
-
 	__super::LateUpdate_Object();
 }
 
@@ -69,8 +64,8 @@ void CUI_SlotOne::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	vPos = { (2 * (m_tInfo.fX) / WINCX) * (1 / m_matProj._11) ,
-			(-2 * (m_tInfo.fY) / WINCY) * (1 / m_matProj._22), 0.f };
+	vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+			(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	m_pTransformCom->Set_Pos(&vPos);
 

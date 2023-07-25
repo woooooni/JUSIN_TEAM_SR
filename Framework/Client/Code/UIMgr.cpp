@@ -38,9 +38,9 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
     // NULL_CHECK_RETURN(m_pVeil, E_FAIL);
 
-    m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
-    m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_CLOTH);
-    m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
+//    m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
+//    m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_CLOTH);
+//    m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
 
     FAILED_CHECK_RETURN(Add_Frame(_pGraphicDev), E_FAIL);
 
@@ -49,9 +49,8 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
 
 void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 {
-
-    m_vecIcon[HEART]->Update_Object(fTimeDelta);
     m_vecIcon[PLAYERHP_BACK]->Update_Object(fTimeDelta);
+    m_vecIcon[HEART]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBOARD]->Update_Object(fTimeDelta);
     m_vecIcon[QUEST]->Update_Object(fTimeDelta);
 
@@ -88,8 +87,8 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 
 void CUIMgr::Late_Update_UIMgr()
 {
-    m_vecIcon[HEART]->LateUpdate_Object();
     m_vecIcon[PLAYERHP_BACK]->LateUpdate_Object();
+    m_vecIcon[HEART]->LateUpdate_Object();
     m_vecIcon[KEYBOARD]->LateUpdate_Object();
     m_vecIcon[QUEST]->LateUpdate_Object();
 
@@ -125,10 +124,10 @@ HRESULT CUIMgr::Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev)
     // 먼저 그려져도 되는 Icon들만
     m_vecIcon.reserve(ICONTYPE::ICONTYPE_END);
 
-    CIcon* pHeart = CIcon::Create(_pGraphicDev, ICONTYPE::HEART);
-    m_vecIcon.push_back(pHeart);
-
     CIcon* pHpBack = CIcon::Create(_pGraphicDev, ICONTYPE::PLAYERHP_BACK);
+    m_vecIcon.push_back(pHpBack);
+
+    CIcon* pHeart = CIcon::Create(_pGraphicDev, ICONTYPE::HEART);
     m_vecIcon.push_back(pHeart);
 
     CIcon* pKeyboardIcon = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBOARD);

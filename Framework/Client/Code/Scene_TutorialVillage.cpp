@@ -253,9 +253,8 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_UI()
 {
-	// Test
-//	CUI_NewItem* pItemWindow = CUI_NewItem::Create(m_pGraphicDev);
-//	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI_QuestWindow", pItemWindow);
+	//CUI_ShortCutKey* pKey = CUI_ShortCutKey::Create(m_pGraphicDev);
+	//m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI", pKey);
 
 	return S_OK;
 }

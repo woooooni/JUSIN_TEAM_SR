@@ -80,8 +80,8 @@ void CUI_SlotItems::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
+	vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+				(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 	m_pTransformCom->Set_Pos(&vPos);
 
 	fRatio = _float(WINCY) / _float(WINCX);
@@ -113,8 +113,8 @@ void CUI_SlotItems::Set_SlotNum(SLOTITEM_NUM eNum)
 {
 	m_eSlotNum = eNum;
 
-	m_tInfo.fX = -536.f + (_uint)eNum * 78;
-	m_tInfo.fY = -320.f;
+	m_tInfo.fX = 107.f + (_uint)eNum * 78;
+	m_tInfo.fY = 115.f;
 }
 
 void CUI_SlotItems::Set_ItemCode(const ITEM_CODE& pCOde)

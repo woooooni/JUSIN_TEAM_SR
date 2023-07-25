@@ -20,14 +20,14 @@ HRESULT CUI_Cursor::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 	
-	m_tInfo.fX = -490.f;
-	m_tInfo.fY = -90.f;
+	m_tInfo.fX = WINCX / 2 - 490.f;
+	m_tInfo.fY = WINCY / 2 - 83.f;
 
 	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
 	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
 
-	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX) * (1 / m_matProj._11) ,
-					((-2 * (m_tInfo.fY)) / WINCY ) * (1 / m_matProj._22), 0.f };
+	m_vDefaultPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	return S_OK;
 }
@@ -70,7 +70,7 @@ void CUI_Cursor::Render_Object(void)
 		if (KEY_TAP(KEY::LEFT_ARROW) && m_iCursorX > 0)
 		{
 			m_iCursorX--;
-			vMovePos = { vOriginPos.x - 154.f, vOriginPos.y, 0.f };
+			vMovePos = { vOriginPos.x, vOriginPos.y, 0.f };
 			Get_TransformCom()->Set_Pos(&vMovePos);
 			vOriginPos = vMovePos;
 			m_bMoveCursor = false;

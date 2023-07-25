@@ -1,6 +1,5 @@
 #pragma once
 #include "CUI.h"
-#include "UI_Cursor.h"
 #include "Player.h"
 
 BEGIN(Engine)
@@ -11,23 +10,14 @@ class CTexture;
 
 END
 
-//typedef enum class SHOPITEMTYPE
 enum SHOPITEMTYPE
 {
-	UISHOP_BRANCH,
-	UISHOP_CLOTH,
-	UISHOP_LEAF,
-
 	SHOPKEY_L,
 	SHOP_WALLET, SHOP_PRICETAG,
 	SHOP_TEXTBOX, SHOP_IMGBOX,
 	SHOP_VERLINE, SHOP_HORLINE,
 
-	UISHOP_BRANCH_INFO,
-	UISHOP_CLOTH_INFO,
-	UISHOP_LEAF_INFO,
 	SHOPITEM_END
-
 };
 
 struct tagShopItemInfo

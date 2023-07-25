@@ -50,7 +50,8 @@ void CUI_BookBackground::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 	
-	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) *  (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1)  * (1 / m_matProj._22), 0.f };
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) *  (1 / m_matProj._11) ,
+					((-2 * (m_tInfo.fY)) / WINCY + 1)  * (1 / m_matProj._22), 0.f };
 
 	m_pTransformCom->Set_Pos(&vPos);
 
