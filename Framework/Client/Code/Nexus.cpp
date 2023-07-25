@@ -13,6 +13,7 @@
 #include "TrashBig.h"
 #include "MothMage.h"
 #include "MonsterSpawner.h"
+#include "GameMgr.h"
 
 CNexus::CNexus(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::NEXUS)

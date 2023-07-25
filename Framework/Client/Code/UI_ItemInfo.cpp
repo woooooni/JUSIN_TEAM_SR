@@ -1,6 +1,7 @@
 #include "UI_ItemInfo.h"
 #include "Export_Function.h"
 #include "UI_Shop.h"
+#include "GameMgr.h"
 
 CUI_ItemInfo::CUI_ItemInfo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev), m_tItemInfo{}
@@ -88,7 +89,7 @@ void CUI_ItemInfo::Render_Object(void)
 		m_pBufferCom->Render_Buffer();
 
 		// Player Money TextOut //
-		CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+		CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
 
 		if (pPlayer != nullptr)
 		{

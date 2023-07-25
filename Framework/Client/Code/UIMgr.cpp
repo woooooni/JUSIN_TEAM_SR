@@ -4,7 +4,7 @@
 #include  "Item_Hat_Drill.h"
 #include  "Item_Hat_Light.h"
 #include  "Item_Hat_Mask.h"
-
+#include "GameMgr.h"
 
 IMPLEMENT_SINGLETON(CUIMgr)
 
@@ -34,14 +34,11 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
     NULL_CHECK_RETURN(m_pShop, E_FAIL);
     NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL);
-  //  NULL_CHECK_RETURN(m_pItemWindow, E_FAIL);
+    
 
-    // m_pVeil = CUI_Veil::Create(_pGraphicDev);
-    // NULL_CHECK_RETURN(m_pVeil, E_FAIL);
-
-    m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
-    m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_CLOTH);
-    m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
+    m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_LEAF);
+    m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_CLOTH);
+    m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_LEAF);
 
     FAILED_CHECK_RETURN(Add_Frame(_pGraphicDev), E_FAIL);
 
@@ -55,15 +52,10 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_vecIcon[KEYBOARD]->Update_Object(fTimeDelta);
     m_vecIcon[QUEST]->Update_Object(fTimeDelta);
 
-   //m_pDialog->Update_Object(fTimeDelta);
    m_pHpBar->Update_Object(fTimeDelta);
    m_pShop->Update_Object(fTimeDelta);
 
-   //m_pShortCutKey->Update_Object(fTimeDelta);
-
-    //m_pItemWindow->Update_Object(fTimeDelta);
     m_pQuickSlot->Update_Object(fTimeDelta);
-    // m_pCurrentUI->Update_Object(fTimeDelta);
 
     m_vecIcon[PLAYERHP_FRAME]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_1]->Update_Object(fTimeDelta);

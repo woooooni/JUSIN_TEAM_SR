@@ -1,6 +1,6 @@
 #include "Icon.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CIcon::CIcon(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev), m_tIconInfo{}
 {
@@ -152,7 +152,7 @@ void CIcon::Render_Object(void)
 
 	m_pTransformCom->Set_Pos(&vPos);
 
-	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
 	_int MaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
 	_int HP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
 

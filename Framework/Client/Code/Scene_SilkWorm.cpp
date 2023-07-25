@@ -8,6 +8,7 @@
 #include "Portal.h"
 #include "UIMgr.h"
 #include "SunGollem.h"
+#include "GameMgr.h"
 
 CScene_SilkWorm::CScene_SilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SILK_WORM)

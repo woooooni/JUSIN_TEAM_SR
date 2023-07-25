@@ -1,6 +1,6 @@
 #include "UI_HPBar.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CUI_HPBar::CUI_HPBar(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
 {
 }
@@ -42,7 +42,7 @@ _int CUI_HPBar::Update_Object(const _float& fTimeDelta)
 {
 	//Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
-	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
 	m_iMaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
 	m_iHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
 	
