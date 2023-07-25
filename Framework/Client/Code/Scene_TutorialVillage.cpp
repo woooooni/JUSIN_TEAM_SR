@@ -79,8 +79,8 @@ void CScene_TutorialVillage::Render_Scene()
 
 HRESULT CScene_TutorialVillage::Ready_Prototype()
 {
-	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-	CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev);
+	FAILED_CHECK_RETURN(CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev), E_FAIL);
+	FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev), E_FAIL);
 	
 	return S_OK;
 }

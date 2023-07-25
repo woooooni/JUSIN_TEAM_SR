@@ -7,6 +7,8 @@
 #include "GameMgr.h"
 #include "LightMgr.h"
 #include "QuestMgr.h"
+#include "UIMgr.h"
+
 
 #include "Player_Bullet_Lightning.h"
 #include "Player_Bullet_Bomb.h"

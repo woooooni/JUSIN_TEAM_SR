@@ -79,7 +79,6 @@ void CScene_MonkeyVillage::Render_Scene()
 HRESULT CScene_MonkeyVillage::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-	CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev);
 	
 	return S_OK;
 }

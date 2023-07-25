@@ -68,7 +68,6 @@ void CScene_SilkWorm::Render_Scene()
 HRESULT CScene_SilkWorm::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-	CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev);
 	
 	return S_OK;
 }

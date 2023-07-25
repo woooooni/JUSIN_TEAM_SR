@@ -52,7 +52,6 @@ _int CScene_SunGolemCave1::Update_Scene(const _float& fTimeDelta)
 void CScene_SunGolemCave1::LateUpdate_Scene()
 {
 	CUIMgr::GetInstance()->Late_Update_UIMgr();
-
 	__super::LateUpdate_Scene();
 }
 
@@ -73,7 +72,6 @@ void CScene_SunGolemCave1::Render_Scene()
 HRESULT CScene_SunGolemCave1::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-	CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev);
 	
 	return S_OK;
 }
