@@ -31,6 +31,7 @@ public:
 	_bool	Is_In_Inven(CGameObject* pItem);
 
 	HRESULT		Use_Item(_uint pInt);
+	HRESULT		Use_Item(ITEM_CODE pCode);
 
 	void		Set_Player(CPlayer* pPlayer);
 

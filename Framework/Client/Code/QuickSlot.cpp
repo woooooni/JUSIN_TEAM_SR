@@ -7,6 +7,7 @@
 
 CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
+	, m_bCanUse(true)
 {
 	m_vecSlotItems.resize(4);
 	m_vecSlots.resize(4);
@@ -25,6 +26,7 @@ CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CQuickSlot::CQuickSlot(const CQuickSlot& rhs)
 	: CUI(rhs)
+	,m_bCanUse(rhs.m_bCanUse)
 {
 }
 
@@ -41,9 +43,27 @@ HRESULT CQuickSlot::Ready_Object(void)
 
 _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 {
-	if (KEY_TAP(KEY::NUM_1))
+	if (m_bCanUse)
 	{
-		m_vecSlots[SLOT_ONE]->Use_Item();
+		if (KEY_TAP(KEY::NUM_1))
+		{
+			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled())
+				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Use_Item();
+		}
+		if (KEY_TAP(KEY::NUM_2))
+		{
+			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled())
+				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Use_Item();
+		}if (KEY_TAP(KEY::NUM_3))
+		{
+			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_Filled())
+				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Use_Item();
+		}if (KEY_TAP(KEY::NUM_4))
+		{
+			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_Filled())
+				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Use_Item();
+		}
+
 	}
 
 	m_vecSlots[SLOT_ONE]->Update_Object(fTimeDelta);
@@ -78,7 +98,7 @@ HRESULT CQuickSlot::Add_Slot(void)
 
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::UI);
 
-	for (_uint i = 0; i < 4; ++i;)
+	for (_uint i = 0; i < 4; ++i)
 	{
 		m_vecSlots[i] = CUI_SlotItems::Create(m_pGraphicDev, (SLOTITEM_NUM)i);
 	}
@@ -88,14 +108,13 @@ HRESULT CQuickSlot::Add_Slot(void)
 
 void CQuickSlot::Set_Item(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType)
 {
-	float fTimeDelta = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
 
 	dynamic_cast<CUI_SlotItems*> (m_vecSlots[(_uint)_eSlotNum])->Set_ItemCode(_eCodeType);
 }
 
 _bool CQuickSlot::Get_Filled(SLOTNUM _eSlotNum)
 {
-	dynamic_cast<CUI_SlotItems*> (m_vecSlots[(_uint)_eSlotNum])->Get_Filled();
+	return dynamic_cast<CUI_SlotItems*> (m_vecSlots[(_uint)_eSlotNum])->Get_Filled();
 
 }
 

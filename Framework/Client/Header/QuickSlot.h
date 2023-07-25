@@ -43,7 +43,12 @@ private: // 슬롯이 차있는지 확인하는 목적의 bool변수.
 public:
 	static  CQuickSlot* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
+	void	Set_Use(const _bool& pBool)
+	{
+		m_bCanUse = pBool;
+	}
 private:
 	virtual void		Free() override;
+	_bool		m_bCanUse;
 };
 

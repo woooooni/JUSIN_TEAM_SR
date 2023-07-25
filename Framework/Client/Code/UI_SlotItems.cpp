@@ -140,9 +140,18 @@ void CUI_SlotItems::Set_ItemCode(const ITEM_CODE& pCOde)
 
 HRESULT CUI_SlotItems::Use_Item()
 {
+	CInventoryMgr::GetInstance()->Use_Item(m_eCode);
+	auto& iter = CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION);
 
+	auto item = find_if(iter.begin(), iter.end(), [&](CItem* pItem)->bool
+		{
+			return pItem->Get_ItemCode() == m_eCode;
+		});
 
-	return E_NOTIMPL;
+	if (item == iter.end())
+		Set_ItemCode(ITEM_CODE::ITEM_END);
+
+	return S_OK;
 }
 
 HRESULT CUI_SlotItems::Add_Component(void)
