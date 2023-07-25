@@ -444,7 +444,10 @@ void CMainApp::Free()
 
 	Safe_Release(m_pGraphicDevClass);
 	Safe_Release(m_pManagementClass);
-		
+	
+	CQuestMgr::GetInstance()->DestroyInstance();
+	CUIMgr::GetInstance()->DestroyInstance();
+
 	Engine::Release_Utility();
 	Engine::Release_System();
 }

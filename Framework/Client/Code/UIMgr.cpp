@@ -85,9 +85,7 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     }
 
     if (m_bUpdateUI)
-    {
         m_pInventory->Update_Object(fTimeDelta);
-    }
 }
 
 void CUIMgr::Late_Update_UIMgr()
@@ -97,18 +95,12 @@ void CUIMgr::Late_Update_UIMgr()
     m_vecIcon[KEYBOARD]->LateUpdate_Object();
     m_vecIcon[QUEST]->LateUpdate_Object();
 
-   //m_pDialog->LateUpdate_Object();
     m_pHpBar->LateUpdate_Object();
     m_pShop->LateUpdate_Object();
-   //m_pShortCutKey->LateUpdate_Object();
     m_pQuickSlot->LateUpdate_Object();
-    //m_pItemWindow->LateUpdate_Object();
 
-    // m_pCurrentUI->LateUpdate_Object();
     if (m_bUpdateUI)
-    {
         m_pInventory->LateUpdate_Object();
-    }
 
     m_vecIcon[PLAYERHP_FRAME]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_1]->LateUpdate_Object();
@@ -171,5 +163,27 @@ HRESULT CUIMgr::Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev)
 
 void CUIMgr::Free()
 {
-    // TODO
+
+    if(m_pDialog)
+        Safe_Release(m_pDialog);
+    if(m_pHpBar)
+        Safe_Release(m_pHpBar);
+    if(m_pShop)
+        Safe_Release(m_pShop);
+    if(m_pItemWindow)
+        Safe_Release(m_pItemWindow);
+    if(m_pVeil)
+        Safe_Release(m_pVeil);
+    if(m_pInventory)
+        Safe_Release(m_pInventory);
+    if(m_pShortCutKey)
+        Safe_Release(m_pShortCutKey);
+    if(m_pQuickSlot)
+        Safe_Release(m_pQuickSlot);
+    if(m_pBossHpBar)
+        Safe_Release(m_pBossHpBar);
+
+    for (size_t i = 0; i < ICONTYPE::ICONTYPE_END; ++i)
+        Safe_Release(m_vecIcon[i]);
+    
 }
