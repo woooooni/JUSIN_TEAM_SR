@@ -6,6 +6,7 @@
 #include "KeyMgr.h"
 #include "Collider.h"
 #include "KeyMgr.h"
+#include "RigidBody.h"
 
 CPlayer_State_Lift::CPlayer_State_Lift(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f), m_fLiftTime(0.05f)
@@ -136,11 +137,22 @@ void CPlayer_State_Lift::Render_State(void)
 
 void CPlayer_State_Lift::Reset_State(void)
 {
+	CGameObject* pLiftObj = dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj();
+
+	if (pLiftObj)
+	{
+		_vec3 vPos;
+		pLiftObj->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+
+		if (vPos.y > pLiftObj->Get_MinHeight())
+		{
+			pLiftObj->Get_RigidBodyCom()->SetGround(false);
+		}
+	}
 }
 
 _int CPlayer_State_Lift::Update_LiftReady(const _float& fTimeDelta)
 {
-
 	if (dynamic_cast<CPlayer*>(m_pOwner)->Is_Grab())
 	{
 		m_eLiftState = LIFT_STATE::LIFTUP;

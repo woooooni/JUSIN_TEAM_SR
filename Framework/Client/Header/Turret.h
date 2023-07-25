@@ -38,6 +38,7 @@ protected:
 	wstring		Get_Direction(const _vec3& dir);
 	_vec3		Get_Direction(const wstring& dir);
 	_float		m_fEnergy;
+	_float		m_fFireCool;
 
 };
 

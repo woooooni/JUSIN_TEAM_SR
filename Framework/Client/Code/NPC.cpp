@@ -2,7 +2,8 @@
 #include "../Header/Npc.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
-
+#include "QuestMgr.h"
+#include "Quest.h"
 CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE eCode)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
 	, m_eCode(eCode)
@@ -57,20 +58,42 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-//	_vec3 vNpcPos;
-//	m_pExclamation->Get_TransformCom()->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vNpcPos);
-//
-//	vNpcPos.y += 1.f;
-//	m_pExclamation->Get_TransformCom()->Set_Pos(&vNpcPos);
+	CQuest* pQuest = nullptr;
+	vector<CQuest*> vecQuest = CQuestMgr::GetInstance()->Get_QuestVec(m_eCode);
 
-	//if (m_bQuestAccept) // 퀘스트를 받을 수 있는 상태면 (수락 전)
-		//m_pQuestion->Update_Object(fTimeDelta);
+	_bool bBeforQuest = false, bContinueQuest = false, bCompleteQuest = false;
 
-	_vec3 vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	for (size_t i = 0; i < vecQuest.size(); ++i)
+	{
+		if (!bBeforQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::BEFORE)
+			bBeforQuest = true;
+		if (!bContinueQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::CONTINUE)
+			bContinueQuest = true;
+		if (!bContinueQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::COMPLETE)
+			bContinueQuest = true;
+	}
 
-	vPos.y += 1.f;
-	// m_pExclamation->Get_TransformCom()->Set_Pos(&vPos);
+	if (bCompleteQuest)
+	{
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vPos.y += 1.f;
+		m_pQuestion->Update_Object(fTimeDelta);
+	}
+	else if (bContinueQuest)
+	{
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vPos.y += 1.f;
+		m_pQuestion->Update_Object(fTimeDelta);
+	}
+	else if (bBeforQuest)
+	{
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vPos.y += 1.f;
+		m_pExclamation->Update_Object(fTimeDelta);
+	}
 
 
 

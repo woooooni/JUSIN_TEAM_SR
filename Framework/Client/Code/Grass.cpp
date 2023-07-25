@@ -196,6 +196,8 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
                 dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.2f, 2.5f, 1.5f), 40);
         }
 
+        Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+        Play_Sound(L"SFX_25_LeafBushRemove.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
 
 
         /*for (auto& iter : m_dropItemMap[Engine::GetCurrScene()])
@@ -254,6 +256,10 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
             if (pLeaf)
                 dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.5f, 4.f, 2.f), 10);
         }
+
+        Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+
+        Play_Sound(L"SFX_24_LeafBushTouch.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
 
     }
 }

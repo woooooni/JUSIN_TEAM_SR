@@ -895,7 +895,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE && m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 
@@ -912,7 +912,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pBoxCollider)
 				pBoxCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE && m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 
@@ -938,7 +938,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if (nullptr != pCollider)
 				pCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE && m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 
@@ -956,7 +956,7 @@ void CImGuiMgr::Input(const _float& fTimeDelta)
 			if(nullptr != pCollider)
 				pCollider->Set_Scale(vScale);
 
-			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE || m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
+			if (m_pSelectedObject->GetObj_Id() != OBJ_ID::TILE && m_pSelectedObject->GetObj_Id() != OBJ_ID::GRASS)
 				SetAutoY(m_pSelectedObject);
 		}
 
@@ -1127,7 +1127,10 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			pTargetTransform->Set_Info(INFO_POS, &vPos);
 			pTargetTransform->Set_Scale(vScale);	
 
-			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE && m_pTargetObject->GetObj_Id() != OBJ_ID::TERRAIN && m_pTargetObject->GetObj_Id() != OBJ_ID::GRASS)
+			if (m_pTargetObject->GetObj_Id() != OBJ_ID::TILE 
+				&& m_pTargetObject->GetObj_Id() != OBJ_ID::TERRAIN 
+				&& m_pTargetObject->GetObj_Id() != OBJ_ID::GRASS
+				&& m_pTargetObject->GetObj_Id() != OBJ_ID::PROP)
 				SetAutoY(m_pTargetObject);
 		}
 

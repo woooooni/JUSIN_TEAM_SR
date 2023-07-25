@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "KeyMgr.h"
 #include "Texture.h"
+#include		"Export_Function.h"
 
 CPlayer_State_Walk::CPlayer_State_Walk(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
@@ -85,6 +86,7 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 	}
 
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
+
 
 	m_fAccTime = 0.0f;
 	return S_OK;

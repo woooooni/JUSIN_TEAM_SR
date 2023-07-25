@@ -194,7 +194,6 @@ CLightPuzzleBase* CLightPuzzleBase::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint&
 	ret->m_pTransformCom->Set_Pos(&_vec3(p_Pos.x, 0.013f, p_Pos.z));
 	ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 	ret->m_pAnimator->Play_Animation(p_Type, false);
-	ret->m_pTransformCom->m_vAngle = {90.f, 0, 0};
 	ret->Set_MinHeight(0.013f);
 
 	if (p_Type == L"Base")

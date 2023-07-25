@@ -76,6 +76,7 @@
 #include "Test_Cube.h"
 #include "MonkeyBarrelCleaner.h"
 #include "FloorDoor.h"
+#include	"NueFlower.h"
 
 CScene_Test::CScene_Test(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -120,6 +121,14 @@ HRESULT CScene_Test::Ready_Scene()
 Engine::_int CScene_Test::Update_Scene(const _float& fTimeDelta)
 {
 	Check_Event_Start(10);
+
+	if (KEY_TAP(KEY::Z))
+	{
+		CNueFlower* nue = CNueFlower::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(nue, E_FAIL);
+		FAILED_CHECK_RETURN(m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Nue", nue), E_FAIL);
+
+	}
 
 	__super::Update_Scene(fTimeDelta);
 
@@ -202,6 +211,11 @@ HRESULT CScene_Test::Ready_Layer_Player()
 
 
 //	pPlayer->Set_Hat(pItemMaskHat);
+
+	CNueFlower* nue = CNueFlower::Create(m_pGraphicDev);
+	NULL_CHECK_RETURN(nue, E_FAIL);
+	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Nue", nue), E_FAIL);
+	
 
 	pLayer->Ready_Layer();
 
@@ -599,6 +613,16 @@ HRESULT CScene_Test::Ready_Layer_InterationObj()
 	CClearBomb* pCBomb = CClearBomb::Create(m_pGraphicDev, { 2, 0, 2 });
 	NULL_CHECK_RETURN(pCBomb, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"ClearBomb", pCBomb), E_FAIL);*/
+	CCatapult* pCat = CCatapult::Create(m_pGraphicDev, 0, { 10.f, 0.f, 5.f });
+	NULL_CHECK_RETURN(pCat, E_FAIL);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Catapult", pCat);
+	
+	CPushStone* pPush = CPushStone::Create({ 26.f, 0.f, 12.f }, m_pGraphicDev);
+
+	Add_Subscribe(6, pPush);
+
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Stone_Push", pPush);
 
 	pLayer->Ready_Layer();
 

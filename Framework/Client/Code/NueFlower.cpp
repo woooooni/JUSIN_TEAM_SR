@@ -1,11 +1,11 @@
 #include "NueFlower.h"
 #include    "Export_Function.h"
 
-CNueFlower::CNueFlower(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::LIGHT_FLOWER), m_fMaxAngle(180.f), m_fCurAngle(0.f)
+CNueFlower::CNueFlower(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::LIGHT_FLOWER), m_fMaxDistance(180.f), m_fFarSpeed(1.f)
 {
 }
 
-CNueFlower::CNueFlower(const CNueFlower& rhs) : CGameObject(rhs), m_fMaxAngle(rhs.m_fMaxAngle), m_fCurAngle(rhs.m_fCurAngle)
+CNueFlower::CNueFlower(const CNueFlower& rhs) : CGameObject(rhs), m_fMaxDistance(rhs.m_fMaxDistance), m_fFarSpeed(1.f)
 {
 }
 
@@ -28,20 +28,16 @@ _int CNueFlower::Update_Object(const _float& fTimeDelta)
 {
     Add_RenderGroup(RENDER_ALPHA, this);
 
-    if (m_fCurAngle < m_fMaxAngle)
+    if (D3DXVec3Length(&m_vmyPos) < m_fMaxDistance)
     {
         _float size = D3DXVec3Length(&m_vmyPos);
-        m_vmyPos *= size * 2.f * fTimeDelta;
 
-        _matrix mat;
-        D3DXMatrixRotationY(&mat, D3DXToRadian(180.f * fTimeDelta));
-        D3DXVec3TransformCoord(&m_vmyPos, &m_vmyPos, &mat);
+        m_vmyPos += m_vmyPos * m_fFarSpeed * fTimeDelta / size;
 
-        m_fCurAngle += 180.f * fTimeDelta;
     }
-    else if (m_fCurAngle > m_fMaxAngle)
+    else if (D3DXVec3Length(&m_vmyPos) > m_fMaxDistance)
     {
-        m_fCurAngle = m_fMaxAngle;
+        m_vmyPos = *D3DXVec3Normalize(&m_vmyPos, &m_vmyPos) * m_fMaxDistance;
     }
 
     return __super::Update_Object(fTimeDelta);
@@ -66,7 +62,7 @@ void CNueFlower::Free()
     __super::Free();
 }
 
-CNueFlower* CNueFlower::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos, const OBJ_DIR pDir)
+CNueFlower* CNueFlower::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos, const _vec3& pDir, const _float& pFirstLength, const _float& pLastLength)
 {
     CNueFlower* ret = new CNueFlower(p_Dev);
 
@@ -79,55 +75,11 @@ CNueFlower* CNueFlower::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos, cons
         return nullptr;
     }
 
-    switch (pDir)
-    {
-    case Engine::OBJ_DIR::DIR_U:
-        ret->m_voriginPos = { 0, 0, 1 };
-        break;
-    case Engine::OBJ_DIR::DIR_D:
-
-        ret->m_voriginPos = { 0, 0, -1 };
-
-        break;
-    case Engine::OBJ_DIR::DIR_L:
-        ret->m_voriginPos = { -1, 0, 0 };
-
-        break;
-    case Engine::OBJ_DIR::DIR_R:
-
-        ret->m_voriginPos = { 1, 0, 0 };
-        break;
-    case Engine::OBJ_DIR::DIR_LU:
-
-        ret->m_voriginPos = { -1, 0, 1 };
-        D3DXVec3Normalize(&ret->m_voriginPos, &ret->m_voriginPos);
-
-        break;
-    case Engine::OBJ_DIR::DIR_RU:
-
-        ret->m_voriginPos = { 1, 0, 1 };
-        D3DXVec3Normalize(&ret->m_voriginPos, &ret->m_voriginPos);
-
-        break;
-    case Engine::OBJ_DIR::DIR_LD:
-
-        ret->m_voriginPos = { -1, 0, -1 };
-        D3DXVec3Normalize(&ret->m_voriginPos, &ret->m_voriginPos);
-
-        break;
-    case Engine::OBJ_DIR::DIR_RD:
-
-        ret->m_voriginPos = { 1, 0, -1 };
-        D3DXVec3Normalize(&ret->m_voriginPos, &ret->m_voriginPos);
-
-        break;
-    case Engine::OBJ_DIR::DIR_END:
-    default:
-        MSG_BOX("DIR is Null");
-
-    }
 
     ret->m_voriginPos = p_Pos;
+    D3DXVec3Normalize(&ret->m_vmyPos, &pDir);
+    ret->m_vmyPos *= pFirstLength;
+    ret->m_fMaxDistance = pLastLength;
 
     ret->m_pTransformCom->Set_Pos(&(ret->m_voriginPos + ret->m_vmyPos));
 

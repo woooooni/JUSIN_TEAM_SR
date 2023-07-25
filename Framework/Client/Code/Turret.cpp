@@ -1,10 +1,15 @@
 #include "Turret.h"
 #include	"Export_Function.h"
+#include	"TurretBullet.h"
+#include	"Pool.h"
+
+
 CTurret::CTurret(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CFieldObject(pGraphicDev, OBJ_ID::TURRET)
 	, m_wstrCurState(L"")
 	, m_pTarget(nullptr)
 	, m_fEnergy(0)
+	, m_fFireCool(0.f)
 {}
 
 
@@ -13,6 +18,7 @@ CTurret::CTurret(const CTurret& rhs)
 	, m_wstrCurState(rhs.m_wstrCurState)
 	, m_pTarget(rhs.m_pTarget)
 	, m_fEnergy(rhs.m_fEnergy)
+	, m_fFireCool(rhs.m_fFireCool)
 {
 }
 
@@ -47,13 +53,15 @@ _int CTurret::Update_Object(const _float& fTimeDelta)
 
 	if (m_fEnergy > 0.f)
 	{
-		m_fEnergy -= fTimeDelta * 10.f;
+
 		Find_Enemy();
 
 		if (!m_pTarget)
 			Set_Idle();
 		else
 		{
+			//m_fEnergy -= fTimeDelta * 10.f;
+
 			_vec3 LookEnemy, mypos, enemyPos;
 			wstring src;
 
@@ -71,6 +79,25 @@ _int CTurret::Update_Object(const _float& fTimeDelta)
 			else if (!m_pAnimator->GetCurrAnimation()->Is_Loop())
 			{
 				m_pAnimator->GetCurrAnimation()->Set_Loop(true);
+			}
+
+			m_fFireCool += fTimeDelta;
+			if (m_fFireCool > 0.5f)
+			{
+				CTurretBullet* bullet = CPool<CTurretBullet>::Get_Obj();
+				if (!bullet)
+				{
+					bullet = CTurretBullet::Create(m_pGraphicDev, mypos + LookEnemy * 0.5f, LookEnemy);
+				}
+				else
+				{
+					bullet->Set_Start(mypos + LookEnemy * 0.5f, LookEnemy);
+				}
+				bullet->Set_Owner(this);
+
+				Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Turret_Bullet", bullet);
+
+				m_fFireCool = 0.f;
 			}
 		}
 	}
@@ -127,7 +154,7 @@ void CTurret::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && m_fEnergy < 100.f)
 	{
-		m_fEnergy += 20.f;
+		m_fEnergy += 40.f;
 		if (m_fEnergy > 100.f)
 			m_fEnergy = 100.f;
 	}
@@ -153,6 +180,7 @@ void CTurret::Set_Idle()
 {
 	m_pAnimator->GetCurrAnimation()->Set_Loop(false);
 	m_pAnimator->GetCurrAnimation()->Set_Idx(m_pAnimator->GetCurrAnimation()->Get_Size() - 1);
+	m_fFireCool = 0.f;
 }
 
 void CTurret::Find_Enemy()
@@ -182,7 +210,7 @@ void CTurret::Find_Enemy()
 		iter->Get_TransformCom()->Get_Info(INFO_POS, &enemyPos);
 		enemyPos.y = 0;
 
-		if ((tmp = D3DXVec3Length(&(myPos - enemyPos))) && tmp < 5.f)
+		if ((tmp = D3DXVec3Length(&(myPos - enemyPos))) && tmp < 10.f)
 		{
 			if (m_pTarget)
 			{
@@ -211,39 +239,60 @@ wstring CTurret::Get_Direction(const _vec3& dir)
 	if (src < 22.5f)
 	{
 		return L"Right";
+		m_eDir = OBJ_DIR::DIR_R;
+
 	}
 	else if (22.5f < src && src < 67.5f)
 	{
 		if (tmp.y > 0.f)
 		{
 			return L"RightDown";
+			m_eDir = OBJ_DIR::DIR_RD;
 		}
 		else
+		{
 			return L"RightUp";
+			m_eDir = OBJ_DIR::DIR_RU;
+
+		}
 	}
 	else if (67.5f < src && src < 112.5f)
 	{
 		if (tmp.y > 0.f)
 		{
 			return L"Down";
+			m_eDir = OBJ_DIR::DIR_D;
+
 		}
 		else
+		{
 			return L"Up";
+			m_eDir = OBJ_DIR::DIR_U;
+
+		}
 	}
 	else if (112.5f < src && src < 157.5f)
 	{
 		if (tmp.y > 0.f)
 		{
 			return L"LeftDown";
+			m_eDir = OBJ_DIR::DIR_LD;
+
 		}
 		else
+		{
 			return L"LeftUp";
+			m_eDir = OBJ_DIR::DIR_LU;
+
+		}
 
 	}
 	else
+	{
 		return L"Left";
+		m_eDir = OBJ_DIR::DIR_L;
 
-
+	}		
 }
 
 _vec3 CTurret::Get_Direction(const wstring& dir)

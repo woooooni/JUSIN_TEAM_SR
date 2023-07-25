@@ -2,6 +2,8 @@
 #include	"Export_Function.h"
 #include		"InvenTabButton.h"
 #include	"InventoryMgr.h"
+#include "QuickSlot.h"
+#include "UIMgr.h"
 
 CInventoryUI::CInventoryUI(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
@@ -52,7 +54,7 @@ HRESULT CInventoryUI::Ready_Object(void)
 
 
 	return S_OK;
-}
+} 
 
 _int CInventoryUI::Update_Object(const _float& fTimeDelta)
 {
@@ -113,6 +115,58 @@ void CInventoryUI::LateUpdate_Object(void)
 	{
 		iter->LateUpdate_Object();
 	}
+	// Ãß°¡
+	CQuickSlot* pSlots = CUIMgr::GetInstance()->Get_Slots();
+
+	CUI_SlotOne* pSlotOne = pSlots->Get_SlotOne();
+	CUI_SlotTwo* pSlotTwo = pSlots->Get_SlotTwo();
+	CUI_SlotThree* pSlotThree = pSlots->Get_SlotThree();
+	CUI_SlotFour* pSlotFour = pSlots->Get_SlotFour();
+
+	if (m_bIsRenderCurs)
+	{
+		if (KEY_TAP(KEY::NUM_1))
+		{
+			_bool bFilled = pSlots->Get_Filled(SLOTNUM::SLOT_ONE);
+
+			if (!bFilled)
+			{
+				pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+			}
+		}
+
+		if (KEY_TAP(KEY::NUM_2))
+		{
+			_bool bFilled = pSlots->Get_Filled(SLOTNUM::SLOT_TWO);
+
+			if (!bFilled)
+			{
+				pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+			}
+		}
+
+		if (KEY_TAP(KEY::NUM_3))
+		{
+			_bool bFilled = pSlots->Get_Filled(SLOTNUM::SLOT_THREE);
+
+			if (!bFilled)
+			{
+				pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+			}
+		}
+
+		if (KEY_TAP(KEY::NUM_4))
+		{
+			_bool bFilled = pSlots->Get_Filled(SLOTNUM::SLOT_FOUR);
+
+			if (!bFilled)
+			{
+				pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+			}
+		}
+
+	}
+	//
 	__super::LateUpdate_Object();
 }
 

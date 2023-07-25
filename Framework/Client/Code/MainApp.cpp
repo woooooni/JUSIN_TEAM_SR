@@ -26,6 +26,7 @@
 #include "Effect_Item.h"
 #include "Effect_Block.h"
 #include "Effect_Hit.h"
+#include	"TurretBullet.h"
 
 #include "Scene_Loading.h"
 
@@ -206,7 +207,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TOOL);
 	// Engine::Play_Sound(L"BGM_1_CentralArea.wav", CHANNELID::SOUND_BGM, .5f);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
@@ -402,6 +403,11 @@ HRESULT CMainApp::Ready_Proto_Event()
 	event->m_bIsCheckUpdate = true;
 
 	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 29;
+	FAILED_CHECK(Add_Event(event));
+
 
 	return S_OK;
 }

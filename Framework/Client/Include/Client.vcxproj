@@ -380,8 +380,10 @@
     <ClInclude Include="..\Header\TrashFast.h" />
     <ClInclude Include="..\Header\TrashPrist.h" />
     <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\TriggerObj.h" />
     <ClInclude Include="..\Header\Turret.h" />
     <ClInclude Include="..\Header\Tree.h" />
+    <ClInclude Include="..\Header\TurretBullet.h" />
     <ClInclude Include="..\Header\UIMgr.h" />
     <ClInclude Include="..\Header\UI_BossHP.h" />
     <ClInclude Include="..\Header\UI_Cursor.h" />
@@ -404,6 +406,7 @@
     <ClInclude Include="..\Header\UI_Shop.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="..\Header\UI_SlotFour.h" />
+    <ClInclude Include="..\Header\UI_SlotItems.h" />
     <ClInclude Include="..\Header\UI_SlotOne.h" />
     <ClInclude Include="..\Header\UI_SlotThree.h" />
     <ClInclude Include="..\Header\UI_SlotTwo.h" />
@@ -605,8 +608,10 @@
     <ClCompile Include="..\Code\TrashFast.cpp" />
     <ClCompile Include="..\Code\TrashPrist.cpp" />
     <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Code\TriggerObj.cpp" />
     <ClCompile Include="..\Code\Turret.cpp" />
     <ClCompile Include="..\Code\Tree.cpp" />
+    <ClCompile Include="..\Code\TurretBullet.cpp" />
     <ClCompile Include="..\Code\UIMgr.cpp" />
     <ClCompile Include="..\Code\UI_BossHP.cpp" />
     <ClCompile Include="..\Code\UI_Cursor.cpp" />
@@ -630,6 +635,7 @@
     <ClCompile Include="..\Code\UI_QuestionMark.cpp" />
     <ClCompile Include="..\Code\UI_Shop.cpp" />
     <ClCompile Include="..\Code\UI_SlotFour.cpp" />
+    <ClCompile Include="..\Code\UI_SlotItems.cpp" />
     <ClCompile Include="..\Code\UI_SlotOne.cpp" />
     <ClCompile Include="..\Code\UI_SlotThree.cpp" />
     <ClCompile Include="..\Code\UI_SlotTwo.cpp" />

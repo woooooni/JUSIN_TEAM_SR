@@ -9,17 +9,10 @@ void CClearBomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 	{
 		_vec3 myPos;
 		m_pTransformCom->Get_Info(INFO_POS, &myPos);
-		Set_Active(false);
-		CClearField* src = dynamic_cast<CClearField*>(CPool<CClearField>::Get_Obj());
+		Engine::DeleteObjEvt(this);
+		CClearField* src = CClearField::Create(m_pGraphicDev, myPos);
 
-		if (src)
-		{
-			src->Get_TransformCom()->Set_Pos(&myPos);
-		}
-		else
-		{
-			src = CClearField::Create(m_pGraphicDev, myPos);
-		}
+
 		NULL_CHECK(src);
 		Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"ClearField", src);
 
