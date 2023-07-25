@@ -3,13 +3,15 @@
 #include "UIMgr.h"
 #include "InventoryMgr.h"
 
-CUI_SlotItems::CUI_SlotItems(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CUI(pGraphicDev)
+CUI_SlotItems::CUI_SlotItems(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: m_eCode(ITEM_CODE::ITEM_END)
+	, CUI(pGraphicDev)
 {
 }
 
 CUI_SlotItems::CUI_SlotItems(const CUI_SlotItems& rhs)
 	: CUI(rhs)
+	, m_eCode(rhs.m_eCode)
 {
 }
 
@@ -36,6 +38,12 @@ HRESULT CUI_SlotItems::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
+	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
@@ -45,6 +53,9 @@ HRESULT CUI_SlotItems::Ready_Object(void)
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
 	m_pTextureCom->Set_Idx(0);
+
+	m_pAnimator->Add_Animation(L"Base", L"Proto_Texture_Icon_QuickSlot", 0.f);
+	m_pAnimator->Play_Animation(L"Base", false);
 
 	return S_OK;
 }
@@ -83,8 +94,15 @@ void CUI_SlotItems::Render_Object(void)
 	m_pTransformCom->Set_Scale(vScale);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-	m_pTextureCom->Render_Texture(0);
+	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();
+
+	if (m_eCode != ITEM_CODE::ITEM_END)
+	{
+		m_pTextureCom->Render_Texture(0);
+		m_pBufferCom->Render_Buffer();
+
+	}
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
@@ -108,37 +126,29 @@ void CUI_SlotItems::Set_SlotNum(SLOTITEM_NUM eNum)
 {
 	m_eSlotNum = eNum;
 
+	m_tInfo.fX = -536.f + (_uint)eNum * 80;
+	m_tInfo.fY = -320.f;
+
+}
+
+void CUI_SlotItems::Set_ItemCode(const ITEM_CODE& pCOde)
+{
+	m_eCode = pCOde;
+	m_pTextureCom->Set_Idx((_uint)pCOde);
+	Set_Filled(m_eCode != ITEM_CODE::ITEM_END);
+}
+
+HRESULT CUI_SlotItems::Use_Item()
+{
+
+
+	return E_NOTIMPL;
 }
 
 HRESULT CUI_SlotItems::Add_Component(void)
 {
 	CQuickSlot* pSlot = CUIMgr::GetInstance()->Get_Slots();
 	
-	switch (m_eSlotNum)
-	{
-	case SLOTITEM_NUM::FIRST:
-		m_tInfo.fX = pSlot->Get_SlotOne()->Get_UI_Info().fX;
-		m_tInfo.fY = pSlot->Get_SlotOne()->Get_UI_Info().fY;
-		break;
-
-	case SLOTITEM_NUM::SECOND:
-		m_tInfo.fX = pSlot->Get_SlotTwo()->Get_UI_Info().fX;
-		m_tInfo.fY = pSlot->Get_SlotTwo()->Get_UI_Info().fY;
-		break;
-
-	case SLOTITEM_NUM::THIRD:
-		m_tInfo.fX = pSlot->Get_SlotThree()->Get_UI_Info().fX;
-		m_tInfo.fY = pSlot->Get_SlotThree()->Get_UI_Info().fY;
-		break;
-
-	case SLOTITEM_NUM::FOURTH:
-		m_tInfo.fX = pSlot->Get_SlotFour()->Get_UI_Info().fX;
-		m_tInfo.fY = pSlot->Get_SlotFour()->Get_UI_Info().fY;
-		break;
-
-	default:
-		break;
-	}
 
 	return S_OK;
 }
