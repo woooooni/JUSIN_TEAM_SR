@@ -100,12 +100,15 @@ _int CDesertRhino::Update_Object(const _float& fTimeDelta)
 
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::STUN)
 	{
-		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
-		if (nullptr == pTarget)
-			return S_OK;
 
-		Set_Target(pTarget);
+		if (Get_State() != MONSTER_STATE::DEFFENCEMODE)
+		{
+			CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
+			if (nullptr == pTarget)
+				return S_OK;
 
+			Set_Target(pTarget);
+		}
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 
 		vDir = vTargetPos - vPos;
@@ -269,6 +272,20 @@ void CDesertRhino::Update_Move(_float fTimeDelta)
 void CDesertRhino::Update_Attack(_float fTimeDelta)
 {
 	Trace(fTimeDelta);
+}
+
+void CDesertRhino::Update_DefenceMode(_float fTimeDelta)
+{
+	_vec3 vDir, vPos;
+
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = m_vTargetPos - vPos;
+	D3DXVec3Normalize(&vDir, &vDir);
+	vDir.y = 0.0f;
+	m_vLook = vDir;
+	m_vDir = vDir;
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed() * 0.5f);
+	m_bDefenceMode = true;
 }
 
 
@@ -626,6 +643,39 @@ void CDesertRhino::Set_Animation()
 			break;
 		case Engine::OBJ_DIR::DIR_RD:
 			m_pAnimator->Play_Animation(L"DesertRhino_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::DEFFENCEMODE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"DesertRhino_Move_RightDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_END:
 			return;

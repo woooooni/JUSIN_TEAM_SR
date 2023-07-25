@@ -65,7 +65,7 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_RightDown", true);
 		break;
 	}
-
+	m_eDir = m_pOwner->GetObj_Dir();
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 
 	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
@@ -89,7 +89,36 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 
 _int CPlayer_State_Idle::Update_State(const _float& fTimeDelta)
 {
-	
+	if (m_eDir != m_pOwner->GetObj_Dir())
+	{
+		switch (m_pOwner->GetObj_Dir())
+		{
+		case OBJ_DIR::DIR_U:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_Up", true);
+			break;
+		case OBJ_DIR::DIR_D:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_Down", true);
+			break;
+		case OBJ_DIR::DIR_L:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_Left", true);
+			break;
+		case OBJ_DIR::DIR_R:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_Right", true);
+			break;
+		case OBJ_DIR::DIR_LD:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_LeftDown", true);
+			break;
+		case OBJ_DIR::DIR_LU:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_LeftUp", true);
+			break;
+		case OBJ_DIR::DIR_RU:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_RightUp", true);
+			break;
+		case OBJ_DIR::DIR_RD:
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Idle_RightDown", true);
+			break;
+		}
+	}
 	
 
 
@@ -128,7 +157,7 @@ void CPlayer_State_Idle::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
 }
 
@@ -165,10 +194,6 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::SWING);
 	}
 
-	if (KEY_HOLD(KEY::T))
-	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::HIT);
-	}
 
 	if (KEY_HOLD(KEY::G))
 	{
@@ -180,10 +205,6 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DANCE);
 	}
 
-	if (KEY_TAP(KEY::R))
-	{
-		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::PUSH);
-	}
 
 
 	if (KEY_TAP(KEY::W))

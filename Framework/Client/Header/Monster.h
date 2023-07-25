@@ -46,7 +46,9 @@ public:
 	virtual void Trace(_float fTimeDelta) PURE;
 
 	void		Set_Stun(_float _fStunTime);
+
 	void Set_Summoned_By_Prist(_bool _bSummonedByPrist) { m_bSummonedByPrist = _bSummonedByPrist; }
+	void Set_DefenceMode(CGameObject* _pTarget);
 
 public:
 	virtual void Update_Idle(_float fTimeDelta)		PURE;
@@ -55,13 +57,17 @@ public:
 	virtual void Update_Attack(_float fTimeDelta)	PURE;
 	virtual void Update_Die(_float fTimeDelta)		PURE;
 	virtual void Update_Stun(_float fTimeDelta);
-	
+	virtual void Update_DefenceMode(_float fTimeDelta);
+
+
 private:
 	_float			m_fSpeed = 5.f;
 	MONSTER_STATE	m_eState;
 
 protected:
 	CGameObject*	m_pTarget;
+	_vec3			m_vTargetPos;
+
 	MONSTERSTAT		m_tStat;
 	_bool m_bPushable = true;
 	_bool m_bSummonedByPrist = false;
@@ -75,7 +81,7 @@ protected:
 
 	_float m_fStunTime;
 
-
+	_bool m_bDefenceMode = false;
 protected:
 	virtual void Free() override;
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;

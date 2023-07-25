@@ -23,5 +23,7 @@ private:
 	void					Update_Hat();
 
 	void					Key_Input(const _float& fTimeDelta);
+
+	OBJ_DIR	m_eDir;
 };
 

@@ -74,6 +74,8 @@ HRESULT CMothMage::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
 	m_tStat = { 3,3,1 };
 	m_fMinHeight = 0.5f;
+	m_fShootTime = 2.0f;
+	m_fAccShootTime = 0.0f;
 
 	return S_OK;
 }
@@ -98,10 +100,13 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE && Get_State() != MONSTER_STATE::STUN)
 	{
-		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
-		if (nullptr == pTarget)
-			return S_OK;
-		Set_Target(pTarget);
+		if (Get_State() != MONSTER_STATE::DEFFENCEMODE)
+		{
+			CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
+			if (nullptr == pTarget)
+				return S_OK;
+			Set_Target(pTarget);
+		}
 		_vec3 vTargetPos, vDir;
 
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
@@ -109,11 +114,22 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
 
-		if (D3DXVec3Length(&vDir) < 7.f)
+		if (Get_State() != MONSTER_STATE::DEFFENCEMODE)
 		{
-			Set_State(MONSTER_STATE::ATTACK);
-			m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
+			if (D3DXVec3Length(&vDir) < 7.f)
+			{
+				Set_State(MONSTER_STATE::ATTACK);
+				m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
+			}
 		}
+		else if (Get_State() == MONSTER_STATE::DEFFENCEMODE)
+		{
+			if (D3DXVec3Length(&vDir) <= 10.f)
+			{
+				Set_State(MONSTER_STATE::ATTACK);
+			}
+		}
+		
 	}
 
 	vPos.y += 0.5f;
@@ -260,8 +276,12 @@ void CMothMage::Update_Move(_float fTimeDelta)
 
 void CMothMage::Update_Attack(_float fTimeDelta)
 {
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
-	
+	if (m_bDefenceMode)
+	{
+		Update_DefenceAttack(fTimeDelta);
+		return;
+	}
+
 	_vec3 vTargetPos, vPos, vDir;
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
@@ -287,6 +307,83 @@ void CMothMage::Update_Attack(_float fTimeDelta)
 	}
 	else
 	Trace(fTimeDelta);
+}
+
+void CMothMage::Update_DefenceMode(_float fTimeDelta)
+{
+	_vec3 vDir, vPos;
+
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = m_vTargetPos - vPos;
+	D3DXVec3Normalize(&vDir, &vDir);
+	vDir.y = 0.0f;
+	m_vLook = vDir;
+	m_vDir = vDir;
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed() * 0.5f);
+
+	m_bDefenceMode = true;
+}
+
+void CMothMage::Update_DefenceAttack(_float fTimeDelta)
+{
+	_vec3 vTargetPos, vPos, vDir;
+
+	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+	vDir = vTargetPos - vPos;
+	vDir.y = 0.f;
+	m_vLook = vDir;
+	if (D3DXVec3Length(&vDir) > 10.f && !m_bShoot)
+	{
+		m_bShooting = false;
+		Set_State(MONSTER_STATE::DEFFENCEMODE);
+		m_bShoot = true;
+	}
+
+	if (!m_bShooting)
+	{
+		if (m_fAccShootTime > m_fShootTime)
+		{
+			m_bShoot = true;
+			m_bShooting = true;
+			m_fAccShootTime = 0.0f;
+			Set_Animation();
+		}
+		else
+		{
+			m_fAccShootTime += fTimeDelta;
+			return;
+		}
+	}
+
+	if (D3DXVec3Length(&vDir) < 10.f)
+	{
+
+		if (m_bShoot && m_pAnimator->GetCurrAnimation()->Get_Idx() == 3)
+		{
+			CBugBall* pBugBall = CBugBall::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pBugBall, );
+			_vec3 BulletPos = vPos;
+			BulletPos.y += 0.5f;
+			BulletPos.z -= 0.01f;
+			vDir = vTargetPos - BulletPos;
+			D3DXVec3Normalize(&vDir, &vDir);
+			pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
+			pBugBall->Set_Dir(vDir);
+			pBugBall->Set_Owner(this);
+			pBugBall->Set_Atk(m_tStat.iAttack);
+			CLayer* pLayer = Engine::Get_Layer(LAYER_TYPE::MONSTER);
+			pLayer->Add_GameObject(L"BugBall", pBugBall);
+			m_bShoot = false;
+		}
+
+		if (!m_bShoot && m_pAnimator->GetCurrAnimation()->Is_Finished())
+		{
+			m_bShooting = false;
+		}
+	}
+
 }
 
 HRESULT CMothMage::Add_Component(void)
@@ -572,28 +669,28 @@ void CMothMage::Set_Animation()
 			switch (eDir)
 			{
 			case Engine::OBJ_DIR::DIR_U:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_Up", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_Up", false);
 				break;
 			case Engine::OBJ_DIR::DIR_D:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_Down", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_Down", false);
 				break;
 			case Engine::OBJ_DIR::DIR_L:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_Left", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_Left", false);
 				break;
 			case Engine::OBJ_DIR::DIR_R:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_Right", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_Right", false);
 				break;
 			case Engine::OBJ_DIR::DIR_LU:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_LeftUp", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_LeftUp", false);
 				break;
 			case Engine::OBJ_DIR::DIR_RU:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_RightUp", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_RightUp", false);
 				break;
 			case Engine::OBJ_DIR::DIR_LD:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_LeftDown", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_LeftDown", false);
 				break;
 			case Engine::OBJ_DIR::DIR_RD:
-				m_pAnimator->Play_Animation(L"MothMage_Attack_RightDown", true);
+				m_pAnimator->Play_Animation(L"MothMage_Attack_RightDown", false);
 				break;
 			case Engine::OBJ_DIR::DIR_END:
 				return;
@@ -635,6 +732,39 @@ void CMothMage::Set_Animation()
 		break;
 	case Engine::MONSTER_STATE::DIE:
 			m_pAnimator->Play_Animation(L"MothMage_Death_Down", true);
+		break;
+	case Engine::MONSTER_STATE::DEFFENCEMODE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"MothMage_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"MothMage_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"MothMage_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"MothMage_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"MothMage_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"MothMage_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"MothMage_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"MothMage_Move_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
 		break;
 	default:
 		break;

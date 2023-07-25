@@ -19,6 +19,7 @@ class CTrashBig :
         virtual void Update_Regen(_float fTimeDelta) override;
         virtual void Update_Move(_float fTimeDelta) override;
         virtual void Update_Attack(_float fTimeDelta) override;
+        virtual void Update_DefenceMode(_float fTimeDelta);
 
     public:
         virtual HRESULT Ready_Object(void)							override;

@@ -47,6 +47,8 @@ public:
 	void Set_TargetObj(CGameObject* _pTarget) { m_pTargetObj = _pTarget; }
 
 	void Set_Offset(const _vec3& _vOffset) { m_vOffset = _vOffset; }
+	void Add_Offset() { m_vOffset *= 2.f; }
+	void Minus_Offset() { m_vOffset /= 2.f; }
 
 
 private:

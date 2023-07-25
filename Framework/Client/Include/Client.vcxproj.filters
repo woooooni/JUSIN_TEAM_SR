@@ -628,6 +628,9 @@
     <Filter Include="02. GameObject\06. FieldObj\08. TriggerObj">
       <UniqueIdentifier>{c47fb144-2729-4206-8425-c38ee0d7975d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\07. EnvironmentObj\03. Nexus">
+      <UniqueIdentifier>{52f96e91-5773-4e05-81fe-0efa68f2cc8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1284,6 +1287,13 @@
     <ClInclude Include="..\Header\TriggerObj.h">
       <Filter>02. GameObject\06. FieldObj\08. TriggerObj</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Nexus.h">
+      <Filter>02. GameObject\07. EnvironmentObj\03. Nexus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\DefenceEnter.h">
+      <Filter>02. GameObject\09. Portal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\MonsterSpawner.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -1902,6 +1912,13 @@
     <ClCompile Include="..\Code\TriggerObj.cpp">
       <Filter>02. GameObject\06. FieldObj\08. TriggerObj</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Nexus.cpp">
+      <Filter>02. GameObject\07. EnvironmentObj\03. Nexus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\DefenceEnter.cpp">
+      <Filter>02. GameObject\09. Portal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\MonsterSpawner.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

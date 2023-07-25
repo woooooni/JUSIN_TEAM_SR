@@ -210,6 +210,7 @@
     <ClInclude Include="..\Header\CParticle_Stone.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\Cupa.h" />
+    <ClInclude Include="..\Header\DefenceEnter.h" />
     <ClInclude Include="..\Header\Door.h" />
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -283,11 +284,13 @@
     <ClInclude Include="..\Header\Loading.h" />
     <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
     <ClInclude Include="..\Header\MonsterAim.h" />
+    <ClInclude Include="..\Header\MonsterSpawner.h" />
     <ClInclude Include="..\Header\MothMage.h" />
     <ClInclude Include="..\Header\MothOrb.h" />
     <ClInclude Include="..\Header\NearReactMoonObj.h" />
     <ClInclude Include="..\Header\NearReactMushroom.h" />
     <ClInclude Include="..\Header\NearReactObj.h" />
+    <ClInclude Include="..\Header\Nexus.h" />
     <ClInclude Include="..\Header\Npc.h" />
     <ClInclude Include="..\Header\Npc_Artist.h" />
     <ClInclude Include="..\Header\Npc_Chief.h" />
@@ -442,6 +445,7 @@
     <ClCompile Include="..\Code\CParticle_Stone.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\Cupa.cpp" />
+    <ClCompile Include="..\Code\DefenceEnter.cpp" />
     <ClCompile Include="..\Code\Door.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -514,11 +518,13 @@
     <ClCompile Include="..\Code\Loading.cpp" />
     <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
     <ClCompile Include="..\Code\MonsterAim.cpp" />
+    <ClCompile Include="..\Code\MonsterSpawner.cpp" />
     <ClCompile Include="..\Code\MothMage.cpp" />
     <ClCompile Include="..\Code\MothOrb.cpp" />
     <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
     <ClCompile Include="..\Code\NearReactMushroom.cpp" />
     <ClCompile Include="..\Code\NearReactObj.cpp" />
+    <ClCompile Include="..\Code\Nexus.cpp" />
     <ClCompile Include="..\Code\Npc.cpp" />
     <ClCompile Include="..\Code\Npc_Artist.cpp" />
     <ClCompile Include="..\Code\Npc_Chief.cpp" />

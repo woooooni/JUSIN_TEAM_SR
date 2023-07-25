@@ -74,12 +74,15 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 
 	if (MONSTER_STATE::ATTACK != Get_State() && Get_State() != MONSTER_STATE::STUN)
 	{
-		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
+		if (Get_State() != MONSTER_STATE::DEFFENCEMODE)
+		{
+			CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 
-		if (nullptr == pTarget)
-			return S_OK;
+			if (nullptr == pTarget)
+				return S_OK;
 
-		Set_Target(pTarget);
+			Set_Target(pTarget);
+		}
 
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		vDir = vTargetPos - vPos;
@@ -242,6 +245,41 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 void CTrashBig::Update_Attack(_float fTimeDelta)
 {
 	Trace(fTimeDelta);
+}
+
+void CTrashBig::Update_DefenceMode(_float fTimeDelta)
+{
+	_vec3 vPos, vDir;
+
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = m_vTargetPos - vPos;
+	vDir.y = 0.f;
+	m_vLook = vDir;
+
+	D3DXVec3Normalize(&vDir, &vDir);
+	if (!m_bJump && m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
+	{
+		m_pRigidBodyCom->AddForce(vDir * 40.0f);
+		m_pRigidBodyCom->AddForce(_vec3(0.0f, 80.0f, 0.0f));
+		m_pRigidBodyCom->SetGround(false);
+		m_bJump = true;
+	}
+
+	if (m_pRigidBodyCom->GetVelocity().y > 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() > 2)
+	{
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
+	}
+	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 2)
+	{
+		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
+	}
+
+	if (m_bJump && m_pRigidBodyCom->IsGround() && m_pAnimator->GetCurrAnimation()->Is_Finished())
+	{
+		m_bJump = false;
+	}
+
+	m_bDefenceMode = true;
 }
 
 HRESULT CTrashBig::Add_Component(void)
@@ -588,6 +626,39 @@ void CTrashBig::Set_Animation()
 			break;
 		case Engine::OBJ_DIR::DIR_RD:
 			m_pAnimator->Play_Animation(L"TrashBig_Idle_RightDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_END:
+			return;
+		default:
+			break;
+		}
+		break;
+	case Engine::MONSTER_STATE::DEFFENCEMODE:
+		switch (eDir)
+		{
+		case Engine::OBJ_DIR::DIR_U:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_Up", true);
+			break;
+		case Engine::OBJ_DIR::DIR_D:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_Down", true);
+			break;
+		case Engine::OBJ_DIR::DIR_L:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_Left", true);
+			break;
+		case Engine::OBJ_DIR::DIR_R:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_Right", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LU:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_LeftUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RU:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_RightUp", true);
+			break;
+		case Engine::OBJ_DIR::DIR_LD:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_LeftDown", true);
+			break;
+		case Engine::OBJ_DIR::DIR_RD:
+			m_pAnimator->Play_Animation(L"TrashBig_Move_RightDown", true);
 			break;
 		case Engine::OBJ_DIR::DIR_END:
 			return;

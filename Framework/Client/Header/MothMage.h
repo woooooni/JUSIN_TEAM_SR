@@ -18,11 +18,18 @@ public:
     virtual void Update_Regen(_float fTimeDelta) override;
     virtual void Update_Move(_float fTimeDelta) override;
     virtual void Update_Attack(_float fTimeDelta) override;
+    virtual void Update_DefenceMode(_float fTimeDelta);
+
+    void Update_DefenceAttack(_float fTimeDelta);
+
 public:
     virtual HRESULT Ready_Object(void)							override;
     virtual _int	Update_Object(const _float& fTimeDelta)		override;
     virtual void Render_Object(void) override;
     virtual void	LateUpdate_Object(void)						override;
+
+   
+
 
     HRESULT	Add_Component(void);
 public:
@@ -41,5 +48,10 @@ private:
     void Set_Animation();
 
     CMothOrb* m_pMothOrb;
+
+
+
+    _float m_fShootTime;
+    _float m_fAccShootTime;
 };
 

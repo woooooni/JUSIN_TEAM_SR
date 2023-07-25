@@ -39,10 +39,13 @@ public:
 	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 
-	virtual void Event_Start(_uint iEventNum) override;
-	virtual void Event_End(_uint iEventNum) override;
 
+
+
+	void		Open_Door();
 	void		Set_Door(_vec3& _vPos, _vec3& _vScale, _vec3& _vDir);
+
+	bool		Get_Finish() { return m_bFinish; }
 private:
 	HRESULT Ready_Component();
 
@@ -65,6 +68,7 @@ private:
 
 	bool m_bOpenDelay = false;
 	bool m_bOpen = false;
+	bool m_bFinish = false;
 
 	_float m_fAccStoneTime;
 	_float m_fStoneTime;
