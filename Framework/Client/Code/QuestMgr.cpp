@@ -1,5 +1,5 @@
 #include "QuestMgr.h"
-
+#include "Quest.h"
 IMPLEMENT_SINGLETON(CQuestMgr)
 
 CQuestMgr::CQuestMgr()
@@ -16,6 +16,7 @@ HRESULT CQuestMgr::Ready_QuestMgr()
 {
     
     // 퀘스트는 여기서 추가.
+    // CQuest* pQuest = new CQuest(NPC_CODE::NPC_SHEEP, QUEST_TYPE::CONVERSATION, )
 
     return S_OK;
 }

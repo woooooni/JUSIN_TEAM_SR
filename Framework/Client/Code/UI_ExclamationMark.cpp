@@ -32,6 +32,7 @@ HRESULT CUI_ExclamationMark::Ready_Object(void)
 
 _int CUI_ExclamationMark::Update_Object(const _float& fTimeDelta)
 {
+	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }

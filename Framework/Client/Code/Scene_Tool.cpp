@@ -600,7 +600,7 @@ HRESULT CScene_Tool::Ready_Layer_Monster()
 HRESULT CScene_Tool::Ready_Layer_InterationObj()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::INTERACTION_OBJ];
- 
+	
 
 	
 
