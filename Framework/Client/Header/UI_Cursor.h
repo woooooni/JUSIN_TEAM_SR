@@ -32,7 +32,7 @@ private:
 	void	Key_Input();
 
 private:
-	_bool	m_bShown = true; // 상점이 보여지고 있는지에 대한 불변수
+	_bool	m_bShown = false; // 상점이 보여지고 있는지에 대한 불변수
 	_bool	m_bMoveCursor = true; // 커서를 옮길 수 있는 상태인지에 대한 불변수
 	_vec3	m_vDefaultPos;
 	_uint	m_iCursorX = 0; // X축으로 이동하는 Cursor

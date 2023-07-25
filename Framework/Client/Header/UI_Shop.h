@@ -38,7 +38,7 @@ private:
 	void	Set_Item(); // Item setting
 
 private:
-	_bool				m_bShown = TRUE;
+	_bool				m_bShown = false;
 	list<CItem*>		m_ItemList;		   // 아이템 리스트
 	CUI_Cursor*			m_pCursor = nullptr;
 	vector<CUI*>		m_vecShopIcon;

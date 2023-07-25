@@ -103,36 +103,36 @@ void CUI_Cursor::Render_Object(void)
 			m_bMoveCursor = false;
 		}
 
-		if ((m_iCursorX == 0) && (m_iCursorY == 0))
-		{
-			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
-			TCHAR szBuf[256] = L"";
-			swprintf_s(szBuf, L"천조각\n\nTest 1");
-
-			// 아이템 설명 폰트 -> 동일 폰트 사이즈 작은것으로 Font 추가 가능한지
-			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-
-		else if ((m_iCursorX == 1) && (m_iCursorY == 0))
-		{
-			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
-			TCHAR szBuf[256] = L"";
-			swprintf_s(szBuf, L"나뭇가지\n\nTest 2");
-
-			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-
-		else if ((m_iCursorX == 2) && (m_iCursorY == 0))
-		{
-			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
-			TCHAR szBuf[256] = L"";
-			swprintf_s(szBuf, L"나뭇잎\n\nTest 3");
-
-			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
+//		if ((m_iCursorX == 0) && (m_iCursorY == 0))
+//		{
+//			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+//			TCHAR szBuf[256] = L"";
+//			swprintf_s(szBuf, L"천조각\n\nTest 1");
+//
+//			// 아이템 설명 폰트 -> 동일 폰트 사이즈 작은것으로 Font 추가 가능한지
+//			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+//				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+//		}
+//
+//		else if ((m_iCursorX == 1) && (m_iCursorY == 0))
+//		{
+//			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+//			TCHAR szBuf[256] = L"";
+//			swprintf_s(szBuf, L"나뭇가지\n\nTest 2");
+//
+//			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+//				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+//		}
+//
+//		else if ((m_iCursorX == 2) && (m_iCursorY == 0))
+//		{
+//			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+//			TCHAR szBuf[256] = L"";
+//			swprintf_s(szBuf, L"나뭇잎\n\nTest 3");
+//
+//			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+//				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+//		}
 
 		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);

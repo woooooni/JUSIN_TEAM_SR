@@ -58,7 +58,7 @@ private:
 private:
 	tagShopItemInfo		m_tItemInfo;
 	_vec3				m_vDefaultPos;
-	_bool				m_bShown = true;
+	_bool				m_bShown = false;
 	_bool				m_bCursorMove = false;
 	_uint				m_iCursorX = 0;
 	_uint				m_iCursorY = 0;
