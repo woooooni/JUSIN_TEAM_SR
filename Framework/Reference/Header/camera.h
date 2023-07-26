@@ -16,6 +16,7 @@ struct tCamEffect
 	CAM_EFFECT  eEffect;
 	float		fDuration;
 	float		fCurTime;
+	float		fShakeForce;
 };
 
 BEGIN(Engine)
@@ -66,7 +67,7 @@ private:
 
 public:	 
 	void Follow(const _float& fTimeDelta);
-	void CamShake(float _fDuration);
+	void CamShake(float _fDuration, float _fShakeForce = 2.0f);
 	void FadeIn(float _fTime);
 	void FadeOut(float _fTime);
 

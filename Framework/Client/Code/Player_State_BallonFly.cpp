@@ -23,7 +23,8 @@ HRESULT Player_State_BallonFly::Ready_State(void)
 	m_bFinished = false;
 	m_eFlyState = BALLOONFLY_STATE::FLYREADY;
 
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
+	if(dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
 
 	return S_OK;
 }
@@ -60,7 +61,8 @@ void Player_State_BallonFly::Render_State(void)
 
 void Player_State_BallonFly::Reset_State(void)
 {
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(true);
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(true);
 }
 
 _int Player_State_BallonFly::Update_FlyReady(const _float& fTimeDelta)

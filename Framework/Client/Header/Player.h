@@ -166,14 +166,17 @@ public:
 	bool			Is_Grab() { return m_bGrab; }
 	void			Reset_LiftObj() { m_pLiftObj = nullptr; }
 
+	void			Set_DrawingFinish(bool _bFinish) { m_bDrawingFinish = _bFinish; }
+	bool			Is_DrawFinish() { return m_bDrawingFinish; }
+
 	void			Set_ItemEffect(ITEM_CODE eItemCode);
 
-	void		Set_Invincible() { m_fAccInvinTime = 0.0f; m_bInvincible = true; }
+	void			Set_Invincible() { m_fAccInvinTime = 0.0f; m_bInvincible = true; }
 
 	bool			Is_Stop() { return m_bStop; }
 	void			Set_Stop(bool _bStop) { m_bStop = _bStop; Change_State_Now(PLAYER_STATE::IDLE); }
 
-	CGameObject* Get_Shadow() { return m_pShadow; }
+	CGameObject*	Get_Shadow() { return m_pShadow; }
 
 	void			Set_PlayerHat(PLAYER_HAT _eHat) { m_eHat = _eHat; Set_Hat(m_vecHats[(_uint)m_eHat]); }
 private:
@@ -223,6 +226,7 @@ private:
 	bool m_bGrab = false;
 
 	bool m_bStop = false;
+	bool m_bDrawingFinish = false;
 	//
 
 	vector<CGameObject*> m_vecHats;

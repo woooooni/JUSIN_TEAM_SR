@@ -125,7 +125,9 @@ CEffect_Smoke* CEffect_Smoke::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CEffect_Smoke::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iR, _uint _iG, _uint _iB)
 {
-	_vPos.z -= 0.01f;
+	_float fZ = (rand() % 100 + 1) * 0.001f;
+
+	_vPos.z -= fZ;
 	m_pTransformCom->Set_Pos(&_vPos);
 	m_vScale = _vScale;
 	m_fAccTime = 0.0f;

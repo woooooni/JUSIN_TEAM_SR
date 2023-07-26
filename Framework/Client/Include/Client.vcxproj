@@ -198,6 +198,8 @@
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\BossDoor.h" />
+    <ClInclude Include="..\Header\BossDoorEnter.h" />
     <ClInclude Include="..\Header\BreakObj.h" />
     <ClInclude Include="..\Header\BreakStone.h" />
     <ClInclude Include="..\Header\Bullet.h" />
@@ -212,6 +214,7 @@
     <ClInclude Include="..\Header\Cupa.h" />
     <ClInclude Include="..\Header\DefenceEnter.h" />
     <ClInclude Include="..\Header\Door.h" />
+    <ClInclude Include="..\Header\DrawingEnter.h" />
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -445,6 +448,8 @@
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\BossDoor.cpp" />
+    <ClCompile Include="..\Code\BossDoorEnter.cpp" />
     <ClCompile Include="..\Code\BreakObj.cpp" />
     <ClCompile Include="..\Code\BreakStone.cpp" />
     <ClCompile Include="..\Code\Bullet.cpp" />
@@ -459,6 +464,7 @@
     <ClCompile Include="..\Code\Cupa.cpp" />
     <ClCompile Include="..\Code\DefenceEnter.cpp" />
     <ClCompile Include="..\Code\Door.cpp" />
+    <ClCompile Include="..\Code\DrawingEnter.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

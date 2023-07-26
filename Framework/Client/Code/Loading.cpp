@@ -1225,7 +1225,7 @@ HRESULT CLoading::Ready_Environment_Texture2()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_FloorDoorLeft", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/FloorDoor/FloorDoorLeft/FloorDoorLeft_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_FloorDoorRight", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/FloorDoor/FloorDoorRight/FloorDoorRight_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Nexus", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Nexus/Nexus_%d.png", 1)), E_FAIL);
-
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_DrawingEnter", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Drawing/DrawingEnter_%d.png", 1)), E_FAIL);
 
 	return S_OK;
 }

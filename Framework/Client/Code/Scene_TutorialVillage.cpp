@@ -18,6 +18,7 @@
 #include "Cupa.h"
 #include	"RabitObj.h"
 #include	"Turret.h"
+#include "DrawingEnter.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -124,7 +125,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
@@ -146,6 +147,11 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	_vec3 vMomPos = _vec3(12.f, 0.5f, 12.f);
 	pMom->Get_TransformCom()->Set_Info(INFO_POS, &vMomPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_OguMom", pMom);
+
+
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev);
+	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(0.0f, 0.6f, 0.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
 
 	return S_OK;
 }

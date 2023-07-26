@@ -198,6 +198,7 @@ void CCamera::LateUpdate_GameCamera()
 
 		if (CAM_EFFECT::SHAKE == effect.eEffect)
 		{
+			m_fShakeForce = effect.fShakeForce;
 			_float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
 			_float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
 
@@ -279,7 +280,7 @@ void CCamera::LateUpdate_ToolCamera()
 	
 }
 
-void CCamera::CamShake(float _fDuration)
+void CCamera::CamShake(float _fDuration, float _fShakeForce)
 {
 	if (0.f == _fDuration)
 		assert(nullptr);
@@ -289,6 +290,7 @@ void CCamera::CamShake(float _fDuration)
 	effect.eEffect = CAM_EFFECT::SHAKE;
 	effect.fDuration = _fDuration;
 	effect.fCurTime = 0.f;
+	effect.fShakeForce = _fShakeForce;
 
 	m_lCamEffect.push_back(effect);
 }
