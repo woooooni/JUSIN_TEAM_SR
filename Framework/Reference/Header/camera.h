@@ -71,8 +71,9 @@ private:
 
 	void Follow(const _float& fTimeDelta);
 
-public:	 
+public:
 	void CamShake(float _fDuration, float _fShakeForce = 2.0f);
+
 	void FadeIn(float _fTime);
 	void FadeOut(float _fTime);
 

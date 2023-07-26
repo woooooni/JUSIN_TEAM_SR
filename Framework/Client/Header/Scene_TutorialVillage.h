@@ -15,6 +15,11 @@ public:
 	virtual void LateUpdate_Scene() override;
 	virtual void Render_Scene() override;
 
+public:
+public:
+	virtual void Enter_Scene() override;
+	virtual void Exit_Scene() override;
+
 private:
 	virtual HRESULT			Ready_Prototype();
 	virtual HRESULT			Ready_Layer_Player()			override;

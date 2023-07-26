@@ -30,6 +30,10 @@ protected:
 	virtual HRESULT			Ready_Layer_UI() PURE;
 
 public:
+	virtual void Enter_Scene() {};
+	virtual void Exit_Scene() {};
+
+public:
 	void					PlayVideo(HWND _hWnd, const wstring& _strFilePath);
 
 protected:
@@ -51,6 +55,7 @@ protected:
 	SCENE_TYPE							m_eType;
 	HWND								m_hVideoHandle;
 	_bool	m_bVideoPlaying;
+
 public:
 
 	const SCENE_TYPE& Get_SceneType() { return m_eType; }

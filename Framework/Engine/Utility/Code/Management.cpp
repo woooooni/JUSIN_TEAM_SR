@@ -15,8 +15,14 @@ CManagement::~CManagement()
 
 HRESULT CManagement::Set_Scene(CScene * pScene)
 {
-	Safe_Release(m_pCurrScene);
+	if (m_pCurrScene != nullptr)
+	{
+		m_pCurrScene->Exit_Scene();
+		Safe_Release(m_pCurrScene);
+	}
+	
 	m_pCurrScene = pScene;
+	m_pCurrScene->Enter_Scene();
 	return S_OK;
 }
 
