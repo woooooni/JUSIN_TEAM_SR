@@ -7,7 +7,7 @@
 #include "Quest_Cow2.h"
 
 CQuest_Cow1::CQuest_Cow1()
-	: CQuest_Hunting(NPC_CODE::NPC_COW, nullptr, OBJ_ID::TRASH_BIG, 5)
+	: CQuest_Hunting(NPC_CODE::NPC_COW, nullptr, OBJ_ID::TRASH_SLIME, 5)
 {
 
 	m_strQuestTitle = L"쓰레기 청소";
@@ -46,7 +46,7 @@ void CQuest_Cow1::Clear_Quest()
 {
 	CQuest_Cow2* pNextQuest = new CQuest_Cow2();
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
-
+	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 

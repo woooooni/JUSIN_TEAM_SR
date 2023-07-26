@@ -124,7 +124,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
@@ -186,6 +186,27 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);
 	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
 
+	//TEST
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);
+	def->Get_TransformCom()->Set_Pos(&_vec3(14, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
+	def->Get_TransformCom()->Set_Pos(&_vec3(5, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);
+	def->Get_TransformCom()->Set_Pos(&_vec3(10, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_SMALL);
+	def->Get_TransformCom()->Set_Pos(&_vec3(12, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+	//
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_SMALL);
@@ -253,10 +274,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_UI()
 {
-	// Test
-//	CUI_NewItem* pItemWindow = CUI_NewItem::Create(m_pGraphicDev);
-//	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI_QuestWindow", pItemWindow);
-
 	return S_OK;
 }
 

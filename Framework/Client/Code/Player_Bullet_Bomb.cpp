@@ -80,14 +80,19 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 		CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
 	}
 
-	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &m_vTargetPos);
-	_vec3 vPos;
+	if (m_pTarget)
+		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &m_vTargetPos);
+
+
 	_vec3 vDir;
+	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vTargetPos - vPos;
 
-	if (!m_pTarget->Is_Active())
+
+	if (!m_pTarget || !m_pTarget->Is_Active())
 	{
+		m_pTarget = nullptr;
 		if (D3DXVec3Length(&vDir) < 0.2f)
 		{
 			_vec3 vPos;

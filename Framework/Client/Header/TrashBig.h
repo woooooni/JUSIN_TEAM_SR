@@ -29,8 +29,10 @@ class CTrashBig :
 
         HRESULT	Add_Component(void);
     public:
-        static  CTrashBig* Create(LPDIRECT3DDEVICE9 pGraphicDev);      
+        static  CTrashBig* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+        virtual void Free() override;
         virtual void Trace(_float fTimeDelta) override;
+
     private:
         _float m_fMoveTime;
         _vec3 m_vDst = { 0.f,0.f,0.f };

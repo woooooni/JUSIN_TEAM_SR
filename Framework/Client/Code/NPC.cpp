@@ -2,11 +2,16 @@
 #include "../Header/Npc.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
+#include "UI_ContinueMark.h"
 #include "QuestMgr.h"
 #include "Quest.h"
-CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE eCode)
-	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
+#include "GameMgr.h"
+#include "UIMgr.h"
+#include "UI_Dialog.h"
+CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE eCode, wstring _strNpcName)
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
 	, m_eCode(eCode)
+	, m_strNpcName(_strNpcName)
 {
 }
 
@@ -51,26 +56,30 @@ HRESULT CNpc::Ready_Object(void)
 	if (m_pQuestion != nullptr)
 		m_pQuestion->Set_Owner(this);
 
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
+
 	return S_OK;
 }
 
 _int CNpc::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	_int iExit = __super::Update_Object(fTimeDelta);
 
-	CQuest* pQuest = nullptr;
-	vector<CQuest*> vecQuest = CQuestMgr::GetInstance()->Get_QuestVec(m_eCode);
+	const vector<CQuest*>& vecQuest = CQuestMgr::GetInstance()->Get_QuestVec(m_eCode);
 
-	_bool bBeforQuest = false, bContinueQuest = false, bCompleteQuest = false;
+	_bool bBeforeQuest = false, bContinueQuest = false, bCompleteQuest = false;
 
 	for (size_t i = 0; i < vecQuest.size(); ++i)
 	{
-		if (!bBeforQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::BEFORE)
-			bBeforQuest = true;
+		if (!bBeforeQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::BEFORE)
+			bBeforeQuest = true;
 		if (!bContinueQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::CONTINUE)
 			bContinueQuest = true;
-		if (!bContinueQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::COMPLETE)
-			bContinueQuest = true;
+		if (!bCompleteQuest && vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::COMPLETE)
+			bCompleteQuest = true;
 	}
 
 	if (bCompleteQuest)
@@ -78,6 +87,7 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vPos.y += 1.f;
+		m_pQuestion->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 		m_pQuestion->Update_Object(fTimeDelta);
 	}
 	else if (bContinueQuest)
@@ -85,19 +95,52 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vPos.y += 1.f;
-		m_pQuestion->Update_Object(fTimeDelta);
+		m_pContinue->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+		m_pContinue->Update_Object(fTimeDelta);
 	}
-	else if (bBeforQuest)
+	else if (bBeforeQuest)
 	{
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vPos.y += 1.f;
+		m_pExclamation->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 		m_pExclamation->Update_Object(fTimeDelta);
 	}
+	else
+	{
+		if(m_pExclamation)
+			m_pExclamation->Set_Active(false);
+		if(m_pQuestion)
+			m_pQuestion->Set_Active(false);
+		if (m_pContinue)
+			m_pContinue->Set_Active(false);
+	}
 
+	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
+	if (pPlayer != nullptr && (bBeforeQuest || bContinueQuest || bCompleteQuest))
+	{
+		_vec3 vPos, vPlayerPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 
+		_vec3 vDir = vPos - vPlayerPos;
+		if (D3DXVec3Length(&vDir) < 2.f)
+		{
+			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
+			if (KEY_TAP(KEY::Z) && !CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
+			{
+				Talk();
+			}
+		}
+		else
+		{
+			CUI_Dialog* pDialog = CUIMgr::GetInstance()->Get_Dialog();
+			pDialog->Set_Active(false);
+			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
+		}
+			
+	}
 
-	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
 
@@ -116,8 +159,63 @@ void CNpc::Render_Object(void)
 	__super::Render_Object();
 }
 
+void CNpc::Talk()
+{
+	CQuest* pBegin = nullptr; 
+	CQuest* pContinue = nullptr; 
+	CQuest* pComplete = nullptr;
+
+	const vector<CQuest*>& vecQuest = CQuestMgr::GetInstance()->Get_QuestVec(m_eCode);
+	for (size_t i = 0; i < vecQuest.size(); ++i)
+	{
+		if (vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::BEFORE)
+		{
+			pBegin = vecQuest[i];
+		}
+		if (vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::CONTINUE)
+		{
+			pContinue = vecQuest[i];
+		}
+		if (vecQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::COMPLETE)
+		{
+			pComplete = vecQuest[i];
+		}
+	}
+
+	CUI_Dialog* pDialog = CUIMgr::GetInstance()->Get_Dialog();
+	if (nullptr != pComplete)
+	{
+		pDialog->Set_Name(m_strNpcName);
+		pDialog->Set_Quest(pComplete);
+		pDialog->Set_Active(true);
+	}
+
+	if (nullptr != pBegin)
+	{
+		pDialog->Set_Name(m_strNpcName);
+		pDialog->Set_Quest(pBegin);
+		pDialog->Set_Active(true);
+	}
+
+	if (nullptr != pContinue)
+	{
+		pDialog->Set_Name(m_strNpcName);
+		pDialog->Set_Quest(pContinue);
+		pDialog->Set_Active(true);
+	}
+}
+
 
 void CNpc::Free()
 {
+	if (m_pExclamation)
+		Safe_Release(m_pExclamation);
+
+	if (m_pQuestion)
+		Safe_Release(m_pQuestion);
+
+	if (m_pContinue)
+		Safe_Release(m_pContinue);
+
 	__super::Free();
 }

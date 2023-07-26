@@ -30,7 +30,5 @@ void CQuest::Clear_Quest()
 
 	if(nullptr != m_pRewardItem)
 		CInventoryMgr::GetInstance()->Add_Item(m_pRewardItem->Clone());
-
-
 }
 

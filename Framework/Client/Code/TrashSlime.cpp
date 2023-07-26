@@ -190,8 +190,9 @@ void CTrashSlime::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
 	{
-	Set_Active(false);
-	On_Death();}	
+		Set_Active(false);
+		On_Death();
+	}
 }
 
 void CTrashSlime::Update_Regen(_float fTimeDelta)
@@ -275,6 +276,11 @@ CTrashSlime* CTrashSlime::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pInstance;
+}
+
+void CTrashSlime::Free()
+{
+	__super::Free();
 }
 
 void CTrashSlime::Trace(_float fTimeDelta)

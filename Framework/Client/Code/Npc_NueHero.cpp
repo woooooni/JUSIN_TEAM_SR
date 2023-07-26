@@ -1,9 +1,12 @@
 #include "../Include/stdafx.h"
 #include "Npc_NueHero.h"
 #include "Export_Function.h"
+#include "UI_ExclamationMark.h"
+#include "UI_QuestionMark.h"
+#include "UI_ContinueMark.h"
 
 CNpc_NueHero::CNpc_NueHero(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_NUE_HERO)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_NUE_HERO, L"누에 용사")
 {
 }
 
@@ -42,6 +45,18 @@ HRESULT CNpc_NueHero::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_NueHero_Idle", L"Proto_Texture_NPC_NueHero_Idle", 0.1f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_NueHero_Idle", TRUE), E_FAIL);
+
+	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
+	if (m_pExclamation != nullptr)
+		m_pExclamation->Set_Owner(this);
+
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
+
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	return S_OK;
 }

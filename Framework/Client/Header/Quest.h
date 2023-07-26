@@ -15,13 +15,7 @@ public:
     virtual ~CQuest() = default;
 
 public:
-    const vector<wstring>& Get_NpcDesc(_uint iIdx) 
-    { 
-        if (iIdx >= m_vecNpcDescList[_uint(m_eQuestProgress)].size())
-            iIdx = 0;
-        
-        return m_vecNpcDescList[iIdx];
-    }
+    const vector<wstring>& Get_NpcDesc() { return m_vecNpcDescList[_uint(m_eQuestProgress)]; }
 
     QUEST_TYPE Get_QuestType() { return m_eQuestType; }
 

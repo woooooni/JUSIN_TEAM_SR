@@ -42,7 +42,7 @@ _int CEffect_Stun::Update_Object(const _float& fTimeDelta)
 
 
 
-	if (*m_fEffectTime < 0.0f || !m_pOwner->Is_Active())
+	if (*m_fEffectTime <= 0.0f || !m_pOwner->Is_Active())
 	{
 		Set_Active(false);
 		CPool<CEffect_Stun>::Return_Obj(this);

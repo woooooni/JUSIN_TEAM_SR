@@ -1,7 +1,7 @@
 #include "../Include/stdafx.h"
 #include "NearReactObj.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 
 CNearReactObj::CNearReactObj(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, _eID)
 , m_fMinSize(0.7f)
@@ -35,7 +35,7 @@ _int CNearReactObj::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 
-	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* player = CGameMgr::GetInstance()->Get_Player();;
 
 	_vec3 src, tmp;
 

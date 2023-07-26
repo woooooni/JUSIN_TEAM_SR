@@ -192,7 +192,8 @@ void CGreenBeatle::Update_Move(_float fTimeDelta)
 
 void CGreenBeatle::Update_Die(_float fTimeDelta)
 {
-	if (Is_Active()) {
+	if (Is_Active()) 
+	{
 		On_Death();
 		Set_Active(false);
 	}

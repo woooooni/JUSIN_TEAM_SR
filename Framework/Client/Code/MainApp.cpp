@@ -66,6 +66,7 @@ int CMainApp::Update_MainApp(const float & fTimeDelta)
 
 	NULL_CHECK_RETURN(m_pManagementClass, -1);
 	m_pManagementClass->Update_Scene(fTimeDelta);
+	CQuestMgr::GetInstance()->Update_QuestMgr(fTimeDelta);
 
 	
 	return 0;
@@ -83,7 +84,7 @@ void CMainApp::Render_MainApp()
 	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 
-	// Engine::Update_EventMgr(0.f);
+	Engine::Update_EventMgr(0.f);
 	Engine::Render_End();
 }
 
@@ -210,8 +211,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TEST);
-	// Engine::Play_Sound(L"BGM_1_CentralArea.wav", CHANNELID::SOUND_BGM, .5f);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);
@@ -444,7 +444,10 @@ void CMainApp::Free()
 
 	Safe_Release(m_pGraphicDevClass);
 	Safe_Release(m_pManagementClass);
-		
+	
+	CQuestMgr::GetInstance()->DestroyInstance();
+	CUIMgr::GetInstance()->DestroyInstance();
+
 	Engine::Release_Utility();
 	Engine::Release_System();
 }

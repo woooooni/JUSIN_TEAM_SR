@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "UI_BossHP.h"
+
 class CNexus : public CGameObject
 {
 	CLONE(CNexus)
@@ -29,6 +31,8 @@ public:
 public:
 	void		Start_Defence();
 	
+	_int		Get_MaxHp() { return m_iMaxHp; }
+	_int		Get_Hp() { return m_iHp; }
 
 	void		Reset_Defence();
 
@@ -64,5 +68,7 @@ private:
 
 
 	vector<CGameObject*> m_vecSpawner;
+
+	vector<CGameObject*> m_vecHpBar;
 };
 

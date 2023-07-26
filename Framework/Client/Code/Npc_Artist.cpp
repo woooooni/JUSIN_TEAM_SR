@@ -2,9 +2,9 @@
 #include "Export_Function.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
-
+#include "UI_ContinueMark.h"
 CNpc_Artist::CNpc_Artist(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_ARTIST)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_ARTIST, L"¸ôÆ¼Áî")
 {
 }
 
@@ -48,6 +48,10 @@ HRESULT CNpc_Artist::Ready_Object(void)
 	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
 	if (m_pQuestion != nullptr)
 		m_pQuestion->Set_Owner(this);
+
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_Idle", L"Proto_Texture_NPC_Artist_Idle", 0.2f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Tutorial_Artist_Drawing", L"Proto_Texture_NPC_Artist_Drawing", 0.2f), E_FAIL);

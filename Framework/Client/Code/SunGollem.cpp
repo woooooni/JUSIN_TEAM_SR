@@ -577,7 +577,6 @@ void CSunGollem::Create_Wave(_vec3 vPos)
 
 void CSunGollem::Create_Stone()
 {
-
 	_vec3 vPos = { m_vRandomPos[1].x+(rand()%8)-4,7.f,m_vRandomPos[1].z + (rand() % 8) - 4 - 6.f};
 	CPushStone* pPushStone = CPushStone::Create(vPos,m_pGraphicDev);
 	NULL_CHECK_RETURN(pPushStone, );

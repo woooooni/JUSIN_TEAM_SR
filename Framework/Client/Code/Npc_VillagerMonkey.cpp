@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_VillagerMonkey::CNpc_VillagerMonkey(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_VILLAGER_MONKEY)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_VILLAGER_MONKEY, L"ÁÖ¹Î ¿ø¼þÀÌ")
 {
 }
 

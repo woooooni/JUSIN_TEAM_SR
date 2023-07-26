@@ -27,6 +27,7 @@ public:
 	HRESULT		Add_Slot(void);
 	void		Set_Item(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType);
 	_bool		Get_Filled(SLOTNUM _eSlotNum);
+	void		Set_Filled(SLOTNUM _eSlotNum, _bool _bFilled);
 	const ITEM_CODE& Get_ItemCode(SLOTNUM _eSlotNum);
 	void		Set_Use(const _bool& pBool) { m_bCanUse = pBool; }
 

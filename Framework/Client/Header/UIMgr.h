@@ -36,6 +36,7 @@ public:
 	CUI_Veil*		Get_Veil() { return m_pVeil; }
 	CUI_Shop*		Get_ShopUI() { return m_pShop; }
 	CInventoryUI*	Get_InventoryUI() { return m_pInventory; }
+	CUI_ShortCutKey* Get_ShortcutKey() { return m_pShortCutKey; }
 
 private:
 	CUI_Dialog*		 m_pDialog = nullptr;

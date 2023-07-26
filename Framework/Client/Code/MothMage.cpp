@@ -135,8 +135,12 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 	vPos.y += 0.5f;
 	vPos.z -= 0.01f;
 
-	m_pMothOrb->Get_TransformCom()->Set_Pos(&vPos);
-	m_pMothOrb->Update_Object(fTimeDelta);
+	if (m_pMothOrb)
+	{
+		m_pMothOrb->Get_TransformCom()->Set_Pos(&vPos);
+		m_pMothOrb->Update_Object(fTimeDelta);
+	}
+	
 
 	vPos.z -= 0.01f;
 
@@ -192,8 +196,10 @@ void CMothMage::LateUpdate_Object(void)
 		m_pUIGauge->LateUpdate_Object();
 		m_pUIFrame->LateUpdate_Object();
 	}
-
-	m_pMothOrb->LateUpdate_Object();
+	if (m_pMothOrb)
+	{
+		m_pMothOrb->LateUpdate_Object();
+	}
 }
 
 void CMothMage::Render_Object(void)
@@ -205,7 +211,6 @@ void CMothMage::Render_Object(void)
 	__super::Render_Object();
 
 	m_pBufferCom->Render_Buffer();
-	m_pMothOrb->Render_Object();
 
 	if (m_pUIBack->Is_Active() &&
 		m_pUIGauge->Is_Active() &&
@@ -240,6 +245,8 @@ void CMothMage::Update_Die(_float fTimeDelta)
 			Set_Active(false); 
 			On_Death();
 			m_pMothOrb->Set_Active(false);
+			CEventMgr::GetInstance()->DeleteObjEvt(m_pMothOrb);
+			m_pMothOrb = nullptr;
 		}
 	}
 }

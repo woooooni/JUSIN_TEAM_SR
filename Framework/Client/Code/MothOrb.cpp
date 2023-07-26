@@ -35,6 +35,7 @@ HRESULT CMothOrb::Ready_Object(void)
 
 _int CMothOrb::Update_Object(const _float& fTimeDelta)
 {
+	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	if (!Is_Active())
 		return S_OK;
 	_int iExit = __super::Update_Object(fTimeDelta);

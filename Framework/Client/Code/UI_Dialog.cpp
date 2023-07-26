@@ -3,27 +3,28 @@
 
 CUI_Dialog::CUI_Dialog(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
-	, m_bShown(false)
 	, m_strName(L"")
 	, m_strDesc(L"")
 	, m_strCurrDesc(L"")
 	, m_fAccTime(0.f)
-	, m_fDescTime(5.f)
-	, m_iIdx(0)
+	, m_fDescTime(0.02f)
+	, m_iStringIdx(0)
+	, m_iVectorIdx(0)
+	, m_pQuest(0)
 {
-
+	m_vecStrDesc.reserve(50);
 }
 
 
 CUI_Dialog::CUI_Dialog(const CUI_Dialog& rhs)
 	: CUI(rhs)
-	, m_bShown(false)
 	, m_strName(L"")
 	, m_strDesc(L"")
 	, m_strCurrDesc(L"")
 	, m_fAccTime(0.f)
 	, m_fDescTime(5.f)
-	, m_iIdx(0)
+	, m_iStringIdx(0)
+	, m_iVectorIdx(0)
 {
 
 }
@@ -40,24 +41,21 @@ HRESULT CUI_Dialog::Ready_Object(void)
 
 _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 {
-	if (!m_bShown)
-		return S_OK;
-
+	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+	Key_Input();
 	m_fAccTime += fTimeDelta;
 	if (m_fAccTime >= m_fDescTime)
 	{
 		m_fAccTime = 0.f;
-		m_iIdx++;
 
-		if (m_iIdx >= _uint(m_strDesc.size()))
-			m_iIdx = _uint(m_strDesc.size() - 1);
+		if (m_iStringIdx < _uint(m_strDesc.size()))
+			m_iStringIdx++;
+			
 
-		m_strCurrDesc = m_strDesc.substr(0, m_iIdx);
+		m_strCurrDesc = m_strDesc.substr(0, m_iStringIdx);
 	}
 
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	__super::Update_Object(fTimeDelta);
-
 	return S_OK;
 }
 
@@ -68,50 +66,62 @@ void CUI_Dialog::LateUpdate_Object(void)
 
 void CUI_Dialog::Render_Object(void)
 {
-	if (m_bShown)
-	{
-		_matrix matPreView, matPreProj;
+	_matrix matPreView, matPreProj;
 
-		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-		_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
+	_vec3 vPos = { ((2 * (WINCX / 2)) / WINCX - 1) * (1 / m_matProj._11) ,
+				((-2 * (WINCY / 2)) / WINCY + 0.5f) * (1 / m_matProj._22), 0.f };
 
-		m_pTransformCom->Set_Pos(&vPos);
+	m_pTransformCom->Set_Pos(&vPos);
 
-		// 백그라운드 출력
-		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+	// 백그라운드 출력
+	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
-		_float fRatio = _float(WINCY) / _float(WINCX);
-		_vec3 vScale = _vec3(_float(fWidth * fRatio * 0.8), _float(fHeight * fRatio), 0.f);
+	_float fRatio = _float(WINCY) / _float(WINCX);
+	_vec3 vScale = _vec3(_float(fWidth * fRatio * 0.8), _float(fHeight * fRatio), 0.f);
 
-		m_pTransformCom->Set_Scale(vScale);
-		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+	m_pTransformCom->Set_Scale(vScale);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
-		m_pTextureCom->Render_Texture(0);
-		m_pBufferCom->Render_Buffer();
+	m_pTextureCom->Render_Texture(0);
+	m_pBufferCom->Render_Buffer();
 
 
-		// Name Tag 위치
-		RECT rcName = { -1 * (WINCX / 4) + 70, (WINCY / 4) - 50, 3 * (WINCX / 4), WINCY };
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-			m_strName.c_str(), INT(m_strName.size()), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
-			D3DCOLOR_ARGB(100, 0, 0, 0));
+	// Name Tag 위치
+	RECT rcName = { -1 * (WINCX / 4) + 70, (WINCY / 4) - 50, 3 * (WINCX / 4), WINCY };
+	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+		m_strName.c_str(), INT(m_strName.size()), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+		D3DCOLOR_ARGB(100, 0, 0, 0));
 
-		// Text 출력 위치
-		RECT rcText = { 0, WINCY / 2, WINCX, WINCY };
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-			m_strCurrDesc.c_str(), INT(m_strCurrDesc.size()), &rcText, DT_CENTER | DT_VCENTER | DT_NOCLIP,
-			D3DCOLOR_ARGB(100, 0, 0, 0));
+	// Text 출력 위치
+	RECT rcText = { 0, WINCY / 2, WINCX, WINCY };
+	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+		m_strCurrDesc.c_str(), INT(m_strCurrDesc.size()), &rcText, DT_CENTER | DT_VCENTER | DT_NOCLIP,
+		D3DCOLOR_ARGB(255, 255, 255, 255));
 
-		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
-	}
+	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
 	__super::Render_Object();
+}
+
+void CUI_Dialog::Set_Quest(CQuest* pQuest)
+{
+	if (nullptr == pQuest)
+		return;
+
+	m_pQuest = pQuest;
+	m_vecStrDesc = m_pQuest->Get_NpcDesc();
+	m_iVectorIdx = 0;
+	m_iStringIdx = 0;
+
+	m_strCurrDesc = L"";
+	m_strDesc = m_vecStrDesc[0];
 }
 
 HRESULT CUI_Dialog::Ready_Component()
@@ -143,6 +153,41 @@ HRESULT CUI_Dialog::Ready_Component()
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	
 	return S_OK;
+}
+
+void CUI_Dialog::Key_Input()
+{
+	if (KEY_TAP(KEY::Z))
+	{
+		Print_Next();
+	}
+}
+
+void CUI_Dialog::Print_Next()
+{
+	if (m_vecStrDesc.size() <= ++m_iVectorIdx + 1)
+	{
+		switch (m_pQuest->Get_Quest_Progress())
+		{
+		case QUEST_PROGRESS::BEFORE:
+			m_pQuest->Accept_Quest();
+			Set_Active(false);
+			break;
+		case QUEST_PROGRESS::CONTINUE:
+			Set_Active(false);
+			break;
+		case QUEST_PROGRESS::COMPLETE:
+			m_pQuest->Clear_Quest();
+			Set_Active(false);
+			break;
+		}
+	}
+	else
+	{		
+		m_strDesc = m_vecStrDesc[m_iVectorIdx];
+		m_strCurrDesc = L"";
+		m_fAccTime = 0.f;
+	}
 }
 
 
