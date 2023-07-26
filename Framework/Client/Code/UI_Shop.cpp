@@ -19,9 +19,6 @@ HRESULT CUI_Shop::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_pCursor = CUI_Cursor::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(m_pCursor, E_FAIL);
-
 	m_tInfo.fX = WINCX / 2 - 180.f;
 	m_tInfo.fY = WINCY / 2 + 80.f;
 
@@ -66,19 +63,16 @@ HRESULT CUI_Shop::Ready_Object(void)
 
 _int CUI_Shop::Update_Object(const _float& fTimeDelta)
 {
-	__super::Update_Object(fTimeDelta);
-
 	Key_Input();
 	if (m_bShown)
 	{
-		Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
-
 		m_pCursor->Update_Object(fTimeDelta);
 
 		for (auto& iter : m_vecShopIcon)
 			iter->Update_Object(fTimeDelta);
+
+		__super::Update_Object(fTimeDelta);
 	}
-	__super::Update_Object(fTimeDelta);
 
 	return S_OK;
 }

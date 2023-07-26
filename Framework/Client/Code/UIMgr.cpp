@@ -21,30 +21,30 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
 {
     FAILED_CHECK_RETURN(Add_Icon(_pGraphicDev), E_FAIL);
 
-   // m_pDialog = CUI_Dialog::Create(_pGraphicDev);
     m_pHpBar = CUI_HPBar::Create(_pGraphicDev);
     m_pShop = CUI_Shop::Create(_pGraphicDev);
     m_pShortCutKey = CUI_ShortCutKey::Create(_pGraphicDev);
     m_pQuickSlot = CQuickSlot::Create(_pGraphicDev);
     m_pDialog = CUI_Dialog::Create(_pGraphicDev);
-
-
     m_pInventory = CInventoryUI::Create(_pGraphicDev);
+
     NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
     NULL_CHECK_RETURN(m_pShop, E_FAIL);
-    NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL);
+    NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL); 
+    NULL_CHECK_RETURN(m_pInventory, E_FAIL);
     
 
-    m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_LEAF);
+    /*m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_LEAF);
     m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_CLOTH);
-    m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_LEAF);
+    m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, CGameMgr::GetInstance()->Get_Player()), SHOPITEMTYPE::UISHOP_LEAF);*/
+
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
     // NULL_CHECK_RETURN(m_pVeil, E_FAIL);
 
-//    m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
-//    m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_CLOTH);
-//    m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
+    // m_pShop->Add_Item(CItem_Hat_Mask::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
+    // m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_CLOTH);
+    // m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
 
     FAILED_CHECK_RETURN(Add_Frame(_pGraphicDev), E_FAIL);
 
