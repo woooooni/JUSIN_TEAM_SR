@@ -194,6 +194,7 @@ void CCamera::Check_Alpha()
 
 		if (pObjTransform == nullptr)
 			continue;
+
 		if (pObjBuffer == nullptr)
 			continue;
 
@@ -223,8 +224,14 @@ void CCamera::Check_Alpha()
 				&pVB[pIB[cnt]._1].vPosition,
 				&pVB[pIB[cnt]._2].vPosition, &vTempRayPos, &vTempDir, &fU, &fV, &fDist))
 			{
-				vecObj[i]->Set_Alpha(60);
-				break;
+				_vec3 vTargetPos, vAlphaPos;
+				m_pTargetObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+				pObjTransform->Get_Info(INFO_POS, &vAlphaPos);
+				if (vAlphaPos.z < vTargetPos.z)
+				{
+					vecObj[i]->Set_Alpha(60);
+					break;
+				}
 			}
 		}
 
