@@ -3,7 +3,11 @@
 #include "UI_SlotItems.h"
 #include "InventoryMgr.h"
 #include "Item.h"
-#include	"UI_SlotItems.h"
+#include "InventoryUI.h"
+
+// 보유한 아이템 개수 띄우기(1포함)
+// 인벤토리에서 아이템 사용한 경우 퀵슬롯에서도 지워지게 만들기
+// 씬이 바뀌어도 인벤토리 아이템 그대로 가지고 가게 만들기
 
 CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
@@ -112,6 +116,11 @@ void CQuickSlot::Set_Item(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType)
 _bool CQuickSlot::Get_Filled(SLOTNUM _eSlotNum)
 {
 	return dynamic_cast<CUI_SlotItems*> (m_vecSlots[(_uint)_eSlotNum])->Get_Filled();
+}
+
+void CQuickSlot::Set_Filled(SLOTNUM _eSlotNum, _bool _bFilled)
+{
+	dynamic_cast<CUI_SlotItems*>(m_vecSlots[(_uint)_eSlotNum])->Set_Filled(_bFilled);
 }
 
 const ITEM_CODE& CQuickSlot::Get_ItemCode(SLOTNUM _eSlotNum)

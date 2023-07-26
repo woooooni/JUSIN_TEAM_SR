@@ -21,6 +21,7 @@ public:
 	static	CInventoryUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 	void		Set_ButClicked(CInvenTabButton* pInv);
+	void		Register_QuickSlot();
 
 protected:
 	vector<CInvenTabButton*> m_vecTabButton;

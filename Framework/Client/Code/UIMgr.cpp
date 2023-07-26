@@ -54,11 +54,11 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_vecIcon[KEYBOARD]->Update_Object(fTimeDelta);
     m_vecIcon[QUEST]->Update_Object(fTimeDelta);
 
-   //m_pDialog->Update_Object(fTimeDelta);
+    //m_pDialog->Update_Object(fTimeDelta);
     m_pHpBar->Update_Object(fTimeDelta);
-   m_pShop->Update_Object(fTimeDelta);
+    m_pShop->Update_Object(fTimeDelta);
 
-   //m_pShortCutKey->Update_Object(fTimeDelta);
+    //m_pShortCutKey->Update_Object(fTimeDelta);
 
     //m_pItemWindow->Update_Object(fTimeDelta);
     m_pQuickSlot->Update_Object(fTimeDelta);
@@ -92,14 +92,14 @@ void CUIMgr::Late_Update_UIMgr()
     m_vecIcon[KEYBOARD]->LateUpdate_Object();
     m_vecIcon[QUEST]->LateUpdate_Object();
 
-   //m_pDialog->LateUpdate_Object();
+    //m_pDialog->LateUpdate_Object();
     m_pHpBar->LateUpdate_Object();
-   m_pShop->LateUpdate_Object();
-   //m_pShortCutKey->LateUpdate_Object();
+    m_pShop->LateUpdate_Object();
+    //m_pShortCutKey->LateUpdate_Object();
     m_pQuickSlot->LateUpdate_Object();
     //m_pItemWindow->LateUpdate_Object();
-
     // m_pCurrentUI->LateUpdate_Object();
+
     if (m_bUpdateUI)
     {
         m_pInventory->LateUpdate_Object();
@@ -123,16 +123,12 @@ HRESULT CUIMgr::Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev)
 {
     // 먼저 그려져도 되는 Icon들만
     m_vecIcon.reserve(ICONTYPE::ICONTYPE_END);
-
     CIcon* pHpBack = CIcon::Create(_pGraphicDev, ICONTYPE::PLAYERHP_BACK);
     m_vecIcon.push_back(pHpBack);
-
     CIcon* pHeart = CIcon::Create(_pGraphicDev, ICONTYPE::HEART);
     m_vecIcon.push_back(pHeart);
-
     CIcon* pKeyboardIcon = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBOARD);
     m_vecIcon.push_back(pKeyboardIcon);
-
     CIcon* pQuestIcon = CIcon::Create(_pGraphicDev, ICONTYPE::QUEST);
     m_vecIcon.push_back(pQuestIcon);
 
@@ -141,23 +137,16 @@ HRESULT CUIMgr::Add_Icon(LPDIRECT3DDEVICE9 _pGraphicDev)
 
 HRESULT CUIMgr::Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev)
 {
-    // 나중에 그려져야하는 Icon
-
     CIcon* pHpFrame = CIcon::Create(_pGraphicDev, ICONTYPE::PLAYERHP_FRAME);
     m_vecIcon.push_back(pHpFrame);
-
     CIcon* pButton1 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_1);
     m_vecIcon.push_back(pButton1);
-
     CIcon* pButton2 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_2);
     m_vecIcon.push_back(pButton2);
-
     CIcon* pButton3 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_3);
     m_vecIcon.push_back(pButton3);
-
     CIcon* pButton4 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_4);
     m_vecIcon.push_back(pButton4);
-
     CIcon* pButtonL = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_L);
     m_vecIcon.push_back(pButtonL);
 

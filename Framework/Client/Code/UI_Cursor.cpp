@@ -70,7 +70,7 @@ void CUI_Cursor::Render_Object(void)
 		if (KEY_TAP(KEY::LEFT_ARROW) && m_iCursorX > 0)
 		{
 			m_iCursorX--;
-			vMovePos = { vOriginPos.x, vOriginPos.y, 0.f };
+			vMovePos = { vOriginPos.x - 154.f, vOriginPos.y, 0.f };
 			Get_TransformCom()->Set_Pos(&vMovePos);
 			vOriginPos = vMovePos;
 			m_bMoveCursor = false;
