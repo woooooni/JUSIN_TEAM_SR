@@ -359,16 +359,6 @@ void CUI_ItemInfo::Set_Type(SHOPITEMTYPE eType, const _uint& _ePrice)
 
 void CUI_ItemInfo::Key_Input()
 {
-
-	if (KEY_TAP(KEY::L))
-	{
-		if (!m_bShown)
-			m_bShown = TRUE;
-
-		else
-			m_bShown = FALSE;
-	}
-
 	if (KEY_TAP(KEY::ENTER) && m_pItem != nullptr)
 	{
 
@@ -378,15 +368,13 @@ void CUI_ItemInfo::Key_Input()
 					&& m_iCursorX == 1 && m_iCursorY == 0))
 		{
 			CUI_Shop* pShop = CUIMgr::GetInstance()->Get_ShopUI();
-				if (m_iPlayerMoney < m_tItemInfo.iPrice)
-				{
-					CInventoryMgr::GetInstance()->Add_Item(m_pItem);
+			if (m_iPlayerMoney < m_tItemInfo.iPrice)
+			{
+				CInventoryMgr::GetInstance()->Add_Item(m_pItem);
 
-						Safe_Release(m_pItem);
-						pShop->Remove_Item(m_tItemInfo.eType);
-
-				}
-
+				Safe_Release(m_pItem);
+				pShop->Remove_Item(m_tItemInfo.eType);
+			}
 		}
 
 	}

@@ -34,11 +34,6 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     NULL_CHECK_RETURN(m_pShop, E_FAIL);
     NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL); 
     NULL_CHECK_RETURN(m_pInventory, E_FAIL);
-    
-
-    m_pShop->Add_Item(CDefaultItem::Create(_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_LIGHT), SHOPITEMTYPE::UISHOP_LEAF);
-    m_pShop->Add_Item(CDefaultItem::Create(_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MASK), SHOPITEMTYPE::UISHOP_CLOTH);
-    m_pShop->Add_Item(CDefaultItem::Create(_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MISSLE), SHOPITEMTYPE::UISHOP_BRANCH);
 
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
     // NULL_CHECK_RETURN(m_pVeil, E_FAIL);
