@@ -96,9 +96,18 @@ private:
 				{
 					iterB->Event_End((*iter)->iEventNum);
 					if((*iter)->m_bIsCanReset)
-						m_bEventSwitch[(*iter)->iEventNum] = false;
+						m_bEventSwitch[(*iter)->iEventNum] = !m_bEventSwitch[(*iter)->iEventNum];
+					
 				}
-				iter = m_listCurActiveEvents.erase(iter);
+				if ((*iter)->m_bIsCheckUpdate && !m_bEventSwitch[(*iter)->iEventNum])
+				{
+					m_bEventSwitch[(*iter)->iEventNum] = !m_bEventSwitch[(*iter)->iEventNum];
+				}
+
+				if (!(*iter)->m_bIsCanReset)
+					iter = m_listCurActiveEvents.erase(iter);
+				else
+					++iter;
 			}
 			else
 				++iter;
@@ -115,6 +124,8 @@ private:
 			m_listCurActiveEvents.push_back(pEvent);
 
 		m_bEventSwitch[pEvent->iEventNum] = !m_bEventSwitch[pEvent->iEventNum];
+
+
 		Check_Event_End();
 
 	}

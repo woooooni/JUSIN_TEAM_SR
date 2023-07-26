@@ -6,6 +6,8 @@
 CItem_Hat_Turtle::CItem_Hat_Turtle(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
 {
+	m_eCode = ITEM_CODE::HAT_TURTLE;
+
 }
 
 CItem_Hat_Turtle::CItem_Hat_Turtle(const CItem_Hat& rhs)
