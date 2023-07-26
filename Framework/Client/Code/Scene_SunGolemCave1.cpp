@@ -26,6 +26,8 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -158,6 +160,11 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Effect()
 }
 
 HRESULT CScene_SunGolemCave1::Ready_Layer_UI()
+{
+	return S_OK;
+}
+
+HRESULT CScene_SunGolemCave1::Ready_Event()
 {
 	return S_OK;
 }

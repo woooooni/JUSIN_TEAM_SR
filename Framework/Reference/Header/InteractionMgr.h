@@ -81,8 +81,8 @@ public:
 			return S_OK;
 
 		Start_Event(iter->second);
-		return S_OK;
 
+		return S_OK;
 	}
 
 private:
@@ -187,6 +187,12 @@ public:
 			Add_Reset(resetIndex , i);
 		}
 	}
+
+	void			Clear_Event()
+	{
+		Free();
+	}
+
 
 private:
 

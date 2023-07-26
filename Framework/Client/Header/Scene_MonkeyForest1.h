@@ -17,6 +17,7 @@ public:
 
 private:
 	virtual HRESULT			Ready_Prototype();
+	HRESULT					Ready_Event();
 	virtual HRESULT			Ready_Layer_Player()			override;
 	virtual HRESULT			Ready_Layer_Camera()			override;
 	virtual HRESULT			Ready_Layer_Terrrain()			override;

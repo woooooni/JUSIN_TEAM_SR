@@ -23,6 +23,13 @@ public:
 	void		Set_ButClicked(CInvenTabButton* pInv);
 	void		Register_QuickSlot();
 
+	void		Reset_Index()
+	{
+		m_iCurItemIdx = 0;
+		m_iCurPageIdx = 0;
+		m_bIsRenderCurs = false;
+	}
+
 protected:
 	vector<CInvenTabButton*> m_vecTabButton;
 	_uint		m_iCurPageIdx;
@@ -36,6 +43,8 @@ protected:
 	UI_INFO		m_tCursorInfo;
 	UI_INFO		m_tBtnInfo;
 	UI_INFO		m_tExplainInfo;
+
+	
 
 
 protected:

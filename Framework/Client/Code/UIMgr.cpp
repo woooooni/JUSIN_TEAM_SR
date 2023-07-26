@@ -77,6 +77,10 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     {
         m_bUpdateUI = !m_bUpdateUI;
         m_pQuickSlot->Set_Use(!m_bUpdateUI);
+        if (!m_bUpdateUI)
+        {
+            m_pInventory->Reset_Index();
+        }
     }
 
     if (m_bUpdateUI)

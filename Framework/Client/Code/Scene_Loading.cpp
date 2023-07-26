@@ -26,6 +26,8 @@ CScene_Loading::~CScene_Loading()
 
 HRESULT CScene_Loading::Ready_Scene()
 {
+	Clear_Event();
+
 	__super::Ready_AllLayer();
 
 	D3DVIEWPORT9 vp;

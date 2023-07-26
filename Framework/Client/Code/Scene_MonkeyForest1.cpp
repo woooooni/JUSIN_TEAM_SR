@@ -25,6 +25,8 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -79,6 +81,54 @@ HRESULT CScene_MonkeyForest1::Ready_Prototype()
 	
 	return S_OK;
 }
+
+HRESULT CScene_MonkeyForest1::Ready_Event()
+{
+	EVENT* event = new EVENT;
+
+	event->iEventNum = 1;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 2;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+
+	event->iEventNum = 3;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 4;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 5;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 29;
+	FAILED_CHECK(Add_Event(event));
+
+
+	return S_OK;
+}
+
+
 
 HRESULT CScene_MonkeyForest1::Ready_Layer_Player()
 {

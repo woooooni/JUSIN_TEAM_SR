@@ -31,6 +31,8 @@ HRESULT CScene_MonkeyVillage::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -374,6 +376,53 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Effect()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_UI()
 {
+	return S_OK;
+}
+
+HRESULT CScene_MonkeyVillage::Ready_Event()
+{
+
+	EVENT* event = new EVENT;
+	event->iEventNum = 23;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 24;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 25;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 26;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 27;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 28;
+	event->lEndKey.push_back(25);
+	event->lEndKey.push_back(26);
+	event->lEndKey.push_back(27);
+
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+
 	return S_OK;
 }
 

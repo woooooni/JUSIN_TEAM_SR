@@ -60,7 +60,7 @@ _int CTurret::Update_Object(const _float& fTimeDelta)
 			Set_Idle();
 		else
 		{
-			//m_fEnergy -= fTimeDelta * 10.f;
+			m_fEnergy -= fTimeDelta * 10.f;
 
 			_vec3 LookEnemy, mypos, enemyPos;
 			wstring src;

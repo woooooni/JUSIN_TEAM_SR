@@ -5,6 +5,7 @@
 #include	"UseItem.h"
 #include "QuickSlot.h"
 #include "UI_SlotItems.h"
+#include	"UIMgr.h"
 
 
 IMPLEMENT_SINGLETON(CInventoryMgr)
@@ -122,7 +123,10 @@ HRESULT CInventoryMgr::Use_Item(INVENTORY_TYPE pType, _uint pInt)
 	HRESULT ret = src->Use_Item();
 
 	if (src->Get_InvenCount() == 0)
-		tmp.erase(tmp.begin() + pInt);
+	{
+
+
+	}
 	
 
 	return ret;

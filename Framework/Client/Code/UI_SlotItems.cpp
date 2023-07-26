@@ -97,8 +97,10 @@ void CUI_SlotItems::Set_SlotNum(SLOTITEM_NUM eNum)
 
 void CUI_SlotItems::Set_ItemCode(const ITEM_CODE& pCOde)
 {
+
 	m_eCode = pCOde;
-	m_pTextureCom->Set_Idx((_uint)pCOde);
+	if(m_eCode != ITEM_CODE::ITEM_END)
+		m_pTextureCom->Set_Idx((_uint)pCOde);
 	Set_Filled(m_eCode != ITEM_CODE::ITEM_END);
 }
 
@@ -115,11 +117,7 @@ HRESULT CUI_SlotItems::Use_Item()
 	if (item == iter.end())
 		Set_ItemCode(ITEM_CODE::ITEM_END);
 
-//	if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_InvenCount() <= 0)
-//	{
-//		CInventoryMgr::GetInstance()->Erase_Item((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx, m_iCurItemIdx);
-//		m_bIsRenderCurs = false;
-//	}
+	
 
 	return S_OK;
 }

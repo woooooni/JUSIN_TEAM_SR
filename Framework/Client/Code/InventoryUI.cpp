@@ -155,7 +155,15 @@ void CInventoryUI::Render_Object(void)
 
 		RECT rc = { WINCX * 0.5f + 250 + 30, WINCY * 0.5f - 150, WINCX * 0.5f + 250 + 270, WINCY * 0.5f + 150 };
 
-		wstring src = CItem::Get_Explain(CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+		CItem* pItem = CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx];
+		if (!pItem)
+			return;
+
+		ITEM_CODE code = CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode();
+
+		if (code == ITEM_CODE::ITEM_END)
+			return;
+		wstring src = CItem::Get_Explain(code);
 
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, src.c_str(), src.length(), &rc, DT_CENTER | DT_WORDBREAK, D3DCOLOR_ARGB(255, 255, 255, 255));
 

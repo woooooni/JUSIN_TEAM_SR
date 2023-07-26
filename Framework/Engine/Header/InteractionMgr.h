@@ -188,6 +188,12 @@ public:
 		}
 	}
 
+	void			Clear_Event()
+	{
+		Free();
+	}
+
+
 private:
 
 	void	Free();

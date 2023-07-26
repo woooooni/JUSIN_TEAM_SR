@@ -29,6 +29,8 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -194,13 +196,13 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 23, pTer->Get_TilePos(3, 2), L"Three");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(3, 2), L"Three");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 	pBase->Set_MakeLight();
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 23, pTer->Get_TilePos(3, 4), L"Corner");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(3, 4), L"Corner");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
@@ -240,6 +242,29 @@ HRESULT CScene_MoonForest1::Ready_Layer_Effect()
 
 HRESULT CScene_MoonForest1::Ready_Layer_UI()
 {
+	return S_OK;
+}
+
+HRESULT CScene_MoonForest1::Ready_Event()
+{
+	EVENT* event = new EVENT;
+	event->iEventNum = 20;
+
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 21;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 22;
+
+	FAILED_CHECK(Add_Event(event));
 	return S_OK;
 }
 
