@@ -40,10 +40,11 @@ HRESULT CTrashSlime::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashSlime_Move_LeftUp",		L"Proto_Texture_TrashSlime_Move_LeftUp", 0.1f);
 	m_tStat = { 3,3,1 };
 	m_pAnimator->Add_Animation(L"TrashSlime_Regen_Down", L"Proto_Texture_TrashSlime_Regen_Down", 0.1f);
-	m_pTransformCom->Set_Pos(&_vec3(5.0f, 1.0f, 5.0f));
+	m_pTransformCom->Set_Pos(&_vec3(5.0f, .5f, 5.0f));
 	Set_Speed(2.f);
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", false);
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
 	m_fMinHeight = 0.5f;
 
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
