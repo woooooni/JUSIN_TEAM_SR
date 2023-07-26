@@ -97,9 +97,6 @@ void CUI_Shop::Render_Object(void)
 {
 	_matrix matPreView, matPreProj;
 
-	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
-
-
 	_vec3 vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
 					(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.1f };
 	m_pTransformCom->Set_Pos(&vPos);

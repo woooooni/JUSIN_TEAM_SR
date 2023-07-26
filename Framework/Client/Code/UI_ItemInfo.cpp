@@ -1,12 +1,9 @@
 #include "UI_ItemInfo.h"
 #include "Export_Function.h"
 #include "UI_Shop.h"
-<<<<<<< HEAD
 #include "GameMgr.h"
-=======
 #include "UI_Cursor.h"
 #include "UIMgr.h"
->>>>>>> origin/feature/wonhye
 
 CUI_ItemInfo::CUI_ItemInfo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev), m_tItemInfo{}
