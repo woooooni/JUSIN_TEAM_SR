@@ -5,6 +5,7 @@
 CItem_Hat_Drill::CItem_Hat_Drill(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
 {
+	m_eCode = ITEM_CODE::HAT_DRILL;
 }
 
 CItem_Hat_Drill::CItem_Hat_Drill(const CItem_Hat& rhs)

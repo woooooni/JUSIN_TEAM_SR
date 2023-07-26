@@ -82,6 +82,11 @@ void CUI_Shop::Render_Object(void)
 	m_pTextureCom->Render_Texture(0);
 	m_pBufferCom->Render_Buffer();
 
+	for (auto& iter : m_vecShopIcon)
+	{
+		iter->Render_Object();
+	}
+
 	__super::Render_Object();
 }
 

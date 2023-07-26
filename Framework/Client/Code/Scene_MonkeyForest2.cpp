@@ -13,6 +13,7 @@
 #include "BalpanObj.h"
 #include "PushStone.h"
 #include "BreakStone.h"
+#include	"JellyStone.h"
 
 CScene_MonkeyForest2::CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST2)
@@ -203,9 +204,6 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
 
-	pHit = CHitObj::Create(m_pGraphicDev, 18, { 184.f , 0.f, 36.f });
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
 
 	
 	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 6, { 45.f, 0.f, 8.5f });
@@ -401,6 +399,10 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 104.f, 0.f, 43.5f }, true);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 105.f, 0.f, 43.5f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
 
 	CBalpanObj* pBalpan = CBalpanObj::Create(m_pGraphicDev, 10, { 49.f, 0.f, 17.f });
 
@@ -421,6 +423,22 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pBalpan = CBalpanObj::Create(m_pGraphicDev, 15, { 44.5f, 0.f, 28.f });
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBalpan);
+
+	pBalpan = CBalpanObj::Create(m_pGraphicDev, 30, { 164.5f, 0.f, 19.5f });
+	pBalpan->Set_Static();
+	pBalpan->Set_TargName(L"Jelly");
+	pBalpan->Set_Answer(JELLY_COLOR::BLUE);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBalpan);
+
+	pBalpan = CBalpanObj::Create(m_pGraphicDev, 31, { 174.5f, 0.f, 19.5f });
+	pBalpan->Set_Static();
+	pBalpan->Set_TargName(L"Jelly");
+	pBalpan->Set_Answer(JELLY_COLOR::GREEN);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBalpan);
+
+
 
 	CBreakStone* pBStone = CBreakStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 13, { 49.f, 0.f, 16.f });
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"BreakStone", pBStone);
@@ -443,7 +461,30 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pBStone = CBreakStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 16, { 47.5f, 0.f, 28.5f });
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"BreakStone", pBStone);
 
+
+	CJellyStone* pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 30, { 166.5f, 0.f, 12.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 30, { 166.5f, 0.f, 10.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 30, { 169.5f, 0.f, 12.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 30, { 169.5f, 0.f, 10.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 30, { 172.5f, 0.f, 10.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 30, { 172.5f, 0.f, 12.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+
 	Engine::Add_Reset(0, 6, 19);
+	Engine::Add_Reset(1, 30, 31);
+
+	
 
 
 	return S_OK;

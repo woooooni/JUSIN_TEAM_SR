@@ -337,6 +337,10 @@ HRESULT CMainApp::Ready_Proto_Event()
 	FAILED_CHECK(Add_Event(event));
 	event = new EVENT;
 	event->iEventNum = 18;
+	event->lStartKey.push_back(30);
+	event->lStartKey.push_back(31);
+	event->m_bIsCanReset = true;
+	event->m_bIsCheckUpdate = true;
 
 	FAILED_CHECK(Add_Event(event));
 
@@ -412,6 +416,17 @@ HRESULT CMainApp::Ready_Proto_Event()
 	event = new EVENT;
 	event->iEventNum = 29;
 	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 30;
+	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 31;
+	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
 
 
 	return S_OK;
