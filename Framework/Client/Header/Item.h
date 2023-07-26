@@ -48,6 +48,8 @@ public:
 	virtual void				Add_Pool() {};
 
 	static	wstring		Get_Explain(const ITEM_CODE& pCode);
+	static	wstring		Get_Name(const ITEM_CODE& pCode);
+
 	const ITEM_CODE& Get_ItemCode() { return m_eCode; }
 
 	void		Set_UIPos(const _vec2& pV) 

@@ -29,8 +29,16 @@ public:
 	void	Add_Item(CItem* pItem, const SHOPITEMTYPE& pType)
 	{
 		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(pItem);
+		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType + 1])->Set_Item(pItem);
+
 	}
 	CUI_Cursor*		Get_Cursor() { return m_pCursor; }
+	void	Remove_Item(SHOPITEMTYPE pType)
+	{
+		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(nullptr);
+		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType + 1])->Set_Item(nullptr);
+
+	}
 
 private:
 	HRESULT Ready_Component();

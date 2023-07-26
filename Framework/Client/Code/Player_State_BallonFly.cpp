@@ -23,7 +23,7 @@ HRESULT Player_State_BallonFly::Ready_State(void)
 	m_bFinished = false;
 	m_eFlyState = BALLOONFLY_STATE::FLYREADY;
 
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
+	//dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
 
 	return S_OK;
 }

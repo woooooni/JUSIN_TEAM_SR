@@ -207,10 +207,10 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 
 
-	if (KEY_TAP(KEY::W))
+	/*if (KEY_TAP(KEY::W))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(true);
-	}
+	}*/
 
 	if (KEY_TAP(KEY::E))
 	{

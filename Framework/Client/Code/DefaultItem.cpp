@@ -56,6 +56,9 @@ HRESULT CDefaultItem::Use_Item()
 	if (!pPlayer)
 		return E_FAIL;
 
+
+
+
 	switch (m_eCode)
 	{
 	case Engine::ITEM_CODE::HP_SMALL:
@@ -63,7 +66,6 @@ HRESULT CDefaultItem::Use_Item()
 		break;
 	case Engine::ITEM_CODE::HP_MIDDLE:
 		pPlayer->Add_HP(3);
-
 		break;
 	case Engine::ITEM_CODE::HP_BIG:
 		pPlayer->Add_HP(5);
@@ -74,12 +76,32 @@ HRESULT CDefaultItem::Use_Item()
 		break;
 	case Engine::ITEM_CODE::SPEED_BIG:
 		break;
-
+	case Engine::ITEM_CODE::LEAF:
+		break;
+	case Engine::ITEM_CODE::TWIG:
+		break;
+	case Engine::ITEM_CODE::BUTTERFLY:
+		break;
+	case Engine::ITEM_CODE::SASUM:
+		break;
+	case Engine::ITEM_CODE::HAT_DRILL:
+		break;
+	case Engine::ITEM_CODE::HAT_LIGHT:
+		break;
+	case Engine::ITEM_CODE::HAT_MASK:
+		break;
+	case Engine::ITEM_CODE::HAT_MISSLE:
+		break;
+	case Engine::ITEM_CODE::HAT_MONKEY:
+		break;
+	case Engine::ITEM_CODE::HAT_TURTLE:
+		break;
 	default:
 		return E_FAIL;
 	}
 
-	Set_InvenCount(false);
+	if(m_eItemType == ITEM_TYPE::CONSUMPTION)
+		Set_InvenCount(false);
 
 	if (Get_InvenCount() == 0)
 		Add_Pool();
@@ -169,6 +191,14 @@ CDefaultItem* CDefaultItem::Create(LPDIRECT3DDEVICE9 pGraphicDev,  OBJ_ID _eID, 
 	else if (pCode >= ITEM_CODE::LEAF && pCode < ITEM_CODE::ETC_END)
 	{
 		ret->m_eItemType = ITEM_TYPE::ETC;
+	}
+	else if (pCode >= ITEM_CODE::HAT_DRILL && pCode < ITEM_CODE::EQUIP_END)
+	{
+		ret->m_eItemType = ITEM_TYPE::EQUIPMENT;
+	}
+	else if (pCode >= ITEM_CODE::DRAWING_CROSSROAD && pCode < ITEM_CODE::IMPORTANT_END)
+	{
+		ret->m_eItemType = ITEM_TYPE::IMPORTANT;
 	}
 	return ret;
 }

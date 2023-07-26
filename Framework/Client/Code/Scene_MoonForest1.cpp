@@ -186,7 +186,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 21, pTer->Get_TilePos(3, 4), L"Corner");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 23, pTer->Get_TilePos(3, 4), L"Corner");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
