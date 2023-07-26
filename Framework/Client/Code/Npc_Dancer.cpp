@@ -44,7 +44,7 @@ HRESULT CNpc_Dancer::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Monkey_Dancer_Dance", TRUE), E_FAIL);
 	
-	m_pTransformCom->Set_Scale(_vec3(1.5f, 1.5f, 1.5f));
+	m_pTransformCom->Set_Scale(_vec3(3.f, 3.f, 1.5f));
 
 	return S_OK;
 }
@@ -57,27 +57,29 @@ _int CNpc_Dancer::Update_Object(const _float& fTimeDelta)
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	_int iIdx = m_pAnimator->GetCurrAnimation()->Get_Idx();
-	if ((iIdx == 0 || iIdx == 6 || iIdx == 13 || iIdx == 20 || iIdx == 27))
-		m_pTransformCom->Set_Pos(&_vec3(vPos.x, 1.75f, vPos.z));
-
-	else if ((iIdx == 1 || iIdx == 7 || iIdx == 14 || iIdx == 21 || iIdx == 28))
-		m_pTransformCom->Set_Pos(&_vec3(vPos.x, 2.f, vPos.z));
-
-	else if ((iIdx == 2 || iIdx == 8 || iIdx == 15 || iIdx == 22 || iIdx == 29))
-		m_pTransformCom->Set_Pos(&_vec3(vPos.x, 2.f, vPos.z));
-
-	else if ((iIdx == 3 || iIdx == 9 || iIdx == 16 || iIdx == 23 || iIdx == 29))
-		m_pTransformCom->Set_Pos(&_vec3(vPos.x, 1.75f, vPos.z));
-	else
-		m_pTransformCom->Set_Pos(&_vec3(vPos.x, 0.75f, vPos.z));
-
-
+	m_pTransformCom->Set_Scale(_vec3(3.f, 3.f, 1.5f));
+	//_int iIdx = m_pAnimator->GetCurrAnimation()->Get_Idx();
+	//if ((iIdx == 0 || iIdx == 6 || iIdx == 13 || iIdx == 20 || iIdx == 27))
+	//{
+	//	m_pTransformCom->Set_Pos(&_vec3(vPos.x, 1.5f, vPos.z));
+	//}
+	//else if ((iIdx == 1 || iIdx == 7 || iIdx == 14 || iIdx == 21 || iIdx == 28))
+	//{
+	//	m_pTransformCom->Set_Pos(&_vec3(vPos.x, 1.5f, vPos.z));
+	//}
+	//else if ((iIdx == 2 || iIdx == 8 || iIdx == 15 || iIdx == 22 || iIdx == 29))
+	//{
+	//	m_pTransformCom->Set_Pos(&_vec3(vPos.x, 1.5f, vPos.z));
+	//}
+	//else if ((iIdx == 3 || iIdx == 9 || iIdx == 16 || iIdx == 23 || iIdx == 29 || iIdx == 32))
+	//{
+	//	m_pTransformCom->Set_Pos(&_vec3(vPos.x, 1.5f, vPos.z));
+	//}	
+	//else
+	//{
+	//	m_pTransformCom->Set_Pos(&_vec3(vPos.x, 1.5f, vPos.z));
+	//}
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if ((iIdx ==0 || iIdx == 1 || iIdx == 2 || iIdx == 6 || iIdx == 7|| iIdx ==8 || iIdx == 9 || iIdx == 20 || iIdx == 21 || iIdx == 22 || iIdx == 23))
-		m_pTransformCom->Set_Scale(_vec3(1.3f, 1.5f, 1.5f));
-	else
-		m_pTransformCom->Set_Scale(_vec3(0.75f, 1.5f, 1.5f));
 
 	return iExit;
 }

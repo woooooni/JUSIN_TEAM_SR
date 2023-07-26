@@ -29,7 +29,7 @@ protected:
 	virtual HRESULT			Ready_Layer_Effect() PURE;
 	virtual HRESULT			Ready_Layer_UI() PURE;
 
-protected:
+public:
 	void					PlayVideo(HWND _hWnd, const wstring& _strFilePath);
 
 protected:
@@ -50,6 +50,7 @@ protected:
 	map<LAYER_TYPE, CLayer*>			m_mapLayer;
 	SCENE_TYPE							m_eType;
 	HWND								m_hVideoHandle;
+	_bool	m_bVideoPlaying;
 public:
 
 	const SCENE_TYPE& Get_SceneType() { return m_eType; }

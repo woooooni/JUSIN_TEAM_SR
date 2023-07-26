@@ -65,7 +65,7 @@ namespace Engine
 	enum class LIFT_STATE {LIFTREADY, LIFTUP, LIFTDOWN, LIFTIDLE, LIFTWALK, LIFTEND};
 
 	// Camera
-	enum class CAMERA_STATE { GAME, TOOL, END };
+	enum class CAMERA_STATE { GAME, TOOL, CUT_SCENE, END };
 	enum class SKYBOX_TYPE {  SKY_END };
 
 

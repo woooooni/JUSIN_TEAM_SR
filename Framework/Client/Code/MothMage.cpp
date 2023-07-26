@@ -70,7 +70,7 @@ HRESULT CMothMage::Ready_Object(void)
 
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
 
-	Set_Speed(5.f);
+	Set_Speed(4.f);
 	Set_State(MONSTER_STATE::IDLE);
 
 	m_pAnimator->Play_Animation(L"MothMage_Idle_Down", true);
@@ -86,18 +86,14 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
-	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
-		Set_State(MONSTER_STATE::DIE);
+
 	if (m_tStat.iHp < 1.f && Get_State() != MONSTER_STATE::DIE)
-	{
 		Set_State(MONSTER_STATE::DIE);
-	}
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 
 	_vec3  vPos, vScale;
-
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE && Get_State() != MONSTER_STATE::STUN)
@@ -126,7 +122,7 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 		}
 		else if (Get_State() == MONSTER_STATE::DEFFENCEMODE)
 		{
-			if (D3DXVec3Length(&vDir) <= 10.f)
+			if (D3DXVec3Length(&vDir) <= 7.f)
 			{
 				Set_State(MONSTER_STATE::ATTACK);
 			}
@@ -158,6 +154,7 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 
 		if (m_tStat.iHp == m_tStat.iMaxHp)
 			m_pUIGauge->Get_TransformCom()->Set_Pos(&vPos);
+
 		else if (m_tStat.iHp > 0 && m_tStat.iHp < m_tStat.iMaxHp)
 		{
 			_vec3 vMovePos = vPos;
@@ -293,21 +290,23 @@ void CMothMage::Update_Attack(_float fTimeDelta)
 
 	_vec3 vTargetPos, vPos, vDir;
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
+
 	if (nullptr == pTarget)
 		return;
+
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
 	vDir = vTargetPos - vPos;
 	vDir.y = 0.f;
 	m_vLook = vDir;
-	if (D3DXVec3Length(&vDir) > 7.f && !m_bShoot && !m_bSummonedByPrist)
+	if (D3DXVec3Length(&vDir) > 5.f && !m_bShoot && !m_bSummonedByPrist)
 	{
 		m_bShooting = false;
 		Set_State(MONSTER_STATE::IDLE);
 		m_bShoot = true;
 	}
-	if (D3DXVec3Length(&vDir) < 7.f && D3DXVec3Length(&vDir) >= 4.f)
+	if (D3DXVec3Length(&vDir) <= 5.f && D3DXVec3Length(&vDir) >= 4.f)
 	{
 		m_bShooting = false;
 		D3DXVec3Normalize(&vDir, &vDir);
@@ -315,7 +314,7 @@ void CMothMage::Update_Attack(_float fTimeDelta)
 		m_bShoot = true;
 	}
 	else
-	Trace(fTimeDelta);
+		Trace(fTimeDelta);
 }
 
 void CMothMage::Update_DefenceMode(_float fTimeDelta)
@@ -442,9 +441,11 @@ CMothMage* CMothMage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 void CMothMage::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
+
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	if (nullptr == pTarget)
 		return;
+
 	m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_bShooting = true;
@@ -453,18 +454,22 @@ void CMothMage::Trace(_float fTimeDelta)
 
 	if (D3DXVec3Length(&vDir) < 4.f && m_bShoot && m_pAnimator->GetCurrAnimation()->Get_Idx() == 3)
 	{
-
 		CBugBall* pBugBall = CBugBall::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pBugBall, );
 		_vec3 BulletPos = vPos;
+
 		BulletPos.y += 0.5f;
 		BulletPos.z -= 0.01f;
+
 		vDir = vTargetPos - BulletPos;
+
 		D3DXVec3Normalize(&vDir, &vDir);
+
 		pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 		pBugBall->Set_Dir(vDir);
 		pBugBall->Set_Owner(this);
 		pBugBall->Set_Atk(m_tStat.iAttack);
+
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 		pLayer->Add_GameObject(L"BugBall", pBugBall);
 		m_bShoot = false;
@@ -516,6 +521,7 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 
 	}
 }
+
 void CMothMage::Set_Animation()
 {
 
