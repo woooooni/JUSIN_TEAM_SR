@@ -149,14 +149,14 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"LiftDown_RightUp", L"Proto_Texture_Player_LiftDown_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"LiftDown_RightDown", L"Proto_Texture_Player_LiftDown_RightDown", 0.1f);
 
-	m_pAnimator->Add_Animation(L"LiftWalk_Down", L"Proto_Texture_Player_LiftWalk_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_Up", L"Proto_Texture_Player_LiftWalk_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_Left", L"Proto_Texture_Player_LiftWalk_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_Right", L"Proto_Texture_Player_LiftWalk_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_LeftUp", L"Proto_Texture_Player_LiftWalk_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_LeftDown", L"Proto_Texture_Player_LiftWalk_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_RightUp", L"Proto_Texture_Player_LiftWalk_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_RightDown", L"Proto_Texture_Player_LiftWalk_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Down", L"Proto_Texture_Player_LiftWalk_Down", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Up", L"Proto_Texture_Player_LiftWalk_Up", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Left", L"Proto_Texture_Player_LiftWalk_Left", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Right", L"Proto_Texture_Player_LiftWalk_Right", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_LeftUp", L"Proto_Texture_Player_LiftWalk_LeftUp", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_LeftDown", L"Proto_Texture_Player_LiftWalk_LeftDown", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_RightUp", L"Proto_Texture_Player_LiftWalk_RightUp", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_RightDown", L"Proto_Texture_Player_LiftWalk_RightDown", 0.07f);
 
 	m_pAnimator->Add_Animation(L"Lift_Down", L"Proto_Texture_Player_Lift_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"Lift_Up", L"Proto_Texture_Player_Lift_Up", 0.1f);
@@ -645,6 +645,20 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 				pOtherTransform->Set_Pos(&vOtherPos);
 			}
 		}
+
+		//»ç¿îµå
+
+		if(pCollider->GetOwner()->GetObj_Id() == OBJ_ID::PUSH_STONE)
+			Play_Sound(L"SFX_26_StonePushable_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+		else if (pCollider->GetOwner()->GetObj_Id() == OBJ_ID::CATAPULT)
+			Play_Sound(L"SFX_30_Catapult_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+		else if (pCollider->GetOwner()->GetObj_Id() == OBJ_ID::JELLY_STONE || 
+			pCollider->GetOwner()->GetObj_Id() == OBJ_ID::JELLY_COMBINED)
+			Play_Sound(L"SFX_44_Jelly_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+
+
+
+
 	}
 	else if (pCollider->GetOwner() == m_pLiftObj)
 	{
@@ -819,6 +833,9 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 		m_pRigidBodyCom->AddForce(vDir * -20.0f);
 		pCollider->GetOwner()->Get_RigidBodyCom()->AddForce(vDir * 120.0f);
 
+
+		Stop_Sound(CHANNELID::SOUND_SKILL);
+		Play_Sound(L"SFX_204_Blocked.wav", CHANNELID::SOUND_SKILL, 0.5f);
 	}
 	else
 	{
@@ -923,6 +940,9 @@ void CPlayer::Collision_Enter_BulletHit(CCollider* pCollider, COLLISION_GROUP _e
 
 		m_pRigidBodyCom->AddForce(vDir * -20.0f);
 		//pCollider->GetOwner()->Get_RigidBodyCom()->AddForce(vDir * 120.0f);
+
+		Stop_Sound(CHANNELID::SOUND_SKILL);
+		Play_Sound(L"SFX_204_Blocked.wav", CHANNELID::SOUND_SKILL, 0.5f);
 
 	}
 	else

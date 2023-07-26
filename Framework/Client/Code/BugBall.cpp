@@ -44,6 +44,11 @@ _int CBugBall::Update_Object(const _float& fTimeDelta)
 		{
 			Set_Active(false);
 			CEventMgr::GetInstance()->DeleteObjEvt(this);
+
+
+			int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+			Stop_Sound((CHANNELID)iSound);
+			Play_Sound(L"SFX_97_BugBulletDisappear.wav", (CHANNELID)iSound, 0.5f);
 		}
 			
 		m_fMoveTime = 0.f;
@@ -63,6 +68,10 @@ void CBugBall::LateUpdate_Object(void)
 		if (Is_Active())
 			Set_Active(false);
 		m_fMoveTime = 0.f;
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_97_BugBulletDisappear.wav", (CHANNELID)iSound, 0.5f);
 	}
 	__super::LateUpdate_Object();
 
@@ -156,4 +165,8 @@ void CBugBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 		if (Is_Active())
 			Set_Active(false);
 	}
+
+	int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+	Stop_Sound((CHANNELID)iSound);
+	Play_Sound(L"SFX_94_BugBallHit.wav", (CHANNELID)iSound, 0.5f);
 }

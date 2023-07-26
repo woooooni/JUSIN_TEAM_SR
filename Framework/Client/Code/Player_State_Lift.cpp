@@ -7,6 +7,7 @@
 #include "Collider.h"
 #include "KeyMgr.h"
 #include "RigidBody.h"
+#include "Export_Function.h"
 
 CPlayer_State_Lift::CPlayer_State_Lift(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f), m_fLiftTime(0.05f)
@@ -426,6 +427,8 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_TransformCom()->Get_Info(INFO_POS, &vGrabPos);
 	vGrabPos += _vec3(0.0f, 0.9f, 0.0f);
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
+
+	Play_Sound(L"SFX_218_LiftWalk.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	if (m_fAccTime > m_fKeyDelayTime)
 	{

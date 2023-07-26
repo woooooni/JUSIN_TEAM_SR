@@ -10,6 +10,7 @@
 #include "Portal.h"
 #include "GameMgr.h"
 
+
 CFloorDoor::CFloorDoor(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CFixedObj(pGraphicDev, OBJ_ID::PROP)
 {
@@ -68,11 +69,21 @@ _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 	if (m_bOpen && !m_bFinish)
 	{
 		m_pTransformCom->Move_Pos(&m_vDir, 1.0f, fTimeDelta);
+		
 
 
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
+
+		if (m_vDir.x < 0.0f)
+		{
+			CCamera* pCamera = dynamic_cast<CCamera*>(Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+			NULL_CHECK_RETURN(pCamera, E_FAIL);
+			pCamera->CamShake(fTimeDelta, 1.0f);
+
+			Play_Sound(L"SFX_355_BigRockRolling.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 0.5f);
+		}
 
 
 		if (D3DXVec3Length(&(m_vStartPos - vPos)) > 5.0f)
@@ -87,12 +98,13 @@ _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 				dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 				Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"NextPortal", pPortal);
 				CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);
+				Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
 			}
 		}
 
 		if (m_fAccStoneTime > m_fStoneTime)
 		{
-			CParticle_Stone::Get_Effect(vPos, _vec3(2.5f, 0.5f, 5.0f), 20);
+			CParticle_Stone::Get_Effect(vPos, _vec3(2.5f, 0.5f, 5.0f), 30);
 			m_fAccStoneTime = 0.0f;
 		}
 		else
@@ -206,6 +218,9 @@ void CFloorDoor::Open_Door()
 			}
 			dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.0f, 1.0f, 1.0f), 186, 132, 72);
 		}
+
+		Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+		Play_Sound(L"SFX_356_BigRockCrash.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 0.5f);
 
 	}
 

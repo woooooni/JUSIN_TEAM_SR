@@ -72,6 +72,10 @@ _int CPlayer_Bullet_GolemFist::Update_Object(const _float& fTimeDelta)
 
 			FistSmokeEffect();
 			m_bEffect = true;
+
+			CCamera* pCamera = dynamic_cast<CCamera*>(Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+			NULL_CHECK_RETURN(pCamera, E_FAIL);
+			pCamera->CamShake(0.5f, 2.0f);
 		}
 
 		if (m_fAccTime > m_fStopTime)

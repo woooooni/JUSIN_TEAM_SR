@@ -183,6 +183,7 @@ void CRollingBug::LateUpdate_Object(void)
 	{
 		if (Get_State() == MONSTER_STATE::STUN)
 		{
+			m_fStunTime = 0.0f;
 			Set_State(MONSTER_STATE::IDLE);
 		}
 	}		
@@ -309,6 +310,10 @@ void CRollingBug::Update_Die(_float fTimeDelta)
 	{
 		Set_Active(false);
 		On_Death();
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_84_MonsterBugRolling_Death.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
@@ -328,6 +333,9 @@ void CRollingBug::Trace(_float fTimeDelta)
 		m_fMoveTime = 0.f;
 
 	m_fMoveTime += 10.f * fTimeDelta;
+
+	int iSound = rand() % 3 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+	Play_Sound(L"SFX_82_MonsterBugRolling_Rolling.wav", (CHANNELID)iSound, 0.5f);
 }
 
 void CRollingBug::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
@@ -353,6 +361,10 @@ void CRollingBug::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 		if (m_tStat.iHp < 1.f)
 			Set_State(MONSTER_STATE::DIE);
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_83_MonsterBugRolling_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
