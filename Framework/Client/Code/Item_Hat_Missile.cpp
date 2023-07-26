@@ -5,6 +5,8 @@
 CItem_Hat_Missile::CItem_Hat_Missile(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
 {
+	m_eCode = ITEM_CODE::HAT_MISSLE;
+
 }
 
 CItem_Hat_Missile::CItem_Hat_Missile(const CItem_Hat& rhs)

@@ -6,15 +6,19 @@
 CQuest_Cow2::CQuest_Cow2()
 	:CQuest_Conversation(NPC_CODE::NPC_COW, nullptr)
 {
+	// 원숭이 마을로 가게끔 유도함
 	m_strQuestTitle = L"동굴 조사";
 	m_strQuestDesc = L"마을 근처 동굴에서 계속 쓰레기가 나오는거 같다. 조사해보자.";
 
 	// TODO : 대사 쓰기
-	/*m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"오구 안녕?");
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"좋은 아침이야~");
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"아직도 숲속에서 고약한 쓰레기 냄새가 난다고 하더군.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"이거 봐. 다섯 놈이 아니었어.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"내 생각엔 동굴 속이 그놈들 아지트인 것 같다.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"그놈들 대장을 만나서 그냥 혼쭐을 내줘야 해.");
 
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"어휴.. 누가 이렇게 쓰레기를 막 버린거야?");*/
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"동굴 속에서 쓰레기가 계속 나오는 것 같아.");
+
+//	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L""); // 원숭이 촌장에게 말을 걸면 완료되는 퀘스트
 }
 
 void CQuest_Cow2::Update_Quest(_float& fTimeDelta)

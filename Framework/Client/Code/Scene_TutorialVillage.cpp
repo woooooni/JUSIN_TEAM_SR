@@ -142,7 +142,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
@@ -275,9 +275,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS);
-	def->Get_TransformCom()->Set_Pos(&_vec3(5, 0, 9));
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+	
 
 	CRabitObj* rab = CRabitObj::Create(m_pGraphicDev, { 17, 0, 1 });
 	NULL_CHECK_RETURN(rab, E_FAIL);

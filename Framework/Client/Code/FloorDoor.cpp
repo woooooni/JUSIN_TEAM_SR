@@ -81,7 +81,7 @@ _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 
 			if (m_vDir.x < 0.0f)
 			{
-				CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
+				CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST2);
 				_vec3 vPortalPos = _vec3(63.6f, 0.5f, 54.4f);
 				pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 				dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));

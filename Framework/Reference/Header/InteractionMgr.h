@@ -96,9 +96,18 @@ private:
 				{
 					iterB->Event_End((*iter)->iEventNum);
 					if((*iter)->m_bIsCanReset)
-						m_bEventSwitch[(*iter)->iEventNum] = false;
+						m_bEventSwitch[(*iter)->iEventNum] = !m_bEventSwitch[(*iter)->iEventNum];
+					
 				}
-				iter = m_listCurActiveEvents.erase(iter);
+				if ((*iter)->m_bIsCheckUpdate && !m_bEventSwitch[(*iter)->iEventNum])
+				{
+					m_bEventSwitch[(*iter)->iEventNum] = !m_bEventSwitch[(*iter)->iEventNum];
+				}
+
+				if (!(*iter)->m_bIsCanReset)
+					iter = m_listCurActiveEvents.erase(iter);
+				else
+					++iter;
 			}
 			else
 				++iter;
@@ -107,14 +116,23 @@ private:
 
 	void		Start_Event(EVENT* pEvent)
 	{
-		for (auto& iter : pEvent->lSubscribers)
+		for (auto iter = pEvent->lSubscribers.begin(); iter != pEvent->lSubscribers.end();)
 		{
-			iter->Event_Start(pEvent->iEventNum);
+			if ((*iter) != nullptr && (*iter)->Is_Active())
+			{
+				(*iter)->Event_Start(pEvent->iEventNum);
+				++iter;
+			}
+			else
+				iter = pEvent->lSubscribers.erase(iter);
 		}
+
 		if (!pEvent->lEndKey.empty())
 			m_listCurActiveEvents.push_back(pEvent);
 
 		m_bEventSwitch[pEvent->iEventNum] = !m_bEventSwitch[pEvent->iEventNum];
+
+
 		Check_Event_End();
 
 	}

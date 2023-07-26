@@ -56,7 +56,7 @@ Engine::_int CScene_Loading::Update_Scene(const _float& fTimeDelta)
 		switch (m_pLoading->Get_LoadingID())
 		{
 		case Engine::SCENE_TYPE::LOGO:
-			PlayVideo(g_hWnd, L"../Bin/Resource/Video/Entrance.wmv");
+			PlayVideo(g_hWnd, L"../Bin/Resource/Video/Intro.wmv");
 			break;
 		case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
 			break;
@@ -65,11 +65,7 @@ Engine::_int CScene_Loading::Update_Scene(const _float& fTimeDelta)
 		default:
 			break;
 		}
-		
 	}
-		
-	
-
 	return iResult;
 }
 

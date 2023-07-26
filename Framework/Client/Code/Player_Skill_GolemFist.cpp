@@ -169,4 +169,7 @@ void CPlayer_Skill_GolemFist::Shoot(void)
 	m_pGolemFist->Get_RigidBodyCom()->AddForce(_vec3(0.0f, -10.0f, 0.0f));
 	m_pGolemFist->Set_Active(true);
 	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillGolemFist", m_pGolemFist);
+
+	Stop_Sound(CHANNELID::SOUND_SKILL);
+	Play_Sound(L"SFX_38_SunGolemFist.wav", CHANNELID::SOUND_SKILL, 0.5f);
 }

@@ -77,23 +77,23 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Idle_RightUp", L"Proto_Texture_Player_Idle_RightUp", 0.3f);
 	m_pAnimator->Add_Animation(L"Idle_RightDown", L"Proto_Texture_Player_Idle_RightDown", 0.3f);
 
-	m_pAnimator->Add_Animation(L"Walk_Down", L"Proto_Texture_Player_Walk_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_Up", L"Proto_Texture_Player_Walk_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_Left", L"Proto_Texture_Player_Walk_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_Right", L"Proto_Texture_Player_Walk_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_LeftUp", L"Proto_Texture_Player_Walk_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_LeftDown", L"Proto_Texture_Player_Walk_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_RightUp", L"Proto_Texture_Player_Walk_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_RightDown", L"Proto_Texture_Player_Walk_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Walk_Down", L"Proto_Texture_Player_Walk_Down", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_Up", L"Proto_Texture_Player_Walk_Up", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_Left", L"Proto_Texture_Player_Walk_Left", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_Right", L"Proto_Texture_Player_Walk_Right", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_LeftUp", L"Proto_Texture_Player_Walk_LeftUp", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_LeftDown", L"Proto_Texture_Player_Walk_LeftDown", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_RightUp", L"Proto_Texture_Player_Walk_RightUp", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_RightDown", L"Proto_Texture_Player_Walk_RightDown", 0.07f);
 
-	m_pAnimator->Add_Animation(L"Run_Down", L"Proto_Texture_Player_Run_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_Up", L"Proto_Texture_Player_Run_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_Left", L"Proto_Texture_Player_Run_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_Right", L"Proto_Texture_Player_Run_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_LeftUp", L"Proto_Texture_Player_Run_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_LeftDown", L"Proto_Texture_Player_Run_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_RightUp", L"Proto_Texture_Player_Run_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_RightDown", L"Proto_Texture_Player_Run_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_Down", L"Proto_Texture_Player_Run_Down", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_Up", L"Proto_Texture_Player_Run_Up", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_Left", L"Proto_Texture_Player_Run_Left", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_Right", L"Proto_Texture_Player_Run_Right", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_LeftUp", L"Proto_Texture_Player_Run_LeftUp", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_LeftDown", L"Proto_Texture_Player_Run_LeftDown", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_RightUp", L"Proto_Texture_Player_Run_RightUp", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_RightDown", L"Proto_Texture_Player_Run_RightDown", 0.09f);
 
 	m_pAnimator->Add_Animation(L"Rolling_Down", L"Proto_Texture_Player_Rolling_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"Rolling_Up", L"Proto_Texture_Player_Rolling_Up", 0.1f);

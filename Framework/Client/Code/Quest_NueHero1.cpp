@@ -8,9 +8,16 @@
 CQuest_NueHero1::CQuest_NueHero1()
 	: CQuest_Hunting(NPC_CODE::NPC_NUE_HERO, nullptr, OBJ_ID::SILK_WORM, 1)
 {
+	// 보스전 시작 전 대화 내용. 대화 종료 후 바로 보스전이 시작됨.
 	m_strQuestTitle = L"타락한 누에용사 처치";
 	m_strQuestDesc = L"쓰레기 무단투기 진범인 타락한 누에용사를 처치하자.";
 	
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"");
+
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
+
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"");
+
 	m_iRewardCoin = 100000;
 }
 

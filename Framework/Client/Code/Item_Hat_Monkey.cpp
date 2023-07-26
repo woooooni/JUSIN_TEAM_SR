@@ -6,6 +6,8 @@
 CItem_Hat_Monkey::CItem_Hat_Monkey(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
 {
+	m_eCode = ITEM_CODE::HAT_MONKEY;
+
 }
 
 CItem_Hat_Monkey::CItem_Hat_Monkey(const CItem_Hat& rhs)
