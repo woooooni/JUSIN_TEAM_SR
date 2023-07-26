@@ -116,10 +116,17 @@ private:
 
 	void		Start_Event(EVENT* pEvent)
 	{
-		for (auto& iter : pEvent->lSubscribers)
+		for (auto iter = pEvent->lSubscribers.begin(); iter != pEvent->lSubscribers.end();)
 		{
-			iter->Event_Start(pEvent->iEventNum);
+			if ((*iter) != nullptr && (*iter)->Is_Active())
+			{
+				(*iter)->Event_Start(pEvent->iEventNum);
+				++iter;
+			}
+			else
+				iter = pEvent->lSubscribers.erase(iter);
 		}
+
 		if (!pEvent->lEndKey.empty())
 			m_listCurActiveEvents.push_back(pEvent);
 
