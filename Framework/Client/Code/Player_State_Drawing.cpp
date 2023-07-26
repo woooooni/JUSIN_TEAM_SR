@@ -34,6 +34,7 @@ _int CPlayer_State_Drawing::Update_State(const _float& fTimeDelta)
 		
 		if (m_fAccTime > m_fDrawTime)
 		{
+			dynamic_cast<CPlayer*>(m_pOwner)->Set_DrawingFinish(true);
 			m_bFinished = true;
 			m_fAccTime = 0.0f;
 		}
@@ -74,6 +75,7 @@ void CPlayer_State_Drawing::Render_State(void)
 
 void CPlayer_State_Drawing::Reset_State(void)
 {
+	dynamic_cast<CPlayer*>(m_pOwner)->Set_DrawingFinish(false);
 }
 
 void CPlayer_State_Drawing::Update_Hat()

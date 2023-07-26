@@ -52,6 +52,7 @@ _int CDefenceEnter::Update_Object(const _float& fTimeDelta)
 				{
 					dynamic_cast<CCamera*>(pCamera)->Set_TargetObj(pPlayer);
 					dynamic_cast<CCamera*>(pCamera)->Minus_Offset();
+					CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);
 				}
 			}
 			Set_Active(false);
@@ -81,6 +82,7 @@ void CDefenceEnter::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColl
 			CGameObject* pNexus = Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Nexus");
 			dynamic_cast<CCamera*>(pCamera)->Set_TargetObj(pNexus);
 			dynamic_cast<CCamera*>(pCamera)->Add_Offset();
+			CGameMgr::GetInstance()->Get_Player()->Set_Stop(true);
 			m_bStart = true;
 		}
 	}

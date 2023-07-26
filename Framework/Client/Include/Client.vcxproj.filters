@@ -1378,6 +1378,9 @@
     <ClInclude Include="..\Header\UI_ContinueMark.h">
       <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\BossDoor.h" />
+    <ClInclude Include="..\Header\BossDoorEnter.h" />
+    <ClInclude Include="..\Header\DrawingEnter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2043,6 +2046,9 @@
     <ClCompile Include="..\Code\UI_ContinueMark.cpp">
       <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\BossDoor.cpp" />
+    <ClCompile Include="..\Code\BossDoorEnter.cpp" />
+    <ClCompile Include="..\Code\DrawingEnter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

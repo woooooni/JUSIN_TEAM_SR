@@ -140,7 +140,15 @@ void CUI_BossHP::Render_Object(void)
 
 		else if (m_eUIType == BOSSHP::UI_GAUGE)
 		{
-			_float fX = fOriginWidth - fWidth;
+			_matrix matWorld;
+			D3DXMatrixIdentity(&matWorld);
+			_vec3 vInfo;
+			for (_uint i = 0; INFO_POS > i; ++i)
+			{
+				memcpy(&vInfo, &matWorld.m[i], sizeof(_vec3));
+				m_pTransformCom->Set_Info((MATRIX_INFO)i, &vInfo);
+			}
+
 			_vec3 vScale = _vec3(fWidth * fRatio * 4.2f, fHeight * fRatio, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
 

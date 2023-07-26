@@ -96,12 +96,14 @@ _int CNexus::Update_Object(const _float& fTimeDelta)
 			vPos.z += 10.0f;
 			pPlayer->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 			pPlayer->SetObj_Dir(OBJ_DIR::DIR_D);
+			dynamic_cast<CPlayer*>(pPlayer)->Set_Stop(true);
 
 			CGameObject* pCamera = Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera");
 			NULL_CHECK_RETURN(pCamera, E_FAIL);
 
 			dynamic_cast<CCamera*>(pCamera)->Set_TargetObj(this);
 			dynamic_cast<CCamera*>(pCamera)->Add_Offset();
+			
 
 			vector<CGameObject*>& vecMonsters = Get_Layer(LAYER_TYPE::MONSTER)->Get_GameObjectVec();
 

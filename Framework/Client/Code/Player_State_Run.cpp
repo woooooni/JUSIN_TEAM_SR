@@ -89,7 +89,8 @@ _int CPlayer_State_Run::Update_State(const _float& fTimeDelta)
 	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 30.f, fTimeDelta);
 	if (m_fAccTime > m_fKeyDelayTime)
 	{
-		Key_Input(fTimeDelta);
+		if (!dynamic_cast<CPlayer*>(m_pOwner)->Is_Stop())
+			Key_Input(fTimeDelta);
 		m_fAccTime = 0.0f;
 	}
 	else
