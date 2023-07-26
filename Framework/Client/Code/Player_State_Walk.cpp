@@ -24,6 +24,7 @@ CPlayer_State_Walk::~CPlayer_State_Walk()
 
 HRESULT CPlayer_State_Walk::Ready_State(void)
 {	
+
 	if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
 		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_LU);

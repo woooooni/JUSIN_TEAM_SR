@@ -46,6 +46,9 @@ private:
 public:
 	void			Change_State(PLAYER_STATE _eState)
 	{
+		if (m_bStop)
+			_eState = PLAYER_STATE::IDLE;
+
 		if (!m_bStateChange)
 		{
 			m_bStateChange = true;
@@ -54,6 +57,9 @@ public:
 	}
 	void			Change_State_Now(PLAYER_STATE _eState)
 	{
+		if (m_bStop)
+			_eState = PLAYER_STATE::IDLE;
+
 		m_bStateChange = true;
 		m_eChangeState = _eState;
 	}
@@ -164,7 +170,12 @@ public:
 
 	void		Set_Invincible() { m_fAccInvinTime = 0.0f; m_bInvincible = true; }
 
+	bool			Is_Stop() { return m_bStop; }
+	void			Set_Stop(bool _bStop) { m_bStop = _bStop; Change_State_Now(PLAYER_STATE::IDLE); }
+
 	CGameObject* Get_Shadow() { return m_pShadow; }
+
+	void			Set_PlayerHat(PLAYER_HAT _eHat) { m_eHat = _eHat; Set_Hat(m_vecHats[(_uint)m_eHat]); }
 private:
 	_vec3			m_vDir;
 	_float			m_fSpeed;
@@ -210,10 +221,12 @@ private:
 	bool m_bPush = false;
 
 	bool m_bGrab = false;
+
+	bool m_bStop = false;
 	//
 
 	vector<CGameObject*> m_vecHats;
-	_uint m_iHat;
+	PLAYER_HAT m_eHat;
 	void		Key_Input(const _float& fTimeDelta);
 
 	ITEM_CODE m_eGetItemCode;

@@ -122,8 +122,8 @@ _int CPlayer_State_Idle::Update_State(const _float& fTimeDelta)
 	
 
 
-
-	Key_Input(fTimeDelta);
+	if(!dynamic_cast<CPlayer*>(m_pOwner)->Is_Stop())
+		Key_Input(fTimeDelta);
 	return 0;
 }
 

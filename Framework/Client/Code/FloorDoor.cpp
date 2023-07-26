@@ -8,6 +8,7 @@
 #include "CParticle_Stone.h"
 #include "Effect_StoneParticle.h"
 #include "Portal.h"
+#include "GameMgr.h"
 
 CFloorDoor::CFloorDoor(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CFixedObj(pGraphicDev, OBJ_ID::PROP)
@@ -85,6 +86,7 @@ _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 				pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 				dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 				Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"NextPortal", pPortal);
+				CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);
 			}
 		}
 

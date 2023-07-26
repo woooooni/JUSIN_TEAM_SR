@@ -216,29 +216,38 @@ HRESULT CPlayer::Ready_Object(void)
 	m_tPlayerStat.iAttack = 5;
 
 
-	m_iHat = 0;
 
 	CGameObject* pHat = nullptr;
+	m_eHat = PLAYER_HAT::NONE;
+
 	m_vecHats.push_back(pHat);
+
+
+	pHat = CItem_Hat_Light::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+
+	pHat = CItem_Hat_Monkey::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+
+	pHat = CItem_Hat_Mask::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+
+	pHat = CItem_Hat_Turtle::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
 
 	pHat = CItem_Hat_Drill::Create(m_pGraphicDev, this);
 	if (pHat)
 		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Light::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Mask::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
+	
 	pHat = CItem_Hat_Missile::Create(m_pGraphicDev, this);
 	if (pHat)
 		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Monkey::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Turtle::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
+	
+
 
 
 	CGameObject* pAim = CPlayer_Skill_Aim::Create(m_pGraphicDev);
@@ -304,8 +313,8 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 
 
 	//모자 테스트
-	if(m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
-		m_vecHats[m_iHat]->Update_Object(fTimeDelta);
+	if(m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
+		m_vecHats[(_uint)m_eHat]->Update_Object(fTimeDelta);
 
 
 	if (m_bInvincible)
@@ -350,8 +359,8 @@ void CPlayer::LateUpdate_Object(void)
 		m_pShadow->LateUpdate_Object();
 
 
-	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
-		m_vecHats[m_iHat]->LateUpdate_Object();
+	if (m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
+		m_vecHats[(_uint)m_eHat]->LateUpdate_Object();
 
 	__super::LateUpdate_Object();
 }
@@ -370,8 +379,8 @@ void CPlayer::Render_Object(void)
 	if (m_pShadow && m_pShadow->Is_Active())
 		m_pShadow->Render_Object();
 
-	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
-		m_vecHats[m_iHat]->Render_Object();
+	if (m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
+		m_vecHats[(_uint)m_eHat]->Render_Object();
 
 }
 
@@ -485,38 +494,33 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 {
 	if (KEY_TAP(KEY::NUM_1))
 	{
-		m_iHat = 0;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::LIGHT;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_2))
 	{
-		m_iHat = 1;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::GOLEMFIST;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_3))
 	{
-		m_iHat = 2;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::LIGHTNING;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_4))
 	{
-		m_iHat = 3;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::TURTLE;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_5))
 	{
-		m_iHat = 4;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::DRILL;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_6))
 	{
-		m_iHat = 5;
-		Set_Hat(m_vecHats[m_iHat]);
-	}
-	else if (KEY_TAP(KEY::NUM_7))
-	{
-		m_iHat = 6;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::MISSILE;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 }
 
