@@ -2,7 +2,7 @@
 #include	"Export_Function.h"
 #include	"TurretBullet.h"
 #include	"Pool.h"
-
+#include	"UI_TurretGauge.h"
 
 CTurret::CTurret(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CFieldObject(pGraphicDev, OBJ_ID::TURRET)
@@ -108,6 +108,8 @@ _int CTurret::Update_Object(const _float& fTimeDelta)
 		Set_Idle();
 	}
 
+	m_pGauge->Update_Object(fTimeDelta);
+
 	return __super::Update_Object(fTimeDelta);
 }
 
@@ -118,6 +120,9 @@ void CTurret::LateUpdate_Object(void)
 
 void CTurret::Render_Object(void)
 {
+	if (m_fEnergy > 0.f)
+		m_pGauge->Render_Object();
+
 	__super::Render_Object();
 
 }
@@ -146,7 +151,8 @@ CTurret* CTurret::Create(LPDIRECT3DDEVICE9 p_Dev,  const _uint& p_EventNum, cons
 	ret->Add_Subscribe(p_EventNum);
 	ret->m_pTransformCom->Set_Pos(&p_Pos);
 	ret->Set_MinHeight(0.5f);
-
+	ret->m_pGauge = CUI_TurretGauge::Create(p_Dev, ret);
+	NULL_CHECK_RETURN_MSG(ret->m_pGauge, nullptr, L"GaugeFailed");
 	return ret;
 }
 
