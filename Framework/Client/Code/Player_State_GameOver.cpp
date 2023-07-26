@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Player.h"
 #include "Texture.h"
+#include "Export_Function.h"
 
 CPlayer_State_GameOver::CPlayer_State_GameOver(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -16,6 +17,10 @@ CPlayer_State_GameOver::~CPlayer_State_GameOver()
 HRESULT CPlayer_State_GameOver::Ready_State(void)
 {
 	dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"GameOver", FALSE);
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_238_OguGameRestart.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.7f);
+
 
 	return S_OK;
 }

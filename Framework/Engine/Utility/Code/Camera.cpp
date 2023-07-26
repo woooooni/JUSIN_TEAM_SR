@@ -406,6 +406,14 @@ void CCamera::LateUpdate_CutSceneCamera()
 			_float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
 			_float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
 
+			int iTemp = rand() % 2;
+			if (iTemp == 0)
+				fOffsetX *= -1.0f;
+
+			iTemp = rand() % 2;
+			if (iTemp == 0)
+				fOffsetY *= -1.0f;
+
 			// Look, Pos 둘 다 적용시켜야 움직임이 자연스러움
 			vCamPos.x += fOffsetX;
 			vCamPos.y += fOffsetY;

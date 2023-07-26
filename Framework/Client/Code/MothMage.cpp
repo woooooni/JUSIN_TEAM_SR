@@ -246,6 +246,10 @@ void CMothMage::Update_Die(_float fTimeDelta)
 			m_pMothOrb->Set_Active(false);
 			CEventMgr::GetInstance()->DeleteObjEvt(m_pMothOrb);
 			m_pMothOrb = nullptr;
+
+			int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+			Stop_Sound((CHANNELID)iSound);
+			Play_Sound(L"SFX_93_MonsterMothMage_Death.wav", (CHANNELID)iSound, 0.5f);
 		}
 	}
 }
@@ -384,6 +388,10 @@ void CMothMage::Update_DefenceAttack(_float fTimeDelta)
 			CLayer* pLayer = Engine::Get_Layer(LAYER_TYPE::MONSTER);
 			pLayer->Add_GameObject(L"BugBall", pBugBall);
 			m_bShoot = false;
+
+			int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+			Stop_Sound((CHANNELID)iSound);
+			Play_Sound(L"SFX_91_MonsterMothMage_Shoot.wav", (CHANNELID)iSound, 0.5f);
 		}
 
 		if (!m_bShoot && m_pAnimator->GetCurrAnimation()->Is_Finished())
@@ -519,6 +527,10 @@ void CMothMage::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		m_vLook = vDir*-1.f;
 		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_92_MonsterMothMage_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
