@@ -32,21 +32,19 @@ HRESULT CUI_HPBar::Ready_Object(void)
 	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
-	m_tInfo.fX = -420.f;
-	m_tInfo.fY = -390.f;
+	m_tInfo.fX = WINCX / 2 - 420.f;
+	m_tInfo.fY = WINCY / 2 - 390.f;
 
 	return S_OK;
 }
 
 _int CUI_HPBar::Update_Object(const _float& fTimeDelta)
 {
-	//Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
-	CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
+	CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();
+
 	m_iMaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
 	m_iHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
-	
-	//Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -60,7 +58,7 @@ void CUI_HPBar::LateUpdate_Object(void)
 
 	_float fIndex = m_tInfo.fCX - m_tInfo.fCX * fHP;
 
-	m_tInfo.fX = -420.f - fIndex + (fIndex * 0.15f);
+	m_tInfo.fX = (WINCX / 2 - 420.f) - fIndex + (fIndex * 0.15f);
 
 	__super::LateUpdate_Object();
 }
@@ -83,6 +81,9 @@ void CUI_HPBar::Render_Object(void)
 	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	_float fRatio = _float(WINCY) / _float(WINCX);
 
+	if (fWidth == 0)
+		fWidth = 0.005f;
+
 	// HPBar 줄어든길이 -> 줄어든 길이만큼 Pos를 옮겨줘야함.
 	_float fX = fOriginWidth - fWidth; // HPBar 줄어든 길이
 
@@ -90,8 +91,8 @@ void CUI_HPBar::Render_Object(void)
 	_vec3 vScale = _vec3(fWidth * fRatio * 2.5, fHeight * fRatio * 2, 0.f);
 	m_pTransformCom->Set_Scale(vScale);
 
-	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX) * (1 / m_matProj._11) ,
-				((-2 * (m_tInfo.fY)) / WINCY) * (1 / m_matProj._22), 0.f };
+	_vec3 vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.05f };
 
 	m_pTransformCom->Set_Pos(&vPos);
 

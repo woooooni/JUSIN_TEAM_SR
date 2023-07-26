@@ -3,6 +3,7 @@
 #include	"Pool.h"
 #include	"Player.h"
 #include	"UseItem.h"
+#include "UI_SlotItems.h"
 
 
 IMPLEMENT_SINGLETON(CInventoryMgr)

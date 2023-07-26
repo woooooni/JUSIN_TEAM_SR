@@ -19,7 +19,7 @@ public:
 	bool	Get_Shown() { return m_bShown; }
 
 private:
-	bool		m_bShown = false;
+	bool		m_bShown = true;
 
 public:
 	static  CUI_ShortCutKey* Create(LPDIRECT3DDEVICE9 pGraphicDev);

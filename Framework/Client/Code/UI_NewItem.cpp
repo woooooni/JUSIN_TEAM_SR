@@ -23,8 +23,8 @@ HRESULT CUI_NewItem::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_tInfo.fX = 0.f;
-	m_tInfo.fY = -20.f;
+	m_tInfo.fX = WINCX / 2;
+	m_tInfo.fY = WINCY / 2 - 15.f;
 
 	m_pWindow = CUI_Notification::Create(m_pGraphicDev, 0.8f, 0.79f);
 	if (m_pWindow != nullptr)
@@ -113,8 +113,8 @@ void CUI_NewItem::Render_Object(void)
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 		
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
+		vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+						(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
