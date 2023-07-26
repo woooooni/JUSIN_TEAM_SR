@@ -10,8 +10,9 @@
 #include "DefaultItem.h"
 #include "InventoryMgr.h"
 
-CDrawingEnter::CDrawingEnter(LPDIRECT3DDEVICE9 pGraphicDev)
+CDrawingEnter::CDrawingEnter(LPDIRECT3DDEVICE9 pGraphicDev, CItem* pItem)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PORTAL, OBJ_ID::PORTAL)
+	, m_pItem(pItem)
 {
 
 }
@@ -61,9 +62,11 @@ _int CDrawingEnter::Update_Object(const _float& fTimeDelta)
 				m_bFinish = true;
 				pPlayer->Change_State(PLAYER_STATE::IDLE);
 
-				CGameObject* pItem = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS);
-				NULL_CHECK_RETURN(pItem, E_FAIL);
-				CInventoryMgr::GetInstance()->Add_Item(pItem);
+				/*CGameObject* pItem = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS);
+				NULL_CHECK_RETURN(pItem, E_FAIL);*/
+				CInventoryMgr::GetInstance()->Add_Item(m_pItem->Clone());
+				CEventMgr::GetInstance()->DeleteObjEvt(this);
+				CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 			}
 		}
 
@@ -151,9 +154,9 @@ HRESULT CDrawingEnter::Ready_Component(void)
 	return S_OK;
 }
 
-CDrawingEnter* CDrawingEnter::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CDrawingEnter* CDrawingEnter::Create(LPDIRECT3DDEVICE9 pGraphicDev, CItem* pItem)
 {
-	CDrawingEnter* pInstance = new CDrawingEnter(pGraphicDev);
+	CDrawingEnter* pInstance = new CDrawingEnter(pGraphicDev, pItem);
 	NULL_CHECK_RETURN(pInstance, nullptr);
 
 	if (FAILED(pInstance->Ready_Object()))

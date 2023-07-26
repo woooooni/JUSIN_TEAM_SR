@@ -165,11 +165,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	pMom->Get_TransformCom()->Set_Info(INFO_POS, &vMomPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_OguMom", pMom);
 
-
-	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev);
-	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(0.0f, 0.6f, 0.0f));
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
-
 	return S_OK;
 }
 
@@ -249,46 +244,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(17, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(18, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(19, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(20, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(21, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	
-
-	CRabitObj* rab = CRabitObj::Create(m_pGraphicDev, { 17, 0, 1 });
-	NULL_CHECK_RETURN(rab, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Rabbit", rab);
-
-	CTurret* turret = CTurret::Create(m_pGraphicDev, 0, { 50.f, 0.f, 20.f });
-
-	NULL_CHECK_RETURN(turret, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
-
-
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Ready_Layer();
 	return S_OK;
 }
 

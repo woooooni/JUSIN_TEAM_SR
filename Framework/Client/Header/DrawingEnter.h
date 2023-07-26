@@ -1,12 +1,12 @@
 #pragma once
 #include "GameObject.h"
-
+class CItem;
 class CDrawingEnter final : public CGameObject
 {
 	CLONE(CDrawingEnter)
 
 protected:
-	explicit CDrawingEnter(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CDrawingEnter(LPDIRECT3DDEVICE9 pGraphicDev, CItem* pItem);
 	explicit CDrawingEnter(const CDrawingEnter& rhs);
 	virtual ~CDrawingEnter();
 
@@ -27,7 +27,7 @@ private:
 private:
 
 public:
-	static	CDrawingEnter* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static	CDrawingEnter* Create(LPDIRECT3DDEVICE9 pGraphicDev, CItem* pItem);
 
 protected:
 	virtual void Free() override;
@@ -36,6 +36,7 @@ public:
 
 
 private:
+	CItem* m_pItem;
 	bool m_bStart = false;
 	bool m_bFinish = false;
 

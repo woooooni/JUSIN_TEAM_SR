@@ -101,7 +101,6 @@ private:
 
 	list<tCamEffect> m_lCamEffect;
 	_float m_fShakeForce;
-	_float m_fAlpha;
 
 	
 	_vec3 m_vOffset;	// 타겟으로부터 떨어진 거리

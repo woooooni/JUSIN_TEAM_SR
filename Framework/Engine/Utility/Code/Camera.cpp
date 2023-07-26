@@ -13,7 +13,6 @@ CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev, HWND _hWnd)
 	, m_fDist(0.2f)
 	, m_fFollowSpeed(5.f)
 	, m_fShakeForce(2.f)
-	, m_fAlpha(0.f)
 	, m_fNear(1.0f)
 	, m_fFar(1000.0f)
 	, m_fMoveSpeed(10.f)
@@ -31,7 +30,6 @@ CCamera::CCamera(const CCamera& rhs)
 	, m_pTargetObj(rhs.m_pTargetObj)
 	, m_fFollowSpeed(rhs.m_fFollowSpeed)
 	, m_fShakeForce(rhs.m_fShakeForce)
-	, m_fAlpha(rhs.m_fAlpha)
 	, m_fMoveSpeed(10.f)
 	, m_eState(CAMERA_STATE::GAME)
 	, m_hWnd(rhs.m_hWnd)
@@ -146,7 +144,7 @@ void CCamera::Follow(const _float& fTimeDelta)
 		return;
 	
 
-	D3DXVec3Lerp(&vDir, &(vCameraPos), &(vTargetPos + m_vOffset), 2.f * fTimeDelta);
+	D3DXVec3Lerp(&vDir, &(vCameraPos), &(vTargetPos + m_vOffset), m_fFollowSpeed * fTimeDelta);
 	vCameraPos = vDir;
 	vLook = vCameraPos - m_vOffset;
 
@@ -210,33 +208,33 @@ void CCamera::LateUpdate_GameCamera()
 			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 		}
 
-		_uint iWidth = WINCX;
-		_uint iHeight = WINCY;
+		//_uint iWidth = WINCX;
+		//_uint iHeight = WINCY;
 
-		BLENDFUNCTION buffer = {};
+		//BLENDFUNCTION buffer = {};
 
-		buffer.BlendOp = AC_SRC_OVER;
-		buffer.BlendFlags = 0;
-		buffer.SourceConstantAlpha = (_byte)(255 * m_fAlpha);
-		buffer.AlphaFormat = 0;
+		//buffer.BlendOp = AC_SRC_OVER;
+		//buffer.BlendFlags = 0;
+		//buffer.SourceConstantAlpha = (_byte)(255 * m_fAlpha);
+		//buffer.AlphaFormat = 0;
 
-		if (CAM_EFFECT::FADE_IN == effect.eEffect || CAM_EFFECT::FADE_OUT == effect.eEffect)
-		{
-			//m_pTransformCom->Set_Pos();
-			// m_fNear의 위치에 Veil을 위치시킨다. 이후 알파블랜드
-			if (CAM_EFFECT::FADE_IN == effect.eEffect)
-			{
-				m_fAlpha = effect.fDuration / effect.fCurTime;
-			}
+		//if (CAM_EFFECT::FADE_IN == effect.eEffect || CAM_EFFECT::FADE_OUT == effect.eEffect)
+		//{
+		//	//m_pTransformCom->Set_Pos();
+		//	// m_fNear의 위치에 Veil을 위치시킨다. 이후 알파블랜드
+		//	if (CAM_EFFECT::FADE_IN == effect.eEffect)
+		//	{
+		//		m_fAlpha = effect.fDuration / effect.fCurTime;
+		//	}
 
-			if (CAM_EFFECT::FADE_OUT == effect.eEffect)
-			{
-				m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
-			}
+		//	if (CAM_EFFECT::FADE_OUT == effect.eEffect)
+		//	{
+		//		m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
+		//	}
 
-			//AlphaBlend(hdc, 0, 0, iWidth, iHeight, m_pVeilTex->DC GET하는 함수(),
-			//	0, 0, iWidth, iHeight, buffer);
-		}
+		//	//AlphaBlend(hdc, 0, 0, iWidth, iHeight, m_pVeilTex->DC GET하는 함수(),
+		//	//	0, 0, iWidth, iHeight, buffer);
+		//}
 
 		effect.fCurTime += fTimeDelta;
 
@@ -338,7 +336,7 @@ void CCamera::LateUpdate_CutSceneCamera()
 
 		buffer.BlendOp = AC_SRC_OVER;
 		buffer.BlendFlags = 0;
-		buffer.SourceConstantAlpha = (_byte)(255 * m_fAlpha);
+		buffer.SourceConstantAlpha = (_byte)(255 /* m_fAlpha*/);
 		buffer.AlphaFormat = 0;
 
 		if (CAM_EFFECT::FADE_IN == effect.eEffect || CAM_EFFECT::FADE_OUT == effect.eEffect)
@@ -347,12 +345,12 @@ void CCamera::LateUpdate_CutSceneCamera()
 			// m_fNear의 위치에 Veil을 위치시킨다. 이후 알파블랜드
 			if (CAM_EFFECT::FADE_IN == effect.eEffect)
 			{
-				m_fAlpha = effect.fDuration / effect.fCurTime;
+				// m_fAlpha = effect.fDuration / effect.fCurTime;
 			}
 
 			if (CAM_EFFECT::FADE_OUT == effect.eEffect)
 			{
-				m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
+				// m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
 			}
 
 			//AlphaBlend(hdc, 0, 0, iWidth, iHeight, m_pVeilTex->DC GET하는 함수(),
@@ -389,7 +387,7 @@ void CCamera::FadeIn(float _fTime)
 	effect.eEffect = CAM_EFFECT::FADE_IN;
 	effect.fCurTime = 0.f;
 	effect.fDuration = _fTime;
-	m_fAlpha = 1.f;
+	// m_fAlpha = 1.f;
 
 	m_lCamEffect.push_back(effect);
 }
@@ -401,7 +399,7 @@ void CCamera::FadeOut(float _fTime)
 	effect.eEffect = CAM_EFFECT::FADE_OUT;
 	effect.fCurTime = 0.f;
 	effect.fDuration = _fTime; // 지속시간
-	m_fAlpha = 0.f;
+	// m_fAlpha = 0.f;
 
 	m_lCamEffect.push_back(effect);
 }

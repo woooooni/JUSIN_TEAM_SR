@@ -11,6 +11,7 @@
 #include "DefaultItem.h"
 #include "Npc_Artist.h"
 #include	"RabbitMgr.h"
+#include "DrawingEnter.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
@@ -173,15 +174,22 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 
 
 	CNpc_Artist* pArtist = CNpc_Artist::Create(m_pGraphicDev);
-	_vec3 vArtistPos = _vec3(39.5f, 1.25f, 28.91);
+	_vec3 vArtistPos = _vec3(39.5f, 1.25f, 28.91f);
 	pArtist->Get_TransformCom()->Set_Info(INFO_POS, &vArtistPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Artist", pArtist);
 
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS));
+	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(37.5f, 0.6f, 28.91f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
+
 
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(74.5f, 3.0f, 81.5f), _vec3(9.0f, 9.0f, 1.5f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
+
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	
 
 
 	return S_OK;
