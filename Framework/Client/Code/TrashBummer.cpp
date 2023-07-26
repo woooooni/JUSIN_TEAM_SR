@@ -54,12 +54,13 @@ HRESULT CTrashBummer::Ready_Object(void)
 
 	m_pAnimator->Add_Animation(L"TrashBummer_Regen_Down", L"Proto_Texture_TrashBummer_Regen_Down", 0.4f);
 
-	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, 1.0f, 4.0f));
+	m_pTransformCom->Set_Info(INFO_POS, &_vec3(4.0f, .5f, 4.0f));
 	Set_Speed(4.f);
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
 	m_tStat = { 3,3,1 };
 	m_fMinHeight = 0.5f;
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
 
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)

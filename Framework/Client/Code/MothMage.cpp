@@ -53,6 +53,8 @@ HRESULT CMothMage::Ready_Object(void)
 
 	m_pMothOrb= CMothOrb::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMothOrb, E_FAIL);
+
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
 	
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)
