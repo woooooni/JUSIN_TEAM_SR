@@ -195,6 +195,10 @@ void CTrashBig::Update_Die(_float fTimeDelta)
 	{
 		Set_Active(false);
 		On_Death();
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_36_MonsterGarbageBig_Death.wav", (CHANNELID)iSound, 0.5f);
 	}
 
 }
@@ -415,6 +419,12 @@ void CTrashBig::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		m_tStat.iHp -= 1;
 		if (m_tStat.iHp < 1)
 			Set_State(MONSTER_STATE::DIE);
+
+
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_35_MonsterGarbageBig_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 void CTrashBig::Set_Animation()

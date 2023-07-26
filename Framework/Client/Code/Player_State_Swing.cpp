@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Transform.h"
 #include "Collider.h"
+#include "Export_Function.h"
 
 CPlayer_State_Swing::CPlayer_State_Swing(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner)
@@ -102,6 +103,15 @@ HRESULT CPlayer_State_Swing::Ready_State(void)
 
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(2.5f, 2.5f, 2.5f));
 	
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+
+	int iTemp = rand() % 2;
+	if(iTemp == 1)
+		Play_Sound(L"SFX_0_Swing1_1.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else
+		Play_Sound(L"SFX_1_Swing1_2.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	
+
 	return S_OK;
 }
 

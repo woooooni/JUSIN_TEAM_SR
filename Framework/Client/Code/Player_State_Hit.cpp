@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Transform.h"
 #include "RigidBody.h"
+#include "Export_Function.h"
 
 CPlayer_State_Hit::CPlayer_State_Hit(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner)
@@ -67,7 +68,8 @@ HRESULT CPlayer_State_Hit::Ready_State(void)
 
 	dynamic_cast<CPlayer*>(m_pOwner)->Minus_Hp(1);
 	
-
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_95_OguHit.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	return S_OK;
 }
