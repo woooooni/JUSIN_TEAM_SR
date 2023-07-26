@@ -176,6 +176,7 @@ void CInventoryUI::Render_Object(void)
 			break;
 
 		case ITEM_TYPE::ETC:
+		case ITEM_TYPE::IMPORTANT:
 			return;
 
 		default:

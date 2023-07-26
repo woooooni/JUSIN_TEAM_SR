@@ -25,35 +25,13 @@ HRESULT CUI_Shop::Ready_Object(void)
 	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 
-	m_vecShopIcon.reserve(SHOPITEMTYPE::SHOPITEM_END);
+	m_vecShopIcon.resize(SHOPITEMTYPE::SHOPITEM_END);
 
-	CUI_ItemInfo* pKeyL = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOPKEY_L);
-	NULL_CHECK_RETURN(pKeyL, E_FAIL);
-	m_vecShopIcon.push_back(pKeyL);
+	for (_uint i = (_uint)SHOPITEMTYPE::SHOPKEY_L; i < (_uint)SHOPITEMTYPE::SHOPITEM_END; i++)
+	{
+		m_vecShopIcon[i] = CUI_ItemInfo::Create(m_pGraphicDev, (SHOPITEMTYPE)i);
+	}
 
-	CUI_ItemInfo* pWallet = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_WALLET);
-	NULL_CHECK_RETURN(pWallet, E_FAIL);
-	m_vecShopIcon.push_back(pWallet);
-
-	CUI_ItemInfo* pTextBox = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_TEXTBOX);
-	NULL_CHECK_RETURN(pTextBox, E_FAIL);
-	m_vecShopIcon.push_back(pTextBox);
-
-	CUI_ItemInfo* pPriceTag = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_PRICETAG);
-	NULL_CHECK_RETURN(pPriceTag, E_FAIL);
-	m_vecShopIcon.push_back(pPriceTag);
-
-	CUI_ItemInfo* pImgBox = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_IMGBOX);
-	NULL_CHECK_RETURN(pImgBox, E_FAIL);
-	m_vecShopIcon.push_back(pImgBox);
-
-	CUI_ItemInfo* pVerLine = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_VERLINE);
-	NULL_CHECK_RETURN(pVerLine, E_FAIL);
-	m_vecShopIcon.push_back(pVerLine);
-
-	CUI_ItemInfo* pHorLine = CUI_ItemInfo::Create(m_pGraphicDev, SHOPITEMTYPE::SHOP_HORLINE);
-	NULL_CHECK_RETURN(pHorLine, E_FAIL);
-	m_vecShopIcon.push_back(pHorLine);
 
 	m_pCursor = CUI_Cursor::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pCursor, E_FAIL);
@@ -92,7 +70,7 @@ void CUI_Shop::Render_Object(void)
 	_matrix matPreView, matPreProj;
 
 	_vec3 vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
-					(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.1f };
+					(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.001f };
 	m_pTransformCom->Set_Pos(&vPos);
 
 	_float fRatio = _float(WINCY) / _float(WINCX);

@@ -4,6 +4,7 @@
 #include "GameMgr.h"
 #include "UI_Cursor.h"
 #include "UIMgr.h"
+#include	"InventoryMgr.h"
 
 CUI_ItemInfo::CUI_ItemInfo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev), m_tItemInfo{}
@@ -27,18 +28,13 @@ HRESULT CUI_ItemInfo::Ready_Object(void)
 	D3DXMatrixIdentity(&m_matView);
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
 	if (m_pTextureCom)
 	{
 		m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	}
 
-	else if (m_pItem)
-	{
-		m_tInfo.fCX = _float(m_pItem->Get_TextureCom()->Get_TextureDesc(0).Width);
-		m_tInfo.fCY = _float(m_pItem->Get_TextureCom()->Get_TextureDesc(0).Height);
-	}
+
 
 	return S_OK;
 }
@@ -117,6 +113,7 @@ void CUI_ItemInfo::Render_Object(void)
 			m_pTransformCom->Set_Scale(vScale);
 			break;
 
+
 		default:
 			vScale = _vec3(m_tInfo.fCX * fRatio, m_tInfo.fCY * fRatio, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
@@ -127,9 +124,12 @@ void CUI_ItemInfo::Render_Object(void)
 
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+		if (m_tItemInfo.eType < SHOPITEMTYPE::UISHOP_LEAF)
+		{
+			m_pTextureCom->Render_Texture();
+			m_pBufferCom->Render_Buffer();
 
-		m_pTextureCom->Render_Texture();
-		m_pBufferCom->Render_Buffer();
+		}
 
 		// Player Money TextOut //
 		CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
@@ -152,15 +152,33 @@ void CUI_ItemInfo::Render_Object(void)
 
 		if (m_pItem == nullptr)
 			return;
-
-		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_CLOTH_INFO
-			&& m_iCursorX == 0 && m_iCursorY == 0)
+		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_LEAF || m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_CLOTH || m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_BRANCH)
 		{
 			vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(m_tInfo.fCX * fRatio * 1.7f, m_tInfo.fCY * fRatio * 1.7f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.f, m_tInfo.fCY * fRatio * 1.f, 0.2f);
+
+			m_pTransformCom->Set_Scale(vScale);
+			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+			//			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+			//			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+			m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+
+			m_pItem->Get_TextureCom()->Render_Texture();
+			m_pBufferCom->Render_Buffer();
+
+		}
+		else if ((m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_CLOTH_INFO)
+			&& m_iCursorX == 1 && m_iCursorY == 0)
+		{
+			vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+			m_pTransformCom->Set_Pos(&vPos);
+
+			fRatio = _float(WINCY) / _float(WINCX);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.7f, m_tInfo.fCY * fRatio * 1.7f, 0.2f);
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -173,8 +191,8 @@ void CUI_ItemInfo::Render_Object(void)
 			m_pBufferCom->Render_Buffer();
 		}
 
-		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_LEAF_INFO
-			&& m_iCursorX == 2 && m_iCursorY == 0)
+		if ((m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_LEAF_INFO )
+			&& m_iCursorX == 0 && m_iCursorY == 0)
 		{
 			vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
@@ -191,14 +209,14 @@ void CUI_ItemInfo::Render_Object(void)
 			m_pBufferCom->Render_Buffer();
 		}
 
-		if (m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_BRANCH_INFO
-			&& m_iCursorX == 1 && m_iCursorY == 0)
+		if ((m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_BRANCH_INFO )
+			&& m_iCursorX == 2 && m_iCursorY == 0)
 		{
 			vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) , ((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 			m_pTransformCom->Set_Pos(&vPos);
 
 			fRatio = _float(WINCY) / _float(WINCX);
-			vScale = _vec3(m_tInfo.fCX * fRatio * 1.6f, m_tInfo.fCY * fRatio * 1.6f, 0.f);
+			vScale = _vec3(m_tInfo.fCX * fRatio * 1.6f, m_tInfo.fCY * fRatio * 1.6f, 0.05f);
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
@@ -231,21 +249,30 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 	switch (m_tItemInfo.eType)
 	{
 	case SHOPITEMTYPE::UISHOP_BRANCH:
-		m_tInfo.fX = -335.f;
-		m_tInfo.fY = -90.f;
+		m_tInfo.fX = WINCX / 2 - 490.f + 2 * 154.f;
+		m_tInfo.fY = WINCY / 2 - 83.f;
 		break;
 
 	case SHOPITEMTYPE::UISHOP_CLOTH:
 
-		m_tInfo.fX = -485.f;
-		m_tInfo.fY = -90.f;
+		m_tInfo.fX = WINCX / 2 - 490.f + 154.f;
+		m_tInfo.fY = WINCY / 2 - 83.f;
 		break;
 
 	case SHOPITEMTYPE::UISHOP_LEAF:
 
-		m_tInfo.fX = -180.f;
-		m_tInfo.fY = -90.f;
+		m_tInfo.fX = WINCX / 2 - 490.f;
+		m_tInfo.fY = WINCY / 2 - 83.f;
 		break;
+
+	case SHOPITEMTYPE::UISHOP_BRANCH_INFO:
+	case SHOPITEMTYPE::UISHOP_CLOTH_INFO:
+	case SHOPITEMTYPE::UISHOP_LEAF_INFO:
+
+		m_tInfo.fX = WINCX / 2 + 425.f;
+		m_tInfo.fY = WINCY / 2 - 160.f;
+		break;
+
 
 	case SHOPITEMTYPE::SHOPKEY_L:
 		pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_UI_ShortKey_Close"));
@@ -332,24 +359,58 @@ void CUI_ItemInfo::Set_Type(SHOPITEMTYPE eType, const _uint& _ePrice)
 
 void CUI_ItemInfo::Key_Input()
 {
-//	if (KEY_TAP(KEY::L))
-//	{
-//		if (!m_bShown)
-//			m_bShown = true;
-//
-//		else
-//			m_bShown = false;
-//	}
+
+	if (KEY_TAP(KEY::L))
+	{
+		if (!m_bShown)
+			m_bShown = TRUE;
+
+		else
+			m_bShown = FALSE;
+	}
+
+	if (KEY_TAP(KEY::ENTER) && m_pItem != nullptr)
+	{
+
+		if (((m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_LEAF)
+			&& m_iCursorX == 0 && m_iCursorY == 0) || ((m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_BRANCH)
+				&& m_iCursorX == 2 && m_iCursorY == 0) || ((m_tItemInfo.eType == SHOPITEMTYPE::UISHOP_CLOTH)
+					&& m_iCursorX == 1 && m_iCursorY == 0))
+		{
+			CUI_Shop* pShop = CUIMgr::GetInstance()->Get_ShopUI();
+				if (m_iPlayerMoney < m_tItemInfo.iPrice)
+				{
+					CInventoryMgr::GetInstance()->Add_Item(m_pItem);
+
+						Safe_Release(m_pItem);
+						pShop->Remove_Item(m_tItemInfo.eType);
+
+				}
+
+		}
+
+	}
 }
 
 HRESULT CUI_ItemInfo::Set_Item(CItem* pItem)
 {
-	NULL_CHECK_RETURN(pItem, E_FAIL);
 
 	m_pItem = pItem;
 
+	if (m_pItem == nullptr)
+		return S_OK;
+
+	m_pItem->Set_UIPos({ m_tInfo.fX, m_tInfo.fY });
+
+	m_pTextureCom = m_pItem->Get_TextureCom();
+	m_pTextureCom->AddRef();
+
+	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
+
 	return S_OK;
 }
+
 
 CUI_ItemInfo* CUI_ItemInfo::Create(LPDIRECT3DDEVICE9 pGraphicDev, SHOPITEMTYPE eType)
 {

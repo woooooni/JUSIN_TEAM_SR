@@ -185,50 +185,7 @@ void CUI_NewItem::Set_Item(ITEM_CODE _eCodeType)
 {
 	m_strItemInfo = CItem::Get_Explain(_eCodeType);
 
-	switch (_eCodeType)
-	{
-	case Engine::ITEM_CODE::HP_SMALL:
-		m_strItemName = L"건강 열매";
-		break;
-
-	case Engine::ITEM_CODE::HP_MIDDLE:
-		m_strItemName = L"수입산 사과";
-		break;
-
-	case Engine::ITEM_CODE::HP_BIG:
-		m_strItemName = L"국내산 사과";
-		break;
-
-	case Engine::ITEM_CODE::SPEED_SMALL:
-		m_strItemName = L"신비한 약초";
-		break;
-
-	case Engine::ITEM_CODE::SPEED_MIDDLE:
-		m_strItemName = L"더 신비한 약초";
-		break;
-
-	case Engine::ITEM_CODE::SPEED_BIG:
-		m_strItemName = L"진짜 신비한 약초";
-		break;
-
-	case Engine::ITEM_CODE::LEAF:
-		m_strItemName = L"나뭇잎";
-		break;
-
-	case Engine::ITEM_CODE::TWIG:
-		m_strItemName = L"나뭇가지";
-		break;
-
-	case Engine::ITEM_CODE::BUTTERFLY:
-		m_strItemName = L"장수풍뎅이 탈을 쓴 나비";
-		break;
-
-	case Engine::ITEM_CODE::ITEM_END:
-		break;
-
-	default:
-		break;
-	}
+	m_strItemName = CItem::Get_Name(_eCodeType);
 }
 
 void CUI_NewItem::Get_ItemInfo(ITEM_CODE _eCodeType)
