@@ -254,7 +254,6 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
     if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING)
     {
         Set_Active(false);
-        srand(unsigned(time(NULL)));
 
         _vec3 vPos;
         m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -271,49 +270,26 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
         Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
         Play_Sound(L"SFX_25_LeafBushRemove.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
 
-        
-        /*for (auto& iter : m_dropItemMap[Engine::GetCurrScene()])
+
+        if ((m_eGrassType != GRASS_TYPE::GLOWING_REED && m_eGrassType != GRASS_TYPE::GLOWING_REED_RED))
         {
-            if (rand() % 100 < iter.second)
+            if (rand() % 100 < 25)
             {
-
-                if (iter.first >= ITEM_CODE::HP_SMALL && iter.first < ITEM_CODE::CONSUME_END)
-                {
-                    CUseItem* src = dynamic_cast<CUseItem*>(CPool<CUseItem>::Get_Obj());
-
-                    if (src)
-                    {
-                        src->Change_Item(iter.first);
-                    }
-                    else
-                    {
-                        src = CUseItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
-                    }
-
-                    src->Get_TransformCom()->Set_Pos(&myPos);
-                    Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", src);
-                    return;
-
-                }
-                else if (iter.first >= ITEM_CODE::LEAF && iter.first < ITEM_CODE::ETC_END)
-                {
-                    CDefaultItem* src = dynamic_cast<CDefaultItem*>(CPool<CDefaultItem>::Get_Obj());
-
-                    if (src)
-                    {
-                        src->Change_Item(iter.first);
-                    }
-                    else
-                    {
-                        src = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, iter.first);
-                    }
-
-                    src->Get_TransformCom()->Set_Pos(&myPos);
-                    Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", src);
-                    return;
-                }
+                CDefaultItem* item = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
+                item->Get_TransformCom()->Set_Pos(&vPos);
+                NULL_CHECK(item);
+                Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", item);
             }
-        }*/
+            else if (rand() % 100 < 25)
+            {
+                CDefaultItem* item = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::TWIG);
+                item->Get_TransformCom()->Set_Pos(&vPos);
+                NULL_CHECK(item);
+                Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", item);
+            }
+
+        }
+        
     }
     else if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
     {

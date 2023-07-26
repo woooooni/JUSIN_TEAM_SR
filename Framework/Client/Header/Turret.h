@@ -35,6 +35,7 @@ public:
 protected:
 	wstring		m_wstrCurState;
 	CGameObject* m_pTarget;
+	CGameObject* m_pGauge;
 	void		Set_Idle();
 	void		Find_Enemy();
 	wstring		Get_Direction(const _vec3& dir);

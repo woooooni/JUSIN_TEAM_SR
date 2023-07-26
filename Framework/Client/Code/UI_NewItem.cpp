@@ -176,6 +176,8 @@ void CUI_NewItem::Key_Input()
 
 			m_pFrame->Set_Active(false);
 			m_pFrame->Set_Shown(false);
+			FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), false);
+
 		}
 }
 

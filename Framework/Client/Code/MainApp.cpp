@@ -32,6 +32,7 @@
 #include	"TurretBullet.h"
 
 #include "Scene_Loading.h"
+#include	<time.h>
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
 {
@@ -59,6 +60,7 @@ HRESULT CMainApp::Ready_MainApp(void)
 
 int CMainApp::Update_MainApp(const float & fTimeDelta)
 {
+	srand(unsigned(time(NULL)));
 	Engine::Update_InputDev();
 	Engine::Update_PickingMgr();
 	Engine::Update_KeyMgr();
