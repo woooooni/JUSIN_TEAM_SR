@@ -240,7 +240,6 @@ private:
 
 	
 
-	_uint m_iAlpha;
 	bool m_bInvincible = false;
 	_float m_fInvinTime;
 	_float m_fAccInvinTime;
