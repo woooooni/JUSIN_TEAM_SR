@@ -3,6 +3,7 @@
 #include	"Pool.h"
 #include	"Player.h"
 #include	"UseItem.h"
+#include "QuickSlot.h"
 #include "UI_SlotItems.h"
 
 
@@ -119,6 +120,7 @@ HRESULT CInventoryMgr::Use_Item(_uint pInt)
 
 	if (src->Get_InvenCount() == 0)
 		tmp.erase(tmp.begin() + pInt);
+	
 
 	return ret;
 }

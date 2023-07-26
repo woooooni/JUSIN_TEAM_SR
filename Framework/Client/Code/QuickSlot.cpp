@@ -79,7 +79,6 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 		}
 	}
 
-
 	m_vecSlots[SLOT_ONE]->Update_Object(fTimeDelta);
 	m_vecSlots[SLOT_TWO]->Update_Object(fTimeDelta);
 	m_vecSlots[SLOT_THREE]->Update_Object(fTimeDelta);
@@ -101,80 +100,130 @@ void CQuickSlot::LateUpdate_Object(void)
 
 void CQuickSlot::Render_Object(void)
 {
+	_uint iCount = 0;
+	wstring strCount = L"";
+
+	/*인덱스 0번에 있는 아이템을 다 소진하면 터진다
+	슬롯상 아이템이 더 있는 상태에서 0번째 인덱스를 가진 아이템을 소진하면 생기는 문제임*/
+
 	if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled())
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
-		_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
 
-		RECT rc = { 110, 115, 160, 165 };
-		wstring strCount = to_wstring(CInventoryMgr::GetInstance()->
-			Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-			->Get_InvenCount());
+		if (eCode != ITEM_CODE::ITEM_END)
+		{
+			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
 
-		if (strCount == L"1")
-			return;
+			if (CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+				->Get_InvenCount() >= 0)
+			{
+				iCount = CInventoryMgr::GetInstance()->
+					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+					->Get_InvenCount();
+			}
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-			->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-				DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-				D3DCOLOR_ARGB(255, 255, 255, 255));
+			RECT rc = { 110, 115, 160, 165 };
+			strCount = to_wstring(iCount);
+
+			if ((strCount != L"1") && (iCount > 0))
+			{
+				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+						D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
+		}
 	}
 
 	if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled())
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode();
-		_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
 
-		RECT rc = { 187, 115, 237, 165 };
-		wstring strCount = to_wstring(CInventoryMgr::GetInstance()->
-			Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-			->Get_InvenCount());
+		if (eCode != ITEM_CODE::ITEM_END)
+		{
+			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
+			
+			if (CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+				->Get_InvenCount() > 0)
+			{
+				iCount = CInventoryMgr::GetInstance()->
+					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+					->Get_InvenCount();
+			}
 
-		if (strCount == L"1")
-			return;
+			RECT rc = { 187, 115, 237, 165 };
+			strCount = to_wstring(iCount);
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-			->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-				DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-				D3DCOLOR_ARGB(255, 255, 255, 255));
+			if ((strCount != L"1") && (iCount > 0))
+			{
+				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+						D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
+		}
 	}
 
 	if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_Filled())
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode();
-		_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
 
-		RECT rc = { 264, 115, 314, 165 };
-		wstring strCount = to_wstring(CInventoryMgr::GetInstance()->
-			Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-			->Get_InvenCount());
+		if (eCode != ITEM_CODE::ITEM_END)
+		{
+			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
 
-		if (strCount == L"1")
-			return;
+			if (CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+				->Get_InvenCount() > 0)
+			{
+				iCount = CInventoryMgr::GetInstance()->
+					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+					->Get_InvenCount();
+			}
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-			->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-				DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-				D3DCOLOR_ARGB(255, 255, 255, 255));
+			RECT rc = { 264, 115, 314, 165 };
+			strCount = to_wstring(iCount);
+
+			if ((strCount != L"1") && (iCount > 0))
+			{
+				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+						D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
+		}
 	}
 
 	if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_Filled())
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();
-		_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
 
-		RECT rc = { 341, 115, 391, 165 }; // X + 77
-		wstring strCount = to_wstring(CInventoryMgr::GetInstance()->
-			Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-			->Get_InvenCount());
+		if (eCode != ITEM_CODE::ITEM_END)
+		{
+			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
 
-		if (strCount == L"1")
-			return;
+			if (CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+				->Get_InvenCount() > 0)
+			{
+				iCount = CInventoryMgr::GetInstance()->
+					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
+					->Get_InvenCount();
+			}
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-			->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-				DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-				D3DCOLOR_ARGB(255, 255, 255, 255));
+			RECT rc = { 341, 115, 391, 165 }; // X + 77
+			strCount = to_wstring(iCount);
+
+			if ((strCount != L"1") && (iCount > 0))
+			{
+				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+						D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
+		}
 	}
 
 	__super::Render_Object();

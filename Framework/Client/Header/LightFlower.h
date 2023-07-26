@@ -38,6 +38,5 @@ public:
 	JELLY_COLOR		m_eColor;
 	CBalpanObj* m_pBalPan;
 
-
 };
 

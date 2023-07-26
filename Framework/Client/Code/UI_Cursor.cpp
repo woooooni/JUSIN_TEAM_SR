@@ -47,7 +47,6 @@ _int CUI_Cursor::Update_Object(const _float& fTimeDelta)
 
 void CUI_Cursor::LateUpdate_Object(void)
 {
-	//아이템 리스트가 비어있을때 예외처리 필요함.
 
 	if (!m_bShown)
 		m_pTransformCom->Set_Pos(&m_vDefaultPos);

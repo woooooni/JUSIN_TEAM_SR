@@ -30,6 +30,8 @@ public:
 	const ITEM_CODE& Get_ItemCode(SLOTNUM _eSlotNum);
 	void		Set_Use(const _bool& pBool) { m_bCanUse = pBool; }
 
+	const vector<CUI*>	Get_Slots() { return m_vecSlots; }
+
 private:
 	vector<CUI*>		m_vecSlots;
 	vector<ITEM_CODE>	m_vecSlotItems;

@@ -134,7 +134,6 @@ HRESULT CUI_Shop::Ready_Component()
 
 void CUI_Shop::Key_Input()
 {
-
 	if (KEY_TAP(KEY::L))
 	{
 		if (!m_bShown)
