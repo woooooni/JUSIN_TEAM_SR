@@ -183,18 +183,18 @@ HRESULT CUI_Cursor::Ready_Component()
 
 void CUI_Cursor::Key_Input()
 {
-	if (KEY_TAP(KEY::L))
-	{
-		if (!m_bShown)
-			m_bShown = true;
-
-		else
-		{
-			m_bShown = false;
-			m_iCursorX = 0;
-			m_iCursorY = 0;
-		}
-	}
+//	if (KEY_TAP(KEY::L))
+//	{
+//		if (!m_bShown)
+//			m_bShown = true;
+//
+//		else
+//		{
+//			m_bShown = false;
+//			m_iCursorX = 0;
+//			m_iCursorY = 0;
+//		}
+//	}
 }
 
 CUI_Cursor* CUI_Cursor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

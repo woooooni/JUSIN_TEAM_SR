@@ -73,18 +73,37 @@ void CUI_SlotItems::Render_Object(void)
 		m_pTextureCom->Render_Texture(0);
 		m_pBufferCom->Render_Buffer();
 
-//		RECT rc = { m_tInfo.fX + 10, m_tInfo.fY + 10, m_tInfo.fX + 40, m_tInfo.fY + 40 };
-//		wstring strCount = to_wstring(CInventoryMgr::GetInstance()->
-//			Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[_uint(m_eCode)]
-//			->Get_InvenCount());
-//
-//		if (strCount == L"1")
-//			return;
-//
-//		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-//			->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-//				DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-//				D3DCOLOR_ARGB(255, 255, 255, 255));
+		//		RECT rc = { m_tInfo.fX + 10, m_tInfo.fY + 10, m_tInfo.fX + 40, m_tInfo.fY + 40 };
+		//		wstring strCount = to_wstring(CInventoryMgr::GetInstance()->
+		//			Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[_uint(m_eCode)]
+		//			->Get_InvenCount());
+		//
+		//		if (strCount == L"1")
+		//			return;
+		//
+		//		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+		//			->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+		//				DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+		//				D3DCOLOR_ARGB(255, 255, 255, 255));
+
+		//		for (_uint i = 0; i < 4; ++i)
+		//		{
+		//			RECT rc = { m_tInfo.fX + 10,
+		//						m_tInfo.fY + 10,
+		//						m_tInfo.fX + 40,
+		//						m_tInfo.fY + 40 };
+		//
+		//			wstring strCount = to_wstring(CInventoryMgr::GetInstance()
+		//				->Get_Inventory((CInventoryMgr::INVENTORY_TYPE::CONSUMPSION))[i]->Get_InvenCount());
+		//			
+		//			if (strCount == L"1")
+		//				return;
+		//
+		//				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+		//					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+		//					DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+		//					D3DCOLOR_ARGB(255, 255, 255, 255));
+		//		}
 		
 	}
 

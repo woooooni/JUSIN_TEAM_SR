@@ -1,6 +1,5 @@
 #pragma once
 #include "CUI.h"
-
 #include "UI_SlotItems.h"
 
 enum SLOTNUM
@@ -25,7 +24,7 @@ public:
 
 public:
 	HRESULT		Add_Slot(void);
-	void		Set_Item(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType);
+	void		Set_Item(SLOTNUM _eSlotNum, _uint _iInvenIndex, ITEM_CODE _eCodeType);
 	_bool		Get_Filled(SLOTNUM _eSlotNum);
 	void		Set_Filled(SLOTNUM _eSlotNum, _bool _bFilled);
 	const ITEM_CODE& Get_ItemCode(SLOTNUM _eSlotNum);

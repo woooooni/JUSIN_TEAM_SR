@@ -26,6 +26,7 @@ public:
 public:
 	_uint	Get_CursorXPos() { return m_iCursorX; }
 	_uint	Get_CursorYPos() { return m_iCursorY; }
+	void	Set_Shown(_bool _bShown) { m_bShown = _bShown; }
 
 private:
 	HRESULT Ready_Component();

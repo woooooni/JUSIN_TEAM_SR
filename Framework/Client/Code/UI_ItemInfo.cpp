@@ -332,14 +332,14 @@ void CUI_ItemInfo::Set_Type(SHOPITEMTYPE eType, const _uint& _ePrice)
 
 void CUI_ItemInfo::Key_Input()
 {
-	if (KEY_TAP(KEY::L))
-	{
-		if (!m_bShown)
-			m_bShown = TRUE;
-
-		else
-			m_bShown = FALSE;
-	}
+//	if (KEY_TAP(KEY::L))
+//	{
+//		if (!m_bShown)
+//			m_bShown = true;
+//
+//		else
+//			m_bShown = false;
+//	}
 }
 
 HRESULT CUI_ItemInfo::Set_Item(CItem* pItem)

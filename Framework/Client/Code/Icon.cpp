@@ -145,10 +145,10 @@ void CIcon::Key_Input()
 	if (KEY_TAP(KEY::L))
 	{
 		if (!m_bShown)
-			m_bShown = TRUE;
+			m_bShown = true;
 
 		else
-			m_bShown = FALSE;
+			m_bShown = false;
 	}
 }
 

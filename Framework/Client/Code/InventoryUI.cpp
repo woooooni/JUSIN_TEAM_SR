@@ -28,8 +28,6 @@ CInventoryUI::CInventoryUI(const CInventoryUI& rhs)
 {
 }
 
-
-
 CInventoryUI::~CInventoryUI()
 {
 }
@@ -51,7 +49,6 @@ HRESULT CInventoryUI::Ready_Object(void)
 
 	m_pUseBtnTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Shop_Button"));
 	m_pCursurTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Shop_Cursor"));
-
 
 	return S_OK;
 } 
@@ -269,7 +266,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -284,7 +281,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -299,13 +296,13 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
 
 					if (!bFilled_Two && !bFilled_Three && !bFilled_Four) // 셋다 false면 아이템을 추가한다.
-						pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 				}
 
 				if (bFilled_One)
@@ -314,7 +311,7 @@ void CInventoryUI::Register_QuickSlot()
 						== pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
 					{
 						// 1Key에 이미 배정된 아이템을 선택한 상태에서 동일 키를 누를 경우 배치가 해제됨.
-						pSlots->Set_Item(SLOTNUM::SLOT_ONE, ITEM_CODE::ITEM_END);
+						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_ONE, false);
 					}
 				}
@@ -334,7 +331,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -349,7 +346,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -364,13 +361,13 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
 
 					if (!bFilled_One && !bFilled_Three && !bFilled_Four)
-						pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+						pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 				}
 
 				if (bFilled_Two)
@@ -378,7 +375,7 @@ void CInventoryUI::Register_QuickSlot()
 					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 						== pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
 					{
-						pSlots->Set_Item(SLOTNUM::SLOT_TWO, ITEM_CODE::ITEM_END);
+						pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_TWO, false);
 					}
 				}
@@ -398,7 +395,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -413,7 +410,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -428,13 +425,13 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
 
 					if (!bFilled_One && !bFilled_Two && !bFilled_Four)
-						pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+						pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 				}
 
 				if (bFilled_Three)
@@ -442,7 +439,7 @@ void CInventoryUI::Register_QuickSlot()
 					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 						== pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
 					{
-						pSlots->Set_Item(SLOTNUM::SLOT_THREE, ITEM_CODE::ITEM_END);
+						pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_THREE, false);
 					}
 				}
@@ -462,7 +459,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -477,7 +474,7 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
@@ -492,13 +489,13 @@ void CInventoryUI::Register_QuickSlot()
 								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO)))
 							{
-								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 							}
 						}
 					}
 
 					if (!bFilled_One && !bFilled_Two && !bFilled_Three)
-						pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+						pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 				}
 
 				if (bFilled_Four)
@@ -506,7 +503,7 @@ void CInventoryUI::Register_QuickSlot()
 					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 						== pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
 					{
-						pSlots->Set_Item(SLOTNUM::SLOT_FOUR, ITEM_CODE::ITEM_END);
+						pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_FOUR, false);
 					}
 				}

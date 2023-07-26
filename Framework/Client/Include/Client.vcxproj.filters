@@ -562,9 +562,6 @@
     <Filter Include="02. GameObject\15. NPC\02. Moon_Forest\02. Villager">
       <UniqueIdentifier>{369bfd9f-8310-40a9-8904-514f0548639f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\15. NPC\00. Tutorial\04. Mom">
-      <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="98. Manager\04. Quest">
       <UniqueIdentifier>{8f3bf223-02b0-46df-8d6c-cb68b7e3dcde}</UniqueIdentifier>
     </Filter>
@@ -672,6 +669,9 @@
     </Filter>
     <Filter Include="01. Scene\02. Monkey_Forest\03. Monkey_Forest3">
       <UniqueIdentifier>{debe9661-5471-49c6-95a9-3efcfa71c671}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\15. NPC\00. Tutorial\03. Mom">
+      <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1208,7 +1208,7 @@
       <Filter>02. GameObject\15. NPC\02. Moon_Forest\02. Villager</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Npc_OguMom.h">
-      <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\03. Mom</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
     <ClInclude Include="..\Header\Test_Cube.h" />
@@ -1899,7 +1899,7 @@
       <Filter>02. GameObject\15. NPC\02. Moon_Forest\02. Villager</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Npc_OguMom.cpp">
-      <Filter>02. GameObject\15. NPC\00. Tutorial\04. Mom</Filter>
+      <Filter>02. GameObject\15. NPC\00. Tutorial\03. Mom</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
     <ClCompile Include="..\Code\Test_Cube.cpp" />
