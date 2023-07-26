@@ -102,7 +102,7 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 
 
 
-		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z))
+		if (fX - fabs(vDir.x) <= fZ - fabs(vDir.z))
 		{
 			if (vDir.x < 0.f)
 			{
