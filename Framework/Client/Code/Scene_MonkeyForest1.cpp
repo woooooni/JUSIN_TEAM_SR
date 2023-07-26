@@ -116,7 +116,7 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Terrrain()
 
 HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 {
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST2);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
 	_vec3 vPortalPos = _vec3(74.5f, 0.5f, 83.0f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
