@@ -88,8 +88,8 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Player()
 
 	_vec3 vStartPos;
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vStartPos);
-	vStartPos.x = 10.f;
-	vStartPos.z = -0.5f;
+	vStartPos.x = 9.0f;
+	vStartPos.z = -40.f;
 	pPlayer->Get_TransformCom()->Set_Info(INFO_POS, &vStartPos);
 
 	return S_OK;
@@ -137,9 +137,9 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Environment()
 
 HRESULT CScene_SunGolemCave1::Ready_Layer_Monster()
 {
-	/*CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
+	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SunGollem", pSunGollem);*/
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SunGollem", pSunGollem);
 
 	return S_OK;
 }
