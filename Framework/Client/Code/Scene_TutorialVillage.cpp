@@ -19,6 +19,7 @@
 #include	"RabitObj.h"
 #include	"Turret.h"
 #include "DrawingEnter.h"
+#include "UIMgr.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -81,6 +82,12 @@ void CScene_TutorialVillage::Enter_Scene()
 {
 	Stop_Sound(CHANNELID::SOUND_BGM);
 	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+
+
+	CUI_Shop* pShop = CUIMgr::GetInstance()->Get_ShopUI();
+	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_LIGHT), SHOPITEMTYPE::UISHOP_LEAF);
+	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MASK), SHOPITEMTYPE::UISHOP_CLOTH);
+	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MISSLE), SHOPITEMTYPE::UISHOP_BRANCH);
 }
 
 void CScene_TutorialVillage::Exit_Scene()
