@@ -121,7 +121,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
 	_vec3 vPortalPos = _vec3(225.f, 1.f, 222.f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
-	dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(5.f, 5.f, 3.f));
+	dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(10.f, 5.f, 3.f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	
 	CNpc_Chief* pChief = CNpc_Chief::Create(m_pGraphicDev);
