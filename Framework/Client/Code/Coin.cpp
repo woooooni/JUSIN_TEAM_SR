@@ -26,6 +26,7 @@ HRESULT CCoin::Ready_Object(void)
 
 _int CCoin::Update_Object(const _float& fTimeDelta)
 {
+	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
 	_int Result = __super::Update_Object(fTimeDelta);
 	return Result;
 }

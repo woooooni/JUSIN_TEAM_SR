@@ -72,7 +72,7 @@ void CScene::PlayVideo(HWND _hWnd, const wstring& _strFilePath)
 		WS_VISIBLE |
 		MCIWNDF_NOPLAYBAR, _strFilePath.c_str());
 
-	MoveWindow(m_hVideoHandle, 0, 0, WINCX, WINCY, FALSE);
+	MoveWindow(m_hVideoHandle, 0, 70, WINCX, 720, FALSE);
 
 	m_bVideoPlaying = true;
 	MCIWndPlay(m_hVideoHandle);

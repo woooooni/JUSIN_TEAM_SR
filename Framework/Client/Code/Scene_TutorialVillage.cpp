@@ -42,8 +42,7 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
-	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+
 
 
 	return S_OK;
@@ -75,6 +74,17 @@ void CScene_TutorialVillage::Render_Scene()
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
+
+}
+
+void CScene_TutorialVillage::Enter_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+}
+
+void CScene_TutorialVillage::Exit_Scene()
+{
 
 }
 
