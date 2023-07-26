@@ -134,14 +134,25 @@ HRESULT CUI_Shop::Ready_Component()
 
 void CUI_Shop::Key_Input()
 {
-
 	if (KEY_TAP(KEY::L))
 	{
 		if (!m_bShown)
+		{
 			m_bShown = true;
+			m_pCursor->Set_Shown(true);
+
+			for (auto& iter : m_vecShopIcon)
+				dynamic_cast<CUI_ItemInfo*>(iter)->Set_Shown(true);
+		}
 
 		else
+		{
 			m_bShown = false;
+			m_pCursor->Set_Shown(false);
+
+			for (auto& iter : m_vecShopIcon)
+				dynamic_cast<CUI_ItemInfo*>(iter)->Set_Shown(false);
+		}
 	}
 
 }

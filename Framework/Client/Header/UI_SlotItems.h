@@ -25,6 +25,9 @@ public:
 public:
 	void			 Set_SlotNum(SLOTITEM_NUM eNum);
 
+	_uint			 Get_InvenIndex() { return m_iInvenIndex; }
+	void			 Set_InvenIndex(_uint _iInvenIndex) { m_iInvenIndex = _iInvenIndex; }
+
 	const ITEM_CODE& Get_ItemCode() { return m_eCode; }
 	void			 Set_ItemCode(const ITEM_CODE& pCOde);
 
@@ -34,14 +37,15 @@ public:
 	HRESULT			 Use_Item();
 
 private:
-	HRESULT	Add_Component(void);
+	HRESULT			Add_Component(void);
 
 public:
-	SLOTITEM_NUM m_eSlotNum;
+	SLOTITEM_NUM	m_eSlotNum;
 
 private:
-	_bool		m_bFilledSlot = false;
-	ITEM_CODE	m_eCode;
+	_bool			m_bFilledSlot = false;
+	ITEM_CODE		m_eCode;
+	_uint			m_iInvenIndex;
 
 public:
 	static  CUI_SlotItems* Create(LPDIRECT3DDEVICE9 pGraphicDev, SLOTITEM_NUM eNum);

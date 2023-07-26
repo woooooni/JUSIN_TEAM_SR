@@ -78,6 +78,14 @@ void CNpc_OguMom::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
+	_vec3 vNpcPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vNpcPos);
+	vNpcPos.y = 0.75f;
+	m_pTransformCom->Set_Pos(&vNpcPos);
+
+	_vec3 vSlotScale = _vec3(1.5f, 1.5f, 0.f);
+	m_pTransformCom->Set_Scale(vSlotScale);
+
 	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();
 

@@ -47,7 +47,6 @@ _int CUI_Cursor::Update_Object(const _float& fTimeDelta)
 
 void CUI_Cursor::LateUpdate_Object(void)
 {
-	//아이템 리스트가 비어있을때 예외처리 필요함.
 
 	if (!m_bShown)
 		m_pTransformCom->Set_Pos(&m_vDefaultPos);
@@ -183,18 +182,18 @@ HRESULT CUI_Cursor::Ready_Component()
 
 void CUI_Cursor::Key_Input()
 {
-	if (KEY_TAP(KEY::L))
-	{
-		if (!m_bShown)
-			m_bShown = true;
-
-		else
-		{
-			m_bShown = false;
-			m_iCursorX = 0;
-			m_iCursorY = 0;
-		}
-	}
+//	if (KEY_TAP(KEY::L))
+//	{
+//		if (!m_bShown)
+//			m_bShown = true;
+//
+//		else
+//		{
+//			m_bShown = false;
+//			m_iCursorX = 0;
+//			m_iCursorY = 0;
+//		}
+//	}
 }
 
 CUI_Cursor* CUI_Cursor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

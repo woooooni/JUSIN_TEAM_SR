@@ -43,8 +43,9 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-
+public:
 	HRESULT			Set_Item(CItem* pItem);
+	void			Set_Shown(_bool _bShown) { m_bShown = _bShown; }
 
 private:
 	HRESULT			Add_Component(void);
