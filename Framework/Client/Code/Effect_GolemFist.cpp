@@ -117,8 +117,6 @@ void CEffect_GolemFist::Get_Effect(_vec3& _vPos, _vec3& _vScale)
 	Set_Active(true);
 	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"GolemFistEffect", this);
 
-	Stop_Sound(CHANNELID::SOUND_EFFECT_MONSTER);
-	Play_Sound(L"SFX_38_SunGolemFist.wav", CHANNELID::SOUND_EFFECT_MONSTER, .5f);
 }
 
 HRESULT CEffect_GolemFist::Add_Component(void)

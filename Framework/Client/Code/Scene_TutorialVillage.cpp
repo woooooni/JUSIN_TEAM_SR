@@ -275,9 +275,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS);
-	def->Get_TransformCom()->Set_Pos(&_vec3(5, 0, 9));
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+	
 
 	CRabitObj* rab = CRabitObj::Create(m_pGraphicDev, { 17, 0, 1 });
 	NULL_CHECK_RETURN(rab, E_FAIL);

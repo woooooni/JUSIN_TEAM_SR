@@ -79,7 +79,8 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 		vPos.z -= 0.0001f;
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
 	}
-	
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
 
 
 	return S_OK;

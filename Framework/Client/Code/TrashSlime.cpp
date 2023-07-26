@@ -193,6 +193,10 @@ void CTrashSlime::Update_Die(_float fTimeDelta)
 	{
 		Set_Active(false);
 		On_Death();
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_34_MonsterGarbage_Death.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
@@ -342,7 +346,9 @@ void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		m_tStat.iHp -= 1;
 		Set_State(MONSTER_STATE::DIE);
 
-
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_33_MonsterGarbage_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 void CTrashSlime::Set_Animation()

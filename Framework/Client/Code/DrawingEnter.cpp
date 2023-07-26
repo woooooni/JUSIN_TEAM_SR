@@ -7,6 +7,8 @@
 #include "BossDoor.h"
 #include "GameMgr.h"
 #include "UIMgr.h"
+#include "DefaultItem.h"
+#include "InventoryMgr.h"
 
 CDrawingEnter::CDrawingEnter(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PORTAL, OBJ_ID::PORTAL)
@@ -48,7 +50,7 @@ _int CDrawingEnter::Update_Object(const _float& fTimeDelta)
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 
 	vDir = vPlayerPos - vPos;
-	if (D3DXVec3Length(&vDir) < 0.5f && !m_bFinish)
+	if (D3DXVec3Length(&vDir) < 1.0f && !m_bFinish)
 	{
 		if (m_bStart)
 		{
@@ -58,6 +60,10 @@ _int CDrawingEnter::Update_Object(const _float& fTimeDelta)
 				m_iAlpha = 255;
 				m_bFinish = true;
 				pPlayer->Change_State(PLAYER_STATE::IDLE);
+
+				CGameObject* pItem = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS);
+				NULL_CHECK_RETURN(pItem, E_FAIL);
+				CInventoryMgr::GetInstance()->Add_Item(pItem);
 			}
 		}
 
