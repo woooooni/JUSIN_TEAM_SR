@@ -9,14 +9,23 @@
 CQuest_MonkeyCheif2::CQuest_MonkeyCheif2()
 	: CQuest_Hunting(NPC_CODE::NPC_CHIEF, nullptr, OBJ_ID::SUN_GOLLEM, 1)
 {
-
+	//태양의 신전 안 골렘을 처치하도록 한다. 보스전 유도
 	m_strQuestTitle = L"태양의 신전 골렘 처치.";
 	m_strQuestDesc = L"쓰레기를 무단투기해 환경을 파괴하는 골렘을 처치하자.";
 
 	// TODO :: 몽키 촌장 대사
-	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"");
-	m_vecNpcDescList[_uint(QUEST_PROGRESS::CONTINUE)].push_back(L"");
-	m_vecNpcDescList[_uint(QUEST_PROGRESS::COMPLETE)].push_back(L"");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"뭔가 오해가 있는 것 같다.");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"쓰레기로 고통받고 있는 건 우리 마을이라고!");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"오리너구리! 네 마을에서 쓰레기를 내버린 것이 아니라면,");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"아무래도 저 신전이 가장 의심스럽다.");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"매일같이 악취가 진동하고 밤마다 괴음이 들리는데...");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"오늘 한 번 가서 살펴보는 것도 좋을 것 같군.");
+
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::CONTINUE)].push_back(L"왜 아직도 여기서 이러고 있나?");
+
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::COMPLETE)].push_back(L"골렘 신전 안에 쓰레기 같은 건 없었다고?");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::COMPLETE)].push_back(L"어찌 되었든 골렘이 우리 마을을 떠났다니");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::COMPLETE)].push_back(L"덕분에 앞으로 편히 잘 수 있겠어.");
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 
