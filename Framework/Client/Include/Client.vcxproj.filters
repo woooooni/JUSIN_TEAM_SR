@@ -673,6 +673,9 @@
     <Filter Include="01. Scene\02. Monkey_Forest\03. Monkey_Forest3">
       <UniqueIdentifier>{debe9661-5471-49c6-95a9-3efcfa71c671}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\05. CutScene">
+      <UniqueIdentifier>{eac558f7-c469-4da6-98a0-b39722a8ede7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1378,6 +1381,10 @@
     <ClInclude Include="..\Header\UI_ContinueMark.h">
       <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_TurretGauge.h" />
+    <ClInclude Include="..\Header\CutSceneMgr.h">
+      <Filter>98. Manager\05. CutScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2042,6 +2049,10 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_ContinueMark.cpp">
       <Filter>02. GameObject\04. UI\08. Quest\01. Mark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
+    <ClCompile Include="..\Code\CutSceneMgr.cpp">
+      <Filter>98. Manager\05. CutScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -227,17 +227,17 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 
 	//?
 	CNpc_DanceTeacher* pDanceTeacher = CNpc_DanceTeacher::Create(m_pGraphicDev);
-	_vec3 vDanceTeacherPos = _vec3(141.f, 0.85f, 70.f);
+	_vec3 vDanceTeacherPos = _vec3(141.f, 1.25f, 70.f);
 	pDanceTeacher->Get_TransformCom()->Set_Info(INFO_POS, &vDanceTeacherPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DanceTeacher", pDanceTeacher);
 	
 	CNpc_Dancer* pDancer = CNpc_Dancer::Create(m_pGraphicDev);
-	_vec3 vDancerPos = _vec3(143.f, 0.75f, 70.f);
+	_vec3 vDancerPos = _vec3(144.f, 1.25f, 70.f);
 	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer1", pDancer);
 
 	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
-	vDancerPos = _vec3(139.f, 0.75f, 70.f);
+	vDancerPos = _vec3(138.f, 1.25f, 70.f);
 	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer1", pDancer);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();

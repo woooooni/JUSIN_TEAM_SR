@@ -6,6 +6,12 @@
 #include "UI_LoadingOgu.h"
 #include "UI_LoadingBackGround.h"
 
+
+static _bool m_bFirstLogo = true;
+static _bool m_bFirstMonkeyVillage = true;
+static _bool m_bFirstSungolem = true;
+static _bool m_bFirstSilkWorm = true;
+
 CScene_Loading::CScene_Loading(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE _eNextSceneType)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
 	, m_eNextScene(_eNextSceneType)
@@ -43,8 +49,26 @@ Engine::_int CScene_Loading::Update_Scene(const _float& fTimeDelta)
 {
 	_int iResult = __super::Update_Scene(fTimeDelta);
 
-	if (true == m_pLoading->Get_Finish())
+	if (true == m_pLoading->Get_Finish() && m_bVideoPlaying == false)
 		Engine::Reserve_SceneChange(m_pLoading->Get_Scene());
+	else
+	{
+		switch (m_pLoading->Get_LoadingID())
+		{
+		case Engine::SCENE_TYPE::LOGO:
+			PlayVideo(g_hWnd, L"../Bin/Resource/Video/Intro.wmv");
+			break;
+		case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
+			break;
+		case Engine::SCENE_TYPE::SUNGOLEM_CAVE1:
+			break;
+		default:
+			break;
+		}
+		
+	}
+		
+	
 
 	return iResult;
 }

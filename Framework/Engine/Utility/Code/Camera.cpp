@@ -69,6 +69,9 @@ _int CCamera::Update_Object(const _float& fTimeDelta)
 		Update_ToolCamera(fTimeDelta);
 		break;
 
+	case CAMERA_STATE::CUT_SCENE:
+		Update_CutSceneCamera(fTimeDelta);
+		break;
 	default:
 		break;
 	}
@@ -138,9 +141,11 @@ void CCamera::Follow(const _float& fTimeDelta)
 	_float fLen = D3DXVec3Length(&vDir);
 
 	m_fDist = 0.f;
+
 	if (fLen < m_fDist)
 		return;
 	
+
 	D3DXVec3Lerp(&vDir, &(vCameraPos), &(vTargetPos + m_vOffset), 2.f * fTimeDelta);
 	vCameraPos = vDir;
 	vLook = vCameraPos - m_vOffset;
@@ -172,14 +177,6 @@ void CCamera::Update_GameCamera(const _float& fTimeDelta)
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-
-	if (KEY_TAP(KEY::F9))
-	{
-		m_pTargetObj = nullptr;
-		m_eState = CAMERA_STATE::TOOL;
-	}
-	
-	
 }
 
 void CCamera::LateUpdate_GameCamera()
@@ -277,6 +274,96 @@ void CCamera::Update_ToolCamera(const _float& fTimeDelta)
 void CCamera::LateUpdate_ToolCamera()
 {
 	
+}
+
+void CCamera::Update_CutSceneCamera(const _float& fTimeDelta)
+{
+	Follow(fTimeDelta);
+
+	_vec3 vPos, vLook, vRight, vUp;
+
+	ZeroMemory(&vPos, sizeof(_vec3));
+	ZeroMemory(&vLook, sizeof(_vec3));
+	ZeroMemory(&vUp, sizeof(_vec3));
+
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_RIGHT, &vRight);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_UP, &vUp);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_LOOK, &vLook);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_POS, &vPos);
+
+	D3DXMatrixLookAtLH(&m_matView, &vPos, &vLook, &vUp);
+	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DX_PI / m_fFov, WINCX / WINCY, m_fNear, m_fFar);
+
+	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+
+}
+
+void CCamera::LateUpdate_CutSceneCamera()
+{
+
+	float fTimeDelta = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
+
+	if (!m_lCamEffect.empty())
+	{
+		tCamEffect& effect = m_lCamEffect.front();
+
+		// vLookAt
+		_vec3 vCamPos, vCamLook, vCamUp;
+		m_pTransformCom->Get_Info(MATRIX_INFO::INFO_POS, &vCamPos);
+		m_pTransformCom->Get_Info(MATRIX_INFO::INFO_LOOK, &vCamLook);
+		m_pTransformCom->Get_Info(MATRIX_INFO::INFO_UP, &vCamUp);
+
+		if (CAM_EFFECT::SHAKE == effect.eEffect)
+		{
+			_float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
+			_float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
+
+			// Look, Pos 둘 다 적용시켜야 움직임이 자연스러움
+			vCamPos.x += fOffsetX;
+			vCamPos.y += fOffsetY;
+
+			vCamLook.x += fOffsetX;
+			vCamLook.y += fOffsetY;
+
+			D3DXMatrixLookAtLH(&m_matView, &vCamPos, &vCamLook, &vCamUp);
+			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+		}
+
+		_uint iWidth = WINCX;
+		_uint iHeight = WINCY;
+
+		BLENDFUNCTION buffer = {};
+
+		buffer.BlendOp = AC_SRC_OVER;
+		buffer.BlendFlags = 0;
+		buffer.SourceConstantAlpha = (_byte)(255 * m_fAlpha);
+		buffer.AlphaFormat = 0;
+
+		if (CAM_EFFECT::FADE_IN == effect.eEffect || CAM_EFFECT::FADE_OUT == effect.eEffect)
+		{
+			//m_pTransformCom->Set_Pos();
+			// m_fNear의 위치에 Veil을 위치시킨다. 이후 알파블랜드
+			if (CAM_EFFECT::FADE_IN == effect.eEffect)
+			{
+				m_fAlpha = effect.fDuration / effect.fCurTime;
+			}
+
+			if (CAM_EFFECT::FADE_OUT == effect.eEffect)
+			{
+				m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
+			}
+
+			//AlphaBlend(hdc, 0, 0, iWidth, iHeight, m_pVeilTex->DC GET하는 함수(),
+			//	0, 0, iWidth, iHeight, buffer);
+		}
+
+		effect.fCurTime += fTimeDelta;
+
+		// 진행 시간이 이펙트 최대 지정 시간을 넘어선 경우
+		if (effect.fDuration <= effect.fCurTime)
+			m_lCamEffect.pop_front(); // 효과를 종료한다
+	}
 }
 
 void CCamera::CamShake(float _fDuration)

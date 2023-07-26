@@ -129,7 +129,10 @@ unsigned int CLoading::Thread_Main(void* pArg)
 		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MoonForest");
 		break;
 
-
+	case Engine::SCENE_TYPE::SILK_WORM:
+		pLoading->m_pLoadingScene = CScene_SilkWorm::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/SilkWorm");
+		break;
 
 	case Engine::SCENE_TYPE::TOOL:
 		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
@@ -156,7 +159,6 @@ HRESULT CLoading::Ready_Loading(SCENE_TYPE eLoadingID)
 
 	m_hThread = (HANDLE)_beginthreadex(nullptr, 0, Thread_Main, this, 0, nullptr);
 	m_eID = eLoadingID;
-
 
 	return S_OK;
 }

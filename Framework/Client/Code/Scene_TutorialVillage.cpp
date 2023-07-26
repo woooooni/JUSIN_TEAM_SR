@@ -281,6 +281,7 @@ CScene_TutorialVillage* CScene_TutorialVillage::Create(LPDIRECT3DDEVICE9 pGraphi
 {
 	CScene_TutorialVillage* pInstance = new CScene_TutorialVillage(pGraphicDev);
 
+
 	if (FAILED(pInstance->Ready_Scene()))
 	{
 		Safe_Release(pInstance);

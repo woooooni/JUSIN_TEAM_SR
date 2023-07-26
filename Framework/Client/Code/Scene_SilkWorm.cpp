@@ -7,7 +7,7 @@
 #include "Npc_Sheep.h"
 #include "Portal.h"
 #include "UIMgr.h"
-#include "SunGollem.h"
+#include "SilkWorm.h"
 #include "GameMgr.h"
 
 CScene_SilkWorm::CScene_SilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -109,13 +109,6 @@ HRESULT CScene_SilkWorm::Ready_Layer_Terrrain()
 
 HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 {
-
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MOON_FOREST1);
-	_vec3 vPortalPos = _vec3(9.f, 0.5f, 21.f);
-	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
-
-
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
@@ -123,11 +116,11 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 
 HRESULT CScene_SilkWorm::Ready_Layer_Monster()
 {
-	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
-	_vec3 vSunGollemPos = _vec3(5.f, 0.5f, 5.f);
-	pSunGollem->Get_TransformCom()->Set_Info(INFO_POS, &vSunGollemPos);
+	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	_vec3 vPos = _vec3(5.f, 0.5f, 5.f);
+	pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SunGollem", pSunGollem);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);
 
 	return S_OK;
 }
@@ -155,7 +148,7 @@ CScene_SilkWorm* CScene_SilkWorm::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	{
 		Safe_Release(pInstance);
 
-		MSG_BOX("TutorialVillage Create Failed");
+		MSG_BOX("SilkWorm Create Failed");
 		return nullptr;
 	}
 
