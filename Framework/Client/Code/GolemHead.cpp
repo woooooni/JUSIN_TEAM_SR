@@ -100,24 +100,16 @@ void CGolemHead::Update_Idle(_float fTimeDelta)
 {
 	_vec3 vDir;
 	if (m_bBreath)
-		vDir = { 0.f,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
+		Move_Offset(_vec3(0.f, 1.16633f,-0.05f), fTimeDelta, 2.f);
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
+
+	if (m_iIndex == 2)
 	{
 		if (m_bBreath)
 			m_bBreath = false;
 		else
 			m_bBreath = true;
-
-			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
-
-
-	
 
 
 }
@@ -160,23 +152,23 @@ void CGolemHead::Update_Regen(_float fTimeDelta)
 	switch (m_iIndex)
 	{
 	case 0:
-		m_vOffset = {0.f, 1.f,	-0.01f };
+		m_vOffset = {0.f, 1.f,	-0.05f };
 		break;
 	case 1:
-		Move_Offset(_vec3(0.f,	1.f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f,	1.f, -0.05f), fTimeDelta, 2.f);
 		break;
 	case 2:
-		Move_Offset(_vec3(0.f, 1.f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f, 1.f, -0.05f), fTimeDelta, 2.f);
 		break;
 	case 3:
-		Move_Offset(_vec3(0.f, 1.2f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f, 1.2f, -0.05f), fTimeDelta, 2.f);
 
 		break;
 	case 4:
-		Move_Offset(_vec3(0.f, 1.2f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f, 1.2f, -0.05f), fTimeDelta, 2.f);
 		break;
 	case 5:
-		Move_Offset(_vec3(0.f, 1.16633f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f, 1.16633f, -0.05f), fTimeDelta, 2.f);
 		break;
 
 	default:

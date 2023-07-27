@@ -42,8 +42,6 @@ public:
 	void Set_ArmNum(_int _iNum) { m_iArmNum = _iNum; }
 private:
 	_int m_iArmNum = 0;
-
-	bool m_bBreath = false;
 protected:
 	_float m_fMoveTime;
 protected:

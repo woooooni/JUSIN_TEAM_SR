@@ -101,7 +101,17 @@ void CGolemRightLeg::Update_Idle(_float fTimeDelta)
 {
 
 	
+	if (m_bBreath)
+		Move_Offset(_vec3(0.9f, -1.8f, m_vOffset.z), fTimeDelta, 2.f);
 
+
+	if (m_iIndex == 2)
+	{
+		if (m_bBreath)
+			m_bBreath = false;
+		else
+			m_bBreath = true;
+	}
 
 }
 
@@ -131,19 +141,19 @@ void CGolemRightLeg::Update_Regen(_float fTimeDelta)
 		m_vOffset.y = -1.5f;
 		break;
 	case 1:
-		Move_Offset(_vec3(0.9f, -2.f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.9f, -2.f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 2:
-		Move_Offset(_vec3(0.9f, -1.7f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.9f, -1.7f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 3:
-		Move_Offset(_vec3(1.f, -2.2f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(1.f, -2.2f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 4:
-		Move_Offset(_vec3(0.983166f, -2.01536f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.983166f, -2.0f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 5:
-		Move_Offset(_vec3(1.f, -1.8f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(1.f, -1.8f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 
 

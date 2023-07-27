@@ -78,6 +78,9 @@ private:
 	SUNGOLEM_STATE	m_eState;
 	MONSTERSTAT		m_tStat;
 	// Hp UI를 위한 변수 추가.
+	CUI_BossHP* m_pUIBack;
+	CUI_BossHP* m_pUIFrame;
+	CUI_BossHP* m_pUIGauge;
 	_int			m_iDirtyHp = 0;
 	vector<CGolemPart*> m_vecGolemPart;
 private:

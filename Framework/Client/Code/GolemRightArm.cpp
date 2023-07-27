@@ -99,23 +99,34 @@ HRESULT CGolemRightArm::Add_Component(void)
 
 void CGolemRightArm::Update_Idle(_float fTimeDelta)
 {
-	_vec3 vDir;
 	if (m_bBreath)
-		vDir = { 0.f , 1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
+	{
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(2.069f, -0.8f, -0.012f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 275.456f)
+				m_fRotationAngle -= 43.1f * fTimeDelta;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(2.2f, 0.5f, -0.011f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 318.8f)
+				m_fRotationAngle	-= 43.1f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(1.79, 1.551, -0.01f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 329.6f)
+				m_fRotationAngle -= 43.f * fTimeDelta;
+		}
+	}
+	if (m_iIndex == 2)
 	{
 		if (m_bBreath)
 			m_bBreath = false;
 		else
 			m_bBreath = true;
-			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
-
 
 	
 
@@ -164,24 +175,24 @@ void CGolemRightArm::Update_Regen(_float fTimeDelta)
 		m_fRotationAngle = 248.f;
 		break;
 	case 1:
-		Move_Offset(_vec3(1.3f, - 0.3f , m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(1.3f, - 0.3f , m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 2:
 		if (m_iArmNum == 0)
 		{
-			Move_Offset(_vec3(1.77f, -0.8f, -0.012f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(1.77f, -0.8f, -0.012f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 263.f)
 				m_fRotationAngle += 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 1)
 		{
-			Move_Offset(_vec3(2.2f, 0.5f, -0.011f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(2.2f, 0.5f, -0.011f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 318.f)
 				m_fRotationAngle += 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 2)
 		{
-			Move_Offset(_vec3(2.f, 2.256f, -0.01f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(2.f, 2.256f, -0.01f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 361.f)
 				m_fRotationAngle += 55.f * fTimeDelta;
 		}
@@ -189,19 +200,19 @@ void CGolemRightArm::Update_Regen(_float fTimeDelta)
 	case 3:
 		if (m_iArmNum == 0)
 		{
-			Move_Offset(_vec3(1.77f, -0.8f, -0.012f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(1.77f, -0.8f, -0.012f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 263.f)
 				m_fRotationAngle += 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 1)
 		{
-			Move_Offset(_vec3(2.2f, 0.5f, -0.011f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(2.2f, 0.5f, -0.011f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 318.f)
 				m_fRotationAngle += 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 2)
 		{
-			Move_Offset(_vec3(2.f, 2.256f, -0.01f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(2.f, 2.256f, -0.01f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 361.f)
 				m_fRotationAngle += 55.f * fTimeDelta;
 		}
@@ -209,19 +220,19 @@ void CGolemRightArm::Update_Regen(_float fTimeDelta)
 	case 4:
 		if (m_iArmNum == 0)
 		{
-			Move_Offset(_vec3(1.57727f, -0.665475f, -0.012f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(1.57727f, -0.665475f, -0.012f), fTimeDelta, 2.f);
 			if (m_fRotationAngle > 248.f)
 				m_fRotationAngle -= 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 1)
 		{
-			Move_Offset(_vec3(1.83094f, 0.101436f, -0.011f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(1.83094f, 0.101436f, -0.011f), fTimeDelta, 2.f);
 			if (m_fRotationAngle > 291.172f)
 				m_fRotationAngle -= 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 2)
 		{
-			Move_Offset(_vec3(1.71295f, 1.13736f, -0.01f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(1.71295f, 1.13736f, -0.01f), fTimeDelta, 2.f);
 			if (m_fRotationAngle > 331.177f)
 				m_fRotationAngle -= 55.f * fTimeDelta;
 		}
@@ -230,19 +241,19 @@ void CGolemRightArm::Update_Regen(_float fTimeDelta)
 	case 5:
 		if (m_iArmNum == 0)
 		{
-			Move_Offset(_vec3(2.069f, -1.5f, -0.012f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(2.069f, -1.5f, -0.012f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 281.512f)
 				m_fRotationAngle += 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 1)
 		{
-			Move_Offset(_vec3(3.f, 0.5f, -0.011f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(3.f, 0.5f, -0.011f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 335.602f)
 				m_fRotationAngle += 35.f * fTimeDelta;
 		}
 		else if (m_iArmNum == 2)
 		{
-			Move_Offset(_vec3(2.49f, 2.651f, -0.01f), fTimeDelta, 1.f);
+			Move_Offset(_vec3(2.49f, 2.651f, -0.01f), fTimeDelta, 2.f);
 			if (m_fRotationAngle < 380.f)
 				m_fRotationAngle += 55.f * fTimeDelta;
 		}

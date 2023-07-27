@@ -97,24 +97,18 @@ HRESULT CGolemLowerJaw::Add_Component(void)
 
 void CGolemLowerJaw::Update_Idle(_float fTimeDelta)
 {
-	_vec3 vDir;
-	if (m_bBreath)
-		vDir = { 0.f,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
+	if (m_bBreath)
+		Move_Offset(_vec3(0.f, -0.18f, -0.055f), fTimeDelta, 2.f);
+
+
+	if (m_iIndex == 2)
 	{
 		if (m_bBreath)
 			m_bBreath = false;
 		else
 			m_bBreath = true;
-			m_fMoveTime = 0.f;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
-
-
 	
 
 
@@ -158,7 +152,7 @@ void CGolemLowerJaw::Update_Regen(_float fTimeDelta)
 	switch (m_iIndex)
 	{
 	case 0:
-		m_vOffset = { -0.f, - 0.6f, - 0.02f };
+		m_vOffset = { -0.f, - 0.6f, -0.055f };
 
 		break;
 	case 1:
@@ -177,7 +171,7 @@ void CGolemLowerJaw::Update_Regen(_float fTimeDelta)
 		Move_Offset(_vec3(0.f, -0.130805f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 5:
-		Move_Offset(_vec3(0.f, -0.56f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f, -0.56f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 
 

@@ -44,7 +44,6 @@ public:
 
 private:
 
-	bool m_bBreath = false;
 protected:
 
 protected:
