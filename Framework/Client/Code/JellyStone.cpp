@@ -97,7 +97,7 @@ CJellyStone* CJellyStone::Create(LPDIRECT3DDEVICE9 p_Dev,JELLY_COLOR p_Color, co
 
 void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	CJellyStone* src;
+	CJellyStone* src = nullptr;
 	if ((src = dynamic_cast<CJellyStone*>(pCollider->GetOwner())) && src->m_eColor != m_eColor && m_eColor < JELLY_COLOR::BLUE && src->m_eColor < JELLY_COLOR::BLUE)
 	{
 		if (m_bCreatedCombine)
@@ -125,6 +125,11 @@ void CJellyStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		Play_Sound(L"SFX_45_Jelly_Combine.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
 
 
+	}
+	else if (src)
+	{
+		Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+		Play_Sound(L"SFX_75_JellyCollision.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
 	}
 }
 

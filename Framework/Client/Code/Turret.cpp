@@ -98,6 +98,9 @@ _int CTurret::Update_Object(const _float& fTimeDelta)
 				Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Turret_Bullet", bullet);
 
 				m_fFireCool = 0.f;
+				Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+				Play_Sound(L"SFX_173_TurretShot.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
 			}
 		}
 	}
@@ -161,6 +164,10 @@ void CTurret::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && m_fEnergy < 100.f)
 	{
 		m_fEnergy += 40.f;
+
+		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+		Play_Sound(L"SFX_170_TurretCharge.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
 		if (m_fEnergy > 100.f)
 			m_fEnergy = 100.f;
 	}

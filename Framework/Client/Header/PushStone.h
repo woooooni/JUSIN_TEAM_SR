@@ -45,6 +45,7 @@ public:
     const _bool& Get_Clean() { return m_bIsClean; }
     void        Reset() { m_bIsClean = false; m_bIsFlying = false; }
     void        Set_Off() { m_bIsOff = true; }
+    virtual void			Set_FieldState(const FIELD_OBJ_STATE& pState) override;
 
 private:
     HRESULT                 Ready_Component();

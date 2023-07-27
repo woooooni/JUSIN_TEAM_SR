@@ -178,7 +178,7 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 	pArtist->Get_TransformCom()->Set_Info(INFO_POS, &vArtistPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Artist", pArtist);
 
-	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS));
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_CROSSROAD));
 	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(37.5f, 0.6f, 28.91f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
 

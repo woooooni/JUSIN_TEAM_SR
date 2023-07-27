@@ -673,6 +673,12 @@
     <Filter Include="02. GameObject\15. NPC\00. Tutorial\03. Mom">
       <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\09. DrawObj">
+      <UniqueIdentifier>{81180c99-23bd-44e4-944c-00b50453e89f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\06. FieldObj\05. HitObj\04. BarrelBomb">
+      <UniqueIdentifier>{a4f63795-1e11-41d3-a47f-e2bf4ef1eeec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1381,6 +1387,11 @@
     <ClInclude Include="..\Header\BossDoor.h" />
     <ClInclude Include="..\Header\BossDoorEnter.h" />
     <ClInclude Include="..\Header\DrawingEnter.h" />
+    <ClInclude Include="..\Header\CutSceneMgr.h" />
+    <ClInclude Include="..\Header\UI_TurretGauge.h" />
+    <ClInclude Include="..\Header\BarrelBomb.h">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\04. BarrelBomb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2049,6 +2060,11 @@
     <ClCompile Include="..\Code\BossDoor.cpp" />
     <ClCompile Include="..\Code\BossDoorEnter.cpp" />
     <ClCompile Include="..\Code\DrawingEnter.cpp" />
+    <ClCompile Include="..\Code\CutSceneMgr.cpp" />
+    <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
+    <ClCompile Include="..\Code\BarrelBomb.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\04. BarrelBomb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

@@ -24,6 +24,7 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
+
 protected:
 	virtual void Free() override;
 };

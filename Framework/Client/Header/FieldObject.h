@@ -31,7 +31,7 @@ public:
 	virtual CGameObject* Get_GrabObj() { return this; }
 
 	
-	void			Set_FieldState(const FIELD_OBJ_STATE& pState)
+	virtual void			Set_FieldState(const FIELD_OBJ_STATE& pState)
 	{
 		m_eFState = pState;
 	}

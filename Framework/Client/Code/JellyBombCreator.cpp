@@ -101,11 +101,7 @@ void CJellyBombCreator::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eC
 
 void CJellyBombCreator::Event_Start(_uint iEventNum)
 {
-	if (!m_pJellyBomb->Is_Active())
-	{
-		m_bIsCreate = true;
-
-	}
+	m_bIsCreate = true;
 }
 
 void CJellyBombCreator::Event_End(_uint iEventNum)

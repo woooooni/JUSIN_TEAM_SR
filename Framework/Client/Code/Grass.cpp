@@ -6,6 +6,8 @@
 #include    "Pool.h"
 #include    <time.h>
 #include    "Effect_Leaf.h"
+#include       "Coin.h"
+
 
 
 CGrass::CGrass(LPDIRECT3DDEVICE9 pGr) : CFieldObject(pGr, OBJ_ID::GRASS), m_eGrassType(GRASS_TYPE::GRASS_END)
@@ -255,16 +257,14 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
     {
         Set_Active(false);
 
-        _vec3 vPos;
-        m_pTransformCom->Get_Info(INFO_POS, &vPos);
         CGameObject* pLeaf = CPool<CEffect_Leaf>::Get_Obj();
         if (pLeaf)
-            dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.2f, 2.5f, 1.5f), 40);
+            dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.2f, 2.5f, 1.5f), 40);
         else
         {
             pLeaf = dynamic_cast<CEffect_Leaf*>(pLeaf)->Create(Engine::Get_Device());
             if (pLeaf)
-                dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(vPos, _vec3(1.2f, 2.5f, 1.5f), 40);
+                dynamic_cast<CEffect_Leaf*>(pLeaf)->Get_Effect(myPos, _vec3(1.2f, 2.5f, 1.5f), 40);
         }
 
         Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
@@ -273,17 +273,23 @@ void CGrass::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
 
         if ((m_eGrassType != GRASS_TYPE::GLOWING_REED && m_eGrassType != GRASS_TYPE::GLOWING_REED_RED))
         {
-            if (rand() % 100 < 25)
+             if (rand() % 100 < 25)
+            {
+                CCoin* item = CCoin::Create(m_pGraphicDev, rand() % 31 + 20 ,myPos);
+                NULL_CHECK(item);
+                Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Gold", item);
+            }
+            else if (rand() % 100 < 25)
             {
                 CDefaultItem* item = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-                item->Get_TransformCom()->Set_Pos(&vPos);
+                item->Get_TransformCom()->Set_Pos(&myPos);
                 NULL_CHECK(item);
                 Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", item);
             }
             else if (rand() % 100 < 25)
             {
                 CDefaultItem* item = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::TWIG);
-                item->Get_TransformCom()->Set_Pos(&vPos);
+                item->Get_TransformCom()->Set_Pos(&myPos);
                 NULL_CHECK(item);
                 Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Add_GameObject(L"Item", item);
             }

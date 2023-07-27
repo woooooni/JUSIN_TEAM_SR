@@ -368,7 +368,7 @@ void CUI_ItemInfo::Key_Input()
 					&& m_iCursorX == 1 && m_iCursorY == 0))
 		{
 			CUI_Shop* pShop = CUIMgr::GetInstance()->Get_ShopUI();
-			if (m_iPlayerMoney < m_tItemInfo.iPrice)
+			if (m_iPlayerMoney >= m_tItemInfo.iPrice)
 			{
 				CInventoryMgr::GetInstance()->Add_Item(m_pItem);
 
