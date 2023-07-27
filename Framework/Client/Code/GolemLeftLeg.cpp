@@ -2,6 +2,7 @@
 #include "GolemLeftLeg.h"
 #include "SunGollem.h"
 
+
 CGolemLeftLeg::CGolemLeftLeg(LPDIRECT3DDEVICE9 pGraphicDev) : CGolemPart(pGraphicDev)
 
 {
@@ -145,21 +146,21 @@ void CGolemLeftLeg::Update_Regen(_float fTimeDelta)
 		m_vOffset.y = -1.5f;
 		break;
 	case 1:
-		Move_Offset(_vec3(m_vOffset.x, -2.f, m_vOffset.z),fTimeDelta,1.f);
+		Move_Offset(_vec3(-0.9f, -2.f, m_vOffset.z),fTimeDelta,1.f);
 		break;
 	case 2:
-		Move_Offset(_vec3(m_vOffset.x, -1.5f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(-0.9f, -1.7f, m_vOffset.z), fTimeDelta, 1.f);
 		break;
 	case 3:
-		Move_Offset(_vec3(m_vOffset.x, -2.f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(-1.f, -2.2f, m_vOffset.z), fTimeDelta, 1.f);
 		break;
-	case 6:
-		Move_Offset(_vec3(m_vOffset.x, -1.5f, m_vOffset.z), fTimeDelta, 1.f);
+	case 4:
+		Move_Offset(_vec3(-0.983166f, -2.01536f, m_vOffset.z), fTimeDelta, 1.f);
 		break;
-	case 7:
-		Move_Offset(_vec3(m_vOffset.x, -2.f, m_vOffset.z), fTimeDelta, 1.f);
+	case 5:
+		Move_Offset(_vec3(-0.9f, -1.8f, m_vOffset.z), fTimeDelta, 1.f);
 		break;
-	case 8:
+
 
 	default:
 		break;

@@ -27,32 +27,29 @@ protected:
 	HRESULT	Add_Component(void);
 	
 public:
-
-	SUNGOLEM_STATE Get_State() { return m_eState; }
-	void Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
-
-	void	Set_Offset(_vec3 _Offset) { m_vOffset = _Offset; }
-	void   Set_Index(_int _iIndex) { m_iIndex = _iIndex; }
-	void	Offset(_vec3 _vPos);
-	void Move_Offset(_vec3 _vPos, _float fTimeDelta, _float _fSpeed);
-
-public:
-	void		 Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
-	
-public:
 	virtual void Update_Idle(_float fTimeDelta)		PURE;
 	virtual void Update_Regen(_float fTimeDelta)	PURE;
 	virtual void Update_Move(_float fTimeDelta)		PURE;
 	virtual void Update_Attack(_float fTimeDelta)	PURE;
 	virtual void Update_Die(_float fTimeDelta)		PURE;
-	
+public:
+	SUNGOLEM_STATE Get_State() { return m_eState; }
+	void	Set_State(SUNGOLEM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
+	void		Set_Offset(_vec3 _Offset) { m_vOffset = _Offset; }
+	_vec3 		Get_Offset() { return m_vOffset; }
+	void		Set_Index(_int _iIndex) { m_iIndex = _iIndex; }
+	void		Move_to_Offset(_vec3 _vPos);
+	void		Move_Offset(_vec3 _vPos, _float fTimeDelta, _float _fSpeed);
+	void		Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
+	void		Rotate();
+	_float		Get_RotationAngle() { return m_fRotationAngle; }
+	void		Set_RotationAngle(_float _fRotationAngle) { m_fRotationAngle = _fRotationAngle; }
 protected:
 	SUNGOLEM_STATE	m_eState;
-
-protected:
 	CGameObject*	m_pTarget;
 	_int m_iIndex;
 	_vec3	m_vOffset;
+	_float m_fRotationAngle;
 protected:
 	void Move_Offset_ByDir(_vec3 _vDir, _float fTimeDelta, _float _fSpeed);
 	virtual void Free() override;

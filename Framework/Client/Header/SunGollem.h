@@ -34,8 +34,28 @@ public:
 protected:
 	HRESULT	Add_Component(void);
 private:
-CGolemPart* m_pParts[PARTSEND];
-CMonsterAim* m_pMonsterAim;
+	virtual void Update_Idle(_float fTimeDelta);
+	virtual void Update_Dirty(_float fTimeDelta);
+	virtual void Update_Move(_float fTimeDelta);
+	virtual void Update_Attack(_float fTimeDelta);
+	virtual void Update_Die(_float fTimeDelta);
+	virtual void Update_Regen(_float fTimeDelta);
+public:
+	static CSunGollem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+protected:
+	virtual void Free() override;
+	
+	HRESULT Ready_Parts(void);
+
+	void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+
+private:
+	void Create_Fist(bool _BummerFist, _int _iSrc);
+	void Create_Wave(_vec3 vPos);
+	void Create_Stone();
+	void Create_Effect();
+	void Create_Monkey();
+
 public:
 	void Set_Speed(_float _fSpeed) { m_fSpeed = _fSpeed; }
 	_float Get_Speed() { return m_fSpeed; }
@@ -45,40 +65,24 @@ public:
 
 	// BossHPBar 연동으로 인해 추가함 (Test)
 	MONSTERSTAT Get_Stat() { return m_tStat; }
-
-public:
 	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
-private:
-	virtual void Update_Idle(_float fTimeDelta)	;
-	virtual void Update_Dirty(_float fTimeDelta);
-	virtual void Update_Move(_float fTimeDelta)	;
-	virtual void Update_Attack(_float fTimeDelta);
-	virtual void Update_Die(_float fTimeDelta)	;
-	virtual void Update_Regen(_float fTimeDelta);
-
-public:
-	static CSunGollem* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
-
+	vector<CGolemPart*> Get_vecGolemPart() { return m_vecGolemPart; }
+	void Set_Time(_float _fTime) { m_fTime = _fTime; }
+	_float Get_Time() { return m_fTime; }
 protected:
 	_vec3 m_vPartPos[PARTSEND];
+	_float m_fPartAngleArray[PARTSEND] = {};
 private:
 	_float			m_fSpeed = 5.f;
 	_float			m_fHealth = 6.f;
 	SUNGOLEM_STATE	m_eState;
 	MONSTERSTAT		m_tStat;
 	// Hp UI를 위한 변수 추가.
-	CUI_BossHP*		m_pUIBack;
-	CUI_BossHP*		m_pUIFrame;
-	CUI_BossHP*		m_pUIGauge;
 	_int			m_iDirtyHp = 0;
-
+	vector<CGolemPart*> m_vecGolemPart;
 private:
-	void Create_Fist(bool _BummerFist, _int _iSrc);
-	void Create_Wave(_vec3 vPos);
-	void Create_Stone();
-	void Create_Effect();
-	void Create_Monkey();
+CGolemPart* m_pParts[PARTSEND];
+CMonsterAim* m_pMonsterAim;
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
@@ -95,11 +99,5 @@ protected:
 	bool m_bDirty = false;
 	_int m_iIndex;
 	_float m_fTime=0.f;
-protected:
-	virtual void Free() override;
-	
-	HRESULT Ready_Parts(void);
-
-	void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
 
 };
