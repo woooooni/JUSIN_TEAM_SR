@@ -7,7 +7,7 @@ CUI_Dialog::CUI_Dialog(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_strDesc(L"")
 	, m_strCurrDesc(L"")
 	, m_fAccTime(0.f)
-	, m_fDescTime(0.02f)
+	, m_fDescTime(0.08f)
 	, m_iStringIdx(0)
 	, m_iVectorIdx(0)
 	, m_pQuest(0)
@@ -48,7 +48,7 @@ _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 	{
 		m_fAccTime = 0.f;
 
-		if (m_iStringIdx < _uint(m_strDesc.size()))
+		if (m_strCurrDesc.size() < _uint(m_strDesc.size()))
 			m_iStringIdx++;
 			
 
@@ -165,25 +165,22 @@ void CUI_Dialog::Key_Input()
 
 void CUI_Dialog::Print_Next()
 {
-	if (m_vecStrDesc.size() <= ++m_iVectorIdx + 1)
+	if (m_vecStrDesc.size() <= (++m_iVectorIdx))
 	{
 		switch (m_pQuest->Get_Quest_Progress())
 		{
 		case QUEST_PROGRESS::BEFORE:
 			m_pQuest->Accept_Quest();
-			Set_Active(false);
-			break;
-		case QUEST_PROGRESS::CONTINUE:
-			Set_Active(false);
 			break;
 		case QUEST_PROGRESS::COMPLETE:
 			m_pQuest->Clear_Quest();
-			Set_Active(false);
 			break;
 		}
+		Set_Active(false);
 	}
 	else
 	{		
+		m_iStringIdx = 0;
 		m_strDesc = m_vecStrDesc[m_iVectorIdx];
 		m_strCurrDesc = L"";
 		m_fAccTime = 0.f;

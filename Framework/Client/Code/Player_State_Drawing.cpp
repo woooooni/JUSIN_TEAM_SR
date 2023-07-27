@@ -24,6 +24,9 @@ HRESULT CPlayer_State_Drawing::Ready_State(void)
 
 	m_bFinished = false;
 
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_52_OguDrawing.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
 	return S_OK;
 }
 
@@ -59,8 +62,7 @@ _int CPlayer_State_Drawing::Update_State(const _float& fTimeDelta)
 		}
 	}
 
-	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
-	Play_Sound(L"SFX_52_OguDrawing.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
 
 	return 0;
 }

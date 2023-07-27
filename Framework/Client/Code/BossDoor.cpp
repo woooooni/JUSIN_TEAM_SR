@@ -105,7 +105,9 @@ _int CBossDoor::Update_Object(const _float& fTimeDelta)
 		{
 			CCamera* pCamera = dynamic_cast<CCamera*>(Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
 			NULL_CHECK_RETURN(pCamera, E_FAIL);
-			pCamera->CamShake(fTimeDelta, 0.2f);
+			pCamera->CamShake(fTimeDelta, 1.0f);
+
+			Play_Sound(L"SFX_355_BigRockRolling.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 0.5f);
 		}
 
 
@@ -126,6 +128,8 @@ _int CBossDoor::Update_Object(const _float& fTimeDelta)
 				CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();
 				NULL_CHECK_RETURN(pPlayer, E_FAIL);
 				dynamic_cast<CPlayer*>(pPlayer)->Set_Stop(false);
+
+				Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
 			}
 		}
 
@@ -344,6 +348,9 @@ void CBossDoor::Open_Door()
 			}
 			dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.5f, 1.5f, 1.5f), 139, 69, 19);
 		}
+
+		Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+		Play_Sound(L"SFX_356_BigRockCrash.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 0.5f);
 	}
 
 

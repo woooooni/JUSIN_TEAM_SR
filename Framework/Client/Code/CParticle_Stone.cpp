@@ -181,9 +181,7 @@ void CParticle_Stone::Get_Effect(_vec3& _vPos, _vec3& _vScale, _uint _iCount)
 		if (iTemp == 1)
 			vPos.x *= -1.0f;
 
-		iTemp = rand() % 2;
-		if (iTemp == 1)
-			vPos.y *= -1.0f;
+		
 
 		iTemp = rand() % 2;
 		if (iTemp == 1)

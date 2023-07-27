@@ -71,6 +71,9 @@ private:
 
 	void Follow(const _float& fTimeDelta);
 
+	void Check_Alpha();
+
+
 public:
 	void CamShake(float _fDuration, float _fShakeForce = 2.0f);
 

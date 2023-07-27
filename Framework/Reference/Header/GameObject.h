@@ -49,6 +49,9 @@ public:
 	void Set_MinHeight(_float _fHeight) { m_fMinHeight = _fHeight; }
 	_float Get_MinHeight() { return m_fMinHeight; }
 
+	void Set_Alpha(_uint _iAlpha) { m_iAlpha = _iAlpha; }
+	_uint Get_Alpha() { return m_iAlpha; }
+
 
 public:
 	CVIBuffer* Get_BufferCom() { return m_pBufferCom; }
@@ -71,7 +74,7 @@ public:
 	//이벤트 호출
 	virtual void Event_Start(_uint iEventNum) {};
 	virtual void Event_End(_uint iEventNum) {};
-	virtual void	Reset_Event() {};
+	virtual void Reset_Event() {};
 
 	
 private:
@@ -101,6 +104,8 @@ protected:
 
 	_float		m_fViewZ;
 	_float		m_fMinHeight;
+
+	_uint		m_iAlpha;
 
 private:
 	_bool		m_bActive;

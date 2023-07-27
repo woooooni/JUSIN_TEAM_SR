@@ -17,7 +17,9 @@ public:
 	const _matrix Get_WorldInverseMatrix()
 	{
 		_matrix	matWorldInv;
-		return	*D3DXMatrixInverse(&matWorldInv, nullptr, &m_matWorld);
+		D3DXMatrixIdentity(&matWorldInv);
+		D3DXMatrixInverse(&matWorldInv, nullptr, &m_matWorld);
+		return	matWorldInv;
 	}
 
 	void Get_Info(MATRIX_INFO eType, _vec3* pInfo)

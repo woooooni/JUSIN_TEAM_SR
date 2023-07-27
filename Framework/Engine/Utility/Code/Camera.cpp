@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include <cassert>
 #include "TimerMgr.h"
-
+#include "PickingMgr.h"
 // Globals
 const float fZoom = 5.0f;
 
@@ -74,6 +74,10 @@ _int CCamera::Update_Object(const _float& fTimeDelta)
 		break;
 	}
 
+
+	if (m_pTargetObj)
+		Check_Alpha();
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -106,7 +110,6 @@ HRESULT CCamera::Add_Component(void)
 	/*
 	정점을 이용한 텍스처출력시 Buffer와 TextureCom이 필요하다.
 	*/
-
 	CComponent* pComponent = nullptr;
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
@@ -119,6 +122,7 @@ HRESULT CCamera::Add_Component(void)
 
 void CCamera::Follow(const _float& fTimeDelta)
 {
+
 	if (m_pTargetObj == nullptr)
 		return;
 
@@ -150,6 +154,91 @@ void CCamera::Follow(const _float& fTimeDelta)
 
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
 	m_pTransformCom->Set_Info(INFO_LOOK, &vLook);
+
+
+}
+
+void CCamera::Check_Alpha()
+{
+	
+	_vec3 vTargetPos;
+	m_pTargetObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	D3DXVec3TransformCoord(&vTargetPos, &vTargetPos, &m_matView);
+
+	_vec3 vRayPos = _vec3(0.f, 0.f, 0.f);
+	_vec3 vRayDir = vTargetPos - vRayPos;
+
+	_matrix matCamWorld;
+	D3DXMatrixInverse(&matCamWorld, nullptr, &m_matView);
+	D3DXVec3TransformCoord(&vRayPos, &vRayPos, &matCamWorld);
+	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matCamWorld);
+
+	_matrix matObjWorld;
+	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
+
+	
+
+	const vector<CGameObject*>& vecObj = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+	for (size_t i = 0; i < vecObj.size(); ++i)
+	{
+		if (!vecObj[i]->Is_Active())
+			continue;
+
+		if (vecObj[i]->GetObj_Id() != OBJ_ID::PROP && vecObj[i]->GetObj_Id() != OBJ_ID::TREE)
+			continue;
+
+		vecObj[i]->Set_Alpha(255);
+		
+		CTransform* pObjTransform = vecObj[i]->Get_TransformCom();
+		CVIBuffer* pObjBuffer = vecObj[i]->Get_BufferCom();
+
+		if (pObjTransform == nullptr)
+			continue;
+
+		if (pObjBuffer == nullptr)
+			continue;
+
+		matObjWorld = *(pObjTransform->Get_WorldMatrix());
+
+		_vec3 vTempRayPos, vTempDir;
+		D3DXVec3TransformCoord(&vTempRayPos, &vRayPos, &pObjTransform->Get_WorldInverseMatrix());
+		D3DXVec3TransformNormal(&vTempDir, &vRayDir, &pObjTransform->Get_WorldInverseMatrix());
+
+		D3DXVec3Normalize(&vTempDir, &vTempDir);
+
+		LPDIRECT3DVERTEXBUFFER9 objVB = pObjBuffer->GetBuffer();
+		LPDIRECT3DINDEXBUFFER9	objIB = pObjBuffer->GetIndex();
+
+		VTXTEX* pVB;
+		INDEX32* pIB;
+		objVB->Lock(0, 0, (void**)&pVB, 0);
+		objIB->Lock(0, 0, (void**)&pIB, 0);
+
+		_float fU, fV, fDist;
+		_float fMinDistance = 999999.f;
+
+		for (_uint cnt = 0; cnt < pObjBuffer->GetTriangleCount(); ++cnt)
+		{
+			if (TRUE == D3DXIntersectTri(
+				&pVB[pIB[cnt]._0].vPosition,
+				&pVB[pIB[cnt]._1].vPosition,
+				&pVB[pIB[cnt]._2].vPosition, &vTempRayPos, &vTempDir, &fU, &fV, &fDist))
+			{
+				_vec3 vTargetPos, vAlphaPos;
+				m_pTargetObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+				pObjTransform->Get_Info(INFO_POS, &vAlphaPos);
+				if (vAlphaPos.z < vTargetPos.z)
+				{
+					vecObj[i]->Set_Alpha(60);
+					break;
+				}
+			}
+		}
+
+		objVB->Unlock();
+		objIB->Unlock();
+
+	}
 
 }
 
@@ -295,7 +384,6 @@ void CCamera::Update_CutSceneCamera(const _float& fTimeDelta)
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-
 }
 
 void CCamera::LateUpdate_CutSceneCamera()
@@ -317,6 +405,14 @@ void CCamera::LateUpdate_CutSceneCamera()
 		{
 			_float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
 			_float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
+
+			int iTemp = rand() % 2;
+			if (iTemp == 0)
+				fOffsetX *= -1.0f;
+
+			iTemp = rand() % 2;
+			if (iTemp == 0)
+				fOffsetY *= -1.0f;
 
 			// Look, Pos 둘 다 적용시켜야 움직임이 자연스러움
 			vCamPos.x += fOffsetX;
