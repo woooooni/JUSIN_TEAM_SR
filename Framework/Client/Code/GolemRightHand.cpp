@@ -30,7 +30,7 @@ HRESULT CGolemRightHand::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"SunGolem_Idle_RightHand", true);
 
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 0.7f * 2.f, 0.7f * 2.0f,0.7f * 2.f });
+	m_pTransformCom->Set_Scale({1.f,1.0f,1.f });
 
 	Set_State(SUNGOLEM_STATE::REGEN);
 	return S_OK;
@@ -168,16 +168,98 @@ void CGolemRightHand::Update_Die(_float fTimeDelta)
 
 void CGolemRightHand::Update_Regen(_float fTimeDelta)
 {
-	_vec3 vDir, vPos;
-	vDir = { 0.f,1.f ,0.f };
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-	if (vPos.y > 2.f)
+	switch (m_iIndex)
 	{
+	case 0:
+		m_vOffset = { 0.9f,	 -1.2f,	0.009f };
+		m_fRotationAngle = 329.f;
+		break;
+	case 1:
+		Move_Offset(_vec3(0.9f, - 1.f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 2:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(1.439f, -1.65f, -0.013f), fTimeDelta, 1.f);
+			m_fRotationAngle = 330.f;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(2.767f, -0.2f, -0.012f), fTimeDelta, 1.f);
+			if (m_fRotationAngle < 390.f)
+				m_fRotationAngle += 60.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(2.9f, 2.1f, -0.011f), fTimeDelta, 1.f);
+			if (m_fRotationAngle < 437.f)
+				m_fRotationAngle += 55.f * fTimeDelta;
+		}
+		break;	
+	case 3:
+			if (m_iArmNum == 0)
+			{
+				Move_Offset(_vec3(1.439f, -1.65f, -0.013f), fTimeDelta, 1.f);
+				m_fRotationAngle = 330.f;
+			}
+			else if (m_iArmNum == 1)
+			{
+				Move_Offset(_vec3(2.767f, -0.2f, -0.012f), fTimeDelta, 1.f);
+				if (m_fRotationAngle < 390.f)
+					m_fRotationAngle += 60.f * fTimeDelta;
+			}
+			else if (m_iArmNum == 2)
+			{
+				Move_Offset(_vec3(2.9f, 2.1f, -0.011f), fTimeDelta, 1.f);
+				if (m_fRotationAngle < 437.f)
+					m_fRotationAngle += 55.f * fTimeDelta;
+			}
+			break;
+	case 4:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(1.21797f, -1.45396f, -0.013f), fTimeDelta, 1.f);
 
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
+			if (m_fRotationAngle > 328.166f)
+				m_fRotationAngle -= 60.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(2.0014f, -0.598564f, -0.012f), fTimeDelta, 1.f);
+			if (m_fRotationAngle > 347.836f)
+				m_fRotationAngle -= 60.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(2.07986f, 0.758278f, -0.011f), fTimeDelta, 1.f);
+			if (m_fRotationAngle > 395.008f)
+				m_fRotationAngle -= 55.f * fTimeDelta;
+		}
+		break;
+	case 5:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(2.1f, -2.4f, -0.013f), fTimeDelta, 1.f);
+
+			if (m_fRotationAngle < 356.1)
+				m_fRotationAngle += 60.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(3.8f, 0.f, -0.012f), fTimeDelta, 1.f);
+			if (m_fRotationAngle < 360.f+ 51.6f)
+				m_fRotationAngle += 60.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(3.29f, 2.794f, -0.011f), fTimeDelta, 1.f);
+			if (m_fRotationAngle < 360.f + 90.f)
+				m_fRotationAngle += 55.f * fTimeDelta;
+		}
+		break;
+
+	default:
+		break;
 	}
 }
 CGolemRightHand* CGolemRightHand::Create(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -155,16 +155,34 @@ void CGolemLowerJaw::Update_Die(_float fTimeDelta)
 
 void CGolemLowerJaw::Update_Regen(_float fTimeDelta)
 {
-	_vec3 vDir, vPos;
-	vDir = { 0.f,1.f ,0.f };
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-	if (vPos.y > 2.f)
+	switch (m_iIndex)
 	{
+	case 0:
+		m_vOffset = { -0.f, - 0.6f, - 0.02f };
 
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
+		break;
+	case 1:
+		Move_Offset(_vec3(0.f, - 0.6f, m_vOffset.z), fTimeDelta, 2.f);
+
+		break;
+	case 2:
+		Move_Offset(_vec3(0.f, -0.5f, m_vOffset.z), fTimeDelta, 2.f);
+		m_fRotationAngle = 0.f;
+		break;
+	case 3:
+		Move_Offset(_vec3(0.0f, -0.12f, m_vOffset.z), fTimeDelta, 2.f);
+
+		break;
+	case 4:
+		Move_Offset(_vec3(0.f, -0.130805f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 5:
+		Move_Offset(_vec3(0.f, -0.56f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+
+
+	default:
+		break;
 	}
 }
 CGolemLowerJaw* CGolemLowerJaw::Create(LPDIRECT3DDEVICE9 pGraphicDev)

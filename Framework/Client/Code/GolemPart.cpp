@@ -3,7 +3,7 @@
 
 CGolemPart::CGolemPart(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
-	, m_eState(SUNGOLEM_STATE::REGEN)
+	, m_eState(SUNGOLEM_STATE::REGEN), m_fRotationAngle(0)
 {
 
 }
@@ -29,28 +29,6 @@ HRESULT CGolemPart::Ready_Object(void)
 _int CGolemPart::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
-	if (Is_Active())
-	{
-		Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-		switch (m_eState)
-		{
-		case SUNGOLEM_STATE::IDLE:
-			Update_Idle(fTimeDelta);
-			break;
-		case SUNGOLEM_STATE::MOVE:
-			Update_Move(fTimeDelta);
-			break;
-		case SUNGOLEM_STATE::REGEN:
-			Update_Regen(fTimeDelta);
-			break;
-		case SUNGOLEM_STATE::ATTACK:
-			Update_Attack(fTimeDelta);
-			break;
-		case SUNGOLEM_STATE::DIE:
-			Update_Die(fTimeDelta);
-			break;
-		}
-	}
 	return iExit;
 }
 
@@ -69,7 +47,7 @@ HRESULT CGolemPart::Add_Component(void)
 	return S_OK;
 }
 
-void CGolemPart::Offset(_vec3 _vPos)
+void CGolemPart::Move_to_Offset(_vec3 _vPos)
 {
 	_vec3 vPos = _vPos + m_vOffset;
 	m_pTransformCom->Set_Pos(&vPos);
@@ -78,8 +56,18 @@ void CGolemPart::Offset(_vec3 _vPos)
 void CGolemPart::Move_Offset(_vec3 _vPos,_float fTimeDelta,_float _fSpeed)
 {
 	_vec3 vDir = _vPos - m_vOffset;
-	D3DXVec3Normalize(&vDir, &vDir);
 	m_vOffset += vDir * fTimeDelta * _fSpeed;
+}
+
+void CGolemPart::Rotate()
+{
+	_vec3 vScale = m_pTransformCom->Get_Scale();
+	m_pTransformCom->Set_Info(INFO_RIGHT, &_vec3(vScale.x, 0.f, 0.f));
+	m_pTransformCom->Set_Info(INFO_UP, &_vec3(0.f, vScale.y, 0.f));
+	m_pTransformCom->Set_Info(INFO_LOOK, &_vec3(0.f, 0.f, vScale.z));
+	
+	_vec3 vAxisZ = { 0.f,0.f,1.f };
+	m_pTransformCom->RotationAxis(vAxisZ, D3DXToRadian(m_fRotationAngle));
 }
 
 void CGolemPart::Move_Offset_ByDir(_vec3 _vDir, _float fTimeDelta, _float _fSpeed)

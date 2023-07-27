@@ -157,16 +157,30 @@ void CGolemHead::Update_Die(_float fTimeDelta)
 
 void CGolemHead::Update_Regen(_float fTimeDelta)
 {
-	_vec3 vDir, vPos;
-	vDir = { 0.f,1.f ,0.f };
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, fTimeDelta);
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-	if (vPos.y > 2.f)
+	switch (m_iIndex)
 	{
+	case 0:
+		m_vOffset = {0.f, 1.f,	-0.01f };
+		break;
+	case 1:
+		Move_Offset(_vec3(0.f,	1.f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 2:
+		Move_Offset(_vec3(0.f, 1.f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 3:
+		Move_Offset(_vec3(0.f, 1.2f, m_vOffset.z), fTimeDelta, 1.f);
 
-		Set_State(SUNGOLEM_STATE::IDLE);
-		m_fMoveTime = 0.f;
+		break;
+	case 4:
+		Move_Offset(_vec3(0.f, 1.2f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+	case 5:
+		Move_Offset(_vec3(0.f, 1.16633f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+
+	default:
+		break;
 	}
 }
 CGolemHead* CGolemHead::Create(LPDIRECT3DDEVICE9 pGraphicDev)

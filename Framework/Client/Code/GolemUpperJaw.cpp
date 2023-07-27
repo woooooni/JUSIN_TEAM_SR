@@ -120,7 +120,34 @@ void CGolemUpperJaw::Update_Die(_float fTimeDelta)
 
 void CGolemUpperJaw::Update_Regen(_float fTimeDelta)
 {
+	switch (m_iIndex)
+	{
+	case 0:
+		m_vOffset = { -0.f,	0.1f, - 0.02f };
 
+		break;
+	case 1:
+		Move_Offset(_vec3(0.f,	0.1f, m_vOffset.z), fTimeDelta, 2.f);
+
+		break;	
+	case 2:
+			Move_Offset(_vec3(0.f, 0.15f, m_vOffset.z), fTimeDelta, 2.f);
+			m_fRotationAngle = 0.f;
+			break;
+	case 3:
+		Move_Offset(_vec3(-0.00f, 0.5f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 4:
+		Move_Offset(_vec3(0.f, 0.4902f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 5:
+		Move_Offset(_vec3(0.f, 0.4f, m_vOffset.z), fTimeDelta, 1.f);
+		break;
+
+
+	default:
+		break;
+	}
 }
 CGolemUpperJaw* CGolemUpperJaw::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
