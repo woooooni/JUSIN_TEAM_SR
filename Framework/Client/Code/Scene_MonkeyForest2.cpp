@@ -13,6 +13,7 @@
 #include "BalpanObj.h"
 #include "PushStone.h"
 #include "BreakStone.h"
+#include	"JellyStone.h"
 
 CScene_MonkeyForest2::CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST2)
@@ -27,6 +28,8 @@ HRESULT CScene_MonkeyForest2::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -119,7 +122,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_Terrrain()
 
 HRESULT CScene_MonkeyForest2::Ready_Layer_Environment()
 {
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
 	_vec3 vPortalPos = _vec3(102.f, 0.5f, 160.f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 
@@ -203,9 +206,6 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
 
-	pHit = CHitObj::Create(m_pGraphicDev, 18, { 184.f , 0.f, 36.f });
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
 
 	
 	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 6, { 45.f, 0.f, 8.5f });
@@ -401,6 +401,10 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 104.f, 0.f, 43.5f }, true);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 105.f, 0.f, 43.5f }, true);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
 
 	CBalpanObj* pBalpan = CBalpanObj::Create(m_pGraphicDev, 10, { 49.f, 0.f, 17.f });
 
@@ -421,6 +425,22 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pBalpan = CBalpanObj::Create(m_pGraphicDev, 15, { 44.5f, 0.f, 28.f });
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBalpan);
+
+	pBalpan = CBalpanObj::Create(m_pGraphicDev, 30, { 164.5f, 0.f, 19.5f });
+	pBalpan->Set_Static();
+	pBalpan->Set_TargName(L"Jelly");
+	pBalpan->Set_Answer(JELLY_COLOR::BLUE);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBalpan);
+
+	pBalpan = CBalpanObj::Create(m_pGraphicDev, 31, { 174.5f, 0.f, 19.5f });
+	pBalpan->Set_Static();
+	pBalpan->Set_TargName(L"Jelly");
+	pBalpan->Set_Answer(JELLY_COLOR::GREEN);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBalpan);
+
+
 
 	CBreakStone* pBStone = CBreakStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 13, { 49.f, 0.f, 16.f });
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"BreakStone", pBStone);
@@ -443,7 +463,30 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pBStone = CBreakStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 16, { 47.5f, 0.f, 28.5f });
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"BreakStone", pBStone);
 
+
+	CJellyStone* pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 30, { 166.5f, 0.f, 12.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 30, { 166.5f, 0.f, 10.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 30, { 169.5f, 0.f, 12.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 30, { 169.5f, 0.f, 10.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 30, { 172.5f, 0.f, 10.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 30, { 172.5f, 0.f, 12.5f });
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+
 	Engine::Add_Reset(0, 6, 19);
+	Engine::Add_Reset(1, 30, 31);
+
+	
 
 
 	return S_OK;
@@ -456,6 +499,117 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_Effect()
 
 HRESULT CScene_MonkeyForest2::Ready_Layer_UI()
 {
+	return S_OK;
+}
+
+HRESULT CScene_MonkeyForest2::Ready_Event()
+{
+	EVENT* event = new EVENT;
+	event->iEventNum = 6;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 7;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 8;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 9;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 10;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 11;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 12;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 13;
+	event->lEndKey.push_back(10);
+	event->lEndKey.push_back(11);
+	event->lEndKey.push_back(12);
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 14;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 15;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 16;
+
+	event->lEndKey.push_back(14);
+	event->lEndKey.push_back(15);
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 17;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 18;
+	event->lStartKey.push_back(30);
+	event->lStartKey.push_back(31);
+	event->m_bIsCanReset = true;
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 19;
+
+	event->lEndKey.push_back(17);
+	event->lEndKey.push_back(18);
+
+	event->m_bIsCheckUpdate = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 30;
+	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 31;
+	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
 	return S_OK;
 }
 

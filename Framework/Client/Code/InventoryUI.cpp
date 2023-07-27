@@ -28,8 +28,6 @@ CInventoryUI::CInventoryUI(const CInventoryUI& rhs)
 {
 }
 
-
-
 CInventoryUI::~CInventoryUI()
 {
 }
@@ -51,7 +49,6 @@ HRESULT CInventoryUI::Ready_Object(void)
 
 	m_pUseBtnTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Shop_Button"));
 	m_pCursurTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Shop_Cursor"));
-
 
 	return S_OK;
 } 
@@ -115,242 +112,10 @@ void CInventoryUI::LateUpdate_Object(void)
 	{
 		iter->LateUpdate_Object();
 	}
-	// 추가
-	CQuickSlot* pSlots = CUIMgr::GetInstance()->Get_Slots();
-
-
-	if (m_bIsRenderCurs)
-	{
-		if (m_iCurPageIdx == (_uint)CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)
-		{
-			_bool bFilled_One = pSlots->Get_Filled(SLOTNUM::SLOT_ONE);
-			_bool bFilled_Two = pSlots->Get_Filled(SLOTNUM::SLOT_TWO);
-			_bool bFilled_Three = pSlots->Get_Filled(SLOTNUM::SLOT_THREE);
-			_bool bFilled_Four = pSlots->Get_Filled(SLOTNUM::SLOT_FOUR);
-
-			if (KEY_TAP(KEY::NUM_1))
-			{
-				if (!bFilled_One)
-				{
-					// 슬롯 2, 3, 4가 차있는지 확인하고 차있는 경우 아이템 코드를 받는다.
-					// 이 아이템 코드와 지금 넣으려고하는 아이템이 같은것이면 넣지 않는다.
-
-					if (bFilled_Two)
-					{
-						// 3번과 4번에도 같은 아이템이 있지는 않은지 확인해줘야한다.
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Three)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Four)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (!bFilled_Two && !bFilled_Three && !bFilled_Four) // 셋다 false면 아이템을 추가한다.
-						pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-				}
-			}
-
-			if (KEY_TAP(KEY::NUM_2))
-			{
-				if (!bFilled_Two) // 슬롯이 차지 않으면. 즉, false를 반환하면 OK
-				{
-					if (bFilled_One) // 슬롯1이 차있으면
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE)) // 슬롯1의 아이템 코드를 얻어오고 지금 담을 아이템 코드를 얻어와 비교한다 -> 같지 않으면 슬롯에 추가한다
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Three) // 슬롯3이 차있으면
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)) // 슬롯 3의 아이템 코드를 얻어오고 지금 담을 아이템 코드를 얻어와 비교한다 ->같지 않으면
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Four)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_TWO, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (!bFilled_One && !bFilled_Three && !bFilled_Four)
-						pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-				}
-			}
-
-			if (KEY_TAP(KEY::NUM_3))
-			{
-				if (!bFilled_Three)
-				{
-					if (bFilled_One)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Two)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Four)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_THREE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (!bFilled_One && !bFilled_Two && !bFilled_Four)
-						pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-				}
-			}
-
-			if (KEY_TAP(KEY::NUM_4))
-			{
-				if (!bFilled_Four)
-				{
-					if (bFilled_One)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Two)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (bFilled_Three)
-					{
-						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
-						{
-							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
-								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO)))
-							{
-								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-							}
-						}
-					}
-
-					if (!bFilled_One && !bFilled_Two && !bFilled_Three)
-						pSlots->Set_Item(SLOTNUM::SLOT_ONE, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
-				}
-			}
-		}
-		//
-		__super::LateUpdate_Object();
-	}
+	
+	Register_QuickSlot();
+	
+	__super::LateUpdate_Object();
 }
 
 void CInventoryUI::Render_Object(void)
@@ -390,7 +155,15 @@ void CInventoryUI::Render_Object(void)
 
 		RECT rc = { WINCX * 0.5f + 250 + 30, WINCY * 0.5f - 150, WINCX * 0.5f + 250 + 270, WINCY * 0.5f + 150 };
 
-		wstring src = CItem::Get_Explain(CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+		CItem* pItem = CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx];
+		if (!pItem)
+			return;
+
+		ITEM_CODE code = CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode();
+
+		if (code == ITEM_CODE::ITEM_END)
+			return;
+		wstring src = CItem::Get_Explain(code);
 
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, src.c_str(), src.length(), &rc, DT_CENTER | DT_WORDBREAK, D3DCOLOR_ARGB(255, 255, 255, 255));
 
@@ -411,6 +184,7 @@ void CInventoryUI::Render_Object(void)
 			break;
 
 		case ITEM_TYPE::ETC:
+		case ITEM_TYPE::IMPORTANT:
 			return;
 
 		default:
@@ -468,6 +242,283 @@ void CInventoryUI::Set_ButClicked(CInvenTabButton* pInv)
 	m_iCurItemIdx = 0;
 	m_bIsRenderCurs = false;
 
+}
+
+void CInventoryUI::Register_QuickSlot()
+{
+	CQuickSlot* pSlots = CUIMgr::GetInstance()->Get_Slots();
+
+	if (m_bIsRenderCurs)
+	{
+		if (m_iCurPageIdx == (_uint)CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)
+		{
+			_bool bFilled_One = pSlots->Get_Filled(SLOTNUM::SLOT_ONE);
+			_bool bFilled_Two = pSlots->Get_Filled(SLOTNUM::SLOT_TWO);
+			_bool bFilled_Three = pSlots->Get_Filled(SLOTNUM::SLOT_THREE);
+			_bool bFilled_Four = pSlots->Get_Filled(SLOTNUM::SLOT_FOUR);
+
+			if (KEY_TAP(KEY::NUM_1))
+			{
+				if (!bFilled_One)
+				{
+					// 슬롯 2, 3, 4가 차있는지 확인하고 차있는 경우 아이템 코드를 받는다.
+					// 이 아이템 코드와 지금 넣으려고하는 아이템이 같은것이면 넣지 않는다.
+
+					if (bFilled_Two)
+					{
+						// 3번과 4번에도 같은 아이템이 있지는 않은지 확인해줘야한다.
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Three)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Four)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (!bFilled_Two && !bFilled_Three && !bFilled_Four) // 셋다 false면 아이템을 추가한다.
+						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+				}
+
+				if (bFilled_One)
+				{
+					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+						== pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+					{
+						// 1Key에 이미 배정된 아이템을 선택한 상태에서 동일 키를 누를 경우 배치가 해제됨.
+						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, ITEM_CODE::ITEM_END);
+						pSlots->Set_Filled(SLOTNUM::SLOT_ONE, false);
+					}
+				}
+			}
+
+			if (KEY_TAP(KEY::NUM_2))
+			{
+				if (!bFilled_Two) // 슬롯이 차지 않으면. 즉, false를 반환하면 OK
+				{
+					if (bFilled_One) // 슬롯1이 차있으면
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE)) // 슬롯1의 아이템 코드를 얻어오고 지금 담을 아이템 코드를 얻어와 비교한다 -> 같지 않으면 슬롯에 추가한다
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Three) // 슬롯3이 차있으면
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)) // 슬롯 3의 아이템 코드를 얻어오고 지금 담을 아이템 코드를 얻어와 비교한다 ->같지 않으면
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Four)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (!bFilled_One && !bFilled_Three && !bFilled_Four)
+						pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+				}
+
+				if (bFilled_Two)
+				{
+					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+						== pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+					{
+						pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, ITEM_CODE::ITEM_END);
+						pSlots->Set_Filled(SLOTNUM::SLOT_TWO, false);
+					}
+				}
+			}
+
+			if (KEY_TAP(KEY::NUM_3))
+			{
+				if (!bFilled_Three)
+				{
+					if (bFilled_One)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Two)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Four)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (!bFilled_One && !bFilled_Two && !bFilled_Four)
+						pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+				}
+
+				if (bFilled_Three)
+				{
+					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+						== pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
+					{
+						pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, ITEM_CODE::ITEM_END);
+						pSlots->Set_Filled(SLOTNUM::SLOT_THREE, false);
+					}
+				}
+			}
+
+			if (KEY_TAP(KEY::NUM_4))
+			{
+				if (!bFilled_Four)
+				{
+					if (bFilled_One)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Two)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (bFilled_Three)
+					{
+						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
+						{
+							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
+								&& (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+									!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO)))
+							{
+								pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+							}
+						}
+					}
+
+					if (!bFilled_One && !bFilled_Two && !bFilled_Three)
+						pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
+				}
+
+				if (bFilled_Four)
+				{
+					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
+						== pSlots->Get_ItemCode(SLOTNUM::SLOT_FOUR))
+					{
+						pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, ITEM_CODE::ITEM_END);
+						pSlots->Set_Filled(SLOTNUM::SLOT_FOUR, false);
+					}
+				}
+			}
+		}
+	}
 }
 
 void CInventoryUI::Free()

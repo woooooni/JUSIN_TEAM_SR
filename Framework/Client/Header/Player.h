@@ -46,6 +46,9 @@ private:
 public:
 	void			Change_State(PLAYER_STATE _eState)
 	{
+		if (m_bStop)
+			_eState = PLAYER_STATE::IDLE;
+
 		if (!m_bStateChange)
 		{
 			m_bStateChange = true;
@@ -54,6 +57,9 @@ public:
 	}
 	void			Change_State_Now(PLAYER_STATE _eState)
 	{
+		if (m_bStop)
+			_eState = PLAYER_STATE::IDLE;
+
 		m_bStateChange = true;
 		m_eChangeState = _eState;
 	}
@@ -160,11 +166,19 @@ public:
 	bool			Is_Grab() { return m_bGrab; }
 	void			Reset_LiftObj() { m_pLiftObj = nullptr; }
 
+	void			Set_DrawingFinish(bool _bFinish) { m_bDrawingFinish = _bFinish; }
+	bool			Is_DrawFinish() { return m_bDrawingFinish; }
+
 	void			Set_ItemEffect(ITEM_CODE eItemCode);
 
-	void		Set_Invincible() { m_fAccInvinTime = 0.0f; m_bInvincible = true; }
+	void			Set_Invincible() { m_fAccInvinTime = 0.0f; m_bInvincible = true; }
 
-	CGameObject* Get_Shadow() { return m_pShadow; }
+	bool			Is_Stop() { return m_bStop; }
+	void			Set_Stop(bool _bStop) { m_bStop = _bStop; Change_State_Now(PLAYER_STATE::IDLE); }
+
+	CGameObject*	Get_Shadow() { return m_pShadow; }
+
+	void			Set_PlayerHat(PLAYER_HAT _eHat) { m_eHat = _eHat; Set_Hat(m_vecHats[(_uint)m_eHat]); }
 private:
 	_vec3			m_vDir;
 	_float			m_fSpeed;
@@ -210,10 +224,13 @@ private:
 	bool m_bPush = false;
 
 	bool m_bGrab = false;
+
+	bool m_bStop = false;
+	bool m_bDrawingFinish = false;
 	//
 
 	vector<CGameObject*> m_vecHats;
-	_uint m_iHat;
+	PLAYER_HAT m_eHat;
 	void		Key_Input(const _float& fTimeDelta);
 
 	ITEM_CODE m_eGetItemCode;
@@ -223,7 +240,6 @@ private:
 
 	
 
-	_uint m_iAlpha;
 	bool m_bInvincible = false;
 	_float m_fInvinTime;
 	_float m_fAccInvinTime;

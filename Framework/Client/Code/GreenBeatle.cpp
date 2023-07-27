@@ -34,6 +34,8 @@ HRESULT CGreenBeatle::Ready_Object(void)
 	m_fMinHeight = 0.5f;
 	m_tStat = { 3,3,0 };
 
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
+
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)
 		m_pUIBack->Set_Owner(this);
@@ -192,7 +194,8 @@ void CGreenBeatle::Update_Move(_float fTimeDelta)
 
 void CGreenBeatle::Update_Die(_float fTimeDelta)
 {
-	if (Is_Active()) {
+	if (Is_Active()) 
+	{
 		On_Death();
 		Set_Active(false);
 	}

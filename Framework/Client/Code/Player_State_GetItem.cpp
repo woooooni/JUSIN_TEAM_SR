@@ -98,7 +98,6 @@ _int CPlayer_State_GetItem::Update_State(const _float& fTimeDelta)
 		Play_Sound(L"SFX_147_OguItemAdd.wav", CHANNELID::SOUND_EFFECT_PLAYER, .5f);
 		m_bFinished = true;
 
-		FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), false);
 
 	}
 	
@@ -128,7 +127,7 @@ void CPlayer_State_GetItem::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos[m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 

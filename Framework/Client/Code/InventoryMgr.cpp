@@ -3,6 +3,9 @@
 #include	"Pool.h"
 #include	"Player.h"
 #include	"UseItem.h"
+#include "QuickSlot.h"
+#include "UI_SlotItems.h"
+#include	"UIMgr.h"
 
 
 IMPLEMENT_SINGLETON(CInventoryMgr)
@@ -105,9 +108,12 @@ _bool CInventoryMgr::Is_In_Inven(CGameObject* pItem)
 	return false;
 }
 
-HRESULT CInventoryMgr::Use_Item(_uint pInt)
+HRESULT CInventoryMgr::Use_Item(INVENTORY_TYPE pType, _uint pInt)
 {
-	auto& tmp = m_vecInventory[(_uint)INVENTORY_TYPE::CONSUMPSION];
+	if (pType == INVENTORY_TYPE::ETC)
+		return E_FAIL;
+
+	auto& tmp = m_vecInventory[(_uint)pType];
 	if (pInt < 0 || pInt >= tmp.size())
 		return E_FAIL;
 
@@ -117,7 +123,11 @@ HRESULT CInventoryMgr::Use_Item(_uint pInt)
 	HRESULT ret = src->Use_Item();
 
 	if (src->Get_InvenCount() == 0)
-		tmp.erase(tmp.begin() + pInt);
+	{
+
+
+	}
+	
 
 	return ret;
 }

@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include "Animator.h"
 #include "Texture.h"
+#include "Export_Function.h"
 #include "RigidBody.h"
 
 
@@ -22,6 +23,7 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType, OBJ_ID 
 	, m_pRigidBodyCom(nullptr)
 	, m_fMinHeight(0.006f)
 	, m_eID(_eID)
+	, m_iAlpha(255)
 {
 	m_pGraphicDev->AddRef();
 }
@@ -40,6 +42,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_pRigidBodyCom(rhs.m_pRigidBodyCom)
 	, m_fMinHeight(rhs.m_fMinHeight)
 	, m_eID(rhs.m_eID)
+	, m_iAlpha(255)
 	
 {
 
@@ -124,6 +127,18 @@ _int CGameObject::Update_Object(const _float & fTimeDelta)
 	for (auto& iter : m_mapComponent[ID_DYNAMIC])
 		iter.second->Update_Component(fTimeDelta);
 	
+	if (m_pTransformCom)
+	{
+		CCamera* pMainCamera = dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+		if (pMainCamera)
+		{
+			_vec3 vCamPos, vPos;
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			pMainCamera->Get_TransformCom()->Get_Info(INFO_POS, &vCamPos);
+			m_fViewZ = D3DXVec3Length(&(vCamPos - vPos));
+		}
+	}
+
 	return S_OK;
 }
 

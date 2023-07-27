@@ -14,7 +14,7 @@ private:
 
 public:
 	HRESULT Ready_QuestMgr();
-	void Update_QuestMgr(_float& fTimeDelta);
+	void Update_QuestMgr(const _float& fTimeDelta);
 
 public:
 	void Add_Quest(CQuest* pQuest) 
@@ -36,5 +36,6 @@ private:
 
 public:
     virtual void Free() override;
+
 };
 

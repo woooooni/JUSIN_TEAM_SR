@@ -11,6 +11,7 @@
 #include "DefaultItem.h"
 #include "Npc_Artist.h"
 #include	"RabbitMgr.h"
+#include "DrawingEnter.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
@@ -25,6 +26,8 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -80,6 +83,54 @@ HRESULT CScene_MonkeyForest1::Ready_Prototype()
 	return S_OK;
 }
 
+HRESULT CScene_MonkeyForest1::Ready_Event()
+{
+	EVENT* event = new EVENT;
+
+	event->iEventNum = 1;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 2;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+
+	event->iEventNum = 3;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 4;
+	event->m_bIsCanReset = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 5;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 29;
+	FAILED_CHECK(Add_Event(event));
+
+
+	return S_OK;
+}
+
+
+
 HRESULT CScene_MonkeyForest1::Ready_Layer_Player()
 {
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
@@ -116,22 +167,29 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Terrrain()
 
 HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 {
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST2);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
 	_vec3 vPortalPos = _vec3(74.5f, 0.5f, 83.0f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 
 
 	CNpc_Artist* pArtist = CNpc_Artist::Create(m_pGraphicDev);
-	_vec3 vArtistPos = _vec3(39.5f, 1.25f, 28.91);
+	_vec3 vArtistPos = _vec3(39.5f, 1.25f, 28.91f);
 	pArtist->Get_TransformCom()->Set_Info(INFO_POS, &vArtistPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Artist", pArtist);
 
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS));
+	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(37.5f, 0.6f, 28.91f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
+
 
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(74.5f, 3.0f, 81.5f), _vec3(9.0f, 9.0f, 1.5f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
+
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	
 
 
 	return S_OK;

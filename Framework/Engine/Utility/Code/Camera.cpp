@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include <cassert>
 #include "TimerMgr.h"
-
+#include "PickingMgr.h"
 // Globals
 const float fZoom = 5.0f;
 
@@ -13,7 +13,6 @@ CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev, HWND _hWnd)
 	, m_fDist(0.2f)
 	, m_fFollowSpeed(5.f)
 	, m_fShakeForce(2.f)
-	, m_fAlpha(0.f)
 	, m_fNear(1.0f)
 	, m_fFar(1000.0f)
 	, m_fMoveSpeed(10.f)
@@ -31,7 +30,6 @@ CCamera::CCamera(const CCamera& rhs)
 	, m_pTargetObj(rhs.m_pTargetObj)
 	, m_fFollowSpeed(rhs.m_fFollowSpeed)
 	, m_fShakeForce(rhs.m_fShakeForce)
-	, m_fAlpha(rhs.m_fAlpha)
 	, m_fMoveSpeed(10.f)
 	, m_eState(CAMERA_STATE::GAME)
 	, m_hWnd(rhs.m_hWnd)
@@ -69,9 +67,16 @@ _int CCamera::Update_Object(const _float& fTimeDelta)
 		Update_ToolCamera(fTimeDelta);
 		break;
 
+	case CAMERA_STATE::CUT_SCENE:
+		Update_CutSceneCamera(fTimeDelta);
+		break;
 	default:
 		break;
 	}
+
+
+	if (m_pTargetObj)
+		Check_Alpha();
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
@@ -105,7 +110,6 @@ HRESULT CCamera::Add_Component(void)
 	/*
 	정점을 이용한 텍스처출력시 Buffer와 TextureCom이 필요하다.
 	*/
-
 	CComponent* pComponent = nullptr;
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
@@ -118,6 +122,7 @@ HRESULT CCamera::Add_Component(void)
 
 void CCamera::Follow(const _float& fTimeDelta)
 {
+
 	if (m_pTargetObj == nullptr)
 		return;
 
@@ -138,15 +143,102 @@ void CCamera::Follow(const _float& fTimeDelta)
 	_float fLen = D3DXVec3Length(&vDir);
 
 	m_fDist = 0.f;
+
 	if (fLen < m_fDist)
 		return;
 	
-	D3DXVec3Lerp(&vDir, &(vCameraPos), &(vTargetPos + m_vOffset), 2.f * fTimeDelta);
+
+	D3DXVec3Lerp(&vDir, &(vCameraPos), &(vTargetPos + m_vOffset), m_fFollowSpeed * fTimeDelta);
 	vCameraPos = vDir;
 	vLook = vCameraPos - m_vOffset;
 
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
 	m_pTransformCom->Set_Info(INFO_LOOK, &vLook);
+
+
+}
+
+void CCamera::Check_Alpha()
+{
+	
+	_vec3 vTargetPos;
+	m_pTargetObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+	D3DXVec3TransformCoord(&vTargetPos, &vTargetPos, &m_matView);
+
+	_vec3 vRayPos = _vec3(0.f, 0.f, 0.f);
+	_vec3 vRayDir = vTargetPos - vRayPos;
+
+	_matrix matCamWorld;
+	D3DXMatrixInverse(&matCamWorld, nullptr, &m_matView);
+	D3DXVec3TransformCoord(&vRayPos, &vRayPos, &matCamWorld);
+	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matCamWorld);
+
+	_matrix matObjWorld;
+	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
+
+	
+
+	const vector<CGameObject*>& vecObj = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+	for (size_t i = 0; i < vecObj.size(); ++i)
+	{
+		if (!vecObj[i]->Is_Active())
+			continue;
+
+		if (vecObj[i]->GetObj_Id() != OBJ_ID::PROP && vecObj[i]->GetObj_Id() != OBJ_ID::TREE)
+			continue;
+
+		vecObj[i]->Set_Alpha(255);
+		
+		CTransform* pObjTransform = vecObj[i]->Get_TransformCom();
+		CVIBuffer* pObjBuffer = vecObj[i]->Get_BufferCom();
+
+		if (pObjTransform == nullptr)
+			continue;
+
+		if (pObjBuffer == nullptr)
+			continue;
+
+		matObjWorld = *(pObjTransform->Get_WorldMatrix());
+
+		_vec3 vTempRayPos, vTempDir;
+		D3DXVec3TransformCoord(&vTempRayPos, &vRayPos, &pObjTransform->Get_WorldInverseMatrix());
+		D3DXVec3TransformNormal(&vTempDir, &vRayDir, &pObjTransform->Get_WorldInverseMatrix());
+
+		D3DXVec3Normalize(&vTempDir, &vTempDir);
+
+		LPDIRECT3DVERTEXBUFFER9 objVB = pObjBuffer->GetBuffer();
+		LPDIRECT3DINDEXBUFFER9	objIB = pObjBuffer->GetIndex();
+
+		VTXTEX* pVB;
+		INDEX32* pIB;
+		objVB->Lock(0, 0, (void**)&pVB, 0);
+		objIB->Lock(0, 0, (void**)&pIB, 0);
+
+		_float fU, fV, fDist;
+		_float fMinDistance = 999999.f;
+
+		for (_uint cnt = 0; cnt < pObjBuffer->GetTriangleCount(); ++cnt)
+		{
+			if (TRUE == D3DXIntersectTri(
+				&pVB[pIB[cnt]._0].vPosition,
+				&pVB[pIB[cnt]._1].vPosition,
+				&pVB[pIB[cnt]._2].vPosition, &vTempRayPos, &vTempDir, &fU, &fV, &fDist))
+			{
+				_vec3 vTargetPos, vAlphaPos;
+				m_pTargetObj->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+				pObjTransform->Get_Info(INFO_POS, &vAlphaPos);
+				if (vAlphaPos.z < vTargetPos.z)
+				{
+					vecObj[i]->Set_Alpha(60);
+					break;
+				}
+			}
+		}
+
+		objVB->Unlock();
+		objIB->Unlock();
+
+	}
 
 }
 
@@ -172,14 +264,6 @@ void CCamera::Update_GameCamera(const _float& fTimeDelta)
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
-
-	if (KEY_TAP(KEY::F9))
-	{
-		m_pTargetObj = nullptr;
-		m_eState = CAMERA_STATE::TOOL;
-	}
-	
-	
 }
 
 void CCamera::LateUpdate_GameCamera()
@@ -198,6 +282,7 @@ void CCamera::LateUpdate_GameCamera()
 
 		if (CAM_EFFECT::SHAKE == effect.eEffect)
 		{
+			m_fShakeForce = effect.fShakeForce;
 			_float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
 			_float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
 
@@ -212,33 +297,33 @@ void CCamera::LateUpdate_GameCamera()
 			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 		}
 
-		_uint iWidth = WINCX;
-		_uint iHeight = WINCY;
+		//_uint iWidth = WINCX;
+		//_uint iHeight = WINCY;
 
-		BLENDFUNCTION buffer = {};
+		//BLENDFUNCTION buffer = {};
 
-		buffer.BlendOp = AC_SRC_OVER;
-		buffer.BlendFlags = 0;
-		buffer.SourceConstantAlpha = (_byte)(255 * m_fAlpha);
-		buffer.AlphaFormat = 0;
+		//buffer.BlendOp = AC_SRC_OVER;
+		//buffer.BlendFlags = 0;
+		//buffer.SourceConstantAlpha = (_byte)(255 * m_fAlpha);
+		//buffer.AlphaFormat = 0;
 
-		if (CAM_EFFECT::FADE_IN == effect.eEffect || CAM_EFFECT::FADE_OUT == effect.eEffect)
-		{
-			//m_pTransformCom->Set_Pos();
-			// m_fNear의 위치에 Veil을 위치시킨다. 이후 알파블랜드
-			if (CAM_EFFECT::FADE_IN == effect.eEffect)
-			{
-				m_fAlpha = effect.fDuration / effect.fCurTime;
-			}
+		//if (CAM_EFFECT::FADE_IN == effect.eEffect || CAM_EFFECT::FADE_OUT == effect.eEffect)
+		//{
+		//	//m_pTransformCom->Set_Pos();
+		//	// m_fNear의 위치에 Veil을 위치시킨다. 이후 알파블랜드
+		//	if (CAM_EFFECT::FADE_IN == effect.eEffect)
+		//	{
+		//		m_fAlpha = effect.fDuration / effect.fCurTime;
+		//	}
 
-			if (CAM_EFFECT::FADE_OUT == effect.eEffect)
-			{
-				m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
-			}
+		//	if (CAM_EFFECT::FADE_OUT == effect.eEffect)
+		//	{
+		//		m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
+		//	}
 
-			//AlphaBlend(hdc, 0, 0, iWidth, iHeight, m_pVeilTex->DC GET하는 함수(),
-			//	0, 0, iWidth, iHeight, buffer);
-		}
+		//	//AlphaBlend(hdc, 0, 0, iWidth, iHeight, m_pVeilTex->DC GET하는 함수(),
+		//	//	0, 0, iWidth, iHeight, buffer);
+		//}
 
 		effect.fCurTime += fTimeDelta;
 
@@ -279,7 +364,104 @@ void CCamera::LateUpdate_ToolCamera()
 	
 }
 
-void CCamera::CamShake(float _fDuration)
+void CCamera::Update_CutSceneCamera(const _float& fTimeDelta)
+{
+	Follow(fTimeDelta);
+
+	_vec3 vPos, vLook, vRight, vUp;
+
+	ZeroMemory(&vPos, sizeof(_vec3));
+	ZeroMemory(&vLook, sizeof(_vec3));
+	ZeroMemory(&vUp, sizeof(_vec3));
+
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_RIGHT, &vRight);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_UP, &vUp);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_LOOK, &vLook);
+	m_pTransformCom->Get_Info(MATRIX_INFO::INFO_POS, &vPos);
+
+	D3DXMatrixLookAtLH(&m_matView, &vPos, &vLook, &vUp);
+	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DX_PI / m_fFov, WINCX / WINCY, m_fNear, m_fFar);
+
+	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+}
+
+void CCamera::LateUpdate_CutSceneCamera()
+{
+
+	float fTimeDelta = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
+
+	if (!m_lCamEffect.empty())
+	{
+		tCamEffect& effect = m_lCamEffect.front();
+
+		// vLookAt
+		_vec3 vCamPos, vCamLook, vCamUp;
+		m_pTransformCom->Get_Info(MATRIX_INFO::INFO_POS, &vCamPos);
+		m_pTransformCom->Get_Info(MATRIX_INFO::INFO_LOOK, &vCamLook);
+		m_pTransformCom->Get_Info(MATRIX_INFO::INFO_UP, &vCamUp);
+
+		if (CAM_EFFECT::SHAKE == effect.eEffect)
+		{
+			_float fOffsetX = (std::rand() % 10) * 0.01f * m_fShakeForce;
+			_float fOffsetY = (std::rand() % 10) * 0.01f * m_fShakeForce;
+
+			int iTemp = rand() % 2;
+			if (iTemp == 0)
+				fOffsetX *= -1.0f;
+
+			iTemp = rand() % 2;
+			if (iTemp == 0)
+				fOffsetY *= -1.0f;
+
+			// Look, Pos 둘 다 적용시켜야 움직임이 자연스러움
+			vCamPos.x += fOffsetX;
+			vCamPos.y += fOffsetY;
+
+			vCamLook.x += fOffsetX;
+			vCamLook.y += fOffsetY;
+
+			D3DXMatrixLookAtLH(&m_matView, &vCamPos, &vCamLook, &vCamUp);
+			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+		}
+
+		_uint iWidth = WINCX;
+		_uint iHeight = WINCY;
+
+		BLENDFUNCTION buffer = {};
+
+		buffer.BlendOp = AC_SRC_OVER;
+		buffer.BlendFlags = 0;
+		buffer.SourceConstantAlpha = (_byte)(255 /* m_fAlpha*/);
+		buffer.AlphaFormat = 0;
+
+		if (CAM_EFFECT::FADE_IN == effect.eEffect || CAM_EFFECT::FADE_OUT == effect.eEffect)
+		{
+			//m_pTransformCom->Set_Pos();
+			// m_fNear의 위치에 Veil을 위치시킨다. 이후 알파블랜드
+			if (CAM_EFFECT::FADE_IN == effect.eEffect)
+			{
+				// m_fAlpha = effect.fDuration / effect.fCurTime;
+			}
+
+			if (CAM_EFFECT::FADE_OUT == effect.eEffect)
+			{
+				// m_fAlpha = 1.f - (effect.fDuration / effect.fCurTime);
+			}
+
+			//AlphaBlend(hdc, 0, 0, iWidth, iHeight, m_pVeilTex->DC GET하는 함수(),
+			//	0, 0, iWidth, iHeight, buffer);
+		}
+
+		effect.fCurTime += fTimeDelta;
+
+		// 진행 시간이 이펙트 최대 지정 시간을 넘어선 경우
+		if (effect.fDuration <= effect.fCurTime)
+			m_lCamEffect.pop_front(); // 효과를 종료한다
+	}
+}
+
+void CCamera::CamShake(float _fDuration, float _fShakeForce)
 {
 	if (0.f == _fDuration)
 		assert(nullptr);
@@ -289,6 +471,7 @@ void CCamera::CamShake(float _fDuration)
 	effect.eEffect = CAM_EFFECT::SHAKE;
 	effect.fDuration = _fDuration;
 	effect.fCurTime = 0.f;
+	effect.fShakeForce = _fShakeForce;
 
 	m_lCamEffect.push_back(effect);
 }
@@ -300,7 +483,7 @@ void CCamera::FadeIn(float _fTime)
 	effect.eEffect = CAM_EFFECT::FADE_IN;
 	effect.fCurTime = 0.f;
 	effect.fDuration = _fTime;
-	m_fAlpha = 1.f;
+	// m_fAlpha = 1.f;
 
 	m_lCamEffect.push_back(effect);
 }
@@ -312,7 +495,7 @@ void CCamera::FadeOut(float _fTime)
 	effect.eEffect = CAM_EFFECT::FADE_OUT;
 	effect.fCurTime = 0.f;
 	effect.fDuration = _fTime; // 지속시간
-	m_fAlpha = 0.f;
+	// m_fAlpha = 0.f;
 
 	m_lCamEffect.push_back(effect);
 }

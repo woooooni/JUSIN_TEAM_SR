@@ -113,6 +113,8 @@ HRESULT CItem::Add_Component(void)
 
 wstring CItem::Get_Explain(const ITEM_CODE& pCode)
 {
+
+
 	switch (pCode)
 	{
 	case Engine::ITEM_CODE::HP_SMALL:
@@ -151,15 +153,136 @@ wstring CItem::Get_Explain(const ITEM_CODE& pCode)
 
 		return L"아마도 나비";
 		break;
-	case Engine::ITEM_CODE::ITEM_END:
+	case Engine::ITEM_CODE::SASUM:
+		break;
+	case Engine::ITEM_CODE::HAT_DRILL:
+		return L"땅을 파고들어 공격할수 있는 파워풀한 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_LIGHT:
+		return L"주변을 밝게 밝혀주는 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_MASK:
+		return L"번개를 불러일으키는 무시무시한 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_MISSLE:
+		return L"미래적인 공격을 퍼부을수 있는 강력한 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_MONKEY:
+		return L"소원을 빌면 하늘에서 운석이 내려오는 낭만적인 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_TURTLE:
+		return L"딱딱한 거북이 등껍질에 숨을수있는 모자";
+		break;
+	case Engine::ITEM_CODE::DRAWING_CROSSROAD:
+		return L"몰티즈가 있는 교차로를 그린 그림";
+		break;
+	case Engine::ITEM_CODE::DRAWING_MONKEYSTATUE:
+		return L"커다란 원숭이 동상을 그린 그림";
+
+		break;
+	case Engine::ITEM_CODE::DRAWING_MONKEYTOWN:
+		return L"활기찬 원숭이 마을을 그린 그림";
+
+		break;
+	case Engine::ITEM_CODE::DRAWING_COLORS:
+		return L"색조합을 알려주는 그림";
+
 		break;
 	default:
 		break;
 	}
 
+
 	MSG_BOX("ItemCode Error");
 
 	return L"";
+}
+
+wstring CItem::Get_Name(const ITEM_CODE& pCode)
+{
+	switch (pCode)
+	{
+	case Engine::ITEM_CODE::HP_SMALL:
+		return L"건강 열매";
+		break;
+
+	case Engine::ITEM_CODE::HP_MIDDLE:
+		return  L"수입산 사과";
+		break;
+
+	case Engine::ITEM_CODE::HP_BIG:
+		return  L"국내산 사과";
+		break;
+
+	case Engine::ITEM_CODE::SPEED_SMALL:
+		return  L"신비한 약초";
+		break;
+
+	case Engine::ITEM_CODE::SPEED_MIDDLE:
+		return  L"더 신비한 약초";
+		break;
+
+	case Engine::ITEM_CODE::SPEED_BIG:
+		return  L"진짜 신비한 약초";
+		break;
+
+	case Engine::ITEM_CODE::LEAF:
+		return  L"나뭇잎";
+		break;
+
+	case Engine::ITEM_CODE::TWIG:
+		return  L"나뭇가지";
+		break;
+
+	case Engine::ITEM_CODE::BUTTERFLY:
+		return  L"장수풍뎅이 탈을 쓴 나비";
+		break;
+
+	case Engine::ITEM_CODE::SASUM:
+		break;
+	case Engine::ITEM_CODE::HAT_DRILL:
+		return L"드릴 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_LIGHT:
+		return L"전구 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_MASK:
+		return L"천둥신의 가면";
+		break;
+	case Engine::ITEM_CODE::HAT_MISSLE:
+		return L"미래의 스카우터";
+		break;
+	case Engine::ITEM_CODE::HAT_MONKEY:
+		return L"원숭이신의 모자";
+		break;
+	case Engine::ITEM_CODE::HAT_TURTLE:
+		return L"거북 모자";
+		break;
+	case Engine::ITEM_CODE::DRAWING_CROSSROAD:
+		return L"교차로 그림";
+		break;
+	case Engine::ITEM_CODE::DRAWING_MONKEYSTATUE:
+		return L"원숭이 동상 그림";
+
+		break;
+	case Engine::ITEM_CODE::DRAWING_MONKEYTOWN:
+		return L"원숭이 마을 그림";
+
+		break;
+	case Engine::ITEM_CODE::DRAWING_COLORS:
+		return L"삼원색 그림";
+
+		break;
+	default:
+		break;
+	}
+
+	
+
+	MSG_BOX("ItemCode Error");
+
+	return L"";
+
 }
 
 

@@ -129,7 +129,10 @@ unsigned int CLoading::Thread_Main(void* pArg)
 		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/MoonForest");
 		break;
 
-
+	case Engine::SCENE_TYPE::SILK_WORM:
+		pLoading->m_pLoadingScene = CScene_SilkWorm::Create(pLoading->m_pGraphicDev);
+		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/SilkWorm");
+		break;
 
 	case Engine::SCENE_TYPE::TOOL:
 		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
@@ -156,7 +159,6 @@ HRESULT CLoading::Ready_Loading(SCENE_TYPE eLoadingID)
 
 	m_hThread = (HANDLE)_beginthreadex(nullptr, 0, Thread_Main, this, 0, nullptr);
 	m_eID = eLoadingID;
-
 
 	return S_OK;
 }
@@ -983,6 +985,7 @@ HRESULT CLoading::Ready_UI_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_UI_NoticeFrame", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Basic/UI_FrameTutorial.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_QuestionMark", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/QuestionMark/UI_Quest_QuestionMark_%d.png", 8)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_ExclamationMark", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/ExclamationMark/UI_Quest_ExclamationMark_%d.png", 8)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_ContinueMark", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/ContinueMark/UI_Quest_ContinueMark_0.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_CloseKey", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/Notification/Quest_CloseKey.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_TitleBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/Notification/UI_QuestTitle.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_ContentsBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/Notification/UI_QuestContents.png")), E_FAIL);
@@ -1224,14 +1227,14 @@ HRESULT CLoading::Ready_Environment_Texture2()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_FloorDoorLeft", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/FloorDoor/FloorDoorLeft/FloorDoorLeft_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_FloorDoorRight", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/FloorDoor/FloorDoorRight/FloorDoorRight_%d.png", 1)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Nexus", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Nexus/Nexus_%d.png", 1)), E_FAIL);
-
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_DrawingEnter", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Drawing/DrawingEnter_%d.png", 1)), E_FAIL);
 
 	return S_OK;
 }
 
 HRESULT CLoading::Ready_Environment_Texture3()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 358)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 361)), E_FAIL);
 
 	return S_OK;
 }
@@ -1326,4 +1329,3 @@ HRESULT CLoading::Ready_Pool()
 
 	return S_OK;
 }
-

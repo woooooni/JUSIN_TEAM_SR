@@ -9,6 +9,8 @@
 #include "UIMgr.h"
 #include "SunGollem.h"
 #include	"Catapult.h"
+#include "BossDoor.h"
+#include "BossDoorEnter.h"
 
 CScene_SunGolemCave1::CScene_SunGolemCave1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1)
@@ -24,6 +26,8 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -84,8 +88,8 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Player()
 
 	_vec3 vStartPos;
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vStartPos);
-	vStartPos.x = 10.f;
-	vStartPos.z = -0.5f;
+	vStartPos.x = 9.0f;
+	vStartPos.z = -40.f;
 	pPlayer->Get_TransformCom()->Set_Info(INFO_POS, &vStartPos);
 
 	return S_OK;
@@ -113,12 +117,19 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Terrrain()
 HRESULT CScene_SunGolemCave1::Ready_Layer_Environment()
 {
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MOON_FOREST1);
-	_vec3 vPortalPos = _vec3(9.f, 0.5f, 21.f);
-	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
+	CGameObject* pLeftDoor = CBossDoor::Create(m_pGraphicDev);
+	dynamic_cast<CBossDoor*>(pLeftDoor)->Set_Door(_vec3(7.4f, 4.7f, 20.5f), _vec3(3.0f, 9.6f, 0.0f), _vec3(-1.0f, 0.0f, 0.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"LeftDoor", pLeftDoor);
+
+	CGameObject* pRightDoor = CBossDoor::Create(m_pGraphicDev);
+	dynamic_cast<CBossDoor*>(pRightDoor)->Set_Door(_vec3(10.4f, 4.7f, 20.5f), _vec3(3.0f, 9.6f, 0.0f), _vec3(1.0f, 0.0f, 0.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"RightDoor", pRightDoor);
+
+	CGameObject* pEnter = CBossDoorEnter::Create(m_pGraphicDev);
+	pEnter->Get_TransformCom()->Set_Pos(&_vec3(8.8f, 0.5f, 16.0f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"BossDoorEnter", pEnter);
 
 
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
@@ -149,6 +160,11 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Effect()
 }
 
 HRESULT CScene_SunGolemCave1::Ready_Layer_UI()
+{
+	return S_OK;
+}
+
+HRESULT CScene_SunGolemCave1::Ready_Event()
 {
 	return S_OK;
 }

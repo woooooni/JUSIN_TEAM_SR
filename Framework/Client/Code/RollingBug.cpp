@@ -1,6 +1,10 @@
 #include "RollingBug.h"
 #include "Export_Function.h"
 #include "GameMgr.h"
+#include "InteractionMgr.h"
+#include "LightFlower.h"
+#include "Pool.h"
+#include "Effect_Stun.h"
 
 CRollingBug::CRollingBug(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev, OBJ_ID::ROLLING_BUG), m_fMoveTime(0.f)
@@ -87,9 +91,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 				m_vLook = _vec3(0.f, 0.f, -1.f);
 				Set_State(MONSTER_STATE::IDLE);
 			}
-
 		}
-
 	}
 
 	vPos.y += 0.5f;
@@ -130,6 +132,7 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 		m_pUIFrame->Get_TransformCom()->Set_Pos(&vPos);
 	}
 
+	
 	return S_OK;
 }
 
@@ -149,6 +152,42 @@ void CRollingBug::LateUpdate_Object(void)
 		m_pUIGauge->LateUpdate_Object();
 		m_pUIFrame->LateUpdate_Object();
 	}
+
+	CGameObject* pLightFlower = Engine::Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Find_GameObject(L"LightFlower");
+	
+	_vec3 vFlowerPos, vPos, vDir;
+	pLightFlower->Get_TransformCom()->Get_Info(INFO_POS, &vFlowerPos);
+
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vDir = vFlowerPos - vPos;
+
+	_bool bIsOpened = dynamic_cast<CLightFlower*>(pLightFlower)->m_bIsOpened;
+
+	if (bIsOpened && D3DXVec3Length(&vDir) <= 5.f)
+	{
+		if (JELLY_COLOR::BLUE == dynamic_cast<CLightFlower*>(pLightFlower)->m_eColor)
+			if (m_tBugInfo.eType == BUGCOLORTYPE::BLUE)
+				Set_Stun(0.1f);
+
+		if (JELLY_COLOR::MAGENTA == dynamic_cast<CLightFlower*>(pLightFlower)->m_eColor)
+			if (m_tBugInfo.eType == BUGCOLORTYPE::PINK)
+				Set_Stun(0.1f);
+
+		if (JELLY_COLOR::YELLOW == dynamic_cast<CLightFlower*>(pLightFlower)->m_eColor)
+			if (m_tBugInfo.eType == BUGCOLORTYPE::YELLOW)
+				Set_Stun(0.1f);
+
+	}
+
+	if (!bIsOpened)
+	{
+		if (Get_State() == MONSTER_STATE::STUN)
+		{
+			m_fStunTime = 0.0f;
+			Set_State(MONSTER_STATE::IDLE);
+		}
+	}		
+
 }
 
 void CRollingBug::Render_Object(void)
@@ -192,7 +231,6 @@ void CRollingBug::Update_Idle(_float fTimeDelta)
 
 void CRollingBug::Update_Regen(_float fTimeDelta)
 {
-
 }
 
 void CRollingBug::Update_Move(_float fTimeDelta)
@@ -209,19 +247,18 @@ void CRollingBug::Update_Move(_float fTimeDelta)
 	{
 		D3DXVec3Normalize(&m_vBugDir, &m_vBugDir);
 		m_pTransformCom->Move_Pos(&m_vBugDir, fTimeDelta, 0.5f * Get_Speed());
-		
-//		if (D3DXVec3Length(&m_vBugDir) < 1.f)
-//		{
-//			_vec3 vTmp = { float(rand() % 10), 0.f, float(rand() % 10) };
-//			m_vLook = vTmp;
-//			D3DXVec3Normalize(&vTmp, &vTmp);
-//			//m_pTransformCom->Move_Pos(&vTmp, fTimeDelta, 1.5f * Get_Speed());
-//
-			if (m_fMoveTime > 10.f)
-				m_fMoveTime = 0.f;
-//		}
-	}
 
+		//		if (D3DXVec3Length(&m_vBugDir) < 1.f)
+		//		{
+		//			_vec3 vTmp = { float(rand() % 10), 0.f, float(rand() % 10) };
+		//			m_vLook = vTmp;
+		//			D3DXVec3Normalize(&vTmp, &vTmp);
+		//			//m_pTransformCom->Move_Pos(&vTmp, fTimeDelta, 1.5f * Get_Speed());
+		//
+		if (m_fMoveTime > 10.f)
+			m_fMoveTime = 0.f;
+		//		}
+	}
 	m_fMoveTime += 10.f * fTimeDelta;
 }
 
@@ -245,12 +282,38 @@ void CRollingBug::Update_Attack(_float fTimeDelta)
 	}
 }
 
+void CRollingBug::Update_Stun(_float fTimeDelta)
+{
+	switch (m_tBugInfo.eType)
+	{
+	case BUGCOLORTYPE::PINK:
+		m_pAnimator->Play_Animation(L"RollingBug_Pink_Idle_Up", true);
+		break;
+
+	case BUGCOLORTYPE::YELLOW:
+		m_pAnimator->Play_Animation(L"RollingBug_Yellow_Idle_Up", true);
+		break;
+
+	case BUGCOLORTYPE::BLUE:
+		m_pAnimator->Play_Animation(L"RollingBug_Blue_Idle_Up", true);
+		break;
+
+
+	default:
+		break;
+	}
+}
+
 void CRollingBug::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
 	{
 		Set_Active(false);
 		On_Death();
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_84_MonsterBugRolling_Death.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
@@ -270,6 +333,9 @@ void CRollingBug::Trace(_float fTimeDelta)
 		m_fMoveTime = 0.f;
 
 	m_fMoveTime += 10.f * fTimeDelta;
+
+	int iSound = rand() % 3 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+	Play_Sound(L"SFX_82_MonsterBugRolling_Rolling.wav", (CHANNELID)iSound, 0.5f);
 }
 
 void CRollingBug::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
@@ -295,6 +361,10 @@ void CRollingBug::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 		if (m_tStat.iHp < 1.f)
 			Set_State(MONSTER_STATE::DIE);
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_83_MonsterBugRolling_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 

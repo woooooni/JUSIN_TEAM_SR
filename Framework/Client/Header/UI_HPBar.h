@@ -25,8 +25,8 @@ public:
 
 private:
 	_vec3	m_vDefaultPos;
-	_int	m_iMaxHP;
-	_int	m_iHP;
+	_int	m_iMaxHP = 0;
+	_int	m_iHP = 0;
 
 public:
 	static  CUI_HPBar* Create(LPDIRECT3DDEVICE9 pGraphicDev);

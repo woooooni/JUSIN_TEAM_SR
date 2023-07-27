@@ -25,9 +25,19 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+public:
 	void	Add_Item(CItem* pItem, const SHOPITEMTYPE& pType)
 	{
 		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(pItem);
+		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType + 1])->Set_Item(pItem);
+
+	}
+	CUI_Cursor*		Get_Cursor() { return m_pCursor; }
+	void	Remove_Item(SHOPITEMTYPE pType)
+	{
+		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(nullptr);
+		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType + 1])->Set_Item(nullptr);
+
 	}
 
 private:
@@ -36,9 +46,9 @@ private:
 	void	Set_Item(); // Item setting
 
 private:
-	_bool				m_bShown = TRUE;
+	_bool				m_bShown = false;
 	list<CItem*>		m_ItemList;		   // 아이템 리스트
-	CUI_Cursor*			m_pCursor;
+	CUI_Cursor*			m_pCursor = nullptr;
 	vector<CUI*>		m_vecShopIcon;
 
 public:

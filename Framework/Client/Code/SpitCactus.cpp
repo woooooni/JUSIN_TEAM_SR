@@ -26,8 +26,11 @@ HRESULT CSpitCactus::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SpitCactus_Attack_Down", L"Proto_Texture_SpitCactus_Attack_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"SpitCactus_Regen_Down", L"Proto_Texture_SpitCactus_Regen_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"SpitCactus_Death_Down", L"Proto_Texture_SpitCactus_Death_Down", 0.1f);
+
 	m_fMinHeight = 0.5f;
 	m_pTransformCom->Set_Pos(&_vec3(1.0f, 1.0f, 9.0f));
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
+
 	m_pAnimator->Play_Animation(L"SpitCactus_Regen_Down", true);
 	m_tStat = { 3,3,1 };
 
@@ -173,6 +176,10 @@ void CSpitCactus::Update_Attack(_float fTimeDelta)
 			pLayer->Add_GameObject(L"CactusNeedle", pCactusNeedle);
 			m_bShoot = false;
 		}
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_85_MonsterSpitCactus_Shoot.wav", (CHANNELID)iSound, 0.5f);
 	}
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
@@ -192,6 +199,10 @@ void CSpitCactus::Update_Die(_float fTimeDelta)
 	if (Is_Active() && m_pAnimator->GetCurrAnimation()->Is_Finished()) {
 		On_Death();
 		Set_Active(false);
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_87_MonsterSpitCactus_Death.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
@@ -283,5 +294,9 @@ void CSpitCactus::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 			Set_State(MONSTER_STATE::DIE);
 			m_pAnimator->Play_Animation(L"SpitCactus_Death_Down", true);
 		}
+
+		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_86_MonsterSpitCactus_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }

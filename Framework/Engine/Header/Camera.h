@@ -16,6 +16,7 @@ struct tCamEffect
 	CAM_EFFECT  eEffect;
 	float		fDuration;
 	float		fCurTime;
+	float		fShakeForce;
 };
 
 BEGIN(Engine)
@@ -47,6 +48,7 @@ public:
 	void Set_TargetObj(CGameObject* _pTarget) { m_pTargetObj = _pTarget; }
 
 	void Set_Offset(const _vec3& _vOffset) { m_vOffset = _vOffset; }
+	void Set_OffsetRatio(_float fRatio) { m_vOffset *= fRatio; }
 	void Add_Offset() { m_vOffset *= 2.f; }
 	void Minus_Offset() { m_vOffset /= 2.f; }
 
@@ -64,13 +66,21 @@ private:
 	void Update_ToolCamera(const _float& fTimeDelta);
 	void LateUpdate_ToolCamera();
 
-public:	 
+	void Update_CutSceneCamera(const _float& fTimeDelta);
+	void LateUpdate_CutSceneCamera();
+
 	void Follow(const _float& fTimeDelta);
-	void CamShake(float _fDuration);
+
+	void Check_Alpha();
+
+
+public:
+	void CamShake(float _fDuration, float _fShakeForce = 2.0f);
+
 	void FadeIn(float _fTime);
 	void FadeOut(float _fTime);
 
-	void		Set_CameraState(CAMERA_STATE _eState) { m_eState = _eState; if (_eState == CAMERA_STATE::TOOL) m_fMoveSpeed = 30.f; }
+	void Set_CameraState(CAMERA_STATE _eState) { m_eState = _eState; if (_eState == CAMERA_STATE::TOOL) m_fMoveSpeed = 30.f; }
 	CAMERA_STATE Get_CameraState() { return m_eState; }
 
 
@@ -78,10 +88,12 @@ private:
 	_matrix		m_matView;
 	_matrix		m_matProj;
 
+	// For View Matrix
 	_float m_fNear;
 	_float m_fFar;
 	_float m_fFov;
 	_float m_fDist;
+
 
 	_float m_fMoveSpeed;
 	_float m_fFollowSpeed;
@@ -92,7 +104,6 @@ private:
 
 	list<tCamEffect> m_lCamEffect;
 	_float m_fShakeForce;
-	_float m_fAlpha;
 
 	
 	_vec3 m_vOffset;	// 타겟으로부터 떨어진 거리

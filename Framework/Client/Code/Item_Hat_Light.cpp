@@ -5,6 +5,8 @@
 CItem_Hat_Light::CItem_Hat_Light(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
 {
+	m_eCode = ITEM_CODE::HAT_LIGHT;
+
 }
 
 CItem_Hat_Light::CItem_Hat_Light(const CItem_Hat& rhs)

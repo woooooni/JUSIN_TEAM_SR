@@ -5,12 +5,19 @@ CQuest_Sheep::CQuest_Sheep()
 	:CQuest_Conversation(NPC_CODE::NPC_SHEEP, nullptr)
 {
 	m_strQuestTitle = L"불어난 쓰레기";
-	m_strQuestDesc = L"소 아저씨에게 쓰레기가 늘어난 이유에 대해 물어보자.";
+	//m_strQuestDesc = L"소 아저씨에게 쓰레기가 늘어난 이유에 대해 물어보자.";
+	m_strQuestDesc = L"궁금한 건 못 참는 아기오구! 소 아저씨가 본 것이 무엇인지 물어보자.";
 
 	// TODO : 대사 쓰기
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"오구 안녕?");
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"좋은 아침이야~");
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"오구 안녕? 좋은 아침이야~");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"어디 놀러나가는 거니?");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"듣자 하니 요즘 마을 외곽이\n정체불명의 쓰레기들로 어수선하다고 하던데..");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"옆집 철물점 소 아저씨는\n마을 외곽에서 이상한 걸 봤다고 하더라.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"아무튼, 너무 늦은 시간까지 돌아다니지 말고!\n아무나 따라가면 큰일 난다~");
+
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"소 아저씨가 뭘 봤는지 궁금하지 않니?");
+
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"우리 숲에 쓰레기를 버리는 녀석들이 있다고?");
 }
 
 void CQuest_Sheep::Update_Quest(_float& fTimeDelta)

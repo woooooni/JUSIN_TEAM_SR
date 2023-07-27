@@ -125,7 +125,7 @@ void CPlayer_State_Rolling::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(m_fScale[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()]);

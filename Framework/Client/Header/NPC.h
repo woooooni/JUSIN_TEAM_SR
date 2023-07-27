@@ -2,7 +2,9 @@
 #include "GameObject.h"
 
 class CUI_ExclamationMark;
+class CUI_ContinueMark;
 class CUI_QuestionMark;
+
 
 class CNpc
 	: public CGameObject
@@ -10,7 +12,7 @@ class CNpc
 	CLONE(CNpc)
 
 protected:
-	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE _eCode);
+	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE _eCode, wstring _strNpcName);
 	explicit CNpc(const CNpc& rhs);
 	virtual ~CNpc();
 
@@ -24,11 +26,17 @@ public:
 	NPC_CODE Get_NpcCode() { return m_eCode; }
 
 private:
+	void Talk();
+
+private:
 	NPC_CODE m_eCode;
+	
 
 protected:
 	CUI_ExclamationMark* m_pExclamation = nullptr;
+	CUI_ContinueMark* m_pContinue = nullptr;
 	CUI_QuestionMark*	 m_pQuestion = nullptr;
+	wstring m_strNpcName;
 
 protected:
 	virtual void Free() override;

@@ -42,7 +42,7 @@ public:
 
 
 private:
-	void AddEvent(const EVENT_DESC& _tDesc);
+	void AddEvent(const EVENT_DESC _tDesc);
 	void Excute(const EVENT_DESC& _tDesc);
 
 private:

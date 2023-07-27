@@ -168,6 +168,11 @@ inline void Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uin
 	CInteractionMgr::GetInstance()->Add_Reset(resetIndex, minIndex, maxIndex);
 }
 
+inline void Clear_Event()
+{
+	CInteractionMgr::GetInstance()->Clear_Event();
+}
+
 // EventMgr
 
 inline HRESULT Ready_EventMgr()

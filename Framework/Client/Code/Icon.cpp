@@ -1,6 +1,6 @@
 #include "Icon.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CIcon::CIcon(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev), m_tIconInfo{}
 {
@@ -49,100 +49,54 @@ void CIcon::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
+	vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+			(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
+
+	fRatio = _float(WINCY) / _float(WINCX);
+
+	m_pTransformCom->Set_Pos(&vPos);
+
 	switch (m_tIconInfo.eType)
 	{
-		// 메인 컴포넌트 첫번째 줄
 	case ICONTYPE::PLAYERHP_FRAME:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 2.5, m_tInfo.fCY * fRatio * 2, 0.f);
 		break;
 
 	case ICONTYPE::PLAYERHP_BACK:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
+		vPos.z = 0.06f;
 		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 2.5, m_tInfo.fCY * fRatio * 2, 0.f);
 		break;
 
 	case ICONTYPE::HEART:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 1.6f, m_tInfo.fCY * 1.5 * fRatio, 0.f);
 		break;
 
 	case ICONTYPE::QUEST:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 1.3, m_tInfo.fCY * fRatio * 1.3, 0.f);
 		break;
 
-		// 메인 컴포넌트 두번째 줄
 	case ICONTYPE::KEYBOARD:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.9, m_tInfo.fCY * fRatio, 0.f);
 		break;
 
 	case ICONTYPE::KEYBUTTON_1:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.4f, m_tInfo.fCY * fRatio * 0.4f, 0.f);
 		break;
 
-	case ICONTYPE::KEYBUTTON_2:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
+	case ICONTYPE::KEYBUTTON_2: // fX 78
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.4f, m_tInfo.fCY * fRatio * 0.4f, 0.f);
 		break;
 
 	case ICONTYPE::KEYBUTTON_3:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.4f, m_tInfo.fCY * fRatio * 0.4f, 0.f);
 		break;
 
 	case ICONTYPE::KEYBUTTON_4:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.4f, m_tInfo.fCY * fRatio * 0.4f, 0.f);
 		break;
 
-		// ETC.
 	case ICONTYPE::KEYBUTTON_L:
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
-		m_pTransformCom->Set_Pos(&vPos);
-
-		fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-		fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-		fRatio = _float(WINCY) / _float(WINCX);
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.3f, m_tInfo.fCY * fRatio * 0.3f, 0.f);
 		break;
 
@@ -152,7 +106,7 @@ void CIcon::Render_Object(void)
 
 	m_pTransformCom->Set_Pos(&vPos);
 
-	CGameObject* pPlayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
 	_int MaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
 	_int HP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iHp;
 
@@ -191,10 +145,10 @@ void CIcon::Key_Input()
 	if (KEY_TAP(KEY::L))
 	{
 		if (!m_bShown)
-			m_bShown = TRUE;
+			m_bShown = true;
 
 		else
-			m_bShown = FALSE;
+			m_bShown = false;
 	}
 }
 
@@ -223,8 +177,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -420.f;
-		m_tInfo.fY = -390.f;
+		m_tInfo.fX = WINCX / 2 - 420.f;
+		m_tInfo.fY = WINCY / 2 - 390.f;
 		break;
 
 	case ICONTYPE::PLAYERHP_BACK:
@@ -233,8 +187,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -420.f;
-		m_tInfo.fY = -390.f;
+		m_tInfo.fX = WINCX / 2 - 420.f;
+		m_tInfo.fY = WINCY / 2 - 390.f;
 		break;
 
 	case ICONTYPE::HEART:
@@ -243,8 +197,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -605.f;
-		m_tInfo.fY = -390.f;
+		m_tInfo.fX = WINCX / 2 - 605.f;
+		m_tInfo.fY = WINCY / 2 - 390.f;
 		break;
 
 	case ICONTYPE::KEYBOARD:
@@ -253,8 +207,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -605.f;
-		m_tInfo.fY = -330.f;
+		m_tInfo.fX = WINCX / 2 - 605.f;
+		m_tInfo.fY = WINCY / 2 - 320.f;
 		break;
 
 	case ICONTYPE::QUEST:
@@ -263,8 +217,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -235.f;
-		m_tInfo.fY = -390.f;
+		m_tInfo.fX = WINCX / 2 - 234.f;
+		m_tInfo.fY = WINCY / 2 - 390.f;
 		break;
 
 	case ICONTYPE::KEYBUTTON_L:
@@ -273,8 +227,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -220.f;
-		m_tInfo.fY = -375.f;
+		m_tInfo.fX = WINCX / 2 - 220.f;
+		m_tInfo.fY = WINCY / 2 - 375.f;
 		break;
 
 	case ICONTYPE::KEYBUTTON_1:
@@ -283,8 +237,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -510.f;
-		m_tInfo.fY = -345.f;
+		m_tInfo.fX = WINCX / 2 - 510.f;
+		m_tInfo.fY = WINCY / 2 - 340.f;
 		break;
 
 	case ICONTYPE::KEYBUTTON_2:
@@ -293,8 +247,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -432.6f;
-		m_tInfo.fY = -345.f;
+		m_tInfo.fX = WINCX / 2 - 432.f;
+		m_tInfo.fY = WINCY / 2 - 340.f;
 		break;
 
 	case ICONTYPE::KEYBUTTON_3:
@@ -303,8 +257,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -354.2f;
-		m_tInfo.fY = -345.f;
+		m_tInfo.fX = WINCX / 2 - 354.f;
+		m_tInfo.fY = WINCY / 2 - 340.f;
 		break;
 
 	case ICONTYPE::KEYBUTTON_4:
@@ -313,8 +267,8 @@ HRESULT CIcon::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = -277.f;
-		m_tInfo.fY = -345.f;
+		m_tInfo.fX = WINCX / 2 - 276.f;
+		m_tInfo.fY = WINCY / 2 - 340.f;
 		break;
 
 	default:

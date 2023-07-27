@@ -3,6 +3,7 @@
 #include	<time.h>
 #include	"InventoryMgr.h"
 #include	"Pool.h"
+#include "GameMgr.h"
 
 CButterFly::CButterFly(LPDIRECT3DDEVICE9 pDev) 
 	: CItem(pDev, ITEM_TYPE::ETC, OBJ_ID::BUTTERFLY)
@@ -36,7 +37,7 @@ _int CButterFly::Update_Object(const _float& fTimeDelta)
 
 	_vec3 playerPos, myPos;
 
-	Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")->Get_TransformCom()->Get_Info(INFO_POS, &playerPos);
+	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &playerPos);
 	m_pTransformCom->Get_Info(INFO_POS, &myPos);
 
 	playerPos.y = 0;

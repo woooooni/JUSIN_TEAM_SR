@@ -25,6 +25,7 @@ private:
 	virtual HRESULT			Ready_Layer_InterationObj()		override;
 	virtual HRESULT			Ready_Layer_Effect()			override;
 	virtual HRESULT			Ready_Layer_UI()				override;
+	HRESULT					Ready_Event();
 
 
 public:

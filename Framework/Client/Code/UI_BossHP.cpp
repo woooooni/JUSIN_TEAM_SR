@@ -2,6 +2,7 @@
 #include "Export_Function.h"
 #include "SunGollem.h"
 #include "SilkWorm.h"
+#include "Nexus.h"
 
 CUI_BossHP::CUI_BossHP(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
 {
@@ -70,6 +71,18 @@ _int CUI_BossHP::Update_Object(const _float& fTimeDelta)
 
 	}
 
+	if (m_eBossType == BOSSNAME::NEXUS)
+	{
+		CGameObject* pNexus = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Nexus");
+
+		if (pNexus != nullptr)
+		{
+			m_iMaxHP = dynamic_cast<CNexus*>(pNexus)->Get_MaxHp();
+			m_iCurHP = dynamic_cast<CNexus*>(pNexus)->Get_Hp();
+		}
+
+	}
+
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -113,6 +126,7 @@ void CUI_BossHP::Render_Object(void)
 		{
 			_vec3 vScale = _vec3(fOriginWidth * fRatio * 0.8f, fHeight * fRatio * 0.6f, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
+			m_vDefaultPos.z = 0.0f;
 			m_pTransformCom->Set_Pos(&m_vDefaultPos);
 		}
 
@@ -120,17 +134,27 @@ void CUI_BossHP::Render_Object(void)
 		{
 			_vec3 vScale = _vec3(fOriginWidth * fRatio * 4.17f, fHeight * fRatio, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
+			m_vDefaultPos.z = 0.5f;
 			m_pTransformCom->Set_Pos(&m_vDefaultPos);
 		}
 
 		else if (m_eUIType == BOSSHP::UI_GAUGE)
 		{
-			_float fX = fOriginWidth - fWidth;
+			_matrix matWorld;
+			D3DXMatrixIdentity(&matWorld);
+			_vec3 vInfo;
+			for (_uint i = 0; INFO_POS > i; ++i)
+			{
+				memcpy(&vInfo, &matWorld.m[i], sizeof(_vec3));
+				m_pTransformCom->Set_Info((MATRIX_INFO)i, &vInfo);
+			}
+
 			_vec3 vScale = _vec3(fWidth * fRatio * 4.2f, fHeight * fRatio, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
 
 			if (fMaxHP == fCurHP)
 			{
+				m_vDefaultPos.z = 0.f;
 				m_pTransformCom->Set_Pos(&m_vDefaultPos);
 			}
 			else if (fCurHP < fMaxHP && fCurHP > 0)
@@ -179,6 +203,12 @@ void CUI_BossHP::Render_Object(void)
 				szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 			break;
 
+		case BOSSNAME::NEXUS:
+			swprintf_s(szBuf, L"시련의 원숭이 석상");
+
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+				szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+			break;
 		default:
 			break;
 		}

@@ -24,6 +24,7 @@ CPlayer_State_Walk::~CPlayer_State_Walk()
 
 HRESULT CPlayer_State_Walk::Ready_State(void)
 {	
+
 	if (GetAsyncKeyState(VK_UP) & 0x8000 && GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
 		m_pOwner->SetObj_Dir(OBJ_DIR::DIR_LU);
@@ -89,6 +90,18 @@ HRESULT CPlayer_State_Walk::Ready_State(void)
 
 
 	m_fAccTime = 0.0f;
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+
+	int iSound = rand() % 3;
+	if (iSound == 1)
+		Play_Sound(L"SFX_4_Walk_Ground_1.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else if (iSound == 2)
+		Play_Sound(L"SFX_5_Walk_Ground_2.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else
+		Play_Sound(L"SFX_6_Walk_Ground_3.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
+
 	return S_OK;
 
 	
@@ -109,6 +122,13 @@ _int CPlayer_State_Walk::Update_State(const _float& fTimeDelta)
 
 
 	
+	int iSound = rand() % 3;
+	if (iSound == 1)
+		Play_Sound(L"SFX_4_Walk_Ground_1.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else if (iSound == 2)
+		Play_Sound(L"SFX_5_Walk_Ground_2.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else
+		Play_Sound(L"SFX_6_Walk_Ground_3.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 
 
@@ -144,6 +164,7 @@ void CPlayer_State_Walk::Render_State(void)
 
 void CPlayer_State_Walk::Reset_State(void)
 {
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
 }
 
 void CPlayer_State_Walk::Key_Input(const _float& fTimeDelta)
@@ -215,7 +236,7 @@ void CPlayer_State_Walk::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0005f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(m_fScale[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()]);

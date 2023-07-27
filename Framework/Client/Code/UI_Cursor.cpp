@@ -20,14 +20,14 @@ HRESULT CUI_Cursor::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 	
-	m_tInfo.fX = -490.f;
-	m_tInfo.fY = -90.f;
+	m_tInfo.fX = WINCX / 2 - 490.f;
+	m_tInfo.fY = WINCY / 2 - 83.f;
 
 	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
 	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
 
-	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX) * (1 / m_matProj._11) ,
-					((-2 * (m_tInfo.fY)) / WINCY ) * (1 / m_matProj._22), 0.f };
+	m_vDefaultPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+					(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	return S_OK;
 }
@@ -47,7 +47,6 @@ _int CUI_Cursor::Update_Object(const _float& fTimeDelta)
 
 void CUI_Cursor::LateUpdate_Object(void)
 {
-	//아이템 리스트가 비어있을때 예외처리 필요함.
 
 	if (!m_bShown)
 		m_pTransformCom->Set_Pos(&m_vDefaultPos);
@@ -103,36 +102,36 @@ void CUI_Cursor::Render_Object(void)
 			m_bMoveCursor = false;
 		}
 
-		if ((m_iCursorX == 0) && (m_iCursorY == 0))
-		{
-			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
-			TCHAR szBuf[256] = L"";
-			swprintf_s(szBuf, L"천조각\n\nTest 1");
-
-			// 아이템 설명 폰트 -> 동일 폰트 사이즈 작은것으로 Font 추가 가능한지
-			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-
-		else if ((m_iCursorX == 1) && (m_iCursorY == 0))
-		{
-			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
-			TCHAR szBuf[256] = L"";
-			swprintf_s(szBuf, L"나뭇가지\n\nTest 2");
-
-			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
-
-		else if ((m_iCursorX == 2) && (m_iCursorY == 0))
-		{
-			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
-			TCHAR szBuf[256] = L"";
-			swprintf_s(szBuf, L"나뭇잎\n\nTest 3");
-
-			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
-		}
+//		if ((m_iCursorX == 0) && (m_iCursorY == 0))
+//		{
+//			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+//			TCHAR szBuf[256] = L"";
+//			swprintf_s(szBuf, L"천조각\n\nTest 1");
+//
+//			// 아이템 설명 폰트 -> 동일 폰트 사이즈 작은것으로 Font 추가 가능한지
+//			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+//				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+//		}
+//
+//		else if ((m_iCursorX == 1) && (m_iCursorY == 0))
+//		{
+//			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+//			TCHAR szBuf[256] = L"";
+//			swprintf_s(szBuf, L"나뭇가지\n\nTest 2");
+//
+//			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+//				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+//		}
+//
+//		else if ((m_iCursorX == 2) && (m_iCursorY == 0))
+//		{
+//			RECT rc = { WINCX * 3 / 4, WINCY / 2 + 20 , WINCX, WINCY };
+//			TCHAR szBuf[256] = L"";
+//			swprintf_s(szBuf, L"나뭇잎\n\nTest 3");
+//
+//			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+//				szBuf, lstrlen(szBuf), &rc, DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+//		}
 
 		_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 		_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
@@ -183,18 +182,18 @@ HRESULT CUI_Cursor::Ready_Component()
 
 void CUI_Cursor::Key_Input()
 {
-	if (KEY_TAP(KEY::L))
-	{
-		if (!m_bShown)
-			m_bShown = true;
-
-		else
-		{
-			m_bShown = false;
-			m_iCursorX = 0;
-			m_iCursorY = 0;
-		}
-	}
+//	if (KEY_TAP(KEY::L))
+//	{
+//		if (!m_bShown)
+//			m_bShown = true;
+//
+//		else
+//		{
+//			m_bShown = false;
+//			m_iCursorX = 0;
+//			m_iCursorY = 0;
+//		}
+//	}
 }
 
 CUI_Cursor* CUI_Cursor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

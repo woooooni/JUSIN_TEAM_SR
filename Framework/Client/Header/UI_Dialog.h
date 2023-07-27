@@ -1,5 +1,6 @@
 #pragma once
 #include "CUI.h"
+#include "Quest.h"
 
 class CUI_Dialog : public CUI
 {
@@ -16,21 +17,20 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+
 public:
-	void	Set_Shown(bool _bShown) { m_bShown = _bShown; }
-	_bool	Get_Shown() { return m_bShown; }
-
+	void Set_Quest(CQuest* pQuest);
 	void Set_DescTime(_float _fTime) { m_fDescTime = _fTime; }
-	void Set_Desc(const wstring& _strDesc) { m_strCurrDesc = L""; m_strDesc = _strDesc; m_fAccTime = 0.f; m_iIdx = 0; }
-
 	void Set_Name(const wstring& _strName) { m_strName = _strName; }
+
+	CQuest* Get_CurrQuest() { return m_pQuest; }
 
 private:
 	HRESULT Ready_Component();
+	void Key_Input();
+	void Print_Next();
 
 private:
-	_bool	m_bShown = false;
-
 	wstring m_strDesc;
 	wstring m_strCurrDesc;
 	wstring m_strName;
@@ -38,8 +38,13 @@ private:
 	_float m_fAccTime;
 	_float m_fDescTime;
 
-	_uint m_iIdx;
+	
 
+	vector<wstring> m_vecStrDesc;
+	_uint m_iStringIdx;
+	_uint m_iVectorIdx;
+
+	CQuest* m_pQuest;
 
 public:
 	static  CUI_Dialog* Create(LPDIRECT3DDEVICE9 pGraphicDev);

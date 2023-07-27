@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "KeyMgr.h"
 #include "Texture.h"
+#include "Export_Function.h"
 
 CPlayer_State_Run::CPlayer_State_Run(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
@@ -81,19 +82,41 @@ HRESULT CPlayer_State_Run::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Run_RightDown", true);
 		break;
 	}
+
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+
+	int iSound = rand() % 3;
+	if (iSound == 1)
+		Play_Sound(L"SFX_7_Run_Ground_1.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else if (iSound == 2)
+		Play_Sound(L"SFX_8_Run_Ground_2.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else
+		Play_Sound(L"SFX_9_Run_Ground_3.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
 	return S_OK;
 }
 
 _int CPlayer_State_Run::Update_State(const _float& fTimeDelta)
 {
-	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 30.f, fTimeDelta);
+	dynamic_cast<CTransform*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_TRANSFORM, ID_STATIC))->Move_Pos(m_pOwner->GetObj_Dir(), 10.f, fTimeDelta);
 	if (m_fAccTime > m_fKeyDelayTime)
 	{
-		Key_Input(fTimeDelta);
+		if (!dynamic_cast<CPlayer*>(m_pOwner)->Is_Stop())
+			Key_Input(fTimeDelta);
 		m_fAccTime = 0.0f;
 	}
 	else
 		m_fAccTime += fTimeDelta;
+
+	int iSound = rand() % 3;
+	if (iSound == 1)
+		Play_Sound(L"SFX_7_Run_Ground_1.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else if (iSound == 2)
+		Play_Sound(L"SFX_8_Run_Ground_2.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else
+		Play_Sound(L"SFX_9_Run_Ground_3.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
 
 	return 0;
 }
@@ -122,6 +145,7 @@ void CPlayer_State_Run::Render_State(void)
 
 void CPlayer_State_Run::Reset_State(void)
 {
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
 }
 
 void CPlayer_State_Run::Key_Input(const _float& fTimeDelta)
@@ -194,7 +218,7 @@ void CPlayer_State_Run::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0005f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(m_fScale[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()]);

@@ -31,6 +31,8 @@ private:
 	SCENE_TYPE m_eNextScene;
 	CLoading* m_pLoading;
 
+	
+
 public:
 	static CScene_Loading* Create(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE _eNextScene);
 

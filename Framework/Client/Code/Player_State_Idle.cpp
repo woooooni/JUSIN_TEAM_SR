@@ -79,7 +79,8 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 		vPos.z -= 0.0001f;
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
 	}
-	
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
 
 
 	return S_OK;
@@ -122,8 +123,8 @@ _int CPlayer_State_Idle::Update_State(const _float& fTimeDelta)
 	
 
 
-
-	Key_Input(fTimeDelta);
+	if(!dynamic_cast<CPlayer*>(m_pOwner)->Is_Stop())
+		Key_Input(fTimeDelta);
 	return 0;
 }
 
@@ -207,10 +208,10 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 
 
-	if (KEY_TAP(KEY::W))
+	/*if (KEY_TAP(KEY::W))
 	{
 		dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(true);
-	}
+	}*/
 
 	if (KEY_TAP(KEY::E))
 	{

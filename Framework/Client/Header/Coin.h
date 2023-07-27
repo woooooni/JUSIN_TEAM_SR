@@ -24,12 +24,15 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
-	static	CCoin* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+
 
 protected:
 	HRESULT	Add_Component(void);
 
 
+public:
+	static	CCoin* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 protected:
 	virtual void Free() override;

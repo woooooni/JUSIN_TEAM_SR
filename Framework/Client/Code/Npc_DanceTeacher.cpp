@@ -1,9 +1,12 @@
 #include "../Include/stdafx.h"
 #include "Npc_DanceTeacher.h"
 #include "Export_Function.h"
+#include "UI_ExclamationMark.h"
+#include "UI_QuestionMark.h"
+#include "UI_ContinueMark.h"
 
 CNpc_DanceTeacher::CNpc_DanceTeacher(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_DANCETEACHER)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_DANCETEACHER, L"Ãã ¼±»ý´Ô")
 {
 }
 
@@ -39,13 +42,25 @@ HRESULT CNpc_DanceTeacher::Ready_Object(void)
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
-	m_pTransformCom->Set_Scale(_vec3(1.65f, 1.65f, 1.65f));
+	m_pTransformCom->Set_Scale(_vec3(2.5f, 2.5f, 2.5f));
 
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_DanceTeacher_Idle", L"Proto_Texture_NPC_DanceTeacher_Idle", 0.5f), E_FAIL);
-	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_DanceTeacher_Dance", L"Proto_Texture_NPC_DanceTeacher_Dance", 0.2f), E_FAIL);
+	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_DanceTeacher_Dance", L"Proto_Texture_NPC_DanceTeacher_Dance", .15f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_DanceTeacher_React", L"Proto_Texture_NPC_DanceTeacher_React", 0.5f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Monkey_DanceTeacher_Dance", TRUE), E_FAIL);
+
+	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
+	if (m_pExclamation != nullptr)
+		m_pExclamation->Set_Owner(this);
+
+	m_pQuestion = CUI_QuestionMark::Create(m_pGraphicDev);
+	if (m_pQuestion != nullptr)
+		m_pQuestion->Set_Owner(this);
+
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
 
 	return S_OK;
 }
@@ -55,6 +70,7 @@ _int CNpc_DanceTeacher::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
+
 	return iExit;
 }
 

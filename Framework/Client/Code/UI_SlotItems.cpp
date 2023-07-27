@@ -21,32 +21,10 @@ CUI_SlotItems::~CUI_SlotItems()
 
 HRESULT CUI_SlotItems::Ready_Object(void)
 {
-	CComponent* pComponent = nullptr;
-
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
 	D3DXMatrixIdentity(&m_matView);
-
-	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
-
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Items"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
-
-	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
-
-	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
-	NULL_CHECK_RETURN(pComponent, E_FAIL);
-	pComponent->SetOwner(this);
-	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
 	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
@@ -80,8 +58,8 @@ void CUI_SlotItems::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-				(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
+	vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+				(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 	m_pTransformCom->Set_Pos(&vPos);
 
 	fRatio = _float(WINCY) / _float(WINCX);
@@ -93,7 +71,7 @@ void CUI_SlotItems::Render_Object(void)
 	if (m_eCode != ITEM_CODE::ITEM_END)
 	{
 		m_pTextureCom->Render_Texture(0);
-		m_pBufferCom->Render_Buffer();
+		m_pBufferCom->Render_Buffer();	
 	}
 
 	// Slot Render
@@ -113,14 +91,16 @@ void CUI_SlotItems::Set_SlotNum(SLOTITEM_NUM eNum)
 {
 	m_eSlotNum = eNum;
 
-	m_tInfo.fX = -536.f + (_uint)eNum * 78;
-	m_tInfo.fY = -320.f;
+	m_tInfo.fX = 107.f + (_uint)eNum * 78;
+	m_tInfo.fY = 115.f;
 }
 
 void CUI_SlotItems::Set_ItemCode(const ITEM_CODE& pCOde)
 {
+
 	m_eCode = pCOde;
-	m_pTextureCom->Set_Idx((_uint)pCOde);
+	if(m_eCode != ITEM_CODE::ITEM_END)
+		m_pTextureCom->Set_Idx((_uint)pCOde);
 	Set_Filled(m_eCode != ITEM_CODE::ITEM_END);
 }
 
@@ -137,13 +117,34 @@ HRESULT CUI_SlotItems::Use_Item()
 	if (item == iter.end())
 		Set_ItemCode(ITEM_CODE::ITEM_END);
 
+	
+
 	return S_OK;
 }
 
 HRESULT CUI_SlotItems::Add_Component(void)
 {
-	CQuickSlot* pSlot = CUIMgr::GetInstance()->Get_Slots();
-	
+	CComponent* pComponent = nullptr;
+
+	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(Clone_Proto(L"Proto_RcTex"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
+
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Items"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+
+	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_ANIMATOR, pComponent);
+
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(Clone_Proto(L"Proto_Transform"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
 	return S_OK;
 }

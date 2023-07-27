@@ -5,6 +5,8 @@
 CItem_Hat_Mask::CItem_Hat_Mask(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
 {
+	m_eCode = ITEM_CODE::HAT_MASK;
+
 }
 
 CItem_Hat_Mask::CItem_Hat_Mask(const CItem_Hat& rhs)

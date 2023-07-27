@@ -18,6 +18,8 @@
 #include "Cupa.h"
 #include	"RabitObj.h"
 #include	"Turret.h"
+#include "DrawingEnter.h"
+#include "UIMgr.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -41,8 +43,7 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
-	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+
 
 
 	return S_OK;
@@ -77,10 +78,27 @@ void CScene_TutorialVillage::Render_Scene()
 
 }
 
+void CScene_TutorialVillage::Enter_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+
+
+	CUI_Shop* pShop = CUIMgr::GetInstance()->Get_ShopUI();
+	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_LIGHT), SHOPITEMTYPE::UISHOP_LEAF);
+	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MASK), SHOPITEMTYPE::UISHOP_CLOTH);
+	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MISSLE), SHOPITEMTYPE::UISHOP_BRANCH);
+}
+
+void CScene_TutorialVillage::Exit_Scene()
+{
+
+}
+
 HRESULT CScene_TutorialVillage::Ready_Prototype()
 {
-	FAILED_CHECK_RETURN(CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev), E_FAIL);
+	FAILED_CHECK_RETURN(CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev), E_FAIL);
 	
 	return S_OK;
 }
@@ -124,7 +142,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
@@ -186,6 +204,27 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);
 	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 3));
 
+	//TEST
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);
+	def->Get_TransformCom()->Set_Pos(&_vec3(14, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
+	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
+	def->Get_TransformCom()->Set_Pos(&_vec3(5, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);
+	def->Get_TransformCom()->Set_Pos(&_vec3(10, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+
+	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_SMALL);
+	def->Get_TransformCom()->Set_Pos(&_vec3(12, 0, 2));
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
+	//
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::SPEED_SMALL);
@@ -205,44 +244,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(17, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(18, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(19, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(20, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::LEAF);
-	def->Get_TransformCom()->Set_Pos(&_vec3(21, 0, 5));
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	CRabitObj* rab = CRabitObj::Create(m_pGraphicDev, { 17, 0, 1 });
-	NULL_CHECK_RETURN(rab, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Rabbit", rab);
-
-	CTurret* turret = CTurret::Create(m_pGraphicDev, 0, { 50.f, 0.f, 20.f });
-
-	NULL_CHECK_RETURN(turret, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Turret", turret);
-
-
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Ready_Layer();
 	return S_OK;
 }
 
@@ -253,16 +255,13 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_UI()
 {
-	// Test
-//	CUI_NewItem* pItemWindow = CUI_NewItem::Create(m_pGraphicDev);
-//	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"UI_QuestWindow", pItemWindow);
-
 	return S_OK;
 }
 
 CScene_TutorialVillage* CScene_TutorialVillage::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CScene_TutorialVillage* pInstance = new CScene_TutorialVillage(pGraphicDev);
+
 
 	if (FAILED(pInstance->Ready_Scene()))
 	{

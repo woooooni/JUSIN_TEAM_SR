@@ -45,19 +45,6 @@ _int CUI_NewQuest::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
-//	_float fWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width);
-//	_float fHeight = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-//	_float fRatio = _float(WINCY) / _float(WINCX);
-//
-//	m_fMaxWidth = fWidth * fRatio * 2.1f;
-//	m_fMaxHeight = fHeight * fRatio * 2.1f * 0.79f;
-//
-//	if (m_fCurWidth < m_fMaxWidth)
-//		m_fCurWidth += m_fCurWidth * fRatio * fTimeDelta * m_fSpeed;
-//
-//	if (m_fCurHeight < m_fMaxHeight)
-//		m_fCurHeight += m_fCurHeight * fRatio * fTimeDelta * m_fSpeed;
-
 	m_pWindow->Update_Object(fTimeDelta);
 
 	m_pCloseKey->Update_Object(fTimeDelta);
@@ -80,14 +67,9 @@ void CUI_NewQuest::LateUpdate_Object(void)
 	m_pContentsBox->LateUpdate_Object();
 	m_pExclamIcon->LateUpdate_Object();
 
-//	if ((m_fCurHeight == m_fMaxHeight) && (m_fCurWidth == m_fMaxWidth))
-//		m_bShown = true;
-
-//	m_fCurWidth = m_pWindow->Get_UI_Info().fCX;
 	m_fCurWidth = m_pWindow->Get_CurWidth();
 	m_fMaxWidth = m_pWindow->Get_MaxWidth();
 
-//	if (m_fCurHeight > m_fMaxHeight)
 	if (m_fCurWidth > m_fMaxWidth)
 	{
 		m_pCloseKey->Set_Shown(true);
@@ -103,28 +85,6 @@ void CUI_NewQuest::LateUpdate_Object(void)
 
 void CUI_NewQuest::Render_Object(void)
 {
-	//CUI::Render_Object();
-//	if (m_bShown)
-//	{
-//		_matrix matPreView, matPreProj;
-//
-//		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-//		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
-//
-//		_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) ,
-//					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
-//
-//		m_pTransformCom->Set_Pos(&vPos);
-//
-//		_float fRatio = _float(WINCY) / _float(WINCX);
-//
-//		_vec3 vScale = _vec3(m_fCurWidth, m_fCurHeight, 0.f);
-//		m_pTransformCom->Set_Scale(vScale);
-//		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-//
-//		m_pTextureCom->Render_Texture(0);
-//		m_pBufferCom->Render_Buffer();
-//	}
 
 	if (m_bShown)
 	{
@@ -138,7 +98,7 @@ void CUI_NewQuest::Render_Object(void)
 			D3DCOLOR_ARGB(255, 255, 255, 255));
 
 		// 퀘스트 명
-		RECT rcQuest = { WINCX / 4 + 10, 0, WINCX, WINCY - 90 };
+		RECT rcQuest = { WINCX / 4 + 30, 5, WINCX, WINCY - 100 };
 		TCHAR szQuestBuf[256] = L"";
 
 		swprintf_s(szQuestBuf, L"태양의 마을 찾기");
@@ -147,7 +107,7 @@ void CUI_NewQuest::Render_Object(void)
 			D3DCOLOR_ARGB(255, 255, 255, 255));
 
 		// 퀘스트 내용
-		RECT rcContents = { 0, 120, WINCX, WINCY };
+		RECT rcContents = { 0, 170, WINCX, WINCY };
 		TCHAR szConBuf[256] = L"";
 
 		swprintf_s(szConBuf, L"알 수 없는 목소리가 동쪽의 해가 뜨는 마을로 가라고 한다.\n동쪽... 동쪽은 오른쪽이라고 배웠다.");

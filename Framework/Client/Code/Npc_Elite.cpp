@@ -3,7 +3,7 @@
 #include "Export_Function.h"
 
 CNpc_Elite::CNpc_Elite(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_ELITE)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_ELITE, L"¿¤¸®Æ® ¿ø¼þÀÌ")
 {
 }
 

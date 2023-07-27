@@ -14,6 +14,7 @@
 #include	"LightPuzzlePiece.h"
 #include	"LightPuzzleTerrain.h"
 #include "RollingBug.h"
+#include "Portal.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -28,6 +29,8 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -85,9 +88,10 @@ HRESULT CScene_MoonForest1::Ready_Layer_Player()
 	m_mapLayer[LAYER_TYPE::PLAYER]->Ready_Layer();
 
 	_vec3 vPos;
-	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-	vPos.x = 55.5f;
-	vPos.z = 11.5f;
+	vPos.x = 58.5f;
+	vPos.y = 0.5f;
+	vPos.z = 2.f;
+	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
 	return S_OK;
 }
@@ -96,7 +100,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_Camera()
 {
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 0.1f, 1000.f);
 	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"MainCamera", pCamera);
-	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
+	pCamera->Set_TargetObj(CGameMgr::GetInstance()->Get_Player());
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
 	return S_OK;
@@ -115,7 +119,19 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(54.0f, 2.0f, 72.0f), _vec3(4.0f, 6.0f, 1.5f));
 	Add_Subscribe(21, pDoor);
+
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SILK_WORM);
+
+	_vec3 vPos;
+	vPos.x = 54.f;
+	vPos.y = 0.5f;
+	vPos.z = 72.5f;
+
+	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPotal", pPortal);
+
 	return S_OK;
 }
 
@@ -180,13 +196,13 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 23, pTer->Get_TilePos(3, 2), L"Three");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(3, 2), L"Three");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 	pBase->Set_MakeLight();
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 21, pTer->Get_TilePos(3, 4), L"Corner");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(3, 4), L"Corner");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
@@ -226,6 +242,29 @@ HRESULT CScene_MoonForest1::Ready_Layer_Effect()
 
 HRESULT CScene_MoonForest1::Ready_Layer_UI()
 {
+	return S_OK;
+}
+
+HRESULT CScene_MoonForest1::Ready_Event()
+{
+	EVENT* event = new EVENT;
+	event->iEventNum = 20;
+
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 21;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 22;
+
+	FAILED_CHECK(Add_Event(event));
 	return S_OK;
 }
 

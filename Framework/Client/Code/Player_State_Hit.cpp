@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Transform.h"
 #include "RigidBody.h"
+#include "Export_Function.h"
 
 CPlayer_State_Hit::CPlayer_State_Hit(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner)
@@ -67,7 +68,8 @@ HRESULT CPlayer_State_Hit::Ready_State(void)
 
 	dynamic_cast<CPlayer*>(m_pOwner)->Minus_Hp(1);
 	
-
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_95_OguHit.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	return S_OK;
 }
@@ -112,7 +114,7 @@ void CPlayer_State_Hit::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 

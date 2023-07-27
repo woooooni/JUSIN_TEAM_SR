@@ -7,6 +7,7 @@
 #include "Collider.h"
 #include "KeyMgr.h"
 #include "RigidBody.h"
+#include "Export_Function.h"
 
 CPlayer_State_Lift::CPlayer_State_Lift(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f), m_fLiftTime(0.05f)
@@ -427,6 +428,8 @@ _int CPlayer_State_Lift::Update_LiftWalk(const _float& fTimeDelta)
 	vGrabPos += _vec3(0.0f, 0.9f, 0.0f);
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_LiftObj()->Get_TransformCom()->Set_Pos(&vGrabPos);
 
+	Play_Sound(L"SFX_218_LiftWalk.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
 	if (m_fAccTime > m_fKeyDelayTime)
 	{
 		m_fAccTime = 0.0f;
@@ -556,7 +559,7 @@ void CPlayer_State_Lift::Update_Hat_LiftUp()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftUp[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 
@@ -800,7 +803,7 @@ void CPlayer_State_Lift::Update_Hat_LiftIdle()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftIdle[(_uint)m_pOwner->GetObj_Dir()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 
@@ -849,7 +852,7 @@ void CPlayer_State_Lift::Update_Hat_LiftWalk()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftWalk[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 
@@ -1145,7 +1148,7 @@ void CPlayer_State_Lift::Update_Hat_LiftDown()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos_LiftDown[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 

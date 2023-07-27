@@ -1,7 +1,7 @@
 #include "../Include/stdafx.h"
 #include "NearReactMoonObj.h"
 #include "Export_Function.h"
-
+#include "GameMgr.h"
 CNearReactMoonObj::CNearReactMoonObj(LPDIRECT3DDEVICE9 pGraphicDev) : CNearReactObj(pGraphicDev, OBJ_ID::NEAR_REACT_MOON)
 {
 }
@@ -31,7 +31,7 @@ _int CNearReactMoonObj::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 
-	CGameObject* player = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player");
+	CGameObject* player = CGameMgr::GetInstance()->Get_Player();;
 
 	_vec3 src, tmp;
 

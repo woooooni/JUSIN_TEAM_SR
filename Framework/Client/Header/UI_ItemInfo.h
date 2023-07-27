@@ -1,6 +1,5 @@
 #pragma once
 #include "CUI.h"
-#include "UI_Cursor.h"
 #include "Player.h"
 
 BEGIN(Engine)
@@ -11,23 +10,15 @@ class CTexture;
 
 END
 
-//typedef enum class SHOPITEMTYPE
 enum SHOPITEMTYPE
 {
-	UISHOP_BRANCH,
-	UISHOP_CLOTH,
-	UISHOP_LEAF,
-
 	SHOPKEY_L,
 	SHOP_WALLET, SHOP_PRICETAG,
 	SHOP_TEXTBOX, SHOP_IMGBOX,
 	SHOP_VERLINE, SHOP_HORLINE,
-
-	UISHOP_BRANCH_INFO,
-	UISHOP_CLOTH_INFO,
-	UISHOP_LEAF_INFO,
+	UISHOP_LEAF, UISHOP_LEAF_INFO, UISHOP_CLOTH,
+	UISHOP_CLOTH_INFO, UISHOP_BRANCH, UISHOP_BRANCH_INFO,	
 	SHOPITEM_END
-
 };
 
 struct tagShopItemInfo
@@ -51,8 +42,10 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-
+public:
 	HRESULT			Set_Item(CItem* pItem);
+	void			Set_Shown(_bool _bShown) { m_bShown = _bShown; }
+
 
 private:
 	HRESULT			Add_Component(void);
@@ -68,7 +61,7 @@ private:
 private:
 	tagShopItemInfo		m_tItemInfo;
 	_vec3				m_vDefaultPos;
-	_bool				m_bShown = true;
+	_bool				m_bShown = false;
 	_bool				m_bCursorMove = false;
 	_uint				m_iCursorX = 0;
 	_uint				m_iCursorY = 0;

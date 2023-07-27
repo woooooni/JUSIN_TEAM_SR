@@ -27,6 +27,10 @@ void CInteractionMgr::Free()
 		Safe_Delete(iter.second);
 	}
 	m_mapEvents.clear();
+
+	m_listCurActiveEvents.clear();
+
+	m_vecResetList.clear();
 }
 
 

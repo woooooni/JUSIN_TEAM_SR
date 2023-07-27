@@ -40,10 +40,11 @@ HRESULT CTrashSlime::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashSlime_Move_LeftUp",		L"Proto_Texture_TrashSlime_Move_LeftUp", 0.1f);
 	m_tStat = { 3,3,1 };
 	m_pAnimator->Add_Animation(L"TrashSlime_Regen_Down", L"Proto_Texture_TrashSlime_Regen_Down", 0.1f);
-	m_pTransformCom->Set_Pos(&_vec3(5.0f, 1.0f, 5.0f));
+	m_pTransformCom->Set_Pos(&_vec3(5.0f, .5f, 5.0f));
 	Set_Speed(2.f);
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", false);
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
 	m_fMinHeight = 0.5f;
 
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
@@ -190,8 +191,13 @@ void CTrashSlime::Update_Die(_float fTimeDelta)
 {
 	if (Is_Active())
 	{
-	Set_Active(false);
-	On_Death();}	
+		Set_Active(false);
+		On_Death();
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_34_MonsterGarbage_Death.wav", (CHANNELID)iSound, 0.5f);
+	}
 }
 
 void CTrashSlime::Update_Regen(_float fTimeDelta)
@@ -277,6 +283,11 @@ CTrashSlime* CTrashSlime::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pInstance;
 }
 
+void CTrashSlime::Free()
+{
+	__super::Free();
+}
+
 void CTrashSlime::Trace(_float fTimeDelta)
 {
 	_vec3 vTargetPos, vPos, vDir;
@@ -335,7 +346,9 @@ void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		m_tStat.iHp -= 1;
 		Set_State(MONSTER_STATE::DIE);
 
-
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_33_MonsterGarbage_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 void CTrashSlime::Set_Animation()

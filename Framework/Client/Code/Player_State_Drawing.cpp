@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Texture.h"
 #include "KeyMgr.h"
+#include "Export_Function.h"
 
 CPlayer_State_Drawing::CPlayer_State_Drawing(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fDrawTime(2.5f)
@@ -23,6 +24,9 @@ HRESULT CPlayer_State_Drawing::Ready_State(void)
 
 	m_bFinished = false;
 
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_52_OguDrawing.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
 	return S_OK;
 }
 
@@ -34,6 +38,7 @@ _int CPlayer_State_Drawing::Update_State(const _float& fTimeDelta)
 		
 		if (m_fAccTime > m_fDrawTime)
 		{
+			dynamic_cast<CPlayer*>(m_pOwner)->Set_DrawingFinish(true);
 			m_bFinished = true;
 			m_fAccTime = 0.0f;
 		}
@@ -58,6 +63,7 @@ _int CPlayer_State_Drawing::Update_State(const _float& fTimeDelta)
 	}
 
 
+
 	return 0;
 }
 
@@ -74,6 +80,7 @@ void CPlayer_State_Drawing::Render_State(void)
 
 void CPlayer_State_Drawing::Reset_State(void)
 {
+	dynamic_cast<CPlayer*>(m_pOwner)->Set_DrawingFinish(false);
 }
 
 void CPlayer_State_Drawing::Update_Hat()
@@ -82,7 +89,7 @@ void CPlayer_State_Drawing::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos[m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 

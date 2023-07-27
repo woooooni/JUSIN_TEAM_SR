@@ -2,9 +2,9 @@
 #include "Export_Function.h"
 #include "UI_QuestionMark.h"
 #include "UI_ExclamationMark.h"
-
+#include "UI_ContinueMark.h"
 CNpc_OguMom::CNpc_OguMom(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CNpc(pGraphicDev, NPC_CODE::NPC_MOM)
+	: CNpc(pGraphicDev, NPC_CODE::NPC_MOM, L"엄마 오구")
 {
 }
 
@@ -54,6 +54,10 @@ HRESULT CNpc_OguMom::Ready_Object(void)
 	if (m_pQuestion != nullptr)
 		m_pQuestion->Set_Owner(this);
 
+	m_pContinue = CUI_ContinueMark::Create(m_pGraphicDev);
+	if (m_pContinue != nullptr)
+		m_pContinue->Set_Owner(this);
+
 	return S_OK;
 }
 
@@ -73,6 +77,14 @@ void CNpc_OguMom::LateUpdate_Object(void)
 void CNpc_OguMom::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+
+	_vec3 vNpcPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vNpcPos);
+	vNpcPos.y = 0.75f;
+	m_pTransformCom->Set_Pos(&vNpcPos);
+
+	_vec3 vSlotScale = _vec3(1.5f, 1.5f, 0.f);
+	m_pTransformCom->Set_Scale(vSlotScale);
 
 	m_pAnimator->Render_Component();
 	m_pBufferCom->Render_Buffer();

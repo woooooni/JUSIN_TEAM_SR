@@ -16,7 +16,7 @@ class CInventoryMgr : public CBase
 public:
 	enum class INVENTORY_TYPE 
 	{ 
-		EQUIPMENT, CONSUMPSION, ETC, INVENTORY_END 
+		EQUIPMENT, CONSUMPSION, ETC, IMPORTANT, INVENTORY_END 
 	};
 
 private:
@@ -30,7 +30,7 @@ public:
 
 	_bool	Is_In_Inven(CGameObject* pItem);
 
-	HRESULT		Use_Item(_uint pInt);
+	HRESULT		Use_Item(INVENTORY_TYPE pType, _uint pInt);
 	HRESULT		Use_Item(ITEM_CODE pCode);
 
 	void		Set_Player(CPlayer* pPlayer);

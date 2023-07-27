@@ -77,23 +77,23 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"Idle_RightUp", L"Proto_Texture_Player_Idle_RightUp", 0.3f);
 	m_pAnimator->Add_Animation(L"Idle_RightDown", L"Proto_Texture_Player_Idle_RightDown", 0.3f);
 
-	m_pAnimator->Add_Animation(L"Walk_Down", L"Proto_Texture_Player_Walk_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_Up", L"Proto_Texture_Player_Walk_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_Left", L"Proto_Texture_Player_Walk_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_Right", L"Proto_Texture_Player_Walk_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_LeftUp", L"Proto_Texture_Player_Walk_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_LeftDown", L"Proto_Texture_Player_Walk_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_RightUp", L"Proto_Texture_Player_Walk_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Walk_RightDown", L"Proto_Texture_Player_Walk_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Walk_Down", L"Proto_Texture_Player_Walk_Down", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_Up", L"Proto_Texture_Player_Walk_Up", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_Left", L"Proto_Texture_Player_Walk_Left", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_Right", L"Proto_Texture_Player_Walk_Right", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_LeftUp", L"Proto_Texture_Player_Walk_LeftUp", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_LeftDown", L"Proto_Texture_Player_Walk_LeftDown", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_RightUp", L"Proto_Texture_Player_Walk_RightUp", 0.07f);
+	m_pAnimator->Add_Animation(L"Walk_RightDown", L"Proto_Texture_Player_Walk_RightDown", 0.07f);
 
-	m_pAnimator->Add_Animation(L"Run_Down", L"Proto_Texture_Player_Run_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_Up", L"Proto_Texture_Player_Run_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_Left", L"Proto_Texture_Player_Run_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_Right", L"Proto_Texture_Player_Run_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_LeftUp", L"Proto_Texture_Player_Run_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_LeftDown", L"Proto_Texture_Player_Run_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_RightUp", L"Proto_Texture_Player_Run_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"Run_RightDown", L"Proto_Texture_Player_Run_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"Run_Down", L"Proto_Texture_Player_Run_Down", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_Up", L"Proto_Texture_Player_Run_Up", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_Left", L"Proto_Texture_Player_Run_Left", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_Right", L"Proto_Texture_Player_Run_Right", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_LeftUp", L"Proto_Texture_Player_Run_LeftUp", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_LeftDown", L"Proto_Texture_Player_Run_LeftDown", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_RightUp", L"Proto_Texture_Player_Run_RightUp", 0.09f);
+	m_pAnimator->Add_Animation(L"Run_RightDown", L"Proto_Texture_Player_Run_RightDown", 0.09f);
 
 	m_pAnimator->Add_Animation(L"Rolling_Down", L"Proto_Texture_Player_Rolling_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"Rolling_Up", L"Proto_Texture_Player_Rolling_Up", 0.1f);
@@ -149,14 +149,14 @@ HRESULT CPlayer::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"LiftDown_RightUp", L"Proto_Texture_Player_LiftDown_RightUp", 0.1f);
 	m_pAnimator->Add_Animation(L"LiftDown_RightDown", L"Proto_Texture_Player_LiftDown_RightDown", 0.1f);
 
-	m_pAnimator->Add_Animation(L"LiftWalk_Down", L"Proto_Texture_Player_LiftWalk_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_Up", L"Proto_Texture_Player_LiftWalk_Up", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_Left", L"Proto_Texture_Player_LiftWalk_Left", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_Right", L"Proto_Texture_Player_LiftWalk_Right", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_LeftUp", L"Proto_Texture_Player_LiftWalk_LeftUp", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_LeftDown", L"Proto_Texture_Player_LiftWalk_LeftDown", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_RightUp", L"Proto_Texture_Player_LiftWalk_RightUp", 0.1f);
-	m_pAnimator->Add_Animation(L"LiftWalk_RightDown", L"Proto_Texture_Player_LiftWalk_RightDown", 0.1f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Down", L"Proto_Texture_Player_LiftWalk_Down", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Up", L"Proto_Texture_Player_LiftWalk_Up", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Left", L"Proto_Texture_Player_LiftWalk_Left", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_Right", L"Proto_Texture_Player_LiftWalk_Right", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_LeftUp", L"Proto_Texture_Player_LiftWalk_LeftUp", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_LeftDown", L"Proto_Texture_Player_LiftWalk_LeftDown", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_RightUp", L"Proto_Texture_Player_LiftWalk_RightUp", 0.07f);
+	m_pAnimator->Add_Animation(L"LiftWalk_RightDown", L"Proto_Texture_Player_LiftWalk_RightDown", 0.07f);
 
 	m_pAnimator->Add_Animation(L"Lift_Down", L"Proto_Texture_Player_Lift_Down", 0.1f);
 	m_pAnimator->Add_Animation(L"Lift_Up", L"Proto_Texture_Player_Lift_Up", 0.1f);
@@ -216,29 +216,38 @@ HRESULT CPlayer::Ready_Object(void)
 	m_tPlayerStat.iAttack = 5;
 
 
-	m_iHat = 0;
 
 	CGameObject* pHat = nullptr;
+	m_eHat = PLAYER_HAT::NONE;
+
 	m_vecHats.push_back(pHat);
+
+
+	pHat = CItem_Hat_Light::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+
+	pHat = CItem_Hat_Monkey::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+
+	pHat = CItem_Hat_Mask::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
+
+	pHat = CItem_Hat_Turtle::Create(m_pGraphicDev, this);
+	if (pHat)
+		m_vecHats.push_back(pHat);
 
 	pHat = CItem_Hat_Drill::Create(m_pGraphicDev, this);
 	if (pHat)
 		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Light::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Mask::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
+	
 	pHat = CItem_Hat_Missile::Create(m_pGraphicDev, this);
 	if (pHat)
 		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Monkey::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
-	pHat = CItem_Hat_Turtle::Create(m_pGraphicDev, this);
-	if (pHat)
-		m_vecHats.push_back(pHat);
+	
+
 
 
 	CGameObject* pAim = CPlayer_Skill_Aim::Create(m_pGraphicDev);
@@ -304,8 +313,8 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 
 
 	//모자 테스트
-	if(m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
-		m_vecHats[m_iHat]->Update_Object(fTimeDelta);
+	if(m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
+		m_vecHats[(_uint)m_eHat]->Update_Object(fTimeDelta);
 
 
 	if (m_bInvincible)
@@ -350,8 +359,8 @@ void CPlayer::LateUpdate_Object(void)
 		m_pShadow->LateUpdate_Object();
 
 
-	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
-		m_vecHats[m_iHat]->LateUpdate_Object();
+	if (m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
+		m_vecHats[(_uint)m_eHat]->LateUpdate_Object();
 
 	__super::LateUpdate_Object();
 }
@@ -370,8 +379,8 @@ void CPlayer::Render_Object(void)
 	if (m_pShadow && m_pShadow->Is_Active())
 		m_pShadow->Render_Object();
 
-	if (m_vecHats[m_iHat] && m_vecHats[m_iHat]->Is_Active())
-		m_vecHats[m_iHat]->Render_Object();
+	if (m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
+		m_vecHats[(_uint)m_eHat]->Render_Object();
 
 }
 
@@ -485,38 +494,33 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 {
 	if (KEY_TAP(KEY::NUM_1))
 	{
-		m_iHat = 0;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::LIGHT;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_2))
 	{
-		m_iHat = 1;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::GOLEMFIST;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_3))
 	{
-		m_iHat = 2;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::LIGHTNING;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_4))
 	{
-		m_iHat = 3;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::TURTLE;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_5))
 	{
-		m_iHat = 4;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::DRILL;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 	else if (KEY_TAP(KEY::NUM_6))
 	{
-		m_iHat = 5;
-		Set_Hat(m_vecHats[m_iHat]);
-	}
-	else if (KEY_TAP(KEY::NUM_7))
-	{
-		m_iHat = 6;
-		Set_Hat(m_vecHats[m_iHat]);
+		m_eHat = PLAYER_HAT::MISSILE;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
 }
 
@@ -641,6 +645,20 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 				pOtherTransform->Set_Pos(&vOtherPos);
 			}
 		}
+
+		//사운드
+
+		if(pCollider->GetOwner()->GetObj_Id() == OBJ_ID::PUSH_STONE)
+			Play_Sound(L"SFX_26_StonePushable_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+		else if (pCollider->GetOwner()->GetObj_Id() == OBJ_ID::CATAPULT)
+			Play_Sound(L"SFX_30_Catapult_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+		else if (pCollider->GetOwner()->GetObj_Id() == OBJ_ID::JELLY_STONE || 
+			pCollider->GetOwner()->GetObj_Id() == OBJ_ID::JELLY_COMBINED)
+			Play_Sound(L"SFX_44_Jelly_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+
+
+
+
 	}
 	else if (pCollider->GetOwner() == m_pLiftObj)
 	{
@@ -815,6 +833,9 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 		m_pRigidBodyCom->AddForce(vDir * -20.0f);
 		pCollider->GetOwner()->Get_RigidBodyCom()->AddForce(vDir * 120.0f);
 
+
+		Stop_Sound(CHANNELID::SOUND_SKILL);
+		Play_Sound(L"SFX_204_Blocked.wav", CHANNELID::SOUND_SKILL, 0.5f);
 	}
 	else
 	{
@@ -919,6 +940,9 @@ void CPlayer::Collision_Enter_BulletHit(CCollider* pCollider, COLLISION_GROUP _e
 
 		m_pRigidBodyCom->AddForce(vDir * -20.0f);
 		//pCollider->GetOwner()->Get_RigidBodyCom()->AddForce(vDir * 120.0f);
+
+		Stop_Sound(CHANNELID::SOUND_SKILL);
+		Play_Sound(L"SFX_204_Blocked.wav", CHANNELID::SOUND_SKILL, 0.5f);
 
 	}
 	else

@@ -198,6 +198,8 @@
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\BossDoor.h" />
+    <ClInclude Include="..\Header\BossDoorEnter.h" />
     <ClInclude Include="..\Header\BreakObj.h" />
     <ClInclude Include="..\Header\BreakStone.h" />
     <ClInclude Include="..\Header\Bullet.h" />
@@ -210,8 +212,10 @@
     <ClInclude Include="..\Header\CParticle_Stone.h" />
     <ClInclude Include="..\Header\CUI.h" />
     <ClInclude Include="..\Header\Cupa.h" />
+    <ClInclude Include="..\Header\CutSceneMgr.h" />
     <ClInclude Include="..\Header\DefenceEnter.h" />
     <ClInclude Include="..\Header\Door.h" />
+    <ClInclude Include="..\Header\DrawingEnter.h" />
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -401,6 +405,7 @@
     <ClInclude Include="..\Header\TurretBullet.h" />
     <ClInclude Include="..\Header\UIMgr.h" />
     <ClInclude Include="..\Header\UI_BossHP.h" />
+    <ClInclude Include="..\Header\UI_ContinueMark.h" />
     <ClInclude Include="..\Header\UI_Cursor.h" />
     <ClInclude Include="..\Header\UI_Dialog.h" />
     <ClInclude Include="..\Header\UI_ExclamationMark.h" />
@@ -425,6 +430,7 @@
     <ClInclude Include="..\Header\UI_SlotOne.h" />
     <ClInclude Include="..\Header\UI_SlotThree.h" />
     <ClInclude Include="..\Header\UI_SlotTwo.h" />
+    <ClInclude Include="..\Header\UI_TurretGauge.h" />
     <ClInclude Include="..\Header\UI_Veil.h" />
     <ClInclude Include="..\Header\UseItem.h" />
     <ClInclude Include="Client.h" />
@@ -444,6 +450,8 @@
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\BossDoor.cpp" />
+    <ClCompile Include="..\Code\BossDoorEnter.cpp" />
     <ClCompile Include="..\Code\BreakObj.cpp" />
     <ClCompile Include="..\Code\BreakStone.cpp" />
     <ClCompile Include="..\Code\Bullet.cpp" />
@@ -456,8 +464,10 @@
     <ClCompile Include="..\Code\CParticle_Stone.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
     <ClCompile Include="..\Code\Cupa.cpp" />
+    <ClCompile Include="..\Code\CutSceneMgr.cpp" />
     <ClCompile Include="..\Code\DefenceEnter.cpp" />
     <ClCompile Include="..\Code\Door.cpp" />
+    <ClCompile Include="..\Code\DrawingEnter.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -645,6 +655,7 @@
     <ClCompile Include="..\Code\TurretBullet.cpp" />
     <ClCompile Include="..\Code\UIMgr.cpp" />
     <ClCompile Include="..\Code\UI_BossHP.cpp" />
+    <ClCompile Include="..\Code\UI_ContinueMark.cpp" />
     <ClCompile Include="..\Code\UI_Cursor.cpp" />
     <ClCompile Include="..\Code\UI_Dialog.cpp" />
     <ClCompile Include="..\Code\UI_ExclamationMark.cpp">
@@ -671,6 +682,7 @@
     <ClCompile Include="..\Code\UI_SlotThree.cpp" />
     <ClCompile Include="..\Code\UI_SlotTwo.cpp" />
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
+    <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
     <ClCompile Include="..\Code\UI_Veil.cpp" />
     <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />

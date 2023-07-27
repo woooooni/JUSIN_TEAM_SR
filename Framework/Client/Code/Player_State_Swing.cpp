@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Transform.h"
 #include "Collider.h"
+#include "Export_Function.h"
 
 CPlayer_State_Swing::CPlayer_State_Swing(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner)
@@ -102,6 +103,15 @@ HRESULT CPlayer_State_Swing::Ready_State(void)
 
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(2.5f, 2.5f, 2.5f));
 	
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+
+	int iTemp = rand() % 2;
+	if(iTemp == 1)
+		Play_Sound(L"SFX_0_Swing1_1.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	else
+		Play_Sound(L"SFX_1_Swing1_2.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+	
+
 	return S_OK;
 }
 
@@ -146,7 +156,7 @@ void CPlayer_State_Swing::Update_Hat()
 	_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
-	vPos.z -= 0.0001f;
+	vPos.z -= 0.005f;
 	vPos += m_vecHatPos[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()];
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
 	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(m_fScale[(_uint)m_pOwner->GetObj_Dir()][m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx()]);

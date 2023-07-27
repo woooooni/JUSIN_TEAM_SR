@@ -32,6 +32,7 @@
 #include	"TurretBullet.h"
 
 #include "Scene_Loading.h"
+#include	<time.h>
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
 {
@@ -59,6 +60,7 @@ HRESULT CMainApp::Ready_MainApp(void)
 
 int CMainApp::Update_MainApp(const float & fTimeDelta)
 {
+	srand(unsigned(time(NULL)));
 	Engine::Update_InputDev();
 	Engine::Update_PickingMgr();
 	Engine::Update_KeyMgr();
@@ -66,6 +68,7 @@ int CMainApp::Update_MainApp(const float & fTimeDelta)
 
 	NULL_CHECK_RETURN(m_pManagementClass, -1);
 	m_pManagementClass->Update_Scene(fTimeDelta);
+	CQuestMgr::GetInstance()->Update_QuestMgr(fTimeDelta);
 
 	
 	return 0;
@@ -83,7 +86,7 @@ void CMainApp::Render_MainApp()
 	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 
-	// Engine::Update_EventMgr(0.f);
+	Engine::Update_EventMgr(0.f);
 	Engine::Render_End();
 }
 
@@ -210,8 +213,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TEST);
-	// Engine::Play_Sound(L"BGM_1_CentralArea.wav", CHANNELID::SOUND_BGM, .5f);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);
@@ -221,195 +223,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 HRESULT CMainApp::Ready_Proto_Event()
 {
-	EVENT* event = new EVENT;
 
-	event->iEventNum = 1;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 2;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-
-	event->iEventNum = 3;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 4;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 5;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 6;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 7;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-
-	event = new EVENT;
-	event->iEventNum = 8;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-
-	event = new EVENT;
-	event->iEventNum = 9;
-	event->m_bIsCanReset = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 10;
-
-	FAILED_CHECK(Add_Event(event));
-	event = new EVENT;
-	event->iEventNum = 11;
-
-	FAILED_CHECK(Add_Event(event));
-	event = new EVENT;
-	event->iEventNum = 12;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 13;
-	event->lEndKey.push_back(10);
-	event->lEndKey.push_back(11);
-	event->lEndKey.push_back(12);
-	event->m_bIsCheckUpdate = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 14;
-
-	FAILED_CHECK(Add_Event(event));
-	event = new EVENT;
-	event->iEventNum = 15;
-
-	FAILED_CHECK(Add_Event(event));
-
-
-	event = new EVENT;
-	event->iEventNum = 16;
-
-	event->lEndKey.push_back(14);
-	event->lEndKey.push_back(15);
-	event->m_bIsCheckUpdate = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 17;
-
-	FAILED_CHECK(Add_Event(event));
-	event = new EVENT;
-	event->iEventNum = 18;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 19;
-
-	event->lEndKey.push_back(17);
-	event->lEndKey.push_back(18);
-
-	event->m_bIsCheckUpdate = true;
-
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 20;
-
-	event->m_bIsCanReset = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 21;
-	event->m_bIsCanReset = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-
-	event = new EVENT;
-	event->iEventNum = 22;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 23;
-	event->m_bIsCanReset = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 24;
-	event->m_bIsCanReset = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 25;
-	event->m_bIsCanReset = true;
-
-	FAILED_CHECK(Add_Event(event));
-	event = new EVENT;
-	event->iEventNum = 26;
-	event->m_bIsCanReset = true;
-
-	FAILED_CHECK(Add_Event(event));
-	event = new EVENT;
-	event->iEventNum = 27;
-	event->m_bIsCanReset = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-
-	event = new EVENT;
-	event->iEventNum = 28;
-	event->lEndKey.push_back(25);
-	event->lEndKey.push_back(26);
-	event->lEndKey.push_back(27);
-
-	event->m_bIsCheckUpdate = true;
-
-	FAILED_CHECK(Add_Event(event));
-
-	event = new EVENT;
-	event->iEventNum = 29;
-	FAILED_CHECK(Add_Event(event));
 
 
 	return S_OK;
@@ -444,7 +258,10 @@ void CMainApp::Free()
 
 	Safe_Release(m_pGraphicDevClass);
 	Safe_Release(m_pManagementClass);
-		
+	
+	CQuestMgr::GetInstance()->DestroyInstance();
+	CUIMgr::GetInstance()->DestroyInstance();
+
 	Engine::Release_Utility();
 	Engine::Release_System();
 }

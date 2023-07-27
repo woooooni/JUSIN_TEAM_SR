@@ -93,6 +93,7 @@ inline void		Add_Reset(const _uint& resetIndex, const _uint& eventKey);
 inline void		Reset(const _uint& resetIndex);
 
 inline void		Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex);
+inline void		Clear_Event();
 
 // EventMgr
 inline HRESULT Ready_EventMgr();

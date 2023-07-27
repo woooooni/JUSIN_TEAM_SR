@@ -31,6 +31,8 @@ HRESULT CScene_MonkeyVillage::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -121,11 +123,11 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
 	_vec3 vPortalPos = _vec3(225.f, 1.f, 222.f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
-	dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(5.f, 5.f, 3.f));
+	dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(10.f, 5.f, 3.f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	
 	CNpc_Chief* pChief = CNpc_Chief::Create(m_pGraphicDev);
-	_vec3 vChiefPos = _vec3(141.f, 0.5f, 115.f);
+	_vec3 vChiefPos = _vec3(141.4f, 0.5f, 114.85f);
 	pChief->Get_TransformCom()->Set_Info(INFO_POS, &vChiefPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Chief", pChief);
 
@@ -155,12 +157,12 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite5", pElite);
 
 	pElite = CNpc_Elite::Create(m_pGraphicDev);
-	vElitePos = _vec3(142.f, 1.3f, 101.5f);
+	vElitePos = _vec3(143.5f, 1.3f, 106.f);
 	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite6", pElite);
 
 	pElite = CNpc_Elite::Create(m_pGraphicDev);
-	vElitePos = _vec3(139.f, 1.3f, 101.5f);
+	vElitePos = _vec3(139.f, 1.3f, 106.f);
 	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite7", pElite);
 	VILLAGERTYPE VillagerTypeArray[5] = { VILLAGERTYPE::MONKEY_HOOD,VILLAGERTYPE::MONKEY_FUR,VILLAGERTYPE::MONKEY_LEAVES1,VILLAGERTYPE::MONKEY_LEAVES2,VILLAGERTYPE::MONKEY_DANCER};
@@ -224,25 +226,29 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"VillagerMonkey", pVillagerMonkey);
 
+
+	//?
 	CNpc_DanceTeacher* pDanceTeacher = CNpc_DanceTeacher::Create(m_pGraphicDev);
-	_vec3 vDanceTeacherPos = _vec3(141.f, 0.85f, 92.5f);
+	_vec3 vDanceTeacherPos = _vec3(141.f, 1.25f, 70.f);
 	pDanceTeacher->Get_TransformCom()->Set_Info(INFO_POS, &vDanceTeacherPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DanceTeacher", pDanceTeacher);
 	
 	CNpc_Dancer* pDancer = CNpc_Dancer::Create(m_pGraphicDev);
-	_vec3 vDancerPos = _vec3(143.f, 0.75f, 90.5f);
+	_vec3 vDancerPos = _vec3(144.f, 1.25f, 70.f);
 	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer1", pDancer);
 
 	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
-	vDancerPos = _vec3(139.f, 0.75f, 90.5f);
+	vDancerPos = _vec3(138.f, 1.25f, 70.f);
 	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer1", pDancer);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
 	_vec3 m_vVillagerPos[10] = {_vec3(123.f,0.75f,41.f),_vec3(121.f,0.75f,55.f),
 	_vec3(114.f,0.75f,52.f),_vec3(108.f,0.75f,42.f),_vec3(110.f,0.75f,20.f),
 	_vec3(115.f,0.75f,31.f),_vec3(127.f,0.75f,30.5f),_vec3(123.f,0.75f,41.f),
 	_vec3(105.f,0.75f,41.4f),_vec3(127.f,0.75f,67.5f) };
+
 	for (int i = 0; i < 10; i++)
 	{
 		pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand() % 5]);
@@ -268,7 +274,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Monster()
 	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 159.f), BUGCOLORTYPE::PINK);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(215.f, 0.5f, 158.f), BUGCOLORTYPE::YELLOW);
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(215.f, 0.5f, 158.f), BUGCOLORTYPE::BLUE);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
 	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(214.f, 0.5f, 149.f), BUGCOLORTYPE::PINK);
@@ -277,7 +283,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Monster()
 	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(218.f, 0.5f, 146.f), BUGCOLORTYPE::YELLOW);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(224.f, 0.5f, 148.f), BUGCOLORTYPE::PINK);
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(224.f, 0.5f, 148.f), BUGCOLORTYPE::BLUE);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
 	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(223.f, 0.5f, 154.f), BUGCOLORTYPE::PINK);
@@ -370,6 +376,53 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Effect()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_UI()
 {
+	return S_OK;
+}
+
+HRESULT CScene_MonkeyVillage::Ready_Event()
+{
+
+	EVENT* event = new EVENT;
+	event->iEventNum = 23;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 24;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 25;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 26;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+	event = new EVENT;
+	event->iEventNum = 27;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 28;
+	event->lEndKey.push_back(25);
+	event->lEndKey.push_back(26);
+	event->lEndKey.push_back(27);
+
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+
 	return S_OK;
 }
 

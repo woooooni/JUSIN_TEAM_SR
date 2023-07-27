@@ -23,8 +23,8 @@ HRESULT CUI_NewItem::Ready_Object(void)
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_tInfo.fX = 0.f;
-	m_tInfo.fY = -20.f;
+	m_tInfo.fX = WINCX / 2;
+	m_tInfo.fY = WINCY / 2 - 15.f;
 
 	m_pWindow = CUI_Notification::Create(m_pGraphicDev, 0.8f, 0.79f);
 	if (m_pWindow != nullptr)
@@ -113,8 +113,8 @@ void CUI_NewItem::Render_Object(void)
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 		
-		vPos = { (2 * m_tInfo.fX / WINCX) * (1 / m_matProj._11) ,
-					(-2 * m_tInfo.fY / WINCY) * (1 / m_matProj._22), 0.f };
+		vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+						(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 		m_pTransformCom->Set_Pos(&vPos);
 
 		m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
@@ -176,6 +176,8 @@ void CUI_NewItem::Key_Input()
 
 			m_pFrame->Set_Active(false);
 			m_pFrame->Set_Shown(false);
+			FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), false);
+
 		}
 }
 
@@ -183,50 +185,7 @@ void CUI_NewItem::Set_Item(ITEM_CODE _eCodeType)
 {
 	m_strItemInfo = CItem::Get_Explain(_eCodeType);
 
-	switch (_eCodeType)
-	{
-	case Engine::ITEM_CODE::HP_SMALL:
-		m_strItemName = L"건강 열매";
-		break;
-
-	case Engine::ITEM_CODE::HP_MIDDLE:
-		m_strItemName = L"수입산 사과";
-		break;
-
-	case Engine::ITEM_CODE::HP_BIG:
-		m_strItemName = L"국내산 사과";
-		break;
-
-	case Engine::ITEM_CODE::SPEED_SMALL:
-		m_strItemName = L"신비한 약초";
-		break;
-
-	case Engine::ITEM_CODE::SPEED_MIDDLE:
-		m_strItemName = L"더 신비한 약초";
-		break;
-
-	case Engine::ITEM_CODE::SPEED_BIG:
-		m_strItemName = L"진짜 신비한 약초";
-		break;
-
-	case Engine::ITEM_CODE::LEAF:
-		m_strItemName = L"나뭇잎";
-		break;
-
-	case Engine::ITEM_CODE::TWIG:
-		m_strItemName = L"나뭇가지";
-		break;
-
-	case Engine::ITEM_CODE::BUTTERFLY:
-		m_strItemName = L"장수풍뎅이 탈을 쓴 나비";
-		break;
-
-	case Engine::ITEM_CODE::ITEM_END:
-		break;
-
-	default:
-		break;
-	}
+	m_strItemName = CItem::Get_Name(_eCodeType);
 }
 
 void CUI_NewItem::Get_ItemInfo(ITEM_CODE _eCodeType)

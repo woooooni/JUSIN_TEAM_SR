@@ -42,6 +42,8 @@ void CProp::LateUpdate_Object(void)
 void CProp::Render_Object(void)
 {
 	//Set_Billboard();
+	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
 
 	__super::Render_Object();
 
@@ -49,7 +51,8 @@ void CProp::Render_Object(void)
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 
-	
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }
 
 void CProp::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
@@ -61,7 +64,8 @@ void CProp::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGro
 void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER 
-		|| _eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER)
+		|| _eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER
+		|| _eCollisionGroup == COLLISION_GROUP::COLLIDE_ITEM)
 	{
 		_float fDeltaX = 0.f, fDeltaY = 0.f, fDeltaZ = 0.f;
 
@@ -101,7 +105,7 @@ void CProp::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGrou
 
 
 
-		if (fX - fabs(vDir.x) < fZ - fabs(vDir.z))
+		if (fX - fabs(vDir.x) <= fZ - fabs(vDir.z))
 		{
 			if (vDir.x < 0.f)
 			{

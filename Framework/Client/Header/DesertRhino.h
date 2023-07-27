@@ -26,8 +26,10 @@ public:
     virtual void	LateUpdate_Object(void)						override;
 
     HRESULT	Add_Component(void);
+
 public:
     static  CDesertRhino* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
 private:
     _float m_fMoveTime;
     _vec3 m_vDst = { 0.f,0.f,0.f };
