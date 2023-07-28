@@ -1,6 +1,9 @@
 #include "Door.h"
 #include "Export_Function.h"
 #include "KeyMgr.h"
+#include "Effect_Smoke.h"
+#include "Pool.h"
+#include "GameMgr.h"
 
 CDoor::CDoor(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CFixedObj(pGraphicDev, OBJ_ID::PROP)
@@ -33,6 +36,20 @@ _int CDoor::Update_Object(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::N))
 		Event_End(21079634);
+
+
+	if (m_bOpen && !m_bFinish)
+	{
+		if (m_pRigidBodyCom->IsGround())
+		{
+			m_bFinish = true;
+
+			CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();
+			NULL_CHECK_RETURN(pPlayer, E_FAIL);
+			pPlayer->SetObj_Dir(OBJ_DIR::DIR_U);
+			dynamic_cast<CPlayer*>(pPlayer)->Set_Stop(false);
+		}
+	}
 
 	return S_OK;
 }
@@ -155,24 +172,39 @@ void CDoor::Event_Start(_uint iEventNum)
 {
 	m_fMinHeight = -(m_fMinHeight * 2.0f);
 	m_pRigidBodyCom->SetGround(false);
+	m_bOpen = true;
 
+	Effect();
 }
 
 void CDoor::Event_End(_uint iEventNum)
 {
 	m_fMinHeight = -(m_fMinHeight * 2.0f);
 	m_pRigidBodyCom->SetGround(false);
+	m_bOpen = true;
+
+	Effect();
 }
 
 void CDoor::Set_Door(_vec3& _vPos, _vec3& _vScale)
 {
 	m_pTransformCom->Set_Pos(&_vPos);
 	m_pTransformCom->Set_Scale(_vScale);
+	m_vScale = _vScale;
 	m_fMinHeight = _vPos.y;
 	_vScale.x *= 2.0f;
 	_vScale.z = 0.2f;
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vScale);
 	Set_Active(true);
+}
+
+void CDoor::Open_Door()
+{
+	m_fMinHeight = -(m_fMinHeight * 2.0f);
+	m_pRigidBodyCom->SetGround(false);
+	m_bOpen = true;
+
+	Effect();
 }
 
 HRESULT CDoor::Ready_Component()
@@ -205,6 +237,33 @@ HRESULT CDoor::Ready_Component()
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
 	return S_OK;
+}
+
+void CDoor::Effect(void)
+{
+	_vec3 vPos, vEffectPos;
+
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	
+	vPos.x -= m_vScale.x * 0.5f;
+	vPos.y = 0.3f;
+
+	
+	for (_uint i = 0; 21 > i; ++i)
+	{
+		vEffectPos = vPos;
+		vEffectPos.x += (m_vScale.x / 20.f) * i;
+
+
+		CGameObject* pEffect = CPool<CEffect_Smoke>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Smoke::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.5f, 1.5f, 1.5f), 255, 255, 255);
+	}
+
 }
 
 CDoor* CDoor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

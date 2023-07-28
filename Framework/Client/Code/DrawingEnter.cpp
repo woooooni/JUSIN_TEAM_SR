@@ -51,7 +51,8 @@ _int CDrawingEnter::Update_Object(const _float& fTimeDelta)
 	pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 
 	vDir = vPlayerPos - vPos;
-	if (D3DXVec3Length(&vDir) < 1.0f && !m_bFinish)
+
+	if (D3DXVec3Length(&vDir) < 5.0f && !m_bFinish)
 	{
 		if (m_bStart)
 		{
@@ -66,22 +67,24 @@ _int CDrawingEnter::Update_Object(const _float& fTimeDelta)
 				NULL_CHECK_RETURN(pItem, E_FAIL);*/
 				CInventoryMgr::GetInstance()->Add_Item(m_pItem->Clone());
 				CEventMgr::GetInstance()->DeleteObjEvt(this);
-				CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 			}
 		}
 
-		if (!m_bStart)
+		if (!m_bStart && D3DXVec3Length(&vDir) <= 1.0f)
 		{
 			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
 			if (KEY_TAP(KEY::Z))
 			{
 				m_bStart = true;
 				pPlayer->Change_State(PLAYER_STATE::DRAWING);
+				CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 			}
 		}
-			
-		
+		else if (D3DXVec3Length(&vDir) > 1.0f)
+			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 	}
+
+
 
 	if (m_bFinish)
 	{
