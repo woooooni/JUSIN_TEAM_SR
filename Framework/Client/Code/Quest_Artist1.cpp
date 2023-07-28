@@ -4,7 +4,7 @@ CQuest_Artist1::CQuest_Artist1(NPC_CODE _eNpcCode, CItem* _pRewardItem)
 	:CQuest_Conversation(NPC_CODE::NPC_ARTIST, nullptr)
 {
 	m_strQuestTitle = L"그림 그리기";
-	m_strQuestDesc = L"화가가 3차원 원근법을 알려줬다. 그림을 그려보자.";
+	m_strQuestDesc = L"삼원색에 대해 배워보자";
 
 	// TODO : 대사 쓰기
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)];

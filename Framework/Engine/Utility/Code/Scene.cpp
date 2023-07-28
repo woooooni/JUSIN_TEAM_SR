@@ -53,9 +53,17 @@ void CScene::Free()
 	for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
 	{
 		if (i == (_uint)LAYER_TYPE::PLAYER)
+		{
 			continue;
-		else		
+		}
+		else if (i == (_uint)LAYER_TYPE::EFFECT)
+		{
+			// TODO :: Return Pool
+		}
+		else
+		{
 			m_mapLayer[(LAYER_TYPE)i]->Free();
+		}
 	}
 	m_mapLayer.clear();
 	Safe_Release(m_pGraphicDev);
