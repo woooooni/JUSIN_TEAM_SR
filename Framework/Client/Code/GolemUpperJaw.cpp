@@ -98,6 +98,19 @@ HRESULT CGolemUpperJaw::Add_Component(void)
 
 void CGolemUpperJaw::Update_Idle(_float fTimeDelta)
 {
+	_vec3 vDir;
+	if (m_bBreath)
+		Move_Offset(_vec3(0, 0.4, -0.055f), fTimeDelta, 2.f);
+	
+
+	if (m_iIndex == 2)
+	{
+		if (m_bBreath)
+			m_bBreath = false;
+		else
+			m_bBreath = true;
+	}
+
 }
 
 void CGolemUpperJaw::Update_Dirty(_float fTimeDelta)
@@ -123,7 +136,7 @@ void CGolemUpperJaw::Update_Regen(_float fTimeDelta)
 	switch (m_iIndex)
 	{
 	case 0:
-		m_vOffset = { -0.f,	0.1f, - 0.02f };
+		m_vOffset = { -0.f,	0.1f, -0.055f };
 
 		break;
 	case 1:
@@ -141,7 +154,7 @@ void CGolemUpperJaw::Update_Regen(_float fTimeDelta)
 		Move_Offset(_vec3(0.f, 0.4902f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 5:
-		Move_Offset(_vec3(0.f, 0.4f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f, 0.4f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 
 

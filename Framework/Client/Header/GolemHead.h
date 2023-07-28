@@ -51,7 +51,6 @@ private:
 
 protected:
 	_float m_fMoveTime;
-	bool m_bBreath=false;
 protected:
 	virtual void Free() override;
 

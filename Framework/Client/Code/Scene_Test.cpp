@@ -395,11 +395,9 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	
-
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
+	//CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
 
 	pLayer->Ready_Layer();
 

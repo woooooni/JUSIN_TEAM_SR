@@ -43,7 +43,6 @@ public:
 
 private:
 
-	bool m_bBreath = false;
 protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
