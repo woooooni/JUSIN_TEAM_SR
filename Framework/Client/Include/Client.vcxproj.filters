@@ -1381,6 +1381,9 @@
     <ClInclude Include="..\Header\BossDoor.h" />
     <ClInclude Include="..\Header\BossDoorEnter.h" />
     <ClInclude Include="..\Header\DrawingEnter.h" />
+    <ClInclude Include="..\Header\CutSceneMgr.h" />
+    <ClInclude Include="..\Header\UI_TurretGauge.h" />
+    <ClInclude Include="..\Header\DoorEnter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2049,6 +2052,9 @@
     <ClCompile Include="..\Code\BossDoor.cpp" />
     <ClCompile Include="..\Code\BossDoorEnter.cpp" />
     <ClCompile Include="..\Code\DrawingEnter.cpp" />
+    <ClCompile Include="..\Code\CutSceneMgr.cpp" />
+    <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
+    <ClCompile Include="..\Code\DoorEnter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

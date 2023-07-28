@@ -55,12 +55,14 @@ HRESULT CMainApp::Ready_MainApp(void)
 	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	//FAILED_CHECK_RETURN(Ready_Pool(), E_FAIL);
 
+	srand(unsigned(time(NULL)));
+
 	return S_OK;
 }
 
 int CMainApp::Update_MainApp(const float & fTimeDelta)
 {
-	srand(unsigned(time(NULL)));
+	
 	Engine::Update_InputDev();
 	Engine::Update_PickingMgr();
 	Engine::Update_KeyMgr();

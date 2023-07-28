@@ -215,6 +215,7 @@
     <ClInclude Include="..\Header\CutSceneMgr.h" />
     <ClInclude Include="..\Header\DefenceEnter.h" />
     <ClInclude Include="..\Header\Door.h" />
+    <ClInclude Include="..\Header\DoorEnter.h" />
     <ClInclude Include="..\Header\DrawingEnter.h" />
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -467,6 +468,7 @@
     <ClCompile Include="..\Code\CutSceneMgr.cpp" />
     <ClCompile Include="..\Code\DefenceEnter.cpp" />
     <ClCompile Include="..\Code\Door.cpp" />
+    <ClCompile Include="..\Code\DoorEnter.cpp" />
     <ClCompile Include="..\Code\DrawingEnter.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
