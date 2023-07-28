@@ -38,6 +38,12 @@ void CEffect_StoneParticle::Render_Object(void)
 {
 }
 
+void CEffect_StoneParticle::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_StoneParticle>::Return_Obj(this);
+}
+
 CEffect_StoneParticle* CEffect_StoneParticle::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_StoneParticle* pInstance = new CEffect_StoneParticle(pGraphicDev);

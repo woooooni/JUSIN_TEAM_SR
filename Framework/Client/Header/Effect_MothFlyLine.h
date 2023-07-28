@@ -19,6 +19,8 @@ public:
 	virtual _int	Update_Object(const _float& fTimeDelta)		override;
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
+	virtual void	Return_Pool(void)							override;
+
 	void Set_Front(_bool _bFront) { m_bFront = _bFront; };
 	void Set_Render(_bool _bRender) { m_bRender = _bRender; };
 

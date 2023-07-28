@@ -36,15 +36,20 @@ _int CEffect_MothFlyLine::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK; 
+
 	if (!m_bRender)
 		return S_OK;
+
 	int iExit = __super::Update_Object(fTimeDelta);
+
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_EFFECT);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+
 	_vec3 vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst - vPos;
 	m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir,&vDir), 50.f, fTimeDelta);
+
 	return iExit;
 }
 
@@ -72,6 +77,10 @@ void CEffect_MothFlyLine::Render_Object(void)
 		m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 	}
+}
+
+void CEffect_MothFlyLine::Return_Pool(void)
+{
 }
 
 HRESULT CEffect_MothFlyLine::Add_Component(void)

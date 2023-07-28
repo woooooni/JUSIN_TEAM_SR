@@ -95,6 +95,10 @@ void CEffect_Shadow::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
+void CEffect_Shadow::Return_Pool(void)
+{
+}
+
 CEffect_Shadow* CEffect_Shadow::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_Shadow* pInstance = new CEffect_Shadow(pGraphicDev);

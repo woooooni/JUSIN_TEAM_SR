@@ -39,6 +39,12 @@ void CEffect_Leaf::Render_Object(void)
 {
 }
 
+void CEffect_Leaf::Return_Pool(void)
+{
+    Set_Active(false);
+    CPool<CEffect_Leaf>::Return_Obj(this);
+}
+
 CEffect_Leaf* CEffect_Leaf::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
     CEffect_Leaf* pInstance = new CEffect_Leaf(pGraphicDev);

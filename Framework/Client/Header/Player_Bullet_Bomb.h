@@ -44,6 +44,9 @@ private:
 
 	 _float m_fAccTime;
 	 _float m_fBulletTime;
+
+	 _float m_fAccEffectTime;
+	 _float m_fEffectTime;
 private:
 	virtual void Free() override;
 };

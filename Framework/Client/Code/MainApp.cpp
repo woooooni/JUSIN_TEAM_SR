@@ -150,7 +150,7 @@ HRESULT CMainApp::Ready_Default_RenderState()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
 	m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
 	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
@@ -211,7 +211,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 	Engine::CScene*		pScene = nullptr;
 
-	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::TEST);
+	pScene = CScene_Loading::Create(pGraphicDev, SCENE_TYPE::LOGO);
 
 	NULL_CHECK_RETURN(pScene, E_FAIL);
 	FAILED_CHECK_RETURN((*ppManagementClass)->Set_Scene(pScene), E_FAIL);
