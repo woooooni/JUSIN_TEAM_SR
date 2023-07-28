@@ -62,7 +62,8 @@ Engine::_int CScene_Loading::Update_Scene(const _float& fTimeDelta)
 			break;
 		case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
 			break;
-		case Engine::SCENE_TYPE::SUNGOLEM_CAVE1:
+		case Engine::SCENE_TYPE::MONKEY_FOREST2:
+			PlayVideo(g_hWnd, L"../Bin/Resource/Video/Entrance.wmv");
 			break;
 		default:
 			break;

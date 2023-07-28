@@ -24,7 +24,7 @@
 #include "Player_State_Skill.h"
 #include "Player_State_Dance.h"
 #include "Effect_Shadow.h"
-#include	"InventoryMgr.h"
+#include "InventoryMgr.h"
 
 #include "Item_Hat_Drill.h"
 #include "Item_Hat_Light.h"
@@ -51,6 +51,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 
 }
+
 CPlayer::CPlayer(const CPlayer& rhs)
 	: Engine::CGameObject(rhs)
 	, m_fSpeed(rhs.m_fSpeed)

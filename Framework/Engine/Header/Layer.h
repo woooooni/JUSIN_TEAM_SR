@@ -19,9 +19,9 @@ public:
 	vector<CGameObject*>& Get_GameObjectVec() { return m_vecObject; }
 
 public:
-	HRESULT			Ready_Layer();
-	_int			Update_Layer(const _float& fTimeDelta);
-	void			LateUpdate_Layer();
+	HRESULT	Ready_Layer();
+	_int Update_Layer(const _float& fTimeDelta);
+	void LateUpdate_Layer();
 
 private:
 	vector<CGameObject*> m_vecObject;
