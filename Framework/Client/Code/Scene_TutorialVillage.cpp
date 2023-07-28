@@ -90,6 +90,16 @@ void CScene_TutorialVillage::Enter_Scene()
 	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_LIGHT), SHOPITEMTYPE::UISHOP_LEAF);
 	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MASK), SHOPITEMTYPE::UISHOP_CLOTH);
 	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MISSLE), SHOPITEMTYPE::UISHOP_BRANCH);
+
+
+
+	D3DMATERIAL9 material = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
+	material.Diffuse = { 1.f, 1.f, 1.f, 1.f };
+	material.Ambient = { .4f, .4f, .4f, .4f };
+	material.Emissive = { 0.f, 0.f, 0.f, 0.f };
+	material.Specular = { 0.f, 0.f, 0.f, 0.f };
+
+	m_pGraphicDev->SetMaterial(&material);
 }
 
 void CScene_TutorialVillage::Exit_Scene()

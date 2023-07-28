@@ -4,12 +4,24 @@ IMPLEMENT_SINGLETON(CLightMgr)
 
 CLightMgr::CLightMgr()
 {
+	for (_uint i = 0; i < (_uint)LIGHT_TYPE::LIGHT_END; ++i)
+	{
+		m_arrLight[i] = nullptr;
+	}
 }
 
 
 CLightMgr::~CLightMgr()
 {
 	Free();
+}
+
+HRESULT CLightMgr::Ready_LightMgr(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	m_pGraphicDev = pGraphicDev;
+	pGraphicDev->AddRef();
+
+	return S_OK;
 }
 
 HRESULT Engine::CLightMgr::Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
@@ -20,13 +32,18 @@ HRESULT Engine::CLightMgr::Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	CLight* pLight = CLight::Create(pGraphicDev, pLightInfo, iIndex);
 	NULL_CHECK_RETURN(pLight, E_FAIL);
 
-	m_LightList.push_back(pLight);
+	if (m_arrLight[iIndex])
+		Safe_Release(m_arrLight[iIndex]);
+	
+	m_arrLight[iIndex] = pLight;
 
 	return S_OK;
 }
 
 void CLightMgr::Free(void)
 {
-	for_each(m_LightList.begin(), m_LightList.end(), CDeleteObj());
-	m_LightList.clear();
+	Safe_Release(m_pGraphicDev);
+
+	for (_uint i = 0; i < (_uint)LIGHT_TYPE::LIGHT_END; ++i)
+		Safe_Release(m_arrLight[i]);
 }
