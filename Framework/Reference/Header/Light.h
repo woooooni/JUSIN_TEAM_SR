@@ -19,6 +19,14 @@ private:
 public:
 	HRESULT				Ready_Light(const D3DLIGHT9* pLight, const _uint& iIndex);
 
+
+public:
+	// 수정 가능.
+	D3DLIGHT9& Get_LightInfo() { return m_tLightInfo; }
+	void Set_LightInfo(const D3DLIGHT9& tLightInfo) { m_tLightInfo = tLightInfo; }
+
+	_uint Get_Idx() { return m_iIndex; }
+
 public:
 	static CLight*		Create(LPDIRECT3DDEVICE9 _pDevice,
 								const D3DLIGHT9* pLightInfo,

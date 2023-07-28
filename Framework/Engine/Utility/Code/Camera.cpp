@@ -142,7 +142,7 @@ void CCamera::Follow(const _float& fTimeDelta)
 	vDir = vTargetPos - vCameraPos;
 	_float fLen = D3DXVec3Length(&vDir);
 
-	m_fDist = 0.f;
+	m_fDist = 1.f;
 
 	if (fLen < m_fDist)
 		return;
