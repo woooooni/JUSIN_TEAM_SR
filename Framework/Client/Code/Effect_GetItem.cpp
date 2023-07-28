@@ -7,6 +7,7 @@
 
 #include "Scene.h"
 #include "Terrain.h"
+#include "Pool.h"
 
 CEffect_GetItem::CEffect_GetItem(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CEffect(pGraphicDev)
@@ -106,6 +107,10 @@ void CEffect_GetItem::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+}
+
+void CEffect_GetItem::Return_Pool(void)
+{
 }
 
 CEffect_GetItem* CEffect_GetItem::Create(LPDIRECT3DDEVICE9 pGraphicDev)

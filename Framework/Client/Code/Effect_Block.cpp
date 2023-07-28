@@ -78,6 +78,12 @@ void CEffect_Block::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
+void CEffect_Block::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_Block>::Return_Obj(this);
+}
+
 CEffect_Block* CEffect_Block::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_Block* pInstance = new CEffect_Block(pGraphicDev);

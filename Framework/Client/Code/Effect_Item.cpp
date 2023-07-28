@@ -121,6 +121,12 @@ void CEffect_Item::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
+void CEffect_Item::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_Item>::Return_Obj(this);
+}
+
 CEffect_Item* CEffect_Item::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_Item* pInstance = new CEffect_Item(pGraphicDev);

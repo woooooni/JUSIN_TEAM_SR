@@ -77,6 +77,12 @@ void CEffect_DieSmoke::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
+void CEffect_DieSmoke::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_DieSmoke>::Return_Obj(this);
+}
+
 CEffect_DieSmoke* CEffect_DieSmoke::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_DieSmoke* pInstance = new CEffect_DieSmoke(pGraphicDev);

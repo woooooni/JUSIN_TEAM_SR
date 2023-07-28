@@ -77,6 +77,12 @@ void CEffect_LightningGround::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
+void CEffect_LightningGround::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_LightningGround>::Return_Obj(this);
+}
+
 CEffect_LightningGround* CEffect_LightningGround::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_LightningGround* pInstance = new CEffect_LightningGround(pGraphicDev);

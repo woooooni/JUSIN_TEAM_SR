@@ -8,6 +8,7 @@
 #include "Terrain.h"
 #include "Pool.h"
 
+
 CEffect_Smoke::CEffect_Smoke(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CEffect(pGraphicDev)
 
@@ -106,6 +107,12 @@ void CEffect_Smoke::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+}
+
+void CEffect_Smoke::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_Smoke>::Return_Obj(this);
 }
 
 CEffect_Smoke* CEffect_Smoke::Create(LPDIRECT3DDEVICE9 pGraphicDev)

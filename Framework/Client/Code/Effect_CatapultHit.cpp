@@ -78,6 +78,12 @@ void CEffect_CatapultHit::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
+void CEffect_CatapultHit::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_CatapultHit>::Return_Obj(this);
+}
+
 CEffect_CatapultHit* CEffect_CatapultHit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_CatapultHit* pInstance = new CEffect_CatapultHit(pGraphicDev);

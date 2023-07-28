@@ -76,6 +76,12 @@ void CEffect_GolemFist::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
+void CEffect_GolemFist::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_GolemFist>::Return_Obj(this);
+}
+
 CEffect_GolemFist* CEffect_GolemFist::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_GolemFist* pInstance = new CEffect_GolemFist(pGraphicDev);

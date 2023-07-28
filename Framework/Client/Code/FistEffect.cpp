@@ -1,5 +1,6 @@
 #include "FistEffect.h"
 #include "Export_Function.h"
+#include "Pool.h"
 
 CFistEffect::CFistEffect(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CEffect(pGraphicDev)
@@ -65,6 +66,10 @@ void CFistEffect::Render_Object(void)
 		__super::Render_Object();
 		m_pBufferCom->Render_Buffer();
 	}
+}
+
+void CFistEffect::Return_Pool(void)
+{
 }
 
 HRESULT CFistEffect::Add_Component(void)
