@@ -1,5 +1,6 @@
 #include "Coin.h"
 #include "Export_Function.h"
+#include	"Player.h"
 CCoin::CCoin(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CItem(pGraphicDev, ITEM_TYPE::COIN, OBJ_ID::ITEM)
 {
@@ -27,6 +28,7 @@ HRESULT CCoin::Ready_Object(void)
 _int CCoin::Update_Object(const _float& fTimeDelta)
 {
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
+	Add_RenderGroup(RENDER_ALPHA, this);
 	_int Result = __super::Update_Object(fTimeDelta);
 	return Result;
 }
@@ -45,7 +47,20 @@ void CCoin::Render_Object(void)
 
 	
 }
-CCoin* CCoin::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+void CCoin::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
+	{
+		CPlayer* player = dynamic_cast<CPlayer*>(pCollider->GetOwner());
+		NULL_CHECK_RETURN(player);
+		player->Add_Money(m_iMoney);
+		Set_Active(false);
+	}
+}
+void CCoin::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+}
+CCoin* CCoin::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _uint& pMoney, const _vec3& pPos)
 {
 	CCoin* pInstance = new CCoin(pGraphicDev);
 
@@ -56,6 +71,11 @@ CCoin* CCoin::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("Coin Create Failed");
 		return nullptr;
 	}
+
+	pInstance->m_iMoney = pMoney;
+	_vec3 src = pPos;
+	src.y = 0.5f;
+	pInstance->m_pTransformCom->Set_Pos(&src);
 
 	return pInstance;
 }

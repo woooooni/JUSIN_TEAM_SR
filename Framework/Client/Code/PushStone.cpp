@@ -163,6 +163,27 @@ void CPushStone::Reset_Event()
 	m_bIsOff = false;
 	m_pTransformCom->Set_Pos(&m_bOriginPos);
 }
+void CPushStone::Set_FieldState(const FIELD_OBJ_STATE& pState)
+{
+	m_eFState = pState;
+	switch (m_eFState)
+	{
+	case CFieldObject::NOT_INTERACT:
+		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+		break;
+	case CFieldObject::PUSHING:
+		Play_Sound(L"SFX_44_Jelly_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
+		break;
+	case CFieldObject::LIFTING:
+		Play_Sound(L"SFX_46_Jelly_Lift.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
+		
+		break;
+	case CFieldObject::STATE_END:
+		break;
+	default:
+		break;
+	}
+}
 
 HRESULT CPushStone::Ready_Component()
 {

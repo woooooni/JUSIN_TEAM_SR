@@ -85,16 +85,48 @@ HRESULT CDefaultItem::Use_Item()
 	case Engine::ITEM_CODE::SASUM:
 		break;
 	case Engine::ITEM_CODE::HAT_DRILL:
+		if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() != m_eCode)
+			pPlayer->Set_PlayerHat(PLAYER_HAT::DRILL);
+		else
+			pPlayer->Set_PlayerHat(PLAYER_HAT::NONE);
 		break;
 	case Engine::ITEM_CODE::HAT_LIGHT:
+		if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() != m_eCode)
+			pPlayer->Set_PlayerHat(PLAYER_HAT::LIGHT);
+		else
+			pPlayer->Set_PlayerHat(PLAYER_HAT::NONE);
+
 		break;
 	case Engine::ITEM_CODE::HAT_MASK:
+		if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() != m_eCode)
+			pPlayer->Set_PlayerHat(PLAYER_HAT::LIGHTNING);
+		else
+			pPlayer->Set_PlayerHat(PLAYER_HAT::NONE);
+
 		break;
 	case Engine::ITEM_CODE::HAT_MISSLE:
+		if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() != m_eCode)
+			pPlayer->Set_PlayerHat(PLAYER_HAT::MISSILE);
+		else
+			pPlayer->Set_PlayerHat(PLAYER_HAT::NONE);
+
 		break;
 	case Engine::ITEM_CODE::HAT_MONKEY:
+
+		if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() != m_eCode)
+			pPlayer->Set_PlayerHat(PLAYER_HAT::GOLEMFIST);
+		else
+			pPlayer->Set_PlayerHat(PLAYER_HAT::NONE);
+
 		break;
 	case Engine::ITEM_CODE::HAT_TURTLE:
+		if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() != m_eCode)
+			pPlayer->Set_PlayerHat(PLAYER_HAT::TURTLE);
+		else
+			pPlayer->Set_PlayerHat(PLAYER_HAT::NONE);
+
+
+
 		break;
 	default:
 		return E_FAIL;

@@ -17,6 +17,8 @@
 #include	"JellyStone.h"
 #include	"LightFlower.h"
 #include "RollingBug.h"
+#include	"DrawingEnter.h"
+#include	"DefaultItem.h"
 
 CScene_MonkeyVillage::CScene_MonkeyVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE)
@@ -262,6 +264,10 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	pOrangi->Get_TransformCom()->Set_Info(INFO_POS, &vOrangiPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Orangi", pOrangi);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_MONKEYTOWN));
+	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(139.5f, 0.6f, 81.f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
 
 	return S_OK;
 }

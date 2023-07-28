@@ -1206,6 +1206,10 @@ HRESULT CLoading::Ready_InteractionObj_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Rabit_Hit", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Rabbit/Hit/Sprite_RabbitHit_%d.png", 6)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Rabit_Hole", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_Rabbit_Hole_Combine.png")), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Barrel_Explosive", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_WoodenBarrelExplosive.png")), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Tex_Barrel_Explosive_Blur", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/IA_Sprite/Sprite_WoodenBarrelWhite.png")), E_FAIL);
+
+
 
 	return S_OK;
 

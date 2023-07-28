@@ -14,6 +14,8 @@
 #include "PushStone.h"
 #include "BreakStone.h"
 #include	"JellyStone.h"
+#include	"DrawingEnter.h"
+#include	"DefaultItem.h"
 
 CScene_MonkeyForest2::CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST2)
@@ -129,6 +131,11 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_Environment()
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS));
+	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(169.5f, 0.6f, 31.f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
+
 
 	return S_OK;
 }

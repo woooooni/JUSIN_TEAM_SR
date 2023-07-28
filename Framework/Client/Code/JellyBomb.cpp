@@ -74,7 +74,6 @@ _int CJellyBomb::Update_Object(const _float& fTimeDelta)
 
             m_bExplosing = true;
             m_bHitted = false;
-            Engine::Check_Event_Start(m_iExplodeEvent);
             m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
             dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 1.f, 4.f });
             m_pAnimator->Play_Animation(L"Explode", false);
@@ -87,6 +86,10 @@ _int CJellyBomb::Update_Object(const _float& fTimeDelta)
             if (m_fBlurAlpha > 1.f)
                 m_fBlurAlpha = 1.f;
         }
+    }
+    if (m_bExplosing && m_pAnimator->GetCurrAnimation()->Get_Idx() == (m_pAnimator->GetCurrAnimation()->Get_Size() - 1))
+    {
+        Engine::Check_Event_Start(m_iExplodeEvent);
     }
 
 
@@ -180,6 +183,8 @@ void CJellyBomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
     {
         m_bHitted = true;
         m_fExplodeTime = 3.f;
+        Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+        Play_Sound(L"SFX_88_JellyBomb_Activation.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
     }
 
 }
