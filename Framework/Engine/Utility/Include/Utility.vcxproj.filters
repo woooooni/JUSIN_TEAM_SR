@@ -109,6 +109,9 @@
     <Filter Include="04. GameObject\Camera\Veil">
       <UniqueIdentifier>{d0b9944a-e036-41b6-94fc-f419bad609bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\06. Shader">
+      <UniqueIdentifier>{47ffc286-2287-4474-a780-68edb6c05912}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Scene.h">
@@ -228,6 +231,9 @@
     <ClInclude Include="..\..\..\ThirdParty\fmod_output.h">
       <Filter>00. Manager\07. SoundMgr\Lib</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\Shader.h">
+      <Filter>05. Component\06. Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Scene.cpp">
@@ -322,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\EventMgr.cpp">
       <Filter>00. Manager\08. EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Shader.cpp">
+      <Filter>05. Component\06. Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -127,6 +127,7 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
 	return S_OK;
 }
 
@@ -150,10 +151,10 @@ HRESULT CMainApp::Ready_Default_RenderState()
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
-	m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	
+	/*m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);*/
 
 	return S_OK;
 }
@@ -172,6 +173,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BoxCollider", CBoxCollider::Create(m_pGraphicDev)), E_FAIL);
 	
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RigidBody", CRigidBody::Create(m_pGraphicDev)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Shader", CShader::Create(m_pGraphicDev, L"../Bin/ShaderFiles/LightShader.hlsl")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Main", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Banner.png")), E_FAIL);
 
 	// 초반 로딩을 위한 텍스처 로딩.
@@ -193,6 +195,7 @@ HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(CEventMgr::GetInstance()->Ready_EventMgr(), E_FAIL);
 	FAILED_CHECK_RETURN(CInventoryMgr::GetInstance()->Ready_InvenMgr(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(CQuestMgr::GetInstance()->Ready_QuestMgr(), E_FAIL);
+	FAILED_CHECK_RETURN(CLightMgr::GetInstance()->Ready_LightMgr(pGraphicDev), E_FAIL);
 
 	return S_OK;
 }

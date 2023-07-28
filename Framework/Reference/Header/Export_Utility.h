@@ -21,12 +21,14 @@
 #include "CubeTex.h"
 #include "RcPuzzleBuff.h"
 
+
 #include "Transform.h"
 #include "Collider.h"
 #include "BoxCollider.h"
 #include "Texture.h"
 #include "Animator.h"
 #include "RigidBody.h"
+#include "Shader.h"
 
 
 #include "GameObject.h"

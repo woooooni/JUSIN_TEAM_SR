@@ -107,8 +107,8 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 	}
 	if (m_bSpawn)
 		for (int i = 0; i < COLOR_END; i++)
-			if (m_pBeatles[i]->Is_Active())
-			m_pBeatles[i]->Update_Object(fTimeDelta);
+			if (nullptr != m_pBeatles[i] && m_pBeatles[i]->Is_Active())
+				m_pBeatles[i]->Update_Object(fTimeDelta);
 	
 	if (m_pUIBack->Is_Active() &&
 		m_pUIGauge->Is_Active() &&

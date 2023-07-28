@@ -18,8 +18,10 @@ public:
 		const D3DLIGHT9* pLightInfo,
 		const _uint& iIndex);
 
-	void Light_On(LIGHT_TYPE _eLightType) { m_pGraphicDev->LightEnable(_uint(_eLightType), TRUE); }
-	void Light_Off(LIGHT_TYPE _eLightType) { m_pGraphicDev->LightEnable(_uint(_eLightType), FALSE); }
+
+
+	void Light_On(LIGHT_TYPE _eLightType) { m_arrLight[_uint(_eLightType)]->Set_LightOn(); }
+	void Light_Off(LIGHT_TYPE _eLightType) { m_arrLight[_uint(_eLightType)]->Set_LightOff(); }
 
 	CLight* Get_Light(LIGHT_TYPE _eLightType) { return m_arrLight[(_uint)_eLightType]; }
 	

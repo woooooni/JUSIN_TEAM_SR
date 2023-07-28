@@ -1384,6 +1384,7 @@
     <ClInclude Include="..\Header\CutSceneMgr.h" />
     <ClInclude Include="..\Header\UI_TurretGauge.h" />
     <ClInclude Include="..\Header\DoorEnter.h" />
+    <ClInclude Include="..\Header\BarrelBomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2055,6 +2056,7 @@
     <ClCompile Include="..\Code\CutSceneMgr.cpp" />
     <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
     <ClCompile Include="..\Code\DoorEnter.cpp" />
+    <ClCompile Include="..\Code\BarrelBomb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -2073,5 +2075,8 @@
     <Text Include="ReadMe.txt">
       <Filter>99. Etc</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Bin\ShaderFiles\LightShader.hlsl" />
   </ItemGroup>
 </Project>

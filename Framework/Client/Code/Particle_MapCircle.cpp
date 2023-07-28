@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Terrain.h"
 #include "Pool.h"
+#include "GameMgr.h"
 
 
 CParticle_MapCircle::CParticle_MapCircle(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -154,7 +155,7 @@ void CParticle_MapCircle::Random_Particle(_vec3& _vMax, _uint _iCount, _uint iR,
 		fZ *= -1.0f;
 
 	_vec3 vPlayerPos;
-	Engine::Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
+	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 
 	_vec3 vPos = { vPlayerPos.x + fX, vPlayerPos.y + fY, vPlayerPos.z + fZ };
 	
@@ -242,7 +243,7 @@ void CParticle_MapCircle::Update_Reset(const _float& fTimeDelta)
 	}
 
 	_vec3 vPlayerPos;
-	Engine::Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
+	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
 
 
 	if (D3DXVec3Length(&(vPlayerPos - vPos)) > D3DXVec3Length(&m_vMax))
