@@ -34,6 +34,7 @@
 #include "TurretBullet.h"
 
 #include "Scene_Loading.h"
+#include "CutSceneMgr.h"
 #include <time.h>
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
@@ -69,11 +70,12 @@ int CMainApp::Update_MainApp(const float & fTimeDelta)
 	Engine::Update_PickingMgr();
 	Engine::Update_KeyMgr();
 	
+	
 
 	NULL_CHECK_RETURN(m_pManagementClass, -1);
 	m_pManagementClass->Update_Scene(fTimeDelta);
 	CQuestMgr::GetInstance()->Update_QuestMgr(fTimeDelta);
-
+	CCutSceneMgr::GetInstance()->Update_CutSceneMgr(fTimeDelta);
 	
 	return 0;
 }
@@ -149,11 +151,10 @@ HRESULT CMainApp::Ready_Default_RenderState()
 		return E_FAIL;
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
-	m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+	//m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+	//m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 	

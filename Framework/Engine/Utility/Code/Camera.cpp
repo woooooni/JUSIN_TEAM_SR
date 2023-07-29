@@ -92,7 +92,9 @@ void CCamera::LateUpdate_Object(void)
 	case CAMERA_STATE::TOOL:
 		LateUpdate_ToolCamera();
 		break;
-
+	case CAMERA_STATE::CUT_SCENE:
+		LateUpdate_CutSceneCamera();
+		break;
 	default:
 		break;
 	}

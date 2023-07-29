@@ -13,9 +13,10 @@
 #include "BalpanObj.h"
 #include "PushStone.h"
 #include "BreakStone.h"
-#include	"JellyStone.h"
-#include	"DrawingEnter.h"
-#include	"DefaultItem.h"
+#include "JellyStone.h"
+#include "DrawingEnter.h"
+#include "DefaultItem.h"
+#include "CutSceneMgr.h"
 
 CScene_MonkeyForest2::CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST2)
@@ -211,6 +212,8 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	pHit = CHitObj::Create(m_pGraphicDev, 17, { 49.f , 0.f, 35.f });
 
+	pHit->Set_CutSceneType(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE);
+
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
 
 
@@ -402,13 +405,16 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
 	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 103.f, 0.f, 43.5f }, true);
+	pBlock->Set_BlurEvent(19, L"Monkey");
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
 	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 104.f, 0.f, 43.5f }, true);
+	pBlock->Set_BlurEvent(19, L"Monkey");
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 105.f, 0.f, 43.5f }, true);
+	pBlock->Set_BlurEvent(19, L"Monkey");
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
@@ -588,8 +594,8 @@ HRESULT CScene_MonkeyForest2::Ready_Event()
 	FAILED_CHECK(Add_Event(event));
 	event = new EVENT;
 	event->iEventNum = 18;
-	event->lStartKey.push_back(30);
-	event->lStartKey.push_back(31);
+	event->lEndKey.push_back(30);
+	event->lEndKey.push_back(31);
 	event->m_bIsCanReset = true;
 	event->m_bIsCheckUpdate = true;
 

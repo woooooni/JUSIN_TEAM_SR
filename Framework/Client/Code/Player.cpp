@@ -288,6 +288,7 @@ HRESULT CPlayer::Ready_Object(void)
 
 Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 {
+
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);
 	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], COLLISION_GROUP::COLLIDE_GRAB);
@@ -518,6 +519,10 @@ void CPlayer::Free()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
+
+	if (fTimeDelta == 0)
+		return;
+
 	if (KEY_TAP(KEY::NUM_1))
 	{
 		m_eHat = PLAYER_HAT::LIGHT;
