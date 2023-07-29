@@ -62,7 +62,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	NULL_CHECK_RETURN(m_pUIGauge, E_FAIL);
 	m_pUIFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
 	NULL_CHECK_RETURN(m_pUIFrame, E_FAIL);
-
+	m_pUIGauge->Set_Name(BOSSNAME::SUNGOLLEM);
 
 
 	m_fMinHeight = 3.0f;
@@ -278,6 +278,17 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 
 	m_tStat.iHp = m_iDirtyHp;
 
+	m_pUIBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	if (m_pUIBack == nullptr)
+		return;
+	m_pUIGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	if (m_pUIGauge == nullptr)
+		return;
+	m_pUIFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	if (m_pUIFrame == nullptr)
+		return;
+
+	m_pUIGauge->Set_Name(BOSSNAME::SUNGOLLEM_REBIRTH);
 
 	m_fMoveTime += 10.f * fTimeDelta;
 }
@@ -595,7 +606,7 @@ void CSunGollem::Create_Wave(_vec3 vPos)
 void CSunGollem::Create_Stone()
 {
 
-	_vec3 vPos = { m_vRandomPos[1].x+(rand()%8)-4,7.f,m_vRandomPos[1].z + (rand() % 8) - 4 - 6.f};
+	_vec3 vPos = { m_vRandomPos[1].x+(rand()%10)-5,7.f,m_vRandomPos[1].z + (rand() % 6) - 3 - 7.f};
 	CPushStone* pPushStone = CPushStone::Create(vPos,m_pGraphicDev);
 	NULL_CHECK_RETURN(pPushStone, );
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);

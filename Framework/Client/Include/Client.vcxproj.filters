@@ -610,9 +610,6 @@
     <Filter Include="02. GameObject\07. EnvironmentObj\02. NueFlower">
       <UniqueIdentifier>{4005496d-a056-4bf7-a056-da790d447bf0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObject\16. Bullet\03. Turret_Bullet">
-      <UniqueIdentifier>{3b1166cd-54ff-4f20-8a1d-ec7140e045ca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObject\06. FieldObj\05. HitObj\03. RabitObj">
       <UniqueIdentifier>{db05db0f-6c27-4177-89d0-a5767e611578}</UniqueIdentifier>
     </Filter>
@@ -672,6 +669,9 @@
     </Filter>
     <Filter Include="02. GameObject\15. NPC\00. Tutorial\03. Mom">
       <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\16. Bullet\03. Turret_Bullet">
+      <UniqueIdentifier>{3b1166cd-54ff-4f20-8a1d-ec7140e045ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1384,6 +1384,7 @@
     <ClInclude Include="..\Header\CutSceneMgr.h" />
     <ClInclude Include="..\Header\UI_TurretGauge.h" />
     <ClInclude Include="..\Header\DoorEnter.h" />
+    <ClInclude Include="..\Header\BarrelBomb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2055,6 +2056,7 @@
     <ClCompile Include="..\Code\CutSceneMgr.cpp" />
     <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
     <ClCompile Include="..\Code\DoorEnter.cpp" />
+    <ClCompile Include="..\Code\BarrelBomb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
