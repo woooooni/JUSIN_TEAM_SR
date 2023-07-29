@@ -11,6 +11,7 @@
 #include "InventoryUI.h"
 #include "UI_NewItem.h"
 #include "UI_Veil.h"
+#include "UI_MapName.h"
 
 class CUIMgr : public CBase
 {
@@ -44,6 +45,7 @@ private:
 	CUI_Shop*		 m_pShop = nullptr;
 	CUI_NewItem*	 m_pItemWindow = nullptr;
 	CUI_Veil*		 m_pVeil = nullptr;
+	//CUI_MapName*	 m_pMapName = nullptr;
 
 	CInventoryUI*	 m_pInventory = nullptr;
 

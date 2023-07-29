@@ -19,8 +19,8 @@ CQuest_Cow1::CQuest_Cow1()
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"아니라고? 그럼 어쩐 일이니?"); // 이거 빼도 될 듯
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"허허... 내가 그날 무엇을 본 건지 궁금하다고?");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"저 동굴 안쪽에서 이상한 녀석들이 무리 지어 나오더니");
-	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"숲 이곳저곳에 고약한 냄새가 나는 봉지들을 잔뜩 버리고는 사라졌단다.");
-	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"내가 왕년에~ 저 놀이터에서 17 대 1로 싸워서 이긴 적이 있어요!");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"숲 이곳저곳에고약한 냄새가 나는 봉지들을\n잔뜩 버리고는 사라졌단다.");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"내가 왕년에~\n저 놀이터에서 17 대 1로 싸워서 이긴 적이 있어요!");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"그래서 혼내주려고 막 달려갔는데...");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"하필 쓰레기를 버리는 녀석들은 18명이지 뭐냐.");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"한 명만 없었어도 내가 혼쭐을 내주는 건데 말이야.");

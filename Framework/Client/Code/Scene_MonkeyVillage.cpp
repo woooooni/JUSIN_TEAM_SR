@@ -19,6 +19,7 @@
 #include "RollingBug.h"
 #include	"DrawingEnter.h"
 #include	"DefaultItem.h"
+#include "UI_MapName.h"
 
 CScene_MonkeyVillage::CScene_MonkeyVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE)
@@ -382,6 +383,9 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Effect()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_UI()
 {
+	CUI_MapName* pMapName = CUI_MapName::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
+	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"MapName", pMapName);
+
 	return S_OK;
 }
 

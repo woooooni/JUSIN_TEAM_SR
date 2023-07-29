@@ -15,6 +15,7 @@
 #include	"LightPuzzleTerrain.h"
 #include "RollingBug.h"
 #include "Portal.h"
+#include "UI_MapName.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -242,6 +243,9 @@ HRESULT CScene_MoonForest1::Ready_Layer_Effect()
 
 HRESULT CScene_MoonForest1::Ready_Layer_UI()
 {
+	CUI_MapName* pMapName = CUI_MapName::Create(m_pGraphicDev, SCENE_TYPE::MOON_FOREST1);
+	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"MapName", pMapName);
+
 	return S_OK;
 }
 
