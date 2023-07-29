@@ -10,7 +10,7 @@ class CCutSceneMgr : public CBase
 	DECLARE_SINGLETON(CCutSceneMgr)
 
 public:
-	enum class CUTSCENE_TYPE { TUTORIAL_INTRO, MONKEY_VILLAGE_INTRO, BOSS_SUNGOLEM_INTRO, BOSS_NUEHERO_INTRO, TYPE_END };
+	enum class CUTSCENE_TYPE { TUTORIAL_INTRO, MONKEY_VILLAGE_INTRO, BOSS_SUNGOLEM_INTRO, BOSS_NUEHERO_INTRO, MONKEY2_HIT_ONE, MONKEY2_HIT_TWO ,TYPE_END };
 
 private:
 	explicit CCutSceneMgr();
@@ -32,18 +32,21 @@ private:
 	void Ready_CutSceneMonkeyVillage();
 	void Ready_CutSceneSunGolem();
 	void Ready_CutSceneNueHero();
+	void	Ready_CutSceneMonkeyForest2();
 
 private:
 	void Update_TutorialIntro();
-	void Update_MonkeyVillageIntro();
-	void Update_Boss_SunGolem_Intro();
+	void Update_MonkeyVillageIntro(const _float& fTimeDelta);
+	void Update_Boss_SunGolem_Intro(const _float& fTimeDelta);
 	void Update_Boss_NueHero_Intro();
+	void	Update_CutSceneMonkeyForest2(const _float& fTimeDelta);
 
 private:
 	void Finish_CutSceneTutorial();
 	void Finish_CutSceneMonkeyVillage();
 	void Finish_CutSceneSunGolem();
 	void Finish_CutSceneNueHero();
+	void	Finish_CutSceneMonkeyForest2();
 
 
 
@@ -62,9 +65,14 @@ private:
 	_float m_fAccTimeNueHero;
 	_float m_fFinishTimeNueHero;
 
+	_float m_fAccTimeMonkeyForest2;
+	_float m_fFinishTimeMonkeyForest2;
+
 	_bool m_bCutScenePlaying;
 
 	CCamera* m_pCamera;
+
+	vector<_bool>m_bCutsceneSwitch;
 
 public:
 	virtual void Free() override;

@@ -8,6 +8,7 @@ CBarrelBomb::CBarrelBomb(LPDIRECT3DDEVICE9 p_Dev)
     , m_bHitted(false), m_fExplodeTime(0.f), m_iExplodeEvent(0), m_bExplosing(false)
     , m_fBlurAlpha(0.f)
     ,m_bIsPlusAlpha(false)
+    ,m_fExistTime (0.f)
 {
 }
 
@@ -16,6 +17,7 @@ CBarrelBomb::CBarrelBomb(const CBarrelBomb& rhs)
     , m_fBlurAlpha(rhs.m_fBlurAlpha)
     , m_bExplosing(rhs.m_bExplosing)
     ,m_bIsPlusAlpha(rhs.m_bIsPlusAlpha)
+    ,m_fExistTime(rhs.m_fExistTime)
 {
     m_tInfo.m_bIsAttackable = true;
     m_tInfo.m_bIsPushable = true;
@@ -66,22 +68,28 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
 
         m_fExplodeTime += fTimeDelta;
 
-        if (m_fExplodeTime > 1.f)
-        {
-            m_bHitted = false;
-            m_pAnimator->Play_Animation(L"Explode", false);
-            m_bExplosing = true;
-            m_fExplodeTime = 0.f;
-            m_fBlurAlpha = 0.f;
-            m_bIsPlusAlpha = false;
-            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 3.f, 3.f, 3.f });
-            m_pTransformCom->Set_Scale({ 3.f, 3.f, 3.f });
-            _vec3 mypos;
-            m_pTransformCom->Get_Info(INFO_POS, &mypos);
-            mypos.y = 1.5f;
-            m_pTransformCom->Set_Pos(&mypos);
-            
-        }
+    }
+    if (m_fExplodeTime > 2.f || m_fExistTime > 5.f)
+    {
+        m_bHitted = false;
+        m_pAnimator->Play_Animation(L"Explode", false);
+        m_bExplosing = true;
+        m_fExplodeTime = 0.f;
+        m_fBlurAlpha = 0.f;
+        m_bIsPlusAlpha = false;
+        dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 3.f, 3.f, 3.f });
+        m_pTransformCom->Set_Scale({ 3.f, 3.f, 3.f });
+        _vec3 mypos;
+        m_pTransformCom->Get_Info(INFO_POS, &mypos);
+
+        mypos.y = 0.02f;
+        m_pTransformCom->Set_Pos(&mypos);
+        m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(-90.f));
+
+    }
+    else if (m_fExistTime >= 3.f)
+    {
+        m_bHitted = true;
     }
 
     if (m_bExplosing)
@@ -101,6 +109,7 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
         Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
 
     Add_RenderGroup(RENDER_ALPHA, this);
+    m_fExistTime += fTimeDelta;
 
     return __super::Update_Object(fTimeDelta);
 }

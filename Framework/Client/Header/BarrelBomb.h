@@ -41,6 +41,7 @@ protected:
 	_bool		m_bExplosing;
 	_bool		m_bIsPlusAlpha;
 	_float		m_fBlurAlpha;
+	_float		m_fExistTime;
 
 };
 

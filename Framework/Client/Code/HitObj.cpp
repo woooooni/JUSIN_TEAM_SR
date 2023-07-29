@@ -11,10 +11,11 @@ CHitObj::CHitObj(LPDIRECT3DDEVICE9 p_Dev)
 	, m_vOrigin(0, 0, 0)
 	, m_vToward(0, 0, 0)
 	, m_fResetTime(0.f)
+	,m_eCutSceneType(CCutSceneMgr::CUTSCENE_TYPE::TYPE_END)
 {
 }
 
-CHitObj::CHitObj(const CHitObj& rhs) : CFieldObject(rhs), m_eHitType(rhs.m_eHitType), m_fEffectTime(rhs.m_fEffectTime), m_bHitted(rhs.m_bHitted), m_iEventNum(rhs.m_iEventNum), m_vOrigin(rhs.m_vOrigin), m_vToward(rhs.m_vToward), m_fResetTime(rhs.m_fResetTime)
+CHitObj::CHitObj(const CHitObj& rhs) : CFieldObject(rhs), m_eHitType(rhs.m_eHitType), m_fEffectTime(rhs.m_fEffectTime), m_bHitted(rhs.m_bHitted), m_iEventNum(rhs.m_iEventNum), m_vOrigin(rhs.m_vOrigin), m_vToward(rhs.m_vToward), m_fResetTime(rhs.m_fResetTime), m_eCutSceneType(rhs.m_eCutSceneType)
 {
 }
 
@@ -139,7 +140,10 @@ void CHitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 			Check_Event_Start(m_iEventNum);
 			m_fEffectTime = 0.5f;
 			Make_Toward();
-			
+			if (m_eCutSceneType != CCutSceneMgr::CUTSCENE_TYPE::TYPE_END)
+			{
+				CCutSceneMgr::GetInstance()->Start_CutScene(m_eCutSceneType);
+			}
 
 			break;
 		case Engine::OBJ_HITTYPE::HIT_BREAK:

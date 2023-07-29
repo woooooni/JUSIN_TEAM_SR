@@ -23,7 +23,7 @@ void CClearBomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 
 void CClearBomb::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup != COLLISION_GROUP::COLLIDE_PLAYER && _eCollisionGroup != COLLISION_GROUP::COLLIDE_TRIGGER && _eCollisionGroup != COLLISION_GROUP::COLLIDE_MONSTER && _eCollisionGroup != COLLISION_GROUP::COLLIDE_BOSS)
+	if (_eCollisionGroup != COLLISION_GROUP::COLLIDE_PLAYER && _eCollisionGroup != COLLISION_GROUP::COLLIDE_TRIGGER && _eCollisionGroup != COLLISION_GROUP::COLLIDE_MONSTER && _eCollisionGroup != COLLISION_GROUP::COLLIDE_BOSS || _eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET)
 		Push_Me(pCollider);
 }
 

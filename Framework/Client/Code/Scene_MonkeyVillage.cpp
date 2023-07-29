@@ -19,6 +19,7 @@
 #include "RollingBug.h"
 #include	"DrawingEnter.h"
 #include	"DefaultItem.h"
+#include "CutSceneMgr.h"
 
 CScene_MonkeyVillage::CScene_MonkeyVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE)
@@ -80,6 +81,11 @@ void CScene_MonkeyVillage::Render_Scene()
 	CUIMgr::GetInstance()->Render_UIMgr();
 }
 
+void CScene_MonkeyVillage::Enter_Scene()
+{
+	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY_VILLAGE_INTRO);
+}
+
 HRESULT CScene_MonkeyVillage::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
@@ -107,6 +113,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Camera()
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 0.1f, 1000.f);
 	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"MainCamera", pCamera);
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
+	pCamera->Get_TransformCom()->Set_Pos(&_vec3(149.f, 10.f, 9.f));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
 	return S_OK;

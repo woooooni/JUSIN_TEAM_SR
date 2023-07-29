@@ -33,7 +33,8 @@ protected:
 	HRESULT	Add_Component(void);
 
 	_uint		m_iMoney;
-
+	_bool		m_bIsCollided = false;
+	_float		m_fColidedTime;
 
 public:
 	static	CCoin* Create(LPDIRECT3DDEVICE9 pGraphicDev, const _uint& pMoney, const _vec3& pPos);
