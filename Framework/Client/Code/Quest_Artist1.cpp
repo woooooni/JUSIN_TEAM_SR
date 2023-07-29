@@ -7,7 +7,9 @@ CQuest_Artist1::CQuest_Artist1(NPC_CODE _eNpcCode, CItem* _pRewardItem)
 	m_strQuestDesc = L"화가가 3차원 원근법을 알려줬다. 그림을 그려보자.";
 
 	// TODO : 대사 쓰기
-	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)];
+	//m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)];
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"와우! 그림에 소질이 있는걸?");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"앞으로도 이 표시를 발견하면\n그냥 지나치지 말고 그림을 그려보도록 해!");
 }
 
 void CQuest_Artist1::Update_Quest(_float& fTimeDelta)

@@ -12,11 +12,16 @@ CQuest_NueHero1::CQuest_NueHero1()
 	m_strQuestTitle = L"타락한 누에용사 처치";
 	m_strQuestDesc = L"쓰레기 무단투기 진범인 타락한 누에용사를 처치하자.";
 	
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"어떻게 들어 들어온 건가?");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"포유류따위가 감히 내 동굴에 들어오다니.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"그렇다. 쓰레기를 선물한건 나다.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"너희들 마을을 우리 곤충들이 지배하는 것이 내 최종 목표다.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"냄새나는 쓰레기를 잔뜩 버려 더럽히면\n동물들이 마을을 떠날 것이 분명하니 말이야.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"그렇게 둘 순 없다고?");
 
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
+	//m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
 
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"");
+	//m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"");
 
 	m_iRewardCoin = 100000;
 }

@@ -15,6 +15,7 @@
 #include "UI_NewItem.h"
 #include "Npc_OguMom.h"
 #include "TrashFast.h"
+#include "UI_MapName.h"
 #include "Cupa.h"
 #include	"RabitObj.h"
 #include	"Turret.h"
@@ -275,6 +276,9 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_UI()
 {
+	CUI_MapName* pMapName = CUI_MapName::Create(m_pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE);
+	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"MapName", pMapName);
+
 	return S_OK;
 }
 

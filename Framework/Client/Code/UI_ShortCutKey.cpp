@@ -37,14 +37,11 @@ HRESULT CUI_ShortCutKey::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-	m_tInfo.fX = WINCX / 2 + 520.f;
-	m_tInfo.fY = WINCY / 2 - 180.f;
+	m_tInfo.fX = WINCX;
+	m_tInfo.fY = WINCY;
 
 	m_tInfo.fCX = _float(m_pTextureCom->Get_TextureDesc(0).Width);
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
-
-	m_tInfo.fX = WINCX - 100.f;
-	m_tInfo.fY = WINCY / 2.f - 100.f;
 
 	return S_OK;
 }
@@ -53,8 +50,8 @@ _int CUI_ShortCutKey::Update_Object(const _float& fTimeDelta)
 {
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	m_tInfo.fX = WINCX - 200.f;
-	m_tInfo.fY = WINCY / 2.f - 200.f;
+	m_tInfo.fX = WINCX - 110.f;
+	m_tInfo.fY = WINCY / 2.f - 150.f;
 
 	__super::Update_Object(fTimeDelta);
 	return S_OK;

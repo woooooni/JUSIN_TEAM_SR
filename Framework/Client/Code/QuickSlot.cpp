@@ -5,10 +5,6 @@
 #include "Item.h"
 #include "InventoryUI.h"
 
-// 보유한 아이템 개수 띄우기(1포함)
-// 인벤토리에서 아이템 사용한 경우 퀵슬롯에서도 지워지게 만들기
-// 씬이 바뀌어도 인벤토리 아이템 그대로 가지고 가게 만들기
-
 CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
 	, m_bCanUse(true)
@@ -103,9 +99,6 @@ void CQuickSlot::Render_Object(void)
 	_uint iCount = 0;
 	wstring strCount = L"";
 
-	/*인덱스 0번에 있는 아이템을 다 소진하면 터진다
-	슬롯상 아이템이 더 있는 상태에서 0번째 인덱스를 가진 아이템을 소진하면 생기는 문제임*/
-
 	if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled())
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
@@ -123,7 +116,8 @@ void CQuickSlot::Render_Object(void)
 					->Get_InvenCount();
 			}
 
-			RECT rc = { 110, 115, 160, 165 };
+			//RECT rc = { 110, 115, 160, 165 }; X - 25, Y - 20
+			RECT rc = { 85, 95, 135, 145 };
 			strCount = to_wstring(iCount);
 
 			if ((strCount != L"1") && (iCount > 0))
@@ -131,7 +125,7 @@ void CQuickSlot::Render_Object(void)
 				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
 					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
 						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(255, 255, 255, 255));
+						D3DCOLOR_ARGB(150, 0, 0, 0));
 			}
 		}
 	}
@@ -139,7 +133,7 @@ void CQuickSlot::Render_Object(void)
 	if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled())
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode();
-
+	
 		if (eCode != ITEM_CODE::ITEM_END)
 		{
 			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
@@ -153,7 +147,7 @@ void CQuickSlot::Render_Object(void)
 					->Get_InvenCount();
 			}
 
-			RECT rc = { 187, 115, 237, 165 };
+			RECT rc = { 162, 95, 212, 145 };
 			strCount = to_wstring(iCount);
 
 			if ((strCount != L"1") && (iCount > 0))
@@ -161,7 +155,7 @@ void CQuickSlot::Render_Object(void)
 				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
 					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
 						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(255, 255, 255, 255));
+						D3DCOLOR_ARGB(150, 0, 0, 0));
 			}
 		}
 	}
@@ -183,7 +177,7 @@ void CQuickSlot::Render_Object(void)
 					->Get_InvenCount();
 			}
 
-			RECT rc = { 264, 115, 314, 165 };
+			RECT rc = { 239, 95, 289, 145 };
 			strCount = to_wstring(iCount);
 
 			if ((strCount != L"1") && (iCount > 0))
@@ -191,7 +185,7 @@ void CQuickSlot::Render_Object(void)
 				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
 					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
 						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(255, 255, 255, 255));
+						D3DCOLOR_ARGB(150, 0, 0, 0));
 			}
 		}
 	}
@@ -213,7 +207,7 @@ void CQuickSlot::Render_Object(void)
 					->Get_InvenCount();
 			}
 
-			RECT rc = { 341, 115, 391, 165 }; // X + 77
+			RECT rc = { 316, 95, 366, 145 }; // X + 77
 			strCount = to_wstring(iCount);
 
 			if ((strCount != L"1") && (iCount > 0))
@@ -221,7 +215,7 @@ void CQuickSlot::Render_Object(void)
 				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
 					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
 						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(255, 255, 255, 255));
+						D3DCOLOR_ARGB(150, 0, 0, 0));
 			}
 		}
 	}

@@ -33,6 +33,7 @@ public:
 
 	}
 	CUI_Cursor*		Get_Cursor() { return m_pCursor; }
+	vector<CUI*>	Get_ShopUI() { return m_vecShopIcon; }
 	void	Remove_Item(SHOPITEMTYPE pType)
 	{
 		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(nullptr);

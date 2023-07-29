@@ -673,6 +673,9 @@
     <Filter Include="02. GameObject\15. NPC\00. Tutorial\03. Mom">
       <UniqueIdentifier>{d5a770ad-5911-4d00-8318-d7e10c0dbb7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\12. MapName">
+      <UniqueIdentifier>{5bd20c93-82f0-4537-b565-fbcf0701ca89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1384,6 +1387,10 @@
     <ClInclude Include="..\Header\CutSceneMgr.h" />
     <ClInclude Include="..\Header\UI_TurretGauge.h" />
     <ClInclude Include="..\Header\DoorEnter.h" />
+    <ClInclude Include="..\Header\BarrelBomb.h" />
+    <ClInclude Include="..\Header\UI_MapName.h">
+      <Filter>02. GameObject\04. UI\12. MapName</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2055,6 +2062,10 @@
     <ClCompile Include="..\Code\CutSceneMgr.cpp" />
     <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
     <ClCompile Include="..\Code\DoorEnter.cpp" />
+    <ClCompile Include="..\Code\BarrelBomb.cpp" />
+    <ClCompile Include="..\Code\UI_MapName.cpp">
+      <Filter>02. GameObject\04. UI\12. MapName</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
