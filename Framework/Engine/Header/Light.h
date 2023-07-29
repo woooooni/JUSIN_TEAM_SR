@@ -11,13 +11,8 @@ private:
 	explicit CLight(LPDIRECT3DDEVICE9 _pDevice);
 	virtual ~CLight();
 
-private:
-	LPDIRECT3DDEVICE9	m_pGraphicDev;
-	D3DLIGHT9			m_tLightInfo;
-	_uint				m_iIndex;
-
 public:
-	HRESULT				Ready_Light(const D3DLIGHT9* pLight, const _uint& iIndex);
+	HRESULT				Ready_Light(const D3DLIGHT9* pLight);
 
 
 public:
@@ -25,12 +20,20 @@ public:
 	D3DLIGHT9& Get_LightInfo() { return m_tLightInfo; }
 	void Set_LightInfo(const D3DLIGHT9& tLightInfo) { m_tLightInfo = tLightInfo; }
 
-	_uint Get_Idx() { return m_iIndex; }
+	_bool Is_LightOn() { return m_bLightOn; }
 
+	void Set_LightOn() { m_bLightOn = true; }
+	void Set_LightOff() { m_bLightOn = false; }
+
+private:
+	LPDIRECT3DDEVICE9 m_pGraphicDev;
+	D3DLIGHT9 m_tLightInfo;
+	_bool m_bLightOn;
+
+	
 public:
 	static CLight*		Create(LPDIRECT3DDEVICE9 _pDevice,
-								const D3DLIGHT9* pLightInfo,
-								const _uint& iIndex);
+								const D3DLIGHT9* pLightInfo);
 
 private:
 	virtual void Free();

@@ -26,6 +26,7 @@ namespace Engine
 		COM_TEXTURE,
 		COM_ANIMATOR,
 		COM_RIGIDBODY,
+		COM_SHADER,
 		COM_END
 	};
 

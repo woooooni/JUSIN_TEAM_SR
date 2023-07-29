@@ -36,7 +36,7 @@ public:
 	virtual void		Render_Object(void);
 
 public:
-	const _matrix GetViewMatrix() { return m_pTransformCom->Get_WorldInverseMatrix(); }
+	const _matrix& GetViewMatrix() { return m_matView; }
 	const _matrix& GetProjectionMatrix() { return m_matProj; }
 
 	void Set_Near(_float _f) { m_fNear = _f; }

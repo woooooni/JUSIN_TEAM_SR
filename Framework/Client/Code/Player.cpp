@@ -40,6 +40,7 @@
 #include "Effect_Shadow.h"
 #include "Effect_Block.h"
 #include "Effect_Hit.h"
+#include "LightMgr.h"
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -368,21 +369,42 @@ void CPlayer::LateUpdate_Object(void)
 
 void CPlayer::Render_Object(void)
 {
-	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
+	// _matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
+	// m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	// m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
 
-	__super::Render_Object();
+	// __super::Render_Object();
+	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+
+	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	if (pCamera == nullptr)
+		return;
+	
+	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
+	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+
+	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
+	pEffect->SetTexture("g_Texture", pTexture);
+	
+	const D3DLIGHT9& tLight = CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Get_LightInfo();
+	pEffect->SetValue("g_Light", &tLight, sizeof(D3DLIGHT9));
+
+	
+	pEffect->Begin(nullptr, 0);
+	pEffect->BeginPass(0);
+
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pEffect->EndPass();
+	pEffect->End();
 
 	if (m_pShadow && m_pShadow->Is_Active())
 		m_pShadow->Render_Object();
 
 	if (m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
 		m_vecHats[(_uint)m_eHat]->Render_Object();
-
+	
 }
 
 
@@ -419,7 +441,9 @@ HRESULT CPlayer::Ready_Component(void)
 	m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB]->Set_Active(false);
 	m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK]->Set_Active(false);
 
-
+	pComponent = m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_SHADER, pComponent);
 
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
@@ -429,6 +453,7 @@ HRESULT CPlayer::Ready_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
+	
 	return S_OK;
 }
 
