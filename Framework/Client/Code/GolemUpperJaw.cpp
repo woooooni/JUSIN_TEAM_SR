@@ -172,23 +172,23 @@ void CGolemUpperJaw::Update_Die(_float fTimeDelta)
 		Move_Offset(vOffset, fTimeDelta, 2.f);
 		break;
 	case 1:
-		vOffset.y -= 0.16633f;
+		vOffset.y = 0.3f;
 		Move_Offset(vOffset, fTimeDelta, 2.f);
 		break;
 	case 2:
-		vOffset.y -= 0.2;
+		vOffset.y = 0.1f;
 		Move_Offset(vOffset, fTimeDelta, 2.f);
 		break;
 	case 3:
-		vOffset.y -= 0.2f;
+		vOffset.y = -0.1f;
 		Move_Offset(vOffset, fTimeDelta, 2.f);
 		break;
 	case 4:
-		vOffset.y -= 0.3;
+		vOffset.y = -0.4;
 		Move_Offset(vOffset, fTimeDelta, 2.f);
 		break;
 	case 5:
-		vOffset.y -= 0.3;
+		vOffset.y = -0.7;
 		Move_Offset(vOffset, fTimeDelta, 2.f);
 		break;
 

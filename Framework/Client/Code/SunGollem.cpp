@@ -115,6 +115,12 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 		vPos.y = m_fMinHeight;
 		m_pTransformCom->Set_Pos(&vPos);
 	}
+	if (m_bDirty)
+	{
+		_vec3 vOffset = m_pParts[HEAD]->Get_Offset();
+		vOffset += {0.f, 0.15f, -0.1f};
+		m_pParts[FACE]->Set_Offset(vOffset);
+	}
 	if(m_pParts!=nullptr)
 	for (auto i = 0; i != PARTSEND; i++)
 	{
@@ -127,12 +133,7 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 			m_pParts[i]->Move_to_Offset(vPos);
 		}
 	}
-	if (m_bDirty)
-	{
-		_vec3 vOffset = m_pParts[HEAD]->Get_Offset();
-		vOffset += {0.f, 0.15f, -0.1f};
-		m_pParts[FACE]->Set_Offset(vOffset);
-	}
+
 
 	if (m_pUIBack->Is_Active() &&
 		m_pUIGauge->Is_Active() &&

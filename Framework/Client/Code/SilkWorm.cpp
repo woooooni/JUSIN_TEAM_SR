@@ -43,8 +43,8 @@ HRESULT CSilkWorm::Ready_Object(void)
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.5f, 3.f, 2.5f });
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(53.f, 1.5f, 26.f));
 	m_bPhase2 = false;
-	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Idle", false);
-	Set_State(SILKWORM_STATE::IDLE);
+	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Regen", false);
+	Set_State(SILKWORM_STATE::REGEN);
 	 m_fiInterval = 45.f;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -378,9 +378,9 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				for (int i = 0; i < COLOR_END; i++)
 					m_pBeatles[i]=nullptr;
 				_vec3 vRedPos, vGreenPos, vBluePos;
-				vRedPos = (m_vOrigin + m_vRandomPos[rand() % 8]) * 0.5f;
-				vGreenPos = (m_vOrigin + m_vRandomPos[rand() % 8]) * 0.5f;
-				vBluePos = (m_vOrigin + m_vRandomPos[rand() % 8]) * 0.5f;
+				vRedPos = (m_vOrigin + m_vRandomPos[rand() % 8]) * 0.3f;
+				vGreenPos = (m_vOrigin + m_vRandomPos[rand() % 8]) * 0.3f;
+				vBluePos = (m_vOrigin + m_vRandomPos[rand() % 8]) * 0.3f;
 				CRedBeatle* pRedBeatle = CRedBeatle::Create(m_pGraphicDev);
 				NULL_CHECK_RETURN(pRedBeatle, );
 				pRedBeatle->Get_TransformCom()->Set_Pos(&vRedPos);
@@ -527,7 +527,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 		m_vDir = vTargetPos - vPos;
 		Create_Line();
 	}
-	 if (nullptr == m_pBeatles[m_eCOLORPATTERN]&& (vPos.x < m_vRandomPos[0].x * 0.5f || vPos.z < m_vRandomPos[0].z * 0.5f || vPos.x > m_vRandomPos[3].x * 0.5f || vPos.z > m_vRandomPos[3].z * 0.5f))
+	 if (nullptr == m_pBeatles[m_eCOLORPATTERN]&& vPos.x > m_vRandomPos[0].x * 0.7f&&vPos.z > m_vRandomPos[0].z * 0.7f && vPos.x < m_vRandomPos[3].x * 0.7f&& vPos.z < m_vRandomPos[3].z * 0.7f)
 	{
 		 dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_Render(false);
 		 if (m_bRotate[2])
@@ -538,6 +538,15 @@ void CSilkWorm::Trace(_float fTimeDelta)
 			m_pTransformCom->Set_Info(INFO_RIGHT, &_vec3(vScale.x, 0.f, 0.f));
 			ZeroMemory(m_bRotate, sizeof(bool) * 3);
 		}
+		 if (m_bSpawn)
+			 for (int i = 0; i < COLOR_END; i++)
+			 {
+				 if (nullptr != m_pBeatles[i] && m_pBeatles[i]->Is_Active())
+				 {
+					 m_pBeatles[i]->Set_Active(false);
+					 m_pBeatles[i] = nullptr;
+				 }
+			 }
 		for (int i = 0; i < 2; i++)
 		{
 			CTrashPrist* pTrashPrist = CTrashPrist::Create(m_pGraphicDev);
@@ -545,7 +554,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 			vPos += float(rand() % 2+1) * (*D3DXVec3Normalize(& _vec3(),&m_vRandomPos[rand() % 8]));
 			pTrashPrist->Get_TransformCom()->Set_Pos(&vPos);
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
-			pLayer->Add_GameObject(L"RedBeatle", pTrashPrist);
+			pLayer->Add_GameObject(L"TrashPrist", pTrashPrist);
 		}
 
 		Set_State(SILKWORM_STATE::DOWN);

@@ -858,9 +858,6 @@
     <ClInclude Include="..\Header\BugBall.h">
       <Filter>02. GameObject\02. Monster\04. MothMage\BugBall</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\SilkWorm.h">
-      <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\GolemFace.h">
       <Filter>02. GameObject\08. Boss\00. SunGolem\06. Face</Filter>
     </ClInclude>
@@ -1396,6 +1393,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_Wallet.h">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\03. Wallet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\SilkWorm.h">
+      <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
