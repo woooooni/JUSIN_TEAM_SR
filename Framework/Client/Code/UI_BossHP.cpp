@@ -21,7 +21,7 @@ HRESULT CUI_BossHP::Ready_Object(void)
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	m_tInfo.fX = WINCX / 2.f;
-	m_tInfo.fY = WINCY / 2.f - 350.f;
+	m_tInfo.fY = WINCY / 2.f - 340.f;
 
 	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
 					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
@@ -167,8 +167,6 @@ void CUI_BossHP::Render_Object(void)
 		}
 
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-//		m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-//		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 		m_pTextureCom->Render_Texture(0);
 		m_pBufferCom->Render_Buffer();
@@ -177,7 +175,7 @@ void CUI_BossHP::Render_Object(void)
 		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
 
-		RECT rc = { 0, 0, WINCX, WINCY / 9 };
+		RECT rc = { 0, 5, WINCX, WINCY / 9 };
 		TCHAR szBuf[256] = L"";
 
 		switch (m_eBossType)

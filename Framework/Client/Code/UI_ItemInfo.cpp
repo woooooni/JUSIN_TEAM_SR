@@ -132,6 +132,7 @@ void CUI_ItemInfo::Render_Object(void)
 		}
 
 		// Player Money TextOut //
+
 		CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
 
 		if (pPlayer != nullptr)
