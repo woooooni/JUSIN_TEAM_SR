@@ -9,7 +9,7 @@
 #include "UIMgr.h"
 #include "UI_Dialog.h"
 CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE eCode, wstring _strNpcName)
-	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NPC) // OBJ_NPC
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_NPC, OBJ_ID::NPC) // OBJ_NPC
 	, m_eCode(eCode)
 	, m_strNpcName(_strNpcName)
 {
@@ -68,6 +68,15 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	_int iExit = __super::Update_Object(fTimeDelta);
 
+	
+
+	return iExit;
+}
+
+void CNpc::LateUpdate_Object(void)
+{
+	__super::LateUpdate_Object();
+	_float fTimeDelta = CTimerMgr::GetInstance()->Get_TimeDelta(L"Timer_FPS60");
 	const vector<CQuest*>& vecQuest = CQuestMgr::GetInstance()->Get_QuestVec(m_eCode);
 
 	_bool bBeforeQuest = false, bContinueQuest = false, bCompleteQuest = false;
@@ -108,9 +117,9 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 	}
 	else
 	{
-		if(m_pExclamation)
+		if (m_pExclamation)
 			m_pExclamation->Set_Active(false);
-		if(m_pQuestion)
+		if (m_pQuestion)
 			m_pQuestion->Set_Active(false);
 		if (m_pContinue)
 			m_pContinue->Set_Active(false);
@@ -127,7 +136,7 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 		if (D3DXVec3Length(&vDir) < 2.f)
 		{
 			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
-			if (KEY_TAP(KEY::Z) && !CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
+			if (KEY_TAP(KEY::Z) && !CUIMgr::GetInstance()->Get_Dialog()->Is_Active() && !CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active())
 			{
 				Talk();
 			}
@@ -138,15 +147,7 @@ _int CNpc::Update_Object(const _float& fTimeDelta)
 			pDialog->Set_Active(false);
 			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 		}
-			
 	}
-
-	return iExit;
-}
-
-void CNpc::LateUpdate_Object(void)
-{
-	__super::LateUpdate_Object();
 }
 
 void CNpc::Render_Object(void)
