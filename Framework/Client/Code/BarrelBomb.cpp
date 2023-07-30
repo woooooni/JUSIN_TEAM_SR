@@ -129,11 +129,48 @@ void CBarrelBomb::Render_Object(void)
     if (m_bHitted)
     {
         world._43 -= 0.01f;
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB((LONG)(255.f * m_fBlurAlpha), 255, 255, 255));
-        m_pGraphicDev->SetTransform(D3DTS_WORLD, &world);
-        m_pTextureCom->Render_Texture();
+    
+        LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+
+        CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+        if (pCamera == nullptr)
+            return;
+
+        _vec3 vPos;
+        pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+        D3DVECTOR vCamPos = vPos;
+
+        D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, m_fBlurAlpha };
+
+        pEffect->SetMatrix("g_WorldMatrix", &world);
+        pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+        pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+        pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+        pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+        pEffect->SetFloat("g_AlphaRef", 50.0f);
+
+
+        IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(0);
+        pEffect->SetTexture("g_Texture", pTexture);
+
+
+        CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+        MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+        MATERIAL.material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
+        MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+        MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
+        MATERIAL.material.Power = 0.0f;
+
+        pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+
+        pEffect->Begin(nullptr, 0);
+        pEffect->BeginPass(1);
+
         m_pBufferCom->Render_Buffer();
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+        pEffect->EndPass();
+        pEffect->End();
 
     }
 }

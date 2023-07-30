@@ -40,6 +40,11 @@ HRESULT CNpc_Fishing::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
+	pComponent = m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_SHADER, pComponent);
+
+
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_Fishing_Idle", L"Proto_Texture_NPC_FishingMonkey_Idle", 0.5f), E_FAIL);
 
 	FAILED_CHECK_RETURN(m_pAnimator->Play_Animation(L"NPC_Monkey_Fishing_Idle", TRUE), E_FAIL);
@@ -62,10 +67,8 @@ void CNpc_Fishing::LateUpdate_Object(void)
 
 void CNpc_Fishing::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	m_pAnimator->Render_Component();
-	m_pBufferCom->Render_Buffer();
 
 	__super::Render_Object();
 }

@@ -187,6 +187,7 @@ void CCamera::Check_Alpha()
 		if (vecObj[i]->GetObj_Id() != OBJ_ID::PROP && vecObj[i]->GetObj_Id() != OBJ_ID::TREE)
 			continue;
 
+
 		vecObj[i]->Set_Alpha(255);
 		
 		CTransform* pObjTransform = vecObj[i]->Get_TransformCom();

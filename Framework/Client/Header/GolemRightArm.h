@@ -43,6 +43,7 @@ public:
 private:
 	_float m_fAlpha = 255.f;
 	_int m_iArmNum = 0;
+	_bool m_bBreath;
 protected:
 	_float m_fMoveTime;
 protected:
