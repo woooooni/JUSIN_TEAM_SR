@@ -28,6 +28,7 @@ void CQuest_MonkeyCheif1::Update_Quest(_float& fTimeDelta)
 void CQuest_MonkeyCheif1::Accept_Quest()
 {
 	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
+	m_eQuestProgress = QUEST_PROGRESS::CONTINUE;
 }
 
 void CQuest_MonkeyCheif1::Clear_Quest()

@@ -26,7 +26,8 @@ void CQuestMgr::Update_QuestMgr(const _float& fTimeDelta)
     _float fTime = fTimeDelta;
     for (size_t i = 0; i < m_vecPlayerQuest.size(); ++i)
     {
-        m_vecPlayerQuest[i]->Update_Quest(fTime);
+        if(m_vecPlayerQuest[i]->Get_Quest_Progress() == QUEST_PROGRESS::CONTINUE)
+            m_vecPlayerQuest[i]->Update_Quest(fTime);
     }
 }
 

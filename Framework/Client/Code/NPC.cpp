@@ -226,6 +226,7 @@ void CNpc::Talk()
 		pDialog->Set_Name(m_strNpcName);
 		pDialog->Set_Quest(pComplete);
 		pDialog->Set_Active(true);
+		return;
 	}
 
 	if (nullptr != pBegin)
@@ -233,6 +234,7 @@ void CNpc::Talk()
 		pDialog->Set_Name(m_strNpcName);
 		pDialog->Set_Quest(pBegin);
 		pDialog->Set_Active(true);
+		return;
 	}
 
 	if (nullptr != pContinue)
@@ -240,6 +242,7 @@ void CNpc::Talk()
 		pDialog->Set_Name(m_strNpcName);
 		pDialog->Set_Quest(pContinue);
 		pDialog->Set_Active(true);
+		return;
 	}
 }
 

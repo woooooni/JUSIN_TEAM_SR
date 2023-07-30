@@ -26,6 +26,7 @@ HRESULT Player_State_BallonFly::Ready_State(void)
 	if(dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
 
+	dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(true);
 
 	return S_OK;
 }
@@ -39,8 +40,8 @@ _int Player_State_BallonFly::Update_State(const _float& fTimeDelta)
 		break;
 	case BALLOONFLY_STATE::FLYING:
 		Update_Flying(fTimeDelta);
-		if (KEY_TAP(KEY::W))
-			dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(false);
+		/*if (KEY_TAP(KEY::W))
+			dynamic_cast<CPlayer*>(m_pOwner)->Set_BalloonFly(false);*/
 		break;
 	case BALLOONFLY_STATE::FLYINGEND:
 		Update_FlyEnd(fTimeDelta);

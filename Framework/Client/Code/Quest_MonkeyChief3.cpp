@@ -42,7 +42,6 @@ void CQuest_MonkeyCheif3::Accept_Quest()
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 	if(nullptr != pPlayer)
 		pPlayer->Change_State_Now(PLAYER_STATE::BALLOONFLY);
-
 }
 
 void CQuest_MonkeyCheif3::Clear_Quest()
