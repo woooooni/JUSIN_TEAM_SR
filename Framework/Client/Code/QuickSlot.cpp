@@ -154,48 +154,173 @@ void CQuickSlot::LateUpdate_Object(void)
 
 	if (!m_bCanUse) // 인벤토리가 열려있지 않을 때
 	{
-		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled() && m_vecSetCode[SLOT_ONE] == false)
+		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled())
 		{
-			_uint iIndex = m_vecCount[SLOT_ONE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
+			if (m_vecSetCode[SLOT_ONE] == true)
+			{
+				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
 
-			m_vecCount[SLOT_ONE] = CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+				if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode()
+					!= CInventoryMgr::GetInstance()->
+					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+				{
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Set_ItemCode(ITEM_CODE::ITEM_END);
+				}
 
-			m_vecSetCode[SLOT_ONE] = true;
-			m_vecSlotItems[SLOT_ONE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
+				if (m_vecCount[SLOT_ONE] <= 0)
+				{
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Set_ItemCode(ITEM_CODE::ITEM_END);
+				}
+			}
+
+			else if (m_vecSetCode[SLOT_ONE] == false)
+			{
+				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
+				vector<CItem*> vecItem = CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION);
+				
+				if (vecItem.size() > iIndex)
+				{
+					if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode()
+						== CInventoryMgr::GetInstance()->
+						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+					{
+						m_vecCount[SLOT_ONE] = CInventoryMgr::GetInstance()->
+							Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+
+						if (m_vecCount[SLOT_ONE] <= 1)
+							m_vecSetCode[SLOT_ONE] = true;
+
+						m_vecSlotItems[SLOT_ONE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
+					}
+				}
+			}
 		}
 
-		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled() && m_vecSetCode[SLOT_TWO] == false)
+		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled())
 		{
-			_uint iIndex = m_vecCount[SLOT_TWO] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
+			if (m_vecSetCode[SLOT_TWO] == true)
+			{
+				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
 
-			m_vecCount[SLOT_TWO] = CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+				if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode()
+					!= CInventoryMgr::GetInstance()->
+					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+				{
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Set_ItemCode(ITEM_CODE::ITEM_END);
+				}
 
-			m_vecSetCode[SLOT_TWO] = true;
-			m_vecSlotItems[SLOT_TWO] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode();
+				if (m_vecCount[SLOT_TWO] <= 0)
+				{
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Set_ItemCode(ITEM_CODE::ITEM_END);
+				}
+			}
+
+			else if (m_vecSetCode[SLOT_TWO] == false)
+			{
+				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
+				vector<CItem*> vecItem = CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION);
+				
+				if (vecItem.size() > iIndex)
+				{
+					if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode()
+						== CInventoryMgr::GetInstance()->
+						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+					{
+						m_vecCount[SLOT_TWO] = CInventoryMgr::GetInstance()->
+							Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+
+						if (m_vecCount[SLOT_TWO] <= 1)
+							m_vecSetCode[SLOT_TWO] = true;
+
+						m_vecSlotItems[SLOT_TWO] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode();
+					}
+				}
+			}
 		}
 
 		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_Filled() && m_vecSetCode[SLOT_THREE] == false)
 		{
-			_uint iIndex = m_vecCount[SLOT_THREE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
+			if (m_vecSetCode[SLOT_THREE] == true)
+			{
+				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
 
-			m_vecCount[SLOT_THREE] = CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+				if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode()
+					!= CInventoryMgr::GetInstance()->
+					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+				{
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Set_ItemCode(ITEM_CODE::ITEM_END);
+				}
 
-			m_vecSetCode[SLOT_THREE] = true;
-			m_vecSlotItems[SLOT_THREE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode();
+				if (m_vecCount[SLOT_THREE] <= 0)
+				{
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Set_ItemCode(ITEM_CODE::ITEM_END);
+				}
+			}
+
+			else if (m_vecSetCode[SLOT_THREE] == false)
+			{
+				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
+
+				vector<CItem*> vecItem = CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION);
+
+				if (vecItem.size() > iIndex)
+				{
+					if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode()
+						== CInventoryMgr::GetInstance()->
+						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+					{
+						m_vecCount[SLOT_THREE] = CInventoryMgr::GetInstance()->
+							Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+
+						if (m_vecCount[SLOT_THREE] <= 1)
+							m_vecSetCode[SLOT_THREE] = true;
+
+						m_vecSlotItems[SLOT_THREE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode();
+					}
+				}
+			}
 		}
 
-		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_Filled() && m_vecSetCode[SLOT_FOUR] == false)
+		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_Filled())
 		{
-			_uint iIndex = m_vecCount[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
+			if (m_vecSetCode[SLOT_FOUR] == true)
+			{
+				if (m_vecCount[SLOT_FOUR] <= 0)
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Set_ItemCode(ITEM_CODE::ITEM_END);
+			}
 
-			m_vecCount[SLOT_FOUR] = CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+			else if (m_vecSetCode[SLOT_FOUR] == false)
+			{
+				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
+				vector<CItem*> vecItem = CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION);
 
-			m_vecSetCode[SLOT_FOUR] = true;
-			m_vecSlotItems[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();
+				if (vecItem.size() > iIndex)
+				{
+					if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode()
+						== CInventoryMgr::GetInstance()->
+						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+					{
+						m_vecCount[SLOT_FOUR] = CInventoryMgr::GetInstance()->
+							Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+
+						if (m_vecCount[SLOT_FOUR] <= 1)
+							m_vecSetCode[SLOT_FOUR] = true;
+
+						m_vecSlotItems[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();
+					}
+				}
+			}
+
+			// 기존 form
+//			_uint iIndex = m_vecCount[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
+//
+//			m_vecCount[SLOT_FOUR] = CInventoryMgr::GetInstance()->
+//				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+//
+//			if (m_vecCount[SLOT_FOUR] <= 1)
+//				m_vecSetCode[SLOT_FOUR] = true;
+//
+//			m_vecSlotItems[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();
 		}
 	}
 
