@@ -25,6 +25,8 @@ public:
 
 	HRESULT	Ready_Object(const LPDIRECT3DDEVICE9& pGraphicDev, const _int& pRabbitNumX, const _int& pRabbitNumY, const _vec3& pStartPos);
 	_int Update_Object(const _float& fTimeDelta);
+	void Render_Object();
+
 	void		Add_RabbitAppear(const RABBIT_TIMER& pRab)
 	{
 		m_vecTimer.push_back(pRab);
@@ -36,6 +38,8 @@ public:
 	{
 		m_iPoints++;
 	}
+
+	const _bool& Get_Clear() { return m_bIsClear; }
 
 protected:
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
@@ -51,8 +55,10 @@ protected:
 	_vec3		m_vStartPos;
 
 	_bool		m_bIsStart;
+	_bool		m_bIsClear = false;
 
 	_float		m_fCurTime;
+	_float		m_fGameTime;
 
 	_int		m_iPoints;
 

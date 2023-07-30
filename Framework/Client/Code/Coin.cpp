@@ -26,7 +26,6 @@ HRESULT CCoin::Ready_Object(void)
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pTransformCom->Set_Pos(&_vec3(5.0f, 1.0f, 3.0f));
 	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 0.5f, 0.5f, 0.5f });
 	m_pAnimator->Add_Animation(L"Coin_Anime", L"Proto_Texture_Coin", 0.1f);
 	m_pAnimator->Play_Animation(L"Coin_Anime", true);
 	return S_OK;
@@ -40,14 +39,17 @@ _int CCoin::Update_Object(const _float& fTimeDelta)
 	{
 		_vec3 src;
 		m_pTransformCom->Get_Info(INFO_POS, &src);
-		src.y += fTimeDelta ;
+		src.y += fTimeDelta * 1.f ;
 
 		m_fColidedTime += fTimeDelta;
-		if (m_fColidedTime > 2.f)
+		if (m_fColidedTime > 1.f)
 		{
 			Set_Active(false);
 			return 0;
 		}
+
+		m_pTransformCom->Set_Info(INFO_POS, &src);
+
 	}
 	Add_RenderGroup(RENDER_ALPHA, this);
 	_int Result = __super::Update_Object(fTimeDelta);
@@ -77,7 +79,10 @@ void CCoin::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGro
 		player->Add_Money(m_iMoney);
 
 		m_bIsCollided = true;
-		Set_Active(false);
+		_vec3 src;
+		m_pTransformCom->Get_Info(INFO_POS, &src);
+		src.y +=  1.f;
+		m_pTransformCom->Set_Info(INFO_POS, &src);
 
 		CGameObject* pWallet = CUIMgr::GetInstance()->Get_Wallet();
 

@@ -97,7 +97,7 @@ CBalpanObj* CBalpanObj::Create(LPDIRECT3DDEVICE9 p_Dev, const _uint& p_EventNum,
         return nullptr;
     }
 	ret->Get_TransformCom()->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
-	ret->Get_TransformCom()->Set_Pos(&_vec3(p_Pos.x, 0.02f, p_Pos.z));
+	ret->Get_TransformCom()->Set_Pos(&_vec3(p_Pos.x, 0.05f, p_Pos.z));
 	ret->Set_EventNum(p_EventNum);
 	Add_Subscribe(p_EventNum, ret);
 

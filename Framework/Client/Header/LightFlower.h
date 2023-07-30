@@ -33,6 +33,10 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
+
+	const _bool& Get_Opened() { return m_bIsOpened; }
+	const JELLY_COLOR& Get_Color(){ return m_eColor; }
+protected:
 	_matrix		AreaWorld;
 	_bool		m_bIsOpened;
 	JELLY_COLOR		m_eColor;

@@ -179,6 +179,10 @@ public:
 	CGameObject*	Get_Shadow() { return m_pShadow; }
 
 	void			Set_PlayerHat(PLAYER_HAT _eHat) { m_eHat = _eHat; Set_Hat(m_vecHats[(_uint)m_eHat]); }
+
+	void			Set_Player_SpeedUp(const _float& pSpeed) { m_fSpeedUpTime += pSpeed; m_fSpeed += 1.f; }
+
+	const _float&	Get_Speed() { return m_fSpeed; }
 private:
 	_vec3			m_vDir;
 	_float			m_fSpeed;
@@ -203,6 +207,7 @@ private:
 	CCollider* m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_END];
 
 
+	_float		m_fSpeedUpTime;
 
 	CGameObject* m_pLiftObj = nullptr;
 	CGameObject* m_pSkillRange = nullptr;

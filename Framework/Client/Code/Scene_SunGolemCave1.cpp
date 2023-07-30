@@ -13,6 +13,7 @@
 #include "BossDoorEnter.h"
 #include "TriggerObj.h"
 #include "CutSceneMgr.h"
+#include "BlockObj.h"
 
 CScene_SunGolemCave1::CScene_SunGolemCave1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1)
@@ -143,6 +144,7 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Monster()
 {
 	CSunGollem* pSunGollem = CSunGollem::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
+	pSunGollem->Set_Stop(true);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SunGollem", pSunGollem);
 
 	return S_OK;
@@ -159,10 +161,134 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_InterationObj()
 	pTri->Add_Trigger([]()
 		{
 			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_SUNGOLEM_INTRO);
+			CCutSceneMgr::GetInstance()->Set_EventNum(1);
 		}, CTriggerObj::COLLIDE_EVENT_TYPE::ENTER);
 	pTri->Set_Once();
 	pTri->Set_Target(CGameMgr::GetInstance()->Get_Player());
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTri);
+
+	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 1, { -2.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { -1.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { -0.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 0.5f, 0.f, 10.5f }, true);
+
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 1.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 2.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 3.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 4.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 5.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 6.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 7.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 8.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 9.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 10.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 11.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 12.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 13.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 14.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 15.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 16.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 17.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 18.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 19.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	 pBlock = CBlockObj::Create(m_pGraphicDev, 1, { 20.5f, 0.f, 10.5f }, true);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(2, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
 
 	return S_OK;
 }
@@ -181,6 +307,10 @@ HRESULT CScene_SunGolemCave1::Ready_Event()
 {
 	EVENT* event = new EVENT;
 	event->iEventNum = 1;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 2;
 	FAILED_CHECK(Add_Event(event));
 
 	return S_OK;

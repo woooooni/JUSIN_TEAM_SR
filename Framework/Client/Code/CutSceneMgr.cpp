@@ -168,10 +168,12 @@ void CCutSceneMgr::Update_Boss_SunGolem_Intro(const _float& fTimeDelta)
 		vTarget += m_pCamera->Get_Offset();
 
 		vDir = vTarget - vCamPos;
+		
 
-		if (D3DXVec3Length(&vDir) < 0.1f)
+		if (D3DXVec3Length(&vDir) < 0.2f)
 		{
 			m_bCutsceneSwitch[0] = true;
+			sungollem->Set_Stop(false);
 			//½ã°ñ·½ ¾Ö´Ï¸ÞÀÌ¼Ç È°¼ºÈ­
 			m_pCamera->Set_Offset(m_pCamera->Get_Offset() * 0.5f);
 		}
@@ -181,12 +183,13 @@ void CCutSceneMgr::Update_Boss_SunGolem_Intro(const _float& fTimeDelta)
 			vLook = vCamPos - m_pCamera->Get_Offset();
 		}
 	}
-	else if (!m_bCutsceneSwitch[1] && m_fAccTimeSunGolem > 6.f)
+	else if (!m_bCutsceneSwitch[1] && sungollem->Get_Time() >= 5.f)
 	{
-		m_pCamera->CamShake(2.f, 1.f);
+		m_fFinishTimeSunGolem = m_fAccTimeSunGolem;
+		m_pCamera->CamShake(1.5f, 1.f);
 		m_bCutsceneSwitch[1] = true;
 	}
-	else if (m_fAccTimeSunGolem > 8.f)
+	else if (m_bCutsceneSwitch[1] && m_fAccTimeSunGolem - m_fFinishTimeSunGolem >= 1.5f)
 	{
 		Finish_CutSceneSunGolem();
 	}
@@ -218,6 +221,7 @@ void CCutSceneMgr::Update_Boss_SunGolem_Die(const _float& fTimeDelta)
 		{
 			m_bCutsceneSwitch[0] = true;
 			m_pCamera->CamShake(3.f);
+			m_pCamera->Set_TargetObj(sungollem);
 
 			m_fFinishTimeSunGolem_Die = m_fAccTimeSunGolem_Die;
 		}
@@ -227,27 +231,29 @@ void CCutSceneMgr::Update_Boss_SunGolem_Die(const _float& fTimeDelta)
 			vLook = vCamPos - m_pCamera->Get_Offset();
 		}*/
 	}
-	else if (!m_bCutsceneSwitch[1] && (m_fAccTimeSunGolem_Die - m_fFinishTimeSunGolem_Die) >= 3.f)
+	else if (!m_bCutsceneSwitch[1] && sungollem->Get_Time() >= 5.f)
 	{
 		vTarget = { 8.9, 4.7, 20.5 };
 		vTarget += m_pCamera->Get_Offset();
 
 		vDir = vTarget - vCamPos;
 
-		if (D3DXVec3Length(&vDir) < 0.2f)
+		if (D3DXVec3Length(&vDir) < 0.3f)
 		{
 			m_bCutsceneSwitch[1] = true;
 			Check_Event_Start(1);
 			m_fFinishTimeSunGolem_Die = m_fAccTimeSunGolem_Die;
+
 		}
 		else
 		{
-			vCamPos += *D3DXVec3Normalize(&vDir, &vDir) * fTimeDelta * 20.f;
+			vCamPos += *D3DXVec3Normalize(&vDir, &vDir) * fTimeDelta * 10.f;
 			vLook = vCamPos - m_pCamera->Get_Offset();
+			m_pCamera->Set_TargetObj(nullptr);
 		}
 
 	}
-	else if (m_bCutsceneSwitch[1] && (m_fAccTimeSunGolem_Die - m_fFinishTimeSunGolem_Die) >= 3.f)
+	else if (m_bCutsceneSwitch[1] && (m_fAccTimeSunGolem_Die - m_fFinishTimeSunGolem_Die) >= 7.f)
 	{
 		Finish_CutSceneSunGolem_Die();
 	}
@@ -373,6 +379,7 @@ void CCutSceneMgr::Ready_CutSceneSunGolem_Die()
 	m_pCamera->Set_TargetObj(nullptr);
 	m_pCamera->Set_Offset(m_pCamera->Get_Offset() * 2.f);
 	CGameMgr::GetInstance()->Get_Player()->Set_Stop(true);
+	Check_Event_Start(2);
 
 }
 

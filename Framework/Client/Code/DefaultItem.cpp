@@ -71,10 +71,15 @@ HRESULT CDefaultItem::Use_Item()
 		pPlayer->Add_HP(5);
 		break;
 	case Engine::ITEM_CODE::SPEED_SMALL:
+		pPlayer->Set_Player_SpeedUp(3.f);
 		break;
 	case Engine::ITEM_CODE::SPEED_MIDDLE:
+		pPlayer->Set_Player_SpeedUp(6.f);
+
 		break;
 	case Engine::ITEM_CODE::SPEED_BIG:
+		pPlayer->Set_Player_SpeedUp(10.f);
+
 		break;
 	case Engine::ITEM_CODE::LEAF:
 		break;

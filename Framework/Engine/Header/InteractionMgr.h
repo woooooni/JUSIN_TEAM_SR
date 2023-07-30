@@ -177,12 +177,13 @@ public:
 
 	void		Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex)
 	{
-		if (minIndex < 0 || minIndex > m_vecResetList.size() || maxIndex < 0 || maxIndex > m_vecResetList.size() || minIndex >= maxIndex)
+		if (minIndex < 0 ||  maxIndex < 0  || minIndex >= maxIndex)
 		{
 			return;
 		}
 
-		for (size_t i = minIndex; i <= maxIndex; i++)
+
+		for (_uint i = minIndex; i <= maxIndex; i++)
 		{
 			Add_Reset(resetIndex , i);
 		}

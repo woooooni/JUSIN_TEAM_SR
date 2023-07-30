@@ -679,6 +679,9 @@
     <Filter Include="02. GameObject\04. UI\00. PlayerInfo\03. Wallet">
       <UniqueIdentifier>{4713fa52-3344-4120-bd9b-a3dffed69fd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\03. Shop">
+      <UniqueIdentifier>{e4b6f079-bc88-4058-b2f9-4f549828e418}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -2055,7 +2058,6 @@
     <ClCompile Include="..\Code\Quest_NueHero2.cpp">
       <Filter>98. Manager\04. Quest\Quest\Quests\07</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\RabbitMgr.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp">
       <Filter>01. Scene\02. Monkey_Forest\03. Monkey_Forest3</Filter>
     </ClCompile>
@@ -2074,6 +2076,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_Wallet.cpp">
       <Filter>02. GameObject\04. UI\00. PlayerInfo\03. Wallet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RabbitMgr.cpp">
+      <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

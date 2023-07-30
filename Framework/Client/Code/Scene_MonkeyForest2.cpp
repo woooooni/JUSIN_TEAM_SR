@@ -497,7 +497,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
 
 
-	Engine::Add_Reset(0, 6, 19);
+	Engine::Add_Reset(0, 6, 17);
 	Engine::Add_Reset(1, 30, 31);
 
 	CTriggerObj* pTrig = CTriggerObj::Create(m_pGraphicDev);

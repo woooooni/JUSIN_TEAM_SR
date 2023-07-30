@@ -50,12 +50,12 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
         else if (5.f <= m_pAnimator->GetCurrAnimation()->Get_Idx() && m_pAnimator->GetCurrAnimation()->Get_Idx() < 10)
         {
             m_pTransformCom->Set_Scale({ 2.f, 2.f, 1.f });
-            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.f, 2.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.f, 1.f, 2.f });
         }
         else if (10.f <= m_pAnimator->GetCurrAnimation()->Get_Idx() && m_pAnimator->GetCurrAnimation()->Get_Idx() < 15)
         {
             m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
-            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 4.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 1.f, 4.f });
 
         }
 
@@ -67,12 +67,12 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
         if (m_fFrame < 5.f)
         {
             m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
-            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 4.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 4.f, 1.f, 4.f });
         }
         else if (5.f <= m_fFrame && m_fFrame < 10.f)
         {
             m_pTransformCom->Set_Scale({ 2.f, 2.f, 1.f });
-            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.f, 2.f, 1.f });
+            dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.f, 1.f, 2.f });
 
         }
         else if (10.f <= m_fFrame && m_fFrame < 15.f)
@@ -153,10 +153,10 @@ CClearField* CClearField::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
 
 
 
-    ret->m_pTransformCom->Set_Pos(&(p_Pos + _vec3(0, (rand() % 200) * 0.0005f + 0.02f , 0)));
+    ret->m_pTransformCom->Set_Pos(&(p_Pos));
     ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 
-    ret->Set_MinHeight(0.005f);
+    ret->Set_MinHeight((rand() % 200) * 0.0005f + 0.02f);
     ret->m_pColliderCom->Set_Offset({ 0, 0.5f, 0 });
 
     return ret;
