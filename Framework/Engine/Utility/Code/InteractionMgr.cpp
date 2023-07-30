@@ -31,6 +31,8 @@ void CInteractionMgr::Free()
 	m_listCurActiveEvents.clear();
 
 	m_vecResetList.clear();
+	m_vecResetList.resize(100);
+
 }
 
 

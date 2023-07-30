@@ -49,6 +49,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_vDest(0.f, 0.f, 0.f)
 	, m_eState(PLAYER_STATE::IDLE)
 	, m_bStateChange(false)
+	,m_fSpeedUpTime(0.f)
 {
 
 }
@@ -59,6 +60,8 @@ CPlayer::CPlayer(const CPlayer& rhs)
 	, m_vDest(0.f, 0.f, 0.f)
 	, m_bStateChange(false)
 	, m_eState(PLAYER_STATE::IDLE)
+	,m_fSpeedUpTime(rhs.m_fSpeedUpTime)
+
 {
 
 }
@@ -288,6 +291,16 @@ HRESULT CPlayer::Ready_Object(void)
 
 Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 {
+	if (m_fSpeedUpTime > 0.f)
+	{
+		m_fSpeedUpTime -= fTimeDelta;
+		if (m_fSpeedUpTime <= 0.f)
+		{
+			m_fSpeedUpTime = 0.f;
+			m_fSpeed -= 1.f;
+		}
+	}
+
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);

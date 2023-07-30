@@ -50,7 +50,7 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 _int CScene_MonkeyForest1::Update_Scene(const _float& fTimeDelta)
 {
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
-	CRabbitMgr::GetInstance()->Update_Object(fTimeDelta);
+	//CRabbitMgr::GetInstance()->Update_Object(fTimeDelta);
 
 
 	__super::Update_Scene(fTimeDelta);
@@ -405,7 +405,7 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
-	CRabbitMgr::GetInstance()->Ready_Object(m_pGraphicDev, 5, 4, { 30, 0, 15 });
+	//CRabbitMgr::GetInstance()->Ready_Object(m_pGraphicDev, 5, 4, { 30, 0, 15 });
 
 
 

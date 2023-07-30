@@ -1,5 +1,6 @@
 #include "RabbitMgr.h"
 #include	"Export_Function.h"
+#include "GameMgr.h"
 
 
 IMPLEMENT_SINGLETON(CRabbitMgr)
@@ -20,6 +21,9 @@ HRESULT CRabbitMgr::Ready_Object(const LPDIRECT3DDEVICE9& pGraphicDev, const _in
 	m_iRabbitCountY = pRabbitNumY;
 	m_vStartPos = pStartPos;
 	m_pGraphicDev = pGraphicDev;
+	m_fGameTime = 0.f;
+	m_fCurTime = 0.f;
+	m_iPoints = 0;
 	Free();
 
 	m_vecRabbits.reserve(_uint(pRabbitNumX * pRabbitNumY));
@@ -31,31 +35,287 @@ HRESULT CRabbitMgr::Ready_Object(const LPDIRECT3DDEVICE9& pGraphicDev, const _in
 
 _int CRabbitMgr::Update_Object(const _float& fTimeDelta)
 {
+
 	if (KEY_TAP(KEY::Z))
 	{
+		m_vecTimer.clear();
+
 		RABBIT_TIMER timer;
-		timer.m_fTime = 1.f;
-		timer.m_RabbitList.push_back(1);
+		timer.m_fTime = 0.f;
+		timer.m_RabbitList.push_back(10);
 		Add_RabbitAppear(timer);
 		timer.m_RabbitList.clear();
 
-		timer.m_fTime = 1.f;
-		timer.m_RabbitList.push_back(3);
-		timer.m_RabbitList.push_back(4);
-
-		Add_RabbitAppear(timer);
-		timer.m_RabbitList.clear();
-
-		timer.m_fTime = 1.f;
-		timer.m_RabbitList.push_back(6);
-		timer.m_RabbitList.push_back(7);
+		timer.m_fTime = 3.f;
 		timer.m_RabbitList.push_back(8);
+
+		Add_RabbitAppear(timer);
+
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(8);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(8);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(13);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(3);
+		timer.m_RabbitList.push_back(5);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(4);
+		timer.m_RabbitList.push_back(10);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(4);
+		timer.m_RabbitList.push_back(10);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(2);
+		timer.m_RabbitList.push_back(8);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(4);
+		timer.m_RabbitList.push_back(14);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(6);
+		timer.m_RabbitList.push_back(10);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(4);
+		timer.m_RabbitList.push_back(14);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 3.f;
+		timer.m_RabbitList.push_back(3);
+		timer.m_RabbitList.push_back(14);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(1);
+		timer.m_RabbitList.push_back(13);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 2.5f;
+		timer.m_RabbitList.push_back(6);
 		timer.m_RabbitList.push_back(9);
 
 		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(8);
+		timer.m_RabbitList.push_back(10);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 2.5f;
+		timer.m_RabbitList.push_back(1);
+		timer.m_RabbitList.push_back(9);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(3);
+		timer.m_RabbitList.push_back(5);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 2.5f;
+		timer.m_RabbitList.push_back(14);
+		timer.m_RabbitList.push_back(9);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(4);
+		timer.m_RabbitList.push_back(13);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 2.5f;
+		timer.m_RabbitList.push_back(5);
+		timer.m_RabbitList.push_back(12);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(11);
+		timer.m_RabbitList.push_back(14);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 2.5f;
+		timer.m_RabbitList.push_back(0);
+		timer.m_RabbitList.push_back(14);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(13);
+		timer.m_RabbitList.push_back(15);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 2.5f;
+		timer.m_RabbitList.push_back(7);
+		timer.m_RabbitList.push_back(8);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(11);
+		timer.m_RabbitList.push_back(0);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(10);
+		timer.m_RabbitList.push_back(12);
+
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(14);
+		timer.m_RabbitList.push_back(2);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 1.f;
+		timer.m_RabbitList.push_back(1);
+		timer.m_RabbitList.push_back(6);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(0);
+		timer.m_RabbitList.push_back(13);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(3);
+		timer.m_RabbitList.push_back(15);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(7);
+		timer.m_RabbitList.push_back(8);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 1.f;
+		timer.m_RabbitList.push_back(2);
+		timer.m_RabbitList.push_back(12);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(6);
+		timer.m_RabbitList.push_back(11);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(4);
+		timer.m_RabbitList.push_back(14);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(0);
+		timer.m_RabbitList.push_back(9);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 1.f;
+		timer.m_RabbitList.push_back(7);
+		timer.m_RabbitList.push_back(9);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(15);
+		timer.m_RabbitList.push_back(12);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(5);
+		timer.m_RabbitList.push_back(10);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
+
+		timer.m_fTime = 0.5f;
+		timer.m_RabbitList.push_back(11);
+		timer.m_RabbitList.push_back(13);
+		Add_RabbitAppear(timer);
+		timer.m_RabbitList.clear();
 
 		m_bIsStart = true;
+
 	}
+
+	for (auto& iter : m_vecRabbits)
+	{
+		iter->Update_Object(fTimeDelta);
+	}
+
+
+	if (!m_bIsStart)
+		return 0;
 
 	if (m_bIsStart && !m_vecTimer.empty())
 	{
@@ -71,15 +331,51 @@ _int CRabbitMgr::Update_Object(const _float& fTimeDelta)
 			m_fCurTime = 0.f;
 		}
 	}
-	if (m_bIsStart && m_vecTimer.empty())
-		m_bIsStart = false;
-
-	for (auto& iter : m_vecRabbits)
+	if (m_bIsStart && m_vecTimer.empty() && m_fGameTime >= 66.f && m_iPoints > 20)
 	{
-		iter->Update_Object(fTimeDelta);
+		m_bIsStart = false;
+		m_bIsClear = true;
+		m_fGameTime = 0.f;
+		m_fCurTime = 0.f;
+		m_iPoints = 0;
+		return 0;
+
+	}
+
+
+
+	m_fGameTime += fTimeDelta;
+	if (m_fGameTime > 66.f)
+	{
+		CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Set_Pos(&_vec3(m_vStartPos.x - 1.f, 0.f, m_vStartPos.z - 1.f));
+		m_bIsStart = false;
+		m_fGameTime = 0.f;
+		m_fCurTime = 0.f;
+		m_iPoints = 0;
+
+	}
+	else
+	{
+		//Render_Object();
 	}
 
 	return 0;
+}
+
+void CRabbitMgr::Render_Object()
+{
+	if (m_bIsStart)
+	{
+		RECT rc = { WINCX / 2 - 50 + 1 , 60 , WINCX / 2 + 50 + 1 , 160 };
+		wstring szBuf;
+		szBuf = to_wstring(66.f - m_fGameTime);
+		szBuf = szBuf.substr(0, 5);
+
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
+			szBuf.c_str(), INT(szBuf.size()), &rc, DT_LEFT | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+	}
+
 }
 
 HRESULT CRabbitMgr::Ready_Rabits()
