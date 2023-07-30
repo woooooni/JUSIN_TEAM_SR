@@ -12,22 +12,21 @@ CQuest_MonkeyCheif1::CQuest_MonkeyCheif1()
 
 	// TODO : 대사 쓰기
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"원숭이 마을에 웬.. 오리너구리?");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"우리 마을 주민들이 그쪽 마을에 쓰레기를 버린다고?");
+
 //	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"");
-
 //	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
-
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"우리 마을 주민들이 그쪽 마을에 쓰레기를 버린다고?");
+	
 }
 
 void CQuest_MonkeyCheif1::Update_Quest(_float& fTimeDelta)
 {
-	
+	Clear_Quest();
 }
 
 void CQuest_MonkeyCheif1::Accept_Quest()
 {
 	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
-	Clear_Quest();
 }
 
 void CQuest_MonkeyCheif1::Clear_Quest()

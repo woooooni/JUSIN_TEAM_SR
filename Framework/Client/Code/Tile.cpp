@@ -46,12 +46,47 @@ void CTile::LateUpdate_Object(void)
 
 void CTile::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
 
-	m_pTextureCom->Render_Texture();
+	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	if (pCamera == nullptr)
+		return;
+
+	_vec3 vPos;
+	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	D3DVECTOR vCamPos = vPos;
+
+	D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, m_iAlpha / 255.0f };
+
+	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
+	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+	pEffect->SetFloat("g_AlphaRef", 90.f);
+
+
+	IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(m_pTextureCom->Get_Idx());
+	pEffect->SetTexture("g_Texture", pTexture);
+
+
+	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+	MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+	MATERIAL.material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
+	MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+	MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
+	MATERIAL.material.Power = 0.0f;
+
+	pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+
+	pEffect->Begin(nullptr, 0);
+	pEffect->BeginPass(0);
+
 	m_pBufferCom->Render_Buffer();
 
-	__super::Render_Object();
+	pEffect->EndPass();
+	pEffect->End();
 }
 
 HRESULT CTile::Ready_Component()
@@ -75,6 +110,11 @@ HRESULT CTile::Ready_Component()
 	NULL_CHECK_RETURN(m_pColliderCom, E_FAIL);
 	m_pColliderCom->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].insert({ COMPONENT_TYPE::COM_BOX_COLLIDER, m_pColliderCom });
+
+	m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
+	NULL_CHECK_RETURN(m_pShader, E_FAIL);
+	m_pShader->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_SHADER, m_pShader);
 
 	return S_OK;
 }

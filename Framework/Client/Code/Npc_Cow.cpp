@@ -31,6 +31,11 @@ HRESULT CNpc_Cow::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
+	pComponent = m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_SHADER, pComponent);
+
+
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	pComponent->SetOwner(this);
@@ -76,10 +81,7 @@ void CNpc_Cow::LateUpdate_Object(void)
 
 void CNpc_Cow::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-
 	m_pAnimator->Render_Component();
-	m_pBufferCom->Render_Buffer();
 
 //	if (m_bQuestAccept)
 //		m_pQuestion->Render_Object();

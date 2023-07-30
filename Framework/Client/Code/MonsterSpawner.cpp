@@ -9,7 +9,7 @@
 
 
 CMonsterSpawner::CMonsterSpawner(LPDIRECT3DDEVICE9 pGraphicDev)
-	:CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::NEXUS)
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::NEXUS)
 {
 }
 

@@ -40,6 +40,11 @@ HRESULT CNpc_Orangi::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
+	pComponent = m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_SHADER, pComponent);
+
+
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_Orangi_Idle", L"Proto_Texture_NPC_Wholesaler_Orangi_Idle", 0.5f), E_FAIL);
 	FAILED_CHECK_RETURN(m_pAnimator->Add_Animation(L"NPC_Monkey_Orangi_React", L"Proto_Texture_NPC_Wholesaler_Orangi_React", 0.5f), E_FAIL);
 
@@ -63,10 +68,8 @@ void CNpc_Orangi::LateUpdate_Object(void)
 
 void CNpc_Orangi::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	m_pAnimator->Render_Component();
-	m_pBufferCom->Render_Buffer();
 
 	__super::Render_Object();
 }

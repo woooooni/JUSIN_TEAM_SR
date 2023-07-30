@@ -41,6 +41,11 @@ HRESULT CNpc_Artist::Ready_Object(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_BOX_COLLIDER, pComponent);
 
+	pComponent = m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_SHADER, pComponent);
+
+
 	m_pExclamation = CUI_ExclamationMark::Create(m_pGraphicDev);
 	if (m_pExclamation != nullptr)
 		m_pExclamation->Set_Owner(this);
@@ -77,10 +82,7 @@ void CNpc_Artist::LateUpdate_Object(void)
 
 void CNpc_Artist::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-
 	m_pAnimator->Render_Component();
-	m_pBufferCom->Render_Buffer();
 
 	__super::Render_Object();
 }

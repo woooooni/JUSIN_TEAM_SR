@@ -153,19 +153,52 @@ void CGrass::Render_Object(void)
         src._42 += tmp.y;
         src._43 += iter->m_vPosByCenter.y + tmp.z;
 
-        m_pGraphicDev->SetTransform(D3DTS_WORLD, &src);
-        iter->m_pTexture->Set_Idx(iter->m_iTextureIndex);
-        iter->m_pTexture->Render_Texture();
+        LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+
+        CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+        if (pCamera == nullptr)
+            return;
+
+        _vec3 vPos;
+        pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+        D3DVECTOR vCamPos = vPos;
+
+
+        pEffect->SetMatrix("g_WorldMatrix", &src);
+        pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+        pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+        pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+        pEffect->SetFloat("g_AlphaRef", 0.0f);
+
+
+        IDirect3DBaseTexture9* pTexture = iter->m_pTexture->Get_Texture(iter->m_iTextureIndex);
+        pEffect->SetTexture("g_Texture", pTexture);
+
+
+        CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+        MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+        MATERIAL.material.Diffuse = { 0.5f, 0.5f, 0.5f, 1.0f };
+        MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+        MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
+        MATERIAL.material.Power = 0.0f;
+
+        pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+
+        pEffect->Begin(nullptr, 0);
+        pEffect->BeginPass(0);
+
         m_pBufferCom->Render_Buffer();
+
+        pEffect->EndPass();
+        pEffect->End();
     }
 
     mat._43 -= 0.01f;
 
     if ((m_eGrassType == GRASS_TYPE::GLOWING_REED || m_eGrassType == GRASS_TYPE::GLOWING_REED_RED) && m_fBlurTime > 0.f)
     {
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DXCOLOR(1.f, 1.f, 1.f, 0.25f));
   
-
         for (auto& iter : m_LightList)
         {
             D3DXMatrixScaling(&src, iter->m_fScale.x, iter->m_fScale.y, iter->m_fScale.z);
@@ -188,15 +221,51 @@ void CGrass::Render_Object(void)
             src._42 += tmp.y;
             src._43 += iter->m_vPosByCenter.y + tmp.z;
 
-            m_pGraphicDev->SetTransform(D3DTS_WORLD, &src);
-            iter->m_pTexture->Set_Idx(iter->m_iTextureIndex);
-            iter->m_pTexture->Render_Texture();
+            LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+
+            CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+            if (pCamera == nullptr)
+                return;
+
+            _vec3 vPos;
+            pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+            D3DVECTOR vCamPos = vPos;
+
+            D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, 0.25f };
+
+            pEffect->SetMatrix("g_WorldMatrix", &src);
+            pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+            pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+            pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+            pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+            pEffect->SetFloat("g_AlphaRef", 50.0f);
+
+
+            IDirect3DBaseTexture9* pTexture = iter->m_pTexture->Get_Texture(iter->m_iTextureIndex);
+            pEffect->SetTexture("g_Texture", pTexture);
+
+
+            CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+            MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+            MATERIAL.material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
+            MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+            MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
+            MATERIAL.material.Power = 0.0f;
+
+            pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+
+            pEffect->Begin(nullptr, 0);
+            pEffect->BeginPass(1);
+
             m_pBufferCom->Render_Buffer();
+
+            pEffect->EndPass();
+            pEffect->End();
         }
 
     }
 
-    m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
 
 }

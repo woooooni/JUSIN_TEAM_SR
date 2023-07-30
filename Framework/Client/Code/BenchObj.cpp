@@ -45,6 +45,8 @@ void CBenchObj::LateUpdate_Object(void)
 void CBenchObj::Render_Object(void)
 {
 	__super::Render_Object();
+
+
 }
 
 void CBenchObj::Add_Subscribe(_uint iNum)

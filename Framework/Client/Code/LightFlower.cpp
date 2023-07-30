@@ -66,7 +66,7 @@ HRESULT CLightFlower::Ready_Object(void)
     // tLight.Attenuation0 = 0.f;
     // tLight.Attenuation1 = 0.f;
 
-    Engine::Ready_Light(m_pGraphicDev, &tLight, 1);
+    //Engine::Ready_Light(m_pGraphicDev, &tLight, 1);
 
 
     return S_OK;
@@ -101,27 +101,27 @@ void CLightFlower::Render_Object(void)
         AreaWorld._42 = 0.01f;
         AreaWorld._43 = world->_43;
 
-        DWORD   areaColor;
+        D3DCOLORVALUE   areaColor;
 
         switch (m_eColor)
         {
         case Engine::JELLY_COLOR::CYAN:
-            areaColor = D3DCOLOR_ARGB(255, 0, 255, 255);
+            areaColor = { 0, 1.0f, 1.0f, 1.0f };
             break;
         case Engine::JELLY_COLOR::MAGENTA:
-            areaColor = D3DCOLOR_ARGB(255, 255, 0, 255);
+            areaColor = { 1.0f, 0, 1.0f, 1.0f };
             break;
         case Engine::JELLY_COLOR::YELLOW:
-            areaColor = D3DCOLOR_ARGB(255, 255, 255, 0);
+            areaColor = { 1.0f, 1.0f, 0, 1.0f };
             break;
         case Engine::JELLY_COLOR::RED:
-            areaColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+            areaColor = { 1.0f, 0, 0, 1.0f };
             break;
         case Engine::JELLY_COLOR::BLUE:
-            areaColor = D3DCOLOR_ARGB(255, 0, 0, 255);
+            areaColor = { 0, 0, 1.0f, 1.0f };
             break;
         case Engine::JELLY_COLOR::GREEN:
-            areaColor = D3DCOLOR_ARGB(255, 0, 255, 0);
+            areaColor = { 0, 1.0f, 0, 1.0f };
             break;
         case Engine::JELLY_COLOR::JELLY_END:
         default:
@@ -129,13 +129,49 @@ void CLightFlower::Render_Object(void)
             return;
         }
 
-        m_pGraphicDev->SetTransform(D3DTS_WORLD, &AreaWorld);
-        m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, false);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, areaColor);
-        m_pTextureCom->Render_Texture();
+
+
+        LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+
+        CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+        if (pCamera == nullptr)
+            return;
+
+        _vec3 vPos;
+        pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+        D3DVECTOR vCamPos = vPos;
+
+        D3DCOLORVALUE vColor = areaColor;
+
+        pEffect->SetMatrix("g_WorldMatrix", &AreaWorld);
+        pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+        pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+        pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+        pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+        pEffect->SetFloat("g_AlphaRef", 0.0f);
+
+
+        IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(0);
+        pEffect->SetTexture("g_Texture", pTexture);
+
+
+        CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+        MATERIAL.material.Ambient =  { 1.0f, 1.0f, 1.0f, 1.0f };
+        MATERIAL.material.Diffuse =  { 1.0f, 1.0f, 1.0f, 1.0f };
+        MATERIAL.material.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
+        MATERIAL.material.Emissive = { 1.0f, 1.0f, 1.0f, 0.0f };
+        MATERIAL.material.Power = 0.0f;
+
+        pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+
+        pEffect->Begin(nullptr, 0);
+        pEffect->BeginPass(1);
+
         m_pBufferCom->Render_Buffer();
-        m_pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, true);
-        m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255,255,255,255));
+
+        pEffect->EndPass();
+        pEffect->End();
     }
 }
 
