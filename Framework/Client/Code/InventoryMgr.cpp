@@ -160,6 +160,7 @@ void CInventoryMgr::Set_Player(CPlayer* pPlayer)
 
 
 
+
 void CInventoryMgr::Free()
 {
 	for (auto& iter : m_vecInventory)

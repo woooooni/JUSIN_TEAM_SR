@@ -64,27 +64,30 @@ void CUI_ShortCutKey::LateUpdate_Object(void)
 
 void CUI_ShortCutKey::Render_Object(void)
 {
-	_matrix matPreView, matPreProj;
+	if (m_bShown)
+	{
+		_matrix matPreView, matPreProj;
 
-	m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
+		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
+		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
-	_vec3 vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
-					(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
+		_vec3 vPos = { (2 * m_tInfo.fX / WINCX - 1) * (1 / m_matProj._11) ,
+						(-2 * m_tInfo.fY / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
-	m_pTransformCom->Set_Pos(&vPos);
+		m_pTransformCom->Set_Pos(&vPos);
 
-	_float fRatio = _float(WINCY) / _float(WINCX);
-	_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 1.1f, m_tInfo.fCY * fRatio * 1.1f, 0.f);
+		_float fRatio = _float(WINCY) / _float(WINCX);
+		_vec3 vScale = _vec3(m_tInfo.fCX * fRatio * 1.1f, m_tInfo.fCY * fRatio * 1.1f, 0.f);
 
-	m_pTransformCom->Set_Scale(vScale);
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+		m_pTransformCom->Set_Scale(vScale);
+		m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
-	m_pTextureCom->Render_Texture(0);
-	m_pBufferCom->Render_Buffer();
+		m_pTextureCom->Render_Texture(0);
+		m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
+		m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
+	}
 }
 
 CUI_ShortCutKey* CUI_ShortCutKey::Create(LPDIRECT3DDEVICE9 pGraphicDev)

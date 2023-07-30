@@ -88,9 +88,6 @@ void CUI_NewItem::LateUpdate_Object(void)
 
 void CUI_NewItem::Render_Object(void)
 {
-	if (!Is_Active())
-		return;
-
 	if (m_bShown)
 	{
 		// 아이템명

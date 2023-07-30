@@ -537,26 +537,26 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	if (fTimeDelta == 0)
 		return;
 
-	if (KEY_TAP(KEY::NUM_1))
-	{
-		m_eHat = PLAYER_HAT::LIGHT;
-		Set_Hat(m_vecHats[(_uint)m_eHat]);
-	}
-	else if (KEY_TAP(KEY::NUM_2))
-	{
-		m_eHat = PLAYER_HAT::GOLEMFIST;
-		Set_Hat(m_vecHats[(_uint)m_eHat]);
-	}
-	else if (KEY_TAP(KEY::NUM_3))
-	{
-		m_eHat = PLAYER_HAT::LIGHTNING;
-		Set_Hat(m_vecHats[(_uint)m_eHat]);
-	}
-	else if (KEY_TAP(KEY::NUM_4))
-	{
-		m_eHat = PLAYER_HAT::TURTLE;
-		Set_Hat(m_vecHats[(_uint)m_eHat]);
-	}
+//	if (KEY_TAP(KEY::NUM_1))
+//	{
+//		m_eHat = PLAYER_HAT::LIGHT;
+//		Set_Hat(m_vecHats[(_uint)m_eHat]);
+//	}
+//	else if (KEY_TAP(KEY::NUM_2))
+//	{
+//		m_eHat = PLAYER_HAT::GOLEMFIST;
+//		Set_Hat(m_vecHats[(_uint)m_eHat]);
+//	}
+//	else if (KEY_TAP(KEY::NUM_3))
+//	{
+//		m_eHat = PLAYER_HAT::LIGHTNING;
+//		Set_Hat(m_vecHats[(_uint)m_eHat]);
+//	}
+//	else if (KEY_TAP(KEY::NUM_4))
+//	{
+//		m_eHat = PLAYER_HAT::TURTLE;
+//		Set_Hat(m_vecHats[(_uint)m_eHat]);
+//	}
 	else if (KEY_TAP(KEY::NUM_5))
 	{
 		m_eHat = PLAYER_HAT::DRILL;

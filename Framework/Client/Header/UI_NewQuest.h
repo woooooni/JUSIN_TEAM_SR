@@ -2,6 +2,7 @@
 #include "CUI.h"
 #include "UI_QuestIcon.h"
 #include "UI_Notification.h"
+#include "UI_ShortCutKey.h"
 
 BEGIN(Engine)
 class CRcTex;
@@ -47,6 +48,7 @@ private:
 	CUI_QuestIcon* m_pContentsBox = nullptr;
 	CUI_QuestIcon* m_pExclamIcon = nullptr;
 	CUI_Notification* m_pWindow = nullptr;
+	CUI_ShortCutKey* m_pShortcutKey = nullptr;
 
 private:
 	wstring m_strTitle;

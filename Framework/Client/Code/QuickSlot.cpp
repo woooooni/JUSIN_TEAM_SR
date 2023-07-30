@@ -4,17 +4,25 @@
 #include "InventoryMgr.h"
 #include "Item.h"
 #include "InventoryUI.h"
+#include "Player.h"
 
 CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
-	, m_bCanUse(true), m_bSetIndex(false)
+	, m_bCanUse(true)
 {
 	m_vecSlotItems.resize(4);
 	m_vecSlots.resize(4);
+	m_vecSetCode.resize(4);
+	m_vecCount.resize(4);
 
 	for (auto& iter : m_vecSlotItems)
 	{
 		iter = ITEM_CODE::ITEM_END;
+	}
+
+	for (auto& iter : m_vecSetCode)
+	{
+		iter = false;
 	}
 
 	for (auto& iter : m_vecSlots)
@@ -22,11 +30,16 @@ CQuickSlot::CQuickSlot(LPDIRECT3DDEVICE9 pGraphicDev)
 		iter = nullptr;
 	}
 
+	for (auto& iter : m_vecCount)
+	{
+		iter = 0;
+	}
+
 }
 
 CQuickSlot::CQuickSlot(const CQuickSlot& rhs)
 	: CUI(rhs)
-	,m_bCanUse(rhs.m_bCanUse), m_bSetIndex(rhs.m_bSetIndex)
+	,m_bCanUse(rhs.m_bCanUse)
 {
 }
 
@@ -43,6 +56,10 @@ HRESULT CQuickSlot::Ready_Object(void)
 
 _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 {
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
+	
+	if (!pPlayer)
+		return E_FAIL;
 
 	if (m_bCanUse)
 	{
@@ -50,8 +67,17 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 		{
 			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled())
 			{
-				m_iDefaultIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
-				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Use_Item();
+				_uint iCode = _uint(dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode());
+
+				if (iCode <= 5)
+				{
+					if (m_vecCount[SLOT_ONE] > 0)
+						m_vecCount[SLOT_ONE] -= 1;
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Use_Item();
+				}
+
+				if (iCode >= 10 && iCode <= 15)
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Wear_Item();
 			}
 		}
 
@@ -59,8 +85,17 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 		{
 			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled())
 			{
-				m_iDefaultIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
-				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Use_Item();
+				_uint iCode = _uint(dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode());
+
+				if (iCode <= 5)
+				{
+					if (m_vecCount[SLOT_TWO] > 0)
+						m_vecCount[SLOT_TWO] -= 1;
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Use_Item();
+				}
+
+				if (iCode >= 10 && iCode <= 15)
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Wear_Item();
 			}
 		}
 
@@ -68,8 +103,17 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 		{
 			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_Filled())
 			{
-				m_iDefaultIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
-				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Use_Item();
+				_uint iCode = _uint(dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode());
+
+				if (iCode <= 5)
+				{
+					if (m_vecCount[SLOT_THREE] > 0)
+						m_vecCount[SLOT_THREE] -= 1;
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Use_Item();
+				}
+
+				if (iCode >= 10 && iCode <= 15)
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Wear_Item();
 			}
 		}
 
@@ -77,8 +121,17 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 		{
 			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_Filled())
 			{
-				m_iDefaultIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
-				dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Use_Item();
+				_uint iCode = _uint(dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode());
+
+				if (iCode <= 5)
+				{
+					if (m_vecCount[SLOT_FOUR] > 0)
+						m_vecCount[SLOT_FOUR] -= 1;
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Use_Item();
+				}
+
+				if (iCode >= 10 && iCode <= 15)
+					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Wear_Item();
 			}
 		}
 	}
@@ -99,35 +152,51 @@ void CQuickSlot::LateUpdate_Object(void)
 	m_vecSlots[SLOT_THREE]->LateUpdate_Object();
 	m_vecSlots[SLOT_FOUR]->LateUpdate_Object();
 
-	if (!m_bCanUse)
+	if (!m_bCanUse) // 인벤토리가 열려있지 않을 때
 	{
-		if (KEY_TAP(KEY::NUM_1))
-			if (!dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled() && !m_bSetIndex)
-			{
-				m_bSetIndex = true;
-				m_eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
-			}
+		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled() && m_vecSetCode[SLOT_ONE] == false)
+		{
+			_uint iIndex = m_vecCount[SLOT_ONE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
 
-		if (KEY_TAP(KEY::NUM_2))
-			if (!dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled() && !m_bSetIndex)
-			{
-				m_bSetIndex = true;
-				m_eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode();
-			}
+			m_vecCount[SLOT_ONE] = CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
 
-		if (KEY_TAP(KEY::NUM_3))
-			if (!dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_Filled() && !m_bSetIndex)
-			{
-				m_bSetIndex = true;
-				m_eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode();
-			}
+			m_vecSetCode[SLOT_ONE] = true;
+			m_vecSlotItems[SLOT_ONE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
+		}
 
-		if (KEY_TAP(KEY::NUM_4))
-			if (!dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_Filled() && !m_bSetIndex)
-			{
-				m_bSetIndex = true;
-				m_eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();
-			}
+		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled() && m_vecSetCode[SLOT_TWO] == false)
+		{
+			_uint iIndex = m_vecCount[SLOT_TWO] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
+
+			m_vecCount[SLOT_TWO] = CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+
+			m_vecSetCode[SLOT_TWO] = true;
+			m_vecSlotItems[SLOT_TWO] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode();
+		}
+
+		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_Filled() && m_vecSetCode[SLOT_THREE] == false)
+		{
+			_uint iIndex = m_vecCount[SLOT_THREE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
+
+			m_vecCount[SLOT_THREE] = CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+
+			m_vecSetCode[SLOT_THREE] = true;
+			m_vecSlotItems[SLOT_THREE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode();
+		}
+
+		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_Filled() && m_vecSetCode[SLOT_FOUR] == false)
+		{
+			_uint iIndex = m_vecCount[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
+
+			m_vecCount[SLOT_FOUR] = CInventoryMgr::GetInstance()->
+				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+
+			m_vecSetCode[SLOT_FOUR] = true;
+			m_vecSlotItems[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();
+		}
 	}
 
 	__super::LateUpdate_Object();
@@ -136,6 +205,7 @@ void CQuickSlot::LateUpdate_Object(void)
 void CQuickSlot::Render_Object(void)
 {
 	// 인덱스 관련 수정 진행중
+	// Get_Filed가 하나라도 false가 되었을때
 	_uint iCount = 0;
 	wstring strCount = L"";
 
@@ -143,34 +213,22 @@ void CQuickSlot::Render_Object(void)
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
 
-		if (eCode != ITEM_CODE::ITEM_END)
-			//&& m_eCode == eCode)
+		if (_uint(eCode) <= 5 && eCode != ITEM_CODE::ITEM_END && m_vecSlotItems[SLOT_ONE] == eCode)
 		{
 			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
-
-			if (CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex] != nullptr)
+			
+			if (m_vecCount[SLOT_ONE] >= 0)
 			{
-				if (CInventoryMgr::GetInstance()->
-					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-					->Get_InvenCount() >= 0)
+				RECT rc = { 85, 95, 135, 145 };
+				strCount = to_wstring(m_vecCount[SLOT_ONE]);
+
+				if (strCount != L"1")
 				{
-					iCount = CInventoryMgr::GetInstance()->
-						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-						->Get_InvenCount();
+					Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+						->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+							DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+							D3DCOLOR_ARGB(150, 0, 0, 0));
 				}
-			}
-				
-
-			RECT rc = { 85, 95, 135, 145 };
-			strCount = to_wstring(iCount);
-
-			if ((strCount != L"1") && (iCount > 0))
-			{
-				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(150, 0, 0, 0));
 			}
 		}
 	}
@@ -178,37 +236,23 @@ void CQuickSlot::Render_Object(void)
 	if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_Filled())
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_ItemCode();
-	
-		if (eCode != ITEM_CODE::ITEM_END)
-			//&& m_eCode == eCode)
+
+		if (_uint(eCode) <= 5 && eCode != ITEM_CODE::ITEM_END && m_vecSlotItems[SLOT_TWO] == eCode)
 		{
 			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_TWO])->Get_InvenIndex();
 
-//			if (m_bSetIndex &&
-//				(CInventoryMgr::GetInstance()->
-//				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex] != nullptr))
-			if (CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex] != nullptr)
+			if (m_vecCount[SLOT_TWO] >= 0)
 			{
-				if (CInventoryMgr::GetInstance()->
-					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-					->Get_InvenCount() >= 0)
+				RECT rc = { 162, 95, 212, 145 };
+				strCount = to_wstring(m_vecCount[SLOT_TWO]);
+
+				if (strCount != L"1")
 				{
-					iCount = CInventoryMgr::GetInstance()->
-						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-						->Get_InvenCount();
+					Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+						->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+							DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+							D3DCOLOR_ARGB(150, 0, 0, 0));
 				}
-			}
-
-			RECT rc = { 162, 95, 212, 145 };
-			strCount = to_wstring(iCount);
-
-			if ((strCount != L"1") && (iCount > 0))
-			{
-				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(150, 0, 0, 0));
 			}
 		}
 	}
@@ -217,34 +261,23 @@ void CQuickSlot::Render_Object(void)
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_ItemCode();
 
-		if (eCode != ITEM_CODE::ITEM_END)
-			//&& m_eCode == eCode)
+		if (_uint(eCode) <= 5 && eCode != ITEM_CODE::ITEM_END && m_vecSlotItems[SLOT_THREE] == eCode)
 		{
 			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_InvenIndex();
-			//eCode가 가리키는 아이템과 iIndex의 아이템이 같지 않으면.. Set_Active False
 
-			if (CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex] != nullptr)
+			if (m_vecCount[SLOT_THREE] >= 0)
 			{
-				if (CInventoryMgr::GetInstance()->
-					Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-					->Get_InvenCount() >= 0)
+
+				RECT rc = { 239, 95, 289, 145 };
+				strCount = to_wstring(m_vecCount[SLOT_THREE]);
+
+				if (strCount != L"1")
 				{
-					iCount = CInventoryMgr::GetInstance()->
-						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-						->Get_InvenCount();
+					Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+						->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+							DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+							D3DCOLOR_ARGB(150, 0, 0, 0));
 				}
-			}
-
-			RECT rc = { 239, 95, 289, 145 };
-			strCount = to_wstring(iCount);
-
-			if ((strCount != L"1") && (iCount > 0))
-			{
-				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(150, 0, 0, 0));
 			}
 		}
 	}
@@ -253,39 +286,24 @@ void CQuickSlot::Render_Object(void)
 	{
 		ITEM_CODE eCode = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();
 
-		if (eCode != ITEM_CODE::ITEM_END)
-			//&& m_eCode == eCode)
+		if (_uint(eCode) <= 5 && eCode != ITEM_CODE::ITEM_END && m_vecSlotItems[SLOT_FOUR] == eCode)
 		{
 			_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
 
-//			if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOTNUM::SLOT_TWO])->Get_InvenIndex() == iIndex)
-//			{
-
-			if (CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex] != nullptr)
+			if (m_vecCount[SLOT_FOUR] >= 0)
 			{
-					if (CInventoryMgr::GetInstance()->
-						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-						->Get_InvenCount() >= 0)
-					{
-						iCount = CInventoryMgr::GetInstance()->
-							Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]
-							->Get_InvenCount();
-					}
-			}
 
-			RECT rc = { 316, 95, 366, 145 }; // X + 77
-			strCount = to_wstring(iCount);
+				RECT rc = { 316, 95, 366, 145 };
+				strCount = to_wstring(m_vecCount[SLOT_FOUR]);
 
-			if ((strCount != L"1") && (iCount > 0))
-				//&& dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOTNUM::SLOT_FOUR])->Get_InvenIndex() == iIndex)
-			{
-				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
-					->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
-						DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
-						D3DCOLOR_ARGB(150, 0, 0, 0));
+				if (strCount != L"1")
+				{
+					Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)
+						->DrawTextW(NULL, strCount.c_str(), strCount.length(), &rc,
+							DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE,
+							D3DCOLOR_ARGB(150, 0, 0, 0));
+				}
 			}
-//			}
 		}
 	}
 

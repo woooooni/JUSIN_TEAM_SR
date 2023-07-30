@@ -123,7 +123,52 @@ HRESULT CUI_SlotItems::Use_Item()
 	if (item == iter.end())
 		Set_ItemCode(ITEM_CODE::ITEM_END);
 
-	
+	return S_OK;
+}
+
+HRESULT CUI_SlotItems::Wear_Item()
+{
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
+	if (!pPlayer)
+		return E_FAIL;
+
+	PLAYER_HAT eHat;
+
+	switch (m_eCode)
+	{
+	case Engine::ITEM_CODE::HAT_DRILL:
+		eHat = PLAYER_HAT::DRILL;
+		break;
+
+	case Engine::ITEM_CODE::HAT_LIGHT:
+		eHat = PLAYER_HAT::LIGHT;
+		break;
+
+	case Engine::ITEM_CODE::HAT_MASK:
+		eHat = PLAYER_HAT::LIGHTNING;
+		break;
+
+	case Engine::ITEM_CODE::HAT_MISSLE:
+		eHat = PLAYER_HAT::MISSILE;
+		break;
+
+	case Engine::ITEM_CODE::HAT_MONKEY:
+		eHat = PLAYER_HAT::GOLEMFIST;
+		break;
+
+	case Engine::ITEM_CODE::HAT_TURTLE:
+		eHat = PLAYER_HAT::TURTLE;
+		break;
+
+	default:
+		break;
+	}
+
+	if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() != m_eCode)
+		pPlayer->Set_PlayerHat(eHat);
+
+	else if (!pPlayer->Get_Hat() || pPlayer->Get_Hat()->Get_ItemCode() == m_eCode)
+		pPlayer->Set_PlayerHat(PLAYER_HAT::NONE);
 
 	return S_OK;
 }

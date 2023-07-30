@@ -250,7 +250,8 @@ void CInventoryUI::Register_QuickSlot()
 
 	if (m_bIsRenderCurs)
 	{
-		if (m_iCurPageIdx == (_uint)CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)
+		if (m_iCurPageIdx == (_uint)CInventoryMgr::INVENTORY_TYPE::CONSUMPSION
+			|| m_iCurPageIdx == (_uint)CInventoryMgr::INVENTORY_TYPE::EQUIPMENT)
 		{
 			_bool bFilled_One = pSlots->Get_Filled(SLOTNUM::SLOT_ONE);
 			_bool bFilled_Two = pSlots->Get_Filled(SLOTNUM::SLOT_TWO);
@@ -261,12 +262,8 @@ void CInventoryUI::Register_QuickSlot()
 			{
 				if (!bFilled_One)
 				{
-					// 슬롯 2, 3, 4가 차있는지 확인하고 차있는 경우 아이템 코드를 받는다.
-					// 이 아이템 코드와 지금 넣으려고하는 아이템이 같은것이면 넣지 않는다.
-
 					if (bFilled_Two)
 					{
-						// 3번과 4번에도 같은 아이템이 있지는 않은지 확인해줘야한다.
 						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_TWO))
 						{
@@ -310,18 +307,15 @@ void CInventoryUI::Register_QuickSlot()
 						}
 					}
 
-					if (!bFilled_Two && !bFilled_Three && !bFilled_Four) // 셋다 false면 아이템을 추가한다.
+					if (!bFilled_Two && !bFilled_Three && !bFilled_Four)
 						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 				}
 
-				//_bool bCanUse = pSlots->Get_Use(); // 230729 추가(수정 진행중)
-
-				if (bFilled_One) // 여기에 조건 하나 더 추가해주어야함. 아이템창이 열려있는 상태여야한다. m_bCanUse 호출
+				if (bFilled_One)
 				{
 					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 						== pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
 					{
-						// 1Key에 이미 배정된 아이템을 선택한 상태에서 동일 키를 누를 경우 배치가 해제됨.
 						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_ONE, false);
 					}
@@ -330,12 +324,12 @@ void CInventoryUI::Register_QuickSlot()
 
 			if (KEY_TAP(KEY::NUM_2))
 			{
-				if (!bFilled_Two) // 슬롯이 차지 않으면. 즉, false를 반환하면 OK
+				if (!bFilled_Two)
 				{
-					if (bFilled_One) // 슬롯1이 차있으면
+					if (bFilled_One)
 					{
 						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE)) // 슬롯1의 아이템 코드를 얻어오고 지금 담을 아이템 코드를 얻어와 비교한다 -> 같지 않으면 슬롯에 추가한다
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
 						{
 							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
@@ -347,10 +341,10 @@ void CInventoryUI::Register_QuickSlot()
 						}
 					}
 
-					if (bFilled_Three) // 슬롯3이 차있으면
+					if (bFilled_Three)
 					{
 						if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
-							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE)) // 슬롯 3의 아이템 코드를 얻어오고 지금 담을 아이템 코드를 얻어와 비교한다 ->같지 않으면
+							!= pSlots->Get_ItemCode(SLOTNUM::SLOT_THREE))
 						{
 							if ((CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 								!= pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
