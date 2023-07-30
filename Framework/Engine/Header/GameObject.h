@@ -109,6 +109,7 @@ protected:
 
 	_uint		m_iAlpha;
 
+	D3DMATERIAL9 m_tMaterial;
 private:
 	_bool		m_bActive;
 

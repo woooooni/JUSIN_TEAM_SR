@@ -26,6 +26,12 @@ CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_TYPE _eType, OBJ_ID 
 	, m_iAlpha(255)
 {
 	m_pGraphicDev->AddRef();
+
+	m_tMaterial.Ambient = { 1.0f, 1.0f, 1.0f, 1.0f };
+	m_tMaterial.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	m_tMaterial.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
+	m_tMaterial.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
+	m_tMaterial.Power = 0.0f;
 }
 
 CGameObject::CGameObject(const CGameObject & rhs)
@@ -43,7 +49,6 @@ CGameObject::CGameObject(const CGameObject & rhs)
 	, m_fMinHeight(rhs.m_fMinHeight)
 	, m_eID(rhs.m_eID)
 	, m_iAlpha(255)
-	
 {
 
 	m_pGraphicDev->AddRef();
@@ -105,7 +110,7 @@ CGameObject::CGameObject(const CGameObject & rhs)
 		m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, m_pRigidBodyCom);
 	}
 		
-
+	m_tMaterial = rhs.m_tMaterial;
 }
 
 CGameObject::~CGameObject()

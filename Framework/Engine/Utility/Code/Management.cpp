@@ -1,4 +1,6 @@
 #include "Export_Utility.h"
+#include "Engine_Struct.h"
+
 
 IMPLEMENT_SINGLETON(CManagement)
 

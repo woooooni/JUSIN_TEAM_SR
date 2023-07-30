@@ -410,14 +410,9 @@ void CPlayer::Render_Object(void)
 
 	
 	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
-
-	MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
-	MATERIAL.material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
-	MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
-	MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
-	MATERIAL.material.Power = 0.0f;
 	
-	pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+
+	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 	pEffect->Begin(nullptr, 0);
 	pEffect->BeginPass(1);
@@ -552,26 +547,26 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	if (fTimeDelta == 0)
 		return;
 
-//	if (KEY_TAP(KEY::NUM_1))
-//	{
-//		m_eHat = PLAYER_HAT::LIGHT;
-//		Set_Hat(m_vecHats[(_uint)m_eHat]);
-//	}
-//	else if (KEY_TAP(KEY::NUM_2))
-//	{
-//		m_eHat = PLAYER_HAT::GOLEMFIST;
-//		Set_Hat(m_vecHats[(_uint)m_eHat]);
-//	}
-//	else if (KEY_TAP(KEY::NUM_3))
-//	{
-//		m_eHat = PLAYER_HAT::LIGHTNING;
-//		Set_Hat(m_vecHats[(_uint)m_eHat]);
-//	}
-//	else if (KEY_TAP(KEY::NUM_4))
-//	{
-//		m_eHat = PLAYER_HAT::TURTLE;
-//		Set_Hat(m_vecHats[(_uint)m_eHat]);
-//	}
+	if (KEY_TAP(KEY::NUM_1))
+	{
+		m_eHat = PLAYER_HAT::LIGHT;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_2))
+	{
+		m_eHat = PLAYER_HAT::GOLEMFIST;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_3))
+	{
+		m_eHat = PLAYER_HAT::LIGHTNING;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
+	}
+	else if (KEY_TAP(KEY::NUM_4))
+	{
+		m_eHat = PLAYER_HAT::TURTLE;
+		Set_Hat(m_vecHats[(_uint)m_eHat]);
+	}
 	else if (KEY_TAP(KEY::NUM_5))
 	{
 		m_eHat = PLAYER_HAT::DRILL;

@@ -50,6 +50,15 @@ HRESULT CScene_MonkeyVillage::Ready_Scene()
 	Stop_Sound(CHANNELID::SOUND_BGM);
 	Play_BGM(L"BGM_7_JungleTown.wav", 0.5f);
 
+	D3DLIGHT9 tLight;
+	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
+	tLight.Direction = { 0.0f, -1.0f, 1.0f };
+	tLight.Ambient = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tLight.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tLight.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
+
 	return S_OK;
 }
 

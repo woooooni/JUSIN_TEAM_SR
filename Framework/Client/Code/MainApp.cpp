@@ -60,6 +60,7 @@ HRESULT CMainApp::Ready_MainApp(void)
 
 	srand(unsigned(time(NULL)));
 
+
 	return S_OK;
 }
 
@@ -76,7 +77,6 @@ int CMainApp::Update_MainApp(const float & fTimeDelta)
 	m_pManagementClass->Update_Scene(fTimeDelta);
 	CQuestMgr::GetInstance()->Update_QuestMgr(fTimeDelta);
 	CCutSceneMgr::GetInstance()->Update_CutSceneMgr(fTimeDelta);
-	
 	return 0;
 }
 
@@ -86,12 +86,10 @@ void CMainApp::LateUpdate_MainApp()
 	m_pManagementClass->LateUpdate_Scene();
 	Engine::Update_Collision();
 	Engine::LateUpdate_LightMgr();
-
 }
 
 void CMainApp::Render_MainApp()
 {
-
 	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 
 
@@ -122,6 +120,10 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+
+
+
+
 
 	return S_OK;
 }

@@ -1,4 +1,5 @@
 #include "..\..\Header\Renderer.h"
+#include "Engine_Struct.h"
 
 IMPLEMENT_SINGLETON(CRenderer)
 
@@ -64,7 +65,6 @@ void CRenderer::Render_Nonalpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 {
-	
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -77,6 +77,7 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 	{ 
 		return pDst->Get_ViewZ() > pSrc->Get_ViewZ(); 
 	});
+
 
 	for (auto iter : m_RenderGroup[RENDER_ALPHA])
 		iter->Render_Object();

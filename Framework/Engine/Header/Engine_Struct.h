@@ -79,35 +79,7 @@ namespace Engine
 		_float fCY;
 	}UI_INFO;
 
-	typedef struct tMaterial
-	{
-		void	Set_Material(D3DMATERIAL9& _material, D3DCOLORVALUE _color, _float _fPower = 100.f)
-		{
-			_material.Ambient = _color;
-			_material.Diffuse = _color;
-			_material.Specular = _color;
-			_material.Emissive = _color;
-			_material.Power = _fPower;
-		}
-
-		const D3DMATERIAL9 Get_Meretial(D3DCOLORVALUE _color, _float _fPower = 100.f)
-		{
-			D3DMATERIAL9 tMat;
-
-			tMat.Ambient = _color;
-			tMat.Diffuse = _color;
-			tMat.Specular = _color;
-			tMat.Emissive = _color;
-			tMat.Power = _fPower;
-
-			return tMat;
-		}
-
-		D3DMATERIAL9 material;
-
-	} CUSTOM_MATERIAL;
-	static CUSTOM_MATERIAL MATERIAL;
-
+	
 }
 
 

@@ -75,13 +75,9 @@ void CLightPuzzleBase::Render_Object(void)
 
 		CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
-		MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
-		MATERIAL.material.Diffuse = { 0.5f, 0.5f, 0.5f, 1.0f };
-		MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
-		MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
-		MATERIAL.material.Power = 0.0f;
+	
 
-		pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 		pEffect->Begin(nullptr, 0);
 		pEffect->BeginPass(0);
