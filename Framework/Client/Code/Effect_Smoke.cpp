@@ -57,7 +57,7 @@ _int CEffect_Smoke::Update_Object(const _float& fTimeDelta)
 	if (m_fAccTime > m_fEffectTime)
 	{
 		m_iAlpha -= 1;
-		if (m_iAlpha < 10)
+		if (m_iAlpha <= 0)
 		{
 			m_iAlpha = 0;
 			Set_Active(false);
