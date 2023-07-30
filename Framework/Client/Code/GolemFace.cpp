@@ -104,7 +104,7 @@ void CGolemFace::Update_Idle(_float fTimeDelta)
 
 void CGolemFace::Update_Dirty(_float fTimeDelta)
 {
-	
+	///if(m)
 }
 
 void CGolemFace::Update_Move(_float fTimeDelta)

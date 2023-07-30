@@ -62,6 +62,7 @@ private:
     _vec3 m_vOrigin;
     COLOR_STATE m_eCOLORPATTERN=COLOR_END;
     _bool m_bSpawn=false;
+    _float m_fiInterval;
 private:
     CUI_BossHP* m_pUIBack;
     CUI_BossHP* m_pUIFrame;
