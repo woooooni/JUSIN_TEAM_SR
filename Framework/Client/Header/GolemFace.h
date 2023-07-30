@@ -47,7 +47,7 @@ private:
 protected:
 	CGolemPart* m_pTarget;
 	_float m_fMoveTime;
-	bool m_bBreath=false;
+	bool m_bExhale=false;
 protected:
 	virtual void Free() override;
 

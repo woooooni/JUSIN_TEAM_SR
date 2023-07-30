@@ -39,7 +39,7 @@ public:
 
 	void Set_ArmNum(_int _iNum) { m_iArmNum = _iNum; }
 private:
-
+	_float m_fAlpha = 255.f;
 	_int m_iArmNum = 0;
 protected:
 	_float m_fMoveTime;

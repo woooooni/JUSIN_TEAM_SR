@@ -72,11 +72,13 @@ void CGolemLeftHand::LateUpdate_Object(void)
 void CGolemLeftHand::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB((int)m_fAlpha, 255, 255, 255));
+
 	__super::Render_Object();
 	m_pBufferCom->Render_Buffer();
 
-	
+	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+
 }
 
 HRESULT CGolemLeftHand::Add_Component(void)
@@ -100,37 +102,34 @@ HRESULT CGolemLeftHand::Add_Component(void)
 
 void CGolemLeftHand::Update_Idle(_float fTimeDelta)
 {
-	if (m_bBreath)
+	if (m_bExhale)
 	{
 		if (m_iArmNum == 0)
 		{
-			Move_Offset(_vec3(-2.1f, -1.7f, -0.012f), fTimeDelta, 2.f);
+			Move_Offset(_vec3(-2.1f, -1.7f, -0.012f), fTimeDelta, 3.f);
 			if (m_fRotationAngle < 361)
-				m_fRotationAngle += 43.1 * fTimeDelta;
+				m_fRotationAngle += 43.1 * fTimeDelta*2.f;
 		}
 		else if (m_iArmNum == 1)
 		{
-			Move_Offset(_vec3(-2.8f, -0.2f, -0.011f), fTimeDelta, 2.f);
+			Move_Offset(_vec3(-2.8f, -0.2f, -0.011f), fTimeDelta, 3.f);
 			if (m_fRotationAngle < 400.f)
-				m_fRotationAngle += 27.f * fTimeDelta;
+				m_fRotationAngle += 27.f * fTimeDelta * 2.f;
 		}
 		else if (m_iArmNum == 2)
 		{
-			Move_Offset(_vec3(-2.49f, 1.f, -0.01f), fTimeDelta, 2.f);
+			Move_Offset(_vec3(-2.49f, 1.f, -0.01f), fTimeDelta, 3.f);
 			if (m_fRotationAngle < 400.f)
-				m_fRotationAngle += 27.f * fTimeDelta;
+				m_fRotationAngle += 27.f * fTimeDelta * 2.f;
 		}
 	}
 	if (m_iIndex == 2)
 	{
-		if (m_bBreath)
-			m_bBreath = false;
+		if (m_bExhale)
+			m_bExhale = false;
 		else
-			m_bBreath = true;
+			m_bExhale = true;
 	}
-	
-
-
 }
 
 void CGolemLeftHand::Update_Dirty(_float fTimeDelta)
@@ -140,34 +139,159 @@ void CGolemLeftHand::Update_Dirty(_float fTimeDelta)
 	else {
 		m_pTransformCom->Set_Scale({ 0.7f * 2.5f, 0.7f * 2.5f,0.7f * 2.5f });
 		m_pAnimator->Play_Animation(L"SunGolem_Dirty_BummerLeftHand", true);
-	}_vec3 vDir;
-	if (m_bBreath)
-		vDir = { 0.f,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
+	}switch (m_iIndex)
 	{
-		if (m_bBreath)
-			m_bBreath = false;
-		else
-			m_bBreath = true;
-		m_fMoveTime = 0.f;
+	case 0:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(-1.439f, -1.65f, -0.013f), fTimeDelta, 2.f);
+			m_fRotationAngle = 23.f;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(-2.767f, -0.2f, -0.012f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > -35.f)
+				m_fRotationAngle -= 35.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(-2.9f, 2.1f, -0.011f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > -67.f)
+				m_fRotationAngle -= 55.f * fTimeDelta;
+		}
+		break;
+	case 1:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(-1.21797f, -1.45396f, -0.013f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < 25.3339f)
+				m_fRotationAngle += 35.f * fTimeDelta;
+			else
+				m_fRotationAngle = 5.f;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(-2.0014f, -0.598564f, -0.012f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < -8.25457)
+				m_fRotationAngle += 61.f * fTimeDelta;
+			else
+				m_fRotationAngle = -8.25457;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(-2.07986f, 0.758278f, -0.011f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < -40.7589)
+				m_fRotationAngle += 55.f * fTimeDelta;
+			else
+				m_fRotationAngle = -40.7589;
+		}
+		break;
+	case 2:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(-2.1f, -2.4f, -0.013f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 5.f)
+				m_fRotationAngle -= 35.f * fTimeDelta;
+			else
+				m_fRotationAngle = 5.f;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(-3.8f, 0.f, -0.012f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 299.2f - 360.f)
+				m_fRotationAngle -= 61.f * fTimeDelta;
+			else
+				m_fRotationAngle = 299.2f - 360.f;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(-3.29f, 2.794f, -0.011f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 266.2f - 360.f)
+				m_fRotationAngle -= 55.f * fTimeDelta;
+			else
+				m_fRotationAngle = 266.2f - 360.f;
+		}
+		break;
+
+	default:
+		break;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CGolemLeftHand::Update_Move(_float fTimeDelta)
 {
+	if (m_bExhale)
+	{
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(-2.1f, -1.7f, -0.012f), fTimeDelta, 3.f);
+			if (m_fRotationAngle < 361.f)
+				m_fRotationAngle += 43.1f * 2.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(-2.8f, -0.2f, -0.011f), fTimeDelta, 3.f);
+			if (m_fRotationAngle < 400.f)
+				m_fRotationAngle += 27.f * 2.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(-2.49f, 1.f, -0.01f), fTimeDelta, 3.f);
+			if (m_fRotationAngle < 400.f)
+				m_fRotationAngle += 27.f * 2.f * fTimeDelta;
+		}
+	}
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemLeftHand::Update_Attack(_float fTimeDelta)
 {
+	if (m_bExhale)
+	{
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(-2.1f, -1.7f, -0.012f), fTimeDelta, 3.f);
+			if (m_fRotationAngle < 361)
+				m_fRotationAngle += 43.1 * fTimeDelta * 2.f;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(-2.8f, -0.2f, -0.011f), fTimeDelta, 3.f);
+			if (m_fRotationAngle < 400.f)
+				m_fRotationAngle += 27.f * fTimeDelta * 2.f;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(-2.49f, 1.f, -0.01f), fTimeDelta, 3.f);
+			if (m_fRotationAngle < 400.f)
+				m_fRotationAngle += 27.f * fTimeDelta * 2.f;
+		}
+	}
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemLeftHand::Update_Die(_float fTimeDelta)
 {
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	if (vPos.y > 0.5f)
+		m_vOffset.y -= 2.f * fTimeDelta;
+	else
+		m_fAlpha -= 100.f * fTimeDelta;
+	if (m_fAlpha <= 0.f)
+		Set_Active(false);
 }
 
 void CGolemLeftHand::Update_Regen(_float fTimeDelta)
