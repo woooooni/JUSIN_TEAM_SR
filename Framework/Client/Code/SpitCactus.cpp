@@ -342,3 +342,8 @@ void CSpitCactus::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		Play_Sound(L"SFX_86_MonsterSpitCactus_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
+void CSpitCactus::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	__super::Collision_Stay(pCollider, _eCollisionGroup, _iColliderID);
+
+}

@@ -60,7 +60,7 @@ private:
     _int m_iHit = 0;
     CGameObject* m_pBeatles[COLOR_END];
     _vec3 m_vOrigin;
-    COLOR_STATE m_eCOLORPATTERN=COLOR_END;
+    COLOR_STATE m_eCOLORPATTERN=COLOR_BLUE;
     _bool m_bSpawn=false;
     _float m_fiInterval;
 private:

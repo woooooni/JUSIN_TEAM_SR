@@ -424,7 +424,10 @@ void CTrashFast::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 			Set_State(MONSTER_STATE::DIE);
 	}
 }
-
+void CTrashFast::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	__super::Collision_Stay(pCollider, _eCollisionGroup, _iColliderID);
+}
 CTrashFast* CTrashFast::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CTrashFast* pInstance = new CTrashFast(pGraphicDev);

@@ -81,9 +81,12 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);;
+	if(m_eState!=SUNGOLEM_STATE::DIE)
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
 	if(!m_bStop)
 		m_fTime += 1.2f*fTimeDelta;
+	if (!m_bStop&& m_eState == SUNGOLEM_STATE::DIE)
+		m_fTime += 0.8f * fTimeDelta;
 	m_iIndex = (int)m_fTime;
 	switch (m_eState)
 	{

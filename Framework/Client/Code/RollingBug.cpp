@@ -400,7 +400,10 @@ void CRollingBug::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		Play_Sound(L"SFX_83_MonsterBugRolling_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
-
+void CRollingBug::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	__super::Collision_Stay(pCollider, _eCollisionGroup, _iColliderID);
+}
 void CRollingBug::Set_Animation()
 {
 	OBJ_DIR eDir = OBJ_DIR::DIR_END;

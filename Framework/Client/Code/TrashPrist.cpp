@@ -48,7 +48,7 @@ HRESULT CTrashPrist::Ready_Object(void)
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", false);
 	m_fMinHeight = 0.5f;
-
+	m_iCount = 10.f;
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)
 		m_pUIBack->Set_Owner(this);
@@ -79,7 +79,7 @@ _int CTrashPrist::Update_Object(const _float& fTimeDelta)
 	if (m_iCount > 10)
 	{
 		Summon_Monster(fTimeDelta);
-		Summon_Monster(fTimeDelta);
+	
 	}
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
@@ -346,6 +346,7 @@ void CTrashPrist::Trace(_float fTimeDelta)
 		Summon_Monster(fTimeDelta);
 		return;
 	}
+	m_iCount++;
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_vLook = vDir;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
