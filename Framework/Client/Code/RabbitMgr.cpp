@@ -38,6 +38,8 @@ _int CRabbitMgr::Update_Object(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::Z))
 	{
+		m_vecTimer.clear();
+
 		RABBIT_TIMER timer;
 		timer.m_fTime = 0.f;
 		timer.m_RabbitList.push_back(10);
@@ -329,20 +331,21 @@ _int CRabbitMgr::Update_Object(const _float& fTimeDelta)
 			m_fCurTime = 0.f;
 		}
 	}
-	if (m_bIsStart && m_vecTimer.empty() && m_fGameTime >= 60.f && m_iPoints > 20)
+	if (m_bIsStart && m_vecTimer.empty() && m_fGameTime >= 66.f && m_iPoints > 20)
 	{
 		m_bIsStart = false;
 		m_bIsClear = true;
 		m_fGameTime = 0.f;
 		m_fCurTime = 0.f;
 		m_iPoints = 0;
+		return 0;
 
 	}
 
 
 
 	m_fGameTime += fTimeDelta;
-	if (m_fGameTime > 63.f)
+	if (m_fGameTime > 66.f)
 	{
 		CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Set_Pos(&_vec3(m_vStartPos.x - 1.f, 0.f, m_vStartPos.z - 1.f));
 		m_bIsStart = false;
@@ -353,7 +356,7 @@ _int CRabbitMgr::Update_Object(const _float& fTimeDelta)
 	}
 	else
 	{
-		Render_Object();
+		//Render_Object();
 	}
 
 	return 0;
@@ -365,7 +368,7 @@ void CRabbitMgr::Render_Object()
 	{
 		RECT rc = { WINCX / 2 - 50 + 1 , 60 , WINCX / 2 + 50 + 1 , 160 };
 		wstring szBuf;
-		szBuf = to_wstring(63.f - m_fGameTime);
+		szBuf = to_wstring(66.f - m_fGameTime);
 		szBuf = szBuf.substr(0, 5);
 
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,

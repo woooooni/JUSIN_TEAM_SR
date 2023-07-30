@@ -75,6 +75,7 @@ void CScene_MoonForest1::Render_Scene()
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
 	CUIMgr::GetInstance()->Render_UIMgr();
+	CRabbitMgr::GetInstance()->Render_Object();
 }
 
 HRESULT CScene_MoonForest1::Ready_Prototype()

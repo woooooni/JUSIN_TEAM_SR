@@ -18,6 +18,7 @@
 #include "DefaultItem.h"
 #include "CutSceneMgr.h"
 #include "TriggerObj.h"
+#include "RabbitMgr.h"
 
 CScene_MonkeyForest2::CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST2)
@@ -419,6 +420,18 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
+	pBlock = CBlockObj::Create(m_pGraphicDev, 33, { 102.f, 0.f, 116.f });
+	pBlock->Set_BlurEvent(33, L"Monkey");
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 34, { 102.f, 0.f, 146.f });
+	pBlock->Set_BlurEvent(34, L"Monkey");
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+
+
 
 	CBalpanObj* pBalpan = CBalpanObj::Create(m_pGraphicDev, 10, { 49.f, 0.f, 17.f });
 
@@ -508,6 +521,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 		});
 	pTrig->Set_Once();
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+
 	pTrig = CTriggerObj::Create(m_pGraphicDev);
 	pTrig->Set_EventTrigger(19, []()
 		{
@@ -516,6 +530,30 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 		});
 	pTrig->Set_Once();
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+
+	pTrig = CTriggerObj::Create(m_pGraphicDev);
+	pTrig->Get_TransformCom()->Set_Pos(&_vec3(102.f, 0.f, 125.f));
+	pTrig->Set_Scale({ 2.8f, 4.f, 3.f });
+	pTrig->Add_Trigger([]()
+		{
+			Check_Event_Start(34);
+		}, CTriggerObj::COLLIDE_EVENT_TYPE::ENTER);
+	pTrig->Set_Once();
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+
+	pTrig = CTriggerObj::Create(m_pGraphicDev);
+	pTrig->Set_EventTrigger(35, []()
+		{
+			if (CRabbitMgr::GetInstance())
+			{
+
+			}
+		});
+
+	pTrig->Set_Scale({ 0.01f, 0.01f, 0.01f });
+	pTrig->Set_Once();
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+
 
 
 	return S_OK;
@@ -645,6 +683,17 @@ HRESULT CScene_MonkeyForest2::Ready_Event()
 	event = new EVENT;
 	event->iEventNum = 33;
 	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 34;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 35;
+	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
+
 
 	return S_OK;
 }

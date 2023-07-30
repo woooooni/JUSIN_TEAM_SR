@@ -56,6 +56,8 @@ void CLightMgr::LateUpdate_LightMgr()
 {
 	for (_uint i = 0; (_uint)LIGHT_TYPE::LIGHT_END > i; ++i)
 	{
+		if (!m_arrLight[i])
+			continue;
 		m_arrLightInfo[i] = m_arrLight[i]->Get_LightInfo();
 		m_arrLightOn[i] = m_arrLight[i]->Is_LightOn();
 	}
