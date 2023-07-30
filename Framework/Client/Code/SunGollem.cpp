@@ -8,6 +8,8 @@
 #include "MonkeyBarrelCleaner.h"
 #include "Effect_Smoke.h"
 #include "Pool.h"
+#include "CutSceneMgr.h"
+
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN)
@@ -72,6 +74,10 @@ HRESULT CSunGollem::Ready_Object(void)
 
 _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 {
+	if (KEY_TAP(KEY::NUM_1))
+	{
+		m_tStat.iHp = 0;
+	}
 
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);;
@@ -210,6 +216,7 @@ HRESULT CSunGollem::Add_Component(void)
 
 void CSunGollem::Update_Idle(_float fTimeDelta)
 {
+
 	if (!m_bBreath)
 	{
 		for (_int i = 0; i < PARTSEND; i++)
@@ -253,6 +260,7 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			else
 			{
 				Set_State(SUNGOLEM_STATE::DIE);
+				CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_SUNGOLEM_DIE);
 			}
 	}
 

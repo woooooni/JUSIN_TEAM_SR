@@ -17,6 +17,7 @@
 #include "DrawingEnter.h"
 #include "DefaultItem.h"
 #include "CutSceneMgr.h"
+#include "TriggerObj.h"
 
 CScene_MonkeyForest2::CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST2)
@@ -404,17 +405,17 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
-	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 103.f, 0.f, 43.5f }, true);
-	pBlock->Set_BlurEvent(19, L"Monkey");
+	pBlock = CBlockObj::Create(m_pGraphicDev, 32, { 103.f, 0.f, 43.5f }, true);
+	pBlock->Set_BlurEvent(17, L"Monkey");
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
-	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 104.f, 0.f, 43.5f }, true);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 32, { 104.f, 0.f, 43.5f }, true);
 	pBlock->Set_BlurEvent(19, L"Monkey");
 
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-	pBlock = CBlockObj::Create(m_pGraphicDev, 19, { 105.f, 0.f, 43.5f }, true);
-	pBlock->Set_BlurEvent(19, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block_CutScene", pBlock);
+	pBlock = CBlockObj::Create(m_pGraphicDev, 32, { 105.f, 0.f, 43.5f }, true);
+	pBlock->Set_BlurEvent(18, L"Monkey");
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
@@ -499,7 +500,22 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	Engine::Add_Reset(0, 6, 19);
 	Engine::Add_Reset(1, 30, 31);
 
-	
+	CTriggerObj* pTrig = CTriggerObj::Create(m_pGraphicDev);
+	pTrig->Set_EventTrigger(18, []()
+		{
+			CCutSceneMgr::GetInstance()->Set_EventNum(33);
+			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE);
+		});
+	pTrig->Set_Once();
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+	pTrig = CTriggerObj::Create(m_pGraphicDev);
+	pTrig->Set_EventTrigger(19, []()
+		{
+			CCutSceneMgr::GetInstance()->Set_EventNum(32);
+			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_TWO);
+		});
+	pTrig->Set_Once();
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
 
 
 	return S_OK;
@@ -596,7 +612,6 @@ HRESULT CScene_MonkeyForest2::Ready_Event()
 	event->iEventNum = 18;
 	event->lEndKey.push_back(30);
 	event->lEndKey.push_back(31);
-	event->m_bIsCanReset = true;
 	event->m_bIsCheckUpdate = true;
 
 	FAILED_CHECK(Add_Event(event));
@@ -605,7 +620,7 @@ HRESULT CScene_MonkeyForest2::Ready_Event()
 	event->iEventNum = 19;
 
 	event->lEndKey.push_back(17);
-	event->lEndKey.push_back(18);
+	event->lEndKey.push_back(33);
 
 	event->m_bIsCheckUpdate = true;
 
@@ -621,6 +636,14 @@ HRESULT CScene_MonkeyForest2::Ready_Event()
 	event = new EVENT;
 	event->iEventNum = 31;
 	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 32;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 33;
 	FAILED_CHECK(Add_Event(event));
 
 	return S_OK;

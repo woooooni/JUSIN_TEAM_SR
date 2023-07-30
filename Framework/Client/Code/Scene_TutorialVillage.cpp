@@ -156,8 +156,8 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
-	// CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
+	//CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST2);
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);

@@ -11,6 +11,8 @@
 #include	"Catapult.h"
 #include "BossDoor.h"
 #include "BossDoorEnter.h"
+#include "TriggerObj.h"
+#include "CutSceneMgr.h"
 
 CScene_SunGolemCave1::CScene_SunGolemCave1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1)
@@ -119,15 +121,17 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Environment()
 
 	CGameObject* pLeftDoor = CBossDoor::Create(m_pGraphicDev);
 	dynamic_cast<CBossDoor*>(pLeftDoor)->Set_Door(_vec3(7.4f, 4.7f, 20.5f), _vec3(3.0f, 9.6f, 0.0f), _vec3(-1.0f, 0.0f, 0.0f));
+	Add_Subscribe(1, pLeftDoor);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"LeftDoor", pLeftDoor);
 
 	CGameObject* pRightDoor = CBossDoor::Create(m_pGraphicDev);
 	dynamic_cast<CBossDoor*>(pRightDoor)->Set_Door(_vec3(10.4f, 4.7f, 20.5f), _vec3(3.0f, 9.6f, 0.0f), _vec3(1.0f, 0.0f, 0.0f));
+	Add_Subscribe(1, pRightDoor);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"RightDoor", pRightDoor);
 
-	CGameObject* pEnter = CBossDoorEnter::Create(m_pGraphicDev);
+	/*CGameObject* pEnter = CBossDoorEnter::Create(m_pGraphicDev);
 	pEnter->Get_TransformCom()->Set_Pos(&_vec3(8.8f, 0.5f, 16.0f));
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"BossDoorEnter", pEnter);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"BossDoorEnter", pEnter);*/
 
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
@@ -150,6 +154,15 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pCat, E_FAIL);
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Catapult", pCat);
 
+	CTriggerObj* pTri = CTriggerObj::Create(m_pGraphicDev, { 9.f, 0.f, -21.4 });
+	pTri->Set_Scale({ 5.f, 5.f, 5.f });
+	pTri->Add_Trigger([]()
+		{
+			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_SUNGOLEM_INTRO);
+		}, CTriggerObj::COLLIDE_EVENT_TYPE::ENTER);
+	pTri->Set_Once();
+	pTri->Set_Target(CGameMgr::GetInstance()->Get_Player());
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTri);
 
 	return S_OK;
 }
@@ -166,6 +179,10 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_UI()
 
 HRESULT CScene_SunGolemCave1::Ready_Event()
 {
+	EVENT* event = new EVENT;
+	event->iEventNum = 1;
+	FAILED_CHECK(Add_Event(event));
+
 	return S_OK;
 }
 

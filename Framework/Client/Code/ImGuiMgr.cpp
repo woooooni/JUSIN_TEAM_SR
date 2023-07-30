@@ -1152,6 +1152,37 @@ void CImGuiMgr::Update_Inspector(const _float& fTimeDelta)
 			pBoxCollider->Set_Scale(vColliderScale);
 		}
 	}
+
+	_vec3 vec, vecPlus, vecOffset;
+	
+	CCamera* mainCam = m_pToolScene->Get_MainCamera();
+	mainCam->Get_TransformCom()->Get_Info(INFO_POS, &vec);
+
+	_float fPos[3] = { vec.x, vec.y, vec.z };
+
+	ImGui::Text("");
+	ImGui::Text("CamPos");
+	ImGui::Text("x\t\t\ty\t\t\tz");
+
+	string tmp = to_string(fPos[0]) + ", " + to_string(fPos[1]) + ", " + to_string(fPos[2]);
+	ImGui::Text(tmp.c_str());
+
+	ImGui::Text("");
+	ImGui::Text("CamLook");
+	ImGui::Text("x\t\t\ty\t\t\tz");
+
+
+
+	mainCam->Get_TransformCom()->Get_Info(INFO_LOOK, &vec);
+
+	fPos[0] = vec.x;
+	fPos[0] = vec.y;
+	fPos[0] = vec.z;
+
+	tmp = to_string(fPos[0]) + ", " + to_string(fPos[1]) + ", " + to_string(fPos[2]);
+	ImGui::Text(tmp.c_str());
+
+
 	ImGui::End();
 }
 
