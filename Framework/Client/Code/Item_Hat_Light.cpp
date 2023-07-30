@@ -64,13 +64,13 @@ HRESULT CItem_Hat_Light::Ready_Object(void)
 	ZeroMemory(&tHatLight, sizeof(D3DLIGHT9));
 
 	tHatLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
-	tHatLight.Ambient = { 0.05f, 0.05f, 0.05f, 1.f };
-	tHatLight.Diffuse = { 0.3f, 0.3f, 0.3f, 1.f };
-	tHatLight.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+	tHatLight.Ambient = { 0.05f, 0.05f, 0.05f, 0.05f };
+	tHatLight.Diffuse = { 0.3f, 0.3f, 0.3f, 0.3f };
+	tHatLight.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
 	tHatLight.Range = 5.0f;
 	tHatLight.Attenuation0 = 0.001f; // 상수 감쇠 계수
 	tHatLight.Attenuation1 = 0.05f; // 선형 감쇠 계수
-	tHatLight.Attenuation2 = 0.05f; // 이차 감쇠 계수
+	tHatLight.Attenuation2 = 0.04f; // 이차 감쇠 계수
 
 
 	Ready_Light(m_pGraphicDev, &tHatLight, (_uint)LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT);
