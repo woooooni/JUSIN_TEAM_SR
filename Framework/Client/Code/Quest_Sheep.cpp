@@ -7,7 +7,7 @@ CQuest_Sheep::CQuest_Sheep()
 {
 	m_strQuestTitle = L"불어난 쓰레기";
 	//m_strQuestDesc = L"소 아저씨에게 쓰레기가 늘어난 이유에 대해 물어보자.";
-	m_strQuestDesc = L"궁금한 건 못 참는 아기오구! 소 아저씨가 본 것이 무엇인지 물어보자.";
+	m_strQuestDesc = L"궁금한 건 못 참는 아기오구!\n소 아저씨가 본 것이 무엇인지 물어보자.";
 
 	// TODO : 대사 쓰기
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"오구 안녕? 좋은 아침이야~");

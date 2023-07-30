@@ -110,7 +110,7 @@ void CUIMgr::Late_Update_UIMgr()
     //m_pDialog->LateUpdate_Object();
     m_pHpBar->LateUpdate_Object();
     m_pShop->LateUpdate_Object();
-    //m_pShortCutKey->LateUpdate_Object();
+    m_pShortCutKey->LateUpdate_Object();
     m_pQuickSlot->LateUpdate_Object();
     //m_pItemWindow->LateUpdate_Object();
     // m_pCurrentUI->LateUpdate_Object();

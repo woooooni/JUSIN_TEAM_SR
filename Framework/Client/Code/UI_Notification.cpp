@@ -31,12 +31,6 @@ HRESULT CUI_Notification::Ready_Object(void)
 
 _int CUI_Notification::Update_Object(const _float& fTimeDelta)
 {
-//	if (!Is_Active())
-//	{
-//		m_fCurWidth = 64.f;
-//		m_fCurHeight = 43.f;
-//	}
-
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	_int iExit = __super::Update_Object(fTimeDelta);

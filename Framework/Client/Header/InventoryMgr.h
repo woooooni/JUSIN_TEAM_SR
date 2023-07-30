@@ -41,6 +41,7 @@ public:
 	{
 		m_vecInventory[(_uint)p_Type].erase(m_vecInventory[(_uint)p_Type].begin() + pIndex);
 	}
+
 private:
 	vector<CItem*> m_vecInventory[(_uint)INVENTORY_TYPE::INVENTORY_END];
 	CPlayer* m_pPlayer;

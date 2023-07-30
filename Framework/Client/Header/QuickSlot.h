@@ -30,7 +30,10 @@ public:
 	_bool		Get_Filled(SLOTNUM _eSlotNum);
 	void		Set_Filled(SLOTNUM _eSlotNum, _bool _bFilled);
 
+	vector<ITEM_CODE>	Get_SlotItems() { return m_vecSlotItems; }
+
 	const ITEM_CODE&	Get_ItemCode(SLOTNUM _eSlotNum);
+	void				Set_ItemCode(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType) { m_vecSlotItems[_eSlotNum] = _eCodeType; }
 	const vector<CUI*>	Get_Slots() { return m_vecSlots; }
 
 	void			Set_Use(const _bool& pBool) { m_bCanUse = pBool; }
@@ -39,10 +42,10 @@ public:
 private:
 	vector<CUI*>		m_vecSlots;
 	vector<ITEM_CODE>	m_vecSlotItems;
+	vector<_bool>		m_vecSetCode;
+	vector<_uint>		m_vecCount;
 	_bool				m_bCanUse;
-	_bool				m_bSetIndex;
-	_uint				m_iDefaultIndex;
-	ITEM_CODE			m_eCode;
+	_uint				m_iCount;
 
 public:
 	static  CQuickSlot* Create(LPDIRECT3DDEVICE9 pGraphicDev);

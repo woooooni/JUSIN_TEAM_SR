@@ -1,5 +1,6 @@
 #include "UI_NewQuest.h"
 #include "Export_Function.h"
+#include "UIMgr.h"
 
 CUI_NewQuest::CUI_NewQuest(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CUI(pGraphicDev)
@@ -40,11 +41,23 @@ HRESULT CUI_NewQuest::Ready_Object(void)
 	if (m_pCloseKey != nullptr)
 		m_pCloseKey->Set_Owner(this);
 
+	m_pShortcutKey = CUIMgr::GetInstance()->Get_ShortcutKey();
+
+	Set_Active(false);
+
 	return S_OK;
 }
 
 _int CUI_NewQuest::Update_Object(const _float& fTimeDelta)
 {
+	if (!Is_Active())
+	{
+		if (!m_pShortcutKey->Get_Shown())
+			m_pShortcutKey->Set_Active(true);
+
+		return S_OK;
+	}
+
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	m_pWindow->Update_Object(fTimeDelta);
@@ -62,6 +75,11 @@ _int CUI_NewQuest::Update_Object(const _float& fTimeDelta)
 
 void CUI_NewQuest::LateUpdate_Object(void)
 {
+	if (Is_Active())
+	{
+		m_pShortcutKey->Set_Shown(false);
+	}
+
 	m_pWindow->LateUpdate_Object();
 
 	m_pCloseKey->LateUpdate_Object();
@@ -126,13 +144,23 @@ void CUI_NewQuest::Key_Input()
 		if (KEY_AWAY(KEY::TAB))
 		{
 			Set_Active(false);
+			m_bShown = false;
 
-//			m_bShown = false;
-//
-//			m_pCloseKey->Set_Shown(false);
-//			m_pTitleBox->Set_Shown(false);
-//			m_pContentsBox->Set_Shown(false);
-//			m_pExclamIcon->Set_Shown(false);
+			m_pWindow->Set_Active(false);
+			m_pWindow->Set_InitSize(64.f, 43.f);
+			m_pShortcutKey->Set_Shown(true);
+
+			m_pCloseKey->Set_Active(false);
+			m_pCloseKey->Set_Shown(false);
+
+			m_pTitleBox->Set_Active(false);
+			m_pTitleBox->Set_Shown(false);
+
+			m_pContentsBox->Set_Active(false);
+			m_pContentsBox->Set_Shown(false);
+
+			m_pExclamIcon->Set_Active(false);
+			m_pExclamIcon->Set_Shown(false);
 		}
 	}
 }

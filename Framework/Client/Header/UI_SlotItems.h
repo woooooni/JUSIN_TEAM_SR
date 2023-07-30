@@ -35,6 +35,7 @@ public:
 	void			 Set_Filled(const _bool& pB) { m_bFilledSlot = pB; }
 
 	HRESULT			 Use_Item();
+	HRESULT			 Wear_Item();
 
 private:
 	HRESULT			Add_Component(void);
@@ -44,6 +45,7 @@ public:
 
 private:
 	_bool			m_bFilledSlot = false;
+	_bool			m_bIsWear = false;
 	ITEM_CODE		m_eCode;
 	_uint			m_iInvenIndex;
 
