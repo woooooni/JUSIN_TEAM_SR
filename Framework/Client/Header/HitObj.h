@@ -1,6 +1,5 @@
 #pragma once
 #include "FieldObject.h"
-#include "CutSceneMgr.h"
 class CHitObj : public CFieldObject
 {
 	CLONE(CHitObj)
@@ -26,7 +25,6 @@ public:
 public:
 	void			Set_Event(const _uint& pI) { m_iEventNum = pI; }
 	void			Set_HitType(const OBJ_HITTYPE& pH) { m_eHitType = pH; }
-	void			Set_CutSceneType(const CCutSceneMgr::CUTSCENE_TYPE& pT) { m_eCutSceneType = pT; }
 protected:
 	CAnimator* m_pBlurAnimator;
 	OBJ_HITTYPE			m_eHitType;
@@ -40,6 +38,5 @@ protected:
 
 	void				Make_Toward();
 	
-	CCutSceneMgr::CUTSCENE_TYPE		m_eCutSceneType;
 };
 

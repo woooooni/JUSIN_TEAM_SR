@@ -39,7 +39,10 @@ public:
 	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)override;
 
-
+	virtual void Event_Start(_uint iEventNum) override
+	{
+		Open_Door();
+	}
 
 
 	void		Open_Door();

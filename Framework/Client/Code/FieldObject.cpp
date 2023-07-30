@@ -4,12 +4,15 @@
 
 CFieldObject::CFieldObject(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId) : CGameObject(pGraphicDev, OBJ_TYPE::OBJ_ENVIRONMENT, _eObjId)
 , m_eFState(FIELD_OBJ_STATE::NOT_INTERACT)
+, m_eCutSceneType(CCutSceneMgr::CUTSCENE_TYPE::TYPE_END)
+
 {
 	ZeroMemory(&m_tInfo, sizeof(OBJ_INFO));
 }
 
 CFieldObject::CFieldObject(const CFieldObject& rhs) : CGameObject(rhs), m_tInfo(rhs.m_tInfo)
 , m_eFState(rhs.m_eFState)
+, m_eCutSceneType(rhs.m_eCutSceneType)
 {
 }
 
