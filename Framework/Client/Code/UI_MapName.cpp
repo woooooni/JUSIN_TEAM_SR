@@ -105,13 +105,43 @@ void CUI_MapName::Render_Object(void)
 	switch (m_eSceneType)
 	{
 	case SCENE_TYPE::TUTORIAL_VILLAGE:
-		swprintf_s(szBuf, L"오구 빌리지");
+		swprintf_s(szBuf, L"오구 마을");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
+		break;
+
+	case SCENE_TYPE::MONKEY_FOREST1:
+		swprintf_s(szBuf, L"조용한 숲길");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
+		break;
+
+	case SCENE_TYPE::MONKEY_FOREST2:
+		swprintf_s(szBuf, L"신전 앞 동굴");
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
 			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
 		break;
 
 	case SCENE_TYPE::MONKEY_FOREST3:
+		swprintf_s(szBuf, L"시련의 숲");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
+		break;
+
+	case SCENE_TYPE::MONKEY_VILLAGE:
 		swprintf_s(szBuf, L"원숭이 마을");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
+		break;
+
+	case SCENE_TYPE::SUNGOLEM_CAVE1:
+		swprintf_s(szBuf, L"태양의 신전 : 골렘사원");
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
+		break;
+
+	case SCENE_TYPE::SILK_WORM:
+		swprintf_s(szBuf, L"타락한 누에용사");
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
 			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
 		break;
@@ -158,7 +188,7 @@ CUI_MapName* CUI_MapName::Create(LPDIRECT3DDEVICE9 pGraphicDev, SCENE_TYPE eType
 {
 	CUI_MapName* pInstance = new CUI_MapName(pGraphicDev);
 
-	pInstance->Set_Scene(eType);
+	pInstance->Set_SceneType(eType);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{

@@ -298,7 +298,9 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 		pTransform->Set_Info(INFO_UP, &vUp);
 		pTransform->Set_Info(INFO_LOOK, &vLook);
 		pTransform->Set_Info(INFO_POS, &vPos);
-		pTransform->Set_Scale(vScale);
+
+		if (pObj->GetObj_Type() != OBJ_TYPE::OBJ_MONSTER)
+			pTransform->Set_Scale(vScale);
 
 		pBoxCollider->Set_Scale(vColliderScale);
 
