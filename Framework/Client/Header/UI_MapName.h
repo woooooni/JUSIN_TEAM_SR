@@ -18,7 +18,7 @@ public:
 
 private:
 	HRESULT Ready_Component();
-	void	Set_Scene(SCENE_TYPE eType) { m_eSceneType = eType; }
+	void	Set_SceneType(SCENE_TYPE eType) { m_eSceneType = eType; }
 
 private:
 	_float		m_fAlpha;

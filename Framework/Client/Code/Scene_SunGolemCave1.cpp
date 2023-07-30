@@ -174,6 +174,11 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Effect()
 
 HRESULT CScene_SunGolemCave1::Ready_Layer_UI()
 {
+	CUI_MapName* pMapName = CUI_MapName::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
+	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"MapName", pMapName);
+
+	m_mapLayer[LAYER_TYPE::UI]->Ready_Layer();
+
 	return S_OK;
 }
 
