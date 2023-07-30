@@ -12,6 +12,7 @@
 #include "UI_NewItem.h"
 #include "UI_Veil.h"
 #include "UI_MapName.h"
+#include "UI_Wallet.h"
 
 class CUIMgr : public CBase
 {
@@ -38,8 +39,10 @@ public:
 	CUI_Shop*		Get_ShopUI() { return m_pShop; }
 	CInventoryUI*	Get_InventoryUI() { return m_pInventory; }
 	CUI_ShortCutKey* Get_ShortcutKey() { return m_pShortCutKey; }
+	CUI_Wallet*		Get_Wallet() { return m_pWallet; }
 
 private:
+	CUI_Wallet*		 m_pWallet = nullptr;
 	CUI_Dialog*		 m_pDialog = nullptr;
 	CUI_HPBar*		 m_pHpBar= nullptr;
 	CUI_Shop*		 m_pShop = nullptr;

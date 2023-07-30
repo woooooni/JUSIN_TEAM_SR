@@ -45,6 +45,13 @@ _int CUI_SlotItems::Update_Object(const _float& fTimeDelta)
 
 void CUI_SlotItems::LateUpdate_Object(void)
 {
+//	if (m_eCode != ITEM_CODE::ITEM_END)
+//	{
+//		if ((CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[m_iInvenIndex]
+//			->Get_InvenCount() <= 0))
+//			m_bFilledSlot = false;
+//	}
+
 	__super::LateUpdate_Object();
 }
 
@@ -97,7 +104,6 @@ void CUI_SlotItems::Set_SlotNum(SLOTITEM_NUM eNum)
 
 void CUI_SlotItems::Set_ItemCode(const ITEM_CODE& pCOde)
 {
-
 	m_eCode = pCOde;
 	if(m_eCode != ITEM_CODE::ITEM_END)
 		m_pTextureCom->Set_Idx((_uint)pCOde);

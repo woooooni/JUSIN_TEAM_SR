@@ -40,7 +40,6 @@ HRESULT CUI_HPBar::Ready_Object(void)
 
 _int CUI_HPBar::Update_Object(const _float& fTimeDelta)
 {
-
 	CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();
 
 	m_iMaxHP = dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMaxHp;
