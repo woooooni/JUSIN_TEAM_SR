@@ -290,105 +290,33 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_Monster()
 {
-	CRollingBug* pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 151.f), BUGCOLORTYPE::YELLOW);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+	//CRollingBug* pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 151.f), BUGCOLORTYPE::YELLOW);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 159.f), BUGCOLORTYPE::PINK);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+	//pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 159.f), BUGCOLORTYPE::PINK);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(215.f, 0.5f, 158.f), BUGCOLORTYPE::BLUE);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+	//pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(215.f, 0.5f, 158.f), BUGCOLORTYPE::BLUE);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(214.f, 0.5f, 149.f), BUGCOLORTYPE::PINK);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+	//pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(214.f, 0.5f, 149.f), BUGCOLORTYPE::PINK);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(218.f, 0.5f, 146.f), BUGCOLORTYPE::YELLOW);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+	//pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(218.f, 0.5f, 146.f), BUGCOLORTYPE::YELLOW);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(224.f, 0.5f, 148.f), BUGCOLORTYPE::BLUE);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+	//pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(224.f, 0.5f, 148.f), BUGCOLORTYPE::BLUE);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(223.f, 0.5f, 154.f), BUGCOLORTYPE::PINK);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
+	//pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(223.f, 0.5f, 154.f), BUGCOLORTYPE::PINK);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
 	return S_OK;
 }
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_InterationObj()
 {
-	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 23, { 210.f, 0, 153.f});
-	NULL_CHECK_RETURN(pBal, E_FAIL);
-	pBal->Set_Static();
-	pBal->Set_TargName(L"Jelly");
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
-
-	CLightFlower* pLight = CLightFlower::Create(m_pGraphicDev, pBal, 23, { 210.f, 0, 155.5f });
-	NULL_CHECK_RETURN(pLight, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLight);
-
-	pBal = CBalpanObj::Create(m_pGraphicDev, 24, { 221.f, 0, 148.5f });
-	NULL_CHECK_RETURN(pBal, E_FAIL);
-	pBal->Set_Static();
-	pBal->Set_TargName(L"Jelly");
-
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
-
-	pLight = CLightFlower::Create(m_pGraphicDev, pBal, 24, { 221.f, 0, 151.f });
-	NULL_CHECK_RETURN(pLight, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLight);
-
-	pBal = CBalpanObj::Create(m_pGraphicDev, 25, { 213.f, 0, 161.5f });
-	NULL_CHECK_RETURN(pBal, E_FAIL);
-	pBal->Set_Static();
-	pBal->Set_Answer(JELLY_COLOR::CYAN);
-	pBal->Set_TargName(L"Jelly");
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
-
-	pBal = CBalpanObj::Create(m_pGraphicDev, 26, { 216.f, 0, 155.f });
-	NULL_CHECK_RETURN(pBal, E_FAIL);
-	pBal->Set_Static();
-	pBal->Set_Answer(JELLY_COLOR::YELLOW);
-	pBal->Set_TargName(L"Jelly");
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
-
-	pBal = CBalpanObj::Create(m_pGraphicDev, 27, { 219.f, 0, 161.5f });
-	NULL_CHECK_RETURN(pBal, E_FAIL);
-	pBal->Set_Static();
-	pBal->Set_Answer(JELLY_COLOR::MAGENTA);
-	pBal->Set_TargName(L"Jelly");
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
-
-	CJellyStone* pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::BLUE, 23, { 210.f, 0, 153.f });
-	NULL_CHECK_RETURN(pJelly, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJelly);
-
-	pJelly = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::RED, 23, { 221.f, 0, 148.5f });
-	NULL_CHECK_RETURN(pJelly, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJelly);
-
-	CBlockObj* pBlock = CBlockObj::Create(m_pGraphicDev, 28, { 215, 0, 166.5 }, true);
-	NULL_CHECK_RETURN(pBlock, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-	pBlock = CBlockObj::Create(m_pGraphicDev, 28, { 216, 0, 166.5 }, true);
-	NULL_CHECK_RETURN(pBlock, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
-
-
-
 	return S_OK;
-
 }
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_Effect()

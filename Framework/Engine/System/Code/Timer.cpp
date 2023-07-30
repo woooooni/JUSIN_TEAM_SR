@@ -36,7 +36,6 @@ void CTimer::Update_Timer()
 	m_fTimeDelta = (float(m_FrameTime.QuadPart - m_LastTime.QuadPart) / m_CpuTick.QuadPart) * m_fTimeScale;
 
 	m_LastTime = m_FrameTime;
-
 }
 
 CTimer * CTimer::Create(void)
