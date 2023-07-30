@@ -71,7 +71,4 @@ void CQuest_MonkeyCheif2::Clear_Quest()
 
 	CInventoryMgr::GetInstance()->Add_Item(m_pRewardItem);
 	pPlayer->Add_Money(m_iRewardCoin);
-
-
-	
 }
