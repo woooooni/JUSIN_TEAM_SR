@@ -191,8 +191,7 @@ void CQuickSlot::LateUpdate_Object(void)
 		{
 			_uint iIndex = m_vecCount[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_InvenIndex();
 
-			m_vecCount[SLOT_FOUR] = CInventoryMgr::GetInstance()->
-				Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
+			m_vecCount[SLOT_FOUR] = CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
 
 			m_vecSetCode[SLOT_FOUR] = true;
 			m_vecSlotItems[SLOT_FOUR] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_FOUR])->Get_ItemCode();

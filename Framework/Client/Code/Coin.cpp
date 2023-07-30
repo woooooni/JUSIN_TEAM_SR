@@ -25,7 +25,6 @@ HRESULT CCoin::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pTransformCom->Set_Pos(&_vec3(5.0f, 1.0f, 3.0f));
-	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
 	m_pAnimator->Add_Animation(L"Coin_Anime", L"Proto_Texture_Coin", 0.1f);
 	m_pAnimator->Play_Animation(L"Coin_Anime", true);
 	return S_OK;

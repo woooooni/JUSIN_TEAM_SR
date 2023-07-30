@@ -42,4 +42,5 @@ void CQuest_Sheep::Clear_Quest()
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 	CQuest_Cow1* pQuest = new CQuest_Cow1();
 	CQuestMgr::GetInstance()->Add_Quest(pQuest);
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 }

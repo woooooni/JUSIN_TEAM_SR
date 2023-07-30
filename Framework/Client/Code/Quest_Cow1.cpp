@@ -76,5 +76,5 @@ void CQuest_Cow1::Clear_Quest()
 	CInventoryMgr::GetInstance()->Add_Item(m_pRewardItem);
 	pPlayer->Add_Money(m_iRewardCoin);
 
-
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 }

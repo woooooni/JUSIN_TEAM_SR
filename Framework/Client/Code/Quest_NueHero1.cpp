@@ -4,6 +4,7 @@
 #include "InventoryMgr.h"
 #include "QuestMgr.h"
 #include "Quest_NueHero2.h"
+#include "UIMgr.h"
 
 CQuest_NueHero1::CQuest_NueHero1()
 	: CQuest_Hunting(NPC_CODE::NPC_NUE_HERO, nullptr, OBJ_ID::SILK_WORM, 1)
@@ -58,6 +59,8 @@ void CQuest_NueHero1::Clear_Quest()
 
 	if (pPlayer != nullptr)
 		pPlayer->Add_Money(m_iRewardCoin);
+
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 
 
 }

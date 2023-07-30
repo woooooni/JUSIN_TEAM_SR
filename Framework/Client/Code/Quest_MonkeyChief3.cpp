@@ -3,6 +3,7 @@
 #include "QuestMgr.h"
 #include "Quest_NueHero1.h"
 #include "GameMgr.h"
+#include "UIMgr.h"
 
 CQuest_MonkeyCheif3::CQuest_MonkeyCheif3()
 	:CQuest_Conversation(NPC_CODE::NPC_CHIEF, nullptr)
@@ -55,5 +56,6 @@ void CQuest_MonkeyCheif3::Clear_Quest()
 
 	pPlayer->Add_Money(m_iRewardCoin);
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
-	
+
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 }
