@@ -66,7 +66,7 @@ HRESULT CMainApp::Ready_MainApp(void)
 
 int CMainApp::Update_MainApp(const float & fTimeDelta)
 {
-	
+	m_fTimeAcc += fTimeDelta;
 	Engine::Update_InputDev();
 	Engine::Update_PickingMgr();
 	Engine::Update_KeyMgr();
@@ -95,6 +95,18 @@ void CMainApp::Render_MainApp()
 
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 
+#ifdef _DEBUG
+	++m_iNumDraw;
+	
+	if (m_fTimeAcc >= 1.f)
+	{
+		wsprintf(m_szFPS, TEXT("fps : %d"), m_iNumDraw);
+		m_iNumDraw = 0;
+		m_fTimeAcc = 0.f;
+	}
+
+	SetWindowText(g_hWnd, m_szFPS);
+#endif // _DEBUG
 
 
 	Engine::Update_EventMgr(0.f);

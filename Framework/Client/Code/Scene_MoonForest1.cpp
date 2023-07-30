@@ -100,11 +100,13 @@ HRESULT CScene_MoonForest1::Ready_Layer_Player()
 	m_mapLayer[LAYER_TYPE::PLAYER]->Ready_Layer();
 
 	_vec3 vPos;
+	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.x = 58.5f;
-	vPos.y = 0.5f;
 	vPos.z = 2.f;
+	CGameMgr::GetInstance()->Get_Player()->Set_BalloonFly(false);
 	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
+	
 	return S_OK;
 }
 

@@ -45,12 +45,6 @@ void CTerrain::LateUpdate_Object(void)
 
 void CTerrain::Render_Object(void)
 {
-	//m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-
-	//m_pTextureCom->Render_Texture(0);
-	//m_pBufferCom->Render_Buffer();
-
-
 	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
 
 	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
@@ -67,7 +61,7 @@ void CTerrain::Render_Object(void)
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
 
 
-	IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(0);
+	IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(m_pTextureCom->Get_Idx());
 	pEffect->SetTexture("g_Texture", pTexture);
 
 

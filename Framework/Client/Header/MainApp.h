@@ -39,8 +39,17 @@ private:
 
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
 
+#ifdef _DEBUG
+private:
+	_float			m_fTimeAcc = 0.f;
+	_tchar			m_szFPS[MAX_PATH] = TEXT("");
+	_uint			m_iNumDraw = 0;
+#endif
+
+
 public:
 	static CMainApp*		Create();
+
 
 private:
 	virtual void		Free();

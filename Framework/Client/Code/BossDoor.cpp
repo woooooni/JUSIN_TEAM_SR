@@ -223,10 +223,9 @@ void CBossDoor::Render_Object(void)
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
-	pEffect->SetFloat("g_AlphaRef", 0.0f);
 
 
-	IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(0);
+	IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(m_pTextureCom->Get_Idx());
 	pEffect->SetTexture("g_Texture", pTexture);
 
 
