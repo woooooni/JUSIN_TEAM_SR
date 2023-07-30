@@ -33,9 +33,11 @@ public:
 	virtual void Event_Start(_uint iEventNum) override;
 	virtual void Event_End(_uint iEventNum)	override;
 
-	_matrix		AreaWorld;
-	_bool		m_bIsOpened;
-	JELLY_COLOR		m_eColor;
+
+	_matrix AreaWorld;
+	_bool m_bIsOpened;
+
+	JELLY_COLOR m_eColor;
 	CBalpanObj* m_pBalPan;
 
 };

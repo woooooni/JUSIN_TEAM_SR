@@ -18,7 +18,7 @@ CQuest_MonkeyCheif3::CQuest_MonkeyCheif3()
 
 	// m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
 
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"바람과 풍선만 있다면 어디든 갈 수 있다네.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"바람과 풍선만 있다면 어디든 갈 수 있다네.");
 
 	m_iRewardCoin = 500;
 }
@@ -37,14 +37,17 @@ void CQuest_MonkeyCheif3::Accept_Quest()
 {
 	m_eQuestProgress = QUEST_PROGRESS::CONTINUE;
 	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
+
+	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
+	if(nullptr != pPlayer)
+		pPlayer->Change_State_Now(PLAYER_STATE::BALLOONFLY);
+
 }
 
 void CQuest_MonkeyCheif3::Clear_Quest()
 {
 	CQuest_NueHero1* pNextQuest = new CQuest_NueHero1();
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
-
-
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 	if (pPlayer == nullptr)
