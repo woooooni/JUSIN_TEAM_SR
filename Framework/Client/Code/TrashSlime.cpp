@@ -44,8 +44,8 @@ HRESULT CTrashSlime::Ready_Object(void)
 	Set_Speed(2.f);
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashSlime_Regen_Down", false);
-	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
-	m_fMinHeight = 0.5f;
+	m_pTransformCom->Set_Scale(_vec3(0.75f, 1.f, 0.75f));
+	m_fMinHeight = 0.25f;
 
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)
@@ -68,6 +68,8 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
 		Set_State(MONSTER_STATE::DIE);
+	m_pTransformCom->Set_Scale(_vec3(0.8f, 1.f, 0.8f));
+	m_fMinHeight = 0.50f;
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
 	_int iExit = __super::Update_Object(fTimeDelta);
