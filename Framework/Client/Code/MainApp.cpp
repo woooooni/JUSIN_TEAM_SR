@@ -85,6 +85,8 @@ void CMainApp::LateUpdate_MainApp()
 	NULL_CHECK(m_pManagementClass);
 	m_pManagementClass->LateUpdate_Scene();
 	Engine::Update_Collision();
+	Engine::LateUpdate_LightMgr();
+
 }
 
 void CMainApp::Render_MainApp()

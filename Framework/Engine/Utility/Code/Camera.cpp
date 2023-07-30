@@ -266,6 +266,9 @@ void CCamera::Update_GameCamera(const _float& fTimeDelta)
 
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
+
+
+	return;
 }
 
 void CCamera::LateUpdate_GameCamera()

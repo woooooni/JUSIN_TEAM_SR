@@ -94,6 +94,11 @@ HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	return	CLightMgr::GetInstance()->Ready_Light(pGraphicDev, pLightInfo, iIndex);
 }
 
+inline void LateUpdate_LightMgr()
+{
+	CLightMgr::GetInstance()->LateUpdate_LightMgr();
+}
+
 // KeyMgr
 inline HRESULT Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 {

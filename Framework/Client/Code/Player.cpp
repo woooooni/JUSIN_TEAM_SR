@@ -380,18 +380,32 @@ void CPlayer::Render_Object(void)
 	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
 	if (pCamera == nullptr)
 		return;
+
+	_vec3 vPos;
+	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	D3DVECTOR vCamPos = vPos;
 	
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
 	pEffect->SetTexture("g_Texture", pTexture);
-	
-	const D3DLIGHT9& tLight = CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Get_LightInfo();
-	pEffect->SetValue("g_Light", &tLight, sizeof(D3DLIGHT9));
 
 	
+	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+	D3DMATERIAL9 material;
+	material.Ambient = { 0.1f, 0.1f, 0.1f, 1.0f };
+	material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
+	material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+	material.Emissive = { 0.0f, 0.0f, 0.0f, 1.0f };
+	material.Power = 0.0f;
+	
+	pEffect->SetValue("g_Material", &material, sizeof(D3DMATERIAL9));
+
 	pEffect->Begin(nullptr, 0);
 	pEffect->BeginPass(0);
 
