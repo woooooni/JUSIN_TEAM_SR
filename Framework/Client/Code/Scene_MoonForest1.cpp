@@ -17,6 +17,8 @@
 #include "Portal.h"
 #include "UI_MapName.h"
 #include "RabbitMgr.h"
+#include "DrawingEnter.h"
+#include "DefaultItem.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -52,7 +54,6 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 _int CScene_MoonForest1::Update_Scene(const _float& fTimeDelta)
 {
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
-	CRabbitMgr::GetInstance()->Update_Object(fTimeDelta);
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
@@ -75,7 +76,6 @@ void CScene_MoonForest1::Render_Scene()
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
 	CUIMgr::GetInstance()->Render_UIMgr();
-	CRabbitMgr::GetInstance()->Render_Object();
 }
 
 HRESULT CScene_MoonForest1::Ready_Prototype()
@@ -184,7 +184,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLight);*/
 
 
-	CLightPuzzleTerrain* pTer = CLightPuzzleTerrain::Create(m_pGraphicDev, 4, 5, { 45.f, 0.01f, 45.f });
+	CLightPuzzleTerrain* pTer = CLightPuzzleTerrain::Create(m_pGraphicDev, 4, 5, { 27.5, 0.01f, 40.5f });
 	NULL_CHECK_RETURN(pTer, E_FAIL);
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Ter", pTer);
 
@@ -210,29 +210,30 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	CLightPuzzlePiece* pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 43, 0, 43 }, L"Corner");
+	CLightPuzzlePiece* pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 27.5f, 0.f, 38.5f }, L"Corner");
 	NULL_CHECK_RETURN(pPiece, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
-	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 44, 0, 43 }, L"Base");
-	NULL_CHECK_RETURN(pPiece, E_FAIL);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
-
-	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 46, 0, 43 }, L"Horizon");
+	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 28.5f, 0.f, 38.5f }, L"Base");
 	NULL_CHECK_RETURN(pPiece, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
 
-	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 47, 0, 43 }, L"Corner");
+	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 29.5f, 0.f, 38.5f }, L"Horizon");
+	NULL_CHECK_RETURN(pPiece, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
+
+	pPiece = CLightPuzzlePiece::Create(m_pGraphicDev, 0, { 30.5f, 0.f, 38.5f }, L"Corner");
 	NULL_CHECK_RETURN(pPiece, E_FAIL);
 	pPiece->Reverse_Puzzle(true);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Piece", pPiece);
 
+	CDrawingEnter* pDraw = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_BUGSTATUE));
+	pDraw->Get_TransformCom()->Set_Pos(&_vec3(25.f, 0.f, 42.f));
 
-	CRabbitMgr::GetInstance()->Ready_Object(m_pGraphicDev, 4, 4, { 60.f, 0.f, 38.f });
-
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"DrawPoint", pDraw);
 
 
 	return S_OK;

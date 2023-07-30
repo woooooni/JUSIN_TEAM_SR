@@ -126,7 +126,7 @@ void CBarrelBomb::Render_Object(void)
     
     __super::Render_Object();
 
-    if (m_bHitted)
+    if (m_bHitted && !m_bExplosing)
     {
         world._43 -= 0.01f;
     

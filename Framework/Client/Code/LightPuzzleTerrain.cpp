@@ -181,7 +181,7 @@ CLightPuzzleTerrain* CLightPuzzleTerrain::Create(LPDIRECT3DDEVICE9 p_Dev, const 
 	ret->m_pColliderCom->Set_Offset({(_float)tileX * 0.5f , 0, (_float)tileY * 0.5f});
 
 	dynamic_cast<CBoxCollider*>(ret->m_pColliderCom)->Set_Scale({ (float)tileX, 1.f, (float)tileY });
-	ret->m_pTransformCom->Set_Pos(& _vec3( p_Pos.x, 0.007f, p_Pos.z ));
+	ret->m_pTransformCom->Set_Pos(& _vec3( p_Pos.x, 0.01f, p_Pos.z ));
 
 	return ret;
 }
