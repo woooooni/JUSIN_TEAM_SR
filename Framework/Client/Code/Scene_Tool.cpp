@@ -76,6 +76,12 @@ HRESULT CScene_Tool::Ready_Scene()
 
 	CImGuiMgr::GetInstance()->SetToolScene(this);    
 
+	CLightMgr::GetInstance()->Ready_LightMgr(m_pGraphicDev);
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Get_LightInfo().Ambient = { 1.f, 1.f, 1.f, 1.f };
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Get_LightInfo().Diffuse = { 1.f, 1.f, 1.f, 1.f };
+
+	
+
 	return S_OK;
 }
 

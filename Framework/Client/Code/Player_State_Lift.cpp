@@ -144,7 +144,7 @@ void CPlayer_State_Lift::Reset_State(void)
 	{
 		_vec3 vPos;
 		pLiftObj->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-
+		pLiftObj->Get_ColliderCom()->Set_Active(true);
 		if (vPos.y > pLiftObj->Get_MinHeight())
 		{
 			pLiftObj->Get_RigidBodyCom()->SetGround(false);

@@ -53,4 +53,5 @@ void CQuest_Cow2::Clear_Quest()
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 	CQuest_MonkeyCheif1* pNextQuest = new CQuest_MonkeyCheif1();
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 }

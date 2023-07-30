@@ -2,6 +2,7 @@
 #include "GameMgr.h"
 #include "Player_State.h"
 #include "QuestMgr.h"
+#include "UIMgr.h"
 CQuest_Artist1::CQuest_Artist1(NPC_CODE _eNpcCode, CItem* _pRewardItem)
 	:CQuest_Conversation(NPC_CODE::NPC_ARTIST, nullptr)
 {
@@ -42,5 +43,6 @@ void CQuest_Artist1::Accept_Quest()
 
 void CQuest_Artist1::Clear_Quest()
 {
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 }

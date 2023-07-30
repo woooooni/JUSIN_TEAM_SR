@@ -95,4 +95,6 @@ void CQuest_MonkeyCheif2::Clear_Quest()
 	
 	
 	pPlayer->Add_Money(m_iRewardCoin);
+
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 }

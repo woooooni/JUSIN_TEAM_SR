@@ -1,3 +1,4 @@
+#include "UIMgr.h"
 #include "Quest_NueHero2.h"
 
 CQuest_NueHero2::CQuest_NueHero2()
@@ -34,6 +35,7 @@ void CQuest_NueHero2::Accept_Quest()
 
 void CQuest_NueHero2::Clear_Quest()
 {
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 	// TODO :: 컷씬 후 게임 종료
 }

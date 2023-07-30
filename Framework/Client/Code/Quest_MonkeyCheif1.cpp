@@ -2,6 +2,7 @@
 #include "Quest_MonkeyCheif1.h"
 #include "Quest_MonkeyCheif2.h"
 #include "QuestMgr.h"
+#include "UIMgr.h"
 
 CQuest_MonkeyCheif1::CQuest_MonkeyCheif1()
 	:CQuest_Conversation(NPC_CODE::NPC_CHIEF, nullptr)
@@ -34,4 +35,6 @@ void CQuest_MonkeyCheif1::Clear_Quest()
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 	CQuest_MonkeyCheif2* pNextQuest = new CQuest_MonkeyCheif2();
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
+
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 }

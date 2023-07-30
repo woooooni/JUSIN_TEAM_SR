@@ -34,12 +34,16 @@ public:
 
 	void		Start_Rabbits() { m_bIsStart = true; }
 
+	void		Start_Game();
+
 	void		Add_Point()
 	{
 		m_iPoints++;
 	}
 
 	const _bool& Get_Clear() { return m_bIsClear; }
+	const _bool& Get_Playing() { return m_bIsStart; }
+
 
 protected:
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
