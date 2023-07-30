@@ -71,9 +71,6 @@ void CGolemLeftHand::LateUpdate_Object(void)
 
 void CGolemLeftHand::Render_Object(void)
 {
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB((int)m_fAlpha, 255, 255, 255));
-
 	__super::Render_Object();
 
 	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
@@ -86,12 +83,14 @@ void CGolemLeftHand::Render_Object(void)
 	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	D3DVECTOR vCamPos = vPos;
 
+	D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, m_fAlpha / 255.0f };
 
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
-	pEffect->SetFloat("g_AlphaRef", 0.0f);
+	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+	pEffect->SetFloat("g_AlphaRef", 50.0f);
 
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
@@ -100,19 +99,15 @@ void CGolemLeftHand::Render_Object(void)
 
 	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
-
-
 	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 	pEffect->Begin(nullptr, 0);
-	pEffect->BeginPass(0);
+	pEffect->BeginPass(1);
 
 	m_pBufferCom->Render_Buffer();
 
-
 	pEffect->EndPass();
 	pEffect->End();
-
 }
 
 HRESULT CGolemLeftHand::Add_Component(void)

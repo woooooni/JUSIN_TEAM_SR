@@ -1,6 +1,7 @@
 #include "MonkeyBarrelCleaner.h"
 #include "Export_Function.h"
 #include "ClearBomb.h"
+#include "BarrelBomb.h"
 CMonkeyBarrelCleaner::CMonkeyBarrelCleaner(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev, OBJ_ID::SPIT_CACTUS)
 {
@@ -101,20 +102,39 @@ void CMonkeyBarrelCleaner::Update_Attack(_float fTimeDelta)
 
 		_vec3  vPos, vDir;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-
-		CClearBomb* pClearBomb = CClearBomb::Create(m_pGraphicDev);
-		NULL_CHECK_RETURN(pClearBomb, );
-		_vec3 BulletPos = vPos;
-		BulletPos.y += 0.25f;
-		if (m_bRight)
-			vDir = { 2.f,float(rand()%4 + 4),float(rand()%2-1) };
+		if (rand() % 100 < 70)
+		{
+			CClearBomb* pClearBomb = CClearBomb::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pClearBomb, );
+			_vec3 BulletPos = vPos;
+			BulletPos.y += 0.25f;
+			if (m_bRight)
+				vDir = { 2.f,float(rand() % 4 + 4),float(rand() % 3 - 1) };
+			else
+				vDir = { -2.f,float(rand() % 4 + 4),float(rand() % 3 - 1) };
+			D3DXVec3Normalize(&vDir, &vDir);
+			pClearBomb->Get_TransformCom()->Set_Pos(&BulletPos);
+			pClearBomb->Get_RigidBodyCom()->AddForce(vDir * 120.f);
+			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
+			pLayer->Add_GameObject(L"ClearBomb", pClearBomb);
+		}
 		else
-			vDir = { -2.f,float(rand()%4+4),float(rand() % 2 - 1)};
-		D3DXVec3Normalize(&vDir, &vDir);
- 		pClearBomb->Get_TransformCom()->Set_Pos(&BulletPos);
-		pClearBomb->Get_RigidBodyCom()->AddForce(vDir*120.f);
+		{
+			CBarrelBomb* pBarrelBomb = CBarrelBomb::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pBarrelBomb, );
+			_vec3 BulletPos = vPos;
+			BulletPos.y += 0.25f;
+			if (m_bRight)
+				vDir = { 2.f,float(rand() % 4 + 4),float(rand() % 3 - 1) };
+			else
+				vDir = { -2.f,float(rand() % 4 + 4),float(rand() % 3 - 1) };
+			D3DXVec3Normalize(&vDir, &vDir);
+			pBarrelBomb->Get_TransformCom()->Set_Pos(&BulletPos);
+			pBarrelBomb->Get_RigidBodyCom()->AddForce(vDir * 120.f);
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
-		pLayer->Add_GameObject(L"ClearBomb", pClearBomb);
+		pLayer->Add_GameObject(L"BarrelBomb", pBarrelBomb);
+		}
+
 		m_bShoot = false;
 	
 	}
@@ -265,3 +285,4 @@ void CMonkeyBarrelCleaner::Trace(_float fTimeDelta)
 void CMonkeyBarrelCleaner::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 }
+

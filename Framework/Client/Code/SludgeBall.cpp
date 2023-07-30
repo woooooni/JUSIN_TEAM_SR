@@ -26,6 +26,7 @@ HRESULT CSludgeBall::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ 1.0f, 1.0f, 1.0f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.0f, 1.0f, 1.0f });
 	m_fMinHeight = 0.26f;
+	m_pRigidBodyCom->SetGravity(-25.f);
 
 	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
@@ -43,9 +44,9 @@ _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 		m_pAnimator->Play_Animation(L"SludgeBall", true);
 		_vec3 vDir, vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vDir = m_vDst - vPos;
-		vDir.y = 0.f;
-
+		D3DXVec3Lerp(&vDir, &vPos, &m_vDst,2.f* fTimeDelta);
+		vDir.y = vPos.y;
+		m_pTransformCom->Set_Pos(&vDir);
 		if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 		{
 			if (Is_Active())
@@ -65,9 +66,8 @@ _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 			m_pAnimator->GetCurrAnimation()->Set_Idx(1);
 		}
 		
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir, &vDir), fTimeDelta, 7.5f);
-
-		m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ m_vDst.x,0.01f,m_vDst.z });
+		
+		m_pMonsterAim->Get_TransformCom()->Set_Pos(&_vec3{ m_vDst.x,0.09f,m_vDst.z });
 		m_pMonsterAim->Set_Red(0);
 		m_pMonsterAim->Update_Object(fTimeDelta);
 	}

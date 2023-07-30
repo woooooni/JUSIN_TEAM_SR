@@ -390,6 +390,12 @@ void CTrashSlime::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		Play_Sound(L"SFX_33_MonsterGarbage_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
+
+void CTrashSlime::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	__super::Collision_Stay(pCollider, _eCollisionGroup, _iColliderID);
+}
+
 void CTrashSlime::Set_Animation()
 {
 

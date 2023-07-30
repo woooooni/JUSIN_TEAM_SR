@@ -467,6 +467,11 @@ void CTrashBig::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		Play_Sound(L"SFX_35_MonsterGarbageBig_Hit.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
+void CTrashBig::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	__super::Collision_Stay(pCollider, _eCollisionGroup, _iColliderID);
+
+}
 void CTrashBig::Set_Animation()
 {
 

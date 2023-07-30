@@ -40,6 +40,8 @@ class CTrashBig :
         _bool m_bJump = false;
         virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
+        void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+
         void Set_Animation();
 
 

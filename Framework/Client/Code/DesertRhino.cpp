@@ -434,7 +434,11 @@ void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 
 	}
 }
+void CDesertRhino::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	__super::Collision_Stay(pCollider, _eCollisionGroup, _iColliderID);
 
+}
 void CDesertRhino::Set_Animation()
 {
 

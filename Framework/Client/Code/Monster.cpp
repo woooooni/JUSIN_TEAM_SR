@@ -6,6 +6,9 @@
 #include "Effect_Stun.h"
 #include "Player.h"
 #include "EventMgr.h"
+#include "Coin.h"
+#include "DefaultItem.h"
+
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, _eObjId)
 	, m_eState(MONSTER_STATE::REGEN)
@@ -287,8 +290,12 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 
 void CMonster::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING )
 		return;
+	if (pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+		Push_Me(pCollider);
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOMB)
+		m_eState = MONSTER_STATE::DIE;
 	switch (pCollider->GetOwner()->GetObj_Type())
 	{
 	case Engine::OBJ_TYPE::OBJ_ENVIRONMENT:
@@ -370,6 +377,22 @@ void CMonster::On_Death()
 		pSmoke = dynamic_cast<CEffect_DieSmoke*>(pSmoke)->Create(Engine::Get_Device());
 		if (pSmoke)
 			dynamic_cast<CEffect_DieSmoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f));
+	}
+	_int iPossibility = rand() % 100;
+	if(iPossibility < 70)
+	{
+		CCoin* pCoin = CCoin::Create(m_pGraphicDev, rand()%20+10, vPos);
+		NULL_CHECK_RETURN(pCoin, );
+		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
+		pLayer->Add_GameObject(L"Coin", pCoin);
+	}
+	else if (iPossibility > 80)
+	{
+		ITEM_CODE eItemCode[6] = { ITEM_CODE::HP_SMALL,	ITEM_CODE::HP_MIDDLE,ITEM_CODE::HP_BIG,ITEM_CODE::SPEED_SMALL,ITEM_CODE::SPEED_MIDDLE,ITEM_CODE::SPEED_BIG };
+		CDefaultItem* pDefaultItem = CDefaultItem::Create(m_pGraphicDev,OBJ_ID::ITEM , eItemCode[rand()%6]);
+		NULL_CHECK_RETURN(pDefaultItem, );
+		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
+		pLayer->Add_GameObject(L"DefaultItem", pDefaultItem);
 	}
 
 	CEventMgr::GetInstance()->DeleteObjEvt(this);

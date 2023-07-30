@@ -28,11 +28,12 @@ private:
 public:
 
 	void Set_Dst(_vec3 _Dst) { m_vDst = _Dst; }
+	void Set_StartPoint(_vec3 _vStartPos) { m_vStartPos = _vStartPos; }
 	static CSludgeBall* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:
 	OBJ_DIR m_eDir;
 	_vec3 m_vDst;
-
+	_vec3 m_vStartPos;
 	CMonsterAim* m_pMonsterAim;
 
 private:

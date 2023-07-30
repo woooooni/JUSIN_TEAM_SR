@@ -58,7 +58,7 @@ HRESULT CTrashBummer::Ready_Object(void)
 	Set_Speed(4.f);
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashBummer_Regen_Down", true);
-	m_tStat = { 3,3,1 };
+	m_tStat = {2,2,1 };
 	m_fMinHeight = 0.5f;
 	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
 
@@ -382,10 +382,11 @@ void CTrashBummer::Trace(_float fTimeDelta)
 		BulletPos.z -= 0.01f;
 		pSludgeBall->Get_TransformCom()->Set_Pos(&BulletPos);
 		pSludgeBall->Set_Dst(vTargetPos);
+		pSludgeBall->Set_StartPoint(BulletPos);
 		pSludgeBall->Set_Owner(this);
 		pSludgeBall->Set_Atk(m_tStat.iAttack);
 		pSludgeBall->Get_RigidBodyCom()->SetMass(10.f);
-		pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 150.0f, 0.0f));
+		pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 70.0f, 0.0f));
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 		pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
 		
@@ -445,6 +446,16 @@ void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 		Set_State(MONSTER_STATE::DIE);
 	}
 	
+}
+
+
+void CTrashBummer::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+	__super::Collision_Stay(pCollider, _eCollisionGroup, _iColliderID);
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER && pCollider->GetOwner()->GetObj_Id() == OBJ_ID::CLEAR_FIELD)
+	{
+		Set_State(MONSTER_STATE::DIE);
+	}
 }
 void CTrashBummer::Set_Animation()
 {
