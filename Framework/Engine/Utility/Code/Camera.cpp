@@ -92,7 +92,9 @@ void CCamera::LateUpdate_Object(void)
 	case CAMERA_STATE::TOOL:
 		LateUpdate_ToolCamera();
 		break;
-
+	case CAMERA_STATE::CUT_SCENE:
+		LateUpdate_CutSceneCamera();
+		break;
 	default:
 		break;
 	}
@@ -154,8 +156,6 @@ void CCamera::Follow(const _float& fTimeDelta)
 
 	m_pTransformCom->Set_Info(INFO_POS, &vCameraPos);
 	m_pTransformCom->Set_Info(INFO_LOOK, &vLook);
-
-
 }
 
 void CCamera::Check_Alpha()
@@ -174,7 +174,7 @@ void CCamera::Check_Alpha()
 	D3DXVec3TransformNormal(&vRayDir, &vRayDir, &matCamWorld);
 
 	_matrix matObjWorld;
-	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
+	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());  
 
 	
 

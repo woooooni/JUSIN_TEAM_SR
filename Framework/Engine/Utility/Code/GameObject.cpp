@@ -132,10 +132,23 @@ _int CGameObject::Update_Object(const _float & fTimeDelta)
 		CCamera* pMainCamera = dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
 		if (pMainCamera)
 		{
-			_vec3 vCamPos, vPos;
+			_vec3 vCamPos, vPos, vScale;
 			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			vScale = m_pTransformCom->Get_Scale();
+
+			if (m_eID == OBJ_ID::TILE)
+			{
+				vPos.z += vScale.y;
+			}
+			else
+			{
+				vPos.z += vScale.z * 0.001f;
+			}
+			
 			pMainCamera->Get_TransformCom()->Get_Info(INFO_POS, &vCamPos);
-			m_fViewZ = D3DXVec3Length(&(vCamPos - vPos));
+			_vec3 vDir = vPos - vCamPos;
+			float fLen = D3DXVec3Length(&vDir);
+			m_fViewZ = vDir.z;
 		}
 	}
 

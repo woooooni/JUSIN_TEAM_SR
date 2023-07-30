@@ -1,4 +1,5 @@
 #include "UI_Dialog.h"
+#include "UIMgr.h"
 #include "Export_Function.h"
 
 CUI_Dialog::CUI_Dialog(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -7,7 +8,7 @@ CUI_Dialog::CUI_Dialog(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_strDesc(L"")
 	, m_strCurrDesc(L"")
 	, m_fAccTime(0.f)
-	, m_fDescTime(0.08f)
+	, m_fDescTime(0.04f)
 	, m_iStringIdx(0)
 	, m_iVectorIdx(0)
 	, m_pQuest(0)
@@ -25,6 +26,7 @@ CUI_Dialog::CUI_Dialog(const CUI_Dialog& rhs)
 	, m_fDescTime(5.f)
 	, m_iStringIdx(0)
 	, m_iVectorIdx(0)
+	, m_pQuest(nullptr)
 {
 
 }
@@ -112,11 +114,11 @@ void CUI_Dialog::Render_Object(void)
 
 void CUI_Dialog::Set_Quest(CQuest* pQuest)
 {
-	if (nullptr == pQuest)
-		return;
+	if (nullptr != pQuest)
+		m_vecStrDesc = pQuest->Get_NpcDesc();
+
 
 	m_pQuest = pQuest;
-	m_vecStrDesc = m_pQuest->Get_NpcDesc();
 	m_iVectorIdx = 0;
 	m_iStringIdx = 0;
 
@@ -167,16 +169,21 @@ void CUI_Dialog::Print_Next()
 {
 	if (m_vecStrDesc.size() <= (++m_iVectorIdx))
 	{
-		switch (m_pQuest->Get_Quest_Progress())
+		if (m_pQuest)
 		{
-		case QUEST_PROGRESS::BEFORE:
-			m_pQuest->Accept_Quest();
-			break;
-		case QUEST_PROGRESS::COMPLETE:
-			m_pQuest->Clear_Quest();
-			break;
+			switch (m_pQuest->Get_Quest_Progress())
+			{
+			case QUEST_PROGRESS::BEFORE:
+				m_pQuest->Accept_Quest();
+				break;
+			case QUEST_PROGRESS::COMPLETE:
+				m_pQuest->Clear_Quest();
+				break;
+			}
+
 		}
 		Set_Active(false);
+		m_iVectorIdx = 0;
 	}
 	else
 	{		

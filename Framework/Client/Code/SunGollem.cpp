@@ -8,6 +8,8 @@
 #include "MonkeyBarrelCleaner.h"
 #include "Effect_Smoke.h"
 #include "Pool.h"
+#include "CutSceneMgr.h"
+
 CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN)
@@ -51,7 +53,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	m_tStat = { 6,6,1 };
 	m_pMonsterAim = CMonsterAim::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(m_pMonsterAim, E_FAIL);
-	m_pMonsterAim->Set_Red(100.f);
+	m_pMonsterAim->Set_Red(100);
 	m_pMonsterAim->Set_Active(true);
 	FAILED_CHECK_RETURN(Ready_Parts(), E_FAIL);
 
@@ -62,7 +64,7 @@ HRESULT CSunGollem::Ready_Object(void)
 	NULL_CHECK_RETURN(m_pUIGauge, E_FAIL);
 	m_pUIFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
 	NULL_CHECK_RETURN(m_pUIFrame, E_FAIL);
-
+	m_pUIGauge->Set_Name(BOSSNAME::SUNGOLLEM);
 
 
 	m_fMinHeight = 3.0f;
@@ -72,11 +74,16 @@ HRESULT CSunGollem::Ready_Object(void)
 
 _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 {
+	if (KEY_TAP(KEY::NUM_1))
+	{
+		m_tStat.iHp = 0;
+	}
 
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);;
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
-	m_fTime += 1.2f*fTimeDelta;
+	if(!m_bStop)
+		m_fTime += 1.2f*fTimeDelta;
 	m_iIndex = (int)m_fTime;
 	switch (m_eState)
 	{
@@ -119,6 +126,12 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 			m_pParts[i]->Rotate();
 			m_pParts[i]->Move_to_Offset(vPos);
 		}
+	}
+	if (m_bDirty)
+	{
+		_vec3 vOffset = m_pParts[HEAD]->Get_Offset();
+		vOffset += {0.f, 0.15f, -0.1f};
+		m_pParts[FACE]->Set_Offset(vOffset);
 	}
 
 	if (m_pUIBack->Is_Active() &&
@@ -253,13 +266,12 @@ HRESULT CSunGollem::Add_Component(void)
 
 void CSunGollem::Update_Idle(_float fTimeDelta)
 {
-	if (!m_bBreath)
+	if (!m_bExhale)
 	{
 		for (_int i = 0; i < PARTSEND; i++)
 		{
-			m_pParts[i]->Move_Offset(m_vPartPos[i], fTimeDelta,2.f);
+			m_pParts[i]->Move_Offset(m_vPartPos[i], fTimeDelta,3.f);
 			m_pParts[i]->Set_RotationAngle(m_fPartAngleArray[i]);
-
 
 		}
 	}
@@ -269,13 +281,11 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 	}
 	if (m_iIndex > 1)
 	{
-		if (m_bBreath)
-			m_bBreath = false;
+		if (m_bExhale)
+			m_bExhale = false;
 		else
 		{
-			m_bBreath = true;
-
-		
+			m_bExhale = true;
 		}
 		if(rand()%10>4)
 				Set_State(SUNGOLEM_STATE::MOVE);
@@ -290,12 +300,15 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 				Set_State(SUNGOLEM_STATE::DIRTY);
 				
 				m_pAnimator->Play_Animation(L"SunGolem_Dirty_Body", true);
-				m_pParts[FACE]->Set_Active(true);
+			
 				Create_Monkey();
+				m_fTime = 0.f;
 			}
 			else
 			{
+				m_fTime = 0.f;
 				Set_State(SUNGOLEM_STATE::DIE);
+				CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_SUNGOLEM_DIE);
 			}
 	}
 
@@ -308,20 +321,53 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	m_tStat.iMaxHp = 30;
 	m_tStat.iAttack = 2;
 	m_bDirty = true;
-
+	if(!m_pParts[FACE]->Is_Active())
+	m_pParts[FACE]->Set_Active(true);
 
 	if (m_tStat.iMaxHp > m_iDirtyHp)
 		m_iDirtyHp += _uint(100 * fTimeDelta);
 
-	if (m_tStat.iMaxHp <= m_iDirtyHp)
+
+	
+
+	m_pUIBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
+	if (m_pUIBack == nullptr)
+		return;
+	m_pUIGauge = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_GAUGE);
+	if (m_pUIGauge == nullptr)
+		return;
+	m_pUIFrame = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_FRAME);
+	if (m_pUIFrame == nullptr)
+		return;
+
+	m_pUIGauge->Set_Name(BOSSNAME::SUNGOLLEM_REBIRTH);
+	switch (m_iIndex)
 	{
-		m_iDirtyHp = m_tStat.iMaxHp;
-		Set_State(SUNGOLEM_STATE::IDLE);
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		if (m_tStat.iMaxHp <= m_iDirtyHp)
+		{
+			m_iDirtyHp = m_tStat.iMaxHp;
+			m_fTime = 0.f;
+			Set_State(SUNGOLEM_STATE::IDLE);
+		}
+		for (_int i = 0; i < PARTSEND; i++)
+		{
+			m_pParts[i]->Set_Offset(m_vPartPos[i]);
+			m_pParts[i]->Set_RotationAngle(m_fPartAngleArray[i]);
+		}
+		break;
+	default:
+		break;
 	}
-
 	m_tStat.iHp = m_iDirtyHp;
-
-
 	m_fMoveTime += 10.f * fTimeDelta;
 }
 
@@ -373,7 +419,29 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 		}
 		m_bJump = false;
 	}
+	if (!m_bExhale)
+	{
+		for (_int i = 0; i < PARTSEND; i++)
+		{
+			m_pParts[i]->Move_Offset(m_vPartPos[i], fTimeDelta, 2.f);
+			m_pParts[i]->Set_RotationAngle(m_fPartAngleArray[i]);
+		}
+	}
+	else
+	{
 
+	}
+	if (m_iIndex > 1)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+		{
+			m_bExhale = true;
+		}
+		m_fSpeed = 5.f;
+		m_fTime = 0.f;
+	}
 }
 
 void CSunGollem::Update_Attack(_float fTimeDelta)
@@ -504,71 +572,58 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 		}
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
-}
-
-void CSunGollem::Update_Die(_float fTimeDelta)
-{
-	for (auto i = 0; i != PARTSEND; i++)
+	if (!m_bExhale)
 	{
-		if (m_pParts[i]->Is_Active())
-			m_pParts[i]->Set_Active(false);
-	}
-	Set_Active(false);
-}
-
-void CSunGollem::Update_Regen(_float fTimeDelta)
-{
-	_vec3 vDir, vPos;
-
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	switch (m_iIndex)
-	{
-	case 0:
-		m_fMinHeight = 2.5f;
-		break;
-	case 1:
-		if (m_fMinHeight < 3.f)
-			m_fMinHeight += 3.f * fTimeDelta;
-		else
-			m_fMinHeight = 9.f;
-		break;
-	case 2:
-		if (m_fMinHeight > 2.7f)
-			m_fMinHeight -= 9.f * fTimeDelta;
-		else
-			m_fMinHeight = 2.7f;
-		break;
-	case 3:
-		if (m_fMinHeight < 3.2f)
-			m_fMinHeight += 9.f * fTimeDelta;
-		else
-			m_fMinHeight = 3.2f;
-
-		break;
-	case 4:
-		if (m_fMinHeight > 3.f)
-			m_fMinHeight -= 9.f * fTimeDelta;
-		else
-			m_fMinHeight = 9.f;
-
-		break;
-	case 5:		
-		if (m_fMinHeight >2.8f)
-		m_fMinHeight -= 3.f * fTimeDelta;
-		  else
-		m_fMinHeight = 2.8f;
-
-		break;
-	case 6:
 		for (_int i = 0; i < PARTSEND; i++)
 		{
 			m_pParts[i]->Move_Offset(m_vPartPos[i], fTimeDelta, 2.f);
 			m_pParts[i]->Set_RotationAngle(m_fPartAngleArray[i]);
+
+
 		}
-		if (m_fMinHeight < 3.f)
-			m_fMinHeight += 3.f * fTimeDelta;
+	}
+	else
+	{
+
+	}
+	if (m_iIndex > 1)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
 		else
-			m_fMinHeight = 3.f;
+		{
+			m_bExhale = true;
+
+
+		}
+		m_fSpeed = 5.f;
+		m_fTime = 0.f;
+	}
+}
+
+void CSunGollem::Update_Die(_float fTimeDelta)
+{
+
+}
+
+void CSunGollem::Update_Regen(_float fTimeDelta)
+{
+
+	switch (m_iIndex)
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:		
+		break;
+	case 6:
 		break;
 	case 7:
 		Set_State(SUNGOLEM_STATE::IDLE);
@@ -587,8 +642,6 @@ void CSunGollem::Update_Regen(_float fTimeDelta)
 		m_fTime = 0.f;
 		break;
 	}
-	m_pTransformCom->Set_Pos(&_vec3(vPos.x, m_fMinHeight, vPos.z));
-
 }
 CSunGollem* CSunGollem::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
@@ -638,7 +691,7 @@ void CSunGollem::Create_Wave(_vec3 vPos)
 void CSunGollem::Create_Stone()
 {
 
-	_vec3 vPos = { m_vRandomPos[1].x+(rand()%8)-4,7.f,m_vRandomPos[1].z + (rand() % 8) - 4 - 6.f};
+	_vec3 vPos = { m_vRandomPos[1].x+(rand()%10)-5,7.f,m_vRandomPos[1].z + (rand() % 6) - 3 - 7.f};
 	CPushStone* pPushStone = CPushStone::Create(vPos,m_pGraphicDev);
 	NULL_CHECK_RETURN(pPushStone, );
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);

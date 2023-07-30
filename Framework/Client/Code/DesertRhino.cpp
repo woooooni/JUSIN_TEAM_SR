@@ -76,7 +76,9 @@ HRESULT CDesertRhino::Ready_Object(void)
 		m_pUIFrame->Set_Owner(this);
 
 	m_pTransformCom->Set_Info(INFO_POS, &_vec3(10.0f, 1.0f, 10.0f));
-	
+
+	m_pTransformCom->Set_Scale( _vec3(1.0f, 1.0f, 1.0f));
+
 	Set_Speed(5.f);
 	Set_State(MONSTER_STATE::IDLE);
 

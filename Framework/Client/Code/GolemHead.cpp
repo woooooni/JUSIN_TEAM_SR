@@ -139,16 +139,16 @@ HRESULT CGolemHead::Add_Component(void)
 void CGolemHead::Update_Idle(_float fTimeDelta)
 {
 	_vec3 vDir;
-	if (m_bBreath)
-		Move_Offset(_vec3(0.f, 1.16633f,-0.05f), fTimeDelta, 2.f);
+	if (m_bExhale)
+		Move_Offset(_vec3(0.f, 1.16633f,-0.05f), fTimeDelta, 3.f);
 
 
 	if (m_iIndex == 2)
 	{
-		if (m_bBreath)
-			m_bBreath = false;
+		if (m_bExhale)
+			m_bExhale = false;
 		else
-			m_bBreath = true;
+			m_bExhale = true;
 	}
 
 
@@ -157,34 +157,82 @@ void CGolemHead::Update_Idle(_float fTimeDelta)
 void CGolemHead::Update_Dirty(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_Head", true);
-	_vec3 vDir;
-	if (m_bBreath)
-		vDir = { 0.f,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
+	switch (m_iIndex)
 	{
-		if (m_bBreath)
-			m_bBreath = false;
-		else
-			m_bBreath = true;
-		m_fMoveTime = 0.f;
+
+		case 0:
+			Move_Offset(_vec3(0.f, 1.2f, -0.05f), fTimeDelta, 2.f);
+
+			break;
+		case 1:
+			Move_Offset(_vec3(0.f, 1.2f, -0.05f), fTimeDelta, 2.f);
+			break;
+		case 2:
+			Move_Offset(_vec3(0.f, 1.16633f, -0.05f), fTimeDelta, 2.f);
+			break;
+
+		default:
+			break;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CGolemHead::Update_Move(_float fTimeDelta)
 {
+	if (m_bExhale)
+		Move_Offset(_vec3(0.f, 1.16633f, -0.05f), fTimeDelta, 3.f);
+
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemHead::Update_Attack(_float fTimeDelta)
 {
+	if (m_bExhale)
+		Move_Offset(_vec3(0.f, 1.16633f, -0.05f), fTimeDelta, 3.f);
+
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemHead::Update_Die(_float fTimeDelta)
 {
+	switch (m_iIndex)
+	{
+	case 0:
+		Move_Offset(_vec3(0.f, 1.16633f, -0.05f), fTimeDelta, 3.f);
+		break;
+	case 1:
+		Move_Offset(_vec3(0.f, 1.f, -0.05f), fTimeDelta, 2.f);
+		break;
+	case 2:
+		Move_Offset(_vec3(0.f, 0.8f, -0.05f), fTimeDelta, 2.f);
+		break;
+	case 3:
+		Move_Offset(_vec3(0.f, 0.6f, -0.05f), fTimeDelta, 2.f);
+
+		break;
+	case 4:
+		Move_Offset(_vec3(0.f, 0.3f, -0.05f), fTimeDelta, 2.f);
+		break;
+	case 5:
+		Move_Offset(_vec3(0.f, 0.f, -0.05f), fTimeDelta, 2.f);
+		break;
+
+	default:
+		break;
+	}
 }
 
 void CGolemHead::Update_Regen(_float fTimeDelta)

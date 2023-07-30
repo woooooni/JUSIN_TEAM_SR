@@ -38,6 +38,5 @@ protected:
 
 	void				Make_Toward();
 	
-
 };
 

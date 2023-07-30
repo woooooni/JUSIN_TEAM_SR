@@ -42,18 +42,23 @@ HRESULT CPushStone::Ready_Object(void)
 
 _int CPushStone::Update_Object(const _float& fTimeDelta)
 {
+
+
+
 	if (!m_bIsOff)
 	{
-		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
-		Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 		_vec3 src;
 		m_pTransformCom->Get_Info(INFO_POS, &src);
 		if (m_bIsFlying && m_pRigidBodyCom->IsGround())
 		{
-			m_bIsFlying = false;
+			Set_Active(false);
+			return 0;
 		}
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PUSH);
+		Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	}
+
 
 
 	
@@ -225,7 +230,7 @@ void CPushStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 
 void CPushStone::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
-	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER)
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BALPAN || _eCollisionGroup == COLLISION_GROUP::COLLIDE_TRIGGER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_BULLET)
 		return;
 
 	if(!m_bIsFlying)
@@ -245,13 +250,10 @@ void CPushStone::Set_FieldState(const FIELD_OBJ_STATE& pState)
 	switch (m_eFState)
 	{
 	case CFieldObject::NOT_INTERACT:
-		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
 		break;
 	case CFieldObject::PUSHING:
-		Play_Sound(L"SFX_44_Jelly_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
 		break;
 	case CFieldObject::LIFTING:
-		Play_Sound(L"SFX_46_Jelly_Lift.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
 		
 		break;
 	case CFieldObject::STATE_END:

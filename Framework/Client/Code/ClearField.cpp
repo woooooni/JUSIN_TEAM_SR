@@ -190,7 +190,7 @@ CClearField* CClearField::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
 
 
 
-    ret->m_pTransformCom->Set_Pos(&(p_Pos + _vec3(0, (rand() % 200) * 0.0005f + 0.01f , 0)));
+    ret->m_pTransformCom->Set_Pos(&(p_Pos + _vec3(0, (rand() % 200) * 0.0005f + 0.02f , 0)));
     ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 
     ret->Set_MinHeight(0.005f);

@@ -9,10 +9,11 @@ CBlockObj::CBlockObj(LPDIRECT3DDEVICE9 p_Dev)
 	, m_bIsBlocking(false)
 	, m_iFollowingEvent(0)
 	, m_vBlockPos(0, 0.5f, -0.4f)
+	,m_pBlurTex(nullptr)
 {
 }
 
-CBlockObj::CBlockObj(const CBlockObj& rhs) : CFieldObject(rhs), m_iEventNum(rhs.m_iEventNum), m_bIsBlocking(rhs.m_bIsBlocking), m_iFollowingEvent(rhs.m_iFollowingEvent)
+CBlockObj::CBlockObj(const CBlockObj& rhs) : CFieldObject(rhs), m_iEventNum(rhs.m_iEventNum), m_bIsBlocking(rhs.m_bIsBlocking), m_iFollowingEvent(rhs.m_iFollowingEvent), m_pBlurTex(rhs.m_pBlurTex)
 {
 }
 
@@ -128,11 +129,21 @@ void CBlockObj::Render_Object(void)
 
 		pEffect->EndPass();
 		pEffect->End();
+
+		if (m_iBlurEvent != 0)
+		{
+			mat._43 -= 0.01f;
+			m_pGraphicDev->SetTransform(D3DTS_WORLD, &mat);
+			m_pBlurTex->Render_Texture();
+			m_pBufferCom->Render_Buffer();
+		}
 	}
 }
 
 void CBlockObj::Free()
 {
+	if(m_pBlurTex)
+		Safe_Release(m_pBlurTex);
 	__super::Free();
 }
 
@@ -212,7 +223,7 @@ void CBlockObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollision
 
 
 
-			if (fX - fabs(vDir.x) < fZ - fabs(vDir.z) && fX - fabs(vDir.x) < fY - fabs(vDir.y))
+			if (fX - fabs(vDir.x) <= fZ - fabs(vDir.z))
 			{
 				if (vDir.x < 0.f)
 				{
@@ -227,7 +238,7 @@ void CBlockObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollision
 					pOtherTransform->Set_Pos(&vOtherPos);
 				}
 			}
-			else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
+			/*else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
 			{
 				if (vDir.y < 0.f)
 				{
@@ -241,8 +252,8 @@ void CBlockObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollision
 					vOtherPos = vPos + vDir;
 					pOtherTransform->Set_Pos(&vOtherPos);
 				}
-			}
-			else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x) && fZ - fabs(vDir.z) < fY - fabs(vDir.y))
+			}*/
+			else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x))
 			{
 				if (vDir.z < 0.f)
 				{
@@ -257,7 +268,6 @@ void CBlockObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollision
 					pOtherTransform->Set_Pos(&vOtherPos);
 				}
 			}
-
 
 		}
 	}
@@ -309,12 +319,18 @@ void CBlockObj::Event_Start(_uint iEventNum)
 {
 	if(iEventNum == m_iFollowingEvent)
 		Change_State();
+
+	if (iEventNum == m_iBlurEvent)
+		m_iBlurEvent = 0;
 }
 
 void CBlockObj::Event_End(_uint iEventNum)
 {
 	if (iEventNum == m_iFollowingEvent)
 		Change_State();
+
+	if (iEventNum == m_iBlurEvent)
+		m_iBlurEvent = 0;
 
 }
 
@@ -330,6 +346,19 @@ void CBlockObj::Set_SubscribeEvent(_uint pEvent)
 {
 	m_iFollowingEvent = pEvent;
 	Add_Subscribe(pEvent, this);
+}
+
+void CBlockObj::Set_BlurEvent(_uint pEventNum, const _tchar* pName)
+{
+	if(m_iFollowingEvent != pEventNum)
+		Add_Subscribe(pEventNum, this);
+	m_iBlurEvent = pEventNum;
+
+	wstring tmp = L"Proto_Tex_Block_Blur_";
+	tmp += pName;
+
+	m_pBlurTex = dynamic_cast<CTexture*>(Clone_Proto(tmp.c_str()));
+	NULL_CHECK(m_pBlurTex);
 }
 
 void CBlockObj::Change_State()

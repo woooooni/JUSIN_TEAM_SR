@@ -1,12 +1,19 @@
 #include "Coin.h"
 #include "Export_Function.h"
 #include	"Player.h"
+#include "UI_Wallet.h"
+#include "UIMgr.h"
+
 CCoin::CCoin(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CItem(pGraphicDev, ITEM_TYPE::COIN, OBJ_ID::ITEM)
+	, m_bIsCollided(false)
+	,m_fColidedTime(0.f)
 {
 }
 
 CCoin::CCoin(const CCoin& rhs): CItem(rhs)
+,m_bIsCollided(rhs.m_bIsCollided)
+,m_fColidedTime(rhs.m_fColidedTime)
 {
 }
 
@@ -27,7 +34,21 @@ HRESULT CCoin::Ready_Object(void)
 
 _int CCoin::Update_Object(const _float& fTimeDelta)
 {
-	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
+	if (!m_bIsCollided)
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_ITEM);
+	else
+	{
+		_vec3 src;
+		m_pTransformCom->Get_Info(INFO_POS, &src);
+		src.y += fTimeDelta ;
+
+		m_fColidedTime += fTimeDelta;
+		if (m_fColidedTime > 2.f)
+		{
+			Set_Active(false);
+			return 0;
+		}
+	}
 	Add_RenderGroup(RENDER_ALPHA, this);
 	_int Result = __super::Update_Object(fTimeDelta);
 	return Result;
@@ -90,7 +111,19 @@ void CCoin::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGro
 		CPlayer* player = dynamic_cast<CPlayer*>(pCollider->GetOwner());
 		NULL_CHECK_RETURN(player);
 		player->Add_Money(m_iMoney);
+
+		m_bIsCollided = true;
 		Set_Active(false);
+
+		CGameObject* pWallet = CUIMgr::GetInstance()->Get_Wallet();
+
+		if (!pWallet)
+		{
+			pWallet = CUI_Wallet::Create(m_pGraphicDev);
+			pWallet->Ready_Object();
+		}
+		dynamic_cast<CUI_Wallet*>(pWallet)->Set_WalletAlpha(255);
+		pWallet->Set_Active(true);
 	}
 }
 void CCoin::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)

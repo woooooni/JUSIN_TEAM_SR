@@ -48,7 +48,8 @@ _int CEffect_MothFlyLine::Update_Object(const _float& fTimeDelta)
 	_vec3 vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst - vPos;
-	m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir,&vDir), 50.f, fTimeDelta);
+	_vec3 vScale = m_pTransformCom->Get_Scale();
+	m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir,&vDir), vScale.y * 0.5f, fTimeDelta);
 
 	return iExit;
 }

@@ -28,7 +28,8 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     m_pQuickSlot = CQuickSlot::Create(_pGraphicDev);
     m_pDialog = CUI_Dialog::Create(_pGraphicDev);
     m_pInventory = CInventoryUI::Create(_pGraphicDev);
-    //m_pMapName = CUI_MapName::Create(_pGraphicDev);
+    m_pWallet = CUI_Wallet::Create(_pGraphicDev);
+    m_pNewQuest = CUI_NewQuest::Create(_pGraphicDev);
 
     NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
@@ -36,6 +37,8 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     NULL_CHECK_RETURN(m_pQuickSlot, E_FAIL);
     NULL_CHECK_RETURN(m_pShortCutKey, E_FAIL); 
     NULL_CHECK_RETURN(m_pInventory, E_FAIL);
+    NULL_CHECK_RETURN(m_pWallet, E_FAIL);
+    NULL_CHECK_RETURN(m_pNewQuest, E_FAIL);
     //NULL_CHECK_RETURN(m_pMapName, E_FAIL);
 
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
@@ -45,6 +48,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     // m_pShop->Add_Item(CItem_Hat_Drill::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_CLOTH);
     // m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
 
+    m_pNewQuest->Set_Active(false);
     FAILED_CHECK_RETURN(Add_Frame(_pGraphicDev), E_FAIL);
 
     return S_OK;
@@ -76,6 +80,12 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     if (m_pDialog->Is_Active())
         m_pDialog->Update_Object(fTimeDelta);
 
+    if (m_pWallet->Is_Active())
+        m_pWallet->Update_Object(fTimeDelta);
+
+    if (m_pNewQuest->Is_Active())
+        m_pNewQuest->Update_Object(fTimeDelta);
+
     if (KEY_TAP(KEY::I))
     {
         m_bUpdateUI = !m_bUpdateUI;
@@ -106,8 +116,14 @@ void CUIMgr::Late_Update_UIMgr()
     // m_pCurrentUI->LateUpdate_Object();
     //m_pMapName->LateUpdate_Object();
 
+    if (m_pWallet->Is_Active())
+        m_pWallet->LateUpdate_Object();
+
     if (m_bUpdateUI)
         m_pInventory->LateUpdate_Object();
+
+    if (m_pNewQuest->Is_Active())
+        m_pNewQuest->LateUpdate_Object();
 
     m_vecIcon[PLAYERHP_FRAME]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_1]->LateUpdate_Object();
@@ -190,6 +206,8 @@ void CUIMgr::Free()
         Safe_Release(m_pBossHpBar);
  //   if (m_pMapName)
  //       Safe_Release(m_pMapName);
+    if (m_pWallet)
+        Safe_Release(m_pWallet);
 
     for (size_t i = 0; i < ICONTYPE::ICONTYPE_END; ++i)
         Safe_Release(m_vecIcon[i]);

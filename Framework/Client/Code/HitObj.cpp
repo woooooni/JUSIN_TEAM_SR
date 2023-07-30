@@ -174,10 +174,16 @@ void CHitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 
 		case Engine::OBJ_HITTYPE::HIT_REPEAT:
 
-			Check_Event_Start(m_iEventNum);
 			m_fEffectTime = 0.5f;
 			Make_Toward();
-			
+			if (m_eCutSceneType != CCutSceneMgr::CUTSCENE_TYPE::TYPE_END)
+			{
+				CCutSceneMgr::GetInstance()->Set_EventNum(m_iEventNum);
+				CCutSceneMgr::GetInstance()->Start_CutScene(m_eCutSceneType);
+			}
+			else
+				Check_Event_Start(m_iEventNum);
+
 
 			break;
 		case Engine::OBJ_HITTYPE::HIT_BREAK:

@@ -1,11 +1,13 @@
 #include "UI_NewQuest.h"
 #include "Export_Function.h"
 
-CUI_NewQuest::CUI_NewQuest(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
+CUI_NewQuest::CUI_NewQuest(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: CUI(pGraphicDev)
 {
 }
 
-CUI_NewQuest::CUI_NewQuest(const CUI_NewQuest& rhs) : CUI(rhs)
+CUI_NewQuest::CUI_NewQuest(const CUI_NewQuest& rhs) 
+	: CUI(rhs)
 {
 }
 
@@ -101,7 +103,7 @@ void CUI_NewQuest::Render_Object(void)
 		RECT rcQuest = { WINCX / 4 + 30, 5, WINCX, WINCY - 100 };
 		TCHAR szQuestBuf[256] = L"";
 
-		swprintf_s(szQuestBuf, L"태양의 마을 찾기");
+		swprintf_s(szQuestBuf, m_strTitle.c_str());
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
 			szQuestBuf, lstrlen(szQuestBuf), &rcQuest, DT_VCENTER | DT_NOCLIP,
 			D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -110,7 +112,7 @@ void CUI_NewQuest::Render_Object(void)
 		RECT rcContents = { 0, 170, WINCX, WINCY };
 		TCHAR szConBuf[256] = L"";
 
-		swprintf_s(szConBuf, L"알 수 없는 목소리가 동쪽의 해가 뜨는 마을로 가라고 한다.\n동쪽... 동쪽은 오른쪽이라고 배웠다.");
+		swprintf_s(szConBuf, m_strDesc.c_str());
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 			szConBuf, lstrlen(szConBuf), &rcContents, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 			D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -121,7 +123,7 @@ void CUI_NewQuest::Key_Input()
 {
 	if (m_bShown)
 	{
-		if (KEY_TAP(KEY::Z))
+		if (KEY_AWAY(KEY::TAB))
 		{
 			Set_Active(false);
 

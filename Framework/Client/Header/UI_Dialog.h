@@ -25,6 +25,8 @@ public:
 
 	CQuest* Get_CurrQuest() { return m_pQuest; }
 
+	vector<wstring>& Get_StringVec() { return m_vecStrDesc; }
+
 private:
 	HRESULT Ready_Component();
 	void Key_Input();

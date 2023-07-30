@@ -120,7 +120,7 @@ _int CBossDoor::Update_Object(const _float& fTimeDelta)
 
 			if (m_vDir.x < 0.0f)
 			{
-				CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MOON_FOREST1);
+				CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
 				_vec3 vPortalPos = _vec3(9.f, 0.5f, 23.f);
 				pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 				Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"NextPortal", pPortal);

@@ -22,12 +22,12 @@ HRESULT CUI_MapName::Ready_Object(void)
 	m_fSusTime = 0.f;
 
 	m_tInfo.fX = WINCX / 2;
-	m_tInfo.fY = WINCY / 2;
+	m_tInfo.fY = WINCY / 2 - 250.f;
 
-	m_fMaxWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width) * 0.4f;
+	m_fMaxWidth = _float(m_pTextureCom->Get_TextureDesc(0).Width) * 0.6f;
 
 	m_tInfo.fCX = 10.f;
-	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height) * 0.3f;
+	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height) * 0.35f;
 
 	return S_OK;
 }
@@ -70,8 +70,6 @@ void CUI_MapName::LateUpdate_Object(void)
 
 void CUI_MapName::Render_Object(void)
 {
-	//CUI::Render_Object();
-
 	_vec3 vPos, vScale;
 	_matrix matPreView, matPreProj;
 
@@ -79,7 +77,7 @@ void CUI_MapName::Render_Object(void)
 	m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
 	vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
-	((-2 * (m_tInfo.fY - 390.f)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+	((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	_float fRatio = _float(WINCY) / _float(WINCX);
 
@@ -100,7 +98,8 @@ void CUI_MapName::Render_Object(void)
 
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-	RECT rc = { 0, 0, WINCX, WINCY / 10 };
+	RECT rc = { 0, 150, WINCX, WINCY / 4 };
+//	RECT rc = { 0, 0, WINCX, WINCY / 10 };
 	TCHAR szBuf[256] = L"";
 
 	switch (m_eSceneType)
