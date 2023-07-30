@@ -82,12 +82,14 @@ void CGolemRightArm::Render_Object(void)
 	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	D3DVECTOR vCamPos = vPos;
 
+	D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, m_fAlpha / 255.0f };
 
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
-	pEffect->SetFloat("g_AlphaRef", 0.0f);
+	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+	pEffect->SetFloat("g_AlphaRef", 50.0f);
 
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
@@ -97,7 +99,7 @@ void CGolemRightArm::Render_Object(void)
 	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
 	MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
-	MATERIAL.material.Diffuse = { 0.5f, 0.5f, 0.5f, 1.0f };
+	MATERIAL.material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
 	MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
 	MATERIAL.material.Power = 0.0f;
@@ -105,7 +107,7 @@ void CGolemRightArm::Render_Object(void)
 	pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
 
 	pEffect->Begin(nullptr, 0);
-	pEffect->BeginPass(0);
+	pEffect->BeginPass(1);
 
 	m_pBufferCom->Render_Buffer();
 
@@ -177,22 +179,71 @@ void CGolemRightArm::Update_Idle(_float fTimeDelta)
 void CGolemRightArm::Update_Dirty(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_RightArm", true);
-	_vec3 vDir;
-	if (m_bBreath)
-		vDir = { 0.,1.f ,0.f };
-	else
-		vDir = { 0.f,-1.f ,0.f };
-
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 0.05f);
-	if (m_fMoveTime > 10.f)
+	switch (m_iIndex)
 	{
-		if (m_bBreath)
-			m_bBreath = false;
-		else
-			m_bBreath = true;
-		m_fMoveTime = 0.f;
+	case 0:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(1.77f, -0.8f, -0.012f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < 263.f)
+				m_fRotationAngle += 35.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(2.2f, 0.5f, -0.011f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < 318.f)
+				m_fRotationAngle += 35.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(2.f, 2.256f, -0.01f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < 361.f)
+				m_fRotationAngle += 55.f * fTimeDelta;
+		}
+		break;
+	case 1:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(1.57727f, -0.665475f, -0.012f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 248.f)
+				m_fRotationAngle -= 35.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(1.83094f, 0.101436f, -0.011f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 291.172f)
+				m_fRotationAngle -= 35.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(1.71295f, 1.13736f, -0.01f), fTimeDelta, 2.f);
+			if (m_fRotationAngle > 331.177f)
+				m_fRotationAngle -= 55.f * fTimeDelta;
+		}
+		break;
+	case 2:
+		if (m_iArmNum == 0)
+		{
+			Move_Offset(_vec3(2.069f, -1.5f, -0.012f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < 281.512f)
+				m_fRotationAngle += 35.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 1)
+		{
+			Move_Offset(_vec3(3.f, 0.5f, -0.011f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < 335.602f)
+				m_fRotationAngle += 35.f * fTimeDelta;
+		}
+		else if (m_iArmNum == 2)
+		{
+			Move_Offset(_vec3(2.49f, 2.651f, -0.01f), fTimeDelta, 2.f);
+			if (m_fRotationAngle < 380.f)
+				m_fRotationAngle += 55.f * fTimeDelta;
+		}
+		break;
+	default:
+		break;
 	}
-	m_fMoveTime += 10.f * fTimeDelta;
 }
 
 void CGolemRightArm::Update_Move(_float fTimeDelta)

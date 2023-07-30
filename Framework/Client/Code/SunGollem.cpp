@@ -133,6 +133,11 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 			m_pParts[i]->Set_State(m_eState);
 			m_pParts[i]->Update_Object(fTimeDelta);
 			m_pParts[i]->Rotate();
+			if (m_eState != SUNGOLEM_STATE::REGEN && m_eState != SUNGOLEM_STATE::DIRTY)
+			{
+				_vec3 vOffset = m_pParts[i]->Get_Offset();
+				vOffset.y = m_vPartPos[i].y;
+			}
 			m_pParts[i]->Move_to_Offset(vPos);
 		}
 	}
@@ -185,12 +190,14 @@ void CSunGollem::Render_Object(void)
 	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	D3DVECTOR vCamPos = vPos;
 
+	D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, 1.f };
 
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
-	pEffect->SetFloat("g_AlphaRef", 0.0f);
+	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+	pEffect->SetFloat("g_AlphaRef", 50.0f);
 
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
@@ -200,7 +207,7 @@ void CSunGollem::Render_Object(void)
 	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
 	MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
-	MATERIAL.material.Diffuse = { 0.5f, 0.5f, 0.5f, 1.0f };
+	MATERIAL.material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
 	MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
 	MATERIAL.material.Power = 0.0f;
@@ -208,7 +215,7 @@ void CSunGollem::Render_Object(void)
 	pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
 
 	pEffect->Begin(nullptr, 0);
-	pEffect->BeginPass(0);
+	pEffect->BeginPass(1);
 
 	m_pBufferCom->Render_Buffer();
 
@@ -771,17 +778,17 @@ HRESULT CSunGollem::Ready_Parts(void)
 	m_fPartAngleArray[RIGHTARM1] = 352.1f;
 	m_vPartPos[RIGHTARM2] = { 1.79f,1.551f, - 0.0101f };
 	m_fPartAngleArray[RIGHTARM2] =	380.322f;
-	m_vPartPos[LEFTHAND0] = { -2.5f,-1.6f, - 0.0104f };
+	m_vPartPos[LEFTHAND0] = { -2.5f,-1.6f, - 0.0106f };
 	m_fPartAngleArray[LEFTHAND0] = 341.6f;
-	m_vPartPos[LEFTHAND1] = { -3.f,0.2f, - 0.0103f };
+	m_vPartPos[LEFTHAND1] = { -3.f,0.2f, - 0.0105f };
 	m_fPartAngleArray[LEFTHAND1] = -60.8f;
-	m_vPartPos[LEFTHAND2] = { -2.59f,1.694f, - 0.0102f };
+	m_vPartPos[LEFTHAND2] = { -2.59f,1.694f, - 0.0104f };
 	m_fPartAngleArray[LEFTHAND2] = -93.8f;
-	m_vPartPos[RIGHTHAND0] = { 2.5f,-1.6f, - 0.0104f };
+	m_vPartPos[RIGHTHAND0] = { 2.5f,-1.6f, - 0.0106f };
 	m_fPartAngleArray[RIGHTHAND0] = 22.5f;
-	m_vPartPos[RIGHTHAND1] = { 3.f,0.2f, - 0.0103f };
+	m_vPartPos[RIGHTHAND1] = { 3.f,0.2f, - 0.0105f };
 	m_fPartAngleArray[RIGHTHAND1] = 60;
-	m_vPartPos[RIGHTHAND2] = { 2.59f,1.694f, - 0.0102f };
+	m_vPartPos[RIGHTHAND2] = { 2.59f,1.694f, - 0.0104f };
 	m_fPartAngleArray[RIGHTHAND2] = 85;
 	//	HEAD, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
 	//	LEFTARM2, RIGHTARM0, RIGHTARM1, RIGHTARM2, LEFTHAND0,
