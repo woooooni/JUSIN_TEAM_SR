@@ -186,7 +186,7 @@ void CGolemRightLeg::Update_Die(_float fTimeDelta)
 		Move_Offset(_vec3(1.5, -1.f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 5:
-		Move_Offset(_vec3(-2.0f, -0.f, m_vOffset.z), fTimeDelta, 2.f);
+		Move_Offset(_vec3(2.0f, -0.f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	default:
 		break;

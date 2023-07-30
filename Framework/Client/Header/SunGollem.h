@@ -93,6 +93,7 @@ CMonsterAim* m_pMonsterAim;
 	_bool m_bExhale = false;
 	_bool m_bStop = false;
 	_bool m_bJump = false;
+	_bool	m_bScream = true;
 	_vec3 m_vVerticalDir = { 0,0,0 };
 	_vec3 m_vRandomPos[3] = {};
 	_vec3 m_vTargetPos ={0.f,0.f ,0.f};

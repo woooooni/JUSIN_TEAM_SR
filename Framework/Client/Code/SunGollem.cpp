@@ -115,6 +115,12 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 		vPos.y = m_fMinHeight;
 		m_pTransformCom->Set_Pos(&vPos);
 	}
+	if (m_bDirty)
+	{
+		_vec3 vOffset = m_pParts[HEAD]->Get_Offset();
+		vOffset += {0.f, 0.15f, -0.1f};
+		m_pParts[FACE]->Set_Offset(vOffset);
+	}
 	if(m_pParts!=nullptr)
 	for (auto i = 0; i != PARTSEND; i++)
 	{
@@ -127,12 +133,7 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 			m_pParts[i]->Move_to_Offset(vPos);
 		}
 	}
-	if (m_bDirty)
-	{
-		_vec3 vOffset = m_pParts[HEAD]->Get_Offset();
-		vOffset += {0.f, 0.15f, -0.1f};
-		m_pParts[FACE]->Set_Offset(vOffset);
-	}
+
 
 	if (m_pUIBack->Is_Active() &&
 		m_pUIGauge->Is_Active() &&
@@ -305,6 +306,11 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	case 1:
 		break;
 	case 2:
+		if (m_bScream)
+		{
+			dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"))->CamShake(1.5f);
+			m_bScream = false;
+		}
 		break;
 	case 3:
 		break;
@@ -560,7 +566,12 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 
 void CSunGollem::Update_Die(_float fTimeDelta)
 {
-
+	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+	for (auto iter = pLayer->Get_GameObjectVec().begin(); iter != pLayer->Get_GameObjectVec().end(); iter++)
+	{
+		if ((*iter) != this&& dynamic_cast<CMonster*>((*iter)))
+		dynamic_cast<CMonster*>((*iter))->Set_State(MONSTER_STATE::DIE);
+	}
 }
 
 void CSunGollem::Update_Regen(_float fTimeDelta)
