@@ -68,6 +68,7 @@ inline BOOL				IsPicking(CGameObject* _pObj, _vec3* _vHit);
 inline 	HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 const D3DLIGHT9* pLightInfo,
 const _uint& iIndex);
+inline void			LateUpdate_LightMgr();
 
 // KeyMgr
 

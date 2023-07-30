@@ -1,6 +1,7 @@
 #include "Item_Hat_Light.h"
 #include "Animator.h"
 #include "Export_Function.h"
+#include "KeyMgr.h"
 
 CItem_Hat_Light::CItem_Hat_Light(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 	: CItem_Hat(pGraphicDev, _pPlayer)
@@ -58,18 +59,89 @@ HRESULT CItem_Hat_Light::Ready_Object(void)
 
 	m_bLoop = true;
 
+
+	D3DLIGHT9 tHatLight;
+	ZeroMemory(&tHatLight, sizeof(D3DLIGHT9));
+
+	tHatLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
+	tHatLight.Ambient = { 0.5f, 0.5f, 0.5f, 1.f };
+	tHatLight.Diffuse = { 0.5f, 0.5f, 0.5f, 1.f };
+	tHatLight.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+
+	Ready_Light(m_pGraphicDev, &tHatLight, (_uint)LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT);
+	
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Set_LightOff();
+
+
+
 	return S_OK;
 }
 
 _int CItem_Hat_Light::Update_Object(const _float& fTimeDelta)
 {
 	_int Result = __super::Update_Object(fTimeDelta);
+
+	if (KEY_TAP(KEY::Q))
+	{
+		if (CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Is_LightOn())
+			CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Set_LightOff();
+		else
+			CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Set_LightOn();
+	}
+
+
 	return Result;
 }
 
 void CItem_Hat_Light::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
+
+	if (CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Is_LightOn())
+	{
+		D3DLIGHT9& tHatLight = CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Get_LightInfo();
+
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+		if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_U)
+		{
+			vPos.z += 0.2f;
+		}
+		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_D)
+		{
+			vPos.z -= 0.2f;
+		}
+		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_L)
+		{
+			vPos.x -= 0.2f;
+		}
+		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_R)
+		{
+			vPos.x += 0.2f;
+		}
+		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_LU)
+		{
+			vPos.x -= 0.2f;
+			vPos.z += 0.2f;
+		}
+		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_RU)
+		{
+			vPos.x += 0.2f;
+			vPos.z += 0.2f;
+		}
+		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_LD)
+		{
+			vPos.x -= 0.2f;
+			vPos.z -= 0.2f;
+		}
+		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_RD)
+		{
+			vPos.x += 0.2f;
+			vPos.z -= 0.2f;
+		}
+		tHatLight.Position = vPos;
+	}
 }
 
 void CItem_Hat_Light::Render_Object(void)
