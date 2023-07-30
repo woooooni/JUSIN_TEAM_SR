@@ -34,6 +34,15 @@ HRESULT CScene_SilkWorm::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
+	D3DLIGHT9 tLight;
+	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
+	tLight.Direction = { 0.0f, -1.0f, 1.0f };
+	tLight.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+	tLight.Diffuse = { 0.2f, 0.2f, 0.2f, 1.0f };
+	tLight.Specular = { 0.2f, 0.2f, 0.2f, 1.0f };
+
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
+
 	return S_OK;
 }
 

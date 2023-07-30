@@ -25,10 +25,10 @@ HRESULT CLightMgr::Ready_LightMgr(LPDIRECT3DDEVICE9 pGraphicDev)
 	ZeroMemory(&tDirectionLight, sizeof(D3DLIGHT9));
 
 	tDirectionLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
-	tDirectionLight.Direction = { 0.f, -1.f, 1.f};
-	tDirectionLight.Ambient = { 0.2f, 0.2f, 0.2f, 1.f };
-	tDirectionLight.Diffuse = { 1.f, 1.f, 1.f, 1.f };
-	tDirectionLight.Specular = { 0.2f, 0.2f, 0.2f, 1.f };
+	tDirectionLight.Direction = { 0.0f, -1.0f, 1.0f};
+	tDirectionLight.Ambient = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tDirectionLight.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tDirectionLight.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	Ready_Light(pGraphicDev, &tDirectionLight, (_uint)LIGHT_TYPE::LIGHT_DIRECTION);
 

@@ -44,6 +44,15 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 	Play_BGM(L"BGM_1_CentralArea.wav", 0.5f);
 
 
+	D3DLIGHT9 tLight;
+	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
+	tLight.Direction = { 0.0f, -1.0f, 1.0f };
+	tLight.Ambient = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tLight.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tLight.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
+
 	return S_OK;
 }
 

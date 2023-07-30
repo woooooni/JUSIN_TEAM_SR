@@ -157,13 +157,8 @@ void CLightFlower::Render_Object(void)
 
         CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
-        MATERIAL.material.Ambient =  { 1.0f, 1.0f, 1.0f, 1.0f };
-        MATERIAL.material.Diffuse =  { 1.0f, 1.0f, 1.0f, 1.0f };
-        MATERIAL.material.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
-        MATERIAL.material.Emissive = { 1.0f, 1.0f, 1.0f, 0.0f };
-        MATERIAL.material.Power = 0.0f;
 
-        pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
+        pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
         pEffect->Begin(nullptr, 0);
         pEffect->BeginPass(1);

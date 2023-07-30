@@ -37,6 +37,7 @@ CScene_TutorialVillage::~CScene_TutorialVillage()
 HRESULT CScene_TutorialVillage::Ready_Scene()
 {
 	__super::Ready_AllLayer();
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -46,6 +47,15 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
+
+	D3DLIGHT9 tLight;
+	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
+	tLight.Direction = { 0.0f, -1.0f, 1.0f };
+	tLight.Ambient = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tLight.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
+	tLight.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
 
 	return S_OK;
 }
@@ -92,13 +102,7 @@ void CScene_TutorialVillage::Enter_Scene()
 
 
 
-	D3DMATERIAL9 material = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
-	material.Diffuse = { 1.f, 1.f, 1.f, 1.f };
-	material.Ambient = { .4f, .4f, .4f, .4f };
-	material.Emissive = { 0.f, 0.f, 0.f, 0.f };
-	material.Specular = { 0.f, 0.f, 0.f, 0.f };
 
-	m_pGraphicDev->SetMaterial(&material);
 }
 
 void CScene_TutorialVillage::Exit_Scene()
