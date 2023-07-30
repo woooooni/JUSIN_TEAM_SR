@@ -12,6 +12,7 @@
 #include "UI_NewItem.h"
 #include "UI_Veil.h"
 #include "UI_MapName.h"
+#include "UI_NewQuest.h"
 
 class CUIMgr : public CBase
 {
@@ -32,20 +33,22 @@ public:
 	HRESULT		Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev);
 
 public:
-	CUI_Dialog*		Get_Dialog() { return m_pDialog; }
-	CQuickSlot*		Get_Slots() { return m_pQuickSlot; }
-	CUI_Veil*		Get_Veil() { return m_pVeil; }
-	CUI_Shop*		Get_ShopUI() { return m_pShop; }
-	CInventoryUI*	Get_InventoryUI() { return m_pInventory; }
+	CUI_Dialog* Get_Dialog() { return m_pDialog; }
+	CQuickSlot* Get_Slots() { return m_pQuickSlot; }
+	CUI_Veil* Get_Veil() { return m_pVeil; }
+	CUI_Shop* Get_ShopUI() { return m_pShop; }
+	CInventoryUI* Get_InventoryUI() { return m_pInventory; }
 	CUI_ShortCutKey* Get_ShortcutKey() { return m_pShortCutKey; }
+	CUI_NewQuest* Get_NewQuestUI() { return m_pNewQuest; }
+
 
 private:
-	CUI_Dialog*		 m_pDialog = nullptr;
-	CUI_HPBar*		 m_pHpBar= nullptr;
-	CUI_Shop*		 m_pShop = nullptr;
-	CUI_NewItem*	 m_pItemWindow = nullptr;
-	CUI_Veil*		 m_pVeil = nullptr;
-	//CUI_MapName*	 m_pMapName = nullptr;
+	CUI_Dialog*		m_pDialog = nullptr;
+	CUI_HPBar*		m_pHpBar= nullptr;
+	CUI_Shop*		m_pShop = nullptr;
+	CUI_NewItem*	m_pItemWindow = nullptr;
+	CUI_Veil*		m_pVeil = nullptr;
+	CUI_NewQuest*	m_pNewQuest = nullptr;
 
 	CInventoryUI*	 m_pInventory = nullptr;
 

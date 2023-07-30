@@ -24,6 +24,12 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
+public:
+	void Set_Title(const wstring& _strTitle) { m_strTitle = _strTitle; }
+	void Set_Desc(const wstring& _strDesc) { m_strDesc = _strDesc; }
+
+
+
 private:
 	void	Key_Input();
 
@@ -33,7 +39,7 @@ private:
 	_float	m_fCurWidth;
 	_float	m_fCurHeight;
 	_float	m_fSpeed = 10.f;
-	_float	m_bShown = false;
+	_bool	m_bShown = false;
 
 private:
 	CUI_QuestIcon* m_pCloseKey = nullptr;
@@ -41,6 +47,10 @@ private:
 	CUI_QuestIcon* m_pContentsBox = nullptr;
 	CUI_QuestIcon* m_pExclamIcon = nullptr;
 	CUI_Notification* m_pWindow = nullptr;
+
+private:
+	wstring m_strTitle;
+	wstring m_strDesc;
 
 public:
 	static  CUI_NewQuest* Create(LPDIRECT3DDEVICE9 pGraphicDev);
