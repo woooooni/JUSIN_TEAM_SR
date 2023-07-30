@@ -15,6 +15,7 @@
 #include	"LightPuzzleTerrain.h"
 #include "RollingBug.h"
 #include "Portal.h"
+#include "UI_MapName.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -118,7 +119,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 {
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(54.0f, 2.0f, 72.0f), _vec3(4.0f, 6.0f, 1.5f));
-	Add_Subscribe(21, pDoor);
+	Add_Subscribe(23, pDoor);
 
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SILK_WORM);
 
@@ -242,6 +243,9 @@ HRESULT CScene_MoonForest1::Ready_Layer_Effect()
 
 HRESULT CScene_MoonForest1::Ready_Layer_UI()
 {
+	CUI_MapName* pMapName = CUI_MapName::Create(m_pGraphicDev, SCENE_TYPE::MOON_FOREST1);
+	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"MapName", pMapName);
+
 	return S_OK;
 }
 
@@ -263,6 +267,11 @@ HRESULT CScene_MoonForest1::Ready_Event()
 
 	event = new EVENT;
 	event->iEventNum = 22;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 23;
 
 	FAILED_CHECK(Add_Event(event));
 	return S_OK;

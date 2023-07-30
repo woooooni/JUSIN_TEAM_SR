@@ -1,5 +1,7 @@
 #include "UI_Shop.h"
 #include "Export_Function.h"
+#include "UI_ItemInfo.h"
+
 CUI_Shop::CUI_Shop(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
 {
@@ -32,6 +34,7 @@ HRESULT CUI_Shop::Ready_Object(void)
 _int CUI_Shop::Update_Object(const _float& fTimeDelta)
 {
 	Key_Input();
+
 	if (m_bShown)
 	{
 		m_pCursor->Update_Object(fTimeDelta);
@@ -39,6 +42,15 @@ _int CUI_Shop::Update_Object(const _float& fTimeDelta)
 			iter->Update_Object(fTimeDelta);
 		__super::Update_Object(fTimeDelta);
 	}
+
+	CPlayer* player = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
+	NULL_CHECK_RETURN(player, E_FAIL);
+	
+//	if (m_iPlayerMoney != player->Get_PlayerStat().iMoney)
+//	{
+//		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[SHOPITEMTYPE::SHOP_WALLET])->Set_Shown(true);
+//	}
+
 	return S_OK;
 }
 void CUI_Shop::LateUpdate_Object(void)

@@ -12,11 +12,15 @@
 #include "Npc_DanceTeacher.h"
 #include "Portal.h"
 #include "UIMgr.h"
-#include	"BalpanObj.h"
-#include	"BlockObj.h"
-#include	"JellyStone.h"
-#include	"LightFlower.h"
+#include "BalpanObj.h"
+#include "BlockObj.h"
+#include "JellyStone.h"
+#include "LightFlower.h"
 #include "RollingBug.h"
+#include "DrawingEnter.h"
+#include "DefaultItem.h"
+#include "UI_MapName.h"
+#include "CutSceneMgr.h"
 
 CScene_MonkeyVillage::CScene_MonkeyVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE)
@@ -78,6 +82,11 @@ void CScene_MonkeyVillage::Render_Scene()
 	CUIMgr::GetInstance()->Render_UIMgr();
 }
 
+void CScene_MonkeyVillage::Enter_Scene()
+{
+	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY_VILLAGE_INTRO);
+}
+
 HRESULT CScene_MonkeyVillage::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
@@ -105,6 +114,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Camera()
 	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 0.1f, 1000.f);
 	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"MainCamera", pCamera);
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
+	pCamera->Get_TransformCom()->Set_Pos(&_vec3(149.f, 10.f, 9.f));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
 	return S_OK;
@@ -263,6 +273,10 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Orangi", pOrangi);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_MONKEYTOWN));
+	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(139.5f, 0.6f, 81.f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
+
 	return S_OK;
 }
 
@@ -376,6 +390,9 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Effect()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_UI()
 {
+	CUI_MapName* pMapName = CUI_MapName::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
+	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"MapName", pMapName);
+
 	return S_OK;
 }
 

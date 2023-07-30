@@ -5,6 +5,8 @@
 #include "InventoryMgr.h"
 #include "QuestMgr.h"
 #include "Quest_MonkeyCheif3.h"
+#include "UIMgr.h"
+#include "EventMgr.h"
 
 CQuest_MonkeyCheif2::CQuest_MonkeyCheif2()
 	: CQuest_Hunting(NPC_CODE::NPC_CHIEF, nullptr, OBJ_ID::SUN_GOLLEM, 1)
@@ -49,6 +51,11 @@ void CQuest_MonkeyCheif2::Accept_Quest()
 {
 	m_eQuestProgress = QUEST_PROGRESS::CONTINUE;
 	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
+
+	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Title(m_strQuestTitle);
+	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Desc(m_strQuestDesc);
+
+	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Active(true);
 }
 
 void CQuest_MonkeyCheif2::Clear_Quest()

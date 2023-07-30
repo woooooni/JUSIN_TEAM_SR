@@ -97,6 +97,7 @@ CLayer * CLayer::Create()
 
 void CLayer::Free()
 {
+	
 	for_each(m_vecObject.begin(), m_vecObject.end(), CDeleteObj());
 	m_vecObject.clear();
 }

@@ -77,6 +77,12 @@ void CEffect_Explosion::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
+void CEffect_Explosion::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_Explosion>::Return_Obj(this);
+}
+
 CEffect_Explosion* CEffect_Explosion::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_Explosion* pInstance = new CEffect_Explosion(pGraphicDev);

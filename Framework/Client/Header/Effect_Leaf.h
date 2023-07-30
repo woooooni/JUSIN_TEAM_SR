@@ -15,6 +15,7 @@ public:
 	virtual _int	Update_Object(const _float& fTimeDelta)		override;
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
+	virtual void	Return_Pool(void)							override;
 
 	static CEffect_Leaf* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

@@ -8,6 +8,8 @@
 #include "LightMgr.h"
 #include "QuestMgr.h"
 #include "UIMgr.h"
+#include "InventoryMgr.h"
+#include "QuestMgr.h"
 
 
 #include "Player_Bullet_Lightning.h"
@@ -29,10 +31,11 @@
 #include "Effect_Item.h"
 #include "Effect_Block.h"
 #include "Effect_Hit.h"
-#include	"TurretBullet.h"
+#include "TurretBullet.h"
 
 #include "Scene_Loading.h"
-#include	<time.h>
+#include "CutSceneMgr.h"
+#include <time.h>
 
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
 {
@@ -55,21 +58,24 @@ HRESULT CMainApp::Ready_MainApp(void)
 	FAILED_CHECK_RETURN(Ready_Scene(m_pGraphicDev, &m_pManagementClass), E_FAIL);
 	//FAILED_CHECK_RETURN(Ready_Pool(), E_FAIL);
 
+	srand(unsigned(time(NULL)));
+
 	return S_OK;
 }
 
 int CMainApp::Update_MainApp(const float & fTimeDelta)
 {
-	srand(unsigned(time(NULL)));
+	
 	Engine::Update_InputDev();
 	Engine::Update_PickingMgr();
 	Engine::Update_KeyMgr();
+	
 	
 
 	NULL_CHECK_RETURN(m_pManagementClass, -1);
 	m_pManagementClass->Update_Scene(fTimeDelta);
 	CQuestMgr::GetInstance()->Update_QuestMgr(fTimeDelta);
-
+	CCutSceneMgr::GetInstance()->Update_CutSceneMgr(fTimeDelta);
 	
 	return 0;
 }
@@ -79,12 +85,28 @@ void CMainApp::LateUpdate_MainApp()
 	NULL_CHECK(m_pManagementClass);
 	m_pManagementClass->LateUpdate_Scene();
 	Engine::Update_Collision();
+	Engine::LateUpdate_LightMgr();
+
 }
 
 void CMainApp::Render_MainApp()
 {
+
 	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+
+	/*D3DMATERIAL9 tMtrl = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
+	ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
+
+
+	tMtrl.Diffuse = { 0.5f, 0.5f, 0.5f, 1.f };
+	tMtrl.Ambient = { 0.4f, 0.4f, 0.4f, 1.f };
+	tMtrl.Specular = { 0.4f, 0.4f, 0.4f, 1.f };
+	tMtrl.Emissive = { 0.f, 0.f, 0.f, 0.f };
+	m_pGraphicDev->SetMaterial(&tMtrl);*/
+
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
+
+
 
 	Engine::Update_EventMgr(0.f);
 	Engine::Render_End();
@@ -108,7 +130,7 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
 
 	return S_OK;
 }
@@ -131,32 +153,12 @@ HRESULT CMainApp::Ready_Default_RenderState()
 		return E_FAIL;
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+	//m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+	//m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
 
 	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-	m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
-	m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-
-	// ===================================================
-	D3DLIGHT9 tLightInfo;
-	ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9));
-
-	tLightInfo.Type = D3DLIGHT_DIRECTIONAL;
-	tLightInfo.Diffuse = { 1.f, 1.f, 1.f, 1.f };
-	tLightInfo.Ambient = { 1.f, 1.f, 1.f, 1.f };
-	tLightInfo.Direction = { 0.f, -1.f, 1.f };
-	// ===================================================
-
-	// ===================================================
-	D3DMATERIAL9 tMtrl = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
-	ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
-
-	tMtrl.Diffuse = { 1.f, 1.f, 1.f, 1.f };
-	tMtrl.Ambient = { 1.f, 1.f, 1.f, 1.f };
-	tMtrl.Emissive = { 0.f, 0.f, 0.f, 0.f };
-
-	// ===================================================
-	FAILED_CHECK_RETURN(Engine::Ready_Light(m_pGraphicDev, &tLightInfo, 0), E_FAIL);
-	m_pGraphicDev->SetMaterial(&tMtrl);
 	
 
 	return S_OK;
@@ -176,6 +178,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_BoxCollider", CBoxCollider::Create(m_pGraphicDev)), E_FAIL);
 	
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_RigidBody", CRigidBody::Create(m_pGraphicDev)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Shader", CShader::Create(m_pGraphicDev, L"../Bin/ShaderFiles/LightShader.hlsl")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Main", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Banner.png")), E_FAIL);
 
 	// 초반 로딩을 위한 텍스처 로딩.
@@ -193,14 +196,17 @@ HRESULT CMainApp::Ready_Manager(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_PickingMgr(pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_KeyMgr(pGraphicDev, g_hWnd), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_CollisionMgr(pGraphicDev), E_FAIL);
+
+	FAILED_CHECK_RETURN(CEventMgr::GetInstance()->Ready_EventMgr(), E_FAIL);
+	FAILED_CHECK_RETURN(CInventoryMgr::GetInstance()->Ready_InvenMgr(pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(CQuestMgr::GetInstance()->Ready_QuestMgr(), E_FAIL);
+	FAILED_CHECK_RETURN(CLightMgr::GetInstance()->Ready_LightMgr(pGraphicDev), E_FAIL);
+
 	return S_OK;
 }
 
 HRESULT CMainApp::Ready_Proto_Object(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	//CPool<CPlayer_Bullet_Lightning>::Ready_Pool(m_pGraphicDev, 200);
-
 
 	return S_OK;
 }
@@ -223,8 +229,6 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev, Engine::CManagement
 
 HRESULT CMainApp::Ready_Proto_Event()
 {
-
-
 
 	return S_OK;
 }
@@ -259,6 +263,8 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDevClass);
 	Safe_Release(m_pManagementClass);
 	
+	CEventMgr::GetInstance()->DestroyInstance();
+	CInventoryMgr::GetInstance()->DestroyInstance();
 	CQuestMgr::GetInstance()->DestroyInstance();
 	CUIMgr::GetInstance()->DestroyInstance();
 

@@ -24,7 +24,7 @@
 #include "Player_State_Skill.h"
 #include "Player_State_Dance.h"
 #include "Effect_Shadow.h"
-#include	"InventoryMgr.h"
+#include "InventoryMgr.h"
 
 #include "Item_Hat_Drill.h"
 #include "Item_Hat_Light.h"
@@ -40,6 +40,7 @@
 #include "Effect_Shadow.h"
 #include "Effect_Block.h"
 #include "Effect_Hit.h"
+#include "LightMgr.h"
 
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -51,6 +52,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 
 }
+
 CPlayer::CPlayer(const CPlayer& rhs)
 	: Engine::CGameObject(rhs)
 	, m_fSpeed(rhs.m_fSpeed)
@@ -286,6 +288,7 @@ HRESULT CPlayer::Ready_Object(void)
 
 Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 {
+
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_PLAYER);
 	Engine::Add_CollisionGroup(m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB], COLLISION_GROUP::COLLIDE_GRAB);
@@ -367,21 +370,56 @@ void CPlayer::LateUpdate_Object(void)
 
 void CPlayer::Render_Object(void)
 {
-	_matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
+	// _matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
+	// m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+	// m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
 
-	__super::Render_Object();
+	// __super::Render_Object();
+	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+
+	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	if (pCamera == nullptr)
+		return;
+
+	_vec3 vPos;
+	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	D3DVECTOR vCamPos = vPos;
+	
+	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
+	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+
+
+	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
+	pEffect->SetTexture("g_Texture", pTexture);
+
+	
+	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+	D3DMATERIAL9 material;
+	material.Ambient = { 0.1f, 0.1f, 0.1f, 1.0f };
+	material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
+	material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+	material.Emissive = { 0.0f, 0.0f, 0.0f, 1.0f };
+	material.Power = 0.0f;
+	
+	pEffect->SetValue("g_Material", &material, sizeof(D3DMATERIAL9));
+
+	pEffect->Begin(nullptr, 0);
+	pEffect->BeginPass(0);
+
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
+	pEffect->EndPass();
+	pEffect->End();
 
 	if (m_pShadow && m_pShadow->Is_Active())
 		m_pShadow->Render_Object();
 
 	if (m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
 		m_vecHats[(_uint)m_eHat]->Render_Object();
-
+	
 }
 
 
@@ -418,7 +456,9 @@ HRESULT CPlayer::Ready_Component(void)
 	m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_GRAB]->Set_Active(false);
 	m_pCollider[(_uint)COLLIDER_PLAYER::COLLIDER_ATTACK]->Set_Active(false);
 
-
+	pComponent = m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_SHADER, pComponent);
 
 	pComponent = m_pAnimator = dynamic_cast<CAnimator*>(Engine::Clone_Proto(L"Proto_Animator"));
 	pComponent->SetOwner(this);
@@ -428,6 +468,7 @@ HRESULT CPlayer::Ready_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
 
+	
 	return S_OK;
 }
 
@@ -492,6 +533,10 @@ void CPlayer::Free()
 
 void CPlayer::Key_Input(const _float& fTimeDelta)
 {
+
+	if (fTimeDelta == 0)
+		return;
+
 	if (KEY_TAP(KEY::NUM_1))
 	{
 		m_eHat = PLAYER_HAT::LIGHT;

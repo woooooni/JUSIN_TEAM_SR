@@ -29,6 +29,12 @@ void			Set_TimeDelta(const _tchar* pTimerTag)
 HRESULT		Ready_Timer(const _tchar* pTimerTag)
 {
 	return CTimerMgr::GetInstance()->Ready_Timer(pTimerTag);
+
+}
+
+inline CTimer* Find_Timer(const _tchar* pTimerTag)
+{
+	return CTimerMgr::GetInstance()->Find_Timer(pTimerTag);
 }
 
 _bool	Ispermit_Call(const _tchar* pFrameTag, const _float& fTimeDelta)

@@ -64,6 +64,7 @@ void CRenderer::Render_Nonalpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 {
+	
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -139,7 +140,7 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetTransform(D3DTS_VIEW, &m_matGameView);
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matPerspectiveProj);
 
-	pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
+	// pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 void CRenderer::Free()

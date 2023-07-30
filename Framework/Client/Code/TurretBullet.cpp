@@ -53,6 +53,9 @@ void CTurretBullet::LateUpdate_Object(void)
 
 void CTurretBullet::Render_Object(void)
 {
+	if (!Is_Active())
+		return;
+
 	_matrix mat = *m_pTransformCom->Get_WorldMatrix();
 	_vec3 pos, right;
 	m_pTransformCom->Get_Info(INFO_POS, &pos);

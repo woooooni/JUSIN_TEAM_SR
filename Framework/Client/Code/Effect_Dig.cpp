@@ -91,6 +91,12 @@ void CEffect_Dig::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
+void CEffect_Dig::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_Dig>::Return_Obj(this);
+}
+
 CEffect_Dig* CEffect_Dig::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_Dig* pInstance = new CEffect_Dig(pGraphicDev);

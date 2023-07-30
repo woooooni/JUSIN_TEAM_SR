@@ -55,8 +55,10 @@ void CGolemPart::Move_to_Offset(_vec3 _vPos)
 
 void CGolemPart::Move_Offset(_vec3 _vPos,_float fTimeDelta,_float _fSpeed)
 {
-	_vec3 vDir = _vPos - m_vOffset;
-	m_vOffset += vDir * fTimeDelta * _fSpeed;
+		_vec3 vDir = {};
+		D3DXVec3Lerp(&vDir, &m_vOffset, &_vPos, _fSpeed * fTimeDelta);
+
+		m_vOffset = vDir;
 }
 
 void CGolemPart::Rotate()

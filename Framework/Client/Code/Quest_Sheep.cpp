@@ -1,6 +1,7 @@
 #include "Quest_Sheep.h"
 #include "QuestMgr.h"
 #include "Quest_Cow1.h"
+#include "UIMgr.h"
 CQuest_Sheep::CQuest_Sheep()
 	:CQuest_Conversation(NPC_CODE::NPC_SHEEP, nullptr)
 {
@@ -29,6 +30,11 @@ void CQuest_Sheep::Accept_Quest()
 {
 	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
 	Clear_Quest();
+
+	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Title(m_strQuestTitle);
+	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Desc(m_strQuestDesc);
+
+	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Active(true);
 }
 
 void CQuest_Sheep::Clear_Quest()

@@ -134,6 +134,13 @@
       <AdditionalLibraryDirectories>../../ThirdParty;../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>fmodex64_vc.lib;dinput8.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;Utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>2.0</ShaderModel>
+      <EntryPointName>main</EntryPointName>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -195,6 +202,7 @@
     <ClInclude Include="..\..\ThirdParty\imstb_textedit.h" />
     <ClInclude Include="..\..\ThirdParty\imstb_truetype.h" />
     <ClInclude Include="..\Header\BalpanObj.h" />
+    <ClInclude Include="..\Header\BarrelBomb.h" />
     <ClInclude Include="..\Header\BenchObj.h" />
     <ClInclude Include="..\Header\BlockObj.h" />
     <ClInclude Include="..\Header\BlueBeatle.h" />
@@ -215,6 +223,7 @@
     <ClInclude Include="..\Header\CutSceneMgr.h" />
     <ClInclude Include="..\Header\DefenceEnter.h" />
     <ClInclude Include="..\Header\Door.h" />
+    <ClInclude Include="..\Header\DoorEnter.h" />
     <ClInclude Include="..\Header\DrawingEnter.h" />
     <ClInclude Include="..\Header\Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -412,6 +421,7 @@
     <ClInclude Include="..\Header\UI_ItemInfo.h" />
     <ClInclude Include="..\Header\UI_LoadingBackGround.h" />
     <ClInclude Include="..\Header\UI_LoadingOgu.h" />
+    <ClInclude Include="..\Header\UI_MapName.h" />
     <ClInclude Include="..\Header\UI_MonsterHP.h" />
     <ClInclude Include="..\Header\UI_NewItem.h" />
     <ClInclude Include="..\Header\UI_NewQuest.h" />
@@ -432,6 +442,7 @@
     <ClInclude Include="..\Header\UI_SlotTwo.h" />
     <ClInclude Include="..\Header\UI_TurretGauge.h" />
     <ClInclude Include="..\Header\UI_Veil.h" />
+    <ClInclude Include="..\Header\UI_Wallet.h" />
     <ClInclude Include="..\Header\UseItem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
@@ -447,6 +458,7 @@
     <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp" />
     <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp" />
     <ClCompile Include="..\Code\BalpanObj.cpp" />
+    <ClCompile Include="..\Code\BarrelBomb.cpp" />
     <ClCompile Include="..\Code\BenchObj.cpp" />
     <ClCompile Include="..\Code\BlockObj.cpp" />
     <ClCompile Include="..\Code\BlueBeatle.cpp" />
@@ -467,6 +479,7 @@
     <ClCompile Include="..\Code\CutSceneMgr.cpp" />
     <ClCompile Include="..\Code\DefenceEnter.cpp" />
     <ClCompile Include="..\Code\Door.cpp" />
+    <ClCompile Include="..\Code\DoorEnter.cpp" />
     <ClCompile Include="..\Code\DrawingEnter.cpp" />
     <ClCompile Include="..\Code\Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -664,6 +677,7 @@
     <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
     <ClCompile Include="..\Code\UI_LoadingBackGround.cpp" />
     <ClCompile Include="..\Code\UI_LoadingOgu.cpp" />
+    <ClCompile Include="..\Code\UI_MapName.cpp" />
     <ClCompile Include="..\Code\UI_MonsterHP.cpp" />
     <ClCompile Include="..\Code\UI_NewItem.cpp" />
     <ClCompile Include="..\Code\UI_NewQuest.cpp" />
@@ -684,6 +698,7 @@
     <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
     <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
     <ClCompile Include="..\Code\UI_Veil.cpp" />
+    <ClCompile Include="..\Code\UI_Wallet.cpp" />
     <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -699,6 +714,9 @@
   <ItemGroup>
     <Image Include="Client.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Bin\ShaderFiles\LightShader.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine_Define.h"
 #include "GameObject.h"
+#include "CutSceneMgr.h"
 class CFieldObject : public CGameObject
 {
 public:
@@ -30,8 +31,10 @@ public:
 
 	virtual CGameObject* Get_GrabObj() { return this; }
 
-	
-	void			Set_FieldState(const FIELD_OBJ_STATE& pState)
+	void			Set_CutSceneType(const CCutSceneMgr::CUTSCENE_TYPE& pT) { m_eCutSceneType = pT; }
+
+
+	virtual void			Set_FieldState(const FIELD_OBJ_STATE& pState)
 	{
 		m_eFState = pState;
 	}
@@ -43,6 +46,7 @@ protected:
 
 	void	Push_Me(CCollider* other);
 	map<CCollider*, _vec3>	m_vMovingPos;
+	CCutSceneMgr::CUTSCENE_TYPE		m_eCutSceneType;
 
 	virtual HRESULT		Ready_Component() ;
 

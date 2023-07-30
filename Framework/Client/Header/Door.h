@@ -41,10 +41,11 @@ public:
 	virtual void Event_End(_uint iEventNum) override;
 
 	void		Set_Door(_vec3& _vPos, _vec3& _vScale);
+	void		Open_Door();
 private:
 	HRESULT Ready_Component();
 
-	
+	void		Effect(void);
 
 public:
 	static CDoor* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -53,5 +54,10 @@ public:
 
 protected:
 	virtual void Free() override;
+
+private:
+	_vec3 m_vScale;
+	_bool m_bOpen = false;
+	_bool m_bFinish = false;
 };
 

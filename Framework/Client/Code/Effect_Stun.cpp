@@ -85,6 +85,12 @@ void CEffect_Stun::Render_Object(void)
 	m_pBufferCom->Render_Buffer();
 }
 
+void CEffect_Stun::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_Stun>::Return_Obj(this);
+}
+
 CEffect_Stun* CEffect_Stun::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_Stun* pInstance = new CEffect_Stun(pGraphicDev);

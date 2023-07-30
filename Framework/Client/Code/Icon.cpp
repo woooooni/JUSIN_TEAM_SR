@@ -84,7 +84,7 @@ void CIcon::Render_Object(void)
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.4f, m_tInfo.fCY * fRatio * 0.4f, 0.f);
 		break;
 
-	case ICONTYPE::KEYBUTTON_2: // fX 78
+	case ICONTYPE::KEYBUTTON_2:
 		vScale = _vec3(m_tInfo.fCX * fRatio * 0.4f, m_tInfo.fCY * fRatio * 0.4f, 0.f);
 		break;
 

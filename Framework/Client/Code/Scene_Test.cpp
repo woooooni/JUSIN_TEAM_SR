@@ -31,6 +31,7 @@
 #include "QuickSlot.h"
 #include "NPCText.h"
 #include "Icon.h"
+#include "UIMgr.h"
 
 #include "UI_Shop.h"
 #include "UI_ItemInfo.h"
@@ -168,6 +169,7 @@ CScene_Test* CScene_Test::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 HRESULT CScene_Test::Ready_Prototype()
 {
 	FAILED_CHECK_RETURN(CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev), E_FAIL);
+
 	return S_OK;
 }
 
@@ -395,11 +397,9 @@ HRESULT CScene_Test::Ready_Layer_Monster()
 	NULL_CHECK_RETURN(pSunGollem, E_FAIL);
 	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SunGollem", pSunGollem), E_FAIL);
 
-	
-
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
+	//CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	//NULL_CHECK_RETURN(pSilkWorm, E_FAIL);
+	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"SilkWorm", pSilkWorm), E_FAIL);
 
 	pLayer->Ready_Layer();
 

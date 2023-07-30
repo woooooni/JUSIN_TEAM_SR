@@ -45,7 +45,7 @@ public:
 
 private:
 
-	bool m_bBreath = false;
+
 
 	_float m_fMoveTime;
 protected:

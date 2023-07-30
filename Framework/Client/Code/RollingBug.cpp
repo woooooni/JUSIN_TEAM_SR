@@ -27,7 +27,7 @@ HRESULT CRollingBug::Ready_Object(void)
 	Set_State(MONSTER_STATE::IDLE);
 	Set_Speed(3.5f);
 
-	m_tStat = { 3, 3, 1 }; // MaxHp, Hp, Attack
+	m_tStat = { 3, 3, 1 };
 
 	_vec3 vScale = _vec3(1.f, 1.f, 1.f);
 	m_pTransformCom->Set_Scale(vScale);
@@ -248,16 +248,8 @@ void CRollingBug::Update_Move(_float fTimeDelta)
 		D3DXVec3Normalize(&m_vBugDir, &m_vBugDir);
 		m_pTransformCom->Move_Pos(&m_vBugDir, fTimeDelta, 0.5f * Get_Speed());
 
-		//		if (D3DXVec3Length(&m_vBugDir) < 1.f)
-		//		{
-		//			_vec3 vTmp = { float(rand() % 10), 0.f, float(rand() % 10) };
-		//			m_vLook = vTmp;
-		//			D3DXVec3Normalize(&vTmp, &vTmp);
-		//			//m_pTransformCom->Move_Pos(&vTmp, fTimeDelta, 1.5f * Get_Speed());
-		//
 		if (m_fMoveTime > 10.f)
 			m_fMoveTime = 0.f;
-		//		}
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
 }

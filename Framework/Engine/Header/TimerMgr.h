@@ -14,11 +14,11 @@ private:
 	virtual ~CTimerMgr();
 
 private:
-	CTimer*			Find_Timer(const _tchar* pTimerTag) const;
 
 public:
 	_float			Get_TimeDelta(const _tchar* pTimerTag);
 	void			Set_TimeDelta(const _tchar* pTimerTag);
+	CTimer* Find_Timer(const _tchar* pTimerTag) const;
 
 public:
 	HRESULT			Ready_Timer(const _tchar* pTimerTag);

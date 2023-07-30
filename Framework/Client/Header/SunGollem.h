@@ -69,6 +69,8 @@ public:
 	vector<CGolemPart*> Get_vecGolemPart() { return m_vecGolemPart; }
 	void Set_Time(_float _fTime) { m_fTime = _fTime; }
 	_float Get_Time() { return m_fTime; }
+	void Set_Stop(_bool _bStop) { m_bStop = _bStop; }
+	_bool Is_Exhale() { return m_bExhale; }
 protected:
 	_vec3 m_vPartPos[PARTSEND];
 	_float m_fPartAngleArray[PARTSEND] = {};
@@ -78,19 +80,22 @@ private:
 	SUNGOLEM_STATE	m_eState;
 	MONSTERSTAT		m_tStat;
 	// Hp UI를 위한 변수 추가.
-	_int			m_iDirtyHp = 0;
+	CUI_BossHP* m_pUIBack;
+	CUI_BossHP* m_pUIFrame;
+	CUI_BossHP* m_pUIGauge;
+	_int			m_iDirtyHp = 1;
 	vector<CGolemPart*> m_vecGolemPart;
 private:
 CGolemPart* m_pParts[PARTSEND];
 CMonsterAim* m_pMonsterAim;
-protected:
 	CGameObject* m_pTarget;
 	_float m_fMoveTime;
-	bool m_bBreath = false;
-	bool m_bJump = false;
+	_bool m_bExhale = false;
+	_bool m_bStop = false;
+	_bool m_bJump = false;
 	_vec3 m_vVerticalDir = { 0,0,0 };
 	_vec3 m_vRandomPos[3] = {};
-	_vec3 m_vTargetPos = {};
+	_vec3 m_vTargetPos ={0.f,0.f ,0.f};
 	_int m_iRand = 1;
 	_int m_iActiveArm = 2;
 	bool m_bSummon[3];

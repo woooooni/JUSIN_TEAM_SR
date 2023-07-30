@@ -80,6 +80,12 @@ void CEffect_Hit::Render_Object(void)
 	m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
+void CEffect_Hit::Return_Pool(void)
+{
+	Set_Active(false);
+	CPool<CEffect_Hit>::Return_Obj(this);
+}
+
 CEffect_Hit* CEffect_Hit::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CEffect_Hit* pInstance = new CEffect_Hit(pGraphicDev);

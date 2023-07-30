@@ -23,6 +23,8 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
+	virtual void	Return_Pool(void)							PURE;
+
 protected:
 	virtual HRESULT	Add_Component(void);
 

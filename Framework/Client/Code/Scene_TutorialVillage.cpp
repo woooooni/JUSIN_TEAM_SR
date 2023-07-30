@@ -15,11 +15,15 @@
 #include "UI_NewItem.h"
 #include "Npc_OguMom.h"
 #include "TrashFast.h"
+#include "UI_MapName.h"
 #include "Cupa.h"
-#include	"RabitObj.h"
-#include	"Turret.h"
+#include "RabitObj.h"
+#include "Turret.h"
 #include "DrawingEnter.h"
 #include "UIMgr.h"
+#include "BarrelBomb.h"
+#include "BreakObj.h"
+#include "Particle_MapCircle.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -42,9 +46,6 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
-
-
-
 
 	return S_OK;
 }
@@ -88,6 +89,16 @@ void CScene_TutorialVillage::Enter_Scene()
 	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_LIGHT), SHOPITEMTYPE::UISHOP_LEAF);
 	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MASK), SHOPITEMTYPE::UISHOP_CLOTH);
 	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_MISSLE), SHOPITEMTYPE::UISHOP_BRANCH);
+
+
+
+	D3DMATERIAL9 material = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
+	material.Diffuse = { 1.f, 1.f, 1.f, 1.f };
+	material.Ambient = { .4f, .4f, .4f, .4f };
+	material.Emissive = { 0.f, 0.f, 0.f, 0.f };
+	material.Specular = { 0.f, 0.f, 0.f, 0.f };
+
+	m_pGraphicDev->SetMaterial(&material);
 }
 
 void CScene_TutorialVillage::Exit_Scene()
@@ -142,7 +153,8 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
+	//CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST2);
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
 	_vec3 vSheepPos = _vec3(20.5f, 0.5f, 13.5f);
@@ -156,42 +168,45 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_Sheep", pNpcSheep);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_Cow", pNpcCow);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
-	//m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Flower", pFlower);
-
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	CNpc_OguMom* pMom = CNpc_OguMom::Create(m_pGraphicDev);
 	_vec3 vMomPos = _vec3(12.f, 0.5f, 12.f);
 	pMom->Get_TransformCom()->Set_Info(INFO_POS, &vMomPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_OguMom", pMom);
+	
+
+	for (_uint i = 0; i < 300; ++i)
+	{
+		CParticle_MapCircle* pParticle = CParticle_MapCircle::Create(Engine::Get_Device());
+		NULL_CHECK_RETURN(pParticle, E_FAIL);
+		dynamic_cast<CParticle_MapCircle*>(pParticle)->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 100, 255, 255, 255, 20);
+		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"MapCircle", pParticle);
+
+	}
+	
+
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	
 
 	return S_OK;
 }
 
 HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
 {
-
-	// Ã¼·Â¹Ù Test
-	/*CMothMage* pMothmage = CMothMage::Create(m_pGraphicDev);
-	_vec3 vMothmagePos = _vec3(14.f, 0.5f, 14.f);
-	pMothmage->Get_TransformCom()->Set_Info(INFO_POS, &vMothmagePos);
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Mothmage", pMothmage);*/
-//
-//	CDesertRhino* pRhino = CDesertRhino::Create(m_pGraphicDev);
-//	_vec3 vRhinoPos = _vec3(13.f, 0.5f, 12.f);
-//	pRhino->Get_TransformCom()->Set_Info(INFO_POS, &vRhinoPos);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Rhino", pRhino);
-
-//	CTrashFast* pTrashFast = CTrashFast::Create(m_pGraphicDev);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"TrashFast", pTrashFast);
-//
-//	CCupa* pMonCupa = CCupa::Create(m_pGraphicDev);
-//	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"Cupa", pMonCupa);
 	return S_OK;
 }
 
 HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 {
+	CBarrelBomb* barrel = CBarrelBomb::Create(m_pGraphicDev, { -1, 0, -1 });
+	NULL_CHECK_RETURN(barrel, E_FAIL);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Barrel", barrel);
+
+	CBreakObj* breaj = CBreakObj::Create(m_pGraphicDev, { -1, 0, -2 });
+	NULL_CHECK_RETURN(breaj, E_FAIL);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Break", breaj);
+
 	CDefaultItem* def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_SMALL);
 	def->Get_TransformCom()->Set_Pos(&_vec3(11, 0, 5));
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
@@ -255,6 +270,9 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_UI()
 {
+	CUI_MapName* pMapName = CUI_MapName::Create(m_pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE);
+	m_mapLayer[LAYER_TYPE::UI]->Add_GameObject(L"MapName", pMapName);
+
 	return S_OK;
 }
 

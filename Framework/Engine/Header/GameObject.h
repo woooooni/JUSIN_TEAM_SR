@@ -12,7 +12,7 @@ class CCollider;
 class CTexture;
 class CAnimator;
 class CRigidBody;
-
+class CShader;
 
 class ENGINE_DLL CGameObject : public CBase
 {
@@ -60,6 +60,7 @@ public:
 	CAnimator* Get_AnimatorCom() { return m_pAnimator; }
 	CTexture* Get_TextureCom() { return m_pTextureCom; }
 	CRigidBody* Get_RigidBodyCom() { return m_pRigidBodyCom; }
+	CShader* Get_Shader() { return m_pShader; }
 
 public:
 	void Set_Billboard();
@@ -89,12 +90,13 @@ public:
 	_float Get_ViewZ() { return m_fViewZ; }
 
 protected:
-	CVIBuffer*		m_pBufferCom = nullptr;
-	CTransform*		m_pTransformCom = nullptr;
-	CCollider*		m_pColliderCom = nullptr;
-	CAnimator*		m_pAnimator = nullptr;
-	CTexture*		m_pTextureCom = nullptr;
-	CRigidBody*		m_pRigidBodyCom = nullptr;
+	CVIBuffer* m_pBufferCom = nullptr;
+	CTransform*	m_pTransformCom = nullptr;
+	CCollider* m_pColliderCom = nullptr;
+	CAnimator* m_pAnimator = nullptr;
+	CTexture* m_pTextureCom = nullptr;
+	CRigidBody*	m_pRigidBodyCom = nullptr;
+	CShader* m_pShader = nullptr;
 
 protected:
 	wstring		m_strName;

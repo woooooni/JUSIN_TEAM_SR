@@ -12,6 +12,8 @@
 #include "Npc_Artist.h"
 #include	"RabbitMgr.h"
 #include "DrawingEnter.h"
+#include "DoorEnter.h"
+#include "UI_MapName.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
@@ -172,13 +174,19 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPortal", pPortal);
 
+	pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE);
+	vPortalPos = _vec3(8.f, 0.5f, 13.33f);
+	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
+	pPortal->Get_TransformCom()->Set_Scale(_vec3(1.f, 2.f, 20.f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"PrevPortal", pPortal);
+
 
 	CNpc_Artist* pArtist = CNpc_Artist::Create(m_pGraphicDev);
 	_vec3 vArtistPos = _vec3(39.5f, 1.25f, 28.91f);
 	pArtist->Get_TransformCom()->Set_Info(INFO_POS, &vArtistPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Artist", pArtist);
 
-	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_COLORS));
+	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_CROSSROAD));
 	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(37.5f, 0.6f, 28.91f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
 
@@ -186,6 +194,10 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(74.5f, 3.0f, 81.5f), _vec3(9.0f, 9.0f, 1.5f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
+
+	CGameObject* pEnter = CDoorEnter::Create(m_pGraphicDev);
+	pEnter->Get_TransformCom()->Set_Pos(&_vec3(74.5f, 0.5f, 75.5f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DoorEnter", pEnter);
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
@@ -408,6 +420,7 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Effect()
 
 HRESULT CScene_MonkeyForest1::Ready_Layer_UI()
 {
+
 	return S_OK;
 }
 

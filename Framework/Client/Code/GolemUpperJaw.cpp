@@ -98,24 +98,104 @@ HRESULT CGolemUpperJaw::Add_Component(void)
 
 void CGolemUpperJaw::Update_Idle(_float fTimeDelta)
 {
+	_vec3 vDir;
+	if (m_bExhale)
+		Move_Offset(_vec3(0.f, 0.4f, -0.055f), fTimeDelta,3.f);
+	
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
+
 }
 
 void CGolemUpperJaw::Update_Dirty(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_UpperJaw", true);
-
+	switch (m_iIndex)
+	{
+	case 0:
+		Move_Offset(_vec3(-0.00f, 0.5f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 1:
+		Move_Offset(_vec3(0.f, 0.4902f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 2:
+		Move_Offset(_vec3(0.f, 0.4f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	default:
+		break;
+	}
 }
 
 void CGolemUpperJaw::Update_Move(_float fTimeDelta)
 {
+	if (m_bExhale)
+		Move_Offset(_vec3(0.f, 0.4f, -0.055f), fTimeDelta, 3.f);
+
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemUpperJaw::Update_Attack(_float fTimeDelta)
 {
+	if (m_bExhale)
+		Move_Offset(_vec3(0.f, 0.4f, -0.055f), fTimeDelta, 3.f);
+
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemUpperJaw::Update_Die(_float fTimeDelta)
 {
+	_vec3 vOffset = m_vOffset;
+	switch (m_iIndex)
+	{
+
+	case 0:
+		Move_Offset(vOffset, fTimeDelta, 2.f);
+		break;
+	case 1:
+		vOffset.y -= 0.16633f;
+		Move_Offset(vOffset, fTimeDelta, 2.f);
+		break;
+	case 2:
+		vOffset.y -= 0.2;
+		Move_Offset(vOffset, fTimeDelta, 2.f);
+		break;
+	case 3:
+		vOffset.y -= 0.2f;
+		Move_Offset(vOffset, fTimeDelta, 2.f);
+		break;
+	case 4:
+		vOffset.y -= 0.3;
+		Move_Offset(vOffset, fTimeDelta, 2.f);
+		break;
+	case 5:
+		vOffset.y -= 0.3;
+		Move_Offset(vOffset, fTimeDelta, 2.f);
+		break;
+
+
+	default:
+		break;
+	}
 }
 
 void CGolemUpperJaw::Update_Regen(_float fTimeDelta)
@@ -123,7 +203,7 @@ void CGolemUpperJaw::Update_Regen(_float fTimeDelta)
 	switch (m_iIndex)
 	{
 	case 0:
-		m_vOffset = { -0.f,	0.1f, - 0.02f };
+		m_vOffset = { -0.f,	0.1f, -0.055f };
 
 		break;
 	case 1:
@@ -141,7 +221,7 @@ void CGolemUpperJaw::Update_Regen(_float fTimeDelta)
 		Move_Offset(_vec3(0.f, 0.4902f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 5:
-		Move_Offset(_vec3(0.f, 0.4f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.f, 0.4f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 
 

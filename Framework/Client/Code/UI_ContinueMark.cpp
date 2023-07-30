@@ -42,7 +42,8 @@ void CUI_ContinueMark::LateUpdate_Object(void)
 void CUI_ContinueMark::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pTransformCom->Set_Scale({ 1.f, 1.f, 0.f });
+	//m_pTransformCom->Set_Scale({ 1.f, 1.f, 0.f });
+	m_pTransformCom->Set_Scale({ 0.6f, 0.6f, 0.f });
 
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();

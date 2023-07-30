@@ -8,6 +8,7 @@
 #include "Terrain.h"
 #include "Pool.h"
 #include "Effect_Explosion.h"
+#include "Effect_Smoke.h"
 
 
 CPlayer_Bullet_Bomb::CPlayer_Bullet_Bomb(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -51,6 +52,10 @@ HRESULT CPlayer_Bullet_Bomb::Ready_Object(void)
 	Set_Atk(1);
 
 	m_fBulletTime = 1.5f;
+
+	m_fAccEffectTime = 0.0f;
+	m_fEffectTime = 0.001f;
+
 	return S_OK;
 }
 
@@ -84,10 +89,23 @@ _int CPlayer_Bullet_Bomb::Update_Object(const _float& fTimeDelta)
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &m_vTargetPos);
 
 
-	_vec3 vDir;
-	_vec3 vPos;
+	_vec3 vDir, vPos, vEffectPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vTargetPos - vPos;
+	vEffectPos = vPos;
+
+	m_fAccEffectTime += fTimeDelta;
+	if (m_fAccEffectTime > m_fEffectTime)
+	{
+		m_fAccEffectTime = 0.0f;
+		CGameObject* pEffect = CPool<CEffect_Smoke>::Get_Obj();
+		if (!pEffect)
+		{
+			pEffect = CEffect_Smoke::Create(m_pGraphicDev);
+			pEffect->Ready_Object();
+		}
+		dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(0.2f, 0.2f, 0.2f), 255, 255, 255);
+	}
 
 
 	if (!m_pTarget || !m_pTarget->Is_Active())
@@ -281,21 +299,24 @@ void CPlayer_Bullet_Bomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP 
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER )
 		return;
 
-	_vec3 vPos;
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	CGameObject* pExplosion = CPool<CEffect_Explosion>::Get_Obj();
-	if (pExplosion)
-		dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
-	else
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER)
 	{
-		pExplosion = dynamic_cast<CEffect_Explosion*>(pExplosion)->Create(Engine::Get_Device());
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		CGameObject* pExplosion = CPool<CEffect_Explosion>::Get_Obj();
 		if (pExplosion)
 			dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+		else
+		{
+			pExplosion = dynamic_cast<CEffect_Explosion*>(pExplosion)->Create(Engine::Get_Device());
+			if (pExplosion)
+				dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+		}
+
+		m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
+
+		CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
 	}
-
-	m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
-
-	CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
 }
 
 void CPlayer_Bullet_Bomb::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)

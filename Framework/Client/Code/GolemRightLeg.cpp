@@ -101,26 +101,96 @@ void CGolemRightLeg::Update_Idle(_float fTimeDelta)
 {
 
 	
+	if (m_bExhale)
+		Move_Offset(_vec3(0.9f, -1.8f, m_vOffset.z), fTimeDelta, 3.f);
 
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 
 }
 
 void CGolemRightLeg::Update_Dirty(_float fTimeDelta)
 {
 	m_pAnimator->Play_Animation(L"SunGolem_Dirty_RightLeg", true);
+	switch (m_iIndex)
+	{
+	case 0:
+		Move_Offset(_vec3(1.f, -2.2f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 1:
+		Move_Offset(_vec3(0.983166f, -2.0f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 2:
+		Move_Offset(_vec3(1.f, -1.8f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
 
+
+	default:
+		break;
+	}
 }
 
 void CGolemRightLeg::Update_Move(_float fTimeDelta)
 {
+	if (m_bExhale)
+		Move_Offset(_vec3(0.9f, -1.8f, m_vOffset.z), fTimeDelta, 3.f);
+
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemRightLeg::Update_Attack(_float fTimeDelta)
 {
+	if (m_bExhale)
+		Move_Offset(_vec3(0.9f, -1.8f, m_vOffset.z), fTimeDelta, 3.f);
+
+
+	if (m_iIndex == 2)
+	{
+		if (m_bExhale)
+			m_bExhale = false;
+		else
+			m_bExhale = true;
+	}
 }
 
 void CGolemRightLeg::Update_Die(_float fTimeDelta)
 {
+	switch (m_iIndex)
+	{
+	case 0:
+		Move_Offset(_vec3(0.9f, -1.8f, m_vOffset.z), fTimeDelta, 3.f);
+		break;
+	case 1:
+		Move_Offset(_vec3(0.9f, -1.7f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 2:
+		Move_Offset(_vec3(0.9f, -1.6f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 3:
+		Move_Offset(_vec3(1.f, -1.5f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 4:
+		Move_Offset(_vec3(1.5, -1.f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	case 5:
+		Move_Offset(_vec3(-2.0f, -0.f, m_vOffset.z), fTimeDelta, 2.f);
+		break;
+	default:
+		break;
+	}
 }
 
 void CGolemRightLeg::Update_Regen(_float fTimeDelta)
@@ -131,22 +201,20 @@ void CGolemRightLeg::Update_Regen(_float fTimeDelta)
 		m_vOffset.y = -1.5f;
 		break;
 	case 1:
-		Move_Offset(_vec3(0.9f, -2.f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.9f, -2.f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 2:
-		Move_Offset(_vec3(0.9f, -1.7f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.9f, -1.7f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 3:
-		Move_Offset(_vec3(1.f, -2.2f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(1.f, -2.2f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 4:
-		Move_Offset(_vec3(0.983166f, -2.01536f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(0.983166f, -2.0f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
 	case 5:
-		Move_Offset(_vec3(1.f, -1.8f, m_vOffset.z), fTimeDelta, 1.f);
+		Move_Offset(_vec3(1.f, -1.8f, m_vOffset.z), fTimeDelta, 2.f);
 		break;
-
-
 	default:
 		break;
 	}

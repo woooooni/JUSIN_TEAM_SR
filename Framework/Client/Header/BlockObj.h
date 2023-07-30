@@ -33,14 +33,18 @@ public:
 
 public:
 	virtual void		Set_SubscribeEvent(_uint pEvent) override;
-
+	void				Set_BlurEvent(_uint pEventNum, const _tchar* pTextureName);
 
 protected:
 	_uint	m_iEventNum = 0;
 	_uint	m_iFollowingEvent = 0;
+	_uint	m_iBlurEvent = 0;
 	_bool	m_bOriginState;
 	bool    m_bIsBlocking = false;
 	_vec3	m_vBlockPos;
+
+	CTexture* m_pBlurTex;
+
 
 	void		Change_State();
 

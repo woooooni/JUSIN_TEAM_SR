@@ -162,7 +162,13 @@ void CLightPuzzleBase::Set_Lighting(const _bool& pBool)
 		m_bIsLighting = pBool;
 		if (!m_bMakeLight)
 		{
-			Check_Event_Start(m_iMyEvent);
+			if (m_eCutSceneType != CCutSceneMgr::CUTSCENE_TYPE::TYPE_END)
+			{
+				CCutSceneMgr::GetInstance()->Set_EventNum(m_iMyEvent);
+				CCutSceneMgr::GetInstance()->Start_CutScene(m_eCutSceneType);
+			}
+			else
+				Check_Event_Start(m_iMyEvent);
 		}
 	}
 }

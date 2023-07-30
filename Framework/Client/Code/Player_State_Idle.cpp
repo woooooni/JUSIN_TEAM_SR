@@ -242,14 +242,4 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	}
 
 
-	if (KEY_TAP(KEY::B)) 
-	{
-		for (int i = 0; 100 > i; ++i)
-		{
-			CParticle_MapCircle* pParticle = CParticle_MapCircle::Create(Engine::Get_Device());
-			NULL_CHECK(pParticle, E_FAIL);
-			dynamic_cast<CParticle_MapCircle*>(pParticle)->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 100, 255, 255, 255, 20);
-			Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"MapCircle", pParticle);
-		}
-	}
 }

@@ -36,7 +36,7 @@ public:
 	virtual void		Render_Object(void);
 
 public:
-	const _matrix GetViewMatrix() { return m_pTransformCom->Get_WorldInverseMatrix(); }
+	const _matrix& GetViewMatrix() { return m_matView; }
 	const _matrix& GetProjectionMatrix() { return m_matProj; }
 
 	void Set_Near(_float _f) { m_fNear = _f; }
@@ -49,9 +49,11 @@ public:
 
 	void Set_Offset(const _vec3& _vOffset) { m_vOffset = _vOffset; }
 	void Set_OffsetRatio(_float fRatio) { m_vOffset *= fRatio; }
+	const	_vec3& Get_Offset() { return m_vOffset; }
 	void Add_Offset() { m_vOffset *= 2.f; }
 	void Minus_Offset() { m_vOffset /= 2.f; }
-
+	
+	void	Set_FollowSpeed(const _float& pSpeed) { m_fFollowSpeed = pSpeed; }
 
 private:
 	HRESULT	Add_Component(void);

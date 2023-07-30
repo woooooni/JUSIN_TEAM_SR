@@ -314,7 +314,9 @@ void CInventoryUI::Register_QuickSlot()
 						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode());
 				}
 
-				if (bFilled_One)
+				//_bool bCanUse = pSlots->Get_Use(); // 230729 추가(수정 진행중)
+
+				if (bFilled_One) // 여기에 조건 하나 더 추가해주어야함. 아이템창이 열려있는 상태여야한다. m_bCanUse 호출
 				{
 					if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_ItemCode()
 						== pSlots->Get_ItemCode(SLOTNUM::SLOT_ONE))
