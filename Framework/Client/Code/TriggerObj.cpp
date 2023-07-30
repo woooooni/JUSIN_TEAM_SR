@@ -153,7 +153,6 @@ void CTriggerObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 			Set_Active(false);
 
 	}
-
 }
 
 void CTriggerObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)

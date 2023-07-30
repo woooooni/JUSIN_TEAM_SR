@@ -59,6 +59,7 @@ _int CScene_MonkeyForest2::Update_Scene(const _float& fTimeDelta)
 	}
 
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
+	CRabbitMgr::GetInstance()->Update_Object(fTimeDelta);
 
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
@@ -83,6 +84,7 @@ void CScene_MonkeyForest2::Render_Scene()
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
 	CUIMgr::GetInstance()->Render_UIMgr();
+	CRabbitMgr::GetInstance()->Render_Object();
 }
 
 HRESULT CScene_MonkeyForest2::Ready_Prototype()
@@ -217,6 +219,13 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pHit->Set_CutSceneType(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
+	pHit = CHitObj::Create(m_pGraphicDev, 35, { 95.f , 0.f, 131.f });
+
+	pHit->Set_HitType(OBJ_HITTYPE::HIT_REPEAT);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Statue", pHit);
+
 
 
 	
@@ -425,7 +434,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
-	pBlock = CBlockObj::Create(m_pGraphicDev, 34, { 102.f, 0.f, 146.f });
+	pBlock = CBlockObj::Create(m_pGraphicDev, 34, { 102.f, 0.f, 146.f }, true);
 	pBlock->Set_BlurEvent(34, L"Monkey");
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
@@ -513,6 +522,8 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	Engine::Add_Reset(0, 6, 17);
 	Engine::Add_Reset(1, 30, 31);
 
+	CRabbitMgr::GetInstance()->Ready_Object(m_pGraphicDev, 4, 4, { 99, 0, 131 });
+
 	CTriggerObj* pTrig = CTriggerObj::Create(m_pGraphicDev);
 	pTrig->Set_EventTrigger(18, []()
 		{
@@ -520,7 +531,8 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE);
 		});
 	pTrig->Set_Once();
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
 
 	pTrig = CTriggerObj::Create(m_pGraphicDev);
 	pTrig->Set_EventTrigger(19, []()
@@ -529,30 +541,36 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_TWO);
 		});
 	pTrig->Set_Once();
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
 
 	pTrig = CTriggerObj::Create(m_pGraphicDev);
 	pTrig->Get_TransformCom()->Set_Pos(&_vec3(102.f, 0.f, 125.f));
 	pTrig->Set_Scale({ 2.8f, 4.f, 3.f });
 	pTrig->Add_Trigger([]()
 		{
-			Check_Event_Start(34);
+			Check_Event_Start(33);
 		}, CTriggerObj::COLLIDE_EVENT_TYPE::ENTER);
 	pTrig->Set_Once();
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
 
 	pTrig = CTriggerObj::Create(m_pGraphicDev);
 	pTrig->Set_EventTrigger(35, []()
 		{
-			if (CRabbitMgr::GetInstance())
+			if (!CRabbitMgr::GetInstance()->Get_Playing())
 			{
-
+				CRabbitMgr::GetInstance()->Start_Game();
 			}
 		});
 
 	pTrig->Set_Scale({ 0.01f, 0.01f, 0.01f });
-	pTrig->Set_Once();
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"pTrig", pJel);
+	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
+
 
 
 

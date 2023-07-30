@@ -122,12 +122,12 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_Environment()
 
 	CGameObject* pLeftDoor = CBossDoor::Create(m_pGraphicDev);
 	dynamic_cast<CBossDoor*>(pLeftDoor)->Set_Door(_vec3(7.4f, 4.7f, 20.5f), _vec3(3.0f, 9.6f, 0.0f), _vec3(-1.0f, 0.0f, 0.0f));
-	Add_Subscribe(1, pLeftDoor);
+	Add_Subscribe(2, pLeftDoor);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"LeftDoor", pLeftDoor);
 
 	CGameObject* pRightDoor = CBossDoor::Create(m_pGraphicDev);
 	dynamic_cast<CBossDoor*>(pRightDoor)->Set_Door(_vec3(10.4f, 4.7f, 20.5f), _vec3(3.0f, 9.6f, 0.0f), _vec3(1.0f, 0.0f, 0.0f));
-	Add_Subscribe(1, pRightDoor);
+	Add_Subscribe(2, pRightDoor);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"RightDoor", pRightDoor);
 
 	/*CGameObject* pEnter = CBossDoorEnter::Create(m_pGraphicDev);
