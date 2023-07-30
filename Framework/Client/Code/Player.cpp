@@ -369,11 +369,8 @@ void CPlayer::LateUpdate_Object(void)
 
 void CPlayer::Render_Object(void)
 {
-	// _matrix matWorld = *(m_pTransformCom->Get_WorldMatrix());
-	// m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	// m_pGraphicDev->SetRenderState(D3DRS_TEXTUREFACTOR, D3DCOLOR_ARGB(m_iAlpha, 255, 255, 255));
+	 __super::Render_Object();
 
-	// __super::Render_Object();
 	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
 
 	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
@@ -383,11 +380,15 @@ void CPlayer::Render_Object(void)
 	_vec3 vPos;
 	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	D3DVECTOR vCamPos = vPos;
+
+	D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, m_iAlpha / 255.0f };
 	
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+	pEffect->SetFloat("g_AlphaRef", 50.0f);
 
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
@@ -396,22 +397,23 @@ void CPlayer::Render_Object(void)
 	
 	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
-	D3DMATERIAL9 material;
-	material.Ambient = { 0.1f, 0.1f, 0.1f, 1.0f };
-	material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
-	material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
-	material.Emissive = { 0.0f, 0.0f, 0.0f, 1.0f };
-	material.Power = 0.0f;
+	MATERIAL.material.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+	MATERIAL.material.Diffuse = { 0.1f, 0.1f, 0.1f, 1.0f };
+	MATERIAL.material.Specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+	MATERIAL.material.Emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
+	MATERIAL.material.Power = 0.0f;
 	
-	pEffect->SetValue("g_Material", &material, sizeof(D3DMATERIAL9));
+	pEffect->SetValue("g_Material", &MATERIAL.material, sizeof(D3DMATERIAL9));
 
 	pEffect->Begin(nullptr, 0);
-	pEffect->BeginPass(0);
+	pEffect->BeginPass(1);
 
 	m_pBufferCom->Render_Buffer();
 
 	pEffect->EndPass();
 	pEffect->End();
+
+
 
 	if (m_pShadow && m_pShadow->Is_Active())
 		m_pShadow->Render_Object();

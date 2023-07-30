@@ -92,15 +92,6 @@ void CMainApp::Render_MainApp()
 
 	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
 
-	/*D3DMATERIAL9 tMtrl = MATERIAL.Get_Meretial({ 1.f, 1.f, 1.f, 1.f });
-	ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
-
-
-	tMtrl.Diffuse = { 0.5f, 0.5f, 0.5f, 1.f };
-	tMtrl.Ambient = { 0.4f, 0.4f, 0.4f, 1.f };
-	tMtrl.Specular = { 0.4f, 0.4f, 0.4f, 1.f };
-	tMtrl.Emissive = { 0.f, 0.f, 0.f, 0.f };
-	m_pGraphicDev->SetMaterial(&tMtrl);*/
 
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 
