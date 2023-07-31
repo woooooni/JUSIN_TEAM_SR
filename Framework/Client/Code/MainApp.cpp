@@ -131,7 +131,7 @@ HRESULT CMainApp::SetUp_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
 	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+	(*ppGraphicDev)->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_TFACTOR);
 
 
 
@@ -158,12 +158,6 @@ HRESULT CMainApp::Ready_Default_RenderState()
 		return E_FAIL;
 
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	//m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-	//m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
-	//m_pGraphicDev->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-	//m_pGraphicDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
-
-	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 	
 
 	return S_OK;

@@ -75,7 +75,7 @@ void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 
 	m_RenderGroup[RENDER_ALPHA].sort([](CGameObject* pDst, CGameObject* pSrc) 
 	{ 
-		return pDst->Get_ViewZ() > pSrc->Get_ViewZ(); 
+		return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
 	});
 
 
@@ -114,7 +114,6 @@ void CRenderer::Render_Effect(LPDIRECT3DDEVICE9& pGraphicDev)
 
 void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 {
-	pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -122,7 +121,6 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	//pGraphicDev->SetRenderState(D3DRS_ALPHAREF, (DWORD)0x00000032);
 	pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
-
 
 	pGraphicDev->GetTransform(D3DTS_VIEW, &m_matGameView);
 	pGraphicDev->GetTransform(D3DTS_PROJECTION, &m_matPerspectiveProj);
@@ -141,7 +139,6 @@ void CRenderer::Render_UI(LPDIRECT3DDEVICE9& pGraphicDev)
 	pGraphicDev->SetTransform(D3DTS_VIEW, &m_matGameView);
 	pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matPerspectiveProj);
 
-	// pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 }
 
 void CRenderer::Free()
