@@ -192,6 +192,9 @@ wstring CItem::Get_Explain(const ITEM_CODE& pCode)
 	case Engine::ITEM_CODE::DRAWING_COLORS:
 		return L"색조합을 알려주는 그림";
 
+	case ITEM_CODE::DRAWING_BUGSTATUE:
+		return L"무언가 비밀을 푸는데 열쇠가 될듯한 그림";
+
 		break;
 	default:
 		break;
@@ -278,6 +281,9 @@ wstring CItem::Get_Name(const ITEM_CODE& pCode)
 		return L"삼원색 그림";
 
 		break;
+
+	case ITEM_CODE::DRAWING_BUGSTATUE:
+		return L"벌레동상 그림";
 	default:
 		break;
 	}

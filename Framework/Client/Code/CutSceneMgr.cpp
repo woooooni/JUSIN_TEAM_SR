@@ -256,8 +256,9 @@ void CCutSceneMgr::Update_Boss_SunGolem_Die(const _float& fTimeDelta)
 	}
 	else if (m_bCutsceneSwitch[1] && (m_fAccTimeSunGolem_Die - m_fFinishTimeSunGolem_Die) >= 7.f)
 	{
-		Finish_CutSceneSunGolem_Die();
 		Check_Event_Start(1);
+
+		Finish_CutSceneSunGolem_Die();
 	}
 
 	m_pCamera->Get_TransformCom()->Set_Info(INFO_POS, &vCamPos);
