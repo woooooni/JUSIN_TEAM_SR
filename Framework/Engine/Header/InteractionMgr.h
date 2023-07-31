@@ -95,14 +95,11 @@ private:
 				for (auto& iterB : (*iter)->lSubscribers)
 				{
 					iterB->Event_End((*iter)->iEventNum);
-					if((*iter)->m_bIsCanReset)
-						m_bEventSwitch[(*iter)->iEventNum] = !m_bEventSwitch[(*iter)->iEventNum];
 					
 				}
-				if ((*iter)->m_bIsCheckUpdate && !m_bEventSwitch[(*iter)->iEventNum])
-				{
-					m_bEventSwitch[(*iter)->iEventNum] = !m_bEventSwitch[(*iter)->iEventNum];
-				}
+				m_bEventSwitch[(*iter)->iEventNum] = !m_bEventSwitch[(*iter)->iEventNum];
+
+				
 
 				if (!(*iter)->m_bIsCanReset)
 					iter = m_listCurActiveEvents.erase(iter);

@@ -65,6 +65,10 @@ void CCutSceneMgr::Update_CutSceneMgr(const _float& fTimeDelta)
 	case CUTSCENE_TYPE::MONKEY2_HIT_TWO:
 		Update_CutSceneMonkeyForest_OpenGate(fTimeDelta);
 		break;
+	case CUTSCENE_TYPE::MOON_FOREST_DOOR:
+		Update_CutSceneMoonForestDoor(fTimeDelta);
+		break;
+
 	}
 }
 
@@ -303,6 +307,23 @@ void CCutSceneMgr::Update_CutSceneMonkeyForest2(const _float&	fTimeDelta)
 
 void CCutSceneMgr::Update_CutSceneMoonForestDoor(const _float& fTimeDelta)
 {
+	m_fAccTimeMoonForestDoor += fTimeDelta;
+
+	if (!m_bCutsceneSwitch[0])
+	{
+		m_pCamera->Set_TargetObj(Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"NextPotal"));
+		m_bCutsceneSwitch[0] = TRUE;
+	}
+	else if (!m_bCutsceneSwitch[1] && m_fAccTimeMoonForestDoor >= 3.f)
+	{
+		Check_Event_Start(m_iEventNum);
+		m_bCutsceneSwitch[1] = TRUE;
+	}
+	else if (m_bCutsceneSwitch[1] && m_fAccTimeMoonForestDoor >= 7.f)
+	{
+		Finish_CutSceneMonkeyForest_OpenGate();
+	}
+
 }
 
 void CCutSceneMgr::Update_CutSceneMonkeyForest_OpenGate(const _float& fTimeDelta)
@@ -551,6 +572,9 @@ void CCutSceneMgr::Ready_CutScene(CUTSCENE_TYPE _eType)
 	case CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_TWO:
 		Ready_CutSceneMonkeyForest_OpenGate();
 		break;
+
+	case CUTSCENE_TYPE::MOON_FOREST_DOOR:
+		Ready_CutSceneMoonForestDoor();
 
 	case CCutSceneMgr::CUTSCENE_TYPE::TYPE_END:
 		break;

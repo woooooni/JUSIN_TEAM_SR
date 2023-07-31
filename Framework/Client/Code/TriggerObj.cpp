@@ -47,7 +47,7 @@ _int CTriggerObj::Update_Object(const _float& fTimeDelta)
 
 void CTriggerObj::LateUpdate_Object(void)
 {
-	if (!m_pTarget->Is_Active())
+	if (m_pTarget && !m_pTarget->Is_Active())
 		m_pTarget = nullptr;
 }
 
