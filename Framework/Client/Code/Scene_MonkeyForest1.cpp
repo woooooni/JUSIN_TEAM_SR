@@ -51,6 +51,7 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 	tLight.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
 	tLight.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
+	CLightMgr::GetInstance()->Reset_Light();
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
 
 	return S_OK;
