@@ -386,7 +386,7 @@ void CTrashBummer::Trace(_float fTimeDelta)
 		pSludgeBall->Set_Owner(this);
 		pSludgeBall->Set_Atk(m_tStat.iAttack);
 		pSludgeBall->Get_RigidBodyCom()->SetMass(10.f);
-		pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 70.0f, 0.0f));
+		pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 100.0f, 0.0f));
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 		pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
 		

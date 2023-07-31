@@ -325,7 +325,7 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 {
 
 	m_tStat.iMaxHp = 30;
-	m_tStat.iAttack = 2;
+	m_tStat.iAttack = 1;
 	m_bDirty = true;
 	if(!m_pParts[FACE]->Is_Active())
 	m_pParts[FACE]->Set_Active(true);

@@ -5,13 +5,13 @@
 #include "Transform.h"
 
 CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eID)
-	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, _eID)
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_BULLET, _eID), m_iAtk(0), m_pOwner( nullptr)
 {
 }
 
 CBullet::CBullet(const CBullet& rhs)
 	: CGameObject(rhs),
-	m_pOwner(rhs.m_pOwner)
+	m_pOwner(rhs.m_pOwner), m_iAtk(rhs.m_iAtk)
 {
 }
 
