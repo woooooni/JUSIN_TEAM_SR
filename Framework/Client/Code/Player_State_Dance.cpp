@@ -7,8 +7,10 @@
 #include "Texture.h"
 #include "KeyMgr.h"
 
+#include "Pool.h"
+
 CPlayer_State_Dance::CPlayer_State_Dance(CGameObject* _pOwner)
-	:CPlayer_State(_pOwner)
+	:CPlayer_State(_pOwner), m_fHealTime(1.0f)
 {
 	m_vecHatPos.resize(14, { 0.0f,0.0f,0.0f });
 	Set_Hat();
@@ -28,11 +30,66 @@ HRESULT CPlayer_State_Dance::Ready_State(void)
 	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.7f, 1.7f, 1.7f));
 	dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"))->Set_TargetObj(nullptr);
 
+	_vec3 vPos;
+	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	vPos.z -= 0.05f;
+	vPos.y += 0.3f;
+
+	m_pEffect = CPool<CEffect_CircleBlur>::Get_Obj();
+	if (!m_pEffect)
+	{
+		m_pEffect = CEffect_CircleBlur::Create(Get_Device());
+		NULL_CHECK_RETURN(m_pEffect, E_FAIL);
+		m_pEffect->Ready_Object();
+	}
+
+	D3DCOLORVALUE vColor = { 32.0f / 255.0f, 222.0f / 255.0f, 7.0f / 255.0f, 0.0f};
+	D3DCOLORVALUE vEmissive = { 1.0f, 1.0f, 1.0f, 1.0f };
+	m_pEffect->Set_Effect(vPos, _vec3(3.0f, 2.5f, 3.0f), vColor, vEmissive);
+	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"CircleBlur", m_pEffect);
+
+	m_bDown = false;
+	m_fAccTime = 0.0f;
+
+
+
 	return S_OK;
 }
 
 _int CPlayer_State_Dance::Update_State(const _float& fTimeDelta)
 {
+	_int iAlpha = m_pEffect->Get_Alpha();
+
+	if (!m_bDown)
+	{
+		iAlpha += 3;
+		if (iAlpha >= 200)
+		{
+			iAlpha = 200;
+			m_bDown = true;
+		}
+	}
+	else
+	{
+		iAlpha -= 3;
+		if (iAlpha <= 50)
+		{
+			iAlpha = 50;
+			m_bDown = false;
+		}
+	}
+
+	m_pEffect->Set_Alpha(iAlpha);
+
+	if (m_fAccTime >= m_fHealTime)
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Add_HP(1);
+		m_fAccTime = 0.0f;
+	}
+	else
+		m_fAccTime += fTimeDelta;
+
+
 	Key_Input(fTimeDelta);
 	return 0;
 }
@@ -59,6 +116,11 @@ void CPlayer_State_Dance::Reset_State(void)
 	vPos.y = m_pOwner->Get_MinHeight();
 	m_pOwner->Get_TransformCom()->Set_Pos(&vPos);
 	dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"))->Set_TargetObj(m_pOwner);
+
+	m_pEffect->Set_Active(false);
+	CPool<CEffect_CircleBlur>::Return_Obj(m_pEffect);
+
+	m_pOwner->Get_TransformCom()->Set_Scale(_vec3(1.0f, 1.0f, 1.0f));
 }
 
 void CPlayer_State_Dance::Key_Input(const _float& fTimeDelta)

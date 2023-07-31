@@ -63,7 +63,7 @@
 #include "Effect_Smoke.h"
 #include "Particle_LargeStone.h"
 #include	"TurretBullet.h"
-
+#include "Effect_CircleBlur.h"
 
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -1069,6 +1069,8 @@ HRESULT CLoading::Ready_Effect_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Smoke", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/SmokeEffect/SmokeEffect_%d.png", 1)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Effect_MothFlyLine", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/MothFlyLine/MothFlyLine_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_CircleBlur", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/CircleBlur/CircleBlur_%d.png", 1)), E_FAIL);
+
 
 	return S_OK;
 
@@ -1340,6 +1342,7 @@ HRESULT CLoading::Ready_Pool()
 	CPool<CTrashBig>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CDesertRhino>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CMothMage>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CEffect_CircleBlur>::Ready_Pool(m_pGraphicDev, 100);
 
 	return S_OK;
 }
