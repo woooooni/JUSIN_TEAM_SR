@@ -30,10 +30,10 @@ private:
 	_float m_fAccTime;
 	_float m_fEffectTime;
 
-	_uint m_iAlpha;
-	_uint m_iR;
-	_uint m_iG;
-	_uint m_iB;
+	_int m_iAlpha;
+	_int m_iR;
+	_int m_iG;
+	_int m_iB;
 
 	_vec3 m_vScale;
 	_float m_fScale;

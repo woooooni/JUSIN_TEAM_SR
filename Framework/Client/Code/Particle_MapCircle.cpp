@@ -199,7 +199,7 @@ void CParticle_MapCircle::Random_Particle(_vec3& _vMax, _uint _iCount, _uint iR,
 
 	m_pRigidBodyCom->SetGround(false);
 
-	Set_Active(true);
+	//Set_Active(true);
 	m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
 }
 
