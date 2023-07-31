@@ -211,6 +211,7 @@
     <ClInclude Include="..\Header\BreakObj.h" />
     <ClInclude Include="..\Header\BreakStone.h" />
     <ClInclude Include="..\Header\Bullet.h" />
+    <ClInclude Include="..\Header\Bullet_SilkWormDoppel.h" />
     <ClInclude Include="..\Header\ButterFly.h" />
     <ClInclude Include="..\Header\BugBall.h" />
     <ClInclude Include="..\Header\CactusNeedle.h" />
@@ -467,6 +468,7 @@
     <ClCompile Include="..\Code\BreakObj.cpp" />
     <ClCompile Include="..\Code\BreakStone.cpp" />
     <ClCompile Include="..\Code\Bullet.cpp" />
+    <ClCompile Include="..\Code\Bullet_SilkWormDoppel.cpp" />
     <ClCompile Include="..\Code\ButterFly.cpp" />
     <ClCompile Include="..\Code\BugBall.cpp" />
     <ClCompile Include="..\Code\CactusNeedle.cpp" />

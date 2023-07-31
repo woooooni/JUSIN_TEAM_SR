@@ -76,7 +76,7 @@ _int CBullet_SilkWormDoppel::Update_Object(const _float& fTimeDelta)
 		_vec3 vTargetPos, vPos, vDir;
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
-			return;
+			return S_OK;
 		pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		vDir = vTargetPos - vPos;

@@ -397,6 +397,8 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				if (m_iShootState == 2)
 				{
 					Set_State(SILKWORM_STATE::ATTACK);
+					m_pAnimator->GetCurrAnimation()->Set_Idx(0);
+					m_pAnimator->GetCurrAnimation()->Set_Finished(false);
 				}
 		}
 	}
@@ -714,12 +716,12 @@ void CSilkWorm::Shoot_BugBall()
 }
 void CSilkWorm::Shoot_PlantBallFirst()
 {
-	_float fAngle = 18.f;
+	_float fAngle = 10.f;
 	_matrix matRotationAxis;
 	_vec3 vDir = { 1.f,1.f,0.f };
 	D3DXMatrixRotationAxis(&matRotationAxis,&_vec3(-1.f,1.f,0.f) ,D3DXToRadian(-fAngle));
 	D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 18; i++)
 	{
 		D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(-1.f, 1.f, 0.f), D3DXToRadian(fAngle));
 		D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
@@ -727,7 +729,7 @@ void CSilkWorm::Shoot_PlantBallFirst()
 		NULL_CHECK_RETURN(pPlantBall, );
 		_vec3 BulletPos;
 		m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
-		BulletPos.y = 0.5f;
+		BulletPos.y = 1.5f;
 		pPlantBall->Get_TransformCom()->Set_Pos(&BulletPos);
 		pPlantBall->Set_Dir(vDir);
 		pPlantBall->Set_Owner(this);
@@ -738,20 +740,20 @@ void CSilkWorm::Shoot_PlantBallFirst()
 }
 void CSilkWorm::Shoot_PlantBallSecond()
 {
-	_float fAngle = 18.f;
+	_float fAngle = 10.f;
 	_matrix matRotationAxis;
 	_vec3 vDir = { -1.f,1.f,0.f };
-	D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(1.f, 1.f, 0.f), D3DXToRadian(-fAngle));
+	D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(1.f, 1.f, 0.f), D3DXToRadian(fAngle));
 	D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 18; i++)
 	{
-		D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(1.f, 1.f, 0.f), D3DXToRadian(fAngle));
+		D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(1.f, 1.f, 0.f), D3DXToRadian(-fAngle));
 		D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
 		CPlantBall* pPlantBall = CPlantBall::Create(m_pGraphicDev);
 		NULL_CHECK_RETURN(pPlantBall, );
 		_vec3 BulletPos;
 		m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
-		BulletPos.y = 0.5f;
+		BulletPos.y = 1.5f;
 		pPlantBall->Get_TransformCom()->Set_Pos(&BulletPos);
 		pPlantBall->Set_Dir(vDir);
 		pPlantBall->Set_Owner(this);

@@ -1400,6 +1400,9 @@
     <ClInclude Include="..\Header\SilkWorm.h">
       <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Bullet_SilkWormDoppel.h">
+      <Filter>02. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2079,6 +2082,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\RabbitMgr.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Bullet_SilkWormDoppel.cpp">
+      <Filter>02. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
