@@ -32,7 +32,7 @@ HRESULT CTrashFast::Ready_Object(void)
 	m_pTransformCom->Set_Scale({ vScale.x * 0.6f, vScale.y * 0.6f, vScale.x });
 
 	m_fMinHeight = 0.5f; // ÃÖ¼Òy°ª
-	m_tStat = { 2,2,1 };
+	m_tStat = { 1,1,1 };
 
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale(_vec3(0.5f, 0.5f, 0.5f));
 

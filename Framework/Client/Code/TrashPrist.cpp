@@ -7,11 +7,11 @@
 #include "TrashFast.h"
 #include "TrashBig.h"
 #include "MothMage.h"
-CTrashPrist::CTrashPrist(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_SLIME)
+CTrashPrist::CTrashPrist(LPDIRECT3DDEVICE9 pGraphicDev) :CMonster(pGraphicDev, OBJ_ID::TRASH_SLIME), m_iMaxSummon(10)
 {
 }
 
-CTrashPrist::CTrashPrist(const CTrashPrist& rhs) : CMonster(rhs)
+CTrashPrist::CTrashPrist(const CTrashPrist& rhs) : CMonster(rhs), m_iMaxSummon(rhs.m_iMaxSummon)
 {
 }
 
@@ -79,7 +79,7 @@ _int CTrashPrist::Update_Object(const _float& fTimeDelta)
 	if (m_iCount > 10)
 	{
 		Summon_Monster(fTimeDelta);
-	
+		Summon_Monster(fTimeDelta);
 	}
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
@@ -232,7 +232,8 @@ void CTrashPrist::Update_Die(_float fTimeDelta)
 	if (Is_Active())
 	{
 	Set_Active(false);
-	On_Death();}	
+	On_Death();
+	}	
 }
 
 void CTrashPrist::Update_Regen(_float fTimeDelta)
@@ -338,11 +339,17 @@ void CTrashPrist::Trace(_float fTimeDelta)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
-		Summon_Monster(fTimeDelta);
-		Summon_Monster(fTimeDelta);
 		return;
 	}
-	m_iCount++;
+	if(m_pAnimator ->GetCurrAnimation()->Get_Idx()==2&& m_bCount)
+	{
+		m_iCount++;
+		m_bCount = false;
+	}
+	if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 0 && !m_bCount)
+	{
+		m_bCount = true;
+	}
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_vLook = vDir;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
@@ -351,6 +358,8 @@ void CTrashPrist::Trace(_float fTimeDelta)
 
 void CTrashPrist::Summon_Monster(_float fTimeDelta)
 {
+	if (m_iMaxSummon < 1)
+		return;
 	
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 	_vec3 vPos, vSummonPos;
@@ -428,7 +437,7 @@ void CTrashPrist::Summon_Monster(_float fTimeDelta)
 
 	}
 	m_iCount = 0;
-
+	m_iMaxSummon--;
 
 	
 

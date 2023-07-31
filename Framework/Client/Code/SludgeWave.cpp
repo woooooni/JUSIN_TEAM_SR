@@ -33,24 +33,28 @@ HRESULT CSludgeWave::Ready_Object(void)
 
 _int CSludgeWave::Update_Object(const _float& fTimeDelta)
 {
-	int iExit = __super::Update_Object(fTimeDelta);
 	if (Is_Active())
 	{
-		Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	if (m_fMoveTime < 9.9f && m_bDuplicate)
-	{
-		Create_Wave();
-		m_bDuplicate = false;
-	}
-	if (m_fMoveTime < 0.f)
-	{
+		int iExit = __super::Update_Object(fTimeDelta);
 		if (Is_Active())
-			Set_Active(false);
-		m_fMoveTime = 0.f;
+		{
+			Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+			if (m_fMoveTime < 9.9f && m_bDuplicate)
+			{
+				Create_Wave();
+				m_bDuplicate = false;
+			}
+			if (m_fMoveTime < 0.f)
+			{
+				if (Is_Active())
+					Set_Active(false);
+				m_fMoveTime = 0.f;
+			}
+			m_fMoveTime -= 5.f * fTimeDelta;
+		}
+		return iExit;
 	}
-	m_fMoveTime -= 5.f * fTimeDelta;
-	}
-	return iExit;
+	return S_OK;
 }
 
 void CSludgeWave::LateUpdate_Object(void)
