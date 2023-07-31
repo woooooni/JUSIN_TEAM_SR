@@ -302,6 +302,11 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 		if (pObj->GetObj_Type() != OBJ_TYPE::OBJ_MONSTER)
 			pTransform->Set_Scale(vScale);
 
+		/*if (pObj->GetObj_Type() == OBJ_TYPE::OBJ_TILE)
+		{
+			pObj->Get_TransformCom()->RotationAxis(_vec3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
+		}*/
+
 		pBoxCollider->Set_Scale(vColliderScale);
 
 		m_pLoadingScene->Get_Layer((LAYER_TYPE)iLayerType)->Add_GameObject(L"OBJ_" + to_wstring(iCount++), pObj);

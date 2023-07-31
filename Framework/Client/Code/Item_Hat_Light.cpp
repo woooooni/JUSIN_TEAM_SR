@@ -64,13 +64,13 @@ HRESULT CItem_Hat_Light::Ready_Object(void)
 	ZeroMemory(&tHatLight, sizeof(D3DLIGHT9));
 
 	tHatLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
-	tHatLight.Ambient = { 0.05f, 0.05f, 0.05f, 0.05f };
+	tHatLight.Ambient = { 0.0f, 0.0f, 0.0f, 0.0f };
 	tHatLight.Diffuse = { 0.3f, 0.3f, 0.3f, 0.3f };
 	tHatLight.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
-	tHatLight.Range = 5.0f;
-	tHatLight.Attenuation0 = 0.001f; // 鼻熱 馬潸 啗熱
-	tHatLight.Attenuation1 = 0.05f; // 摹⑽ 馬潸 啗熱
-	tHatLight.Attenuation2 = 0.04f; // 檜離 馬潸 啗熱
+	tHatLight.Range = 50.0f;
+	tHatLight.Attenuation0 = 0.01f; // 鼻熱 馬潸 啗熱
+	tHatLight.Attenuation1 = 0.06f; // 摹⑽ 馬潸 啗熱
+	tHatLight.Attenuation2 = 0.03f; // 檜離 馬潸 啗熱
 
 
 	Ready_Light(m_pGraphicDev, &tHatLight, (_uint)LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT);
