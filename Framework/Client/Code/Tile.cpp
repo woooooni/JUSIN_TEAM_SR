@@ -21,10 +21,11 @@ HRESULT CTile::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
 
-	m_pTransformCom->RotationAxis(_vec3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
+	
 
 	_vec3 vPos(0.f, 0.005f, 0.f);
 	m_pTransformCom->Set_Info(INFO_POS, &vPos);
+	
 
 	m_pColliderCom->SetEnable(false);
 
@@ -42,6 +43,11 @@ void CTile::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
 
+	_vec3 vLook;
+	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
+
+	// m_pTransformCom->RotationAxis(_vec3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
+
 }
 
 void CTile::Render_Object(void)
@@ -57,6 +63,8 @@ void CTile::Render_Object(void)
 	D3DVECTOR vCamPos = vPos;
 
 	D3DCOLORVALUE vColor = { 1.0f, 1.0f, 1.0f, m_iAlpha / 255.0f };
+
+	
 
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());

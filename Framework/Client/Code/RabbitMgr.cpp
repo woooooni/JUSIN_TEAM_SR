@@ -36,10 +36,10 @@ HRESULT CRabbitMgr::Ready_Object(const LPDIRECT3DDEVICE9& pGraphicDev, const _in
 _int CRabbitMgr::Update_Object(const _float& fTimeDelta)
 {
 
-	if (KEY_TAP(KEY::Z))
-	{
-		Start_Game();
-	}
+	//if (KEY_TAP(KEY::Z))
+	//{
+	//	Start_Game();
+	//}
 
 	for (auto& iter : m_vecRabbits)
 	{
