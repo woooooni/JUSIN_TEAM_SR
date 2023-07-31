@@ -27,6 +27,8 @@ public:
 	CLight* Get_Light(LIGHT_TYPE _eLightType) { return m_arrLight[(_uint)_eLightType]; }
 
 	void Set_LightToEffect(LPD3DXEFFECT _pEffect);
+
+	void Reset_Light();
 private:
 	CLight*	m_arrLight[(_uint)LIGHT_TYPE::LIGHT_END];
 	D3DLIGHT9 m_arrLightInfo[(_uint)LIGHT_TYPE::LIGHT_END];

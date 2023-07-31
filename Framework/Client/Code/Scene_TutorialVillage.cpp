@@ -55,6 +55,7 @@ HRESULT CScene_TutorialVillage::Ready_Scene()
 	tLight.Diffuse = { 1.0f, 1.0f, 1.0f, 1.0f };
 	tLight.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
+	CLightMgr::GetInstance()->Reset_Light();
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
 
 	return S_OK;
@@ -179,13 +180,12 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_OguMom", pMom);
 	
 
-	for (_uint i = 0; i < 300; ++i)
+	for (_uint i = 0; i < 1; ++i)
 	{
 		CParticle_MapCircle* pParticle = CParticle_MapCircle::Create(Engine::Get_Device());
 		NULL_CHECK_RETURN(pParticle, E_FAIL);
-		dynamic_cast<CParticle_MapCircle*>(pParticle)->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 100, 255, 255, 255, 20);
+		pParticle->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 100, 255, 255, 255, 20);
 		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"MapCircle", pParticle);
-
 	}
 	
 

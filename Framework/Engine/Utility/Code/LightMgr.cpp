@@ -8,6 +8,9 @@ CLightMgr::CLightMgr()
 	{
 		m_arrLight[i] = nullptr;
 	}
+
+	ZeroMemory(&m_arrLightInfo, sizeof(D3DLIGHT9) * (_uint)LIGHT_TYPE::LIGHT_END);
+	ZeroMemory(&m_arrLightOn, sizeof(bool) * (_uint)LIGHT_TYPE::LIGHT_END);
 }
 
 
@@ -31,6 +34,13 @@ HRESULT CLightMgr::Ready_LightMgr(LPDIRECT3DDEVICE9 pGraphicDev)
 	tDirectionLight.Specular = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	Ready_Light(pGraphicDev, &tDirectionLight, (_uint)LIGHT_TYPE::LIGHT_DIRECTION);
+
+	//플라워 라이트
+	D3DLIGHT9 tFlowerLight;
+	ZeroMemory(&tFlowerLight, sizeof(D3DLIGHT9));
+
+	Ready_Light(m_pGraphicDev, &tFlowerLight, (_uint)LIGHT_TYPE::LIGHT_FLOWER1);
+	Ready_Light(m_pGraphicDev, &tFlowerLight, (_uint)LIGHT_TYPE::LIGHT_FLOWER2);
 
 	return S_OK;
 }
@@ -68,6 +78,12 @@ void CLightMgr::Set_LightToEffect(LPD3DXEFFECT _pEffect)
 {
 	_pEffect->SetValue("g_arrLight", m_arrLightInfo, sizeof(D3DLIGHT9) * (_uint)LIGHT_TYPE::LIGHT_END);
 	_pEffect->SetBoolArray("g_arrLightOn", m_arrLightOn, sizeof(bool) * (_uint)LIGHT_TYPE::LIGHT_END);
+}
+
+void CLightMgr::Reset_Light()
+{
+	m_arrLight[(_uint)LIGHT_TYPE::LIGHT_FLOWER1]->Set_LightOff();
+	m_arrLight[(_uint)LIGHT_TYPE::LIGHT_FLOWER2]->Set_LightOff();
 }
 
 void CLightMgr::Free(void)

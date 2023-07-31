@@ -36,11 +36,14 @@ public:
 	const _bool& Get_Opened() { return m_bIsOpened; }
 	const JELLY_COLOR& Get_Color(){ return m_eColor; }
 
+	void		 Set_LightType(LIGHT_TYPE _eType) { m_eType = _eType; }
 protected:
 	_matrix		AreaWorld;
 	_bool		m_bIsOpened;
 	JELLY_COLOR		m_eColor;
 	CBalpanObj* m_pBalPan;
 
+private:
+	LIGHT_TYPE m_eType;
 };
 

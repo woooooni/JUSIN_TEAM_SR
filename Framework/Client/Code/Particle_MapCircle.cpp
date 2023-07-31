@@ -31,7 +31,7 @@ HRESULT CParticle_MapCircle::Ready_Object(void)
 
 	m_pAnimator->Play_Animation(L"MapCircle", false);
 
-	Set_Active(false);
+	Set_Active(true);
 
 	m_fMinHeight = 0.0f;
 	m_pRigidBodyCom->SetGravity(-0.001f);
@@ -59,7 +59,7 @@ _int CParticle_MapCircle::Update_Object(const _float& fTimeDelta)
 	Update_Show(fTimeDelta);
 	Update_Reset(fTimeDelta);
 
-	Engine::Add_RenderGroup(RENDERID::RENDER_EFFECT, this);
+	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 
