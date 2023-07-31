@@ -22,6 +22,8 @@
 #include "UI_MapName.h"
 #include "CutSceneMgr.h"
 
+static _bool bPlayedCutScene = false;
+
 CScene_MonkeyVillage::CScene_MonkeyVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE)
 {
@@ -94,7 +96,11 @@ void CScene_MonkeyVillage::Render_Scene()
 
 void CScene_MonkeyVillage::Enter_Scene()
 {
-	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY_VILLAGE_INTRO);
+	if (!bPlayedCutScene)
+	{
+		CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY_VILLAGE_INTRO);
+		bPlayedCutScene = true;
+	}
 }
 
 HRESULT CScene_MonkeyVillage::Ready_Prototype()

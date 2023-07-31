@@ -21,6 +21,7 @@ CBarrelBomb::CBarrelBomb(const CBarrelBomb& rhs)
 {
     m_tInfo.m_bIsAttackable = true;
     m_tInfo.m_bIsPushable = true;
+    Set_MinHeight(0.5f);
 
 }
 
