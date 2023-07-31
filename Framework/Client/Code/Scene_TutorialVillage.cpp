@@ -180,12 +180,12 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Npc_OguMom", pMom);
 	
 
-	for (_uint i = 0; i < 1; ++i)
+	for (_uint i = 0; i < 300; ++i)
 	{
 		CParticle_MapCircle* pParticle = CParticle_MapCircle::Create(Engine::Get_Device());
 		NULL_CHECK_RETURN(pParticle, E_FAIL);
 		pParticle->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 100, 255, 255, 255, 20);
-		Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Add_GameObject(L"MapCircle", pParticle);
+		m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MapCircle", pParticle);
 	}
 	
 

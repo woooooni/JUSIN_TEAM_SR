@@ -75,7 +75,7 @@ HRESULT CPlayer_Skill_GolemFist::Ready_State(void)
 	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SkillRange", pRange);
 
 
-	m_vPos.y = 0.008f;
+	m_vPos.y = 0.009f;
 	m_vScale = { 1.0f,1.0f,1.0f };
 	dynamic_cast<CPlayer_Skill_Range*>(dynamic_cast<CPlayer*>(m_pOwner)->Get_SkillRange())->Set_Range(m_vScale, m_vPos);
 	m_bSkillStart = false;
