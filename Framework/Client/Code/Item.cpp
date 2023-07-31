@@ -63,9 +63,13 @@ void CItem::Render_Object(void)
 void CItem::Render_UI()
 {
 	Ready_TransWorld();
+
+
 	__super::Render_Object();
 	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
+
+
 }
 
 _bool CItem::Check_Clicked()

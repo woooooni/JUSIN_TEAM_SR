@@ -34,6 +34,25 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+
+	D3DLIGHT9 tFlowerLight;
+	ZeroMemory(&tFlowerLight, sizeof(D3DLIGHT9));
+
+	tFlowerLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
+	tFlowerLight.Ambient = { 0.0f, 0.0f, 0.0f, 0.0f };
+	tFlowerLight.Diffuse = { 0.3f, 0.3f, 0.3f, 0.3f };
+	tFlowerLight.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
+	tFlowerLight.Range = 50.0f;
+	tFlowerLight.Attenuation0 = 0.01f; // 鼻熱 馬潸 啗熱
+	tFlowerLight.Attenuation1 = 0.06f; // 摹⑽ 馬潸 啗熱
+	tFlowerLight.Attenuation2 = 0.03f; // 檜離 馬潸 啗熱
+
+
+	Ready_Light(m_pGraphicDev, &tFlowerLight, (_uint)LIGHT_TYPE::LIGHT_FLOWER1);
+	Ready_Light(m_pGraphicDev, &tFlowerLight, (_uint)LIGHT_TYPE::LIGHT_FLOWER2);
+
+
+
 	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
 
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
@@ -223,7 +242,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 	
 	CLightFlower* pLFlower = CLightFlower::Create(m_pGraphicDev, pBal, 29, { 54.f, 0.f, 17.5f });
 	NULL_CHECK_RETURN(pLFlower, E_FAIL);
-
+	pLFlower->Set_LightType(LIGHT_TYPE::LIGHT_FLOWER1);
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLFlower);
 
 
@@ -238,6 +257,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 
 	pLFlower = CLightFlower::Create(m_pGraphicDev, pBal, 30, { 62.f, 0.f, 17.5f });
 	NULL_CHECK_RETURN(pLFlower, E_FAIL);
+	pLFlower->Set_LightType(LIGHT_TYPE::LIGHT_FLOWER2);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLFlower);
 

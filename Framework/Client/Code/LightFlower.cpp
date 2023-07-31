@@ -7,6 +7,7 @@ CLightFlower::CLightFlower(LPDIRECT3DDEVICE9 pGraphicDev)
     , m_bIsOpened(false)
     , m_eColor(JELLY_COLOR::JELLY_END)
     , m_pBalPan(nullptr)
+    ,m_eType(LIGHT_TYPE::LIGHT_END)
 {
     _matrix scale, rot;
 
@@ -16,7 +17,7 @@ CLightFlower::CLightFlower(LPDIRECT3DDEVICE9 pGraphicDev)
     AreaWorld = scale * rot;
 }
 
-CLightFlower::CLightFlower(const CLightFlower& rhs) : CFieldObject(rhs), AreaWorld(rhs.AreaWorld), m_bIsOpened(rhs.m_bIsOpened), m_eColor(rhs.m_eColor), m_pBalPan(rhs.m_pBalPan)
+CLightFlower::CLightFlower(const CLightFlower& rhs) : CFieldObject(rhs), AreaWorld(rhs.AreaWorld), m_bIsOpened(rhs.m_bIsOpened), m_eColor(rhs.m_eColor), m_pBalPan(rhs.m_pBalPan), m_eType(rhs.m_eType)
 {
 }
 
@@ -81,28 +82,25 @@ _int CLightFlower::Update_Object(const _float& fTimeDelta)
 
 void CLightFlower::LateUpdate_Object(void)
 {
+    if (m_bIsOpened && m_pAnimator->GetCurrAnimation()->Get_Idx() == m_pAnimator->GetCurrAnimation()->Get_Size() - 1)
+    {
+        if (!CLightMgr::GetInstance()->Get_Light(m_eType)->Is_LightOn())
+        {
+            CLightMgr::GetInstance()->Get_Light(m_eType)->Set_LightOn();
+        }
+    }
     __super::LateUpdate_Object();
+
 }
 
 void CLightFlower::Render_Object(void)
 {
     const _matrix* world = m_pTransformCom->Get_WorldMatrix();
 
-    if (m_pGraphicDev->LightEnable(1, true) == S_OK)
+    D3DCOLORVALUE   areaColor;
+
+    if (m_eColor != JELLY_COLOR::JELLY_END)
     {
-        int i = 0;
-    }
-
-    __super::Render_Object();
-
-    if (m_bIsOpened && m_pAnimator->GetCurrAnimation()->Get_Idx() == m_pAnimator->GetCurrAnimation()->Get_Size() - 1)
-    {
-        AreaWorld._41 = world->_41;
-        AreaWorld._42 = 0.01f;
-        AreaWorld._43 = world->_43;
-
-        D3DCOLORVALUE   areaColor;
-
         switch (m_eColor)
         {
         case Engine::JELLY_COLOR::CYAN:
@@ -128,6 +126,30 @@ void CLightFlower::Render_Object(void)
             MSG_BOX("Error");
             return;
         }
+
+    }
+
+    if (m_eType != LIGHT_TYPE::LIGHT_END && m_eColor != JELLY_COLOR::JELLY_END)
+    {
+        CLight* iter = CLightMgr::GetInstance()->Get_Light(m_eType);
+        iter->Get_LightInfo().Diffuse = areaColor;
+
+    }
+
+
+    if (m_pGraphicDev->LightEnable(1, true) == S_OK)
+    {
+        int i = 0;
+    }
+
+    __super::Render_Object();
+
+    if (m_bIsOpened && m_pAnimator->GetCurrAnimation()->Get_Idx() == m_pAnimator->GetCurrAnimation()->Get_Size() - 1)
+    {
+
+        AreaWorld._41 = world->_41;
+        AreaWorld._42 = 0.01f;
+        AreaWorld._43 = world->_43;
 
 
 
@@ -203,7 +225,6 @@ CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 p_Dev, CGameObject* p_Balpa
     ret->Add_Subscribe(p_EventNum);
     ret->Set_MinHeight(2.f);
 
-
     return ret;
 }
 
@@ -230,12 +251,22 @@ void CLightFlower::Event_Start(_uint iEventNum)
         m_eColor = JELLY_COLOR::JELLY_END;
         m_bIsOpened = false;
 
+        if (m_eType != LIGHT_TYPE::LIGHT_END)
+        {
+            CLightMgr::GetInstance()->Get_Light(m_eType)->Set_LightOff();
+        }
+
     }
     else
     {
         m_pAnimator->Play_Animation(L"Open", false);
         m_eColor = m_pBalPan->Get_JellyColor();
         m_bIsOpened = true;
+
+        if (m_eType != LIGHT_TYPE::LIGHT_END)
+        {
+        }
+
     }
 
     m_pAnimator->GetCurrAnimation()->Set_Idx(max - tmp - 1);
@@ -243,4 +274,12 @@ void CLightFlower::Event_Start(_uint iEventNum)
 
 void CLightFlower::Event_End(_uint iEventNum)
 {
+}
+
+void CLightFlower::Set_LightType(LIGHT_TYPE _eType)
+{
+    m_eType = _eType;
+    _vec3 pos;
+    m_pTransformCom->Get_Info(INFO_POS, &pos);
+    CLightMgr::GetInstance()->Get_Light(m_eType)->Get_LightInfo().Position = { pos.x , 3.5f, pos.z - 0.01f };
 }

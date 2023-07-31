@@ -111,7 +111,7 @@ void CRabbitMgr::Render_Object()
 		szBuf = to_wstring(m_iPoints);
 
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
-			szBuf.c_str(), INT(szBuf.size()), &rc, DT_LEFT | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+			szBuf.c_str(), INT(szBuf.size()), &rc, DT_VCENTER | DT_NOCLIP | DT_SINGLELINE | DT_CENTER, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 
 }
