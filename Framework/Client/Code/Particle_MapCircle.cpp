@@ -27,7 +27,7 @@ HRESULT CParticle_MapCircle::Ready_Object(void)
 
 	m_pTransformCom->Set_Scale(_vec3(0.2f, 0.2f, 0.2f));
 
-	m_pAnimator->Add_Animation(L"MapCircle", L"Proto_Texture_Effect_MapCircle", 0.1f);
+	m_pAnimator->Add_Animation(L"MapCircle", L"Proto_Texture_Effect_CircleBlur", 0.1f);
 
 	m_pAnimator->Play_Animation(L"MapCircle", false);
 

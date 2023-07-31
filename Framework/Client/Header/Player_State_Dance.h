@@ -1,5 +1,7 @@
 #pragma once
 #include "Player_State.h"
+#include "Effect_CircleBlur.h"
+
 class CPlayer_State_Dance : public CPlayer_State
 {
 public:
@@ -20,7 +22,7 @@ private:
 	bool	m_bFinished = false;
 
 	_float m_fAccTime;
-	_float m_fDrawTime;
+	_float m_fHealTime;
 
 
 	void					Update_Hat();
@@ -30,5 +32,12 @@ private:
 	vector<_vec3> m_vecHatPos;
 	float m_fAngle[14];
 	float m_fScale[14];
+
+	CEffect_CircleBlur* m_pEffect = nullptr;
+
+	bool m_bDown = false;
+
+
+	
 };
 

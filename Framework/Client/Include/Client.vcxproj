@@ -230,6 +230,7 @@
     </ClInclude>
     <ClInclude Include="..\Header\Effect_Block.h" />
     <ClInclude Include="..\Header\Effect_CatapultHit.h" />
+    <ClInclude Include="..\Header\Effect_CircleBlur.h" />
     <ClInclude Include="..\Header\Effect_DieSmoke.h" />
     <ClInclude Include="..\Header\Effect_Dig.h" />
     <ClInclude Include="..\Header\Effect_Explosion.h" />
@@ -486,6 +487,7 @@
     </ClCompile>
     <ClCompile Include="..\Code\Effect_Block.cpp" />
     <ClCompile Include="..\Code\Effect_CatapultHit.cpp" />
+    <ClCompile Include="..\Code\Effect_CircleBlur.cpp" />
     <ClCompile Include="..\Code\Effect_DieSmoke.cpp" />
     <ClCompile Include="..\Code\Effect_Dig.cpp" />
     <ClCompile Include="..\Code\Effect_Explosion.cpp" />
