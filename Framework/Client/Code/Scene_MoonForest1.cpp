@@ -19,6 +19,7 @@
 #include "RabbitMgr.h"
 #include "DrawingEnter.h"
 #include "DefaultItem.h"
+#include "TriggerObj.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -72,6 +73,13 @@ void CScene_MoonForest1::LateUpdate_Scene()
 {
 	CUIMgr::GetInstance()->Late_Update_UIMgr();
 	__super::LateUpdate_Scene();
+
+	auto iter = m_mapLayer[LAYER_TYPE::MONSTER]->Find_GameObject(L"RollingBug");
+
+	if (!iter)
+	{
+		Check_Event_Start(28);
+	}
 }
 
 void CScene_MoonForest1::Render_Scene()
@@ -133,7 +141,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 {
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(54.0f, 2.0f, 72.0f), _vec3(4.0f, 6.0f, 1.5f));
-	Add_Subscribe(21, pDoor);
+	Add_Subscribe(27, pDoor);
 
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SILK_WORM);
 
@@ -180,14 +188,126 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"JellyStone", pJel);*/
 
 
-	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 20, { 61.f, 0.f, 50.f });
+	CBalpanObj* pBal = CBalpanObj::Create(m_pGraphicDev, 20, { 97.5f, 0.f, 70.f });
 	pBal->Set_Static();
 	pBal->Set_TargName(L"Jelly");
-	pBal->Set_Answer(JELLY_COLOR::YELLOW);
+	pBal->Set_Answer(JELLY_COLOR::GREEN);
 	NULL_CHECK_RETURN(pBal, E_FAIL);
 
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
+
+
+	pBal = CBalpanObj::Create(m_pGraphicDev, 22, { 100.5f, 0.f, 70.f });
+	pBal->Set_Static();
+	pBal->Set_TargName(L"Jelly");
+	pBal->Set_Answer(JELLY_COLOR::GREEN);
+	NULL_CHECK_RETURN(pBal, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
+
+
+	pBal = CBalpanObj::Create(m_pGraphicDev, 23, { 103.5f, 0.f, 70.f });
+	pBal->Set_Static();
+	pBal->Set_TargName(L"Jelly");
+	pBal->Set_Answer(JELLY_COLOR::BLUE);
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
+
+	pBal = CBalpanObj::Create(m_pGraphicDev, 29, { 54.f, 0.f, 12.5f });
+	pBal->Set_Static();
+	pBal->Set_TargName(L"Jelly");
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
+	
+	CLightFlower* pLFlower = CLightFlower::Create(m_pGraphicDev, pBal, 29, { 54.f, 0.f, 17.5f });
+	NULL_CHECK_RETURN(pLFlower, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLFlower);
+
+
+	pBal = CBalpanObj::Create(m_pGraphicDev, 30, { 62.f, 0.f, 12.5f });
+	pBal->Set_Static();
+	pBal->Set_TargName(L"Jelly");
+	NULL_CHECK_RETURN(pBal, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Balpan", pBal);
+
+
+
+	pLFlower = CLightFlower::Create(m_pGraphicDev, pBal, 30, { 62.f, 0.f, 17.5f });
+	NULL_CHECK_RETURN(pLFlower, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightFlower", pLFlower);
+
+
+
+
+	CJellyStone* pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 20, { 97.5f, 0.f, 62.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 20, { 97.5f, 0.f, 64.5f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::CYAN, 20, { 97.5f, 0.f, 66.5f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 20, { 100.5f, 0.f, 62.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 20, { 100.5f, 0.f, 64.5f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::YELLOW, 20, { 100.5f, 0.f, 66.5f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 20, { 103.5f, 0.f, 62.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 20, { 103.5f, 0.f, 64.5f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::MAGENTA, 20, { 103.5f, 0.f, 66.5f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::BLUE, 20, { 54.f, 0.f, 15.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::RED, 20, { 58.f, 0.f, 15.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
+	pJel = CJellyStone::Create(m_pGraphicDev, JELLY_COLOR::GREEN, 20, { 62.f, 0.f, 15.f });
+	NULL_CHECK_RETURN(pJel, E_FAIL);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Jelly", pJel);
+
 
 
 	/*CLightFlower* pLight = CLightFlower::Create(m_pGraphicDev, pBal, 20, { 61.f, 0.f, 53.f });
@@ -205,19 +325,19 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(2, 0), L"Vertical");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, pTer->Get_TilePos(2, 0), L"Vertical");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 	pBase->Reverse_Puzzle(false);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(3, 2), L"Three");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, pTer->Get_TilePos(3, 2), L"Three");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 	pBase->Set_MakeLight();
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
-	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 22, pTer->Get_TilePos(3, 4), L"Corner");
+	pBase = CLightPuzzleBase::Create(m_pGraphicDev, 0, pTer->Get_TilePos(3, 4), L"Corner");
 	NULL_CHECK_RETURN(pBase, E_FAIL);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
@@ -247,6 +367,31 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"DrawPoint", pDraw);
 
+	CTriggerObj* pTrig = CTriggerObj::Create(m_pGraphicDev, { -10, -10, -10 });
+	pTrig->Set_EventTrigger(
+		27,
+		[]()
+		{
+			CCutSceneMgr::GetInstance()->Set_EventNum(31);
+			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MOON_FOREST_DOOR);
+		}
+	);
+	pTrig->Set_Once();
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
+
+	/*pTrig = CTriggerObj::Create(m_pGraphicDev, {-10, -10, -10});
+	pTrig->Set_EventTrigger(
+		21,
+		[]()
+		{
+			Check_Event_Start(27);
+		}
+	);
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);*/
+
+
 
 	return S_OK;
 }
@@ -271,7 +416,6 @@ HRESULT CScene_MoonForest1::Ready_Event()
 	EVENT* event = new EVENT;
 	event->iEventNum = 20;
 
-	event->m_bIsCanReset = true;
 
 	FAILED_CHECK(Add_Event(event));
 
@@ -291,7 +435,64 @@ HRESULT CScene_MoonForest1::Ready_Event()
 	event->iEventNum = 23;
 
 	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 24;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 25;
+
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 26;
+	event->lEndKey.push_back(20);
+	event->lEndKey.push_back(22);
+	event->lEndKey.push_back(23);
+	event->m_bIsCheckUpdate = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 28;
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 27;
+	event->lEndKey.push_back(21);
+	event->lEndKey.push_back(26);
+	event->lEndKey.push_back(28);
+
+	event->m_bIsCheckUpdate = true;
+
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 29;
+	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
+
+	event = new EVENT;
+	event->iEventNum = 30;
+	event->m_bIsCanReset = true;
+
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 31;
+	FAILED_CHECK(Add_Event(event));
+
+
 	return S_OK;
+
+
 }
 
 CScene_MoonForest1* CScene_MoonForest1::Create(LPDIRECT3DDEVICE9 pGraphicDev)
