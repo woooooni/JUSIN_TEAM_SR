@@ -35,7 +35,7 @@ HRESULT CItem_Hat_Drill::Ready_Object(void)
 	m_vecAnimation[(_uint)OBJ_DIR::DIR_RU] = L"Drill";
 	m_vecAnimation[(_uint)OBJ_DIR::DIR_RD] = L"Drill";
 
-	m_vScale = { 0.6f, 0.6f, 0.0f };
+	m_vScale = { 0.6f, 0.6f, 0.6f };
 	m_pTransformCom->Set_Scale(m_vScale);
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 0.0f, 0.0f));
 

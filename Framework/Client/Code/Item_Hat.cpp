@@ -78,8 +78,7 @@ void CItem_Hat::Render_Object(void)
 	_vec3 vPos;
 	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	D3DVECTOR vCamPos = vPos;
-
-
+	
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
@@ -89,6 +88,7 @@ void CItem_Hat::Render_Object(void)
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
 	pEffect->SetTexture("g_Texture", pTexture);
+
 
 
 	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
