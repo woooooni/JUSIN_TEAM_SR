@@ -46,6 +46,8 @@ private:
 	vector<ITEM_CODE>	m_vecSlotItems;
 	vector<_bool>		m_vecSetCode;
 	vector<_uint>		m_vecCount;
+	vector<_uint>		m_vecInvenIndex;
+
 	_bool				m_bCanUse;
 	_uint				m_iCount;
 

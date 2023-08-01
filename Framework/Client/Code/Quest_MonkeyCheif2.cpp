@@ -66,11 +66,12 @@ void CQuest_MonkeyCheif2::Update_Quest(_float& fTimeDelta)
 
 	if (!CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active() ||
 		!CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
-	{
 		CUIMgr::GetInstance()->Get_QuestList()->Set_Title(m_strQuestSub);
-		CUIMgr::GetInstance()->Get_QuestList()->Set_Active(true);
-	}
 	
+	if (m_eQuestProgress == QUEST_PROGRESS::PROGRESS_END)
+	{
+		CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(false);
+	}
 }
 
 void CQuest_MonkeyCheif2::Accept_Quest()
@@ -83,12 +84,12 @@ void CQuest_MonkeyCheif2::Accept_Quest()
 
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Reserve_Active(true);
 
-	CUIMgr::GetInstance()->Get_QuestList()->Set_Title(m_strQuestSub);
-	CUIMgr::GetInstance()->Get_QuestList()->Set_Active(true);
-
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
-	if(pPlayer != nullptr)
+	if (pPlayer != nullptr)
+	{
 		CInventoryMgr::GetInstance()->Add_Item(CItem_Hat_Turtle::Create(Engine::Get_Device(), pPlayer));
+		CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(true);
+	}
 }
 
 void CQuest_MonkeyCheif2::Clear_Quest()

@@ -189,10 +189,10 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 
 HRESULT CScene_MoonForest1::Ready_Layer_Monster()
 {
-	CRollingBug* pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(64.f, 0.5f, 52.f), BUGCOLORTYPE::YELLOW);
+	CRollingBug* pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(58.f, 0.5f, 17.5f), BUGCOLORTYPE::YELLOW);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
-	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(58.f, 0.5f, 52.f), BUGCOLORTYPE::PINK);
+	pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(60.f, 0.5f, 17.5f), BUGCOLORTYPE::PINK);
 	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 
 	return S_OK;

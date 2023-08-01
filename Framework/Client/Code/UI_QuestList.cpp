@@ -36,7 +36,7 @@ _int CUI_QuestList::Update_Object(const _float& fTimeDelta)
 	if (!CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active()) // QuestUI가 떠있지 않으면
 		m_bShown = true;
 
-	if (CUIMgr::GetInstance()->Get_Dialog()->Is_Active()) // 대화창이 떠있으면
+	if (CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
 		m_bShown = false;
 
 	_int iExit = __super::Update_Object(fTimeDelta);
@@ -46,6 +46,12 @@ _int CUI_QuestList::Update_Object(const _float& fTimeDelta)
 void CUI_QuestList::LateUpdate_Object(void)
 {
 	if (CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active())
+		m_bShown = false;
+
+	if (CUIMgr::GetInstance()->Get_ShopUI()->Get_Shown())
+		m_bShown = false;
+
+	if (CUIMgr::GetInstance()->Get_ShopUpdate())
 		m_bShown = false;
 
 	__super::LateUpdate_Object();
@@ -79,7 +85,7 @@ void CUI_QuestList::Render_Object(void)
 		// Quest 내용 RC
 		RECT rcName = { WINCX * 2 / 3 + 50, WINCY * 3 / 4 + 55, WINCX, WINCY };
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD_SMALL)->DrawText(NULL,
 			m_strTitle.c_str(), INT(m_strTitle.size()), &rcName, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 			D3DCOLOR_ARGB(180, 255, 255, 255));
 

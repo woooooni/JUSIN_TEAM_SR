@@ -5,7 +5,14 @@
 CUI_Shop::CUI_Shop(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
 {
+	m_vecShown.resize(3);
+
+	for (auto& iter : m_vecShown)
+	{
+		iter = true;
+	}
 }
+
 CUI_Shop::CUI_Shop(const CUI_Shop& rhs)
 	: CUI(rhs)
 {
@@ -38,6 +45,10 @@ _int CUI_Shop::Update_Object(const _float& fTimeDelta)
 	if (m_bShown)
 	{
 		m_pCursor->Update_Object(fTimeDelta);
+
+		m_iCursorX = Get_Cursor()->Get_CursorXPos();
+		m_iCursorY = Get_Cursor()->Get_CursorYPos();
+
 		for (auto& iter : m_vecShopIcon)
 			iter->Update_Object(fTimeDelta);
 		__super::Update_Object(fTimeDelta);
@@ -45,17 +56,41 @@ _int CUI_Shop::Update_Object(const _float& fTimeDelta)
 
 	CPlayer* player = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
 	NULL_CHECK_RETURN(player, E_FAIL);
-	
-//	if (m_iPlayerMoney != player->Get_PlayerStat().iMoney)
-//	{
-//		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[SHOPITEMTYPE::SHOP_WALLET])->Set_Shown(true);
-//	}
 
 	return S_OK;
 }
 void CUI_Shop::LateUpdate_Object(void)
 {
 	m_pCursor->LateUpdate_Object();
+
+	if (m_iCursorX > 2 || m_iCursorY > 0)
+	{
+		m_strItemInfo = L"";
+		m_strItemName = L"";
+		m_iItemPrice = 0;
+	}
+
+	if (m_iCursorY == 0)
+	{
+		switch (m_iCursorX)
+		{
+		case 0: // LIGHT
+			m_strItemInfo = L"주변을 밝게\n밝혀주는 모자";
+			break;
+
+		case 1: // MASK
+			m_strItemInfo = L"번개를 불러일으키는\n무시무시한 모자";
+			break;
+
+		case 2: // MISSILE
+			m_strItemInfo = L"미래적인 공격을\n퍼부울 수 있는\n강력한 모자";
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	for (auto& iter : m_vecShopIcon)
 		iter->LateUpdate_Object();
 	__super::LateUpdate_Object();
@@ -77,8 +112,54 @@ void CUI_Shop::Render_Object(void)
 	{
 		iter->Render_Object();
 	}
+
+	if (m_iCursorX < 3 && m_iCursorX >= 0)
+	{
+		if (m_vecShown[m_iCursorX])
+		{
+			// 아이템명
+			RECT rcTitle = { WINCX * 3 / 4 - 30, WINCY / 3 + 40, WINCX, WINCY * 2 / 3 };
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
+				m_strItemName.c_str(), m_strItemName.length(), &rcTitle,
+				DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 128, 128, 128));
+
+			// 아이템설명
+			RECT rcContents = { WINCX * 3 / 4 - 30, WINCY / 2 + 70, WINCX, WINCY };
+			Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD_SMALL)->DrawText(NULL,
+				m_strItemInfo.c_str(), m_strItemInfo.length(), &rcContents,
+				DT_LEFT | DT_NOCLIP, D3DCOLOR_ARGB(255, 140, 140, 140));
+
+			// 아이템가격
+			if (m_iItemPrice != 0)
+			{
+				string strMoney = to_string(m_iItemPrice);
+				wstring sTemp = wstring(strMoney.begin(), strMoney.end());
+				LPCWSTR swBuffer = sTemp.c_str();
+
+				RECT rcPrice = { WINCX - 130, WINCY / 3 + 60, WINCX, WINCY * 2 / 3 };
+				Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD_SMALL)->DrawText(NULL,
+					swBuffer, lstrlen(swBuffer), &rcPrice,
+					DT_NOCLIP, D3DCOLOR_ARGB(255, 90, 90, 90));
+			}
+		}
+	}
+
 	__super::Render_Object();
 }
+
+void CUI_Shop::Remove_Item(SHOPITEMTYPE pType)
+{
+	dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(nullptr);
+	dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType + 1])->Set_Item(nullptr);
+}
+
+void CUI_Shop::Set_ItemInfo(ITEM_CODE _eCode, _uint _iPrice)
+{
+	//m_strItemInfo = CItem::Get_Explain(_eCode); // 줄바꿈
+	m_strItemName = CItem::Get_Name(_eCode);
+	m_iItemPrice = _iPrice;
+}
+
 HRESULT CUI_Shop::Ready_Component()
 {
 	CComponent* pComponent = nullptr;
@@ -117,10 +198,14 @@ void CUI_Shop::Key_Input()
 				dynamic_cast<CUI_ItemInfo*>(iter)->Set_Shown(false);
 		}
 	}
+
+	if (m_bShown)
+	{
+		if (KEY_TAP(KEY::ENTER) && m_iCursorX >= 0 && m_iCursorX < 3 && m_iCursorY == 0)
+				m_vecShown[m_iCursorX] = false;
+	}
 }
-void CUI_Shop::Set_Item()
-{
-}
+
 CUI_Shop* CUI_Shop::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CUI_Shop* pInstance = new CUI_Shop(pGraphicDev);

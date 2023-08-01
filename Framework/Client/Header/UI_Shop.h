@@ -34,23 +34,26 @@ public:
 	}
 	CUI_Cursor*		Get_Cursor() { return m_pCursor; }
 	vector<CUI*>	Get_ShopUI() { return m_vecShopIcon; }
-	void	Remove_Item(SHOPITEMTYPE pType)
-	{
-		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType])->Set_Item(nullptr);
-		dynamic_cast<CUI_ItemInfo*>(m_vecShopIcon[(_uint)pType + 1])->Set_Item(nullptr);
-
-	}
+	_bool			Get_Shown() { return m_bShown; }
+	void	Remove_Item(SHOPITEMTYPE pType);
+	void	Set_ItemInfo(ITEM_CODE _eCode, _uint _iPrice);
 
 private:
 	HRESULT Ready_Component();
 	void	Key_Input();
-	void	Set_Item(); // Item setting
 
 private:
 	_bool				m_bShown = false;
-	list<CItem*>		m_ItemList;		   // 아이템 리스트
+	list<CItem*>		m_ItemList;
 	CUI_Cursor*			m_pCursor = nullptr;
 	vector<CUI*>		m_vecShopIcon;
+	vector<_bool>		m_vecShown;
+
+	_uint				m_iCursorX = 0;
+	_uint				m_iCursorY = 0;
+	_uint				m_iItemPrice = 0;
+	wstring				m_strItemName = L"";
+	wstring				m_strItemInfo = L"";
 
 public:
 	static  CUI_Shop* Create(LPDIRECT3DDEVICE9 pGraphicDev);

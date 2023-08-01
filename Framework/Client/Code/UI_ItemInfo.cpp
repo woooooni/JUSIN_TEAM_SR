@@ -34,8 +34,6 @@ HRESULT CUI_ItemInfo::Ready_Object(void)
 		m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height);
 	}
 
-
-
 	return S_OK;
 }
 
@@ -44,6 +42,8 @@ _int CUI_ItemInfo::Update_Object(const _float& fTimeDelta)
 	_int iExit = __super::Update_Object(fTimeDelta);
 
 	Key_Input();
+
+
 
 	return iExit;
 }
@@ -55,6 +55,30 @@ void CUI_ItemInfo::LateUpdate_Object(void)
 
 	m_iCursorX = dynamic_cast<CUI_Cursor*>(pCursor)->Get_CursorXPos();
 	m_iCursorY = dynamic_cast<CUI_Cursor*>(pCursor)->Get_CursorYPos();
+
+	if (m_iCursorX == 0 && m_iCursorY == 0)
+	{
+//		if (CUIMgr::GetInstance()->Get_ShopUI()->Get_TextShown() == false)
+//			CUIMgr::GetInstance()->Get_ShopUI()->Set_TextShown(true);
+
+		CUIMgr::GetInstance()->Get_ShopUI()->Set_ItemInfo(ITEM_CODE::HAT_LIGHT, 800);
+	}
+
+	else if (m_iCursorX == 1 && m_iCursorY == 0)
+	{
+//		if (CUIMgr::GetInstance()->Get_ShopUI()->Get_TextShown() == false)
+//			CUIMgr::GetInstance()->Get_ShopUI()->Set_TextShown(true);
+
+		CUIMgr::GetInstance()->Get_ShopUI()->Set_ItemInfo(ITEM_CODE::HAT_MASK, 1000);
+	}
+
+	else if (m_iCursorX == 2 && m_iCursorY == 0)
+	{
+//		if (CUIMgr::GetInstance()->Get_ShopUI()->Get_TextShown() == false)
+//			CUIMgr::GetInstance()->Get_ShopUI()->Set_TextShown(true);
+
+		CUIMgr::GetInstance()->Get_ShopUI()->Set_ItemInfo(ITEM_CODE::HAT_MISSLE, 1200);
+	}
 
 	__super::LateUpdate_Object();
 }
@@ -109,7 +133,7 @@ void CUI_ItemInfo::Render_Object(void)
 			break;
 
 		case SHOPITEMTYPE::SHOP_PRICETAG:
- 			vScale = _vec3(m_tInfo.fCX * fRatio * 1.1f, m_tInfo.fCY * fRatio * 1.1f, 0.f);
+ 			vScale = _vec3(m_tInfo.fCX * fRatio * 1.5f, m_tInfo.fCY * fRatio * 1.4f, 0.f);
 			m_pTransformCom->Set_Scale(vScale);
 			break;
 
@@ -163,8 +187,6 @@ void CUI_ItemInfo::Render_Object(void)
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-			//			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-			//			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 			m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
@@ -183,8 +205,6 @@ void CUI_ItemInfo::Render_Object(void)
 
 			m_pTransformCom->Set_Scale(vScale);
 			m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-//			m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
-//			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 			m_pGraphicDev->SetTransform(D3DTS_VIEW, &matPreView);
 			m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matPreProj);
 
@@ -247,32 +267,29 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
-
-
-
 	switch (m_tItemInfo.eType)
 	{
-	case SHOPITEMTYPE::UISHOP_BRANCH:
+	case SHOPITEMTYPE::UISHOP_BRANCH: // 미래모자
+		m_tItemInfo.iPrice = 1200;
 		m_tInfo.fX = WINCX / 2 - 490.f + 2 * 154.f;
 		m_tInfo.fY = WINCY / 2 - 83.f;
 		break;
 
-	case SHOPITEMTYPE::UISHOP_CLOTH:
-
+	case SHOPITEMTYPE::UISHOP_CLOTH: // 가면
+		m_tItemInfo.iPrice = 1000;
 		m_tInfo.fX = WINCX / 2 - 490.f + 154.f;
 		m_tInfo.fY = WINCY / 2 - 83.f;
 		break;
 
-	case SHOPITEMTYPE::UISHOP_LEAF:
-
+	case SHOPITEMTYPE::UISHOP_LEAF: // 전구
+		m_tItemInfo.iPrice = 800;
 		m_tInfo.fX = WINCX / 2 - 490.f;
 		m_tInfo.fY = WINCY / 2 - 83.f;
 		break;
 
-	case SHOPITEMTYPE::UISHOP_BRANCH_INFO:
-	case SHOPITEMTYPE::UISHOP_CLOTH_INFO:
-	case SHOPITEMTYPE::UISHOP_LEAF_INFO:
-
+	case SHOPITEMTYPE::UISHOP_BRANCH_INFO: // Light
+	case SHOPITEMTYPE::UISHOP_CLOTH_INFO: // Mask
+	case SHOPITEMTYPE::UISHOP_LEAF_INFO: // Missile
 		m_tInfo.fX = WINCX / 2 + 425.f;
 		m_tInfo.fY = WINCY / 2 - 160.f;
 		break;
@@ -294,8 +311,8 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		pComponent->SetOwner(this);
 		m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
 
-		m_tInfo.fX = WINCX / 2 + 530.f;
-		m_tInfo.fY = WINCY / 2 + 15.f;
+		m_tInfo.fX = WINCX / 2 + 525.f;
+		m_tInfo.fY = WINCY / 2 -75.f;
 		break;
 
 	case SHOPITEMTYPE::SHOP_VERLINE:
@@ -378,6 +395,12 @@ void CUI_ItemInfo::Key_Input()
 			{
 				CInventoryMgr::GetInstance()->Add_Item(m_pItem);
 
+				CPlayer* pPlayer = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
+				if (pPlayer != nullptr)
+				{
+					pPlayer->Minus_Money(m_tItemInfo.iPrice);
+				}
+				
 				Safe_Release(m_pItem);
 				pShop->Remove_Item(m_tItemInfo.eType);
 			}

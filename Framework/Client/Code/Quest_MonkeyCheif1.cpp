@@ -9,7 +9,6 @@ CQuest_MonkeyCheif1::CQuest_MonkeyCheif1()
 {
 	// 원숭이 촌장에게 말을 걸면 퀘스트 완료.
 	m_strQuestTitle = L"원숭이 마을 촌장";
-	//m_strQuestSub = L""; //생략
 	m_strQuestDesc = L"원숭이들이 의심스럽다. 촌장을 만나보자.";
 
 	// TODO : 대사 쓰기

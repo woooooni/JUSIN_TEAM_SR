@@ -40,6 +40,13 @@ HRESULT CFontMgr::Ready_Font(LPDIRECT3DDEVICE9 pDevice)
 	}
 	m_vecFont.push_back(pFont);
 
+	if (FAILED(D3DXCreateFont(pDevice, 25, 25, 100, 1,
+		false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, 0, L"카페24 써라운드", &pFont)))
+	{
+		MSG_BOX("Create Font Failed");
+		return E_FAIL;
+	}
+	m_vecFont.push_back(pFont);
 
 	return S_OK;
 }

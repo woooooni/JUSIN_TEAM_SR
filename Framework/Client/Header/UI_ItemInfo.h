@@ -13,9 +13,8 @@ END
 enum SHOPITEMTYPE
 {
 	SHOPKEY_L,
-	SHOP_WALLET, SHOP_PRICETAG,
-	SHOP_TEXTBOX, SHOP_IMGBOX,
-	SHOP_VERLINE, SHOP_HORLINE,
+	SHOP_WALLET, SHOP_TEXTBOX, SHOP_IMGBOX,
+	SHOP_VERLINE, SHOP_HORLINE, SHOP_PRICETAG,
 	UISHOP_LEAF, UISHOP_LEAF_INFO, UISHOP_CLOTH,
 	UISHOP_CLOTH_INFO, UISHOP_BRANCH, UISHOP_BRANCH_INFO,	
 	SHOPITEM_END
@@ -24,7 +23,7 @@ enum SHOPITEMTYPE
 struct tagShopItemInfo
 {
 	SHOPITEMTYPE	eType;
-	_int			iPrice;
+	_uint			iPrice;
 };
 
 class CUI_ItemInfo : public CUI
@@ -44,8 +43,8 @@ public:
 
 public:
 	HRESULT			Set_Item(CItem* pItem);
+	tagShopItemInfo Get_ItemInfo(SHOPITEMTYPE _eType) { return m_tItemInfo; }
 	void			Set_Shown(_bool _bShown) { m_bShown = _bShown; }
-
 
 private:
 	HRESULT			Add_Component(void);
@@ -59,6 +58,7 @@ private:
 
 
 private:
+	vector<tagShopItemInfo>	m_vecShopItem;
 	tagShopItemInfo		m_tItemInfo;
 	_vec3				m_vDefaultPos;
 	_bool				m_bShown = false;

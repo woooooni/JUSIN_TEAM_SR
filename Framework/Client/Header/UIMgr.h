@@ -45,6 +45,8 @@ public:
 	CUI_NewQuest* Get_NewQuestUI() { return m_pNewQuest; }
 	CUI_QuestList* Get_QuestList() { return m_pQuestList; }
 
+	_bool	Get_ShopUpdate() { return m_bUpdateUI; }
+
 private:
 	CUI_Wallet*		 m_pWallet = nullptr;
 	CUI_Dialog*		 m_pDialog = nullptr;

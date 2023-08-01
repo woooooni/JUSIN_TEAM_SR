@@ -685,6 +685,9 @@
     <Filter Include="02. GameObject\13. Effect\24. Trail">
       <UniqueIdentifier>{69652dc7-134e-4195-87db-34d2e027e198}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\08. Quest\02. List">
+      <UniqueIdentifier>{8b0c2407-5b71-47f7-bf7a-1fc82fdc670b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1404,6 +1407,10 @@
       <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Effect_CircleBlur.h" />
+    <ClInclude Include="..\Header\Bullet_SilkWormDoppel.h" />
+    <ClInclude Include="..\Header\UI_QuestList.h">
+      <Filter>02. GameObject\04. UI\08. Quest\02. List</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2085,6 +2092,10 @@
       <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect_CircleBlur.cpp" />
+    <ClCompile Include="..\Code\Bullet_SilkWormDoppel.cpp" />
+    <ClCompile Include="..\Code\UI_QuestList.cpp">
+      <Filter>02. GameObject\04. UI\08. Quest\02. List</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
