@@ -11,6 +11,7 @@ CQuest_NueHero1::CQuest_NueHero1()
 {
 	// 보스전 시작 전 대화 내용. 대화 종료 후 바로 보스전이 시작됨.
 	m_strQuestTitle = L"타락한 누에용사 처치";
+	//m_strQuestSub = L""; // 생략
 	m_strQuestDesc = L"쓰레기 무단투기 진범인 타락한 누에용사를 처치하자.";
 	
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"어떻게 들어 들어온 건가?");

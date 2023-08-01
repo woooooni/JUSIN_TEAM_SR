@@ -15,12 +15,13 @@ CQuest_MonkeyCheif2::CQuest_MonkeyCheif2()
 {
 	//태양의 신전 안 골렘을 처치하도록 한다. 보스전 유도
 	m_strQuestTitle = L"태양의 신전 골렘 처치.";
+	m_strQuestSub = L"신전 안 골렘을 처치하자";
 	m_strQuestDesc = L"쓰레기를 무단투기해 환경을 파괴하는 골렘을 처치하자.";
 
 	// TODO :: 몽키 촌장 대사
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"뭔가 오해가 있는 것 같다.");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"쓰레기로 고통받고 있는 건 우리 마을이라고!");
-	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"오리너구리! 네 마을에서 쓰레기를 내버린 것이 아니라면,");
+	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"오리너구리!\n네 마을에서 쓰레기를 내버린 것이 아니라면,");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"아무래도 저 신전이 가장 의심스럽다.");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"매일같이 악취가 진동하고 밤마다 괴음이 들리는데...");
 	m_vecNpcDescList[_uint(QUEST_PROGRESS::BEFORE)].push_back(L"오늘 한 번 가서 살펴보는 것도 좋을 것 같군.");
@@ -62,6 +63,13 @@ void CQuest_MonkeyCheif2::Update_Quest(_float& fTimeDelta)
 			}
 		}
 	}
+
+	if (!CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active() ||
+		!CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
+	{
+		CUIMgr::GetInstance()->Get_QuestList()->Set_Title(m_strQuestSub);
+		CUIMgr::GetInstance()->Get_QuestList()->Set_Active(true);
+	}
 	
 }
 
@@ -74,6 +82,9 @@ void CQuest_MonkeyCheif2::Accept_Quest()
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Desc(m_strQuestDesc);
 
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Active(true);
+
+	CUIMgr::GetInstance()->Get_QuestList()->Set_Title(m_strQuestSub);
+	CUIMgr::GetInstance()->Get_QuestList()->Set_Active(true);
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 	if(pPlayer != nullptr)

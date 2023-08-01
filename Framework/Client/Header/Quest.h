@@ -36,6 +36,7 @@ public:
 
 protected:
     wstring m_strQuestTitle;
+    wstring m_strQuestSub;
     wstring m_strQuestDesc;
     vector<wstring> m_vecNpcDescList[(_uint)QUEST_PROGRESS::PROGRESS_END];
 

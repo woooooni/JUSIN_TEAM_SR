@@ -14,6 +14,7 @@
 #include "UI_MapName.h"
 #include "UI_Wallet.h"
 #include "UI_NewQuest.h"
+#include "UI_QuestList.h"
 
 class CUIMgr : public CBase
 {
@@ -42,6 +43,7 @@ public:
 	CUI_ShortCutKey* Get_ShortcutKey() { return m_pShortCutKey; }
 	CUI_Wallet*	Get_Wallet() { return m_pWallet; }
 	CUI_NewQuest* Get_NewQuestUI() { return m_pNewQuest; }
+	CUI_QuestList* Get_QuestList() { return m_pQuestList; }
 
 private:
 	CUI_Wallet*		 m_pWallet = nullptr;
@@ -50,7 +52,8 @@ private:
 	CUI_Shop*		 m_pShop = nullptr;
 	CUI_NewItem*	 m_pItemWindow = nullptr;
 	CUI_Veil*		 m_pVeil = nullptr;
-	CUI_NewQuest* m_pNewQuest = nullptr;
+	CUI_NewQuest*	 m_pNewQuest = nullptr;
+	CUI_QuestList*	 m_pQuestList = nullptr;
 	
 	CInventoryUI*	 m_pInventory = nullptr;
 

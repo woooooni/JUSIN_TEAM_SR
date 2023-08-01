@@ -61,7 +61,7 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 	if (!pPlayer)
 		return E_FAIL;
 
-	if (m_bCanUse)
+	if (m_bCanUse) // Inventory창이 꺼져 있음.
 	{
 		if (KEY_TAP(KEY::NUM_1))
 		{
@@ -69,14 +69,14 @@ _int CQuickSlot::Update_Object(const _float& fTimeDelta)
 			{
 				_uint iCode = _uint(dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode());
 
-				if (iCode <= 5)
+				if (iCode <= 5) // 소비아이템인 경우
 				{
 					if (m_vecCount[SLOT_ONE] > 0)
 						m_vecCount[SLOT_ONE] -= 1;
 					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Use_Item();
 				}
 
-				if (iCode >= 10 && iCode <= 15)
+				if (iCode >= 10 && iCode <= 15) // 장비 아이템인 경우
 					dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Wear_Item();
 			}
 		}
@@ -152,7 +152,7 @@ void CQuickSlot::LateUpdate_Object(void)
 	m_vecSlots[SLOT_THREE]->LateUpdate_Object();
 	m_vecSlots[SLOT_FOUR]->LateUpdate_Object();
 
-	if (!m_bCanUse) // 인벤토리가 열려있지 않을 때
+	if (!m_bCanUse) // Inventory가 열려있을때
 	{
 		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_Filled())
 		{
@@ -173,16 +173,16 @@ void CQuickSlot::LateUpdate_Object(void)
 				}
 			}
 
-			else if (m_vecSetCode[SLOT_ONE] == false)
+			else if (m_vecSetCode[SLOT_ONE] == false) // 인벤토리상 아이템 개수가 1개를 초과할때
 			{
 				_uint iIndex = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_InvenIndex();
 				vector<CItem*> vecItem = CInventoryMgr::GetInstance()->Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION);
 				
-				if (vecItem.size() > iIndex)
+				if (vecItem.size() > iIndex) // 조건이 더 필요하긴함. 실존하는 Index내에 있는 아이템이라는 뜻이다.
 				{
 					if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode()
 						== CInventoryMgr::GetInstance()->
-						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode())
+						Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_ItemCode()) //아이템 코드가 같아야 개수를 센다.
 					{
 						m_vecCount[SLOT_ONE] = CInventoryMgr::GetInstance()->
 							Get_Inventory(CInventoryMgr::INVENTORY_TYPE::CONSUMPSION)[iIndex]->Get_InvenCount();
@@ -190,7 +190,7 @@ void CQuickSlot::LateUpdate_Object(void)
 						if (m_vecCount[SLOT_ONE] <= 1)
 							m_vecSetCode[SLOT_ONE] = true;
 
-						m_vecSlotItems[SLOT_ONE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode();
+						m_vecSlotItems[SLOT_ONE] = dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_ONE])->Get_ItemCode(); // 현재 슬롯에 있는 아이템의 코드를 받아둔다.
 					}
 				}
 			}
@@ -238,6 +238,7 @@ void CQuickSlot::LateUpdate_Object(void)
 			}
 		}
 
+		// 여기부터 아이템이 사라지는 것이 안된다. 슬롯상에 2개가 남아있는데 아이템창에도 2개가 남아있어서 그런가?
 		if (dynamic_cast<CUI_SlotItems*>(m_vecSlots[SLOT_THREE])->Get_Filled() && m_vecSetCode[SLOT_THREE] == false)
 		{
 			if (m_vecSetCode[SLOT_THREE] == true)
@@ -463,6 +464,11 @@ _bool CQuickSlot::Get_Filled(SLOTNUM _eSlotNum)
 void CQuickSlot::Set_Filled(SLOTNUM _eSlotNum, _bool _bFilled)
 {
 	dynamic_cast<CUI_SlotItems*>(m_vecSlots[(_uint)_eSlotNum])->Set_Filled(_bFilled);
+}
+
+void CQuickSlot::Set_SetCode(SLOTNUM _eSlotNum, _bool _bSetCode)
+{
+	m_vecSetCode[_eSlotNum] = _bSetCode;
 }
 
 const ITEM_CODE& CQuickSlot::Get_ItemCode(SLOTNUM _eSlotNum)

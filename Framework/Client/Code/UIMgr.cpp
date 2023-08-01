@@ -30,6 +30,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     m_pInventory = CInventoryUI::Create(_pGraphicDev);
     m_pWallet = CUI_Wallet::Create(_pGraphicDev);
     m_pNewQuest = CUI_NewQuest::Create(_pGraphicDev);
+    m_pQuestList = CUI_QuestList::Create(_pGraphicDev);
 
     NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
@@ -39,6 +40,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     NULL_CHECK_RETURN(m_pInventory, E_FAIL);
     NULL_CHECK_RETURN(m_pWallet, E_FAIL);
     NULL_CHECK_RETURN(m_pNewQuest, E_FAIL);
+    NULL_CHECK_RETURN(m_pQuestList, E_FAIL);
     //NULL_CHECK_RETURN(m_pMapName, E_FAIL);
 
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
@@ -49,6 +51,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     // m_pShop->Add_Item(CItem_Hat_Light::Create(_pGraphicDev, Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player")), SHOPITEMTYPE::UISHOP_LEAF);
 
     m_pNewQuest->Set_Active(false);
+    m_pQuestList->Set_Active(false);
     FAILED_CHECK_RETURN(Add_Frame(_pGraphicDev), E_FAIL);
 
     return S_OK;
@@ -86,6 +89,9 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     if (m_pNewQuest->Is_Active())
         m_pNewQuest->Update_Object(fTimeDelta);
 
+    if (m_pQuestList->Is_Active())
+        m_pQuestList->Update_Object(fTimeDelta);
+
     if (KEY_TAP(KEY::I))
     {
         m_bUpdateUI = !m_bUpdateUI;
@@ -116,6 +122,9 @@ void CUIMgr::Late_Update_UIMgr()
     // m_pCurrentUI->LateUpdate_Object();
     //m_pMapName->LateUpdate_Object();
 
+//   if (m_pNewQuest->Is_Active() || m_pDialog->Is_Active())
+//       m_pQuestList->Set_Active(false);
+ 
     if (m_pWallet->Is_Active())
         m_pWallet->LateUpdate_Object();
 
@@ -124,6 +133,9 @@ void CUIMgr::Late_Update_UIMgr()
 
     if (m_pNewQuest->Is_Active())
         m_pNewQuest->LateUpdate_Object();
+
+    if (m_pQuestList->Is_Active())
+        m_pQuestList->LateUpdate_Object();
 
     m_vecIcon[PLAYERHP_FRAME]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_1]->LateUpdate_Object();
@@ -170,16 +182,6 @@ HRESULT CUIMgr::Add_Frame(LPDIRECT3DDEVICE9 _pGraphicDev)
     CIcon* pButtonL = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_L);
     m_vecIcon.push_back(pButtonL);
 
-//    CIcon* pBasicButton1 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_BASIC1);
-//    m_vecIcon.push_back(pBasicButton1);
-//    CIcon* pBasicButton2 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_BASIC2);
-//    m_vecIcon.push_back(pBasicButton2);
-//    CIcon* pBasicButton3 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_BASIC3);
-//    m_vecIcon.push_back(pBasicButton3);
-//    CIcon* pBasicButton4 = CIcon::Create(_pGraphicDev, ICONTYPE::KEYBUTTON_BASIC4);
-//    m_vecIcon.push_back(pBasicButton4);
- //   pBasicButton->Get_TransformCom()->Set_Pos(&_vec3(fButton_X, fButton_Y, 0.f));
-
     return S_OK;
 }
 
@@ -204,10 +206,10 @@ void CUIMgr::Free()
         Safe_Release(m_pQuickSlot);
     if(m_pBossHpBar)
         Safe_Release(m_pBossHpBar);
- //   if (m_pMapName)
- //       Safe_Release(m_pMapName);
     if (m_pWallet)
         Safe_Release(m_pWallet);
+    if (m_pQuestList)
+        Safe_Release(m_pQuestList);
 
     for (size_t i = 0; i < ICONTYPE::ICONTYPE_END; ++i)
         Safe_Release(m_vecIcon[i]);

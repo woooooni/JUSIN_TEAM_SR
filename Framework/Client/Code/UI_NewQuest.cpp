@@ -41,6 +41,7 @@ HRESULT CUI_NewQuest::Ready_Object(void)
 	if (m_pCloseKey != nullptr)
 		m_pCloseKey->Set_Owner(this);
 
+	m_pQuestList = CUIMgr::GetInstance()->Get_QuestList();
 	m_pShortcutKey = CUIMgr::GetInstance()->Get_ShortcutKey();
 
 	Set_Active(false);
