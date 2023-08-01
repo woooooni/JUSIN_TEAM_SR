@@ -52,13 +52,19 @@ HRESULT CUI_NewQuest::Ready_Object(void)
 
 _int CUI_NewQuest::Update_Object(const _float& fTimeDelta)
 {
+
 	if (m_bReserve 
 		&& !CUIMgr::GetInstance()->Get_Dialog()->Is_Active() 
 		&& !CGameMgr::GetInstance()->Get_Player()->Is_GetItem()
-		&& CGameMgr::GetInstance()->Get_Player()->Get_State() != PLAYER_STATE::GETTIEM)
+		&& CGameMgr::GetInstance()->Get_Player()->Get_State() != PLAYER_STATE::GETTIEM
+		&& CGameMgr::GetInstance()->Get_Player()->Get_NextState() != PLAYER_STATE::GETTIEM)
 	{
-		Set_Active(true);
-		m_bReserve = false;
+		CGameObject* pObj = Engine::Get_Layer(LAYER_TYPE::UI)->Find_GameObject(L"UI_GetItem");
+		if (pObj == nullptr)
+		{
+			Set_Active(true);
+			m_bReserve = false;
+		}
 	}
 		
 	if (!Is_Active())

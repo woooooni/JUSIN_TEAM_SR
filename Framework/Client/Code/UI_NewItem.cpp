@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "GameMgr.h"
 #include "Player.h"
+#include "UIMgr.h"
 
 CUI_NewItem::CUI_NewItem(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
 {
