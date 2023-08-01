@@ -111,39 +111,39 @@ void CItem_Hat_Light::LateUpdate_Object(void)
 
 		if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_U)
 		{
-			vPos.z += 0.5f;
+			vPos.z += 0.2f;
 		}
 		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_D)
 		{
-			vPos.z -= 0.5f;
+			vPos.z -= 0.2f;
 		}
 		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_L)
 		{
-			vPos.x -= 0.5f;
+			vPos.x -= 0.2f;
 		}
 		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_R)
 		{
-			vPos.x += 0.5f;
+			vPos.x += 0.2f;
 		}
 		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_LU)
 		{
-			vPos.x -= 0.5f;
-			vPos.z += 0.5f;
+			vPos.x -= 0.2f;
+			vPos.z += 0.2f;
 		}
 		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_RU)
 		{
-			vPos.x += 0.5f;
-			vPos.z += 0.5f;
+			vPos.x += 0.2f;
+			vPos.z += 0.2f;
 		}
 		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_LD)
 		{
-			vPos.x -= 0.5f;
-			vPos.z -= 0.5f;
+			vPos.x -= 0.2f;
+			vPos.z -= 0.2f;
 		}
 		else if (m_pPlayer->GetObj_Dir() == OBJ_DIR::DIR_RD)
 		{
-			vPos.x += 0.5f;
-			vPos.z -= 0.5f;
+			vPos.x += 0.2f;
+			vPos.z -= 0.2f;
 		}
 		tHatLight.Position = vPos;
 	}

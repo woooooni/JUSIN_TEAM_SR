@@ -1,6 +1,8 @@
 #include "UI_NewQuest.h"
 #include "Export_Function.h"
 #include "UIMgr.h"
+#include "GameMgr.h"
+#include "InventoryMgr.h"
 
 CUI_NewQuest::CUI_NewQuest(LPDIRECT3DDEVICE9 pGraphicDev) 
 	: CUI(pGraphicDev)
@@ -50,6 +52,15 @@ HRESULT CUI_NewQuest::Ready_Object(void)
 
 _int CUI_NewQuest::Update_Object(const _float& fTimeDelta)
 {
+	if (m_bReserve 
+		&& !CUIMgr::GetInstance()->Get_Dialog()->Is_Active() 
+		&& !CGameMgr::GetInstance()->Get_Player()->Is_GetItem()
+		&& CGameMgr::GetInstance()->Get_Player()->Get_State() != PLAYER_STATE::GETTIEM)
+	{
+		Set_Active(true);
+		m_bReserve = false;
+	}
+		
 	if (!Is_Active())
 	{
 		if (!m_pShortcutKey->Get_Shown())
@@ -58,6 +69,7 @@ _int CUI_NewQuest::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	}
 
+	
 	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
 
 	m_pWindow->Update_Object(fTimeDelta);

@@ -83,8 +83,8 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     if (m_pWallet->Is_Active())
         m_pWallet->Update_Object(fTimeDelta);
 
-    if (m_pNewQuest->Is_Active())
-        m_pNewQuest->Update_Object(fTimeDelta);
+    
+    m_pNewQuest->Update_Object(fTimeDelta);
 
     if (KEY_TAP(KEY::I))
     {

@@ -24,13 +24,15 @@ public:
 
 public:
 	NPC_CODE Get_NpcCode() { return m_eCode; }
+	_bool Is_TalkEnable() { return m_bTalkEnble; }
+	void Set_TalkEnable(_bool _bEnable) { m_bTalkEnble = _bEnable; }
 
 private:
 	void Talk();
 
 private:
 	NPC_CODE m_eCode;
-	
+	_bool m_bTalkEnble;
 
 protected:
 	CUI_ExclamationMark* m_pExclamation = nullptr;
