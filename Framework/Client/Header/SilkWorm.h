@@ -29,31 +29,42 @@ public:
     virtual void	LateUpdate_Object(void)						override;
 
     HRESULT	Add_Component(void);
+private:
+    void Trace(_float fTimeDelta);
+     void Create_Effect(_vec3 vPos);
+     void Shoot_BugBall();
+     void Shoot_PlantBallFirst();
+     void Shoot_PlantBallSecond();
+     void Shoot_Doppel();
+     void Create_Line();
+     void Create_NueFlower();
+    void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+
 
     // BossHPBar 연동으로 인해 추가함 (Test)
+   
+public: 
     MONSTERSTAT Get_Stat() { return m_tStat; }
-public:
     static  CSilkWorm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
     SILKWORM_STATE Get_State() { return m_eState; }
     void Set_State(SILKWORM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
-
 private:
     _float m_fMoveTime;
     _float m_fEffectCoolTime =0.f;
     _vec3 m_vDst = { 0.f,0.f,0.f };
     _vec3 m_vDir = { 0.f,0.f,0.f };
     _bool m_bShoot = true;
-     void Trace(_float fTimeDelta);
-     void Create_Effect(_vec3 vPos);
-     void Create_Line();
-     void Create_NueFlower();
-    void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+    _int m_iShootState=0;
+    _bool m_bPosAccupied[8] = {};
     CGameObject* m_pNueFlower[6] = {};
     CGameObject* m_pTarget = nullptr;
     CGameObject* m_pLine = nullptr;
+    CGameObject* m_pDoppel[4] = {};
+    _float m_fCountDown = 0.f;
     MONSTERSTAT m_tStat;
     SILKWORM_STATE	m_eState;
     _bool m_bPhase2 =false ;
+    _bool m_bSpecialAttack = true;
     _bool m_bRotate[3] = {};
     _float			m_fSpeed = 7.f;
     _vec3 m_vRandomPos[8] = {};

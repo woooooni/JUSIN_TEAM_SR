@@ -379,18 +379,19 @@ void CMonster::On_Death()
 			dynamic_cast<CEffect_DieSmoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f));
 	}
 	_int iPossibility = rand() % 100;
-	if(iPossibility < 70)
+	if(iPossibility < 50)
 	{
 		CCoin* pCoin = CCoin::Create(m_pGraphicDev, rand()%20+10, vPos);
 		NULL_CHECK_RETURN(pCoin, );
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
 		pLayer->Add_GameObject(L"Coin", pCoin);
 	}
-	else if (iPossibility > 80)
+	else if (iPossibility > 70)
 	{
 		ITEM_CODE eItemCode[6] = { ITEM_CODE::HP_SMALL,	ITEM_CODE::HP_MIDDLE,ITEM_CODE::HP_BIG,ITEM_CODE::SPEED_SMALL,ITEM_CODE::SPEED_MIDDLE,ITEM_CODE::SPEED_BIG };
 		CDefaultItem* pDefaultItem = CDefaultItem::Create(m_pGraphicDev,OBJ_ID::ITEM , eItemCode[rand()%6]);
 		NULL_CHECK_RETURN(pDefaultItem, );
+		pDefaultItem->Get_TransformCom()->Set_Pos(&vPos);
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
 		pLayer->Add_GameObject(L"DefaultItem", pDefaultItem);
 	}

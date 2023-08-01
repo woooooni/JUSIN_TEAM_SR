@@ -11,7 +11,8 @@
 #include "Pool.h"
 #include "Effect_MothFlyLine.h"
 #include "NueFlower.h"
-
+#include "PlantBall.h"
+#include "Bullet_SilkWormDoppel.h"
 CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
 {
 }
@@ -59,7 +60,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_vRandomPos[7] = { vPos.x , vPos.y, vPos.z - m_fiInterval };
 	m_fMinHeight = 2.2f;
 	m_eCOLORPATTERN = COLOR_BLUE;
-	m_tStat = { 25,25,1 };
+	m_tStat = { 35,	35, 2 };
 
 	m_pUIBack = CUI_BossHP::Create(m_pGraphicDev, BOSSHP::UI_BACK);
 	NULL_CHECK_RETURN(m_pUIBack, E_FAIL);
@@ -266,6 +267,7 @@ void CSilkWorm::Update_Regen(_float fTimeDelta)
 			CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 			if (nullptr == pTarget)
 				return;
+			m_fMoveTime = 0.f;
 			m_pTarget = pTarget;
 			m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 			m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -296,12 +298,47 @@ void CSilkWorm::Update_Ready(_float fTimeDelta)
 	}
 	else
 	{
+		
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 0)
 			m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 		if (m_pAnimator->GetCurrAnimation()->Is_Finished()&&vPos.y <= m_fMinHeight)
 		{
+			if (m_tStat.iHp < 15.f && m_bSpecialAttack)
+			{
+				_int iRand = rand() % 8;
+				for (int i = 0; i < 4; i++)
+				{
+					while (true)
+					{
+						iRand = rand() % 8;
+						if (!m_bPosAccupied[iRand])
+						{
+							m_bPosAccupied[iRand] = true;
+							break;
+						}
+					}
+						_vec3 BulletPos;
+						m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
+						if (i < 2)
+						{
+							BulletPos.x += (float(i - 2) * 5.f);
+						}
+						else
+						{
+							BulletPos.x += (float(i - 1) * 5.f);
+						}
+						m_pDoppel[i] = CBullet_SilkWormDoppel::Create(m_pGraphicDev,
+						BulletPos, m_vRandomPos[iRand], 2.f * (float)i, m_eCOLORPATTERN, m_tStat.iAttack);
+						NULL_CHECK_RETURN(m_pDoppel[i], );
+						dynamic_cast<CBullet*>(m_pDoppel[i])->Set_Owner(this);
+						CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+						pLayer->Add_GameObject(L"Bullet_SilkWormDoppel", m_pDoppel[i]);
+
+				}
+				m_bSpecialAttack = false;
+			}
 			m_pAnimator->Play_Animation(L"BugBoss_Phase2_Attack", false);
 			Set_State(SILKWORM_STATE::ATTACK);
 			_vec3 vTargetPos, vPos, vDir;
@@ -314,6 +351,7 @@ void CSilkWorm::Update_Ready(_float fTimeDelta)
 			vDir = vTargetPos - vPos;
 			m_vDir = vTargetPos - vPos;
 			Create_Line();
+			m_fMoveTime = 0.f;
 		}
 		else
 		{
@@ -331,35 +369,37 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 	{
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 3 && m_bShoot)
 		{
-			_float fAngle = 18.f;
-			_matrix matRotationY;
-			_vec3 vDir = { 1,0,0 };
-			D3DXMatrixRotationY(&matRotationY, D3DXToRadian(-fAngle));
-			D3DXVec3TransformNormal(&vDir, &vDir, &matRotationY);
-			for (int i = 0; i < 10; i++)
+			if (m_iShootState == 0)
 			{
-				D3DXMatrixRotationY(&matRotationY, D3DXToRadian(fAngle));
-				D3DXVec3TransformNormal(&vDir, &vDir, &matRotationY);
-				CBugBall* pBugBall = CBugBall::Create(m_pGraphicDev);
-				NULL_CHECK_RETURN(pBugBall, );
-				_vec3 BulletPos;
-				m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
-				BulletPos.y = 0.5f;
-				pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
-				pBugBall->Set_Dir(vDir);
-				pBugBall->Set_Owner(this);
-				pBugBall->Set_Atk(m_tStat.iAttack);
-				CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
-				pLayer->Add_GameObject(L"BugBall", pBugBall);
+				Shoot_BugBall();
 				m_bShoot = false;
-
 			}
+			else if (m_iShootState == 1)
+			{
+				Shoot_PlantBallFirst();
+				m_bShoot = false;
+			}
+			else if (m_iShootState == 2)
+			{
+				Shoot_PlantBallSecond();
+				m_bShoot = false;
+			}
+			m_iShootState++;
+			if (m_iShootState > 2)
+				m_iShootState = 0;
+			
 		}
 		if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 		{
 				m_pAnimator->Play_Animation(L"BugBoss_Phase1_Idle", true);
 				Set_State(SILKWORM_STATE::IDLE);
 				m_bShoot = true;
+				if (m_iShootState == 2)
+				{
+					Set_State(SILKWORM_STATE::ATTACK);
+					m_pAnimator->GetCurrAnimation()->Set_Idx(0);
+					m_pAnimator->GetCurrAnimation()->Set_Finished(false);
+				}
 		}
 	}
 	else
@@ -649,7 +689,82 @@ void CSilkWorm::Create_Effect(_vec3 vPos )
 		}
 	}
 }
+void CSilkWorm::Shoot_BugBall()
+{
+	_float fAngle = 18.f;
+	_matrix matRotationY;
+	_vec3 vDir = { 1,0,0 };
+	D3DXMatrixRotationY(&matRotationY, D3DXToRadian(-fAngle));
+	D3DXVec3TransformNormal(&vDir, &vDir, &matRotationY);
+	for (int i = 0; i < 10; i++)
+	{
+		D3DXMatrixRotationY(&matRotationY, D3DXToRadian(fAngle));
+		D3DXVec3TransformNormal(&vDir, &vDir, &matRotationY);
+		CBugBall* pBugBall = CBugBall::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pBugBall, );
+		_vec3 BulletPos;
+		m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
+		BulletPos.y = 0.5f;
+		pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
+		pBugBall->Set_Dir(vDir);
+		pBugBall->Set_Owner(this);
+		pBugBall->Set_Atk(m_tStat.iAttack);
+		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+		pLayer->Add_GameObject(L"BugBall", pBugBall);
 
+	}
+}
+void CSilkWorm::Shoot_PlantBallFirst()
+{
+	_float fAngle = 10.f;
+	_matrix matRotationAxis;
+	_vec3 vDir = { 1.f,1.f,0.f };
+	D3DXMatrixRotationAxis(&matRotationAxis,&_vec3(-1.f,1.f,0.f) ,D3DXToRadian(-fAngle));
+	D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
+	for (int i = 0; i < 18; i++)
+	{
+		D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(-1.f, 1.f, 0.f), D3DXToRadian(fAngle));
+		D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
+		CPlantBall* pPlantBall = CPlantBall::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pPlantBall, );
+		_vec3 BulletPos;
+		m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
+		BulletPos.y = 1.5f;
+		pPlantBall->Get_TransformCom()->Set_Pos(&BulletPos);
+		pPlantBall->Set_Dir(vDir);
+		pPlantBall->Set_Owner(this);
+		pPlantBall->Set_Atk(m_tStat.iAttack);
+		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+		pLayer->Add_GameObject(L"PlantBall", pPlantBall);
+	}
+}
+void CSilkWorm::Shoot_PlantBallSecond()
+{
+	_float fAngle = 10.f;
+	_matrix matRotationAxis;
+	_vec3 vDir = { -1.f,1.f,0.f };
+	D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(1.f, 1.f, 0.f), D3DXToRadian(fAngle));
+	D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
+	for (int i = 0; i < 18; i++)
+	{
+		D3DXMatrixRotationAxis(&matRotationAxis, &_vec3(1.f, 1.f, 0.f), D3DXToRadian(-fAngle));
+		D3DXVec3TransformNormal(&vDir, &vDir, &matRotationAxis);
+		CPlantBall* pPlantBall = CPlantBall::Create(m_pGraphicDev);
+		NULL_CHECK_RETURN(pPlantBall, );
+		_vec3 BulletPos;
+		m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
+		BulletPos.y = 1.5f;
+		pPlantBall->Get_TransformCom()->Set_Pos(&BulletPos);
+		pPlantBall->Set_Dir(vDir);
+		pPlantBall->Set_Owner(this);
+		pPlantBall->Set_Atk(m_tStat.iAttack);
+		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
+		pLayer->Add_GameObject(L"PlantBall", pPlantBall);
+	}
+}
+void CSilkWorm::Shoot_Doppel()
+{
+}
 void CSilkWorm::Create_Line()
 {
 	if(m_pLine)
