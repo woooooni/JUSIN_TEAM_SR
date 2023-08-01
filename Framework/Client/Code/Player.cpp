@@ -506,7 +506,7 @@ void CPlayer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 		Collision_Enter_Grab(pCollider, _eCollisionGroup, _iColliderID);
 	}
 
-	if (m_pColliderCom->Get_Id() == _iColliderID && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	if (m_pColliderCom->Get_Id() == _iColliderID && (pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_BOMB))
 	{
 		Collision_Enter_Hit(pCollider, _eCollisionGroup, _iColliderID);
 	}
@@ -526,7 +526,8 @@ void CPlayer::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
 		CFieldObject* src;
 		if((src = dynamic_cast<CFieldObject*>(pCollider->GetOwner())) && src->Get_ObjInfo().m_bIsPushable)
 			Collision_Stay_Push(pCollider, _eCollisionGroup, _iColliderID);
-	}	
+	}
+
 }
 void CPlayer::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {

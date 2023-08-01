@@ -181,14 +181,14 @@ CClearField* CClearField::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
         return  nullptr;
 
     }
-    srand(unsigned(time(NULL)));
+    srand(unsigned(rand() * rand()));
 
 
 
     ret->m_pTransformCom->Set_Pos(&(p_Pos));
     ret->m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 
-    ret->Set_MinHeight((rand() % 200) * 0.0005f + 0.02f);
+    ret->Set_MinHeight(((rand() * rand()) % 200) * 0.001f + 0.02f);
     ret->m_pColliderCom->Set_Offset({ 0, 0.5f, 0 });
 
     return ret;

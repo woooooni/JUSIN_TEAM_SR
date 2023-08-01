@@ -16,8 +16,10 @@ CCutSceneMgr::CCutSceneMgr()
 	, m_fFinishTimeMonkeyVillage(0.f)
 	, m_fAccTimeSunGolem(0.f)
 	, m_fFinishTimeSunGolem(0.f)
-	, m_fAccTimeNueHero(0.f)
-	, m_fFinishTimeNueHero(0.f)
+	, m_fAccTimeNueHero_Intro(0.f)
+	, m_fFinishTimeNueHero_Die(0.f)
+	, m_fAccTimeNueHero_Die(0.f)
+	, m_fFinishTimeNueHero_Intro(0.f)
 	, m_bCutScenePlaying(false)
 	,m_iEventNum(0)
 {
@@ -57,7 +59,11 @@ void CCutSceneMgr::Update_CutSceneMgr(const _float& fTimeDelta)
 		break;
 
 	case CUTSCENE_TYPE::BOSS_NUEHERO_INTRO:
-		Update_Boss_NueHero_Intro();
+		Update_Boss_NueHero_Intro(fTimeDelta);
+		break;
+
+	case CUTSCENE_TYPE::BOSS_NUEHERO_DIE:
+		Update_Boss_NueHero_Die(fTimeDelta);
 		break;
 	case CUTSCENE_TYPE::MONKEY2_HIT_ONE:
 		Update_CutSceneMonkeyForest2(fTimeDelta);
@@ -272,9 +278,15 @@ void CCutSceneMgr::Update_Boss_SunGolem_Die(const _float& fTimeDelta)
 
 }
 
-void CCutSceneMgr::Update_Boss_NueHero_Intro()
+void CCutSceneMgr::Update_Boss_NueHero_Intro(const _float& fTimeDelta)
 {
 }
+
+void CCutSceneMgr::Update_Boss_NueHero_Die(const _float& fTimeDelta)
+{
+}
+
+
 
 void CCutSceneMgr::Update_CutSceneMonkeyForest2(const _float&	fTimeDelta)
 {
@@ -408,6 +420,14 @@ void CCutSceneMgr::Ready_CutSceneSunGolem_Die()
 
 }
 
+void CCutSceneMgr::Ready_CutSceneNueHero_Intro()
+{
+}
+
+void CCutSceneMgr::Ready_CutSceneNueHero_Die()
+{
+}
+
 void CCutSceneMgr::Ready_CutSceneNueHero()
 {
 	m_fAccTimeNueHero = 0.f;
@@ -500,10 +520,14 @@ void CCutSceneMgr::Finish_CutSceneSunGolem_Die()
 	CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);
 }
 
-void CCutSceneMgr::Finish_CutSceneNueHero()
+void CCutSceneMgr::Finish_CutSceneNueHero_Intro()
 {
-	m_bCutScenePlaying = false;
 }
+
+void CCutSceneMgr::Finish_CutSceneNueHero_Die()
+{
+}
+
 
 void CCutSceneMgr::Finish_CutSceneMonkeyForest2()
 {
@@ -558,7 +582,11 @@ void CCutSceneMgr::Ready_CutScene(CUTSCENE_TYPE _eType)
 		Ready_CutSceneSunGolem();
 		break;
 	case CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_INTRO:
-		Ready_CutSceneNueHero();
+		Ready_CutSceneNueHero_Intro();
+		break;
+
+	case CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_DIE:
+		Ready_CutSceneNueHero_Die();
 		break;
 
 	case CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE:

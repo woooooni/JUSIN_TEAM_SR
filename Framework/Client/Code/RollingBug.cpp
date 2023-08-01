@@ -153,43 +153,7 @@ void CRollingBug::LateUpdate_Object(void)
 		m_pUIFrame->LateUpdate_Object();
 	}
 
-	CGameObject* pLightFlower = Engine::Get_Layer(LAYER_TYPE::INTERACTION_OBJ)->Find_GameObject(L"LightFlower");
 	
-	if (!pLightFlower)
-		return __super::LateUpdate_Object();
-
-	_vec3 vFlowerPos, vPos, vDir;
-	pLightFlower->Get_TransformCom()->Get_Info(INFO_POS, &vFlowerPos);
-
-	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vDir = vFlowerPos - vPos;
-
-	_bool bIsOpened = dynamic_cast<CLightFlower*>(pLightFlower)->Get_Opened();
-
-	if (bIsOpened && D3DXVec3Length(&vDir) <= 5.f)
-	{
-		if (JELLY_COLOR::BLUE == dynamic_cast<CLightFlower*>(pLightFlower)->Get_Color())
-			if (m_tBugInfo.eType == BUGCOLORTYPE::BLUE)
-				Set_Stun(0.1f);
-
-		if (JELLY_COLOR::MAGENTA == dynamic_cast<CLightFlower*>(pLightFlower)->Get_Color())
-			if (m_tBugInfo.eType == BUGCOLORTYPE::PINK)
-				Set_Stun(0.1f);
-
-		if (JELLY_COLOR::YELLOW == dynamic_cast<CLightFlower*>(pLightFlower)->Get_Color())
-			if (m_tBugInfo.eType == BUGCOLORTYPE::YELLOW)
-				Set_Stun(0.1f);
-
-	}
-
-	if (!bIsOpened)
-	{
-		if (Get_State() == MONSTER_STATE::STUN)
-		{
-			m_fStunTime = 0.0f;
-			Set_State(MONSTER_STATE::IDLE);
-		}
-	}		
 
 }
 

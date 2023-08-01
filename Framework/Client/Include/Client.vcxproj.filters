@@ -682,6 +682,9 @@
     <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\03. Shop">
       <UniqueIdentifier>{e4b6f079-bc88-4058-b2f9-4f549828e418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\13. Fade">
+      <UniqueIdentifier>{01c1b47c-f86d-49e3-b561-e87f7d88730c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1122,9 +1125,6 @@
     <ClInclude Include="..\Header\Scene_MonkeyVillage.h">
       <Filter>01. Scene\02. Monkey_Forest\02. Monkey_Village</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Scene_MoonForest1.h">
-      <Filter>01. Scene\04. Moon_Forest</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Scene_SunGolemCave1.h">
       <Filter>01. Scene\03. Sungolem\00. Sunglem_Cave</Filter>
     </ClInclude>
@@ -1401,6 +1401,12 @@
       <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Effect_CircleBlur.h" />
+    <ClInclude Include="..\Header\UI_Fade.h">
+      <Filter>02. GameObject\04. UI\13. Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_MoonForest1.h">
+      <Filter>01. Scene\04. Moon_Forest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2082,6 +2088,9 @@
       <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect_CircleBlur.cpp" />
+    <ClCompile Include="..\Code\UI_Fade.cpp">
+      <Filter>02. GameObject\04. UI\13. Fade</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

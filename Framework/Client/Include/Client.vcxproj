@@ -419,6 +419,7 @@
     <ClInclude Include="..\Header\UI_Cursor.h" />
     <ClInclude Include="..\Header\UI_Dialog.h" />
     <ClInclude Include="..\Header\UI_ExclamationMark.h" />
+    <ClInclude Include="..\Header\UI_Fade.h" />
     <ClInclude Include="..\Header\UI_ItemInfo.h" />
     <ClInclude Include="..\Header\UI_LoadingBackGround.h" />
     <ClInclude Include="..\Header\UI_LoadingOgu.h" />
@@ -676,6 +677,7 @@
     <ClCompile Include="..\Code\UI_ExclamationMark.cpp">
       <FileType>CppCode</FileType>
     </ClCompile>
+    <ClCompile Include="..\Code\UI_Fade.cpp" />
     <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
     <ClCompile Include="..\Code\UI_LoadingBackGround.cpp" />
     <ClCompile Include="..\Code\UI_LoadingOgu.cpp" />
