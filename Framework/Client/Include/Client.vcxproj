@@ -433,6 +433,7 @@
     <ClInclude Include="..\Header\UI_HPBar.h" />
     <ClInclude Include="..\Header\UI_QuestIcon.h" />
     <ClInclude Include="..\Header\UI_QuestionMark.h" />
+    <ClInclude Include="..\Header\UI_QuestList.h" />
     <ClInclude Include="..\Header\UI_Shop.h" />
     <ClInclude Include="..\Header\UI_ShortCutKey.h" />
     <ClInclude Include="..\Header\UI_SlotFour.h" />
@@ -689,6 +690,7 @@
     <ClCompile Include="..\Code\UI_HPBar.cpp" />
     <ClCompile Include="..\Code\UI_QuestIcon.cpp" />
     <ClCompile Include="..\Code\UI_QuestionMark.cpp" />
+    <ClCompile Include="..\Code\UI_QuestList.cpp" />
     <ClCompile Include="..\Code\UI_Shop.cpp" />
     <ClCompile Include="..\Code\UI_SlotFour.cpp" />
     <ClCompile Include="..\Code\UI_SlotItems.cpp" />

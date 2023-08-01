@@ -6,7 +6,7 @@ CQuest_Sheep::CQuest_Sheep()
 	:CQuest_Conversation(NPC_CODE::NPC_SHEEP, nullptr)
 {
 	m_strQuestTitle = L"불어난 쓰레기";
-	//m_strQuestDesc = L"소 아저씨에게 쓰레기가 늘어난 이유에 대해 물어보자.";
+	m_strQuestSub = L"철물점 소 아저씨 찾아가기";
 	m_strQuestDesc = L"궁금한 건 못 참는 아기오구!\n소 아저씨가 본 것이 무엇인지 물어보자.";
 
 	// TODO : 대사 쓰기
@@ -23,7 +23,6 @@ CQuest_Sheep::CQuest_Sheep()
 
 void CQuest_Sheep::Update_Quest(_float& fTimeDelta)
 {
-	
 }
 
 void CQuest_Sheep::Accept_Quest()
@@ -35,6 +34,9 @@ void CQuest_Sheep::Accept_Quest()
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Desc(m_strQuestDesc);
 
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Active(true);
+
+	CUIMgr::GetInstance()->Get_QuestList()->Set_Title(m_strQuestSub);
+	CUIMgr::GetInstance()->Get_QuestList()->Set_Active(true);
 }
 
 void CQuest_Sheep::Clear_Quest()

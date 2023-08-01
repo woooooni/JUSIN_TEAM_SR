@@ -31,6 +31,8 @@ public:
 	void		Set_Filled(SLOTNUM _eSlotNum, _bool _bFilled);
 
 	vector<ITEM_CODE>	Get_SlotItems() { return m_vecSlotItems; }
+	vector<_bool>		Get_IsSetCode() { return m_vecSetCode; }
+	void				Set_SetCode(SLOTNUM _eSlotNum, _bool _bSetCode);
 
 	const ITEM_CODE&	Get_ItemCode(SLOTNUM _eSlotNum);
 	void				Set_ItemCode(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType) { m_vecSlotItems[_eSlotNum] = _eCodeType; }

@@ -6,6 +6,7 @@ CQuest_NueHero2::CQuest_NueHero2()
 {
 	// 순수 누에용사
 	m_strQuestTitle = L"누에용사와 대화하기.";
+	//m_strQuestSub = L""; // 생략
 	m_strQuestDesc = L"타락한 누에용사를 혼내줬다. 순수해진 누에용사와 대화해보자.";
 
 	// TODO :: 누에용사 대사 쓰기

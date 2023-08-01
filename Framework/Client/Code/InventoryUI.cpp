@@ -318,6 +318,7 @@ void CInventoryUI::Register_QuickSlot()
 					{
 						pSlots->Set_Item(SLOTNUM::SLOT_ONE, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_ONE, false);
+						pSlots->Set_SetCode(SLOTNUM::SLOT_ONE, false);
 					}
 				}
 			}
@@ -382,6 +383,7 @@ void CInventoryUI::Register_QuickSlot()
 					{
 						pSlots->Set_Item(SLOTNUM::SLOT_TWO, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_TWO, false);
+						pSlots->Set_SetCode(SLOTNUM::SLOT_TWO, false);
 					}
 				}
 			}
@@ -446,6 +448,7 @@ void CInventoryUI::Register_QuickSlot()
 					{
 						pSlots->Set_Item(SLOTNUM::SLOT_THREE, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_THREE, false);
+						pSlots->Set_SetCode(SLOTNUM::SLOT_THREE, false);
 					}
 				}
 			}
@@ -510,6 +513,7 @@ void CInventoryUI::Register_QuickSlot()
 					{
 						pSlots->Set_Item(SLOTNUM::SLOT_FOUR, m_iCurItemIdx, ITEM_CODE::ITEM_END);
 						pSlots->Set_Filled(SLOTNUM::SLOT_FOUR, false);
+						pSlots->Set_SetCode(SLOTNUM::SLOT_FOUR, false);
 					}
 				}
 			}

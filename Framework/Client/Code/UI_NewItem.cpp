@@ -3,6 +3,7 @@
 #include "Item.h"
 #include "GameMgr.h"
 #include "Player.h"
+#include "UIMgr.h"
 
 CUI_NewItem::CUI_NewItem(LPDIRECT3DDEVICE9 pGraphicDev) : CUI(pGraphicDev)
 {
@@ -82,6 +83,9 @@ void CUI_NewItem::LateUpdate_Object(void)
 
 		m_bShown = true;
 	}
+
+	if (CUIMgr::GetInstance()->Get_QuestList()->Get_Shown())
+		CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(false);
 
 	__super::LateUpdate_Object();
 }
@@ -164,6 +168,8 @@ void CUI_NewItem::Key_Input()
 
 			Set_Active(false);
 			m_bShown = false;
+
+			CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(true);
 
 			m_pWindow->Set_Active(false);
 			m_pWindow->Set_InitSize(64.f, 43.f);

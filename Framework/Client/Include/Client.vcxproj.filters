@@ -682,6 +682,9 @@
     <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\03. Shop">
       <UniqueIdentifier>{e4b6f079-bc88-4058-b2f9-4f549828e418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\09. Window\02. QuestList">
+      <UniqueIdentifier>{82b56c38-f15f-4071-82ed-f299bccd4ef8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1400,6 +1403,9 @@
     <ClInclude Include="..\Header\SilkWorm.h">
       <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_QuestList.h">
+      <Filter>02. GameObject\04. UI\09. Window\02. QuestList</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2079,6 +2085,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\RabbitMgr.cpp">
       <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_QuestList.cpp">
+      <Filter>02. GameObject\04. UI\09. Window\02. QuestList</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
