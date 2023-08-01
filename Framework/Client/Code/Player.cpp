@@ -43,6 +43,7 @@
 #include "LightMgr.h"
 
 
+
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_PLAYER, OBJ_ID::PLAYER)
 	, m_fSpeed(5.f)

@@ -5,6 +5,8 @@
 #include "KeyMgr.h"
 #include "Texture.h"
 #include "Export_Function.h"
+#include "Effect_Trail.h"
+#include "Pool.h"
 
 CPlayer_State_Run::CPlayer_State_Run(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
@@ -94,6 +96,19 @@ HRESULT CPlayer_State_Run::Ready_State(void)
 	else
 		Play_Sound(L"SFX_9_Run_Ground_3.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
+
+	m_pEffect = CPool<CEffect_Trail>::Get_Obj();
+
+	if (!m_pEffect)
+	{
+		m_pEffect = CEffect_Trail::Create(Get_Device());
+		NULL_CHECK_RETURN(m_pEffect, E_FAIL);
+		m_pEffect->Ready_Object();
+	}
+	m_pEffect->Set_Effect(m_pOwner, _vec3(0.0f, 0.0f, 0.0f), 0.2f);
+	m_pEffect->Set_Color(255, 255, 255, 125);
+	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"Trail", m_pEffect);
+
 	return S_OK;
 }
 
@@ -146,6 +161,8 @@ void CPlayer_State_Run::Render_State(void)
 void CPlayer_State_Run::Reset_State(void)
 {
 	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	m_pEffect->Set_End();
+	m_pEffect = nullptr;
 }
 
 void CPlayer_State_Run::Key_Input(const _float& fTimeDelta)

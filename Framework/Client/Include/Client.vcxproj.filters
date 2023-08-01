@@ -1404,6 +1404,11 @@
       <Filter>02. GameObject\08. Boss\01. SilkWorm</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\Effect_CircleBlur.h" />
+    <ClInclude Include="..\Header\Bullet_SilkWormDoppel.h" />
+    <ClInclude Include="..\Header\UI_QuestList.h" />
+    <ClInclude Include="..\Header\Effect_Trail.h">
+      <Filter>02. GameObject\13. Effect\24. Trail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2085,6 +2090,11 @@
       <Filter>02. GameObject\06. FieldObj\05. HitObj\03. RabitObj</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Effect_CircleBlur.cpp" />
+    <ClCompile Include="..\Code\Bullet_SilkWormDoppel.cpp" />
+    <ClCompile Include="..\Code\UI_QuestList.cpp" />
+    <ClCompile Include="..\Code\Effect_Trail.cpp">
+      <Filter>02. GameObject\13. Effect\24. Trail</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
