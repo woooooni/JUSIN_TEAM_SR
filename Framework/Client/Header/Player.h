@@ -64,7 +64,7 @@ public:
 		m_eChangeState = _eState;
 	}
 	void			Player_Move(_float fTimeDelta);
-
+	PLAYER_STATE Get_NextState() { return m_eChangeState; }
 public:
 	// 충돌 호출
 	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;

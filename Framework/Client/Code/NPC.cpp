@@ -12,7 +12,9 @@ CNpc::CNpc(LPDIRECT3DDEVICE9 pGraphicDev, NPC_CODE eCode, wstring _strNpcName)
 	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_NPC, OBJ_ID::NPC) // OBJ_NPC
 	, m_eCode(eCode)
 	, m_strNpcName(_strNpcName)
+	, m_bTalkEnble(true)
 {
+
 }
 
 CNpc::CNpc(const CNpc& rhs)
@@ -65,6 +67,7 @@ HRESULT CNpc::Ready_Object(void)
 
 _int CNpc::Update_Object(const _float& fTimeDelta)
 {
+	
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	_int iExit = __super::Update_Object(fTimeDelta);
 
@@ -136,7 +139,11 @@ void CNpc::LateUpdate_Object(void)
 		if (D3DXVec3Length(&vDir) < 2.f)
 		{
 			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
-			if (KEY_TAP(KEY::Z) && !CUIMgr::GetInstance()->Get_Dialog()->Is_Active() && !CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active())
+			if (KEY_TAP(KEY::Z) 
+				&& !CUIMgr::GetInstance()->Get_Dialog()->Is_Active() 
+				&& !CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active() 
+				&& !pPlayer->Is_GetItem()
+				&& m_bTalkEnble)
 			{
 				Talk();
 			}
@@ -148,6 +155,9 @@ void CNpc::LateUpdate_Object(void)
 			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 		}
 	}
+
+	if (!m_bTalkEnble)
+		m_bTalkEnble = true;
 }
 
 void CNpc::Render_Object(void)

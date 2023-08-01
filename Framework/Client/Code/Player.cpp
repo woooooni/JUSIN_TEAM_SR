@@ -313,6 +313,7 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 	{
 		m_vecState[(_uint)m_eState]->Reset_State();
 		m_eState = m_eChangeState;
+		m_eChangeState = PLAYER_STATE::STATE_END;
 		m_vecState[(_uint)m_eState]->Ready_State();
 		m_bStateChange = false;
 	}

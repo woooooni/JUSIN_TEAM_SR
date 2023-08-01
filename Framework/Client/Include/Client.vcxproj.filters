@@ -682,6 +682,9 @@
     <Filter Include="02. GameObject\15. NPC\01. Monkey_Forest\03. Shop">
       <UniqueIdentifier>{e4b6f079-bc88-4058-b2f9-4f549828e418}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\13. Effect\24. Trail">
+      <UniqueIdentifier>{69652dc7-134e-4195-87db-34d2e027e198}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">

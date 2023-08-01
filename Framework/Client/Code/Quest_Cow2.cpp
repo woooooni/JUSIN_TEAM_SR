@@ -49,7 +49,7 @@ void CQuest_Cow2::Accept_Quest()
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Title(m_strQuestTitle);
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Desc(m_strQuestDesc);
 
-	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Active(true);
+	CUIMgr::GetInstance()->Get_NewQuestUI()->Reserve_Active(true);
 
 	CUIMgr::GetInstance()->Get_QuestList()->Set_Title(m_strQuestSub);
 	CUIMgr::GetInstance()->Get_QuestList()->Set_Active(true);

@@ -159,9 +159,9 @@ void CParticle_MapCircle::Random_Particle(_vec3& _vMax, _uint _iCount, _uint iR,
 	m_vMax = _vMax;
 	m_iAlpha = 0;
 	m_iMaxAlpha = _iMaxAlpha;
-	m_iR = 255;
-	m_iG = 255;
-	m_iB = 255;
+	m_iR = iR;
+	m_iG = iG;
+	m_iB = iB;
 	m_iCount = _iCount;
 	m_fAccMoveTime = 0.0f;
 	m_fAccTime = 0.0f;

@@ -29,8 +29,8 @@ public:
 public:
 	void Set_Title(const wstring& _strTitle) { m_strTitle = _strTitle; }
 	void Set_Desc(const wstring& _strDesc) { m_strDesc = _strDesc; }
-
-
+	void Reserve_Active(_bool _b) { m_bReserve = _b; }
+	_bool IsReserveActive() { return m_bReserve; }
 
 private:
 	void	Key_Input();
@@ -42,6 +42,7 @@ private:
 	_float	m_fCurHeight;
 	_float	m_fSpeed = 10.f;
 	_bool	m_bShown = false;
+	_bool m_bReserve = false;
 
 private:
 	CUI_QuestIcon* m_pCloseKey = nullptr;

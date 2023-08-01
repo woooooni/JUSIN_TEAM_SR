@@ -20,6 +20,7 @@
 #include "DrawingEnter.h"
 #include "DefaultItem.h"
 #include "TriggerObj.h"
+#include "Particle_MapCircle.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -174,6 +175,15 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Door", pDoor);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"NextPotal", pPortal);
 
+	for (_uint i = 0; i < 300; ++i)
+	{
+		CParticle_MapCircle* pParticle = CParticle_MapCircle::Create(Engine::Get_Device());
+		NULL_CHECK_RETURN(pParticle, E_FAIL);
+		pParticle->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 300, (rand() % 4) * 85, (rand() % 4) * 85, (rand() % 4) * 85, 255);
+		m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MapCircle", pParticle);
+	}
+
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 	return S_OK;
 }
 

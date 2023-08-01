@@ -44,7 +44,7 @@ HRESULT CItem_Hat_Light::Ready_Object(void)
 	m_vecAnimation[(_uint)OBJ_DIR::DIR_RU] = L"Light_RightUp";
 	m_vecAnimation[(_uint)OBJ_DIR::DIR_RD] = L"Light_RightDown";
 
-	m_vScale = { 0.6f, 0.5f, 0.0f };
+	m_vScale = { 0.6f, 0.5f, 0.5f };
 	m_pTransformCom->Set_Scale(m_vScale);
 	m_pTransformCom->Set_Pos(&_vec3(0.0f, 0.0f, 0.0f));
 
@@ -66,7 +66,7 @@ HRESULT CItem_Hat_Light::Ready_Object(void)
 	tHatLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
 	tHatLight.Ambient = { 0.0f, 0.0f, 0.0f, 0.0f };
 	tHatLight.Diffuse = { 0.3f, 0.3f, 0.3f, 0.3f };
-	tHatLight.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
+	tHatLight.Specular = { 0.5f, 0.5f, 0.5f, 0.5f};
 	tHatLight.Range = 50.0f;
 	tHatLight.Attenuation0 = 0.01f; // 鼻熱 馬潸 啗熱
 	tHatLight.Attenuation1 = 0.06f; // 摹⑽ 馬潸 啗熱

@@ -1,6 +1,7 @@
 #include "UI_Dialog.h"
 #include "UIMgr.h"
 #include "Export_Function.h"
+#include "NPC.h"
 
 CUI_Dialog::CUI_Dialog(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
@@ -181,6 +182,20 @@ void CUI_Dialog::Print_Next()
 				break;
 			}
 
+		}
+
+		const vector<CGameObject*>& vecObj = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+		for (size_t i = 0; i < vecObj.size(); ++i)
+		{
+			if (vecObj[i]->GetObj_Type() == OBJ_TYPE::OBJ_NPC)
+			{
+				CNpc* pNpc = dynamic_cast<CNpc*>(vecObj[i]);
+				if (pNpc != nullptr && pNpc->Get_NpcCode() == m_pQuest->Get_NpcCode())
+				{
+					pNpc->Set_TalkEnable(false);
+					break;
+				}
+			}
 		}
 		Set_Active(false);
 		m_iVectorIdx = 0;
