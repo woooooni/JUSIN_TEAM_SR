@@ -401,6 +401,7 @@ void CTrashBig::Trace(_float fTimeDelta)
 		Set_State(MONSTER_STATE::IDLE);
 		return;
 	}
+
 	D3DXVec3Normalize(&vDir, &vDir);
 	if (!m_bJump && m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
 	{
@@ -414,6 +415,7 @@ void CTrashBig::Trace(_float fTimeDelta)
 	{
 		m_pAnimator->GetCurrAnimation()->Set_Idx(2);
 	}
+
 	if (m_pRigidBodyCom->GetVelocity().y < 0.0f && m_pAnimator->GetCurrAnimation()->Get_Idx() < 2)
 	{
 		m_pAnimator->GetCurrAnimation()->Set_Idx(2);

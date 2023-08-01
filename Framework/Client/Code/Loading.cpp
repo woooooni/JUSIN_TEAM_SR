@@ -62,8 +62,9 @@
 #include "Effect_Dig.h"
 #include "Effect_Smoke.h"
 #include "Particle_LargeStone.h"
-#include	"TurretBullet.h"
+#include "TurretBullet.h"
 #include "Effect_CircleBlur.h"
+#include "Effect_MotionTrail.h"
 
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -1344,6 +1345,7 @@ HRESULT CLoading::Ready_Pool()
 	CPool<CDesertRhino>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CMothMage>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_CircleBlur>::Ready_Pool(m_pGraphicDev, 100);
+	CPool<CEffect_MotionTrail>::Ready_Pool(m_pGraphicDev, 100);
 
 	return S_OK;
 }

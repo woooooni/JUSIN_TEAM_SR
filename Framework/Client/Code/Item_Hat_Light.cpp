@@ -154,6 +154,11 @@ void CItem_Hat_Light::Render_Object(void)
 	__super::Render_Object();
 }
 
+void CItem_Hat_Light::UnHat()
+{
+	CLightMgr::GetInstance()->Light_Off(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT);
+}
+
 CItem_Hat_Light* CItem_Hat_Light::Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer)
 {
 	CItem_Hat_Light* pInstance = new CItem_Hat_Light(pGraphicDev, _pPlayer);

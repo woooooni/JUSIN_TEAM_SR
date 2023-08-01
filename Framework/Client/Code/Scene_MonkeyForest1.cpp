@@ -15,6 +15,7 @@
 #include "DoorEnter.h"
 #include "UI_MapName.h"
 
+
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
 {
@@ -208,6 +209,11 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 	CGameObject* pEnter = CDoorEnter::Create(m_pGraphicDev);
 	pEnter->Get_TransformCom()->Set_Pos(&_vec3(74.5f, 0.5f, 75.5f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DoorEnter", pEnter);
+
+	CDefaultItem* pDefaultItem = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_DRILL);
+	NULL_CHECK_RETURN(pDefaultItem, E_FAIL);
+	pDefaultItem->Get_TransformCom()->Set_Pos(&_vec3(43.f, 0.5f, 73.f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Drill Hat", pDefaultItem);
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 

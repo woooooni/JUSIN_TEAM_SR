@@ -98,7 +98,7 @@ void CEffect_Shadow::Render_Object(void)
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
 	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
-	pEffect->SetFloat("g_AlphaRef", 0.f);
+	pEffect->SetFloat("g_AlphaRef", 50.f);
 
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());

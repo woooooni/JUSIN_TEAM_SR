@@ -51,6 +51,8 @@ protected:
 	_vec3	m_vOffset;
 	_float m_fRotationAngle;
 	_bool m_bExhale = false;
+	_float m_fAccMotionTrail;
+	_float m_fMotionTrailTime;
 protected:
 	void Move_Offset_ByDir(_vec3 _vDir, _float fTimeDelta, _float _fSpeed);
 	virtual void Free() override;

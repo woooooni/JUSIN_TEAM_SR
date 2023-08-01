@@ -140,7 +140,7 @@ void CPlayer_Bullet_Lightning::Render_Object(void)
 	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 	pEffect->Begin(nullptr, 0);
-	pEffect->BeginPass(0);
+	pEffect->BeginPass(2);
 
 	m_pBufferCom->Render_Buffer();
 

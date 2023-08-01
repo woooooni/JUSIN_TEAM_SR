@@ -15,6 +15,10 @@ public:
 	void	LateUpdate_Object(void)						override;
 	void	Render_Object(void)							override;
 
+public:
+	virtual void UnHat() override;
+
+public:
 
 	static	CItem_Hat_Light* Create(LPDIRECT3DDEVICE9 pGraphicDev, CGameObject* _pPlayer);
 

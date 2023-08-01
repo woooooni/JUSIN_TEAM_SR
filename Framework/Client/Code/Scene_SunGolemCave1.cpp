@@ -60,7 +60,7 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 _int CScene_SunGolemCave1::Update_Scene(const _float& fTimeDelta)
 {
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
-	
+
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
@@ -76,13 +76,24 @@ void CScene_SunGolemCave1::Render_Scene()
 	RECT rcPos = { WINCX / 2 - 10.f, 0,  WINCX / 2 + 10.f, 200.f };
 	_vec3 vPos;
 	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-
+	
 	wstring strPos = L"X : " + to_wstring(vPos.x) + L"\nY : " + to_wstring(vPos.y) + L"\nZ : " + to_wstring(vPos.z);
 	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
 	CUIMgr::GetInstance()->Render_UIMgr();
+}
+
+void CScene_SunGolemCave1::Enter_Scene()
+{
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SUNGOLEM)->Set_LightOn();
+	
+}
+
+void CScene_SunGolemCave1::Exit_Scene()
+{
+	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SUNGOLEM)->Set_LightOff();
 }
 
 HRESULT CScene_SunGolemCave1::Ready_Prototype()
