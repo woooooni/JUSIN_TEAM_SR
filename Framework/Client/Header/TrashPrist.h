@@ -28,9 +28,8 @@ class CTrashPrist :
         static  CTrashPrist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
     private:
         _float m_fMoveTime;
-        _int  m_iCount= true;
+        _float  m_fCount;
         _vec3 m_vDst = { 0.f,0.f,0.f };
-        _bool m_bCount;
         _int m_iMaxSummon = 0;
         virtual void Trace(_float fTimeDelta) override;
 

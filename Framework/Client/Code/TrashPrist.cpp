@@ -48,7 +48,7 @@ HRESULT CTrashPrist::Ready_Object(void)
 	Set_State(MONSTER_STATE::REGEN);
 	m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", false);
 	m_fMinHeight = 0.5f;
-	m_iCount = 10.f;
+	m_fCount = 11.f;
 	m_pUIBack = CUI_MonsterHP::Create(m_pGraphicDev, MONSTERHP::UI_BACK);
 	if (m_pUIBack != nullptr)
 		m_pUIBack->Set_Owner(this);
@@ -76,11 +76,12 @@ _int CTrashPrist::Update_Object(const _float& fTimeDelta)
 
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (m_iCount > 10)
+	if (m_fCount > 10.f)
 	{
 		Summon_Monster(fTimeDelta);
-		Summon_Monster(fTimeDelta);
 	}
+	m_fCount += 2.f * fTimeDelta;
+
 	if (MONSTER_STATE::ATTACK != Get_State())
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
@@ -92,7 +93,7 @@ _int CTrashPrist::Update_Object(const _float& fTimeDelta)
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
 		vDir = vTargetPos - vPos;
 
-		if (D3DXVec3Length(&vDir) < 5.f)
+		if (MONSTER_STATE::ATTACK != Get_State() && MONSTER_STATE::STUN != Get_State() && Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::DIE)
 		{
 			Set_State(MONSTER_STATE::ATTACK);
 			m_pAnimator->Play_Animation(L"TrashPrist_Move_Down", true);
@@ -221,7 +222,7 @@ void CTrashPrist::Update_Idle(_float fTimeDelta)
 			Set_State(MONSTER_STATE::MOVE);
 			m_pAnimator->Play_Animation(L"TrashPrist_Move_Down", true);
 		}
-		m_iCount++;
+
 		m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -335,20 +336,11 @@ void CTrashPrist::Trace(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = vPos - vTargetPos;
 	vDir.y = 0.f;
-	if (D3DXVec3Length(&vDir) > 10.f)
+	if (D3DXVec3Length(&vDir) > 5.f)
 	{
 		Set_State(MONSTER_STATE::IDLE);
 		m_pAnimator->Play_Animation(L"TrashPrist_Idle_Down", true);
 		return;
-	}
-	if(m_pAnimator ->GetCurrAnimation()->Get_Idx()==2&& m_bCount)
-	{
-		m_iCount++;
-		m_bCount = false;
-	}
-	if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 0 && !m_bCount)
-	{
-		m_bCount = true;
 	}
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_vLook = vDir;
@@ -386,10 +378,6 @@ void CTrashPrist::Summon_Monster(_float fTimeDelta)
 		if (pMothMage)
 		{
 			pMothMage->Get_TransformCom()->Set_Pos(&vSummonPos);
-			pMothMage->Set_Summoned_By_Prist(true);
-			pMothMage->Set_State(MONSTER_STATE::ATTACK);
-			pMothMage->Set_Target(pTarget);
-			pMothMage->Trace(fTimeDelta);
 			pLayer->Add_GameObject(L"MothMage", pMothMage);
 		}
 	}
@@ -436,7 +424,7 @@ void CTrashPrist::Summon_Monster(_float fTimeDelta)
 	break;
 
 	}
-	m_iCount = 0;
+	m_fCount = 0.f;
 	m_iMaxSummon--;
 
 	

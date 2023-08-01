@@ -38,6 +38,7 @@ protected:
 	CGameObject* m_pLine = nullptr;
 protected:
 
+
 	virtual void Free() override;
 
 };

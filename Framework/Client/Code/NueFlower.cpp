@@ -1,7 +1,7 @@
 #include "NueFlower.h"
 #include    "Export_Function.h"
 
-CNueFlower::CNueFlower(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::LIGHT_FLOWER), m_fMaxDistance(180.f), m_fFarSpeed(1.f)
+CNueFlower::CNueFlower(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_ENVIRONMENT, OBJ_ID::LIGHT_FLOWER), m_fMaxDistance(180.f), m_fFarSpeed(1.f), m_eType(LIGHT_TYPE::LIGHT_END)
 {
 }
 
@@ -20,6 +20,21 @@ HRESULT CNueFlower::Ready_Object(void)
     m_pAnimator->Add_Animation(L"Flower", L"Proto_Tex_NueFlower", 0.1f);
     m_pAnimator->Play_Animation(L"Flower", false);
 
+    D3DLIGHT9 tLight;
+    ZeroMemory(&tLight, sizeof(D3DLIGHT9));
+
+    tLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
+    tLight.Ambient = { 0.0f, 0.0f, 0.0f, 0.0f };
+    tLight.Diffuse = { 0.3f, 0.3f, 0.3f, 0.3f };
+    tLight.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
+    tLight.Range = 50.0f;
+    tLight.Attenuation0 = 0.01f; // 鼻熱 馬潸 啗熱
+    tLight.Attenuation1 = 0.006f; // 摹⑽ 馬潸 啗熱
+    tLight.Attenuation2 = 0.003f; // 檜離 馬潸 啗熱
+
+    Ready_Light(m_pGraphicDev, &tLight, (_uint)m_eType);
+
+    CLightMgr::GetInstance()->Get_Light(m_eType)->Set_LightOn();
 
     return S_OK;
 }
@@ -27,31 +42,29 @@ HRESULT CNueFlower::Ready_Object(void)
 _int CNueFlower::Update_Object(const _float& fTimeDelta)
 {
     Add_RenderGroup(RENDER_ALPHA, this);
-
-    if (D3DXVec3Length(&m_vmyPos) < m_fMaxDistance)
-    {
-        _float size = D3DXVec3Length(&m_vmyPos);
-
-        m_vmyPos += m_vmyPos * m_fFarSpeed * fTimeDelta / size;
-
-    }
-    else if (D3DXVec3Length(&m_vmyPos) > m_fMaxDistance)
-    {
-        m_vmyPos = *D3DXVec3Normalize(&m_vmyPos, &m_vmyPos) * m_fMaxDistance;
-    }
-
+    _vec3 vPos;
+    m_pTransformCom->Get_Info(INFO_POS, &vPos);
+    m_pTransformCom->Set_Pos(D3DXVec3Lerp(&vPos,&vPos,&m_vDestination,fTimeDelta*5.f));
     return __super::Update_Object(fTimeDelta);
 }
 
 void CNueFlower::LateUpdate_Object(void)
 {
     __super::LateUpdate_Object();
+    if (CLightMgr::GetInstance()->Get_Light(m_eType)->Is_LightOn())
+    {
+        D3DLIGHT9& tLight = CLightMgr::GetInstance()->Get_Light(m_eType)->Get_LightInfo();
+        _vec3 vPos;
 
+        m_pTransformCom->Get_Info(INFO_POS, &vPos);
+        vPos.z -= 0.05f;
+        tLight.Position = vPos;
+    }
 }
 
 void CNueFlower::Render_Object(void)
 {
-    m_pTransformCom->Set_Pos(&(m_vmyPos + m_voriginPos));
+  
     __super::Render_Object();
 
     LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
@@ -95,11 +108,11 @@ void CNueFlower::Free()
     __super::Free();
 }
 
-CNueFlower* CNueFlower::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos, const _vec3& pDir, const _float& pFirstLength, const _float& pLastLength)
+CNueFlower* CNueFlower::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos, const _vec3& pDir, const _float& pFirstLength, const _float& pLastLength, LIGHT_TYPE _eType)
 {
     CNueFlower* ret = new CNueFlower(p_Dev);
-
     NULL_CHECK_RETURN(ret, nullptr);
+    ret->m_eType = _eType;
 
     if (FAILED(ret->Ready_Object()))
     {
@@ -111,9 +124,10 @@ CNueFlower* CNueFlower::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos, cons
 
     ret->m_voriginPos = p_Pos;
     D3DXVec3Normalize(&ret->m_vmyPos, &pDir);
+    ret->m_vDestination = p_Pos + (ret->m_vmyPos * pLastLength);
+    D3DXVec3Normalize(&ret->m_vmyPos, &pDir);
     ret->m_vmyPos *= pFirstLength;
     ret->m_fMaxDistance = pLastLength;
-
     ret->m_pTransformCom->Set_Pos(&(ret->m_voriginPos + ret->m_vmyPos));
 
     return ret;

@@ -169,3 +169,41 @@ void CCactusNeedle::Free()
 {
 	__super::Free();
 }
+
+void CCactusNeedle::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
+{
+
+
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_SWING && pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER && m_pOwner->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	{
+		_vec3 vTargetPos;
+		_vec3 vPos;
+		_vec3 vDir;
+		pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+		vDir = m_vDir;
+		vDir.y = 0.0f;
+		D3DXVec3Normalize(&vDir, &vDir);
+		vDir *= -1;
+		Set_Owner(pCollider->GetOwner());
+		m_vDir = vDir;
+		m_fMoveTime = 20.f;
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER && Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_MONSTER)
+	{
+		if (Is_Active())
+			Set_Active(false);
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER && Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		if (Is_Active())
+			Set_Active(false);
+	}
+	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOSS && Get_Owner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
+	{
+		if (Is_Active())
+			Set_Active(false);
+	}
+
+	int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+}

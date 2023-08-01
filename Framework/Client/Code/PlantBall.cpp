@@ -25,6 +25,8 @@ HRESULT CPlantBall::Ready_Object(void)
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.5f, 0.5f, 0.5f });
+	m_tMaterial.Emissive = { 1.2f,1.2f,1.2f,1.2f };
+	Set_ARGB(200, 255,  255,  255);
 	Set_Active(true);
 	return S_OK;
 }
@@ -38,7 +40,7 @@ _int CPlantBall::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	m_pAnimator->Play_Animation(L"PlantBall", true);
 
-	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 5.f);
+	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 30.f);
 	if (m_fMoveTime < 0.f)
 	{
 		if (Is_Active())
@@ -53,7 +55,7 @@ void CPlantBall::LateUpdate_Object(void)
 {
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (vPos.y < 1.f)
+	if (vPos.y < 0.f)
 	{
 		if (Is_Active())
 			Set_Active(false);
@@ -68,6 +70,8 @@ void CPlantBall::Render_Object(void)
 {
 	if (Is_Active())
 	{
+
+
 		__super::Render_Object();
 
 		LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
@@ -80,11 +84,13 @@ void CPlantBall::Render_Object(void)
 		pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 		D3DVECTOR vCamPos = vPos;
 
+		D3DCOLORVALUE vColor = { m_iRed / 255.0f, m_iGreen / 255.0f, m_iBlue / 255.0f, m_iAlpha / 255.0f };
 
 		pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 		pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 		pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 		pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+		pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
 		pEffect->SetFloat("g_AlphaRef", 0.0f);
 
 
@@ -95,11 +101,10 @@ void CPlantBall::Render_Object(void)
 		CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
 
-
 		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 		pEffect->Begin(nullptr, 0);
-		pEffect->BeginPass(0);
+		pEffect->BeginPass(2);
 
 		m_pBufferCom->Render_Buffer();
 

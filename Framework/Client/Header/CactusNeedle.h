@@ -44,4 +44,6 @@ protected:
 protected:
 	virtual void Free() override;
 
+	void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+
 };

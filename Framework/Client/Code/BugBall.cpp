@@ -25,6 +25,7 @@ HRESULT CBugBall::Ready_Object(void)
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.5f, 0.5f, 0.5f });
+	m_tMaterial.Emissive = { 1.2f,1.2f,1.2f,1.2f };
 	Set_Active(true);
 	return S_OK;
 }
@@ -37,7 +38,7 @@ _int CBugBall::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	m_pAnimator->Play_Animation(L"BugBall", true);
 
-	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 5.f);
+	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, m_fSpeed);
 	if (m_fMoveTime < 0.f)
 	{
 		if (Is_Active())
@@ -83,30 +84,45 @@ void CBugBall::Render_Object(void)
 	if (!Is_Active())
 		return ;
 
-	__super::Render_Object();
 
-	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+		__super::Render_Object();
 
-	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
-	if (pCamera == nullptr)
-		return;
+		LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
 
-	_vec3 vPos;
-	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-	D3DVECTOR vCamPos = vPos;
+		CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+		if (pCamera == nullptr)
+			return;
 
-	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
-	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
-	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
-	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
-	pEffect->SetFloat("g_AlphaRef", 0.0f);
+		_vec3 vPos;
+		pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		D3DVECTOR vCamPos = vPos;
+
+		D3DCOLORVALUE vColor = { 255.0f,	255.f,255.f, 255.f };
+
+		pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
+		pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+		pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+		pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+		pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+		pEffect->SetFloat("g_AlphaRef", 0.0f);
 
 
-	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
-	pEffect->SetTexture("g_Texture", pTexture);
+		IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
+		pEffect->SetTexture("g_Texture", pTexture);
 
 
-	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+		CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+
+		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
+
+		pEffect->Begin(nullptr, 0);
+		pEffect->BeginPass(2);
+
+		m_pBufferCom->Render_Buffer();
+
+		pEffect->EndPass();
+		pEffect->End();
 
 
 
@@ -170,6 +186,7 @@ void CBugBall::Free()
 {
 	__super::Free();
 }
+
 void CBugBall::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 
