@@ -247,6 +247,9 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TRANSFORM, pComponent);
 
+
+
+
 	switch (m_tItemInfo.eType)
 	{
 	case SHOPITEMTYPE::UISHOP_BRANCH:
@@ -349,6 +352,8 @@ HRESULT CUI_ItemInfo::Add_Component(void)
 		return E_FAIL;
 		break;
 	}
+
+
 	return S_OK;
 }
 
