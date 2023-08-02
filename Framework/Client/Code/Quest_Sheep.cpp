@@ -2,6 +2,8 @@
 #include "QuestMgr.h"
 #include "Quest_Cow1.h"
 #include "UIMgr.h"
+#include "Export_Utility.h"
+
 CQuest_Sheep::CQuest_Sheep()
 	:CQuest_Conversation(NPC_CODE::NPC_SHEEP, nullptr)
 {

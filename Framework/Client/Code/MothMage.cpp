@@ -140,7 +140,7 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 		m_pMothOrb->Update_Object(fTimeDelta);
 	}
 	
-
+	vPos.y += 0.3f;
 	vPos.z -= 0.01f;
 
 	if (m_pUIBack->Is_Active() &&

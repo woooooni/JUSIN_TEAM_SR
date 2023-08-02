@@ -146,6 +146,9 @@ void CNpc::LateUpdate_Object(void)
 				&& m_bTalkEnble)
 			{
 				Talk();
+
+				Stop_Sound(CHANNELID::SOUND_UI);
+				Play_Sound(L"SFX_69_UISlotBigMove.wav", CHANNELID::SOUND_UI, 0.9f);
 			}
 		}
 		else

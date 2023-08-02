@@ -351,7 +351,7 @@ void CRollingBug::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 		D3DXVec3Normalize(&vDir, &vDir);
 
 		m_tStat.iHp -= 1;
-		m_pRigidBodyCom->AddForce(vDir * 100.0f);
+		m_pRigidBodyCom->AddForce(vDir * 80.0f);
 
 		if (m_tStat.iHp < 1.f)
 			Set_State(MONSTER_STATE::DIE);

@@ -96,6 +96,9 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 
     if (KEY_TAP(KEY::I))
     {
+        Stop_Sound(CHANNELID::SOUND_UI);
+        Play_Sound(L"SFX_67_UIBig_Open.wav", CHANNELID::SOUND_UI, 0.5f);
+
         m_bUpdateUI = !m_bUpdateUI;
         m_pQuickSlot->Set_Use(!m_bUpdateUI);
         if (!m_bUpdateUI)

@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "Transform.h"
 #include "KeyMgr.h"
+#include "Export_Utility.h"
 
 
 Player_State_BallonFly::Player_State_BallonFly(CGameObject* _pOwner)
@@ -47,9 +48,7 @@ _int Player_State_BallonFly::Update_State(const _float& fTimeDelta)
 		Update_FlyEnd(fTimeDelta);
 		break;
 	}
-
 	
-
 	return 0;
 }
 
@@ -74,6 +73,10 @@ _int Player_State_BallonFly::Update_FlyReady(const _float& fTimeDelta)
 
 	if (m_pOwner->Get_AnimatorCom()->GetCurrAnimation()->Get_Idx() > 16)
 		m_eFlyState = BALLOONFLY_STATE::FLYING;
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_235_OguBalloon_In.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
 	return 0;
 }
 
@@ -117,6 +120,9 @@ _int Player_State_BallonFly::Update_FlyEnd(const _float& fTimeDelta)
 		}
 
 	}
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_234_OguBalloon_Out.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	return 0;
 }

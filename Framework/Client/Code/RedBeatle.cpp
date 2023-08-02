@@ -47,6 +47,10 @@ HRESULT CRedBeatle::Ready_Object(void)
 	if (m_pUIFrame != nullptr)
 		m_pUIFrame->Set_Owner(this);
 
+	int iSound = rand() % 5 + 4;
+	Stop_Sound((CHANNELID)iSound);
+	Play_Sound(L"SFX_106_MonsterBugColorBeatle_In.wav", (CHANNELID)iSound, 0.5f);
+
 	return S_OK;
 }
 
@@ -231,6 +235,10 @@ void CRedBeatle::Update_Die(_float fTimeDelta)
 	{
 		On_Death();
 		Set_Active(false);
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_108_MonsterBugColorBeatle_Death.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
@@ -318,6 +326,10 @@ void CRedBeatle::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 			pEffect->Ready_Object();
 		}
 		dynamic_cast<CEffect_Hit*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f));
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_107_MonsterBugColorBeatle_Hit.wav", (CHANNELID)iSound, 0.5f);
 
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);

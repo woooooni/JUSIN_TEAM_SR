@@ -3,6 +3,7 @@
 #include "CactusNeedle.h"
 #include "Pool.h"
 #include "Effect_Hit.h"
+#include "Player.h"
 
 CSpitCactus::CSpitCactus(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CMonster(pGraphicDev, OBJ_ID::SPIT_CACTUS)
@@ -212,10 +213,22 @@ void CSpitCactus::Update_Attack(_float fTimeDelta)
 			m_bShoot = false;
 		}
 
-		int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
-		Stop_Sound((CHANNELID)iSound);
-		Play_Sound(L"SFX_85_MonsterSpitCactus_Shoot.wav", (CHANNELID)iSound, 0.5f);
+		_vec3 vDir, vPos, vPlayerPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+		CPlayer* pPlayer = dynamic_cast<CPlayer*>(Get_Layer(LAYER_TYPE::PLAYER)->Find_GameObject(L"Player"));
+		pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
+
+		vDir = vPlayerPos - vPos;
+
+		if (D3DXVec3Length(&vDir) <= 10.f)
+		{
+			int iSound = rand() % 5 + (_uint)CHANNELID::SOUND_EFFECT_MONSTER;
+			Stop_Sound((CHANNELID)iSound);
+			Play_Sound(L"SFX_85_MonsterSpitCactus_Shoot.wav", (CHANNELID)iSound, 0.8f);
+		}
 	}
+
 	if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 	{
 		Set_State(MONSTER_STATE::IDLE);

@@ -81,6 +81,8 @@ HRESULT CPlayer_State_Lift::Ready_State(void)
 		break;
 	}
 
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_218_LiftWalk.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	m_fAccTime = 0.0f;
 	return S_OK;
