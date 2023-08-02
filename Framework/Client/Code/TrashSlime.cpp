@@ -70,11 +70,12 @@ _int CTrashSlime::Update_Object(const _float& fTimeDelta)
 		Set_State(MONSTER_STATE::DIE);
 	m_pTransformCom->Set_Scale(_vec3(0.8f, 1.f, 0.8f));
 	m_fMinHeight = 0.50f;
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
-	_int iExit = __super::Update_Object(fTimeDelta);
 
-	_vec3 vTargetPos, vPos, vDir;
+	if (Get_State() != MONSTER_STATE::DIE)
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
+		_int iExit = __super::Update_Object(fTimeDelta);
+
+_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	if (MONSTER_STATE::ATTACK != Get_State() && MONSTER_STATE::STUN != Get_State() && Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::DIE)
 	{

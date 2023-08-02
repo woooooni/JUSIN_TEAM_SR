@@ -91,7 +91,8 @@ _int CMothMage::Update_Object(const _float& fTimeDelta)
 		Set_State(MONSTER_STATE::DIE);
 
 	_int iExit = __super::Update_Object(fTimeDelta);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
+	if (Get_State() != MONSTER_STATE::DIE)
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 
 	_vec3  vPos, vScale;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);

@@ -58,7 +58,8 @@ _int CSpitCactus::Update_Object(const _float& fTimeDelta)
 	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
 		Set_State(MONSTER_STATE::DIE);
 	_int iExit = __super::Update_Object(fTimeDelta);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
+	if (Get_State() != MONSTER_STATE::DIE)
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);

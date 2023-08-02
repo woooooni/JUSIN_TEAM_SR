@@ -55,7 +55,8 @@ _int CRollingBug::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 
 	__super::Update_Object(fTimeDelta);
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
+	if (Get_State() != MONSTER_STATE::DIE)
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 
 	CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 
