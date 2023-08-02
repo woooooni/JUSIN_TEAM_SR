@@ -45,9 +45,6 @@ void CTile::LateUpdate_Object(void)
 
 	_vec3 vLook;
 	m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
-
-	// m_pTransformCom->RotationAxis(_vec3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
-
 }
 
 void CTile::Render_Object(void)

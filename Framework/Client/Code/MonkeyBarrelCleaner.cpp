@@ -108,13 +108,17 @@ void CMonkeyBarrelCleaner::Update_Attack(_float fTimeDelta)
 			NULL_CHECK_RETURN(pClearBomb, );
 			_vec3 BulletPos = vPos;
 			BulletPos.y += 0.25f;
+
 			if (m_bRight)
-				vDir = { 2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.3f };
+				vDir = { 2.f, float(rand() % 20 + 4), float(rand() % 3 - 1) * 0.2f };
 			else
-				vDir = { -2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.3f };
+				vDir = { -2.f, float(rand() % 20 + 4), float(rand() % 3 - 1) * 0.2f };
+
 			D3DXVec3Normalize(&vDir, &vDir);
+
 			pClearBomb->Get_TransformCom()->Set_Pos(&BulletPos);
-			pClearBomb->Get_RigidBodyCom()->AddForce(vDir * 120.f);
+			pClearBomb->Get_RigidBodyCom()->AddForce(vDir * 150.f);
+
 			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
 			pLayer->Add_GameObject(L"ClearBomb", pClearBomb);
 		}
@@ -124,19 +128,22 @@ void CMonkeyBarrelCleaner::Update_Attack(_float fTimeDelta)
 			NULL_CHECK_RETURN(pBarrelBomb, );
 			_vec3 BulletPos = vPos;
 			BulletPos.y += 0.25f;
+
 			if (m_bRight)
-				vDir = { 2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.3f };
+				vDir = { 2.f, float(rand() % 20 + 4), float(rand() % 3 - 1) * 0.2f };
 			else
-				vDir = { -2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.3f };
+				vDir = { -2.f, float(rand() % 20 + 4), float(rand() % 3 - 1) * 0.2f };
+
 			D3DXVec3Normalize(&vDir, &vDir);
+
 			pBarrelBomb->Get_TransformCom()->Set_Pos(&BulletPos);
-			pBarrelBomb->Get_RigidBodyCom()->AddForce(vDir * 120.f);
-		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
-		pLayer->Add_GameObject(L"BarrelBomb", pBarrelBomb);
+			pBarrelBomb->Get_RigidBodyCom()->AddForce(vDir * 150.f);
+
+			CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
+			pLayer->Add_GameObject(L"BarrelBomb", pBarrelBomb);
 		}
 
 		m_bShoot = false;
-	
 	}
 	if (m_pAnimator->GetCurrAnimation()->Get_Idx()==3)
 	{
@@ -181,10 +188,9 @@ void CMonkeyBarrelCleaner::Update_Idle(_float fTimeDelta)
 			}
 			if (iClearBombNum < 2)
 			{
-				m_fMoveTime == 0.f;
+				m_fMoveTime = 0.f;
 				Set_State(MONSTER_STATE::ATTACK);
 			}
-
 		}
 	}
 

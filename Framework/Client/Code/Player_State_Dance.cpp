@@ -44,7 +44,7 @@ HRESULT CPlayer_State_Dance::Ready_State(void)
 	}
 
 	D3DCOLORVALUE vColor = { 32.0f / 255.0f, 222.0f / 255.0f, 7.0f / 255.0f, 0.0f};
-	D3DCOLORVALUE vEmissive = { 1.0f, 1.0f, 1.0f, 1.0f };
+	D3DCOLORVALUE vEmissive = { 0.f, 0.f, 0.f, 0.f };
 	m_pEffect->Set_Effect(vPos, _vec3(3.0f, 2.5f, 3.0f), vColor, vEmissive);
 	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"CircleBlur", m_pEffect);
 

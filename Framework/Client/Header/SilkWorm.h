@@ -48,6 +48,10 @@ public:
     static  CSilkWorm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
     SILKWORM_STATE Get_State() { return m_eState; }
     void Set_State(SILKWORM_STATE _eState) { if (m_eState == _eState) return; m_eState = _eState; }
+
+private:
+    void Generate_MotionTrail(_float fTImeDelta);
+
 private:
     _float m_fMoveTime;
     _float m_fEffectCoolTime =0.f;
@@ -75,6 +79,9 @@ private:
     _bool m_bSpawn=false;
     _float m_fiInterval;
     _float m_fEmissive = 1.2f;
+    _float m_fAccMotionTrail;
+    _float m_fMotionTrailTime;
+    
 private:
     CUI_BossHP* m_pUIBack;
     CUI_BossHP* m_pUIFrame;

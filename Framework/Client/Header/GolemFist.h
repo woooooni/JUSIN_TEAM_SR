@@ -28,21 +28,31 @@ protected:
 	HRESULT	Add_Component(void);
 
 public:
-
 	void Set_Dirty(_bool _bDirty) { if (m_bDirty == _bDirty) return; m_bDirty = _bDirty; }
 	void Set_Bummer(_bool _bBummer) { if (m_bBummer == _bBummer) return; m_bBummer = _bBummer; }
 	void Set_Up(_bool	_bUp) {	m_bUp = _bUp;}
+
+
+private:
+	void Generate_MotionTrail(_float fTimeDelta);
+
+
+
 public:
 	
 	static CGolemFist* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	CMonsterAim* m_pMonsterAim;
-	_bool	m_bBummer = false;
-	_bool	m_bDirty = false;
-	_bool	m_bUp = false;
+	_bool  m_bBummer = false;
+	_bool  m_bDirty = false;
+	_bool  m_bUp = false;
+	_float m_fAccEffect;
+	_float m_fEffectTime;
+
 protected:
 	_float m_fMoveTime;
+
 protected:
 	virtual void Free() override;
 

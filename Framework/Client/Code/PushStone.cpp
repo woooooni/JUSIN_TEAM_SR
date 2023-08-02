@@ -202,23 +202,24 @@ void CPushStone::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 		CLayer* pLayerEff = Engine::Get_Layer(LAYER_TYPE::EFFECT);
 		NULL_CHECK_RETURN(pLayerEff, );
 
-		CEffect_CatapultHit* pParticle = CEffect_CatapultHit::Create(m_pGraphicDev);
-		NULL_CHECK_RETURN(pParticle, );
-		NULL_CHECK_RETURN(m_pTransformCom, );
-		_vec3 vPos;
-		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vPos.z -= .5f;
-		pParticle->Get_Effect(vPos, _vec3(1.f, 1.f, 1.f));
+		for (_uint i = 0; i < 3; ++i)
+		{
+			CEffect_CatapultHit* pParticle = CEffect_CatapultHit::Create(m_pGraphicDev);
+			NULL_CHECK_RETURN(pParticle, );
+			NULL_CHECK_RETURN(m_pTransformCom, );
 
-		pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
+			_vec3 vPos;
+			m_pTransformCom->Get_Info(INFO_POS, &vPos);
+			vPos.x += .5f * (rand() % 11 - 5);
+			vPos.y += .5f * (rand() % 11 - 5);
+			vPos.z -= .5f;
+
+			pParticle->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f));
+			pLayerEff->Add_GameObject(L"Stone_Particle", pParticle);
+		}
 
 		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
-		CCamera* cam = dynamic_cast<CCamera*>(Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
-		NULL_CHECK_RETURN(cam, );
-		cam->CamShake(0.3f, 1.f);
 		Play_Sound(L"SFX_41_Catapult_StoneHit.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
-
-
 	}
 }
 

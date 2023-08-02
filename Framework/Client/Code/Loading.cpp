@@ -304,11 +304,6 @@ _uint CLoading::Load_Obj_Data(wstring _strFolderPath)
 		if (pObj->GetObj_Type() != OBJ_TYPE::OBJ_MONSTER)
 			pTransform->Set_Scale(vScale);
 
-		/*if (pObj->GetObj_Type() == OBJ_TYPE::OBJ_TILE)
-		{
-			pObj->Get_TransformCom()->RotationAxis(_vec3(1.f, 0.f, 0.f), D3DXToRadian(90.f));
-		}*/
-
 		pBoxCollider->Set_Scale(vColliderScale);
 
 		m_pLoadingScene->Get_Layer((LAYER_TYPE)iLayerType)->Add_GameObject(L"OBJ_" + to_wstring(iCount++), pObj);
@@ -1254,7 +1249,7 @@ HRESULT CLoading::Ready_Environment_Texture2()
 
 HRESULT CLoading::Ready_Environment_Texture3()
 {
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 364)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Prop", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Environment/Prop/Prop_%d.png", 367)), E_FAIL);
 
 	return S_OK;
 }

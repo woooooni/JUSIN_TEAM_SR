@@ -26,8 +26,7 @@ HRESULT CEffect_CatapultHit::Ready_Object(void)
 {
     FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-    m_pAnimator->Add_Animation(L"CatapultHit", L"Proto_Texture_Effect_CatapultHit", 0.05f);
-
+    m_pAnimator->Add_Animation(L"CatapultHit", L"Proto_Texture_Effect_CatapultHit", 0.1f);
     m_pAnimator->Play_Animation(L"CatapultHit", false);
 
     Set_Active(false);
@@ -139,6 +138,7 @@ void CEffect_CatapultHit::Get_Effect(_vec3& _vPos, _vec3& _vScale)
 	m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 	m_pAnimator->GetCurrAnimation()->Set_Finished(false);
 	Set_Active(true);
+
 	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"CatapultHit", this);
 }
 
