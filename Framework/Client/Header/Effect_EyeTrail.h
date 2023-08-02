@@ -34,12 +34,7 @@ public:
 	static CEffect_EyeTrail* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	
 public:
-	void		Set_Effect(CGameObject* _pOwner, _vec3& _vOffset, _float _fScale)
-	{
-		m_pOwner = _pOwner;
-		m_vOffset = _vOffset;
-		m_fScale = _fScale;
-	}
+	void		Set_Effect(CGameObject* _pOwner, _vec3& _vOffset, _float _fScale);
 
 
 	void	Set_Offset(_vec3& _vOffset) { m_vOffset = _vOffset; }
@@ -82,7 +77,12 @@ private:
 	D3DCOLORVALUE m_vColor;
 
 	_bool m_bEnd = false;
+	_bool m_bStart = false;
 
 	_vec3 m_vPos;
+
+	CTexture* m_pEyeTex = nullptr;
+
+	_int m_iEyeAlpha;
 };
 

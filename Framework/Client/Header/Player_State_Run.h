@@ -21,6 +21,10 @@ private:
 	void					Update_Hat();
 	void					Set_Hat();
 
+	void					Change_RunDir();
+	void					Update_EffectOffset();
+	void					Set_EffectOffset();
+
 	_float m_fAccTime;
 	_float m_fKeyDelayTime;
 
@@ -28,7 +32,18 @@ private:
 	float m_fAngle[(_uint)OBJ_DIR::DIR_END][10];
 	float m_fScale[(_uint)OBJ_DIR::DIR_END][10];
 
-	CEffect_Trail* m_pEffect = nullptr;
+	CEffect_Trail* m_pLeftEffect = nullptr;
+	CEffect_Trail* m_pRightEffect = nullptr;
+
+
+	_uint m_iCurrIndex;
+	deque<_uint> m_deqIndex;
+
+	OBJ_DIR m_eRunDir;
+
+
+	_vec3 m_vecLeftOffset[(_uint)OBJ_DIR::DIR_END][8];
+	_vec3 m_vecRightOffset[(_uint)OBJ_DIR::DIR_END][8];
 };
 
 

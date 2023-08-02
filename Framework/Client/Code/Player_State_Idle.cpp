@@ -229,7 +229,6 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 	if (KEY_TAP(KEY::H))
 	{
 		
-		
 	}
 
 
