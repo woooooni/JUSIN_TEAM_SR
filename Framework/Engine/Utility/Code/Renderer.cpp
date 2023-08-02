@@ -30,8 +30,6 @@ void CRenderer::Add_RenderGroup(RENDERID eType, CGameObject * pGameObject)
 
 void CRenderer::Render_GameObject(LPDIRECT3DDEVICE9& pGraphicDev)
 {
-
-
 	Render_Priority(pGraphicDev);
 	Render_Nonalpha(pGraphicDev);
 	Render_Alpha(pGraphicDev);

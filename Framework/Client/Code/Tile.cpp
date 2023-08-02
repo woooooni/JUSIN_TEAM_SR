@@ -34,7 +34,7 @@ HRESULT CTile::Ready_Object(void)
 
 _int CTile::Update_Object(const _float& fTimeDelta)
 {
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Add_RenderGroup(RENDERID::RENDER_PRIORITY, this);
 	__super::Update_Object(fTimeDelta);
 	return S_OK;
 }

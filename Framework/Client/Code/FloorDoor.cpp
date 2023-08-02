@@ -49,7 +49,7 @@ HRESULT CFloorDoor::Ready_Object(void)
 
 _int CFloorDoor::Update_Object(const _float& fTimeDelta)
 {
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	Add_RenderGroup(RENDERID::RENDER_PRIORITY, this);
 	__super::Update_Object(fTimeDelta);
 
 	if (KEY_TAP(KEY::N))
