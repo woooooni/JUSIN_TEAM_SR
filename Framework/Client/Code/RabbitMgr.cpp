@@ -98,7 +98,7 @@ void CRabbitMgr::Render_Object()
 {
 	if (m_bIsStart)
 	{
-		RECT rc = { WINCX / 2 - 50 + 1 , 60 , WINCX / 2 + 50 + 1 , 160 };
+		RECT rc = { WINCX / 2 - 50 + 1 , 60 , WINCX / 2 + 50 + 1 , 100 };
 		wstring szBuf;
 		szBuf = to_wstring(66.f - m_fGameTime);
 		szBuf = szBuf.substr(0, 5);
@@ -107,7 +107,7 @@ void CRabbitMgr::Render_Object()
 			szBuf.c_str(), INT(szBuf.size()), &rc, DT_LEFT | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 
-		rc = { WINCX / 2 - 50 + 1 , 170 , WINCX / 2 + 50 + 1 , 270 };
+		rc = { WINCX / 2 - 50 + 1 , 120 , WINCX / 2 + 50 + 1 , 130 };
 		szBuf = to_wstring(m_iPoints);
 
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,

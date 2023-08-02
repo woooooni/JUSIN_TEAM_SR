@@ -21,7 +21,7 @@ public:
 	void				Set_Fade(const _bool& pIsFadeOut , const _float& pFadeTime) 
 	{ 
 		m_bIsFadeOut = pIsFadeOut;
-		m_fAlpha = (float)!pIsFadeOut;
+		m_fAlpha = !(float)pIsFadeOut;
 		m_fFadeTime = pFadeTime;
 		m_bIsComplete = false;
 	}

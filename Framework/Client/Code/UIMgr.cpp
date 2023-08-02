@@ -109,7 +109,7 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 
     if (KEY_TAP(KEY::P))
     {
-        m_pFade->Set_Fade(m_pFade->Get_Fade(), 3.f);
+        m_pFade->Set_Fade(!m_pFade->Get_Fade(), 3.f);
         m_pFade->Set_White(false);
     }
 
