@@ -46,7 +46,7 @@ HRESULT CParticle_MapCircle::Ready_Object(void)
 	m_iR = m_iG = m_iB = 255;
 	m_iAlpha = 0;
 
-	m_tMaterial.Emissive = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//m_tMaterial.Emissive = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 	return S_OK;
 }
