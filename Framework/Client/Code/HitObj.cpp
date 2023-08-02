@@ -88,7 +88,6 @@ void CHitObj::Render_Object(void)
 
 	if (!m_bHitted && m_eHitType == OBJ_HITTYPE::HIT_ONCE)
 	{
-		m_pBlurAnimator->Render_Component();
 
 		LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
 
@@ -100,6 +99,10 @@ void CHitObj::Render_Object(void)
 		pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 		D3DVECTOR vCamPos = vPos;
 
+		D3DCOLORVALUE vColor = { 0.8f, 1.0f, 0.8f, 1.0f };
+
+		pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+
 		pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 		pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 		pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
@@ -107,7 +110,7 @@ void CHitObj::Render_Object(void)
 		pEffect->SetFloat("g_AlphaRef", 0.0f);
 
 
-		IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
+		IDirect3DBaseTexture9* pTexture = m_pBlurAnimator->GetCurrAnimation()->Get_Texture(m_pBlurAnimator->GetCurrAnimation()->Get_Idx());
 		pEffect->SetTexture("g_Texture", pTexture);
 
 
@@ -117,7 +120,7 @@ void CHitObj::Render_Object(void)
 		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 		pEffect->Begin(nullptr, 0);
-		pEffect->BeginPass(0);
+		pEffect->BeginPass(2);
 
 		m_pBufferCom->Render_Buffer();
 

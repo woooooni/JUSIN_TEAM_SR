@@ -550,6 +550,9 @@ void CPlayer::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGr
 		if((src = dynamic_cast<CFieldObject*>(pCollider->GetOwner())) && src->Get_ObjInfo().m_bIsPushable)
 			Collision_Stay_Push(pCollider, _eCollisionGroup, _iColliderID);
 	}
+	if (_iColliderID == m_pColliderCom->Get_Id() && _eCollisionGroup ==  COLLISION_GROUP::COLLIDE_BOMB)
+		Collision_Enter_Hit(pCollider, _eCollisionGroup, _iColliderID);
+
 
 }
 void CPlayer::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)

@@ -43,6 +43,7 @@ public:
 	void		Set_Target(CGameObject* pTarget) { m_pTarget = pTarget; }
 
 	void		Set_EventTrigger(const _uint& pEventNum, void(*pFunc)(), const _bool& pPushBack = true);
+	void		Set_LateUpdateEvent(void(*pFunc)()) { m_pLateEvent = pFunc; }
 
 
 public:
@@ -50,11 +51,16 @@ public:
 	virtual void Collision_Stay(CCollider * pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 	virtual void Collision_Exit(CCollider * pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
 
+
+	void		Set_UpdateDialogue() { m_bIsUpdateDialogue = true; }
 protected:
 	void (*m_pCollideEvent[(_uint)COLLIDE_EVENT_TYPE::TYPE_END])();
 	list<void(*)()>m_pEventEvent;
+	void(*m_pLateEvent)();
 
 	_bool		m_bIsOnce;
+	_bool		m_bHasDialogue;
+	_bool		m_bIsUpdateDialogue;
 	CGameObject* m_pTarget;
 	list<_uint>		m_iSubscribedEventNum;
 

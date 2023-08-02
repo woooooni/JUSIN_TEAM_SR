@@ -37,6 +37,8 @@ HRESULT CScene_MonkeyVillage::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	Clear_Event();
+
 	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
 
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
@@ -101,6 +103,7 @@ void CScene_MonkeyVillage::Enter_Scene()
 		CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY_VILLAGE_INTRO);
 		bPlayedCutScene = true;
 	}
+
 }
 
 HRESULT CScene_MonkeyVillage::Ready_Prototype()
@@ -146,7 +149,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Terrrain()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 {
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
 	_vec3 vPortalPos = _vec3(225.f, 1.f, 222.f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 	dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(10.f, 5.f, 3.f));

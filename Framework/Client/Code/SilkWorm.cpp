@@ -85,7 +85,7 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
 	_vec3 vTargetPos;
 
-	if (m_tStat.iHp < 1.f)
+	if (m_tStat.iHp < 1.f && m_eState != SILKWORM_STATE::DIE)
 	{
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", true);
 		CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_DIE);

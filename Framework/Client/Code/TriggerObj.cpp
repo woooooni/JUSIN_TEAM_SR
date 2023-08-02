@@ -1,9 +1,13 @@
 #include "TriggerObj.h"
 #include	"Export_Function.h"
+#include "UIMgr.h"
 
 CTriggerObj::CTriggerObj(LPDIRECT3DDEVICE9 p_Dev) : CGameObject(p_Dev, OBJ_TYPE::OBJ_INTERACTION, OBJ_ID::NEAR_REACT)
 , m_bIsOnce(false)
 ,m_pTarget(nullptr)
+, m_pLateEvent (nullptr)
+, m_bHasDialogue(false)
+, m_bIsUpdateDialogue(false)
 {
 	for (_uint i = 0; i < (_uint)COLLIDE_EVENT_TYPE::TYPE_END; i++)
 	{
@@ -42,6 +46,12 @@ HRESULT CTriggerObj::Ready_Object(void)
 _int CTriggerObj::Update_Object(const _float& fTimeDelta)
 {
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_TRIGGER);
+
+	if (m_bIsUpdateDialogue && KEY_TAP(KEY::Z) && !m_bHasDialogue)
+	{
+		m_bHasDialogue = true;
+	}
+
 	return __super::Update_Object(fTimeDelta);
 }
 
@@ -49,6 +59,14 @@ void CTriggerObj::LateUpdate_Object(void)
 {
 	if (m_pTarget && !m_pTarget->Is_Active())
 		m_pTarget = nullptr;
+
+	if (m_pLateEvent)
+		m_pLateEvent();
+
+	if (m_bHasDialogue && CUIMgr::GetInstance()->Get_Dialog()->Is_Active() && KEY_TAP(KEY::Z))
+	{
+		CUIMgr::GetInstance()->Get_Dialog()->Set_Active(false);
+	}
 }
 
 void CTriggerObj::Render_Object(void)
@@ -148,6 +166,8 @@ void CTriggerObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 {
 	if (!m_pTarget || m_pTarget == pCollider->GetOwner())
 	{
+		if (m_pCollideEvent[(_uint)COLLIDE_EVENT_TYPE::ENTER] == nullptr)
+			return;
 		m_pCollideEvent[(_uint)COLLIDE_EVENT_TYPE::ENTER]();
 		if (m_bIsOnce)
 			Set_Active(false);
@@ -158,12 +178,26 @@ void CTriggerObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 void CTriggerObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (!m_pTarget || m_pTarget == pCollider->GetOwner())
+	{
+		if (m_pCollideEvent[(_uint)COLLIDE_EVENT_TYPE::STAY] == nullptr)
+			return;
+
 		m_pCollideEvent[(_uint)COLLIDE_EVENT_TYPE::STAY]();
+
+	}
 }
 
 void CTriggerObj::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (!m_pTarget || m_pTarget == pCollider->GetOwner())
+	{
+		if (m_pCollideEvent[(_uint)COLLIDE_EVENT_TYPE::EXIT] == nullptr)
+			return;
+
 		m_pCollideEvent[(_uint)COLLIDE_EVENT_TYPE::EXIT]();
+
+		if (m_bHasDialogue)
+			m_bHasDialogue = false;
+	}
 
 }

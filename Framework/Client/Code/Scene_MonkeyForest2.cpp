@@ -33,6 +33,8 @@ HRESULT CScene_MonkeyForest2::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	Clear_Event();
+
 	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
 
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
@@ -95,6 +97,10 @@ void CScene_MonkeyForest2::Render_Scene()
 
 	CUIMgr::GetInstance()->Render_UIMgr();
 	CRabbitMgr::GetInstance()->Render_Object();
+}
+
+void CScene_MonkeyForest2::Enter_Scene()
+{
 }
 
 HRESULT CScene_MonkeyForest2::Ready_Prototype()
@@ -439,8 +445,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
-	pBlock = CBlockObj::Create(m_pGraphicDev, 33, { 102.f, 0.f, 116.f });
-	pBlock->Set_BlurEvent(33, L"Monkey");
+	pBlock = CBlockObj::Create(m_pGraphicDev, 36, { 102.f, 0.f, 116.f }, false);
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
@@ -560,7 +565,7 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_InterationObj()
 	pTrig->Set_Scale({ 2.8f, 4.f, 3.f });
 	pTrig->Add_Trigger([]()
 		{
-			Check_Event_Start(33);
+			Check_Event_Start(36);
 		}, CTriggerObj::COLLIDE_EVENT_TYPE::ENTER);
 	pTrig->Set_Once();
 	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
@@ -724,6 +729,10 @@ HRESULT CScene_MonkeyForest2::Ready_Event()
 	event = new EVENT;
 	event->iEventNum = 35;
 	event->m_bIsCanReset = true;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 36;
 	FAILED_CHECK(Add_Event(event));
 
 

@@ -27,6 +27,8 @@ public:
 
 	vector<wstring>& Get_StringVec() { return m_vecStrDesc; }
 
+	const wstring& Get_Desc() { return m_strDesc; }
+
 private:
 	HRESULT Ready_Component();
 	void Key_Input();

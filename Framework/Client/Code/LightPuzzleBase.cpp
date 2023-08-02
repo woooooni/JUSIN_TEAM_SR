@@ -62,6 +62,7 @@ void CLightPuzzleBase::Render_Object(void)
 		D3DVECTOR vCamPos = vPos;
 
 
+
 		pEffect->SetMatrix("g_WorldMatrix", &mat);
 		pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 		pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
@@ -80,7 +81,7 @@ void CLightPuzzleBase::Render_Object(void)
 		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 		pEffect->Begin(nullptr, 0);
-		pEffect->BeginPass(0);
+		pEffect->BeginPass(2);
 
 		m_pBufferCom->Render_Buffer();
 
