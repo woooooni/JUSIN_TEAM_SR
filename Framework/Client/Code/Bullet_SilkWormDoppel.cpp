@@ -2,7 +2,7 @@
 #include "Export_Function.h"
 #include "Effect_MothFlyLine.h"
 #include "GameMgr.h"
-CBullet_SilkWormDoppel::CBullet_SilkWormDoppel(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev,  OBJ_ID::MONSTER_SKILL)
+CBullet_SilkWormDoppel::CBullet_SilkWormDoppel(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev,  OBJ_ID::MONSTER_SKILL),m_eColor(COLOR_BLUE)
 {
 }
 CBullet_SilkWormDoppel::CBullet_SilkWormDoppel(const CBullet_SilkWormDoppel& rhs)
@@ -18,16 +18,17 @@ CBullet_SilkWormDoppel::~CBullet_SilkWormDoppel()
 HRESULT CBullet_SilkWormDoppel::Ready_Object(void)
 {
 
-	m_fMoveTime = 20.f;
+	m_fMoveTime = 5.f;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Regen", L"Proto_Texture_BugBoss_Phase2_Regen", 0.1f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Attack", L"Proto_Texture_BugBoss_Phase2_Attack", 0.2f);
 	m_pAnimator->Play_Animation(L"BugBoss_Phase2_Regen", true);
 	m_vDir = { 1,0,0 };
+	m_pTransformCom->Set_Scale({ 5.f,6.f,5.f });
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.5f, 6.f, 2.5f });
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
-	m_pTransformCom->Set_Scale({ 1.f, 1.f, 1.f }); 
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 0.2f, 0.2f, 0.2f });
+
+
 	return S_OK;
 }
 
@@ -37,7 +38,7 @@ _int CBullet_SilkWormDoppel::Update_Object(const _float& fTimeDelta)
 		return S_OK;
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
-	m_fActivateTime -= fTimeDelta;
+	m_fActivateTime -= 1.1f * fTimeDelta;
 	if (m_fActivateTime < 0.f)
 	{
 		if (!m_bShoot)
@@ -45,7 +46,7 @@ _int CBullet_SilkWormDoppel::Update_Object(const _float& fTimeDelta)
 			m_bShoot = true;
 			_vec3 AxisX = { 1,0,0 };
 			m_pTransformCom->RotationAxis(AxisX, D3DXToRadian(90.f));
-			m_pTransformCom->Set_Pos(&m_vRandPos);
+			m_fMoveTime = 4.f;
 			_vec3 vUp, vLook, vRight;
 			m_pTransformCom->Get_Info(INFO_UP, &vUp);
 			m_pTransformCom->Get_Info(INFO_LOOK, &vLook);
@@ -61,18 +62,18 @@ _int CBullet_SilkWormDoppel::Update_Object(const _float& fTimeDelta)
 			m_pAnimator->Play_Animation(L"BugBoss_Phase2_Attack", false);
 			m_pAnimator->GetCurrAnimation()->Set_Idx(3);
 		}
-		float fAccel = 1.5f * (10.f-m_fMoveTime) * (10.f - m_fMoveTime);
-		m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 15.f * fAccel);
-		m_fMoveTime -= fTimeDelta;
+		float fAccel = 1.5f * (4.f-m_fMoveTime) * (4.f - m_fMoveTime);
+		m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 10.f * fAccel);
+		m_fMoveTime -= 1.1f* fTimeDelta;
 	}
 	else
 	{
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 0)
-			m_pAnimator->GetCurrAnimation()->Set_Idx(2);
+			m_pAnimator->GetCurrAnimation()->Set_Idx(2);	
 	}
-	if (m_fActivateTime < 2.f||!m_bReady)
+	if (m_fActivateTime < 1.f&&!m_bReady)
 	{
-
+		m_pTransformCom->Set_Pos(&m_vRandPos);	
 		_vec3 vTargetPos, vPos, vDir;
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
@@ -90,14 +91,14 @@ _int CBullet_SilkWormDoppel::Update_Object(const _float& fTimeDelta)
 	{
 		if (Is_Active())
 		{
+
+			m_pLine->Set_Active(false);		
 			Set_Active(false);
-			m_pLine->Set_Active(false);
 			CEventMgr::GetInstance()->DeleteObjEvt(this);
 		}
 			
 		m_fMoveTime = 0.f;
 	}
-	m_fMoveTime -= 10.f * fTimeDelta;
 	return iExit;
 }
 
@@ -221,7 +222,20 @@ void CBullet_SilkWormDoppel::Create_Line()
 		fAngle *= -1.f;
 	}
 	m_pLine->Get_TransformCom()->RotationAxis(-vLook, fAngle);
+	if (m_eColor == COLOR_RED)
+	{
+		dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_ARGB(150, 255, 100, 100);
+	}
+	else if (m_eColor == COLOR_BLUE)
+	{
 
+		dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_ARGB(150, 100, 100, 255);
+	}
+
+	else if (m_eColor == COLOR_GREEN)
+	{
+		dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_ARGB(150, 100, 255, 100);
+	}
 
 }
 CBullet_SilkWormDoppel* CBullet_SilkWormDoppel::Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vRandPos, _float _fTime, COLOR_STATE _eColor, _float _iAtk)
@@ -258,6 +272,7 @@ CBullet_SilkWormDoppel* CBullet_SilkWormDoppel::Create(LPDIRECT3DDEVICE9 pGraphi
 
 	return pInstance;
 }
+
 
 void CBullet_SilkWormDoppel::Free()
 {

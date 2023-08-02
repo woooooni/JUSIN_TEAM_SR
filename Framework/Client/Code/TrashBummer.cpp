@@ -89,7 +89,7 @@ _int CTrashBummer::Update_Object(const _float& fTimeDelta)
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-   	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK)
+   	if (Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::ATTACK && Get_State() != MONSTER_STATE::DIE)
 	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 		if (nullptr == pTarget)
@@ -301,7 +301,7 @@ void CTrashBummer::Update_Attack(_float fTimeDelta)
 		Set_State(MONSTER_STATE::IDLE);
 		m_bShoot = true;
 	}
-	if (D3DXVec3Length(&vDir) < 10.f && D3DXVec3Length(&vDir) >= 4.f)
+	if (D3DXVec3Length(&vDir) < 10.f && D3DXVec3Length(&vDir) >= 7.f)
 	{
 		m_bShooting = false;
 		vDir.y = 0.f;

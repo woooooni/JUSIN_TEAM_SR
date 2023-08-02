@@ -52,14 +52,14 @@ private:
     _float m_fMoveTime;
     _float m_fEffectCoolTime =0.f;
     _vec3 m_vDst = { 0.f,0.f,0.f };
-    _vec3 m_vDir = { 0.f,0.f,0.f };
+    _vec3 m_vDir = { 0.f,0.f,0.f }; 
     _bool m_bShoot = true;
     _int m_iShootState=0;
     _bool m_bPosAccupied[8] = {};
+    _float m_fAttackTerm;
     CGameObject* m_pNueFlower[6] = {};
     CGameObject* m_pTarget = nullptr;
     CGameObject* m_pLine = nullptr;
-    CGameObject* m_pDoppel[4] = {};
     _float m_fCountDown = 0.f;
     MONSTERSTAT m_tStat;
     SILKWORM_STATE	m_eState;
@@ -74,6 +74,7 @@ private:
     COLOR_STATE m_eCOLORPATTERN=COLOR_BLUE;
     _bool m_bSpawn=false;
     _float m_fiInterval;
+    _float m_fEmissive = 1.2f;
 private:
     CUI_BossHP* m_pUIBack;
     CUI_BossHP* m_pUIFrame;

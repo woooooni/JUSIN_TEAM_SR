@@ -253,7 +253,7 @@ void CMonster::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 			if (m_bPushable)
 			{
 				m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
-				m_pRigidBodyCom->AddForce(vDir * 70.0f);
+				m_pRigidBodyCom->AddForce(vDir * 10.0f);
 			}
 				
 			

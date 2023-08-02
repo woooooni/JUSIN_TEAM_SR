@@ -29,6 +29,8 @@ HRESULT CEffect_MothFlyLine::Ready_Object(void)
 	Set_ARGB(150, 100, 100, 255);
 	m_pTransformCom->RotationAxis(AxisX, D3DXToRadian(90.f));
 	Set_Active(true);
+
+	m_tMaterial.Emissive = { 1.5f,1.5f,1.5f,1.5f };
 	return S_OK;
 }
 
@@ -103,7 +105,7 @@ void CEffect_MothFlyLine::Render_Object(void)
 		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 		pEffect->Begin(nullptr, 0);
-		pEffect->BeginPass(1);
+		pEffect->BeginPass(2);
 
 		m_pBufferCom->Render_Buffer();
 

@@ -65,8 +65,8 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (MONSTER_STATE::ATTACK != Get_State()&&MONSTER_STATE::REGEN != Get_State())
-		{
+	if (MONSTER_STATE::ATTACK != Get_State() && MONSTER_STATE::STUN != Get_State() && Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::DIE)
+	{
 		CGameObject* pTarget = CGameMgr::GetInstance()->Get_Player();
 	
 		if (nullptr == pTarget)

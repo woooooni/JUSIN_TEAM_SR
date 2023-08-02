@@ -37,7 +37,7 @@ HRESULT CTrashBig::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashBig_Move_LeftDown", L"Proto_Texture_TrashBig_Move_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Move_LeftUp", L"Proto_Texture_TrashBig_Move_LeftUp", 0.1f);
 
-	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.5f, 1.f));
 
 	m_fMinHeight = 0.5f;
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
@@ -75,7 +75,7 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 	_vec3 vTargetPos, vPos, vDir;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 
-	if (MONSTER_STATE::ATTACK != Get_State() && Get_State() != MONSTER_STATE::STUN)
+	if (MONSTER_STATE::ATTACK != Get_State() && MONSTER_STATE::STUN != Get_State() && Get_State() != MONSTER_STATE::REGEN && Get_State() != MONSTER_STATE::DIE)
 	{
 		if (Get_State() != MONSTER_STATE::DEFFENCEMODE)
 		{
@@ -260,7 +260,7 @@ void CTrashBig::Update_Move(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	vDir = m_vDst;
 	vDir.y = 0.f;
-
+	 
 	D3DXVec3Normalize(&vDir, &vDir);
 	m_vLook = vDir;
 	if (!m_bJump && m_pAnimator->GetCurrAnimation()->Get_Idx() == 2)
