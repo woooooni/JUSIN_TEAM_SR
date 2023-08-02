@@ -42,6 +42,9 @@ HRESULT CScene_SilkWorm::Ready_Scene()
 	tLight.Diffuse = { 0.2f, 0.2f, 0.2f, 1.0f };
 	tLight.Specular = { 0.2f, 0.2f, 0.2f, 1.0f };
 
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_17_MoonForestBossIntro.wav", 0.3f);
+	// 대화 후 전투시작 -> BGM_38_MoonPowerPlant 추천
 	CLightMgr::GetInstance()->Reset_Light();
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
 

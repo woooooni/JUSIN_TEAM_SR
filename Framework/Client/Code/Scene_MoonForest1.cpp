@@ -69,8 +69,8 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_49_CentralArea2.wav", 0.5f);
-
+	Play_BGM(L"BGM_49_CentralArea2.wav", 0.3f);
+	//BGM_14_MoonForestFieldHeavy.wav 추천 (49번은 튜토리얼 테마랑 똑같음)
 	D3DLIGHT9 tLight;
 	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
 	tLight.Direction = { 0.0f, -1.0f, 1.0f };

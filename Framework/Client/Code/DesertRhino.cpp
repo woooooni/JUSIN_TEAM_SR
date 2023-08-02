@@ -259,6 +259,10 @@ void CDesertRhino::Update_Die(_float fTimeDelta)
 	{
 		Set_Active(false);
 		On_Death();
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_257_Rhino_Death.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
@@ -393,6 +397,11 @@ void CDesertRhino::Trace(_float fTimeDelta)
 			m_fMoveTime = 0.f;
 	}
 	m_fMoveTime += 10.f * fTimeDelta;
+
+	int iSound = rand() % 5 + 4;
+	Stop_Sound((CHANNELID)iSound);
+	Play_Sound(L"SFX_495_RhinoSmash_Land.wav", (CHANNELID)iSound, 0.5f);
+
 }
 void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
@@ -424,6 +433,10 @@ void CDesertRhino::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 			pEffect->Ready_Object();
 		}
 		dynamic_cast<CEffect_Hit*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f));
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_256_Rhino_Hit.wav", (CHANNELID)iSound, 0.5f);
 
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);

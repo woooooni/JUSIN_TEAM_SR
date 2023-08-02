@@ -52,9 +52,13 @@ _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 		m_fAccTime = 0.f;
 
 		if (m_strCurrDesc.size() < _uint(m_strDesc.size()))
+		{
 			m_iStringIdx++;
-			
 
+			Stop_Sound(CHANNELID::SOUND_UI);
+			Play_Sound(L"SFX_146_ChattingText.wav", CHANNELID::SOUND_UI, 0.7f);
+		}
+			
 		m_strCurrDesc = m_strDesc.substr(0, m_iStringIdx);
 	}
 
@@ -163,6 +167,9 @@ void CUI_Dialog::Key_Input()
 	if (KEY_TAP(KEY::Z))
 	{
 		Print_Next();
+
+		Stop_Sound(CHANNELID::SOUND_VOICE);
+		Play_Sound(L"SFX_69_UISlotBigMove.wav", CHANNELID::SOUND_VOICE, 0.9f);
 	}
 }
 

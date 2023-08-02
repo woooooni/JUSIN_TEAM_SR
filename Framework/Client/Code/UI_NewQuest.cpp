@@ -119,6 +119,13 @@ void CUI_NewQuest::LateUpdate_Object(void)
 		m_bShown = true;
 	}
 
+	if (!m_bShown)
+	{
+		FMOD_RESULT pRes = FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), true);
+		Stop_Sound(CHANNELID::SOUND_UI);
+		Play_Sound(L"SFX_446_QuestClear.wav", CHANNELID::SOUND_UI, 0.9f);
+	}
+
 	__super::LateUpdate_Object();
 }
 
@@ -180,6 +187,8 @@ void CUI_NewQuest::Key_Input()
 
 			m_pExclamIcon->Set_Active(false);
 			m_pExclamIcon->Set_Shown(false);
+
+			FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), false);
 		}
 	}
 }

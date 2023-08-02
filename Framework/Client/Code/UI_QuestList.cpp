@@ -36,9 +36,6 @@ _int CUI_QuestList::Update_Object(const _float& fTimeDelta)
 	if (!CUIMgr::GetInstance()->Get_NewQuestUI()->Is_Active()) // QuestUI가 떠있지 않으면
 		m_bShown = true;
 
-	if (CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
-		m_bShown = false;
-
 	_int iExit = __super::Update_Object(fTimeDelta);
 	return iExit;
 }
@@ -52,6 +49,9 @@ void CUI_QuestList::LateUpdate_Object(void)
 		m_bShown = false;
 
 	if (CUIMgr::GetInstance()->Get_ShopUpdate())
+		m_bShown = false;
+
+	if (CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
 		m_bShown = false;
 
 	__super::LateUpdate_Object();

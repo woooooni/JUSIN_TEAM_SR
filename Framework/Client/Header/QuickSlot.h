@@ -30,7 +30,8 @@ public:
 	_bool		Get_Filled(SLOTNUM _eSlotNum);
 	void		Set_Filled(SLOTNUM _eSlotNum, _bool _bFilled);
 
-	vector<ITEM_CODE>	Get_SlotItems() { return m_vecSlotItems; }
+	//vector<ITEM_CODE>	Get_SlotItems() { return m_vecSlotItems; }
+	vector<ITEM_CODE>	Get_SlotItems() { return m_vecInSlot; }
 	vector<_bool>		Get_IsSetCode() { return m_vecSetCode; }
 	void				Set_SetCode(SLOTNUM _eSlotNum, _bool _bSetCode);
 
@@ -44,7 +45,6 @@ public:
 
 private:
 	vector<CUI*>		m_vecSlots;
-	vector<ITEM_CODE>	m_vecSlotItems;
 	vector<ITEM_CODE>	m_vecInSlot; // 예비 변수
 	vector<_bool>		m_vecSetCode;
 	vector<_uint>		m_vecCount;

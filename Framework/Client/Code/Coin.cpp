@@ -110,6 +110,9 @@ void CCoin::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGro
 		NULL_CHECK_RETURN(player);
 		player->Add_Money(m_iMoney);
 
+		Stop_Sound(CHANNELID::SOUND_UI);
+		Play_Sound(L"SFX_159_GoldCoinGet.wav", CHANNELID::SOUND_UI, 0.7f);
+
 		m_bIsCollided = true;
 		_vec3 src;
 		m_pTransformCom->Get_Info(INFO_POS, &src);

@@ -71,7 +71,15 @@ _int CInventoryUI::Update_Object(const _float& fTimeDelta)
 			if (pt.x > m_tBtnInfo.fX - m_tBtnInfo.fCX * 0.5f && pt.x < m_tBtnInfo.fX + m_tBtnInfo.fCX * 0.5f
 				&& pt.y > m_tBtnInfo.fY - m_tBtnInfo.fCY * 0.5f && pt.y < m_tBtnInfo.fY + m_tBtnInfo.fCY * 0.5f)
 			{
-				CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Use_Item();
+				if(CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Use_Item());
+				{
+					if (m_iCurPageIdx == 1)
+					{
+						Stop_Sound(CHANNELID::SOUND_UI);
+						Play_Sound(L"SFX_373_OguEat.wav", CHANNELID::SOUND_UI, 0.5f);
+					}
+				}
+
 				if (CInventoryMgr::GetInstance()->Get_Inventory((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx)[m_iCurItemIdx]->Get_InvenCount() <= 0)
 				{
 					CInventoryMgr::GetInstance()->Erase_Item((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx, m_iCurItemIdx);
@@ -88,6 +96,9 @@ _int CInventoryUI::Update_Object(const _float& fTimeDelta)
 				m_iCurItemIdx = i;
 				m_tCursorInfo = { (i % 5) * 115.f + 310.f, (i / 5) * 115.f + 310.f , 100.f, 100.f };
 				m_bIsRenderCurs = true;
+
+				Stop_Sound(CHANNELID::SOUND_UI);
+				Play_Sound(L"SFX_69_UISlotBigMove.wav", CHANNELID::SOUND_UI, 0.5f);
 				break;
 			}
 		}
@@ -100,6 +111,12 @@ _int CInventoryUI::Update_Object(const _float& fTimeDelta)
 		{
 			CInventoryMgr::GetInstance()->Erase_Item((CInventoryMgr::INVENTORY_TYPE)m_iCurPageIdx, m_iCurItemIdx);
 			m_bIsRenderCurs = false;
+		}
+
+		if (m_iCurPageIdx == 1)
+		{
+			Stop_Sound(CHANNELID::SOUND_UI);
+			Play_Sound(L"SFX_373_OguEat.wav", CHANNELID::SOUND_UI, 0.5f);
 		}
 	}
 

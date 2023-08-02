@@ -123,6 +123,9 @@ HRESULT CUI_SlotItems::Use_Item()
 	if (item == iter.end())
 		Set_ItemCode(ITEM_CODE::ITEM_END);
 
+	Stop_Sound(CHANNELID::SOUND_UI);
+	Play_Sound(L"SFX_373_OguEat.wav", CHANNELID::SOUND_UI, 0.5f);
+
 	return S_OK;
 }
 

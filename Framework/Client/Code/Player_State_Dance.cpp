@@ -51,7 +51,8 @@ HRESULT CPlayer_State_Dance::Ready_State(void)
 	m_bDown = false;
 	m_fAccTime = 0.0f;
 
-
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"BGM_29_OguBeggarHatBongZak.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	return S_OK;
 }
@@ -88,7 +89,6 @@ _int CPlayer_State_Dance::Update_State(const _float& fTimeDelta)
 	}
 	else
 		m_fAccTime += fTimeDelta;
-
 
 	Key_Input(fTimeDelta);
 	return 0;

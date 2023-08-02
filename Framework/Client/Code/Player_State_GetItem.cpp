@@ -99,7 +99,6 @@ _int CPlayer_State_GetItem::Update_State(const _float& fTimeDelta)
 		Play_Sound(L"SFX_147_OguItemAdd.wav", CHANNELID::SOUND_EFFECT_PLAYER, .5f);
 		m_bFinished = true;
 	}
-	
 
 	return 0;
 }

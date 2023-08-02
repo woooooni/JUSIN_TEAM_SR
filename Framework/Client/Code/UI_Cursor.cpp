@@ -48,14 +48,12 @@ _int CUI_Cursor::Update_Object(const _float& fTimeDelta)
 
 void CUI_Cursor::LateUpdate_Object(void)
 {
-
 	if (!m_bShown)
 	{
 		m_pTransformCom->Set_Pos(&m_vDefaultPos);
 		m_iCursorX = 0;
 		m_iCursorY = 0;
 	}
-
 	__super::LateUpdate_Object();
 }
 
@@ -156,18 +154,20 @@ HRESULT CUI_Cursor::Ready_Component()
 
 void CUI_Cursor::Key_Input()
 {
-//	if (KEY_TAP(KEY::L))
-//	{
-//		if (!m_bShown)
-//			m_bShown = true;
-//
+	if (KEY_TAP(KEY::LEFT_ARROW) || KEY_TAP(KEY::RIGHT_ARROW) ||
+		KEY_TAP(KEY::DOWN_ARROW) || KEY_TAP(KEY::UP_ARROW))
+	{
+		Stop_Sound(CHANNELID::SOUND_UI);
+		Play_Sound(L"SFX_69_UISlotBigMove.wav", CHANNELID::SOUND_UI, 0.5f);
+
+//		_float fRandom = (_float)(rand() % 3);
+//		if (fRandom = 0)
+//			Play_Sound(L"SFX_69_UISlotBigMove.wav", CHANNELID::SOUND_UI, 0.5f);
+//		else if (fRandom = 1)
+//			Play_Sound(L"SFX_70_UISlotMediumMove.wav", CHANNELID::SOUND_UI, 0.5f);
 //		else
-//		{
-//			m_bShown = false;
-//			m_iCursorX = 0;
-//			m_iCursorY = 0;
-//		}
-//	}
+//			Play_Sound(L"SFX_71_UISlotSmallMove.wav", CHANNELID::SOUND_UI, 0.5f);
+	}
 }
 
 CUI_Cursor* CUI_Cursor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

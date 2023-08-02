@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Transform.h"
 #include "RigidBody.h"
+#include "Export_Utility.h"
 
 CPlayer_State_Jump::CPlayer_State_Jump(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -94,6 +95,9 @@ HRESULT CPlayer_State_Jump::Ready_State(void)
 
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
 	m_bJump = false;
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER); // 효과음 교체 필요
+	Play_Sound(L"SFX_548_OguJump.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	return S_OK;
 }

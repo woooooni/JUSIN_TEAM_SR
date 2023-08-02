@@ -185,6 +185,9 @@ void CUI_Shop::Key_Input()
 	{
 		if (!m_bShown)
 		{
+			Stop_Sound(CHANNELID::SOUND_UI);
+			Play_Sound(L"SFX_67_UIBig_Open.wav", CHANNELID::SOUND_UI, 0.5f);
+
 			m_bShown = true;
 			m_pCursor->Set_Shown(true);
 			for (auto& iter : m_vecShopIcon)
@@ -192,6 +195,9 @@ void CUI_Shop::Key_Input()
 		}
 		else
 		{
+			Stop_Sound(CHANNELID::SOUND_UI);
+			Play_Sound(L"SFX_68_UIBig_Close.wav", CHANNELID::SOUND_UI, 0.5f);
+
 			m_bShown = false;
 			m_pCursor->Set_Shown(false);
 			for (auto& iter : m_vecShopIcon)
@@ -201,8 +207,14 @@ void CUI_Shop::Key_Input()
 
 	if (m_bShown)
 	{
-		if (KEY_TAP(KEY::ENTER) && m_iCursorX >= 0 && m_iCursorX < 3 && m_iCursorY == 0)
-				m_vecShown[m_iCursorX] = false;
+		if (KEY_TAP(KEY::ENTER) && m_iCursorX >= 0 && m_iCursorX < 3 && m_iCursorY == 0
+			&& m_vecShown[m_iCursorX])
+		{
+			m_vecShown[m_iCursorX] = false;
+
+			Stop_Sound(CHANNELID::SOUND_UI);
+			Play_Sound(L"SFX_201_ShopBuy.wav", CHANNELID::SOUND_UI, 0.5f);
+		}
 	}
 }
 

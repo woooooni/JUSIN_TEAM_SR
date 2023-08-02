@@ -301,6 +301,9 @@ void CLightFlower::Event_Start(_uint iEventNum)
         m_eColor = JELLY_COLOR::JELLY_END;
         m_bIsOpened = false;
 
+        Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+        Play_Sound(L"SFX_79_FlowerLightStandOff.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.8f);
+
         if (m_eType != LIGHT_TYPE::LIGHT_END)
         {
             CLightMgr::GetInstance()->Get_Light(m_eType)->Set_LightOff();
@@ -315,7 +318,8 @@ void CLightFlower::Event_Start(_uint iEventNum)
         m_eColor = m_pBalPan->Get_JellyColor();
         m_bIsOpened = true;
 
-
+        Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+        Play_Sound(L"SFX_78_FlowerLightStandOn.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.8f);
     }
 
     m_pAnimator->GetCurrAnimation()->Set_Idx(max - tmp - 1);

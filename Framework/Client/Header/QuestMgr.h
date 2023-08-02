@@ -17,13 +17,7 @@ public:
 	void Update_QuestMgr(const _float& fTimeDelta);
 
 public:
-	void Add_Quest(CQuest* pQuest) 
-	{
-		if (pQuest == nullptr)
-			return;
-		m_vecQuestList[_uint(pQuest->Get_NpcCode())].push_back(pQuest);
-	}
-
+	void Add_Quest(CQuest* pQuest);
 	void Add_PlayerQuest(CQuest* pQuest) { m_vecPlayerQuest.push_back(pQuest); }
 
 public:

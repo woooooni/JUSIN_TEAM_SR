@@ -74,6 +74,10 @@ HRESULT CTrashBummer::Ready_Object(void)
 	if (m_pUIFrame != nullptr)
 		m_pUIFrame->Set_Owner(this);
 
+	int iSound = rand() % 5 + 4;
+	Stop_Sound((CHANNELID)iSound);
+	Play_Sound(L"SFX_336_MonsterGarbageBummer_In.wav", (CHANNELID)iSound, 0.5f);
+
 	return S_OK;
 }
 
@@ -245,6 +249,10 @@ void CTrashBummer::Update_Die(_float fTimeDelta)
 	{
 		On_Death();
 		Set_Active(false);
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_336_MonsterGarbageBummer_In.wav", (CHANNELID)iSound, 0.5f);
 	}
 }
 
@@ -282,6 +290,7 @@ void CTrashBummer::Update_Move(_float fTimeDelta)
 	m_vLook = vDir;
 	m_pTarget = nullptr;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
+
 }
 
 void CTrashBummer::Update_Attack(_float fTimeDelta)
@@ -310,6 +319,10 @@ void CTrashBummer::Update_Attack(_float fTimeDelta)
 		m_vLook = vDir;
 		m_pTransformCom->Move_Pos(&vDir, fTimeDelta, Get_Speed());
 		m_bShoot = true;
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_330_MonsterGarbageBummer_Walk.wav", (CHANNELID)iSound, 0.3f);
 	}
 	else
 		Trace(fTimeDelta);
@@ -390,6 +403,10 @@ void CTrashBummer::Trace(_float fTimeDelta)
 		pSludgeBall->Get_RigidBodyCom()->AddForce(_vec3(0.0f, 100.0f, 0.0f));
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 		pLayer->Add_GameObject(L"SludgeBall", pSludgeBall);
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_315_MonsterGarbageBummer_Attack.wav", (CHANNELID)iSound, 0.6f);
 		
 		m_bShoot = false;
 	}
@@ -433,6 +450,10 @@ void CTrashBummer::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 			pEffect->Ready_Object();
 		}
 		dynamic_cast<CEffect_Hit*>(pEffect)->Get_Effect(vEffectPos, _vec3(2.0f, 2.0f, 2.0f));
+
+		int iSound = rand() % 5 + 4;
+		Stop_Sound((CHANNELID)iSound);
+		Play_Sound(L"SFX_313_MonsterGarbageBummer_Hit.wav", (CHANNELID)iSound, 0.5f);
 
 		vDir.y = 0.0f;
 		D3DXVec3Normalize(&vDir, &vDir);

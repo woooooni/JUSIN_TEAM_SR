@@ -46,7 +46,7 @@ HRESULT CScene_MonkeyForest2::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_6_MiniDungeons.wav", 0.5f);
+	Play_BGM(L"BGM_6_MiniDungeons.wav", 0.3f);
 
 	D3DLIGHT9 tLight;
 	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;

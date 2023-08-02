@@ -29,6 +29,9 @@ HRESULT CUI_MapName::Ready_Object(void)
 	m_tInfo.fCX = 10.f;
 	m_tInfo.fCY = _float(m_pTextureCom->Get_TextureDesc(0).Height) * 0.35f;
 
+	Stop_Sound(CHANNELID::SOUND_UI);
+	Play_Sound(L"SFX_215_Teleport.wav", CHANNELID::SOUND_UI, 0.6f);
+
 	return S_OK;
 }
 

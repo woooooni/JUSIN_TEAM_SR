@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "Transform.h"
 #include "Player.h"
+#include "Export_Utility.h"
 
 CPlayer_State_Rolling::CPlayer_State_Rolling(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fRollTime(0.5f)
@@ -80,6 +81,9 @@ HRESULT CPlayer_State_Rolling::Ready_State(void)
 		dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(L"Rolling_RightDown", FALSE);
 		break;
 	}
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+	Play_Sound(L"SFX_294_OguRoll.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
 	return S_OK;
 }
