@@ -30,6 +30,8 @@ CScene_MoonForest1::~CScene_MoonForest1()
 {
 }
 
+_bool	CScene_MoonForest1::m_bPlayedCutScene = false;
+
 HRESULT CScene_MoonForest1::Ready_Scene()
 {
 	
@@ -95,9 +97,11 @@ void CScene_MoonForest1::LateUpdate_Scene()
 
 	auto iter = m_mapLayer[LAYER_TYPE::MONSTER]->Find_GameObject(L"RollingBug");
 
-	if (!iter)
+	if (!iter && !m_bPlayedCutScene)
 	{
-		Check_Event_Start(28);
+		CCutSceneMgr::GetInstance()->Set_EventNum(28);
+		CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE);
+		m_bPlayedCutScene = true;
 	}
 }
 
@@ -160,7 +164,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_Environment()
 {
 	CGameObject* pDoor = CDoor::Create(m_pGraphicDev);
 	dynamic_cast<CDoor*>(pDoor)->Set_Door(_vec3(54.0f, 2.0f, 72.0f), _vec3(4.0f, 6.0f, 1.5f));
-	Add_Subscribe(27, pDoor);
+	Add_Subscribe(31, pDoor);
 
 	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SILK_WORM);
 
@@ -342,6 +346,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 
 	CLightPuzzleBase* pBase = CLightPuzzleBase::Create(m_pGraphicDev, 21, pTer->Get_TilePos(0, 2));
 	NULL_CHECK_RETURN(pBase, E_FAIL);
+	pBase->Set_CutSceneType(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE);
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"LightPuzzle_Base", pBase);
 
 
@@ -394,6 +399,19 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 		{
 			CCutSceneMgr::GetInstance()->Set_EventNum(31);
 			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MOON_FOREST_DOOR);
+		}
+	);
+	pTrig->Set_Once();
+
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
+
+	pTrig = CTriggerObj::Create(m_pGraphicDev, { -10, -10, -10 });
+	pTrig->Set_EventTrigger(
+		26,
+		[]()
+		{
+			CCutSceneMgr::GetInstance()->Set_EventNum(32);
+			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY2_HIT_ONE);
 		}
 	);
 	pTrig->Set_Once();
@@ -481,11 +499,15 @@ HRESULT CScene_MoonForest1::Ready_Event()
 	event->iEventNum = 28;
 	FAILED_CHECK(Add_Event(event));
 
+	event = new EVENT;
+	event->iEventNum = 32;
+	FAILED_CHECK(Add_Event(event));
+
 
 	event = new EVENT;
 	event->iEventNum = 27;
 	event->lEndKey.push_back(21);
-	event->lEndKey.push_back(26);
+	event->lEndKey.push_back(32);
 	event->lEndKey.push_back(28);
 
 	event->m_bIsCheckUpdate = true;
@@ -507,6 +529,10 @@ HRESULT CScene_MoonForest1::Ready_Event()
 
 	event = new EVENT;
 	event->iEventNum = 31;
+	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 33;
 	FAILED_CHECK(Add_Event(event));
 
 

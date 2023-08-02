@@ -428,15 +428,7 @@ void CCutSceneMgr::Ready_CutSceneNueHero_Die()
 {
 }
 
-void CCutSceneMgr::Ready_CutSceneNueHero()
-{
-	m_fAccTimeNueHero = 0.f;
-	m_pCamera = dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
-	if (nullptr == m_pCamera)
-		return;
 
-	m_pCamera->Set_CameraState(CAMERA_STATE::CUT_SCENE);
-}
 
 void CCutSceneMgr::Ready_CutSceneMonkeyForest2()
 {
