@@ -1409,6 +1409,9 @@
     <ClInclude Include="..\Header\Effect_Trail.h">
       <Filter>02. GameObject\13. Effect\24. Trail</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_EyeTrail.h">
+      <Filter>02. GameObject\13. Effect\24. Trail</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2093,6 +2096,9 @@
     <ClCompile Include="..\Code\Bullet_SilkWormDoppel.cpp" />
     <ClCompile Include="..\Code\UI_QuestList.cpp" />
     <ClCompile Include="..\Code\Effect_Trail.cpp">
+      <Filter>02. GameObject\13. Effect\24. Trail</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_EyeTrail.cpp">
       <Filter>02. GameObject\13. Effect\24. Trail</Filter>
     </ClCompile>
   </ItemGroup>

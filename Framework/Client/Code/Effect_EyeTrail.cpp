@@ -1,4 +1,4 @@
-#include "Effect_Trail.h"
+#include "Effect_EyeTrail.h"
 
 
 #include "Export_Function.h"
@@ -9,25 +9,26 @@
 #include "Terrain.h"
 #include "Pool.h"
 
-CEffect_Trail::CEffect_Trail(LPDIRECT3DDEVICE9 pGraphicDev)
+CEffect_EyeTrail::CEffect_EyeTrail(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CEffect(pGraphicDev)
 {
 }
 
-CEffect_Trail::CEffect_Trail(const CEffect& rhs)
+CEffect_EyeTrail::CEffect_EyeTrail(const CEffect& rhs)
 	: CEffect(rhs)
 {
 }
 
-CEffect_Trail::~CEffect_Trail()
+CEffect_EyeTrail::~CEffect_EyeTrail()
 {
 }
 
-HRESULT CEffect_Trail::Ready_Object(void)
+HRESULT CEffect_EyeTrail::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
 	Set_Active(true);
+
 
 	m_fAccPushTime = 0.0f;
 	m_fPushTime = 0.01f;
@@ -40,7 +41,7 @@ HRESULT CEffect_Trail::Ready_Object(void)
 	return S_OK;
 }
 
-_int CEffect_Trail::Update_Object(const _float& fTimeDelta)
+_int CEffect_EyeTrail::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
@@ -116,13 +117,12 @@ _int CEffect_Trail::Update_Object(const _float& fTimeDelta)
 	else
 		m_bPush = false;
 
-
 	_int iExit = __super::Update_Object(fTimeDelta);
 
 	return iExit;
 }
 
-void CEffect_Trail::LateUpdate_Object(void)
+void CEffect_EyeTrail::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -168,7 +168,7 @@ void CEffect_Trail::LateUpdate_Object(void)
 }
 
 
-void CEffect_Trail::Render_Object(void)
+void CEffect_EyeTrail::Render_Object(void)
 {
 	if (!Is_Active())
 		return;
@@ -225,14 +225,14 @@ void CEffect_Trail::Render_Object(void)
 
 }
 
-void CEffect_Trail::Return_Pool(void)
+void CEffect_EyeTrail::Return_Pool(void)
 {
-	CPool<CEffect_Trail>::Return_Obj(this);
+	CPool<CEffect_EyeTrail>::Return_Obj(this);
 }
 
-CEffect_Trail* CEffect_Trail::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CEffect_EyeTrail* CEffect_EyeTrail::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CEffect_Trail* pInstance = new CEffect_Trail(pGraphicDev);
+	CEffect_EyeTrail* pInstance = new CEffect_EyeTrail(pGraphicDev);
 
 	if (FAILED(pInstance->Ready_Object()))
 	{
@@ -247,7 +247,7 @@ CEffect_Trail* CEffect_Trail::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 
 
-HRESULT CEffect_Trail::Add_Component(void)
+HRESULT CEffect_EyeTrail::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 
@@ -279,7 +279,7 @@ HRESULT CEffect_Trail::Add_Component(void)
 	return S_OK;
 }
 
-void CEffect_Trail::Free()
+void CEffect_EyeTrail::Free()
 {
 	__super::Free();
 }

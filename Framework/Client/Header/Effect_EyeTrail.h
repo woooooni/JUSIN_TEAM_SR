@@ -1,6 +1,6 @@
 #pragma once
 #include "Effect.h"
-class CEffect_Trail : public CEffect
+class CEffect_EyeTrail : public CEffect
 {
 	typedef struct tVertexPoint
 	{
@@ -18,11 +18,11 @@ class CEffect_Trail : public CEffect
 		float fIndex;
 	};
 
-	CLONE(CEffect_Trail)
+	CLONE(CEffect_EyeTrail)
 protected:
-	explicit CEffect_Trail(LPDIRECT3DDEVICE9 pGraphicDev);
-	explicit CEffect_Trail(const CEffect& rhs);
-	virtual ~CEffect_Trail();
+	explicit CEffect_EyeTrail(LPDIRECT3DDEVICE9 pGraphicDev);
+	explicit CEffect_EyeTrail(const CEffect& rhs);
+	virtual ~CEffect_EyeTrail();
 
 public:
 	virtual HRESULT Ready_Object(void)							override;
@@ -31,7 +31,7 @@ public:
 	virtual void	Render_Object(void)							override;
 	virtual void	Return_Pool(void)							override;
 
-	static CEffect_Trail* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CEffect_EyeTrail* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	
 public:
 	void		Set_Effect(CGameObject* _pOwner, _vec3& _vOffset, _float _fScale)
@@ -40,6 +40,7 @@ public:
 		m_vOffset = _vOffset;
 		m_fScale = _fScale;
 	}
+
 
 	void	Set_Offset(_vec3& _vOffset) { m_vOffset = _vOffset; }
 	void	Set_Max(_uint _iMax) { m_iMaxSize = _iMax; }
