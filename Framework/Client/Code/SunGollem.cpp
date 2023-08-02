@@ -76,7 +76,7 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 {
 	if (KEY_TAP(KEY::NUM_1))
 	{
-		m_tStat.iHp = 0;
+		m_tStat.iHp -= 5;
 	}
 
 	int iExit = __super::Update_Object(fTimeDelta);
@@ -300,7 +300,7 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 		m_fSpeed = 5.f;
 		m_fMoveTime = 0.f;
 		m_fTime = 0.f;
-		if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
+		if (m_tStat.iHp < 1.f )
 			if (!m_bDirty)
 			{
 				Set_State(SUNGOLEM_STATE::DIRTY);
@@ -314,6 +314,8 @@ void CSunGollem::Update_Idle(_float fTimeDelta)
 			{
 				m_fTime = 0.f;
 				Set_State(SUNGOLEM_STATE::DIE);
+				Stop_Sound(CHANNELID::SOUND_BOSS);
+				Play_Sound(L"SFX_166_SunGolemDeath.wav", CHANNELID::SOUND_BOSS, .5f);
 				CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_SUNGOLEM_DIE);
 			}
 	}
@@ -358,6 +360,8 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 		{
 			dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"))->CamShake(1.5f);
 			m_bScream = false;
+			Stop_Sound(CHANNELID::SOUND_BOSS);
+			Play_Sound(L"SFX_337_DirtyGolemActivate_0.wav", CHANNELID::SOUND_BOSS, .5f);
 		}
 		break;
 	case 3:
@@ -395,12 +399,16 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 	m_pTransformCom->Move_Pos(&vDir,5.f,fTimeDelta );
 	if (!m_bJump)
 	{
+		Stop_Sound(CHANNELID::SOUND_BOSS);
+		Play_Sound(L"SFX__SunGolemJumpNormal_0.wav", CHANNELID::SOUND_BOSS, .5f);
 		m_pRigidBodyCom->AddForce(_vec3(0.0f, 150.0f, 0.0f));
 		m_pRigidBodyCom->SetGround(false);
 		m_bJump = true;
 	}
 	if (m_pRigidBodyCom->IsGround() && m_pRigidBodyCom->GetVelocity().y <= 0.0f)
 	{
+		Stop_Sound(CHANNELID::SOUND_BOSS);
+		Play_Sound(L"SFX__SunGolemJumpNormal_1.wav", CHANNELID::SOUND_BOSS, .5f);
 		dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"))->CamShake(0.2f);
 		m_vVerticalDir = { 0.f, 1.f ,0.f };
 		m_iRand = rand() % 3;
@@ -630,16 +638,29 @@ void CSunGollem::Update_Regen(_float fTimeDelta)
 	case 0:
 		break;
 	case 1:
+		if (!m_bSoundPlay)
+		{
+			m_bSoundPlay = true;
+			Stop_Sound(CHANNELID::SOUND_BOSS);
+			Play_Sound(L"SFX_37_SunGolemActivate_0.wav", CHANNELID::SOUND_BOSS, .5f);
+		}
 		break;
 	case 2:
+		m_bSoundPlay = false;
 		break;
 	case 3:
 		break;
 	case 4:
 		break;
-	case 5:		
-		break;
+	case 5:
+		if (!m_bSoundPlay)
+		{
+			m_bSoundPlay = true;
+			Stop_Sound(CHANNELID::SOUND_BOSS);
+			Play_Sound(L"SFX_37_SunGolemActivate_1.wav", CHANNELID::SOUND_BOSS, .5f);
+		}break;
 	case 6:
+		m_bSoundPlay = false;
 		break;
 	case 7:
 		Set_State(SUNGOLEM_STATE::IDLE);
@@ -702,6 +723,8 @@ void CSunGollem::Create_Wave(_vec3 vPos)
 	pSludgeWave->Set_Wave(40);
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 	pLayer->Add_GameObject(L"SludgeWave", pSludgeWave);
+	Stop_Sound(CHANNELID::SOUND_EFFECT_MONSTER5);
+	Play_Sound(L"SFX_335_DirtyWave.wav", CHANNELID::SOUND_EFFECT_MONSTER5, .5f);
 }
 
 void CSunGollem::Create_Stone()

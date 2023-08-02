@@ -204,7 +204,7 @@ void CBullet_SilkWormDoppel::Create_Line()
 	}
 	_vec3 vPos, vUp, vLook, vRight;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos.y = 0.09f;
+	vPos.y = 0.09f+ m_fActivateTime*0.01f;
 	m_pLine->Get_TransformCom()->Set_Pos(&vPos);
 	_vec3 vScale = m_pLine->Get_TransformCom()->Get_Scale();
 	vScale.y = sqrtf(((45.f * 2.f) * (45.f * 2.f)) * 2.f);

@@ -22,7 +22,6 @@ HRESULT CSludgeWave::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"SludgeWave", L"Proto_Texture_SludgeWave", 0.1f);
 	m_pAnimator->Play_Animation(L"SludgeWave", true);
 	_vec3 AxisX = { 1,0,0 };
-
 	m_pTransformCom->RotationAxis(AxisX, D3DXToRadian(90.f));
 	m_pTransformCom->Set_Pos(&_vec3(-2.0f,0.01f, -2.0f));	
 
@@ -54,7 +53,7 @@ _int CSludgeWave::Update_Object(const _float& fTimeDelta)
 					Set_Active(false);
 				m_fMoveTime = 0.f;
 			}
-			m_fMoveTime -= 5.f * fTimeDelta;
+			m_fMoveTime -= 10.f * fTimeDelta;
 		}
 		return iExit;
 	}

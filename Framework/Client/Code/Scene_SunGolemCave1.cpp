@@ -46,7 +46,7 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_9_SunGolem.wav", 0.3f);
+	Play_BGM(L"BGM_9_SunGolem.wav", 0.2f);
 
 	D3DLIGHT9 tLight;
 	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
@@ -91,6 +91,20 @@ void CScene_SunGolemCave1::Render_Scene()
 
 void CScene_SunGolemCave1::Enter_Scene()
 {
+	D3DLIGHT9 tLight;
+	ZeroMemory(&tLight, sizeof(D3DLIGHT9));
+
+	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
+	tLight.Ambient = { 0.0f, 0.0f, 0.0f, 0.0f };
+	tLight.Diffuse = { 0.3f, 0.3f, 0.3f, 0.3f };
+	tLight.Specular = { 0.5f, 0.5f, 0.5f, 0.5f };
+	tLight.Range = 50.0f;
+	tLight.Attenuation0 = 0.01f; // 鼻熱 馬潸 啗熱
+	tLight.Attenuation1 = 0.006f; // 摹⑽ 馬潸 啗熱
+	tLight.Attenuation2 = 0.003f; // 檜離 馬潸 啗熱
+	tLight.Position= { 9.f, 1.f, 5.f };
+	Ready_Light(m_pGraphicDev, &tLight, (_uint)LIGHT_TYPE::LIGHT_SUNGOLEM);
+
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SUNGOLEM)->Set_LightOn();
 
 	
@@ -184,7 +198,7 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pCat, E_FAIL);
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Catapult", pCat);
 
-	CTriggerObj* pTri = CTriggerObj::Create(m_pGraphicDev, { 9.f, 0.f, -14.4 });
+	CTriggerObj* pTri = CTriggerObj::Create(m_pGraphicDev, { 9.f, 0.f, -14.4f });
 	pTri->Set_Scale({ 5.f, 5.f, 5.f });
 	pTri->Add_Trigger([]()
 		{

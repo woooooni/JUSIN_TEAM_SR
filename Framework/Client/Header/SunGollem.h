@@ -105,5 +105,5 @@ CMonsterAim* m_pMonsterAim;
 	bool m_bDirty = false;
 	_int m_iIndex;
 	_float m_fTime=0.f;
-
+	_bool m_bSoundPlay = false;
 };
