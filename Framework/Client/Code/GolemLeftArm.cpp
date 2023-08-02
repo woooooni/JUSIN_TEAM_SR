@@ -57,6 +57,7 @@ _int CGolemLeftArm::Update_Object(const _float& fTimeDelta)
 		Update_Die(fTimeDelta);
 		break;
 	case SUNGOLEM_STATE::DIRTY:
+		Generate_MotionTrail(fTimeDelta);
 		Update_Dirty(fTimeDelta);
 		break;
 	}

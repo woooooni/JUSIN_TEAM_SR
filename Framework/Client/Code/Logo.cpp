@@ -2,9 +2,8 @@
 #include "Export_Function.h"
 #include "../Include/stdafx.h"
 #include "Loading.h"
-#include "UI_Shop.h"
-#include "UI_LoadingOgu.h"
-#include "UI_LoadingBackGround.h"
+#include "UI_MainLogo.h"
+#include "Scene_Loading.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
@@ -18,6 +17,16 @@ CLogo::~CLogo()
 HRESULT CLogo::Ready_Scene()
 {
 	__super::Ready_AllLayer();
+
+	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	D3DVIEWPORT9 vp;
 	vp.X = 0;
@@ -36,7 +45,13 @@ HRESULT CLogo::Ready_Scene()
 
 Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
-	return __super::Update_Scene(fTimeDelta);;
+	if (KEY_TAP(KEY::ENTER))
+	{
+		CScene_Loading* pScene = CScene_Loading::Create(m_pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE);
+		Engine::Reserve_SceneChange(pScene);
+	}
+
+	return __super::Update_Scene(fTimeDelta);
 }
 
 void CLogo::LateUpdate_Scene()
@@ -47,6 +62,17 @@ void CLogo::LateUpdate_Scene()
 void CLogo::Render_Scene()
 {
 	
+}
+
+void CLogo::Enter_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_5_JungleArea_Clear_Cave.wav", .4f);
+}
+
+void CLogo::Exit_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
 }
 
 void CLogo::Free()
@@ -154,6 +180,11 @@ HRESULT CLogo::Ready_Layer_UI()
 {
 	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	CUI_MainLogo* pUI = CUI_MainLogo::Create(m_pGraphicDev);
+	pLayer->Add_GameObject(L"MainLogo", pUI);
+
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }

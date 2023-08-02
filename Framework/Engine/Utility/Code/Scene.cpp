@@ -84,6 +84,13 @@ void CScene::PlayVideo(HWND _hWnd, const wstring& _strFilePath)
 
 	m_bVideoPlaying = true;
 	MCIWndPlay(m_hVideoHandle);
+	HDC dc = GetDC(_hWnd);
+	HDC memDC = CreateCompatibleDC(dc);
+	HBITMAP hBitmap = CreateCompatibleBitmap(dc, WINCX, WINCY);
+	HBITMAP hOldBitmap = (HBITMAP)SelectObject(memDC, hBitmap);
+
+	Rectangle(dc, 0, 0, WINCX, WINCY);
+	BitBlt(dc, 0, 0, WINCX, WINCY, memDC, 0, 0, SRCCOPY);
 	while (MCIWndGetLength(m_hVideoHandle) > MCIWndGetPosition(m_hVideoHandle))
 	{
 		if (GetAsyncKeyState(VK_RETURN))
@@ -92,7 +99,13 @@ void CScene::PlayVideo(HWND _hWnd, const wstring& _strFilePath)
 			m_bVideoPlaying = false;
 			break;
 		}
+
 	}
+
+	SelectObject(memDC, hOldBitmap);
+	ReleaseDC(_hWnd, memDC);
+	ReleaseDC(_hWnd, dc);
+
 	m_bVideoPlaying = false;
 	MCIWndClose(m_hVideoHandle);
 }

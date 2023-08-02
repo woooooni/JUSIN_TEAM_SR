@@ -51,6 +51,8 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 
 	_vec3 vDir = { 0.f, -1.f, 0.f };
 
+	Generate_MotionTrail(fTimeDelta);
+
 	if (m_bDirty == true)
 	{
 		if (m_bBummer == true)
@@ -225,7 +227,12 @@ void CGolemFist::Generate_MotionTrail(_float fTimeDelta)
 		if (pEffectSmoke == nullptr)
 			pEffectSmoke = CEffect_Smoke::Create(m_pGraphicDev);
 
-		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"EffectSmoke", pEffectSmoke);
+		_vec3 vPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+
+		pEffectSmoke->Get_Effect(vPos, _vec3{ 1.f, 1.f, 1.f });
+		// Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"EffectSmoke", pEffectSmoke);
 	}
 }
 

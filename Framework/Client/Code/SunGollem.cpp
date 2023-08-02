@@ -355,6 +355,7 @@ void CSunGollem::Update_Dirty(_float fTimeDelta)
 	if (m_pUIFrame == nullptr)
 		return;
 
+
 	m_pUIGauge->Set_Name(BOSSNAME::SUNGOLLEM_REBIRTH);
 	switch (m_iIndex)
 	{

@@ -1,7 +1,7 @@
 #include "Export_Function.h"
 #include "Quest_Cow1.h"
 #include "GameMgr.h"
-#include "Item_Hat_Light.h"
+#include "DefaultItem.h"
 #include "InventoryMgr.h"
 #include "QuestMgr.h"
 #include "Quest_Cow2.h"
@@ -36,7 +36,7 @@ CQuest_Cow1::CQuest_Cow1()
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 
 	if (pPlayer != nullptr)
-		m_pRewardItem = CItem_Hat_Light::Create(Engine::Get_Device(), pPlayer);
+		m_pRewardItem = CDefaultItem::Create(Engine::Get_Device(), OBJ_ID::ITEM, ITEM_CODE::HAT_TURTLE);
 	
 	m_iRewardCoin = 100;
 	

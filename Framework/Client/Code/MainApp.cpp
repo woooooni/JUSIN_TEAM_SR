@@ -95,7 +95,7 @@ void CMainApp::LateUpdate_MainApp()
 
 void CMainApp::Render_MainApp()
 {
-	Engine::Render_Begin(D3DXCOLOR(0.f, 0.f, 1.f, 1.f));
+	Engine::Render_Begin(D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
 
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
@@ -186,6 +186,7 @@ HRESULT CMainApp::Ready_Proto_Component(LPDIRECT3DDEVICE9 pGraphicDev)
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Main", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Banner.png")), E_FAIL);
 
 	// 초반 로딩을 위한 텍스처 로딩.
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Banner", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Banner.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_OguLoading", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Loading/Ogu/Loading_%d.png", 8)), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_LoadingBackGround", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Loading/BackGround/BackGround.png")), E_FAIL);
 

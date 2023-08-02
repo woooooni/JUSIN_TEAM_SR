@@ -62,6 +62,7 @@ _int CGolemRightHand::Update_Object(const _float& fTimeDelta)
 		break;
 	case SUNGOLEM_STATE::DIRTY:
 		Update_Dirty(fTimeDelta);
+		Generate_MotionTrail(fTimeDelta);
 		break;
 	}
 

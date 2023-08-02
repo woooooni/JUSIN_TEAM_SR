@@ -28,6 +28,7 @@
 
 
 
+#include "Logo.h"
 #include "Scene_TutorialVillage.h"
 #include "Scene_MonkeyForest1.h"
 #include "Scene_MonkeyForest2.h"
@@ -92,12 +93,11 @@ unsigned int CLoading::Thread_Main(void* pArg)
 	switch (pLoading->m_eID)
 	{
 	case Engine::SCENE_TYPE::LOGO:
-		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
-		pLoading->m_pLoadingScene = CScene_TutorialVillage::Create(pLoading->m_pGraphicDev);
-		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/TutorialVillage");
+		pLoading->m_pLoadingScene = CLogo::Create(pLoading->m_pGraphicDev);
 		break;
 
 	case Engine::SCENE_TYPE::TUTORIAL_VILLAGE:
+		FAILED_CHECK_RETURN(pLoading->Load_Texture(), E_FAIL);
 		pLoading->m_pLoadingScene = CScene_TutorialVillage::Create(pLoading->m_pGraphicDev);
 		iFlag = pLoading->Load_Map_Data(L"../Bin/Data/TutorialVillage");
 		break;
