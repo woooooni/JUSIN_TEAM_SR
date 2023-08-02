@@ -17,7 +17,7 @@ CPlantBall::~CPlantBall()
 HRESULT CPlantBall::Ready_Object(void)
 {
 
-	m_fMoveTime = 20.f;
+	m_fMoveTime = 50.f;
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 	m_pAnimator->Add_Animation(L"PlantBall", L"Proto_Texture_PlantBall", 0.1f);
 	m_pAnimator->Play_Animation(L"PlantBall", true);
@@ -40,7 +40,7 @@ _int CPlantBall::Update_Object(const _float& fTimeDelta)
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	m_pAnimator->Play_Animation(L"PlantBall", true);
 
-	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 30.f);
+	m_pTransformCom->Move_Pos(&m_vDir, fTimeDelta, 7.5f);
 	if (m_fMoveTime < 0.f)
 	{
 		if (Is_Active())

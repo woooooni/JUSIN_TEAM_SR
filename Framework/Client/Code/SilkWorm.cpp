@@ -70,7 +70,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	NULL_CHECK_RETURN(m_pUIFrame, E_FAIL);
 
 	m_pUIGauge->Set_Name(BOSSNAME::SILKWORM);
-	m_tMaterial.Emissive = { 1.2f,1.2f,1.2f,1.2f };
+	m_tMaterial.Emissive = { 10.2f,10.2f,10.2f,10.2f };
 	return S_OK;
 }
 
@@ -79,6 +79,7 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	if(m_eState!=SILKWORM_STATE::DIE)
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
 	_vec3 vTargetPos;
 
@@ -237,9 +238,9 @@ void CSilkWorm::Update_Idle(_float fTimeDelta)
 void CSilkWorm::Update_Die(_float fTimeDelta)
 {
 	m_fMoveTime += 20.f * fTimeDelta;
-	m_fEmissive += fTimeDelta;
+	m_fEmissive += 5.f * fTimeDelta;
 	m_tMaterial.Emissive = { m_fEmissive,m_fEmissive,m_fEmissive,m_fEmissive };
-	if (m_fMoveTime > 100.f)
+	if (m_fEmissive > 40.f)
 	{
 		if (Is_Active())
 			Set_Active(false);
@@ -567,6 +568,8 @@ void CSilkWorm::Trace(_float fTimeDelta)
 	float fAccel = 1.5f*m_fMoveTime* m_fMoveTime;
 	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 15.f* fAccel);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 5.f, 6.f, 2.5f });
+
 	if (m_fEffectCoolTime >= 0.3f)
 	{
 		for (int i = 0; i < 5; i++)
@@ -608,6 +611,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
 		Create_Line();
+	
 	}
 	_float fLeft = m_vOrigin.x - m_fiInterval * 0.7f;
 	_float fDown = m_vOrigin.z - m_fiInterval * 0.7f;
@@ -616,6 +620,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	 if (nullptr == m_pBeatles[m_eCOLORPATTERN]&&vPos.x>fLeft&&vPos.z> fDown&& vPos.x < fRight && vPos.z < fUp)
 	{
+		 dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.5f, 6.f, 2.5f });
 		 dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_Render(false);
 		 if (m_bRotate[2])
 		 {
@@ -707,7 +712,7 @@ void CSilkWorm::Shoot_BugBall()
 		pBugBall->Get_TransformCom()->Set_Pos(&BulletPos);
 		pBugBall->Set_Dir(vDir);
 		pBugBall->Set_Owner(this);
-		pBugBall->Set_Speed(20.f);
+		pBugBall->Set_Speed(10.f);
 		pBugBall->Set_Atk(m_tStat.iAttack);
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 		pLayer->Add_GameObject(L"BugBall", pBugBall);
