@@ -70,7 +70,7 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
         m_fExplodeTime += fTimeDelta;
 
     }
-    if (m_fExplodeTime > 2.f || m_fExistTime > 5.f)
+    if ((m_fExplodeTime > 2.f || m_fExistTime > 5.f) && !m_bExplosing)
     {
         m_bHitted = false;
         m_pAnimator->Play_Animation(L"Explode", false);
@@ -85,19 +85,20 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
 
         mypos.y = 0.02f;
         m_pTransformCom->Set_Pos(&mypos);
-        m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(-90.f));
+        m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
+
+        Set_MinHeight(0.027f);
 
     }
     else if (m_fExistTime >= 3.f)
     {
         m_bHitted = true;
     }
-
-    if (m_bExplosing)
+    else if (m_bExplosing)
     {
         m_fExplodeTime += fTimeDelta;
 
-        if (m_fExplodeTime > 1.6f)
+        if (m_pAnimator->GetCurrAnimation()->Get_Idx() == (m_pAnimator->GetCurrAnimation()->Get_Size() - 1))
         {
             Set_Active(false);
             return 0;
@@ -106,8 +107,9 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
         Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOMB);
         
     }
-    else
-        Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
+
+
+     Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
 
     Add_RenderGroup(RENDER_ALPHA, this);
     m_fExistTime += fTimeDelta;
@@ -189,6 +191,7 @@ CBarrelBomb* CBarrelBomb::Create(LPDIRECT3DDEVICE9 p_Dev, const _vec3& p_Pos)
     }
 
     ret->m_pTransformCom->Set_Pos(&p_Pos);
+    ret->Set_MinHeight(0.5f);
 
     return ret;
 }
@@ -205,6 +208,100 @@ void CBarrelBomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollis
 
 void CBarrelBomb::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
+    if (!m_bExplosing &&  _eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER
+        || !m_bExplosing && _eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER
+        || _eCollisionGroup == COLLISION_GROUP::COLLIDE_ITEM
+        || (!m_bExplosing && _eCollisionGroup == COLLISION_GROUP::COLLIDE_PUSH)
+        || (!m_bExplosing && _eCollisionGroup == COLLISION_GROUP::COLLIDE_BREAK))
+    {
+        _float fDeltaX = 0.f, fDeltaY = 0.f, fDeltaZ = 0.f;
+
+        _vec3 vPos, vOtherPos;
+        _vec3 vMin, vMax;
+        _vec3 vOtherMin, vOtherMax;
+
+        CTransform* pTransform = m_pTransformCom;
+        CTransform* pOtherTransform = pCollider->GetOwner()->Get_TransformCom();
+
+        CBoxCollider* pBoxCollider = dynamic_cast<CBoxCollider*>(m_pColliderCom);
+        CBoxCollider* pOtherBoxCollider = dynamic_cast<CBoxCollider*>(pCollider);
+
+
+        NULL_CHECK_RETURN(pTransform, );
+        NULL_CHECK_RETURN(pOtherTransform, );
+        NULL_CHECK_RETURN(pBoxCollider, );
+        NULL_CHECK_RETURN(pOtherBoxCollider, );
+
+        pTransform->Get_Info(INFO_POS, &vPos);
+        pOtherTransform->Get_Info(INFO_POS, &vOtherPos);
+
+        _vec3 vDir = vOtherPos - vPos;
+        _float fX = (pBoxCollider->Get_Scale().x * 0.5f) + (pOtherBoxCollider->Get_Scale().x * 0.5f);
+        _float fY = (pBoxCollider->Get_Scale().y * 0.5f) + (pOtherBoxCollider->Get_Scale().y * 0.5f);
+        _float fZ = (pBoxCollider->Get_Scale().z * 0.5f) + (pOtherBoxCollider->Get_Scale().z * 0.5f);
+
+
+        if (fabs(vDir.x) >= fX)
+            return;
+
+        if (fabs(vDir.y) >= fY)
+            return;
+
+        if (fabs(vDir.z) >= fZ)
+            return;
+
+
+
+        if (fX - fabs(vDir.x) <= fZ - fabs(vDir.z))
+        {
+            if (vDir.x < 0.f)
+            {
+                vDir.x -= (fX - fabs(vDir.x));
+                vOtherPos = vPos + vDir;
+                pOtherTransform->Set_Pos(&vOtherPos);
+            }
+            else
+            {
+                vDir.x += (fX - fabs(vDir.x));
+                vOtherPos = vPos + vDir;
+                pOtherTransform->Set_Pos(&vOtherPos);
+            }
+        }
+        /*else if (fY - fabs(vDir.y) < fZ - fabs(vDir.z) && fY - fabs(vDir.y) < fX - fabs(vDir.x))
+        {
+            if (vDir.y < 0.f)
+            {
+                vDir.y -= (fY - fabs(vDir.y));
+                vOtherPos = vPos + vDir;
+                pOtherTransform->Set_Pos(&vOtherPos);
+            }
+            else
+            {
+                vDir.y += (fY - fabs(vDir.y));
+                vOtherPos = vPos + vDir;
+                pOtherTransform->Set_Pos(&vOtherPos);
+            }
+        }*/
+        else if (fZ - fabs(vDir.z) < fX - fabs(vDir.x))
+        {
+            if (vDir.z < 0.f)
+            {
+                vDir.z -= (fZ - fabs(vDir.z));
+                vOtherPos = vPos + vDir;
+                pOtherTransform->Set_Pos(&vOtherPos);
+            }
+            else
+            {
+                vDir.z += (fZ - fabs(vDir.z));
+                vOtherPos = vPos + vDir;
+                pOtherTransform->Set_Pos(&vOtherPos);
+            }
+        }
+
+
+    }
+
+
 }
 
 void CBarrelBomb::Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)

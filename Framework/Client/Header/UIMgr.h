@@ -15,6 +15,7 @@
 #include "UI_Wallet.h"
 #include "UI_NewQuest.h"
 #include "UI_QuestList.h"
+#include "UI_Fade.h"
 
 class CUIMgr : public CBase
 {
@@ -44,18 +45,19 @@ public:
 	CUI_Wallet*	Get_Wallet() { return m_pWallet; }
 	CUI_NewQuest* Get_NewQuestUI() { return m_pNewQuest; }
 	CUI_QuestList* Get_QuestList() { return m_pQuestList; }
-
 	_bool	Get_ShopUpdate() { return m_bUpdateUI; }
+	CUI_Fade* Get_Fade() { return m_pFade; }
 
 private:
-	CUI_Wallet*		 m_pWallet = nullptr;
-	CUI_Dialog*		 m_pDialog = nullptr;
-	CUI_HPBar*		 m_pHpBar= nullptr;
-	CUI_Shop*		 m_pShop = nullptr;
-	CUI_NewItem*	 m_pItemWindow = nullptr;
-	CUI_Veil*		 m_pVeil = nullptr;
-	CUI_NewQuest*	 m_pNewQuest = nullptr;
-	CUI_QuestList*	 m_pQuestList = nullptr;
+	CUI_Wallet*		m_pWallet = nullptr;
+	CUI_Dialog*		m_pDialog = nullptr;
+	CUI_HPBar*		m_pHpBar= nullptr;
+	CUI_Shop*		m_pShop = nullptr;
+	CUI_NewItem*	m_pItemWindow = nullptr;
+	CUI_Veil*		m_pVeil = nullptr;
+	CUI_NewQuest*	m_pNewQuest = nullptr;
+	CUI_QuestList*	m_pQuestList = nullptr;
+	CUI_Fade*		m_pFade = nullptr;
 	
 	CInventoryUI*	 m_pInventory = nullptr;
 

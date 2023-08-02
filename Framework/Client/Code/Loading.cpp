@@ -1001,8 +1001,8 @@ HRESULT CLoading::Ready_UI_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_CloseKey", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/Notification/Quest_CloseKey.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_TitleBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/Notification/UI_QuestTitle.png")), E_FAIL);
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Quest_ContentsBox", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Quest/Notification/UI_QuestContents.png")), E_FAIL);
-	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Veil", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Veil/Veil_%d.png")), E_FAIL);
-	
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Veil", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/UI/Veil/Veil_%d.png", 2)), E_FAIL);
+
 	return S_OK;
 }
 

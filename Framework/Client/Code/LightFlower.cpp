@@ -1,6 +1,7 @@
 #include "LightFlower.h"
 #include    "Export_Function.h"
 #include    "BalpanObj.h"
+#include    "RollingBug.h"
 
 CLightFlower::CLightFlower(LPDIRECT3DDEVICE9 pGraphicDev) 
     : CFieldObject(pGraphicDev, OBJ_ID::LIGHT_FLOWER)
@@ -47,7 +48,6 @@ HRESULT CLightFlower::Ready_Object(void)
 
     m_pAnimator->Play_Animation(L"Idle", false);
 
-    m_pColliderCom->Set_Offset({ 0.f, 0.5f, 0.f });
 
     D3DLIGHT9 tLight;
     ZeroMemory(&tLight, sizeof(D3DLIGHT9));
@@ -89,8 +89,35 @@ void CLightFlower::LateUpdate_Object(void)
             CLightMgr::GetInstance()->Get_Light(m_eType)->Set_LightOn();
         }
     }
-    __super::LateUpdate_Object();
 
+        _vec3 myPos, opPos;
+        m_pTransformCom->Get_Info(INFO_POS, &myPos);
+        myPos.y = 0;
+        CRollingBug* tmp;
+
+        for (auto& iter : Get_Layer(LAYER_TYPE::MONSTER)->Get_GameObjectVec())
+        {
+            if ((tmp = dynamic_cast<CRollingBug*>(iter)) && tmp->Get_Color() == m_eColor && CLightMgr::GetInstance()->Get_Light(m_eType)->Is_LightOn())
+            {
+                tmp->Get_TransformCom()->Get_Info(INFO_POS, &opPos);
+                opPos.y = 0;
+
+                if (D3DXVec3Length(&(opPos - myPos)) < 4.f)
+                    tmp->Set_Stun(0.1f);
+                else
+                {
+                    if (tmp->Get_State() == MONSTER_STATE::STUN)
+                    {
+                        tmp->Set_Stun(0.f);
+                        tmp->Set_State(MONSTER_STATE::IDLE);
+
+                    }
+                }
+
+
+            }
+       }
+    __super::LateUpdate_Object();
 }
 
 void CLightFlower::Render_Object(void)
@@ -220,7 +247,7 @@ CLightFlower* CLightFlower::Create(LPDIRECT3DDEVICE9 p_Dev, CGameObject* p_Balpa
 
     ret->m_pBalPan = dynamic_cast<CBalpanObj*>(p_Balpan);
     ret->m_pTransformCom->Set_Scale({ 4.f, 4.f, 1.f });
-    ret->m_pColliderCom->Set_Offset(_vec3({ 0.f, -1.f, 0.f }));
+    ret->m_pColliderCom->Set_Offset(_vec3({ 0.f, -2.f, 0.f }));
     ret->m_pTransformCom->Set_Pos(&(p_Pos));
     ret->Add_Subscribe(p_EventNum);
     ret->Set_MinHeight(2.f);
@@ -247,6 +274,29 @@ void CLightFlower::Event_Start(_uint iEventNum)
     _uint tmp = m_pAnimator->GetCurrAnimation()->Get_Idx();
     if (m_bIsOpened)
     {
+        _vec3 myPos, opPos;
+        m_pTransformCom->Get_Info(INFO_POS, &myPos);
+        myPos.y = 0;
+        CRollingBug* tmp;
+
+
+        for (auto& iter : Get_Layer(LAYER_TYPE::MONSTER)->Get_GameObjectVec())
+        {
+            if ((tmp = dynamic_cast<CRollingBug*>(iter)) && tmp->Get_Color() == m_eColor && CLightMgr::GetInstance()->Get_Light(m_eType)->Is_LightOn())
+            {
+                tmp->Get_TransformCom()->Get_Info(INFO_POS, &opPos);
+                opPos.y = 0;
+
+                if (D3DXVec3Length(&(opPos - myPos)) < 4.f)
+                {
+                    tmp->Set_Stun(0.f);
+                    tmp->Set_State(MONSTER_STATE::IDLE);
+
+                }
+            }
+        }
+
+
         m_pAnimator->Play_Animation(L"Close", false);
         m_eColor = JELLY_COLOR::JELLY_END;
         m_bIsOpened = false;
@@ -256,6 +306,8 @@ void CLightFlower::Event_Start(_uint iEventNum)
             CLightMgr::GetInstance()->Get_Light(m_eType)->Set_LightOff();
         }
 
+
+
     }
     else
     {
@@ -263,9 +315,6 @@ void CLightFlower::Event_Start(_uint iEventNum)
         m_eColor = m_pBalPan->Get_JellyColor();
         m_bIsOpened = true;
 
-        if (m_eType != LIGHT_TYPE::LIGHT_END)
-        {
-        }
 
     }
 

@@ -34,5 +34,6 @@ public:
 private:
 	virtual void Free() override;
 
+	static _bool		m_bPlayedCutScene;
 };
 

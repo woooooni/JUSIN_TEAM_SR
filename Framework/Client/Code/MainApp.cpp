@@ -37,6 +37,7 @@
 #include "CutSceneMgr.h"
 #include <time.h>
 
+
 CMainApp::CMainApp() : m_pGraphicDevClass(nullptr), m_pManagementClass(nullptr), m_pGraphicDev(nullptr)
 {
 	
@@ -77,6 +78,8 @@ int CMainApp::Update_MainApp(const float & fTimeDelta)
 	m_pManagementClass->Update_Scene(fTimeDelta);
 	CQuestMgr::GetInstance()->Update_QuestMgr(fTimeDelta);
 	CCutSceneMgr::GetInstance()->Update_CutSceneMgr(fTimeDelta);
+	CGameObject* tmp = CUIMgr::GetInstance()->Get_Fade();
+
 	return 0;
 }
 
@@ -86,6 +89,8 @@ void CMainApp::LateUpdate_MainApp()
 	m_pManagementClass->LateUpdate_Scene();
 	Engine::Update_Collision();
 	Engine::LateUpdate_LightMgr();
+
+	CGameObject* tmp = CUIMgr::GetInstance()->Get_Fade();
 }
 
 void CMainApp::Render_MainApp()

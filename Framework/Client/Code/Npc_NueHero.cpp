@@ -7,6 +7,7 @@
 
 CNpc_NueHero::CNpc_NueHero(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CNpc(pGraphicDev, NPC_CODE::NPC_NUE_HERO, L"누에 용사")
+	, m_bSummonedBoss(false)
 {
 }
 
@@ -68,15 +69,17 @@ HRESULT CNpc_NueHero::Ready_Object(void)
 
 _int CNpc_NueHero::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	if(!m_bSummonedBoss)
+		Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	_int iExit = __super::Update_Object(fTimeDelta);
+	_int iExit = CGameObject::Update_Object(fTimeDelta);
 	return iExit;
 }
 
 void CNpc_NueHero::LateUpdate_Object(void)
 {
-	__super::LateUpdate_Object();
+	if(!m_bSummonedBoss)
+		__super::LateUpdate_Object();
 }
 
 void CNpc_NueHero::Render_Object(void)

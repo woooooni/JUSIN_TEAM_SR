@@ -5,6 +5,9 @@
 #include "QuestMgr.h"
 #include "Quest_NueHero2.h"
 #include "UIMgr.h"
+#include "Npc_NueHero.h"
+#include "SilkWorm.h"
+#include "CutSceneMgr.h"
 
 CQuest_NueHero1::CQuest_NueHero1()
 	: CQuest_Hunting(NPC_CODE::NPC_NUE_HERO, nullptr, OBJ_ID::SILK_WORM, 1)
@@ -21,9 +24,9 @@ CQuest_NueHero1::CQuest_NueHero1()
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"냄새나는 쓰레기를 잔뜩 버려 더럽히면\n동물들이 마을을 떠날 것이 분명하니 말이야.");
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"그렇게 둘 순 없다고?");
 
-	//m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"누에용사의 힘을 보아라!");
 
-	//m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"말도 안돼!");
 
 	m_iRewardCoin = 100000;
 }
@@ -37,7 +40,7 @@ void CQuest_NueHero1::Update_Quest(_float& fTimeDelta)
 {
 	__super::Update_Quest(fTimeDelta);
 
-	if (m_eQuestProgress == QUEST_PROGRESS::COMPLETE)
+	if (m_eQuestProgress == QUEST_PROGRESS::CONTINUE)
 		Clear_Quest();
 }
 
@@ -53,7 +56,7 @@ void CQuest_NueHero1::Clear_Quest()
 	CQuest_NueHero2* pNextQuest = new CQuest_NueHero2();
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
 
-	
+	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_INTRO);
 	// TODO :: 컷씬
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();

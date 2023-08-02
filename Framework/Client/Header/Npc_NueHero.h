@@ -26,7 +26,13 @@ public:
 public:
 	static  CNpc_NueHero* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
+	void	Set_Summoned()
+	{
+		m_bSummonedBoss = !m_bSummonedBoss;
+	}
+
 private:
 	virtual void		Free() override;
+	_bool				m_bSummonedBoss;
 };
 

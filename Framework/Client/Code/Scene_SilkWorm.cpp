@@ -9,6 +9,7 @@
 #include "UIMgr.h"
 #include "SilkWorm.h"
 #include "GameMgr.h"
+#include "Npc_NueHero.h"
 
 CScene_SilkWorm::CScene_SilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SILK_WORM)
@@ -119,6 +120,10 @@ HRESULT CScene_SilkWorm::Ready_Layer_Terrrain()
 
 HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 {
+	CNpc_NueHero* nue = CNpc_NueHero::Create(m_pGraphicDev);
+	nue->Get_TransformCom()->Set_Pos(&_vec3(53.f, 0.5f, 26.f));
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Nue_NPC", nue);
+
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
@@ -126,11 +131,11 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 
 HRESULT CScene_SilkWorm::Ready_Layer_Monster()
 {
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	_vec3 vPos = _vec3(53.f, 0.5f, 26.f);
 	pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);*/
 
 	return S_OK;
 }

@@ -195,7 +195,7 @@ void CHitObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 void CHitObj::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)
 {
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_PLAYER
-		|| _eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PUSH)
+		|| _eCollisionGroup == COLLISION_GROUP::COLLIDE_MONSTER || _eCollisionGroup == COLLISION_GROUP::COLLIDE_PUSH || _eCollisionGroup == COLLISION_GROUP::COLLIDE_ITEM)
 	{
 		_float fDeltaX = 0.f, fDeltaY = 0.f, fDeltaZ = 0.f;
 

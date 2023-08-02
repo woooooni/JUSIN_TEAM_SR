@@ -1,10 +1,10 @@
 #include "Export_Function.h"
 #include "UIMgr.h"
 #include "Pool.h"
-#include  "Item_Hat_Drill.h"
-#include  "Item_Hat_Light.h"
-#include  "Item_Hat_Mask.h"
-#include    "DefaultItem.h"
+#include "Item_Hat_Drill.h"
+#include "Item_Hat_Light.h"
+#include "Item_Hat_Mask.h"
+#include "DefaultItem.h"
 #include "GameMgr.h"
 
 IMPLEMENT_SINGLETON(CUIMgr)
@@ -30,7 +30,9 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     m_pInventory = CInventoryUI::Create(_pGraphicDev);
     m_pWallet = CUI_Wallet::Create(_pGraphicDev);
     m_pNewQuest = CUI_NewQuest::Create(_pGraphicDev);
+
     m_pQuestList = CUI_QuestList::Create(_pGraphicDev);
+    m_pFade = CUI_Fade::Create(_pGraphicDev);
 
     NULL_CHECK_RETURN(m_pDialog, E_FAIL);
     NULL_CHECK_RETURN(m_pHpBar, E_FAIL);
@@ -104,6 +106,14 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
 
     if (m_bUpdateUI)
         m_pInventory->Update_Object(fTimeDelta);
+
+    if (KEY_TAP(KEY::P))
+    {
+        m_pFade->Set_Fade(m_pFade->Get_Fade(), 3.f);
+        m_pFade->Set_White(false);
+    }
+
+    m_pFade->Update_Object(fTimeDelta);
 }
 
 void CUIMgr::Late_Update_UIMgr()
@@ -144,6 +154,7 @@ void CUIMgr::Late_Update_UIMgr()
     m_vecIcon[KEYBUTTON_4]->LateUpdate_Object();
     m_vecIcon[KEYBUTTON_L]->LateUpdate_Object();
 
+    m_pFade->LateUpdate_Object();
 }
 
 void CUIMgr::Render_UIMgr()

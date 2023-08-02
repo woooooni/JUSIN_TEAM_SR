@@ -47,6 +47,27 @@ public:
     void        Set_Info(const _vec3 vPos, BUGCOLORTYPE eType);
     HRESULT	    Add_Component(void);
 
+    JELLY_COLOR Get_Color()
+    {
+        switch (m_tBugInfo.eType)
+        {
+        case BugColorType::YELLOW:
+            return JELLY_COLOR::YELLOW;
+            break;
+        case BugColorType::BLUE:
+            return JELLY_COLOR::CYAN;
+            break;
+        case BugColorType::PINK:
+            return JELLY_COLOR::MAGENTA;
+            break;
+        case BugColorType::BUGCOLOR_END:
+            break;
+        default:
+            break;
+        }
+        return JELLY_COLOR::JELLY_END;
+    }
+
 private:
     virtual void    Trace(_float fTimeDelta)         override;
     virtual void    Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;

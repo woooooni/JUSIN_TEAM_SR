@@ -24,7 +24,6 @@
 #include "BarrelBomb.h"
 #include "BreakObj.h"
 #include "Particle_MapCircle.h"
-#include "Effect_Trail.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -159,7 +158,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SILK_WORM);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_VILLAGE);
 
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
@@ -185,7 +184,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	{
 		CParticle_MapCircle* pParticle = CParticle_MapCircle::Create(Engine::Get_Device());
 		NULL_CHECK_RETURN(pParticle, E_FAIL);
-		pParticle->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 300, 255, 255, 255, 40);
+		pParticle->Random_Particle(_vec3(30.0f, 10.0f, 30.0f), 100, 255, 255, 255, 20);
 		m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"MapCircle", pParticle);
 	}
 	
@@ -270,10 +269,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 {
-	
-
-
-
 	return S_OK;
 }
 
