@@ -723,6 +723,8 @@ void CSunGollem::Create_Wave(_vec3 vPos)
 	pSludgeWave->Set_Wave(40);
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 	pLayer->Add_GameObject(L"SludgeWave", pSludgeWave);
+	Stop_Sound(CHANNELID::SOUND_EFFECT_MONSTER5);
+	Play_Sound(L"SFX_335_DirtyWave.wav", CHANNELID::SOUND_EFFECT_MONSTER5, .5f);
 }
 
 void CSunGollem::Create_Stone()
