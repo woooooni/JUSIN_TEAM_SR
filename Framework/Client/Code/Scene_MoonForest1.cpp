@@ -39,6 +39,9 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 	
 	__super::Ready_AllLayer();
 
+	Clear_Event();
+
+
 	D3DLIGHT9 tFlowerLight;
 	ZeroMemory(&tFlowerLight, sizeof(D3DLIGHT9));
 
@@ -119,6 +122,11 @@ void CScene_MoonForest1::Render_Scene()
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
 	CUIMgr::GetInstance()->Render_UIMgr();
+}
+
+void CScene_MoonForest1::Enter_Scene()
+{
+
 }
 
 HRESULT CScene_MoonForest1::Ready_Prototype()
@@ -430,6 +438,70 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 	pTrig->Set_Once();
 
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
+
+	pTrig = CTriggerObj::Create(m_pGraphicDev, { 100.f, 0.f, 74.f });
+
+	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
+	pTrig->Add_Trigger([]()
+		{
+			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
+
+			if (KEY_TAP(KEY::Z))
+			{
+				CUI_Dialog* dia = CUIMgr::GetInstance()->Get_Dialog();
+
+				if (!dia->Is_Active() && dia->Get_Desc() == L"")
+				{
+					dia->Get_StringVec().clear();
+					dia->Set_Name(L"안내판");
+					dia->Get_StringVec().push_back(L"태양의 방향을 바라보는 위대한 \n벌레전사들이 답을 알고있다.");
+					dia->Set_Quest(nullptr);
+					dia->Set_Active(true);
+				}
+			}
+		}, CTriggerObj::COLLIDE_EVENT_TYPE::STAY);
+
+	pTrig->Set_UpdateDialogue();
+
+	pTrig->Add_Trigger([]()
+		{
+			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
+			CUIMgr::GetInstance()->Get_Dialog()->Set_Active(false);
+		}, CTriggerObj::COLLIDE_EVENT_TYPE::EXIT);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
+
+	pTrig = CTriggerObj::Create(m_pGraphicDev, { 51.5f, 0.f, 70.f });
+
+	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
+	pTrig->Add_Trigger([]()
+		{
+			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
+
+			if (KEY_TAP(KEY::Z))
+			{
+				CUI_Dialog* dia = CUIMgr::GetInstance()->Get_Dialog();
+
+				if (!dia->Is_Active() && dia->Get_Desc() == L"")
+				{
+					dia->Get_StringVec().clear();
+					dia->Set_Name(L"안내판");
+					dia->Get_StringVec().push_back(L"남, 동, 서쪽의 수수께끼를 풀어야 문이 열린다.");
+					dia->Set_Quest(nullptr);
+					dia->Set_Active(true);
+				}
+			}
+		}, CTriggerObj::COLLIDE_EVENT_TYPE::STAY);
+
+	pTrig->Set_UpdateDialogue();
+
+	pTrig->Add_Trigger([]()
+		{
+			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
+			CUIMgr::GetInstance()->Get_Dialog()->Set_Active(false);
+		}, CTriggerObj::COLLIDE_EVENT_TYPE::EXIT);
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
+
+
 
 	/*pTrig = CTriggerObj::Create(m_pGraphicDev, {-10, -10, -10});
 	pTrig->Set_EventTrigger(

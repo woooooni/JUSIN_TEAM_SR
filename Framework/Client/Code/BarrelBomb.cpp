@@ -78,8 +78,8 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
         m_fExplodeTime = 0.f;
         m_fBlurAlpha = 0.f;
         m_bIsPlusAlpha = false;
-        dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 3.f, 3.f, 3.f });
-        m_pTransformCom->Set_Scale({ 3.f, 3.f, 3.f });
+        dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 5.f, 5.f, 5.f });
+        m_pTransformCom->Set_Scale({ 5.f, 5.f, 5.f });
         _vec3 mypos;
         m_pTransformCom->Get_Info(INFO_POS, &mypos);
 
@@ -87,14 +87,14 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
         m_pTransformCom->Set_Pos(&mypos);
         m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
 
-        Set_MinHeight(0.027f);
-
     }
     else if (m_fExistTime >= 3.f)
     {
         m_bHitted = true;
     }
-    else if (m_bExplosing)
+
+
+    if (m_bExplosing)
     {
         m_fExplodeTime += fTimeDelta;
 
@@ -107,9 +107,13 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
         Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOMB);
         
     }
+    else
+    {
+        Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
+
+    }
 
 
-     Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BREAK);
 
     Add_RenderGroup(RENDER_ALPHA, this);
     m_fExistTime += fTimeDelta;

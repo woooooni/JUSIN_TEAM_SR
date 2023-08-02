@@ -26,6 +26,9 @@ HRESULT CScene_SilkWorm::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+
+	Clear_Event();
+
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
@@ -79,6 +82,11 @@ void CScene_SilkWorm::Render_Scene()
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
 	CUIMgr::GetInstance()->Render_UIMgr();
+}
+
+void CScene_SilkWorm::Enter_Scene()
+{
+
 }
 
 HRESULT CScene_SilkWorm::Ready_Prototype()

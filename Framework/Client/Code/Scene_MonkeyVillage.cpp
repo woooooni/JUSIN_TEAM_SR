@@ -38,6 +38,8 @@ HRESULT CScene_MonkeyVillage::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	Clear_Event();
+
 	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
 
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
@@ -102,6 +104,7 @@ void CScene_MonkeyVillage::Enter_Scene()
 		CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::MONKEY_VILLAGE_INTRO);
 		bPlayedCutScene = true;
 	}
+
 }
 
 HRESULT CScene_MonkeyVillage::Ready_Prototype()

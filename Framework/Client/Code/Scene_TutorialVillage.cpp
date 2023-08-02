@@ -16,10 +16,8 @@
 #include "Npc_OguMom.h"
 #include "TrashFast.h"
 #include "UI_MapName.h"
-#include "Cupa.h"	
-#include "SkyBox.h" 
+#include "Cupa.h"
 #include "RabitObj.h"
-#include"SkyBox.h"
 #include "Turret.h"
 #include "DrawingEnter.h"
 #include "UIMgr.h"
@@ -95,8 +93,8 @@ void CScene_TutorialVillage::Render_Scene()
 void CScene_TutorialVillage::Enter_Scene()
 {
 	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_0_Null.wav", 0.3f);
-	// BGM_5_JungleArea_Clear_Cave
+	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+
 
 	CUI_Shop* pShop = CUIMgr::GetInstance()->Get_ShopUI();
 	pShop->Add_Item(CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HAT_LIGHT), SHOPITEMTYPE::UISHOP_LEAF);
@@ -144,9 +142,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Camera()
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
-
-	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev,0);
-	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
 	return S_OK;
 }
 
@@ -163,7 +158,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MOON_FOREST1);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
 
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 

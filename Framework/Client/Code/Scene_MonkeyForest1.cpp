@@ -29,6 +29,8 @@ HRESULT CScene_MonkeyForest1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+	Clear_Event();
+
 	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
 
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
@@ -87,6 +89,14 @@ void CScene_MonkeyForest1::Render_Scene()
 		D3DCOLOR_ARGB(100, 0, 0, 0));
 
 	CUIMgr::GetInstance()->Render_UIMgr();
+}
+
+void CScene_MonkeyForest1::Enter_Scene()
+{
+}
+
+void CScene_MonkeyForest1::Exit_Scene()
+{
 }
 
 HRESULT CScene_MonkeyForest1::Ready_Prototype()

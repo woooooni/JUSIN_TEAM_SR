@@ -2,6 +2,7 @@
 #include "UIMgr.h"
 #include "Export_Function.h"
 #include "NPC.h"
+#include "GameMgr.h"
 
 CUI_Dialog::CUI_Dialog(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
@@ -44,8 +45,17 @@ HRESULT CUI_Dialog::Ready_Object(void)
 
 _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 {
-	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+	if (m_strDesc != L"" && !Is_Active())
+	{
+		m_strDesc = L"";
+	}
 	Key_Input();
+
+	if (!Is_Active())
+		return S_OK;
+
+	Engine::Add_RenderGroup(RENDERID::RENDER_UI, this);
+
 	m_fAccTime += fTimeDelta;
 	if (m_fAccTime >= m_fDescTime)
 	{
@@ -54,7 +64,6 @@ _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 		if (m_strCurrDesc.size() < _uint(m_strDesc.size()))
 		{
 			m_iStringIdx++;
-
 			Stop_Sound(CHANNELID::SOUND_UI);
 			Play_Sound(L"SFX_146_ChattingText.wav", CHANNELID::SOUND_UI, 0.7f);
 		}
@@ -68,6 +77,38 @@ _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 
 void CUI_Dialog::LateUpdate_Object(void)
 {
+
+	if (m_pQuest)
+	{
+		_vec3 vPos, vPlayerPos;
+
+		CNpc* pNpc = nullptr;
+
+		const vector<CGameObject*>& vecObj = Engine::Get_Layer(LAYER_TYPE::ENVIRONMENT)->Get_GameObjectVec();
+		for (size_t i = 0; i < vecObj.size(); ++i)
+		{
+			if (vecObj[i]->GetObj_Type() == OBJ_TYPE::OBJ_NPC)
+			{
+				pNpc = dynamic_cast<CNpc*>(vecObj[i]);
+				if (pNpc && pNpc->Get_NpcCode() == m_pQuest->Get_NpcCode())
+					break;
+			}
+		}
+
+		if (pNpc)
+		{
+			pNpc->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+			CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPlayerPos);
+
+			_vec3 vDir = vPos - vPlayerPos;
+			if (D3DXVec3Length(&vDir) > 2.f)
+			{
+				m_pQuest = nullptr;
+			}
+		}
+
+	}
+
 	__super::LateUpdate_Object();
 }
 
@@ -197,7 +238,7 @@ void CUI_Dialog::Print_Next()
 			if (vecObj[i]->GetObj_Type() == OBJ_TYPE::OBJ_NPC)
 			{
 				CNpc* pNpc = dynamic_cast<CNpc*>(vecObj[i]);
-				if (pNpc != nullptr && pNpc->Get_NpcCode() == m_pQuest->Get_NpcCode())
+				if (pNpc != nullptr && m_pQuest && pNpc->Get_NpcCode() == m_pQuest->Get_NpcCode())
 				{
 					pNpc->Set_TalkEnable(false);
 					break;
@@ -206,11 +247,43 @@ void CUI_Dialog::Print_Next()
 		}
 		Set_Active(false);
 		m_iVectorIdx = 0;
+
 	}
 	else
 	{		
+
 		m_iStringIdx = 0;
 		m_strDesc = m_vecStrDesc[m_iVectorIdx];
+
+		if (m_strDesc == L"ⓐ")
+		{
+			m_strName = L"양 아줌마";
+			m_iVectorIdx++;
+			m_strDesc = m_vecStrDesc[m_iVectorIdx];
+		}
+		else if (m_strDesc == L"ⓑ")
+		{
+			m_strName = L"소 아저씨";
+			m_iVectorIdx++;
+			m_strDesc = m_vecStrDesc[m_iVectorIdx];
+		}
+		else if (m_strDesc == L"ⓒ")
+		{
+			m_strName = L"원숭이 족장";
+			m_iVectorIdx++;
+			m_strDesc = m_vecStrDesc[m_iVectorIdx];
+		}
+		else if (m_strDesc == L"ⓓ")
+		{
+			m_strName = L"오구 엄마";
+			m_iVectorIdx++;
+			m_strDesc = m_vecStrDesc[m_iVectorIdx];
+		}
+
+
+
+
+
 		m_strCurrDesc = L"";
 		m_fAccTime = 0.f;
 	}

@@ -11,7 +11,7 @@ class CCutSceneMgr : public CBase
 
 public:
 	enum class CUTSCENE_TYPE { TUTORIAL_INTRO, MONKEY_VILLAGE_INTRO, BOSS_SUNGOLEM_INTRO, BOSS_SUNGOLEM_DIE, BOSS_NUEHERO_INTRO, BOSS_NUEHERO_DIE, MONKEY2_HIT_ONE, MONKEY2_HIT_TWO ,
-		 MOON_FOREST_DOOR, TYPE_END };
+		 MOON_FOREST_DOOR, ENDING, TYPE_END };
 
 private:
 	explicit CCutSceneMgr();
@@ -42,6 +42,7 @@ private:
 	void	Ready_CutSceneMonkeyForest2();
 	void	Ready_CutSceneMonkeyForest_OpenGate();
 	void	Ready_CutSceneMoonForestDoor();
+	void	Ready_CutSceneEnding();
 
 
 private:
@@ -55,6 +56,7 @@ private:
 	void Update_CutSceneMonkeyForest2(const _float& fTimeDelta);
 	void Update_CutSceneMoonForestDoor(const _float& fTimeDelta);
 	void Update_CutSceneMonkeyForest_OpenGate(const _float& fTimeDelta);
+	void Update_CutSceneEnding(const _float& fTimeDelta);
 
 private:
 	void Finish_CutSceneTutorial();
@@ -67,6 +69,7 @@ private:
 	void Finish_CutSceneMonkeyForest2();
 	void Finish_CutSceneMoonForestDoor();
 	void Finish_CutSceneMonkeyForest_OpenGate();
+	void Finish_CutSceneEnding();
 
 
 
@@ -98,6 +101,9 @@ private:
 
 	_float m_fAccTimeMoonForestDoor;
 	_float m_fFinishTimeMoonForestDoor;
+
+	_float m_fAccTimeEnding;
+	_float m_fFinishTimeEnding;
 
 
 	_bool m_bCutScenePlaying;

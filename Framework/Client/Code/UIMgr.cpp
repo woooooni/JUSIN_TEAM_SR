@@ -82,7 +82,7 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     if (m_pShortCutKey->Is_Active())
         m_pShortCutKey->Update_Object(fTimeDelta);
 
-    if (m_pDialog->Is_Active())
+
         m_pDialog->Update_Object(fTimeDelta);
 
     if (m_pWallet->Is_Active())
@@ -126,7 +126,7 @@ void CUIMgr::Late_Update_UIMgr()
     m_vecIcon[KEYBOARD]->LateUpdate_Object();
     m_vecIcon[QUEST]->LateUpdate_Object();
 
-    //m_pDialog->LateUpdate_Object();
+    m_pDialog->LateUpdate_Object();
     m_pHpBar->LateUpdate_Object();
     m_pShop->LateUpdate_Object();
     m_pShortCutKey->LateUpdate_Object();

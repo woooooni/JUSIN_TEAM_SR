@@ -30,6 +30,9 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 {
 	
 	__super::Ready_AllLayer();
+
+	Clear_Event();
+
 	FAILED_CHECK_RETURN(Ready_Event(), E_FAIL);
 
 	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
@@ -89,6 +92,7 @@ void CScene_SunGolemCave1::Render_Scene()
 void CScene_SunGolemCave1::Enter_Scene()
 {
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SUNGOLEM)->Set_LightOn();
+
 	
 }
 
@@ -180,10 +184,11 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_InterationObj()
 	NULL_CHECK_RETURN(pCat, E_FAIL);
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Catapult", pCat);
 
-	CTriggerObj* pTri = CTriggerObj::Create(m_pGraphicDev, { 9.f, 0.f, -21.4 });
+	CTriggerObj* pTri = CTriggerObj::Create(m_pGraphicDev, { 9.f, 0.f, -14.4 });
 	pTri->Set_Scale({ 5.f, 5.f, 5.f });
 	pTri->Add_Trigger([]()
 		{
+			Check_Event_Start(3);
 			CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_SUNGOLEM_INTRO);
 			CCutSceneMgr::GetInstance()->Set_EventNum(1);
 		}, CTriggerObj::COLLIDE_EVENT_TYPE::ENTER);
@@ -314,6 +319,18 @@ HRESULT CScene_SunGolemCave1::Ready_Layer_InterationObj()
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
 
 
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 8.5f, 0.f, -19.f }, false);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(3, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+
+	pBlock = CBlockObj::Create(m_pGraphicDev, 3, { 9.5f, 0.f, -19.f }, false);
+	NULL_CHECK_RETURN(pBlock, E_FAIL);
+	pBlock->Set_BlurEvent(3, L"Monkey");
+	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Block", pBlock);
+
+
 	return S_OK;
 }
 
@@ -341,6 +358,11 @@ HRESULT CScene_SunGolemCave1::Ready_Event()
 	event = new EVENT;
 	event->iEventNum = 2;
 	FAILED_CHECK(Add_Event(event));
+
+	event = new EVENT;
+	event->iEventNum = 3;
+	FAILED_CHECK(Add_Event(event));
+
 
 	return S_OK;
 }

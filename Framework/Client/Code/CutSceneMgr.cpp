@@ -77,12 +77,21 @@ void CCutSceneMgr::Update_CutSceneMgr(const _float& fTimeDelta)
 		Update_CutSceneMoonForestDoor(fTimeDelta);
 		break;
 
+	case CUTSCENE_TYPE::ENDING:
+		Update_CutSceneEnding(fTimeDelta);
+		break;
+
+
+
 	}
 }
 
 void CCutSceneMgr::Update_TutorialIntro()
 {
-	
+	if (!m_bCutsceneSwitch[0] && CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	{
+		Finish_CutSceneEnding();
+	}
 		
 }
 
@@ -305,6 +314,28 @@ void CCutSceneMgr::Update_Boss_NueHero_Intro(const _float& fTimeDelta)
 
 void CCutSceneMgr::Update_Boss_NueHero_Die(const _float& fTimeDelta)
 {
+	m_fAccTimeNueHero_Die += fTimeDelta;
+
+	if (!m_bCutsceneSwitch[0])
+	{
+		auto iter = Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SilkWorm");
+
+		if (iter)
+			return;
+		else if (CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+		{
+			m_bCutsceneSwitch[0] = true;
+			dynamic_cast<CNpc_NueHero*>(Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Nue_NPC"))->Set_Summoned();
+			CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Set_Pos(&_vec3(53.f, 0.5f, 16.f));
+			CUIMgr::GetInstance()->Get_Fade()->Set_Fade(false, 3.f);
+
+		}
+	}
+	else if (m_bCutsceneSwitch[0] && CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	{
+		Finish_CutSceneNueHero_Die();
+	}
+
 }
 
 
@@ -380,6 +411,28 @@ void CCutSceneMgr::Update_CutSceneMonkeyForest_OpenGate(const _float& fTimeDelta
 
 }
 
+void CCutSceneMgr::Update_CutSceneEnding(const _float& fTimeDelta)
+{
+	m_fAccTimeEnding += fTimeDelta;
+
+	if (!m_bCutsceneSwitch[0] && m_fAccTimeEnding >= 3.f)
+	{
+		CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 5.f);
+		m_bCutsceneSwitch[0] = true;
+	}
+	else if (m_bCutsceneSwitch[0] && !m_bCutsceneSwitch[1] && CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	{
+		//엔딩크레딧 생성
+		m_bCutsceneSwitch[1] = true;
+	}
+	else if (m_bCutsceneSwitch[1])
+	{
+		//크레딧 없으면 게임 종료
+	}
+
+
+}
+
 void CCutSceneMgr::Ready_CutSceneTutorial()
 {
 	m_fAccTimeTutorial = 0.f;
@@ -435,8 +488,6 @@ void CCutSceneMgr::Ready_CutSceneSunGolem_Die()
 	m_fFinishTimeSunGolem = 0.f;
 
 	m_pCamera->Set_CameraState(CAMERA_STATE::CUT_SCENE);
-	m_pCamera->Set_TargetObj(nullptr);
-	m_pCamera->Set_Offset(m_pCamera->Get_Offset() * 2.f);
 	CGameMgr::GetInstance()->Get_Player()->Set_Stop(true);
 
 }
@@ -453,16 +504,38 @@ void CCutSceneMgr::Ready_CutSceneNueHero_Intro()
 	m_fFinishTimeSunGolem = 0.f;
 
 	m_pCamera->Set_CameraState(CAMERA_STATE::CUT_SCENE);
-	m_pCamera->Set_TargetObj(nullptr);
+
 	CGameMgr::GetInstance()->Get_Player()->Set_Stop(true);
 	m_pCamera->CamShake(3.f);
+	m_pCamera->Set_TargetObj(dynamic_cast<CNpc_NueHero*>(Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Nue_NPC")));
 
+	CUIMgr::GetInstance()->Get_Fade()->Set_White(true);
 	CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 3.f);
 
 }
 
 void CCutSceneMgr::Ready_CutSceneNueHero_Die()
 {
+	m_fAccTimeNueHero_Intro = 0.f;
+	m_pCamera = dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	if (nullptr == m_pCamera)
+		return;
+	m_bCutsceneSwitch.clear();
+	m_bCutsceneSwitch.resize(2);
+
+	m_fFinishTimeSunGolem = 0.f;
+
+	m_pCamera->Set_CameraState(CAMERA_STATE::CUT_SCENE);
+	m_pCamera->Set_TargetObj(nullptr);
+	CGameMgr::GetInstance()->Get_Player()->Set_Stop(true);
+	m_pCamera->CamShake(4.f);
+
+	auto iter = Get_Layer(LAYER_TYPE::MONSTER)->Find_GameObject(L"SilkWorm");
+	NULL_CHECK_RETURN(iter, );
+	m_pCamera->Set_TargetObj(iter);
+
+	CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 4.f);
+
 }
 
 
@@ -516,6 +589,22 @@ void CCutSceneMgr::Ready_CutSceneMoonForestDoor()
 
 }
 
+void CCutSceneMgr::Ready_CutSceneEnding()
+{
+	m_fAccTimeEnding = 0.f;
+
+	m_pCamera = dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	if (nullptr == m_pCamera)
+		return;
+
+
+	m_pCamera->Set_CameraState(CAMERA_STATE::CUT_SCENE);
+	m_bCutsceneSwitch.clear();
+	m_bCutsceneSwitch.resize(2);
+
+
+}
+
 void CCutSceneMgr::Finish_CutSceneTutorial()
 {
 	m_bCutScenePlaying = false;
@@ -560,6 +649,11 @@ void CCutSceneMgr::Finish_CutSceneNueHero_Intro()
 
 void CCutSceneMgr::Finish_CutSceneNueHero_Die()
 {
+	m_bCutScenePlaying = false;
+	m_pCamera->Set_CameraState(CAMERA_STATE::GAME);
+	m_pCamera->Set_TargetObj(CGameMgr::GetInstance()->Get_Player());
+	CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);
+
 }
 
 
@@ -600,6 +694,11 @@ void CCutSceneMgr::Finish_CutSceneMonkeyForest_OpenGate()
 
 }
 
+void CCutSceneMgr::Finish_CutSceneEnding()
+{
+
+}
+
 void CCutSceneMgr::Ready_CutScene(CUTSCENE_TYPE _eType)
 {
 	m_bCutScenePlaying = true;
@@ -637,7 +736,11 @@ void CCutSceneMgr::Ready_CutScene(CUTSCENE_TYPE _eType)
 
 	case CUTSCENE_TYPE::MOON_FOREST_DOOR:
 		Ready_CutSceneMoonForestDoor();
+		break;
+	case CUTSCENE_TYPE::ENDING:
+		Ready_CutSceneEnding();
 
+		break;
 	case CCutSceneMgr::CUTSCENE_TYPE::TYPE_END:
 		break;
 	default:
