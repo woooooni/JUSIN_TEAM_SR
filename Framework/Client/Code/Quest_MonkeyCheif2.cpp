@@ -7,8 +7,8 @@
 #include "Quest_MonkeyCheif3.h"
 #include "UIMgr.h"
 #include "EventMgr.h"
-#include "Item_Hat_Turtle.h"
 #include "SunGollem.h"
+#include "DefaultItem.h"
 
 CQuest_MonkeyCheif2::CQuest_MonkeyCheif2()
 	: CQuest_Hunting(NPC_CODE::NPC_CHIEF, nullptr, OBJ_ID::SUN_GOLLEM, 1)
@@ -36,7 +36,7 @@ CQuest_MonkeyCheif2::CQuest_MonkeyCheif2()
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 
 	if (pPlayer != nullptr)
-		m_pRewardItem = CItem_Hat_Monkey::Create(Engine::Get_Device(), pPlayer);
+		m_pRewardItem = CDefaultItem::Create(Engine::Get_Device(), OBJ_ID::ITEM, ITEM_CODE::HAT_MONKEY);
 	
 	m_iRewardCoin = 1000;
 	
@@ -87,7 +87,7 @@ void CQuest_MonkeyCheif2::Accept_Quest()
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 	if (pPlayer != nullptr)
 	{
-		CInventoryMgr::GetInstance()->Add_Item(CItem_Hat_Turtle::Create(Engine::Get_Device(), pPlayer));
+		CInventoryMgr::GetInstance()->Add_Item(CDefaultItem::Create(Engine::Get_Device(), OBJ_ID::ITEM, ITEM_CODE::HAT_LIGHT));
 		CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(true);
 	}
 }

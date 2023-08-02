@@ -33,7 +33,6 @@ HRESULT CGolemPart::Ready_Object(void)
 _int CGolemPart::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
-	// Generate_MotionTrail(fTimeDelta);
 	return iExit;
 }
 

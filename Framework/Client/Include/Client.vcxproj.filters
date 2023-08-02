@@ -688,6 +688,9 @@
     <Filter Include="02. GameObject\04. UI\08. Quest\02. List">
       <UniqueIdentifier>{8b0c2407-5b71-47f7-bf7a-1fc82fdc670b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\13. MainLogo">
+      <UniqueIdentifier>{5898a16c-044d-4d01-b424-a0c6e2dc65e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1411,6 +1414,13 @@
     <ClInclude Include="..\Header\UI_QuestList.h">
       <Filter>02. GameObject\04. UI\08. Quest\02. List</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_EyeTrail.h" />
+    <ClInclude Include="..\Header\Effect_MotionTrail.h" />
+    <ClInclude Include="..\Header\Effect_Trail.h" />
+    <ClInclude Include="..\Header\UI_Fade.h" />
+    <ClInclude Include="..\Header\UI_MainLogo.h">
+      <Filter>02. GameObject\04. UI\13. MainLogo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2095,6 +2105,13 @@
     <ClCompile Include="..\Code\Bullet_SilkWormDoppel.cpp" />
     <ClCompile Include="..\Code\UI_QuestList.cpp">
       <Filter>02. GameObject\04. UI\08. Quest\02. List</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_EyeTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_MotionTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_Trail.cpp" />
+    <ClCompile Include="..\Code\UI_Fade.cpp" />
+    <ClCompile Include="..\Code\UI_MainLogo.cpp">
+      <Filter>02. GameObject\04. UI\13. MainLogo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
