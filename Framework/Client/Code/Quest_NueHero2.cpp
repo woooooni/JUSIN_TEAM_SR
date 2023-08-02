@@ -1,6 +1,7 @@
 #include "UIMgr.h"
 #include "Quest_NueHero2.h"
 #include "GameMgr.h"
+#include "CutSceneMgr.h"
 
 CQuest_NueHero2::CQuest_NueHero2()
 	:CQuest_Conversation(NPC_CODE::NPC_NUE_HERO, nullptr)
@@ -24,7 +25,7 @@ CQuest_NueHero2::CQuest_NueHero2()
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"ⓒ");
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"원숭이 마을에도 깨끗한 자연이 돌아왔다. \n 너는 두 마을의 영웅이야");
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"ⓓ");
-	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"아빠도 네가 자랑스럽단다.");
+	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"엄마도 네가 자랑스럽단다.");
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"이제 마을도 구했으니까 취업해야겠지?");
 
 
@@ -34,12 +35,12 @@ CQuest_NueHero2::CQuest_NueHero2()
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
 
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"");
-	
+
 }
 
 void CQuest_NueHero2::Update_Quest(_float& fTimeDelta)
 {
-	
+
 }
 
 void CQuest_NueHero2::Accept_Quest()
@@ -52,6 +53,6 @@ void CQuest_NueHero2::Clear_Quest()
 	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 	CGameMgr::GetInstance()->Get_Player()->Change_State(PLAYER_STATE::DOWN);
-
+	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::ENDING);
 	// TODO :: 컷씬 후 게임 종료
 }

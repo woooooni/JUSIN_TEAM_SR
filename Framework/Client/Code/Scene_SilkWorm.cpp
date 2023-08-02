@@ -10,7 +10,11 @@
 #include "SilkWorm.h"
 #include "GameMgr.h"
 #include "Npc_NueHero.h"
-#include "SkyBox.h" 
+#include "SkyBox.h"
+
+// Test Header
+#include "QuestMgr.h"
+#include "Quest_NueHero2.h"
 
 CScene_SilkWorm::CScene_SilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SILK_WORM)
@@ -24,7 +28,7 @@ CScene_SilkWorm::~CScene_SilkWorm()
 
 HRESULT CScene_SilkWorm::Ready_Scene()
 {
-	
+
 	__super::Ready_AllLayer();
 
 	Clear_Event();
@@ -58,7 +62,7 @@ HRESULT CScene_SilkWorm::Ready_Scene()
 _int CScene_SilkWorm::Update_Scene(const _float& fTimeDelta)
 {
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
-	
+
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
@@ -92,7 +96,7 @@ void CScene_SilkWorm::Enter_Scene()
 HRESULT CScene_SilkWorm::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-	
+
 	return S_OK;
 }
 
@@ -137,6 +141,11 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 	nue->Get_TransformCom()->Set_Pos(&_vec3(53.f, 0.5f, 26.f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Nue_NPC", nue);
 
+	// Test
+	CQuest* pQuest = new CQuest_NueHero2();
+	CQuestMgr::GetInstance()->Add_Quest(pQuest);
+
+
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
@@ -144,11 +153,11 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 
 HRESULT CScene_SilkWorm::Ready_Layer_Monster()
 {
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	_vec3 vPos = _vec3(53.f, 0.5f, 26.f);
 	pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);*/
 
 	return S_OK;
 }
