@@ -114,6 +114,9 @@ void CUI_BossHP::Render_Object(void)
 		fCurHP = _float(m_iCurHP);
 		fHP = fCurHP / fMaxHP;
 
+		if (fCurHP <= 0)
+			fCurHP = 0;
+
 		m_pGraphicDev->GetTransform(D3DTS_VIEW, &matPreView);
 		m_pGraphicDev->GetTransform(D3DTS_PROJECTION, &matPreProj);
 
@@ -162,6 +165,12 @@ void CUI_BossHP::Render_Object(void)
 				_vec3 vMovePos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
 					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 				m_pTransformCom->Set_Pos(&vMovePos);
+			}
+
+			else if (fCurHP <= 0)
+			{
+				_vec3 vScale = _vec3(0.f, fHeight * fRatio, 0.f);
+				m_pTransformCom->Set_Scale(vScale);
 			}
 
 		}
