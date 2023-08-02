@@ -42,6 +42,19 @@ HRESULT CLightMgr::Ready_LightMgr(LPDIRECT3DDEVICE9 pGraphicDev)
 	Ready_Light(m_pGraphicDev, &tFlowerLight, (_uint)LIGHT_TYPE::LIGHT_FLOWER1);
 	Ready_Light(m_pGraphicDev, &tFlowerLight, (_uint)LIGHT_TYPE::LIGHT_FLOWER2);
 
+	D3DLIGHT9 tSungolemLight;
+	ZeroMemory(&tSungolemLight, sizeof(D3DLIGHT9));
+	tSungolemLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
+	tSungolemLight.Diffuse = { 0.3f, 0.3f, 0.3f, 0.3f };
+	tSungolemLight.Ambient = { 0.1f, 0.1f, 0.1f, 1.f };
+	tSungolemLight.Specular = { 0.f, 0.f, 0.f, 0.f };
+	tSungolemLight.Range = 20.f;
+	tSungolemLight.Attenuation0 = 0.001f;	// 鼻熱 馬潸 啗熱
+	tSungolemLight.Attenuation1 = 0.01f;	// 摹⑽ 馬潸 啗熱
+	tSungolemLight.Attenuation2 = 0.03f;	// 檜離 馬潸 啗熱
+	tSungolemLight.Position = { 9.f, 1.f, 5.f };
+
+	Ready_Light(m_pGraphicDev, &tSungolemLight, (_uint)LIGHT_TYPE::LIGHT_SUNGOLEM);
 	return S_OK;
 }
 

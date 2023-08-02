@@ -147,7 +147,7 @@ _int CGameObject::Update_Object(const _float & fTimeDelta)
 			}
 			else
 			{
-				vPos.z += vScale.z * 0.001f;
+				vPos.z += vScale.y * 0.001f;
 			}
 			
 			pMainCamera->Get_TransformCom()->Get_Info(INFO_POS, &vCamPos);

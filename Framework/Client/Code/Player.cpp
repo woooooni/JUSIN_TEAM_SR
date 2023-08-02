@@ -41,6 +41,7 @@
 #include "Effect_Block.h"
 #include "Effect_Hit.h"
 #include "LightMgr.h"
+#include "Effect_MotionTrail.h"
 
 
 
@@ -51,6 +52,8 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_eState(PLAYER_STATE::IDLE)
 	, m_bStateChange(false)
 	,m_fSpeedUpTime(0.f)
+	, m_fMotionTrailTime(0.02f)
+	, m_fAccMotionTrail(0.f)
 {
 
 }
@@ -359,9 +362,26 @@ Engine::_int CPlayer::Update_Object(const _float& fTimeDelta)
 		}
 	}
 
+	/*m_fAccMotionTrail += fTimeDelta;
+	if (m_fAccMotionTrail >= m_fMotionTrailTime)
+	{
+		m_fAccMotionTrail = 0.f;
+		CEffect_MotionTrail* pMotionTrail = CPool<CEffect_MotionTrail>::Get_Obj();
 
+		if (pMotionTrail == nullptr)
+			pMotionTrail = CEffect_MotionTrail::Create(m_pGraphicDev);
+
+		pMotionTrail->Set_Texture(
+			m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx()));
+
+		_vec3 vTrailPos;
+		m_pTransformCom->Get_Info(INFO_POS, &vTrailPos);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_POS, &vTrailPos);
+
+		pMotionTrail->Get_TransformCom()->Set_Scale(m_pTransformCom->Get_Scale());
+		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"MotionTrail", pMotionTrail);
+	}*/
 	_int iExit = __super::Update_Object(fTimeDelta);
-
 	return iExit;
 }
 
@@ -386,6 +406,9 @@ void CPlayer::LateUpdate_Object(void)
 void CPlayer::Render_Object(void)
 {
 	 __super::Render_Object();
+
+	 if (m_pShadow && m_pShadow->Is_Active())
+		 m_pShadow->Render_Object();
 
 	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
 
@@ -426,8 +449,6 @@ void CPlayer::Render_Object(void)
 
 
 
-	if (m_pShadow && m_pShadow->Is_Active())
-		m_pShadow->Render_Object();
 
 	if (m_vecHats[(_uint)m_eHat] && m_vecHats[(_uint)m_eHat]->Is_Active())
 		m_vecHats[(_uint)m_eHat]->Render_Object();

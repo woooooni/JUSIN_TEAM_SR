@@ -119,8 +119,11 @@ public:
 	}
 	//æ∆¿Ã≈€
 	void			Set_Hat(CGameObject* _pHat) 
-	{ 
-		m_pHat = _pHat; 
+	{
+		if (m_pHat)
+			dynamic_cast<CItem_Hat*>(m_pHat)->UnHat();
+
+		m_pHat = _pHat;
 		if (m_pHat)
 			dynamic_cast<CPlayer_State_Skill*>(m_vecState[(_uint)PLAYER_STATE::SKILL])->Set_Skill(dynamic_cast<CItem_Hat*>(m_pHat)->Get_Skill());
 		else
@@ -192,6 +195,7 @@ private:
 	bool			m_bStateChange;
 	PLAYER_STATE	m_eState;
 	PLAYER_STATE	m_eChangeState;
+
 public:
 	static CPlayer*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
@@ -242,12 +246,12 @@ private:
 
 	CGameObject* m_pShadow = nullptr;
 
-
-	
-
 	bool m_bInvincible = false;
 	_float m_fInvinTime;
 	_float m_fAccInvinTime;
 	_float m_fBlinkTime;
+
+	_float m_fAccMotionTrail;
+	_float m_fMotionTrailTime;
 };
 

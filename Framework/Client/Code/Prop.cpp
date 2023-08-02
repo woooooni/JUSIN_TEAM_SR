@@ -257,5 +257,5 @@ CProp* CProp::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CProp::Free()
 {
-
+	__super::Free();
 }

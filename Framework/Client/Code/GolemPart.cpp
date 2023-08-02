@@ -1,9 +1,13 @@
 #include "..\Header\GolemPart.h"
 #include "Export_Function.h"
+#include "Pool.h"
+#include "Effect_MotionTrail.h"
 
 CGolemPart::CGolemPart(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SUN_GOLLEM)
 	, m_eState(SUNGOLEM_STATE::REGEN), m_fRotationAngle(0)
+	, m_fAccMotionTrail(0.f)
+	, m_fMotionTrailTime(0.01f)
 {
 
 }
@@ -29,6 +33,32 @@ HRESULT CGolemPart::Ready_Object(void)
 _int CGolemPart::Update_Object(const _float& fTimeDelta)
 {
 	_int iExit = __super::Update_Object(fTimeDelta);
+	m_fAccMotionTrail += fTimeDelta;
+	if (m_fAccMotionTrail >= m_fMotionTrailTime)
+	{
+		m_fAccMotionTrail = 0.f;
+		CEffect_MotionTrail* pMotionTrail = CPool<CEffect_MotionTrail>::Get_Obj();
+
+		if (pMotionTrail == nullptr)
+			pMotionTrail = CEffect_MotionTrail::Create(m_pGraphicDev);
+
+		pMotionTrail->Set_Texture(
+			m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx()));
+
+		_vec3 vTrailPos, vTrailRight, vTrailUp, vTrailLook;
+		m_pTransformCom->Get_Info(INFO_RIGHT, &vTrailRight);
+		m_pTransformCom->Get_Info(INFO_UP, &vTrailUp);
+		m_pTransformCom->Get_Info(INFO_LOOK, &vTrailLook);
+		m_pTransformCom->Get_Info(INFO_POS, &vTrailPos);
+
+		vTrailPos.z += 0.1f;
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_RIGHT, &vTrailRight);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_UP, &vTrailUp);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_LOOK, &vTrailLook);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_POS, &vTrailPos);
+
+		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"MotionTrail", pMotionTrail);
+	}
 	return iExit;
 }
 

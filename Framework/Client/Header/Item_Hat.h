@@ -17,6 +17,7 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
+public:
 	PLAYER_SKILL	Get_Skill() { return m_eSkill; }
 
 
@@ -42,6 +43,10 @@ public:
 	}
 
 	void			Set_Angle(float _fAngle) { m_pTransformCom->RotationAxis(_vec3(0.0f, 0.0f, 1.0f), _fAngle); }
+
+public :
+	virtual void UnHat() {};
+
 protected:
 	HRESULT	Add_Component(void);
 
@@ -59,6 +64,7 @@ protected:
 	bool	m_bLoop = false;
 
 	PLAYER_SKILL m_eSkill;
+
 private:
 	void	Set_Hat(void);
 };
