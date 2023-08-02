@@ -112,14 +112,14 @@ void CScene_Tool::Render_Scene()
 {
 	CImGuiMgr::GetInstance()->Render_ImGui();
 
-	RECT rcPos = { WINCX / 2 - 10.f, 0,  WINCX / 2 + 10.f, 200.f };
+	/* RECT rcPos = { WINCX / 2 - 10.f, 0,  WINCX / 2 + 10.f, 200.f };
 	_vec3 vPos;
 	m_pPlayer->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 
 	wstring strPos = L"X : " + to_wstring(vPos.x) + L"\nY : " + to_wstring(vPos.y) + L"\nZ : " + to_wstring(vPos.z);
 	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
-		D3DCOLOR_ARGB(100, 0, 0, 0));
+		D3DCOLOR_ARGB(100, 0, 0, 0));*/
 }
 
 void CScene_Tool::Free()

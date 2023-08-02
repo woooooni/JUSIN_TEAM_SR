@@ -76,14 +76,14 @@ void CScene_SilkWorm::LateUpdate_Scene()
 
 void CScene_SilkWorm::Render_Scene()
 {
-	RECT rcPos = { WINCX / 2 - 10.f, 0,  WINCX / 2 + 10.f, 200.f };
+	/* RECT rcPos = { WINCX / 2 - 10.f, 0,  WINCX / 2 + 10.f, 200.f };
 	_vec3 vPos;
 	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 
 	wstring strPos = L"X : " + to_wstring(vPos.x) + L"\nY : " + to_wstring(vPos.y) + L"\nZ : " + to_wstring(vPos.z);
 	Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawText(NULL,
 		strPos.c_str(), INT(strPos.size()), &rcPos, DT_CENTER | DT_VCENTER | DT_NOCLIP,
-		D3DCOLOR_ARGB(100, 0, 0, 0));
+		D3DCOLOR_ARGB(100, 0, 0, 0));*/
 
 	CUIMgr::GetInstance()->Render_UIMgr();
 }
@@ -141,12 +141,12 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 	nue->Get_TransformCom()->Set_Pos(&_vec3(53.f, 0.5f, 26.f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Nue_NPC", nue);
 
-	// Test
-	CQuest* pQuest = new CQuest_NueHero2();
-	CQuestMgr::GetInstance()->Add_Quest(pQuest);
+	//// Test
+	//CQuest* pQuest = new CQuest_NueHero2();
+	//CQuestMgr::GetInstance()->Add_Quest(pQuest);
 
 
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+	//m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
 }
