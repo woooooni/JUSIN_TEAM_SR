@@ -14,9 +14,14 @@
 #include "PlantBall.h"
 #include "Bullet_SilkWormDoppel.h"
 #include "CutSceneMgr.h"
+#include "Effect_MotionTrail.h"
 
-CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
+CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
+	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
+	, m_fAccMotionTrail(0.f)
+	, m_fMotionTrailTime(0.01f)
 {
+
 }
 
 CSilkWorm::CSilkWorm(const CSilkWorm& rhs) : CGameObject(rhs)
@@ -114,6 +119,8 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 		Update_Die(fTimeDelta);
 		break;
 	}
+	m_fMotionTrailTime = 0.1f;
+	Generate_MotionTrail(fTimeDelta);
 
 	if (m_bSpawn)
 	{
@@ -169,8 +176,6 @@ void CSilkWorm::Render_Object(void)
 {
 	if (Is_Active())
 	{
-
-
 		__super::Render_Object();
 
 		LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
@@ -360,8 +365,7 @@ void CSilkWorm::Update_Ready(_float fTimeDelta)
 
 
 void CSilkWorm::Update_Attack(_float fTimeDelta)
-{
-	
+{	
 	if (!m_bPhase2)
 	{
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 3 && m_bShoot)
@@ -561,6 +565,38 @@ CSilkWorm* CSilkWorm::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pInstance;
+}
+
+void CSilkWorm::Generate_MotionTrail(_float fTimeDelta)
+{
+	m_fAccMotionTrail += fTimeDelta;
+	if (m_fAccMotionTrail >= m_fMotionTrailTime)
+	{
+		m_fAccMotionTrail = 0.f;
+		CEffect_MotionTrail* pMotionTrail = CPool<CEffect_MotionTrail>::Get_Obj();
+
+		if (pMotionTrail == nullptr)
+			pMotionTrail = CEffect_MotionTrail::Create(m_pGraphicDev);
+
+		pMotionTrail->Set_Texture(
+			m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx()));
+
+		_vec3 vTrailPos, vTrailRight, vTrailUp, vTrailLook;
+		m_pTransformCom->Get_Info(INFO_RIGHT, &vTrailRight);
+		m_pTransformCom->Get_Info(INFO_UP, &vTrailUp);
+		m_pTransformCom->Get_Info(INFO_LOOK, &vTrailLook);
+		m_pTransformCom->Get_Info(INFO_POS, &vTrailPos);
+
+		vTrailPos.z += 0.1f + (m_pAnimator->GetCurrAnimation()->Get_Idx() * 0.1f);
+
+		pMotionTrail->Set_Material(m_tMaterial);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_RIGHT, &vTrailRight);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_UP, &vTrailUp);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_LOOK, &vTrailLook);
+		pMotionTrail->Get_TransformCom()->Set_Info(INFO_POS, &vTrailPos);
+		
+		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"MotionTrail", pMotionTrail);
+	}
 }
 
 void CSilkWorm::Trace(_float fTimeDelta)

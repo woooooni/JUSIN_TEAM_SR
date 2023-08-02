@@ -281,7 +281,31 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
 	vDancerPos = _vec3(138.f, 1.25f, 70.f);
 	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer1", pDancer);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer2", pDancer);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
+	vDancerPos = _vec3(159.f, 1.25f, 84.f);
+	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer3", pDancer);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
+	vDancerPos = _vec3(161.f, 1.25f, 88.f);
+	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer4", pDancer);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
+	vDancerPos = _vec3(163.f, 1.25f, 84.f);
+	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer5", pDancer);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+	pDancer = CNpc_Dancer::Create(m_pGraphicDev);
+	vDancerPos = _vec3(161.f, 1.25f, 80.f);
+	pDancer->Get_TransformCom()->Set_Info(INFO_POS, &vDancerPos);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Dancer6", pDancer);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	_vec3 m_vVillagerPos[10] = {_vec3(123.f,0.75f,41.f),_vec3(121.f,0.75f,55.f),

@@ -35,7 +35,7 @@ _int CEffect_MotionTrail::Update_Object(const _float& fTimeDelta)
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	_int iResult = __super::Update_Object(fTimeDelta);
-	m_fAlpha -= 20.f;
+	m_fAlpha -= (255.f * fTimeDelta);
 	
 
 	

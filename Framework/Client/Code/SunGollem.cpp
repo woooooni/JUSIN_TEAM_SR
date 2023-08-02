@@ -856,17 +856,25 @@ void CSunGollem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisi
 
 	if ( m_eState == SUNGOLEM_STATE::DIRTY || m_eState == SUNGOLEM_STATE::DIE)
 		return;
+
+	CCamera* pCamera = dynamic_cast<CCamera*>(Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	NULL_CHECK_RETURN(pCamera, );
+
 	if (dynamic_cast<CPushStone*>(pCollider->GetOwner()))
 	{
 		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying()&& dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Clean())
 		{
 			m_tStat.iHp -= 5;
+			pCamera->CamShake(0.3f, 5.f);
 		}
 		if (dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Flying() && !dynamic_cast<CPushStone*>(pCollider->GetOwner())->Is_Clean())
 		{
 			m_tStat.iHp -= 1;
+			if(m_bDirty)
+				pCamera->CamShake(0.3f, 1.f);
+			else
+				pCamera->CamShake(0.3f, 5.f);
 		}
-	
 	}
 
 

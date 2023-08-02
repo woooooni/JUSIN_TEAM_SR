@@ -144,7 +144,7 @@ void CUI_MapName::Render_Object(void)
 		break;
 
 	case SCENE_TYPE::SILK_WORM:
-		swprintf_s(szBuf, L"타락한 누에용사");
+		swprintf_s(szBuf, L"나방 서식지 : 뽕나무 근처");
 		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL,
 			szBuf, lstrlen(szBuf), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP, D3DCOLOR_ARGB(_uint(m_fAlpha), 255, 255, 255));
 		break;

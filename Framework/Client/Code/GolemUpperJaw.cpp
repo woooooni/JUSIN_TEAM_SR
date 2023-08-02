@@ -33,10 +33,9 @@ HRESULT CGolemUpperJaw::Ready_Object(void)
 
 _int CGolemUpperJaw::Update_Object(const _float& fTimeDelta)
 {
+	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	int iExit = __super::Update_Object(fTimeDelta);
 	
-
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (Get_State())
 	{
 	case SUNGOLEM_STATE::IDLE:
@@ -44,9 +43,11 @@ _int CGolemUpperJaw::Update_Object(const _float& fTimeDelta)
 		break;
 	case SUNGOLEM_STATE::MOVE:
 		Update_Move(fTimeDelta);
+		Generate_MotionTrail(fTimeDelta);
 		break;
 	case SUNGOLEM_STATE::REGEN:
 		Update_Regen(fTimeDelta);
+		Generate_MotionTrail(fTimeDelta);
 		break;
 	case SUNGOLEM_STATE::ATTACK:
 		Update_Attack(fTimeDelta);
@@ -248,9 +249,9 @@ void CGolemUpperJaw::Update_Regen(_float fTimeDelta)
 
 		break;	
 	case 2:
-			Move_Offset(_vec3(0.f, 0.15f, m_vOffset.z), fTimeDelta, 2.f);
-			m_fRotationAngle = 0.f;
-			break;
+		Move_Offset(_vec3(0.f, 0.15f, m_vOffset.z), fTimeDelta, 2.f);
+		m_fRotationAngle = 0.f;
+		break;
 	case 3:
 		Move_Offset(_vec3(-0.00f, 0.5f, m_vOffset.z), fTimeDelta, 2.f);
 		break;

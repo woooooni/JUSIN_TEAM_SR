@@ -59,7 +59,7 @@ void CEffect_DieSmoke::LateUpdate_Object(void)
 	if (!Is_Active())
 		return;
 
-	Set_Billboard();
+	// Set_Billboard();
 
 	__super::LateUpdate_Object();
 }
@@ -132,7 +132,7 @@ CEffect_DieSmoke* CEffect_DieSmoke::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CEffect_DieSmoke::Get_Effect(_vec3& _vPos, _vec3& _vScale)
 {
-	_vPos.z -= 0.001f;
+	_vPos.z -= .5f;
 	m_pTransformCom->Set_Pos(&_vPos);
 	m_pTransformCom->Set_Scale(_vScale);
 	m_pAnimator->GetCurrAnimation()->Set_Idx(0);

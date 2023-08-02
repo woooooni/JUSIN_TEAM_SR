@@ -44,6 +44,10 @@ public:
 	void		Rotate();
 	_float		Get_RotationAngle() { return m_fRotationAngle; }
 	void		Set_RotationAngle(_float _fRotationAngle) { m_fRotationAngle = _fRotationAngle; }
+
+protected:
+	void Generate_MotionTrail(_float fTimeDelta);
+
 protected:
 	SUNGOLEM_STATE	m_eState;
 	CGameObject*	m_pTarget;

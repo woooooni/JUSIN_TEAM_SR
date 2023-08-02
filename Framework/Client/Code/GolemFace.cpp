@@ -35,9 +35,9 @@ HRESULT CGolemFace::Ready_Object(void)
 
 _int CGolemFace::Update_Object(const _float& fTimeDelta)
 {
+	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	int iExit = __super::Update_Object(fTimeDelta);
 
-	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 	switch (Get_State())
 	{
 	case SUNGOLEM_STATE::IDLE:
@@ -45,9 +45,11 @@ _int CGolemFace::Update_Object(const _float& fTimeDelta)
 		break;
 	case SUNGOLEM_STATE::MOVE:
 		Update_Move(fTimeDelta);
+		Generate_MotionTrail(fTimeDelta);
 		break;
 	case SUNGOLEM_STATE::REGEN:
 		Update_Regen(fTimeDelta);
+		Generate_MotionTrail(fTimeDelta);
 		break;
 	case SUNGOLEM_STATE::ATTACK:
 		Update_Attack(fTimeDelta);

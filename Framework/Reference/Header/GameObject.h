@@ -52,7 +52,8 @@ public:
 	void Set_Alpha(_uint _iAlpha) { m_iAlpha = _iAlpha; }
 	_uint Get_Alpha() { return m_iAlpha; }
 
-
+	const D3DMATERIAL9& Get_Material() { return m_tMaterial; }
+	void Set_Material(const D3DMATERIAL9& _material) { m_tMaterial = _material; }
 public:
 	CVIBuffer* Get_BufferCom() { return m_pBufferCom; }
 	CTransform* Get_TransformCom() { return m_pTransformCom; }

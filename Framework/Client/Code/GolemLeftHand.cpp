@@ -36,9 +36,8 @@ HRESULT CGolemLeftHand::Ready_Object(void)
 
 _int CGolemLeftHand::Update_Object(const _float& fTimeDelta)
 {
-	int iExit = __super::Update_Object(fTimeDelta);
-
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	int iExit = __super::Update_Object(fTimeDelta);
 	switch (m_eState)
 	{
 	case SUNGOLEM_STATE::IDLE:
@@ -49,9 +48,11 @@ _int CGolemLeftHand::Update_Object(const _float& fTimeDelta)
 		break;
 	case SUNGOLEM_STATE::REGEN:
 		Update_Regen(fTimeDelta);
+		Generate_MotionTrail(fTimeDelta);
 		break;
 	case SUNGOLEM_STATE::ATTACK:
 		Update_Attack(fTimeDelta);
+		Generate_MotionTrail(fTimeDelta);
 		break;
 	case SUNGOLEM_STATE::DIE:
 		Update_Die(fTimeDelta);

@@ -6,7 +6,13 @@
 #include "Effect_StoneSpike.h"
 #include "Effect_Smoke.h"
 #include "Pool.h"
-CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) : CBullet(pGraphicDev,OBJ_ID::MONSTER_SKILL)
+#include "Effect_Smoke.h"
+
+
+CGolemFist::CGolemFist(LPDIRECT3DDEVICE9 pGraphicDev) 
+	: CBullet(pGraphicDev,OBJ_ID::MONSTER_SKILL)
+	, m_fEffectTime(0.01f)
+	, m_fAccEffect(0.0f)
 {
 }
 CGolemFist::CGolemFist(const CGolemFist& rhs)
@@ -40,11 +46,10 @@ HRESULT CGolemFist::Ready_Object(void)
 
 _int CGolemFist::Update_Object(const _float& fTimeDelta)
 {
-	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	int iExit = __super::Update_Object(fTimeDelta);
 
 	_vec3 vDir = { 0.f, -1.f, 0.f };
-
 
 	if (m_bDirty == true)
 	{
@@ -55,9 +60,10 @@ _int CGolemFist::Update_Object(const _float& fTimeDelta)
 	}
 
 
-	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 20.f);
-	
+	m_pTransformCom->Move_Pos(&vDir, fTimeDelta, 20.f);	
 	m_pMonsterAim->Update_Object(fTimeDelta);
+
+
 
 	return iExit;
 }
@@ -208,6 +214,20 @@ HRESULT CGolemFist::Add_Component(void)
 
 
 
+
+void CGolemFist::Generate_MotionTrail(_float fTimeDelta)
+{
+	m_fAccEffect += fTimeDelta;
+	if (m_fAccEffect >= m_fEffectTime)
+	{
+		CEffect_Smoke* pEffectSmoke = CPool<CEffect_Smoke>::Get_Obj();
+
+		if (pEffectSmoke == nullptr)
+			pEffectSmoke = CEffect_Smoke::Create(m_pGraphicDev);
+
+		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"EffectSmoke", pEffectSmoke);
+	}
+}
 
 CGolemFist* CGolemFist::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
