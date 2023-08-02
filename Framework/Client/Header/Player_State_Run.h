@@ -1,5 +1,7 @@
 #pragma once
 #include "Player_State.h"
+#include "Effect_Trail.h"
+
 class CPlayer_State_Run : public CPlayer_State
 {
 public:
@@ -25,6 +27,8 @@ private:
 	vector<_vec3> m_vecHatPos[(_uint)OBJ_DIR::DIR_END];
 	float m_fAngle[(_uint)OBJ_DIR::DIR_END][10];
 	float m_fScale[(_uint)OBJ_DIR::DIR_END][10];
+
+	CEffect_Trail* m_pEffect = nullptr;
 };
 
 

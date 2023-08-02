@@ -24,6 +24,7 @@
 #include "BarrelBomb.h"
 #include "BreakObj.h"
 #include "Particle_MapCircle.h"
+#include "Effect_Trail.h"
 
 CScene_TutorialVillage::CScene_TutorialVillage(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE)
@@ -269,6 +270,10 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_Effect()
 {
+	
+
+
+
 	return S_OK;
 }
 

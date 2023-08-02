@@ -235,6 +235,7 @@
     <ClInclude Include="..\Header\Effect_DieSmoke.h" />
     <ClInclude Include="..\Header\Effect_Dig.h" />
     <ClInclude Include="..\Header\Effect_Explosion.h" />
+    <ClInclude Include="..\Header\Effect_EyeTrail.h" />
     <ClInclude Include="..\Header\Effect_GetItem.h" />
     <ClInclude Include="..\Header\Effect_GolemFist.h" />
     <ClInclude Include="..\Header\Effect_Hit.h" />
@@ -246,6 +247,7 @@
     <ClInclude Include="..\Header\Effect_StoneSpike.h" />
     <ClInclude Include="..\Header\Effect_StoneParticle.h" />
     <ClInclude Include="..\Header\Effect_Stun.h" />
+    <ClInclude Include="..\Header\Effect_Trail.h" />
     <ClInclude Include="..\Header\FieldObject.h" />
     <ClInclude Include="..\Header\DesertRhino.h" />
     <ClInclude Include="..\Header\Effect_MothFlyLine.h" />
@@ -494,6 +496,7 @@
     <ClCompile Include="..\Code\Effect_DieSmoke.cpp" />
     <ClCompile Include="..\Code\Effect_Dig.cpp" />
     <ClCompile Include="..\Code\Effect_Explosion.cpp" />
+    <ClCompile Include="..\Code\Effect_EyeTrail.cpp" />
     <ClCompile Include="..\Code\Effect_GetItem.cpp" />
     <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
     <ClCompile Include="..\Code\Effect_Hit.cpp" />
@@ -505,6 +508,7 @@
     <ClCompile Include="..\Code\Effect_StoneSpike.cpp" />
     <ClCompile Include="..\Code\Effect_StoneParticle.cpp" />
     <ClCompile Include="..\Code\Effect_Stun.cpp" />
+    <ClCompile Include="..\Code\Effect_Trail.cpp" />
     <ClCompile Include="..\Code\FieldObject.cpp" />
     <ClCompile Include="..\Code\DesertRhino.cpp" />
     <ClCompile Include="..\Code\Effect_MothFlyLine.cpp" />

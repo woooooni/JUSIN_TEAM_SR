@@ -26,6 +26,7 @@
 #include "Effect_CatapultHit.h"
 #include "Effect_Dig.h"
 #include "Effect_Smoke.h"
+#include "Effect_Trail.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -206,6 +207,7 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 		dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::DANCE);
 	}
 
+	
 
 
 	/*if (KEY_TAP(KEY::W))
@@ -226,19 +228,8 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::H))
 	{
-	
-		_vec3 vPos;
-		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-		CGameObject* pSmoke = CPool<CEffect_Smoke>::Get_Obj();
-		if (pSmoke)
-			dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(1.5f, 1.5f, 1.5f));
-		else
-		{
-			pSmoke = dynamic_cast<CEffect_Smoke*>(pSmoke)->Create(Engine::Get_Device());
-			if (pSmoke)
-				dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(1.0f, 1.0f, 1.0f));
-		}
-			
+		
+		
 	}
 
 
