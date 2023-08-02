@@ -58,8 +58,8 @@ _int CTrashFast::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
-
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
+	if (Get_State() != MONSTER_STATE::DIE)
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
 		Set_State(MONSTER_STATE::DIE);
 	_vec3 vTargetPos, vPos, vDir;

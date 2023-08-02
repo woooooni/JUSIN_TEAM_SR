@@ -66,10 +66,10 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
-
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.5f, 1.f));
 	_int iExit = __super::Update_Object(fTimeDelta);
-
-	Engine::Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_MONSTER);
+	if (Get_State() != MONSTER_STATE::DIE)
+		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
 	if (m_tStat.iHp < 1.f || m_tStat.iMaxHp < m_tStat.iHp)
 		Set_State(MONSTER_STATE::DIE);
 	_vec3 vTargetPos, vPos, vDir;

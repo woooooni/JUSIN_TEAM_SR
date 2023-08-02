@@ -70,7 +70,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	NULL_CHECK_RETURN(m_pUIFrame, E_FAIL);
 
 	m_pUIGauge->Set_Name(BOSSNAME::SILKWORM);
-	m_tMaterial.Emissive = { 10.2f,10.2f,10.2f,10.2f };
+	m_tMaterial.Emissive = { 0.5f,0.5f,10.2f,0.5f };
 	return S_OK;
 }
 
