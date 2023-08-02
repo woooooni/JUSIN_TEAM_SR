@@ -64,6 +64,17 @@ void CLogo::Render_Scene()
 	
 }
 
+void CLogo::Enter_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_5_JungleArea_Clear_Cave.wav", .4f);
+}
+
+void CLogo::Exit_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
+}
+
 void CLogo::Free()
 {
 	__super::Free();
