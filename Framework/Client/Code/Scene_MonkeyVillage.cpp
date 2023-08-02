@@ -21,6 +21,7 @@
 #include "DefaultItem.h"
 #include "UI_MapName.h"
 #include "CutSceneMgr.h"
+#include "SkyBox.h" 
 
 static _bool bPlayedCutScene = false;
 
@@ -133,6 +134,8 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Camera()
 	pCamera->Get_TransformCom()->Set_Pos(&_vec3(149.f, 10.f, 9.f));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev, 1);
+	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
 	return S_OK;
 }
 
@@ -146,7 +149,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Terrrain()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 {
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SUNGOLEM_CAVE1);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST3);
 	_vec3 vPortalPos = _vec3(225.f, 1.f, 222.f);
 	pPortal->Get_TransformCom()->Set_Info(INFO_POS, &vPortalPos);
 	dynamic_cast<CBoxCollider*>(pPortal->Get_ColliderCom())->Set_Scale(_vec3(10.f, 5.f, 3.f));

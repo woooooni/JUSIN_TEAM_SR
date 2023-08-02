@@ -74,7 +74,7 @@ private:
     COLOR_STATE m_eCOLORPATTERN=COLOR_BLUE;
     _bool m_bSpawn=false;
     _float m_fiInterval;
-    _float m_fEmissive = 1.2f;
+    _float m_fEmissive = 0.3f;
 private:
     CUI_BossHP* m_pUIBack;
     CUI_BossHP* m_pUIFrame;

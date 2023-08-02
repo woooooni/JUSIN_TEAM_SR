@@ -294,6 +294,7 @@ void CMonster::Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionG
 		return;
 	if (pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
 		Push_Me(pCollider);
+
 	if (_eCollisionGroup == COLLISION_GROUP::COLLIDE_BOMB)
 		m_eState = MONSTER_STATE::DIE;
 	switch (pCollider->GetOwner()->GetObj_Type())
@@ -327,9 +328,7 @@ void CMonster::Push_Me(CCollider* other)
 	if (!other->Is_Active() || !m_pColliderCom->Is_Active())
 		return;
 
-	if (other->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER)
-		return;
-
+	
 	if (!m_bPushable)
 		return;	
 	const _vec3& vLeftScale = ((CBoxCollider*)m_pColliderCom)->Get_Scale();

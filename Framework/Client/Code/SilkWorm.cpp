@@ -72,7 +72,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	NULL_CHECK_RETURN(m_pUIFrame, E_FAIL);
 
 	m_pUIGauge->Set_Name(BOSSNAME::SILKWORM);
-	m_tMaterial.Emissive = { 0.5f,0.5f,10.2f,0.5f };
+	m_tMaterial.Emissive = { 0.3f,0.3f,0.3f,0.3f };
 	return S_OK;
 }
 
@@ -84,7 +84,7 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 	if(m_eState!=SILKWORM_STATE::DIE)
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
 	_vec3 vTargetPos;
-
+	m_tMaterial.Emissive = { 0.3f,0.3f,0.3f,0.3f };
 	if (m_tStat.iHp < 1.f)
 	{
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", true);
@@ -121,9 +121,10 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 			{
 				_vec3 vPos, vDir = {};
 				m_pBeatles[i]->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-				if (vPos.x < m_vRandomPos[0].x*0.7f || vPos.z < m_vRandomPos[0].z *0.7f || vPos.x > m_vRandomPos[3].x * 0.7f || vPos.z > m_vRandomPos[3].z * 0.7f)
+				if (vPos.x < m_vOrigin.x - m_fiInterval*0.7f || vPos.z < m_vOrigin.z - m_fiInterval *0.7f || vPos.x >m_vOrigin.x + m_fiInterval * 0.7f || vPos.z >m_vOrigin.z + m_fiInterval * 0.7f)
 				{
 					vDir = m_vOrigin - vPos;
+					vDir.y = 0.f;
 					m_pBeatles[i]->Get_TransformCom()->Move_Pos(D3DXVec3Normalize(&vDir, &vDir), 10.f, fTimeDelta);
 				}
 			}
@@ -181,6 +182,7 @@ void CSilkWorm::Render_Object(void)
 		D3DVECTOR vCamPos = vPos;
 
 		D3DCOLORVALUE vColor = { 255.f / 255.0f,	255.f / 255.0f, 255.f / 255.0f, 255.f / 255.0f };
+
 
 		pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 		pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
@@ -241,9 +243,9 @@ void CSilkWorm::Update_Idle(_float fTimeDelta)
 void CSilkWorm::Update_Die(_float fTimeDelta)
 {
 	m_fMoveTime += 20.f * fTimeDelta;
-	m_fEmissive += 5.f * fTimeDelta;
+	m_fEmissive += 0.25f * fTimeDelta;
 	m_tMaterial.Emissive = { m_fEmissive,m_fEmissive,m_fEmissive,m_fEmissive };
-	if (m_fEmissive > 40.f)
+	if (m_fEmissive > 1.5f)
 	{
 		if (Is_Active())
 			Set_Active(false);

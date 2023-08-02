@@ -30,7 +30,7 @@ HRESULT CEffect_MothFlyLine::Ready_Object(void)
 	m_pTransformCom->RotationAxis(AxisX, D3DXToRadian(90.f));
 	Set_Active(true);
 
-	m_tMaterial.Emissive = { 1.5f,1.5f,1.5f,1.5f };
+	m_tMaterial.Emissive = { 0.3f,0.3f,0.3f, 0.3f };
 	return S_OK;
 }
 
@@ -41,7 +41,6 @@ _int CEffect_MothFlyLine::Update_Object(const _float& fTimeDelta)
 
 	if (!m_bRender)
 		return S_OK;
-
 	int iExit = __super::Update_Object(fTimeDelta);
 
 	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_EFFECT);
@@ -105,7 +104,7 @@ void CEffect_MothFlyLine::Render_Object(void)
 		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 		pEffect->Begin(nullptr, 0);
-		pEffect->BeginPass(2);
+		pEffect->BeginPass(1);
 
 		m_pBufferCom->Render_Buffer();
 

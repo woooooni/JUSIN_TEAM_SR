@@ -37,7 +37,7 @@ HRESULT CTrashBig::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"TrashBig_Move_LeftDown", L"Proto_Texture_TrashBig_Move_LeftDown", 0.1f);
 	m_pAnimator->Add_Animation(L"TrashBig_Move_LeftUp", L"Proto_Texture_TrashBig_Move_LeftUp", 0.1f);
 
-	m_pTransformCom->Set_Scale(_vec3(1.f, 1.5f, 1.f));
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
 
 	m_fMinHeight = 0.5f;
 	m_pTransformCom->Set_Pos(&_vec3(10.0f, 1.0f, 10.0f));
@@ -66,7 +66,7 @@ _int CTrashBig::Update_Object(const _float& fTimeDelta)
 {
 	if (!Is_Active())
 		return S_OK;
-	m_pTransformCom->Set_Scale(_vec3(1.f, 1.5f, 1.f));
+	m_pTransformCom->Set_Scale(_vec3(1.f, 1.f, 1.f));
 	_int iExit = __super::Update_Object(fTimeDelta);
 	if (Get_State() != MONSTER_STATE::DIE)
 		Engine::Add_CollisionGroup(m_pColliderCom, COLLIDE_STATE::COLLIDE_MONSTER);
