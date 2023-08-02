@@ -132,7 +132,7 @@ _int CEffect_EyeTrail::Update_Object(const _float& fTimeDelta)
 			if (m_vColor.a < 0.0f)
 				m_vColor.a = 0.0f;
 
-			m_iEyeAlpha -= 1;
+			m_iEyeAlpha -= 5;
 
 
 			if (m_iEyeAlpha <= 0)
@@ -312,6 +312,7 @@ void CEffect_EyeTrail::Set_Effect(CGameObject* _pOwner, _vec3& _vOffset, _float 
 	m_fScale = _fScale * 0.4f;
 	m_bStart = true;
 	m_iAlpha = 0;
+	m_bEnd = false;
 
 	m_pTransformCom->Set_Scale(_vec3(_fScale, _fScale, 0.1f));
 }
