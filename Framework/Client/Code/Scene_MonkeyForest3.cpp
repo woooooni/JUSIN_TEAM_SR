@@ -19,6 +19,7 @@
 #include "DefenceEnter.h"
 #include "MonsterSpawner.h"
 #include	"Turret.h"
+#include "SkyBox.h" 
 
 CScene_MonkeyForest3::CScene_MonkeyForest3(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST3)
@@ -117,6 +118,8 @@ HRESULT CScene_MonkeyForest3::Ready_Layer_Camera()
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev, 1);
+	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
 	return S_OK;
 }
 

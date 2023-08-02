@@ -19,6 +19,7 @@
 #include "CutSceneMgr.h"
 #include "TriggerObj.h"
 #include "RabbitMgr.h"
+#include "SkyBox.h"
 
 CScene_MonkeyForest2::CScene_MonkeyForest2(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST2)
@@ -125,7 +126,8 @@ HRESULT CScene_MonkeyForest2::Ready_Layer_Camera()
 	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"MainCamera", pCamera);
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
-
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev, 3);
+	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
 	return S_OK;
 }
 

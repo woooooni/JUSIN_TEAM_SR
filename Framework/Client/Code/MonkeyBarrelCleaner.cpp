@@ -125,9 +125,9 @@ void CMonkeyBarrelCleaner::Update_Attack(_float fTimeDelta)
 			_vec3 BulletPos = vPos;
 			BulletPos.y += 0.25f;
 			if (m_bRight)
-				vDir = { 2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.3f };
+				vDir = { 2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.2f };
 			else
-				vDir = { -2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.3f };
+				vDir = { -2.f,float(rand() % 8 + 4),float(rand() % 3 - 1)*0.2f };
 			D3DXVec3Normalize(&vDir, &vDir);
 			pBarrelBomb->Get_TransformCom()->Set_Pos(&BulletPos);
 			pBarrelBomb->Get_RigidBodyCom()->AddForce(vDir * 120.f);

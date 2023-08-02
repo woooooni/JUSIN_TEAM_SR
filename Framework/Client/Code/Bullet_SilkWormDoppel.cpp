@@ -25,9 +25,10 @@ HRESULT CBullet_SilkWormDoppel::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"BugBoss_Phase2_Regen", true);
 	m_vDir = { 1,0,0 };
 	m_pTransformCom->Set_Scale({ 5.f,6.f,5.f });
-	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.5f, 6.f, 2.5f });
+	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 5.f, 6.f, 5.f });
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 
+	m_tMaterial.Emissive = { 0.3f,0.3f,0.3f, 0.3f };
 
 	return S_OK;
 }
@@ -129,11 +130,13 @@ void CBullet_SilkWormDoppel::Render_Object(void)
 		pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 		D3DVECTOR vCamPos = vPos;
 
+		D3DCOLORVALUE vColor = { 1.f, 1.f, 1.f, 1.f };
 
 		pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 		pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 		pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
 		pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+		pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
 		pEffect->SetFloat("g_AlphaRef", 0.0f);
 
 
@@ -144,18 +147,18 @@ void CBullet_SilkWormDoppel::Render_Object(void)
 		CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
 
 
-
 		pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 		pEffect->Begin(nullptr, 0);
-		pEffect->BeginPass(0);
+		pEffect->BeginPass(2);
 
 		m_pBufferCom->Render_Buffer();
 
 		pEffect->EndPass();
 		pEffect->End();
-	}
 
+
+	}
 	
 }
 

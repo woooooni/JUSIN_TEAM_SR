@@ -21,6 +21,7 @@
 #include "DefaultItem.h"
 #include "TriggerObj.h"
 #include "Particle_MapCircle.h"
+#include "SkyBox.h" 
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -150,6 +151,8 @@ HRESULT CScene_MoonForest1::Ready_Layer_Camera()
 	pCamera->Set_TargetObj(CGameMgr::GetInstance()->Get_Player());
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev,2);
+	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
 	return S_OK;
 }
 

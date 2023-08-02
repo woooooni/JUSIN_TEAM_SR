@@ -44,7 +44,7 @@ _int CNueFlower::Update_Object(const _float& fTimeDelta)
     Add_RenderGroup(RENDER_ALPHA, this);
     _vec3 vPos;
     m_pTransformCom->Get_Info(INFO_POS, &vPos);
-    m_pTransformCom->Set_Pos(D3DXVec3Lerp(&vPos,&vPos,&m_vDestination,fTimeDelta*5.f));
+    m_pTransformCom->Set_Pos(D3DXVec3Lerp(&vPos,&vPos,&m_vDestination,fTimeDelta*2.f));
     return __super::Update_Object(fTimeDelta);
 }
 

@@ -44,6 +44,10 @@ _int CSludgeWave::Update_Object(const _float& fTimeDelta)
 				Create_Wave();
 				m_bDuplicate = false;
 			}
+			if (m_fMoveTime < 5.f)
+			{
+				Set_Atk(0.f);
+			}
 			if (m_fMoveTime < 0.f)
 			{
 				if (Is_Active())

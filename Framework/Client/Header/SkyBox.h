@@ -27,12 +27,15 @@ public:
 
 private:
 	HRESULT		Add_Component(void);
-
 public:
-	static CSkyBox* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
+	void Set_Index(_int _iIndex) { m_iIndex = _iIndex; }
+private:
+	_int m_iIndex =0;
+public:
+	static CSkyBox* Create(LPDIRECT3DDEVICE9 pGraphicDev, _int _iIndex);
 private:
 	virtual void Free() override;
 
 };
+
 

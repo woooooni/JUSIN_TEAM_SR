@@ -10,6 +10,7 @@
 #include "SilkWorm.h"
 #include "GameMgr.h"
 #include "Npc_NueHero.h"
+#include "SkyBox.h" 
 
 CScene_SilkWorm::CScene_SilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SILK_WORM)
@@ -109,7 +110,8 @@ HRESULT CScene_SilkWorm::Ready_Layer_Camera()
 
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
-
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev, 3);
+	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
 	return S_OK;
 }
 
@@ -134,11 +136,11 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 
 HRESULT CScene_SilkWorm::Ready_Layer_Monster()
 {
-	/*CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
 	_vec3 vPos = _vec3(53.f, 0.5f, 26.f);
 	pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);*/
+	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);
 
 	return S_OK;
 }

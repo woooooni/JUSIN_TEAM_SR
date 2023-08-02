@@ -16,8 +16,10 @@
 #include "Npc_OguMom.h"
 #include "TrashFast.h"
 #include "UI_MapName.h"
-#include "Cupa.h"
+#include "Cupa.h"	
+#include "SkyBox.h" 
 #include "RabitObj.h"
+#include"SkyBox.h"
 #include "Turret.h"
 #include "DrawingEnter.h"
 #include "UIMgr.h"
@@ -142,6 +144,9 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Camera()
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
 
+
+	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev,0);
+	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
 	return S_OK;
 }
 

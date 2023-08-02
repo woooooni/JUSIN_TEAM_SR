@@ -25,7 +25,7 @@ HRESULT CBugBall::Ready_Object(void)
 	m_pTransformCom->Set_Pos(&_vec3(2.0f, 2.0f, 2.0f));
 	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({0.5f, 0.5f, 0.5f });
-	m_tMaterial.Emissive = { 1.2f,1.2f,1.2f,1.2f };
+	m_tMaterial.Emissive = {0.3f,0.3f,0.3f,0.3f };
 	Set_Active(true);
 	return S_OK;
 }
