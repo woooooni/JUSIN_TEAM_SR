@@ -174,6 +174,13 @@ void CSunGollem::LateUpdate_Object(void)
 		m_pUIFrame->LateUpdate_Object();
 	}
 
+	if (m_bDirty == true && m_tStat.iHp == 0)
+	{
+		m_pUIBack->Set_Active(false);
+		m_pUIGauge->Set_Active(false);
+		m_pUIFrame->Set_Active(false);
+	}
+
 }
 
 void CSunGollem::Render_Object(void)
