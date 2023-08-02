@@ -112,7 +112,11 @@ _int CCatapult::Update_Object(const _float& fTimeDelta)
 void CCatapult::LateUpdate_Object(void)
 {
 	__super::LateUpdate_Object();
-
+	_vec3 vPos = {};
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vPos += {0.f,0.5f,-1.2f};
+	D3DLIGHT9& tLight = CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SUNGOLEM)->Get_LightInfo();
+	tLight.Position = vPos;
 }
 
 void CCatapult::Render_Object(void)
