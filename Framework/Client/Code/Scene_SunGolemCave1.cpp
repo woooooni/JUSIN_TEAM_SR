@@ -46,7 +46,7 @@ HRESULT CScene_SunGolemCave1::Ready_Scene()
 	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_9_SunGolem.wav", 0.3f);
+	Play_BGM(L"BGM_9_SunGolem.wav", 0.2f);
 
 	D3DLIGHT9 tLight;
 	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
