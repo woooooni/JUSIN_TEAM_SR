@@ -1,6 +1,8 @@
 #include "Export_Function.h"
 #include "GolemHead.h"
 #include "SunGollem.h"
+#include "Pool.h"
+
 CGolemHead::CGolemHead(LPDIRECT3DDEVICE9 pGraphicDev) : CGolemPart(pGraphicDev)
 
 
@@ -159,7 +161,8 @@ void CGolemHead::Update_Dirty(_float fTimeDelta)
 
 		case 0:
 			Move_Offset(_vec3(0.f, 1.2f, -0.05f), fTimeDelta, 2.f);
-
+			End_FirstEye();
+			Set_SecondEye();
 			break;
 		case 1:
 			Move_Offset(_vec3(0.f, 1.2f, -0.05f), fTimeDelta, 2.f);
@@ -237,10 +240,11 @@ void CGolemHead::Update_Regen(_float fTimeDelta)
 	switch (m_iIndex)
 	{
 	case 0:
-		m_vOffset = {0.f, 1.f,	-0.05f };
+		m_vOffset = { 0.f, 1.f,	-0.05f };
 		break;
 	case 1:
 		Move_Offset(_vec3(0.f,	1.f, -0.05f), fTimeDelta, 2.f);
+		Set_FirstEye();
 		break;
 	case 2:
 		Move_Offset(_vec3(0.f, 1.f, -0.05f), fTimeDelta, 2.f);
@@ -274,6 +278,89 @@ CGolemHead* CGolemHead::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	return pInstance;
 }
+
+void CGolemHead::Set_FirstEye()
+{
+	if (!m_pLeftEye)
+	{
+		m_pLeftEye = CPool<CEffect_EyeTrail>::Get_Obj();
+		if (!m_pLeftEye)
+		{
+			m_pLeftEye = CEffect_EyeTrail::Create(m_pGraphicDev);
+			m_pLeftEye->Ready_Object();
+		}
+		m_pLeftEye->Set_Effect(this, _vec3(-0.385f, -0.19f, -0.03f), 0.15f);
+		m_pLeftEye->Set_Color(255, 250, 72, 125);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"EyeTrail", m_pLeftEye);
+
+	}
+	
+	if (!m_pRightEye)
+	{
+		m_pRightEye = CPool<CEffect_EyeTrail>::Get_Obj();
+		if (!m_pRightEye)
+		{
+			m_pRightEye = CEffect_EyeTrail::Create(m_pGraphicDev);
+			m_pRightEye->Ready_Object();
+		}
+		m_pRightEye->Set_Effect(this, _vec3(0.404f, -0.197f, -0.03f), 0.15f);
+		m_pRightEye->Set_Color(255, 250, 72, 125);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"EyeTrail", m_pRightEye);
+	}
+}
+
+void CGolemHead::End_FirstEye()
+{
+	m_pRightEye->Set_End();
+	m_pLeftEye->Set_End();
+
+	m_pRightEye->Return_Pool();
+	m_pLeftEye->Return_Pool();
+
+	m_pRightEye = nullptr;
+	m_pLeftEye = nullptr;
+
+}
+
+void CGolemHead::Set_SecondEye()
+{
+	if (!m_pLeftEye)
+	{
+		m_pLeftEye = CPool<CEffect_EyeTrail>::Get_Obj();
+		if (!m_pLeftEye)
+		{
+			m_pLeftEye = CEffect_EyeTrail::Create(m_pGraphicDev);
+			m_pLeftEye->Ready_Object();
+		}
+		m_pLeftEye->Set_Effect(this, _vec3(-0.385f, -0.19f, -0.03f), 0.15f);
+		m_pLeftEye->Set_Color(255, 0, 0, 125);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"EyeTrail", m_pLeftEye);
+
+	}
+
+	if (!m_pRightEye)
+	{
+		m_pRightEye = CPool<CEffect_EyeTrail>::Get_Obj();
+		if (!m_pRightEye)
+		{
+			m_pRightEye = CEffect_EyeTrail::Create(m_pGraphicDev);
+			m_pRightEye->Ready_Object();
+		}
+		m_pRightEye->Set_Effect(this, _vec3(0.404f, -0.197f, -0.03f), 0.15f);
+		m_pRightEye->Set_Color(255, 0, 0, 125);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"EyeTrail", m_pRightEye);
+	}
+}
+
+void CGolemHead::End_SecondEye()
+{
+	m_pRightEye->Set_End();
+	m_pLeftEye->Set_End();
+
+	m_pRightEye = nullptr;
+	m_pLeftEye = nullptr;
+}
+
 void CGolemHead::Free()
 {
 	__super::Free();

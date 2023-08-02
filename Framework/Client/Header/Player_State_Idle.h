@@ -1,7 +1,7 @@
 #pragma once
 #include "Player_State.h"
 #include "GameObject.h"
-
+#include "Effect_EyeTrail.h"
 
 class CPlayer_State_Idle : public CPlayer_State
 {
@@ -25,5 +25,7 @@ private:
 	void					Key_Input(const _float& fTimeDelta);
 
 	OBJ_DIR	m_eDir;
+
+	CEffect_EyeTrail* m_pEyeTrail = nullptr;
 };
 

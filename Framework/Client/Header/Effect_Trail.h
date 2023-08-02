@@ -34,14 +34,21 @@ public:
 	static CEffect_Trail* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	
 public:
-	void		Set_Effect(CGameObject* _pOwner, _vec3& _vOffset, _float _fScale)
+	void		Set_Effect(CGameObject* _pOwner, _float _fScale)
 	{
 		m_pOwner = _pOwner;
-		m_vOffset = _vOffset;
 		m_fScale = _fScale;
+		m_fOffsetSpeed = 0.0f;
 	}
 
-	void	Set_Offset(_vec3& _vOffset) { m_vOffset = _vOffset; }
+	void	Set_Offset(_vec3& _vOffset1, _vec3& _vOffset2, _vec3& _vOffset3, _vec3& _vOffset4) 
+	{ 
+		m_vOffset[0] = _vOffset1;
+		m_vOffset[1] = _vOffset2;
+		m_vOffset[2] = _vOffset3;
+		m_vOffset[3] = _vOffset4;
+		m_fOffsetSpeed = 0.0f;
+	}
 	void	Set_Max(_uint _iMax) { m_iMaxSize = _iMax; }
 	void	Set_Color(_uint _iR, _uint _iG, _uint _iB, _uint _iA) 
 	{
@@ -69,7 +76,10 @@ private:
 	_float m_fAccPushTime;
 	_float m_fPushTime;
 
-	_vec3 m_vOffset;
+	_vec3 m_vCurrOffset;
+	_vec3 m_vOffset[4];
+	_float m_fOffsetSpeed;
+	_float m_fPlusTime;
 
 	_uint m_iMaxSize;
 

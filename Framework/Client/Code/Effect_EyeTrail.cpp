@@ -35,8 +35,11 @@ HRESULT CEffect_EyeTrail::Ready_Object(void)
 
 	m_iMaxSize = 30;
 
+	m_iAlpha = 0;
 
 	m_vColor = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+	//m_tMaterial.Emissive = { 0.5f, 0.5f, 0.5f, 0.0f };
 
 	return S_OK;
 }
@@ -48,74 +51,99 @@ _int CEffect_EyeTrail::Update_Object(const _float& fTimeDelta)
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	m_fAccPushTime += fTimeDelta;
-	if (m_fAccPushTime >= m_fPushTime)
+	if (m_bStart)
 	{
-		if (!m_bEnd)
+		m_iEyeAlpha += 10;
+		if (m_iEyeAlpha >= 255)
 		{
-			m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vPos);
-			m_vPos += m_vOffset;
+			m_iEyeAlpha = 255;
+			m_bStart = false;
+
 		}
-		VTXPoint tPoint;
-
-
-		if (m_deqPoint.empty())
+		_vec3 vPos;
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		vPos += m_vOffset;
+		m_pTransformCom->Set_Info(INFO_POS, &vPos);
+	}
+	else
+	{
+		m_fAccPushTime += fTimeDelta;
+		if (m_fAccPushTime >= m_fPushTime)
 		{
-			tPoint.vPos[0] = m_vPos + _vec3(m_fScale, 0.0f, 0.0f);
-			tPoint.vPos[1] = m_vPos + _vec3(m_fScale, 0.0f, 0.0f);
-			tPoint.vPos[2] = m_vPos;
-
-			m_deqPoint.push_front(tPoint);
-			m_bPush = true;
-		}
-		else if (m_vPos != m_deqPoint.front().vPos[2])
-		{
-			CGameObject* pCamera = Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera");
-
-			_vec3 vCameraPos;
-			pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vCameraPos);
-			_vec3 vPrevPos = m_deqPoint.front().vPos[2];
-
-			_vec3 vCamDir = vCameraPos - m_vPos;
-			_vec3 vPrevDir = vPrevPos - m_vPos;
-
-			_vec3 vDir;
-			D3DXVec3Cross(&vDir, &vPrevDir, &vCamDir);
-			D3DXVec3Normalize(&vDir, &vDir);
-
-
-			tPoint.vPos[0] = m_vPos + (vDir * m_fScale);
-			tPoint.vPos[1] = m_vPos + (vDir * -m_fScale);
-			tPoint.vPos[2] = m_vPos;
-
-			m_deqPoint.push_front(tPoint);
-			m_bPush = true;
-		}
-		else if (m_vPos == m_deqPoint.front().vPos[2])
-		{
-			m_deqPoint.pop_back();
-			m_bPush = true;
-
-			if (m_bEnd)
+			if (!m_bEnd)
 			{
-				m_vColor.a -= 0.02f;
-				if (m_vColor.a < 0.0f)
-					m_vColor.a = 0.0f;
-
-
-				if (m_deqPoint.empty())
-					Set_Active(false);
-			
+				m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vPos);
+				m_vPos += m_vOffset;
 			}
-				
+			VTXPoint tPoint;
+
+
+			if (m_deqPoint.empty())
+			{
+				tPoint.vPos[0] = m_vPos + _vec3(m_fScale, 0.0f, 0.0f);
+				tPoint.vPos[1] = m_vPos - _vec3(m_fScale, 0.0f, 0.0f);
+				tPoint.vPos[2] = m_vPos;
+				tPoint.vPos[0].z += 0.01f;
+				tPoint.vPos[1].z += 0.01f;
+				tPoint.vPos[2].z += 0.01f;
+
+				m_deqPoint.push_front(tPoint);
+				m_bPush = true;
+			}
+			else if (m_vPos != m_deqPoint.front().vPos[2])
+			{
+				_vec3 vPrevPos = m_deqPoint.front().vPos[2];
+
+				_vec3 vCrossDir = { 0.0f, 0.0f, -1.0f };
+				_vec3 vPrevDir = vPrevPos - m_vPos;
+
+				_vec3 vDir;
+				D3DXVec3Cross(&vDir, &vPrevDir, &vCrossDir);
+				D3DXVec3Normalize(&vDir, &vDir);
+
+
+				tPoint.vPos[0] = m_vPos + (vDir * m_fScale);
+				tPoint.vPos[1] = m_vPos + (vDir * -m_fScale);
+				tPoint.vPos[2] = m_vPos;
+				tPoint.vPos[0].z += 0.01f;
+				tPoint.vPos[1].z += 0.01f;
+				tPoint.vPos[2].z += 0.01f;
+
+				m_deqPoint.push_front(tPoint);
+				m_bPush = true;
+			}
+			else if (m_vPos == m_deqPoint.front().vPos[2])
+			{
+				m_deqPoint.pop_back();
+				m_bPush = true;
+			}
+			else
+				m_bPush = false;
+
+			m_fAccPushTime = 0.0f;
 		}
 		else
 			m_bPush = false;
 
-		m_fAccPushTime = 0.0f;
+
+		if (m_bEnd)
+		{
+			m_vColor.a -= 0.02f;
+			if (m_vColor.a < 0.0f)
+				m_vColor.a = 0.0f;
+
+			m_iEyeAlpha -= 1;
+
+
+			if (m_iEyeAlpha <= 0)
+			{
+				m_iEyeAlpha = 0;
+				Set_Active(false);
+			}
+		}
 	}
-	else
-		m_bPush = false;
+
+	
 
 	_int iExit = __super::Update_Object(fTimeDelta);
 
@@ -135,34 +163,32 @@ void CEffect_EyeTrail::LateUpdate_Object(void)
 		}
 	}
 
-	if (!m_bPush && !m_deqPoint.empty())
+	if (!m_deqPoint.empty())
 	{
-		if (!m_bEnd)
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vPos);
+		m_vPos += m_vOffset;
+
+		if (!m_bPush)
 		{
-			m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vPos);
-			m_vPos += m_vOffset;
+			_vec3 vPrevPos = m_deqPoint.front().vPos[2];
+
+			_vec3 vCrossDir = { 0.0f, 0.0, -1.0f };
+			_vec3 vPrevDir = vPrevPos - m_vPos;
+
+			_vec3 vDir;
+			D3DXVec3Cross(&vDir, &vPrevDir, &vCrossDir);
+			D3DXVec3Normalize(&vDir, &vDir);
+
+			m_deqPoint[0].vPos[0] = m_vPos + (vDir * m_fScale);
+			m_deqPoint[0].vPos[1] = m_vPos + (vDir * -m_fScale);
+			m_deqPoint[0].vPos[2] = m_vPos;
+			m_deqPoint[0].vPos[0].z += 0.01f;
+			m_deqPoint[0].vPos[1].z += 0.01f;
+			m_deqPoint[0].vPos[2].z += 0.01f;
 		}
 
-		CGameObject* pCamera = Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera");
-
-		_vec3 vCameraPos;
-		pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vCameraPos);
-		_vec3 vPrevPos = m_deqPoint.front().vPos[2];
-
-		_vec3 vCamDir = vCameraPos - m_vPos;
-		_vec3 vPrevDir = vPrevPos - m_vPos;
-
-		_vec3 vDir;
-		D3DXVec3Cross(&vDir, &vPrevDir, &vCamDir);
-		D3DXVec3Normalize(&vDir, &vDir);
-
-
-		m_deqPoint[0].vPos[0] = m_vPos + (vDir * m_fScale);
-		m_deqPoint[0].vPos[1] = m_vPos + (vDir * -m_fScale);
-		m_deqPoint[0].vPos[2] = m_vPos;
+		m_pTransformCom->Set_Info(INFO_POS, &m_vPos);
 	}
-
-	
 
 	__super::LateUpdate_Object();
 }
@@ -173,56 +199,90 @@ void CEffect_EyeTrail::Render_Object(void)
 	if (!Is_Active())
 		return;
 
-	if (m_deqPoint.empty())
-		return;
-
 	__super::Render_Object();
 
 	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+	IDirect3DBaseTexture9* pTexture = nullptr;
 
 	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
 	if (pCamera == nullptr)
 		return;
 
-	D3DCOLORVALUE vColor = m_vColor;
+
 
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
-	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
-	pEffect->SetFloat("g_AlphaRef", 0.0f);
 
-
-	IDirect3DBaseTexture9* pTexture = m_pTextureCom->Get_Texture(0);
-	pEffect->SetTexture("g_Texture", pTexture);
-
-	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
-
-
-	for (_uint i = 0; i < m_deqPoint.size() - 1; ++i)
+	if (!m_deqPoint.empty())
 	{
-		m_tTrailInfo.PointLeft = m_deqPoint[i].vPos[0];
-		m_tTrailInfo.PointRight = m_deqPoint[i].vPos[1];
+		pEffect->SetValue("g_Color", &m_vColor, sizeof(D3DCOLORVALUE));
 
-		m_tTrailInfo.NextLeft = m_deqPoint[i + 1].vPos[0];
-		m_tTrailInfo.NextRight = m_deqPoint[i + 1].vPos[1];
+		pTexture = m_pTextureCom->Get_Texture(0);
+		pEffect->SetTexture("g_Texture", pTexture);
 
-		m_tTrailInfo.fSize = (float)(m_deqPoint.size() - 1);
-		m_tTrailInfo.fIndex = (float)i;
 
-		pEffect->SetValue("g_Trail", &m_tTrailInfo, sizeof(TRAILINFO));
-	
-		pEffect->Begin(nullptr, 0);
-		pEffect->BeginPass(3);
+		for (_uint i = 0; i < m_deqPoint.size() - 1; ++i)
+		{
+			m_tTrailInfo.PointLeft = m_deqPoint[i].vPos[0];
+			m_tTrailInfo.PointRight = m_deqPoint[i].vPos[1];
 
-		m_pBufferCom->Render_Buffer();
+			m_tTrailInfo.NextLeft = m_deqPoint[i + 1].vPos[0];
+			m_tTrailInfo.NextRight = m_deqPoint[i + 1].vPos[1];
 
-		pEffect->EndPass();
-		pEffect->End();
+			m_tTrailInfo.fSize = (float)(m_deqPoint.size() - 1);
+			m_tTrailInfo.fIndex = (float)i;
+
+			pEffect->SetValue("g_Trail", &m_tTrailInfo, sizeof(TRAILINFO));
+
+			pEffect->Begin(nullptr, 0);
+			pEffect->BeginPass(3);
+
+			m_pBufferCom->Render_Buffer();
+
+			pEffect->EndPass();
+			pEffect->End();
+		}
+
 	}
 
 
+	//Eye
 	
 
+
+	_vec3 vPos;
+	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	D3DVECTOR vCamPos = vPos;
+
+
+	D3DCOLORVALUE vColor = m_vColor;
+	vColor.a = m_iEyeAlpha / 255.0f;
+
+
+	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
+	
+	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+	pEffect->SetFloat("g_AlphaRef", 0.0f);
+	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
+
+
+
+	pTexture = m_pEyeTex->Get_Texture(0);
+	pEffect->SetTexture("g_Texture", pTexture);
+
+	pEffect->Begin(nullptr, 0);
+	pEffect->BeginPass(2);
+
+	m_pBufferCom->Render_Buffer();
+
+	pEffect->EndPass();
+	pEffect->End();
+
+
+
+
+	
 }
 
 void CEffect_EyeTrail::Return_Pool(void)
@@ -243,6 +303,17 @@ CEffect_EyeTrail* CEffect_EyeTrail::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 
 	return pInstance;
+}
+
+void CEffect_EyeTrail::Set_Effect(CGameObject* _pOwner, _vec3& _vOffset, _float _fScale)
+{
+	m_pOwner = _pOwner;
+	m_vOffset = _vOffset;
+	m_fScale = _fScale * 0.4f;
+	m_bStart = true;
+	m_iAlpha = 0;
+
+	m_pTransformCom->Set_Scale(_vec3(_fScale, _fScale, 0.1f));
 }
 
 
@@ -275,6 +346,11 @@ HRESULT CEffect_EyeTrail::Add_Component(void)
 
 
 
+	pComponent = m_pEyeTex = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_Effect_Eye"));
+	NULL_CHECK_RETURN(pComponent, E_FAIL);
+	pComponent->SetOwner(this);
+	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_TEXTURE, pComponent);
+	
 
 	return S_OK;
 }

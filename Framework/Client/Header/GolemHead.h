@@ -1,5 +1,6 @@
 #pragma once
 #include "GolemPart.h"
+#include "Effect_EyeTrail.h"
 
 
 BEGIN(Engine)
@@ -47,11 +48,19 @@ public:
 
 
 
+	void		Set_FirstEye();
+	void		End_FirstEye();
+	void		Set_SecondEye();
+	void		End_SecondEye();
 private:
 
 protected:
 	_float m_fMoveTime;
 protected:
 	virtual void Free() override;
+	
 
+private:
+	CEffect_EyeTrail* m_pLeftEye = nullptr;
+	CEffect_EyeTrail* m_pRightEye = nullptr;
 };
