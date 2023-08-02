@@ -39,6 +39,7 @@ _int CUI_Fade::Update_Object(const _float& fTimeDelta)
 
         if (m_fAlpha < 0.f)
             m_fAlpha = 0.f;
+
     }
     else if (m_bIsFadeOut)
     {

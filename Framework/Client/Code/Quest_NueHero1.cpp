@@ -7,6 +7,7 @@
 #include "UIMgr.h"
 #include "Npc_NueHero.h"
 #include "SilkWorm.h"
+#include "CutSceneMgr.h"
 
 CQuest_NueHero1::CQuest_NueHero1()
 	: CQuest_Hunting(NPC_CODE::NPC_NUE_HERO, nullptr, OBJ_ID::SILK_WORM, 1)
@@ -54,12 +55,7 @@ void CQuest_NueHero1::Clear_Quest()
 	CQuest_NueHero2* pNextQuest = new CQuest_NueHero2();
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
 
-	dynamic_cast<CNpc_NueHero*>(Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Nue_NPC"))->Set_Summoned();
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(Engine::Get_Device());
-	_vec3 vPos = _vec3(53.f, 0.5f, 26.f);
-	pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
-
-	Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"SilkWorm", pSilkWorm);
+	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_INTRO);
 	// TODO :: ÄÆ¾À
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();

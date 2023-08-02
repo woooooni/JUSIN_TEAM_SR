@@ -18,10 +18,10 @@ public:
 
 	static CUI_Fade* Create(LPDIRECT3DDEVICE9 p_GraphicDev);
 
-	void				Set_Fade(const _bool& pFadeType , const _float& pFadeTime) 
+	void				Set_Fade(const _bool& pIsFadeOut , const _float& pFadeTime) 
 	{ 
-		m_bIsFadeOut = pFadeType; 
-		m_fAlpha = (float)pFadeType;
+		m_bIsFadeOut = pIsFadeOut;
+		m_fAlpha = (float)!pIsFadeOut;
 		m_fFadeTime = pFadeTime;
 		m_bIsComplete = false;
 	}
@@ -32,10 +32,21 @@ public:
 		m_bIsWhite = p_IsWhite;
 	}
 
-	void				Finish()
+	void				Set_Finish()
 	{
 		m_bIsComplete = true;
 		m_fFadeTime = 0.f;
+		if (m_bIsFadeOut)
+		{
+			m_fAlpha = 1.f;
+		}
+		else
+			m_fAlpha = 0.f;
+	}
+
+	const _bool& Get_Finish()
+	{
+		return m_bIsComplete;
 	}
 
 protected:

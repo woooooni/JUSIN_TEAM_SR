@@ -4,6 +4,8 @@
 #include "UI_Dialog.h"
 #include "GameMgr.h"
 #include "SunGollem.h"
+#include  "Npc_NueHero.h"
+#include "SilkWorm.h"
 
 IMPLEMENT_SINGLETON(CCutSceneMgr)
 
@@ -280,6 +282,25 @@ void CCutSceneMgr::Update_Boss_SunGolem_Die(const _float& fTimeDelta)
 
 void CCutSceneMgr::Update_Boss_NueHero_Intro(const _float& fTimeDelta)
 {
+	m_fAccTimeNueHero_Intro += fTimeDelta;
+
+	if (!m_bCutsceneSwitch[0] && CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	{
+		dynamic_cast<CNpc_NueHero*>(Get_Layer(LAYER_TYPE::ENVIRONMENT)->Find_GameObject(L"Nue_NPC"))->Set_Summoned();
+		CSilkWorm* pSilkWorm = CSilkWorm::Create(Engine::Get_Device());
+		_vec3 vPos = _vec3(53.f, 0.5f, 26.f);
+		pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+
+		Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"SilkWorm", pSilkWorm);
+
+		CUIMgr::GetInstance()->Get_Fade()->Set_Fade(false, 3.f);
+		m_bCutsceneSwitch[0] = true;
+	}
+	else if (CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	{
+		Finish_CutSceneNueHero_Intro();
+	}
+
 }
 
 void CCutSceneMgr::Update_Boss_NueHero_Die(const _float& fTimeDelta)
@@ -422,6 +443,21 @@ void CCutSceneMgr::Ready_CutSceneSunGolem_Die()
 
 void CCutSceneMgr::Ready_CutSceneNueHero_Intro()
 {
+	m_fAccTimeNueHero_Intro = 0.f;
+	m_pCamera = dynamic_cast<CCamera*>(Engine::Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	if (nullptr == m_pCamera)
+		return;
+	m_bCutsceneSwitch.clear();
+	m_bCutsceneSwitch.resize(2);
+
+	m_fFinishTimeSunGolem = 0.f;
+
+	m_pCamera->Set_CameraState(CAMERA_STATE::CUT_SCENE);
+	m_pCamera->Set_TargetObj(nullptr);
+	CGameMgr::GetInstance()->Get_Player()->Set_Stop(true);
+	m_pCamera->CamShake(3.f);
+	CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 3.f);
+
 }
 
 void CCutSceneMgr::Ready_CutSceneNueHero_Die()
@@ -514,6 +550,11 @@ void CCutSceneMgr::Finish_CutSceneSunGolem_Die()
 
 void CCutSceneMgr::Finish_CutSceneNueHero_Intro()
 {
+	m_bCutScenePlaying = false;
+	m_pCamera->Set_CameraState(CAMERA_STATE::GAME);
+	m_pCamera->Set_TargetObj(CGameMgr::GetInstance()->Get_Player());
+	CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);
+
 }
 
 void CCutSceneMgr::Finish_CutSceneNueHero_Die()
