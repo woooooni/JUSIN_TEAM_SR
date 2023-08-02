@@ -35,7 +35,8 @@ public:
 	void				Set_SetCode(SLOTNUM _eSlotNum, _bool _bSetCode);
 
 	const ITEM_CODE&	Get_ItemCode(SLOTNUM _eSlotNum);
-	void				Set_ItemCode(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType) { m_vecSlotItems[_eSlotNum] = _eCodeType; }
+	//void				Set_ItemCode(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType) { m_vecSlotItems[_eSlotNum] = _eCodeType; }
+	void				Set_ItemCode(SLOTNUM _eSlotNum, ITEM_CODE _eCodeType) { m_vecInSlot[_eSlotNum] = _eCodeType; }
 	const vector<CUI*>	Get_Slots() { return m_vecSlots; }
 
 	void			Set_Use(const _bool& pBool) { m_bCanUse = pBool; }
@@ -44,11 +45,12 @@ public:
 private:
 	vector<CUI*>		m_vecSlots;
 	vector<ITEM_CODE>	m_vecSlotItems;
+	vector<ITEM_CODE>	m_vecInSlot; // 예비 변수
 	vector<_bool>		m_vecSetCode;
 	vector<_uint>		m_vecCount;
 	vector<_uint>		m_vecInvenIndex;
 
-	_bool				m_bCanUse;
+	_bool				m_bCanUse; // 인벤토리창이 열려 있는지(슬롯 아이템을 사용할 수 있는 상태인지)
 	_uint				m_iCount;
 
 public:
