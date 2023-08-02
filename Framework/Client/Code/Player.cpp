@@ -733,7 +733,7 @@ void CPlayer::Collision_Stay_Push(CCollider* pCollider, COLLISION_GROUP _eCollis
 		if(pCollider->GetOwner()->GetObj_Id() == OBJ_ID::PUSH_STONE)
 			Play_Sound(L"SFX_26_StonePushable_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
 		else if (pCollider->GetOwner()->GetObj_Id() == OBJ_ID::CATAPULT)
-			Play_Sound(L"SFX_30_Catapult_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+			Play_Sound(L"SFX_30_Catapult_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.9f);
 		else if (pCollider->GetOwner()->GetObj_Id() == OBJ_ID::JELLY_STONE || 
 			pCollider->GetOwner()->GetObj_Id() == OBJ_ID::JELLY_COMBINED)
 			Play_Sound(L"SFX_44_Jelly_Push.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);

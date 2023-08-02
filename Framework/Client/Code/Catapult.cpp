@@ -219,7 +219,7 @@ void CCatapult::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		m_pThrowingStone = tmp;
 		m_pThrowingStone->Get_ColliderCom()->Set_Active(false);
 		Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
-		Play_Sound(L"SFX_31_Catapult_Load.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+		Play_Sound(L"SFX_31_Catapult_Load.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 0.9f);
 
 	}
 }
@@ -273,7 +273,7 @@ void CCatapult::Throw_Stone()
 	m_bIsThrowing = true;
 
 	Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
-	Play_Sound(L"SFX_32_Catapult_Shoot.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+	Play_Sound(L"SFX_32_Catapult_Shoot.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 0.9f);
 
 
 }

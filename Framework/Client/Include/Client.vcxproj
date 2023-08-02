@@ -326,6 +326,7 @@
     <ClInclude Include="..\Header\Npc_Wholesaler.h" />
     <ClInclude Include="..\Header\Particle_LargeStone.h" />
     <ClInclude Include="..\Header\NueFlower.h" />
+    <ClInclude Include="..\Header\Particle_SilkWorm.h" />
     <ClInclude Include="..\Header\PlantBall.h" />
     <ClInclude Include="..\Header\PlantCannon.h" />
     <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
@@ -588,6 +589,7 @@
     <ClCompile Include="..\Code\Npc_Wholesaler.cpp" />
     <ClCompile Include="..\Code\Particle_LargeStone.cpp" />
     <ClCompile Include="..\Code\NueFlower.cpp" />
+    <ClCompile Include="..\Code\Particle_SilkWorm.cpp" />
     <ClCompile Include="..\Code\PlantBall.cpp" />
     <ClCompile Include="..\Code\PlantCannon.cpp" />
     <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />

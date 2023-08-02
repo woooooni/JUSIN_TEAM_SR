@@ -15,6 +15,7 @@
 #include "Bullet_SilkWormDoppel.h"
 #include "CutSceneMgr.h"
 #include "Effect_MotionTrail.h"
+#include "Particle_SilkWorm.h"
 
 CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
@@ -631,6 +632,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 		m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Attack", false);
 		m_pTransformCom->Set_Pos(&m_vRandomPos[rand() % 8]);
+
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
 		if (m_bRotate[2])
@@ -735,6 +737,29 @@ void CSilkWorm::Create_Effect(_vec3 vPos )
 				dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f), 148, 150, 148);
 		}
 	}
+
+	// 0803 ¼öÁ¤Áß
+//	for (int i = 0; i < 50; i++)
+//	{
+//		CGameObject* pParticle = CPool<CParticle_SilkWorm>::Get_Obj();
+//		if (pParticle)
+//		{
+//			dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
+//			pParticle->Set_Active(true);
+//			Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
+//		}
+//		else
+//		{
+//			pParticle = dynamic_cast<CParticle_SilkWorm*>(pParticle)->Create(Engine::Get_Device());
+//			int a = 0;
+//			if (pParticle)
+//			{
+//				pParticle->Set_Active(true);
+//				dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
+//				Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
+//			}
+//		}
+//	}
 }
 void CSilkWorm::Shoot_BugBall()
 {
