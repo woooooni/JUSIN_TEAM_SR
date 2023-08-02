@@ -69,8 +69,9 @@ HRESULT CNpc_NueHero::Ready_Object(void)
 
 _int CNpc_NueHero::Update_Object(const _float& fTimeDelta)
 {
-	if(!m_bSummonedBoss)
-		Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
+	if (m_bSummonedBoss)
+		return 0;
+	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	_int iExit = CGameObject::Update_Object(fTimeDelta);
 	return iExit;
@@ -107,4 +108,5 @@ CNpc_NueHero* CNpc_NueHero::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CNpc_NueHero::Free()
 {
+	__super::Free();
 }

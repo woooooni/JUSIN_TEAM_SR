@@ -13,6 +13,8 @@
 #include "NueFlower.h"
 #include "PlantBall.h"
 #include "Bullet_SilkWormDoppel.h"
+#include "CutSceneMgr.h"
+
 CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev) : Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
 {
 }
@@ -86,6 +88,7 @@ _int CSilkWorm::Update_Object(const _float& fTimeDelta)
 	if (m_tStat.iHp < 1.f)
 	{
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Death", true);
+		CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_DIE);
 		Set_State(SILKWORM_STATE::DIE);
 	}
 	switch (m_eState)

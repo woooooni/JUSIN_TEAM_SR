@@ -33,7 +33,7 @@ _int CUI_Fade::Update_Object(const _float& fTimeDelta)
     if (m_bIsComplete)
         return 0;
 
-    if (m_bIsFadeOut && m_fAlpha > 0.f)
+    if (!m_bIsFadeOut && m_fAlpha > 0.f)
     {
         m_fAlpha -= fTimeDelta / m_fFadeTime;
 
@@ -41,23 +41,20 @@ _int CUI_Fade::Update_Object(const _float& fTimeDelta)
             m_fAlpha = 0.f;
 
     }
-    else if (m_bIsFadeOut)
+    else if (!m_bIsFadeOut)
     {
-
-        m_bIsFadeOut = false;
-        m_bIsComplete = true;
+        Set_Finish();
     }
-    else if (!m_bIsFadeOut && m_fAlpha < 1.f)
+    else if (m_bIsFadeOut && m_fAlpha < 1.f)
     {
         m_fAlpha += fTimeDelta / m_fFadeTime;
         if (m_fAlpha > 1.f)
             m_fAlpha = 1.f;
 
     }
-    else if (!m_bIsFadeOut)
+    else if (m_bIsFadeOut)
     {
-        m_bIsFadeOut = true;
-        m_bIsComplete = true;
+        Set_Finish();
     }
 
 

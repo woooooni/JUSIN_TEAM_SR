@@ -292,11 +292,11 @@ void CCutSceneMgr::Update_Boss_NueHero_Intro(const _float& fTimeDelta)
 		pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
 		Get_Layer(LAYER_TYPE::MONSTER)->Add_GameObject(L"SilkWorm", pSilkWorm);
-
+		CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Set_Pos(&_vec3(53.f, 0.5f, 16.f));
 		CUIMgr::GetInstance()->Get_Fade()->Set_Fade(false, 3.f);
 		m_bCutsceneSwitch[0] = true;
 	}
-	else if (CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	else if (m_bCutsceneSwitch[0] && CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
 	{
 		Finish_CutSceneNueHero_Intro();
 	}
@@ -456,6 +456,7 @@ void CCutSceneMgr::Ready_CutSceneNueHero_Intro()
 	m_pCamera->Set_TargetObj(nullptr);
 	CGameMgr::GetInstance()->Get_Player()->Set_Stop(true);
 	m_pCamera->CamShake(3.f);
+
 	CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 3.f);
 
 }
