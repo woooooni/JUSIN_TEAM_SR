@@ -386,7 +386,7 @@ void CTrashBummer::Trace(_float fTimeDelta)
 	m_bShooting = true;
 	vDir = vTargetPos - vPos;
 	m_vLook = vDir;
-	if (D3DXVec3Length(&vDir) < 7.f && m_bShoot && m_pAnimator->GetCurrAnimation()->Get_Idx() == 3)
+	if (D3DXVec3Length(&vDir) < 7.f && m_bShoot && m_pAnimator->GetCurrAnimation()->Get_Idx() == 4)
 	{
 		D3DXVec3Normalize(&vDir, &vDir);
 		CSludgeBall* pSludgeBall = CSludgeBall::Create(m_pGraphicDev);

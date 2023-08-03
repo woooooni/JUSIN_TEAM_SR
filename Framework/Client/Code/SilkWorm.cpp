@@ -46,7 +46,7 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Death", L"Proto_Texture_BugBoss_Phase2_Death", 0.1f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Regen", L"Proto_Texture_BugBoss_Phase2_Regen", 0.1f);
 	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Down", L"Proto_Texture_BugBoss_Phase2_Down", 0.1f);
-	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Attack", L"Proto_Texture_BugBoss_Phase2_Attack", 0.2f);
+	m_pAnimator->Add_Animation(L"BugBoss_Phase2_Attack", L"Proto_Texture_BugBoss_Phase2_Attack", 0.3f);
 
 	m_pTransformCom->Set_Scale({ 5.f,6.f,5.f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.5f, 6.f, 2.5f });
@@ -54,6 +54,8 @@ HRESULT CSilkWorm::Ready_Object(void)
 	m_bPhase2 = false;
 	m_pAnimator->Play_Animation(L"BugBoss_Phase1_Regen", false);
 	Set_State(SILKWORM_STATE::REGEN);
+	Stop_Sound(CHANNELID::SOUND_BOSS);
+	Play_Sound(L"SFX_110_BossMoonMoth_Activation.wav", CHANNELID::SOUND_BOSS, .5f);
 	 m_fiInterval = 45.f;
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -241,8 +243,13 @@ void CSilkWorm::Update_Idle(_float fTimeDelta)
 	if (m_fMoveTime > 10.f)
 	{
 		if (rand() % 10 > 4)
-			Set_State(SILKWORM_STATE::READY);
-		m_fMoveTime = 0.f;
+		{
+			m_pAnimator->Play_Animation(L"BugBoss_Phase1_Ready", false);
+			Set_State(SILKWORM_STATE::READY);	
+			Stop_Sound(CHANNELID::SOUND_BOSS);
+			Play_Sound(L"SFX_111_BossMoonMoth_Charge.wav", CHANNELID::SOUND_BOSS, .5f);
+		}
+m_fMoveTime = 0.f;
 	}
 	
 	m_fMoveTime += 10.f * fTimeDelta;
@@ -296,11 +303,13 @@ void CSilkWorm::Update_Regen(_float fTimeDelta)
 			m_vDir = vTargetPos - vPos;
 			Create_Line();
 			Create_NueFlower();
+
 			m_pAnimator->Play_Animation(L"BugBoss_Phase2_Attack", false);
 			Set_State(SILKWORM_STATE::ATTACK);
 		}
 		else
 		{
+
 			m_pAnimator->Play_Animation(L"BugBoss_Phase1_Idle", true);
 			Set_State(SILKWORM_STATE::IDLE);
 		}
@@ -313,6 +322,8 @@ void CSilkWorm::Update_Ready(_float fTimeDelta)
 	{
 		if (m_pAnimator->GetCurrAnimation()->Is_Finished())
 		{
+			Stop_Sound(CHANNELID::SOUND_BOSS);
+			Play_Sound(L"SFX_112_BossMoonMoth_BulletAttack.wav", CHANNELID::SOUND_BOSS, .5f);
 			m_pAnimator->Play_Animation(L"BugBoss_Phase1_Attack", false);
 			Set_State(SILKWORM_STATE::ATTACK);
 		}
@@ -353,11 +364,12 @@ void CSilkWorm::Update_Ready(_float fTimeDelta)
 				vDir = vTargetPos - vPos;
 				m_vDir = vTargetPos - vPos;
 				Create_Line();
+
 			}
 		}
 		else
 		{
-			m_fAttackTerm = 2;
+			m_fAttackTerm = 0;
 			m_pTransformCom->Move_Pos(&_vec3(0, -1, 0), 5.f, fTimeDelta);
 		}
 	}
@@ -395,7 +407,9 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 		{
 			if (m_iShootState == 2)
 			{
-				Set_State(SILKWORM_STATE::ATTACK);
+				Set_State(SILKWORM_STATE::ATTACK);			
+				Stop_Sound(CHANNELID::SOUND_BOSS);
+				Play_Sound(L"SFX_112_BossMoonMoth_BulletAttack.wav", CHANNELID::SOUND_BOSS, .5f);
 				m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 				m_pAnimator->GetCurrAnimation()->Set_Finished(false);
 				m_bShoot = true;
@@ -415,6 +429,7 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 		{
 			if (!m_bRotate[0])
 			{
+	
 				_vec3  vUp, vCurrentRight;
 				m_pTransformCom->Get_Info(INFO_RIGHT, &vCurrentRight);
 				m_pTransformCom->RotationAxis(vCurrentRight, D3DXToRadian(30.f));
@@ -437,6 +452,8 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 		{
 			if (!m_bRotate[2])
 			{
+				Stop_Sound(CHANNELID::SOUND_BOSS);
+				Play_Sound(L"Boom_1.wav", CHANNELID::SOUND_BOSS, .7f);
 				_vec3  vUp, vCurrentRight,vLook;
 				m_pTransformCom->Get_Info(INFO_RIGHT, &vCurrentRight);
 				m_pTransformCom->RotationAxis(vCurrentRight,D3DXToRadian(30.f));
@@ -614,7 +631,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 5.f, 6.f, 2.5f });
 
-	if (m_fEffectCoolTime >= 0.3f)
+	if (m_fEffectCoolTime >= 0.45f)
 	{
 		for (int i = 0; i < 5; i++)
 		{
@@ -665,6 +682,8 @@ void CSilkWorm::Trace(_float fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	 if (nullptr == m_pBeatles[m_eCOLORPATTERN]&&vPos.x>fLeft&&vPos.z> fDown&& vPos.x < fRight && vPos.z < fUp)
 	{
+		 Stop_Sound(CHANNELID::SOUND_BOSS);
+		 Play_Sound(L"SFX_118_BossMoonMoth_Down.wav", CHANNELID::SOUND_BOSS, .5f);
 		 dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 2.5f, 6.f, 2.5f });
 		 dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_Render(false);
 		 if (m_bRotate[2])
@@ -737,6 +756,7 @@ void CSilkWorm::Create_Effect(_vec3 vPos )
 				dynamic_cast<CEffect_Smoke*>(pSmoke)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f), 148, 150, 148);
 		}
 	}
+
 
 	// 0803 ¼öÁ¤Áß
 //	for (int i = 0; i < 20; i++)
@@ -849,6 +869,8 @@ void CSilkWorm::Shoot_Doppel()
 				break;
 			}
 		}
+		Stop_Sound(CHANNELID::SOUND_BOSS);
+		Play_Sound(L"SFX_115_BossMoonMoth_Soar.wav", CHANNELID::SOUND_BOSS, .5f);
 		_vec3 BulletPos;
 		m_pTransformCom->Get_Info(INFO_POS, &BulletPos);
 		if (i < 2)
@@ -868,8 +890,11 @@ void CSilkWorm::Shoot_Doppel()
 	}
 	ZeroMemory(m_bPosAccupied, sizeof(bool) * 8);
 }
+
 void CSilkWorm::Create_Line()
 {
+	Stop_Sound(CHANNELID::SOUND_EFFECT_MONSTER5);
+	Play_Sound(L"Ready_Boom.wav", CHANNELID::SOUND_EFFECT_MONSTER5, .5f);
 	if(m_pLine)
 		dynamic_cast<CEffect_MothFlyLine*>(m_pLine)->Set_Render(true);
 	else
@@ -935,25 +960,24 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 		{
 			if (m_eState == SILKWORM_STATE::DOWN && m_bPhase2)
 			{
+				Stop_Sound(CHANNELID::SOUND_BOSS);
+				Play_Sound(L"SFX_113_BossMoonMoth_Hit.wav", CHANNELID::SOUND_BOSS, .3f);
 				m_iHit += dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Atk();
 				m_tStat.iHp -= dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Atk();
 			}
 			if (!m_bPhase2)
+			{
+				Stop_Sound(CHANNELID::SOUND_BOSS);
+				Play_Sound(L"SFX_113_BossMoonMoth_Hit.wav", CHANNELID::SOUND_BOSS, .3f);
 				m_tStat.iHp -= dynamic_cast<CBullet*> (pCollider->GetOwner())->Get_Atk();
-			_vec3 vTargetPos;
-			_vec3 vPos;
-			_vec3 vDir;
-			pCollider->GetOwner()->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
-			m_pTransformCom->Get_Info(INFO_POS, &vPos);
-			vDir = vPos - vTargetPos;
-			vDir.y = 0.0f;
-			D3DXVec3Normalize(&vDir, &vDir);
-			
+			}
 			
 				
 			if (m_tStat.iHp < 35.f && m_bPhase2 == false)
 			{
 				Set_State(SILKWORM_STATE::REGEN);
+				Stop_Sound(CHANNELID::SOUND_BOSS);
+				Play_Sound(L"SFX_114_BossMoonMoth_WingOn.wav", CHANNELID::SOUND_BOSS, .5f);
 				m_bPhase2 = true;
 				m_pAnimator->Play_Animation(L"BugBoss_Phase2_Regen", false);
 				m_iHit = 0;
@@ -963,7 +987,8 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 			pCollider->GetOwner()->GetObj_Type() == OBJ_TYPE::OBJ_PLAYER && m_bPhase2&&
 			m_eState == SILKWORM_STATE::DOWN)
 		{
-
+			Stop_Sound(CHANNELID::SOUND_BOSS);
+			Play_Sound(L"SFX_113_BossMoonMoth_Hit.wav", CHANNELID::SOUND_BOSS, .3f);
 			m_iHit++;
 			m_tStat.iHp -= 1;
 	

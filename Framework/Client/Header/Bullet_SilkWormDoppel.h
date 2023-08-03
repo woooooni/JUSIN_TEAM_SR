@@ -25,13 +25,14 @@ protected:
 	void Create_Line();
 public:
 	static CBullet_SilkWormDoppel* Create(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos,_vec3 vRandPos ,_float _fTime, COLOR_STATE _eColor, _float _iAtk);
-	static CBullet_SilkWormDoppel* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
 protected:
 	_vec3 m_vDir;
 	_vec3 m_vRandPos;
 	_float m_fActivateTime;
 	_float m_fMoveTime =10.f;
 	_float m_fSpeed ;
+	_float m_fPriority = 0.f;
 	COLOR_STATE m_eColor;
 	_bool m_bShoot =false;
 	_bool m_bReady =false;
