@@ -67,6 +67,7 @@
 #include "Effect_Trail.h"
 #include "Effect_MotionTrail.h"
 #include "Effect_EyeTrail.h"
+#include "Effect_NueTrail.h"
 
 
 CLoading::CLoading(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -1074,6 +1075,9 @@ HRESULT CLoading::Ready_Effect_Texture()
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Eye", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Eye/Eye_%d.png", 1)), E_FAIL);
 
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_NueTrail", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/NueTrail/NueTrail_%d.png", 1)), E_FAIL);
+
+
 	return S_OK;
 
 }
@@ -1348,6 +1352,8 @@ HRESULT CLoading::Ready_Pool()
 	CPool<CEffect_Trail>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_MotionTrail>::Ready_Pool(m_pGraphicDev, 100);
 	CPool<CEffect_EyeTrail>::Ready_Pool(m_pGraphicDev, 10);
+	CPool<CEffect_NueTrail>::Ready_Pool(m_pGraphicDev, 30);
+
 
 	return S_OK;
 }

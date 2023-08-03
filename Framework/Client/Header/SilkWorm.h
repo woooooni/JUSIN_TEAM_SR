@@ -1,6 +1,7 @@
 #pragma once
 #include "Monster.h"
 #include "UI_BossHP.h"
+#include "Effect_NueTrail.h"
 
 BEGIN(Engine)
 class RcCol;
@@ -39,6 +40,10 @@ private:
      void Create_Line();
      void Create_NueFlower();
     void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID);
+
+
+    void    Create_NueTrail();
+    void    Delete_NueTrail();
 
 
     // BossHPBar 연동으로 인해 추가함 (Test)
@@ -86,5 +91,11 @@ private:
     CUI_BossHP* m_pUIBack;
     CUI_BossHP* m_pUIFrame;
     CUI_BossHP* m_pUIGauge;
+
+
+private:
+    CEffect_NueTrail* m_pTrailEffect[4];
+
+    _bool m_bTrailEffect = false;
 };
 

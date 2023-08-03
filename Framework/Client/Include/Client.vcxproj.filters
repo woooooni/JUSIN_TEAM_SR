@@ -1411,6 +1411,11 @@
     <ClInclude Include="..\Header\UI_QuestList.h">
       <Filter>02. GameObject\04. UI\08. Quest\02. List</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\Effect_EyeTrail.h" />
+    <ClInclude Include="..\Header\Effect_MotionTrail.h" />
+    <ClInclude Include="..\Header\Effect_Trail.h" />
+    <ClInclude Include="..\Header\UI_Fade.h" />
+    <ClInclude Include="..\Header\Effect_NueTrail.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2096,6 +2101,11 @@
     <ClCompile Include="..\Code\UI_QuestList.cpp">
       <Filter>02. GameObject\04. UI\08. Quest\02. List</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Effect_EyeTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_MotionTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_Trail.cpp" />
+    <ClCompile Include="..\Code\UI_Fade.cpp" />
+    <ClCompile Include="..\Code\Effect_NueTrail.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
