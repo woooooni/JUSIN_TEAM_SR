@@ -47,7 +47,8 @@ _int CEffect_NueTrail::Update_Object(const _float& fTimeDelta)
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
-	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vOwnerPos);
+	if (!m_bEnd)
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &m_vOwnerPos);
 
 	switch (m_eTrailState)
 	{
@@ -237,6 +238,8 @@ void CEffect_NueTrail::Set_Effect(CGameObject* _pOwner, _float _fScale, _vec3& _
 	m_deqSecondPoint.clear();
 
 	m_vColor = { 1.0f, 1.0f, 1.0f, 0.7f };
+
+	m_bEnd = false;
 }
 
 
@@ -290,6 +293,7 @@ void CEffect_NueTrail::Free()
 
 void CEffect_NueTrail::Update_Start(const _float& fTimeDelta)
 {
+
 	_uint iSize = m_deqFirstPoint.size();
 
 	if (iSize <= m_iFirstMax)
@@ -390,6 +394,8 @@ void CEffect_NueTrail::Update_End(const _float& fTimeDelta)
 		m_vColor.a = 0.0f;
 		Return_Pool();
 	}
+
+	m_deqSecondPoint.pop_back();
 }
 
 void CEffect_NueTrail::Rotate_Trail(void)

@@ -83,6 +83,8 @@ HRESULT CSilkWorm::Ready_Object(void)
 
 	m_pUIGauge->Set_Name(BOSSNAME::SILKWORM);
 	m_tMaterial.Emissive = { 0.3f,0.3f,0.3f,0.3f };
+
+	m_fParticleTime = 0.1f;
 	return S_OK;
 }
 
@@ -646,6 +648,15 @@ void CSilkWorm::Trace(_float fTimeDelta)
 		m_fEffectCoolTime = 0.f;
 
 	}
+
+	//ÆÄÆ¼Å¬
+	m_fAccParticleTime += fTimeDelta;
+	if (m_fAccParticleTime > m_fParticleTime)
+	{
+		CParticle_SilkWorm::Get_Effect(vPos, vDir, 20, 1.0f, 5.0f);
+	}
+
+
 	if (vPos.x < m_vRandomPos[0].x|| vPos.z < m_vRandomPos[0].z|| vPos.x > m_vRandomPos[3].x || vPos.z > m_vRandomPos[3].z)
 	{
 		m_pTarget->Get_TransformCom()->Get_Info(INFO_POS, &vTargetPos);
@@ -766,24 +777,24 @@ void CSilkWorm::Create_Effect(_vec3 vPos )
 		}
 	}
 
-	CGameObject* pParticle = CPool<CParticle_SilkWorm>::Get_Obj();
-	if (pParticle)
-	{
-		dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
-		pParticle->Set_Active(true);
-		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
-	}
+	//CGameObject* pParticle = CPool<CParticle_SilkWorm>::Get_Obj();
+	//if (pParticle)
+	//{
+	//	dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
+	//	pParticle->Set_Active(true);
+	//	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
+	//}
 
-	else
-	{
-		pParticle = dynamic_cast<CParticle_SilkWorm*>(pParticle)->Create(Engine::Get_Device());
-		if (pParticle)
-		{
-			pParticle->Set_Active(true);
-			dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
-			Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
-		}
-	}
+	//else
+	//{
+	//	pParticle = dynamic_cast<CParticle_SilkWorm*>(pParticle)->Create(Engine::Get_Device());
+	//	if (pParticle)
+	//	{
+	//		pParticle->Set_Active(true);
+	//		dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
+	//		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
+	//	}
+	//}
 }
 void CSilkWorm::Shoot_BugBall()
 {
@@ -1094,7 +1105,7 @@ void CSilkWorm::Delete_NueTrail()
 	{
 		for (_int i = 0; i < 4; ++i)
 		{
-			m_pTrailEffect[i]->Return_Pool();
+			m_pTrailEffect[i]->Set_End();
 			m_pTrailEffect[i] = nullptr;
 		}
 	}

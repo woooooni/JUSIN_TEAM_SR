@@ -97,5 +97,8 @@ private:
     CEffect_NueTrail* m_pTrailEffect[4];
 
     _bool m_bTrailEffect = false;
+
+    _float m_fParticleTime;
+    _float m_fAccParticleTime;
 };
 

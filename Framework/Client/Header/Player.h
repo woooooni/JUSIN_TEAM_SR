@@ -186,6 +186,8 @@ public:
 	void			Set_Player_SpeedUp(const _float& pSpeed) { m_fSpeedUpTime += pSpeed; m_fSpeed += 1.f; }
 
 	const _float&	Get_Speed() { return m_fSpeed; }
+
+	void			Set_LiftObj(CGameObject* _pObj) { m_pLiftObj = _pObj; }
 private:
 	_vec3			m_vDir;
 	_float			m_fSpeed;

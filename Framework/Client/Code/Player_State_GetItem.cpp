@@ -42,6 +42,9 @@ HRESULT CPlayer_State_GetItem::Ready_State(void)
 	//
 	m_iIndex = 5;
 
+
+	m_pOwner->Get_ColliderCom()->Set_Active(false);
+
 	return S_OK;
 }
 
@@ -118,6 +121,7 @@ void CPlayer_State_GetItem::Render_State(void)
 
 void CPlayer_State_GetItem::Reset_State(void)
 {
+	m_pOwner->Get_ColliderCom()->Set_Active(true);
 }
 
 void CPlayer_State_GetItem::Update_Hat()

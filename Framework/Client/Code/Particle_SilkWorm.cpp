@@ -54,15 +54,23 @@ _int CParticle_SilkWorm::Update_Object(const _float& fTimeDelta)
 	{
 		m_iAlpha -= 2;
 
-		if (m_iAlpha <= 60)
+		if (m_iAlpha <= 0)
 		{
 			m_iAlpha = 0;
 			Set_Active(false);
 			CPool<CParticle_SilkWorm>::Return_Obj(this);
 		}
-
-		m_fAccTime = 0.f;
 	}
+	else
+	{
+		if (m_iAlpha < m_iMaxAlpha)
+		{
+			m_iAlpha += 5;
+			if (m_iAlpha > m_iMaxAlpha)
+				m_iAlpha = m_iMaxAlpha;
+		}
+	}
+
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
@@ -74,6 +82,10 @@ void CParticle_SilkWorm::LateUpdate_Object(void)
 {
 	if (!Is_Active())
 		return;
+
+
+
+
 
 	__super::LateUpdate_Object();
 }
@@ -92,9 +104,9 @@ void CParticle_SilkWorm::Render_Object(void)
 	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	D3DVECTOR vCamPos = vPos;
 
-	_float fR = 255.f;
-	_float fG = (rand() % 26 + 230) * 1.f;
-	_float fB = (rand() % 52) * 0.1f;
+	_float fR = 1.0f;
+	_float fG = (rand() % 26 + 230) / 255.f;
+	_float fB = (rand() % 52) / 255.f;
 
 	D3DCOLORVALUE vColor = { fR, fG, fB, m_iAlpha / 255.f };
 
@@ -110,12 +122,10 @@ void CParticle_SilkWorm::Render_Object(void)
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
 	pEffect->SetTexture("g_Texture", pTexture);
 
-	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
-
 	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
 
 	pEffect->Begin(nullptr, 0);
-	pEffect->BeginPass(1);
+	pEffect->BeginPass(2);
 
 	m_pBufferCom->Render_Buffer();
 
@@ -155,6 +165,69 @@ void CParticle_SilkWorm::Random_Particle(_vec3& _vPos)
 	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", this);
 
 	Set_Active(true);
+
+	m_fAccTime = 0.0f;
+
+	m_iMaxAlpha = (rand() % 110) + 100;
+	m_iAlpha = 0;
+}
+
+
+void CParticle_SilkWorm::Get_Effect(_vec3& _vPos, _vec3& _vDir, _uint _iCount, _float _fLookScale, _float _fSideScale)
+{
+	_vec3 vRight, vDir, vPos;
+	_vec3 vUp = { 0.0f, 1.0f, 0.0f };
+	vPos = _vPos;
+	_matrix matRot;
+
+	vDir = _vDir;
+	D3DXVec3Normalize(&vDir, &vDir);
+
+	D3DXVec3Cross(&vRight, &vUp, &vDir);
+	D3DXVec3Normalize(&vRight, &vRight);
+
+
+	_float fLookScale = _fLookScale / (_float)_iCount;
+	_float fSideScale = _fSideScale / (_float)_iCount;
+
+	
+	_float fAngle;
+	_vec3 vPartSide, vPartLook, vPartPos;
+	_int iTemp;
+
+
+	for (_int i = 0; i < _iCount; ++i)
+	{
+		iTemp = rand() % 2;
+
+		if (iTemp == 0)
+			vPartLook = vDir * ((rand() % (_iCount + 1)) * -fLookScale);
+		else
+			vPartLook = vDir * (rand() % (_iCount + 1)) * fLookScale;
+
+		iTemp = rand() % 2;
+
+		if (iTemp == 0)
+			vPartSide = vRight * ((rand() % (_iCount + 1)) * -fSideScale);
+		else
+			vPartSide = vRight * (rand() % (_iCount + 1)) * fSideScale;
+
+
+		fAngle = D3DXToRadian(rand() % 360);
+		D3DXMatrixRotationAxis(&matRot, &vDir, fAngle);
+		D3DXVec3TransformNormal(&vPartSide, &vPartSide, &matRot);
+
+		vPartPos = vPos + vPartLook + vPartSide;
+
+		CParticle_SilkWorm* pParticle = CPool<CParticle_SilkWorm>::Get_Obj();
+
+		if (!pParticle)
+		{
+			pParticle = CParticle_SilkWorm::Create(Get_Device());
+			pParticle->Ready_Object();
+		}
+		pParticle->Random_Particle(vPartPos);
+	}
 }
 
 HRESULT CParticle_SilkWorm::Ready_Component(void)

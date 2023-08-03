@@ -574,7 +574,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	if (fTimeDelta == 0)
 		return;
 
-	/*if (KEY_TAP(KEY::NUM_1))
+	if (KEY_TAP(KEY::NUM_1))
 	{
 		m_eHat = PLAYER_HAT::LIGHT;
 		Set_Hat(m_vecHats[(_uint)m_eHat]);
@@ -599,12 +599,12 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		m_eHat = PLAYER_HAT::DRILL;
 		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
-	*/
-	/*if (KEY_TAP(KEY::NUM_6))
+	
+	if (KEY_TAP(KEY::NUM_6))
 	{
 		m_eHat = PLAYER_HAT::MISSILE;
 		Set_Hat(m_vecHats[(_uint)m_eHat]);
-	}*/
+	}
 }
 
 void CPlayer::Set_ItemEffect(ITEM_CODE eItemCode)
@@ -829,7 +829,8 @@ void CPlayer::Collision_Enter_Hit(CCollider* pCollider, COLLISION_GROUP _eCollis
 {
 	if (m_eState == PLAYER_STATE::HIT || 
 		m_eState == PLAYER_STATE::DOWN || 
-		m_eState == PLAYER_STATE::GAMEOVER || 
+		m_eState == PLAYER_STATE::GAMEOVER ||
+		m_eState == PLAYER_STATE::GETTIEM ||
 		m_bInvincible)
 		return;
 

@@ -30,6 +30,9 @@ public:
 public:
 	void			Random_Particle(_vec3& _vPos);
 
+
+
+	static void			Get_Effect(_vec3& _vPos, _vec3& _vDir, _uint _iCount, _float _fLookScale, _float _fSideScale);
 private:
 	HRESULT			Ready_Component(void);
 
@@ -37,7 +40,8 @@ private:
 	_float m_fAccTime;
 	_float m_fEffectTime;
 
-	_uint m_iAlpha;
+	_int m_iAlpha;
+	_uint m_iMaxAlpha;
 	_uint m_iR;
 	_uint m_iG;
 	_uint m_iB;

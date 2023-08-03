@@ -151,6 +151,7 @@ void CPlayer_State_Lift::Reset_State(void)
 		{
 			pLiftObj->Get_RigidBodyCom()->SetGround(false);
 		}
+		dynamic_cast<CPlayer*>(m_pOwner)->Set_LiftObj(nullptr);
 	}
 }
 

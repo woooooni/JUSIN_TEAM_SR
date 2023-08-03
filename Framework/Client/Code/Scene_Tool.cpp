@@ -79,7 +79,6 @@ HRESULT CScene_Tool::Ready_Scene()
 	CLightMgr::GetInstance()->Ready_LightMgr(m_pGraphicDev);
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Get_LightInfo().Ambient = { 1.f, 1.f, 1.f, 1.f };
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Get_LightInfo().Diffuse = { 1.f, 1.f, 1.f, 1.f };
-
 	
 
 	return S_OK;
@@ -87,6 +86,7 @@ HRESULT CScene_Tool::Ready_Scene()
 
 Engine::_int CScene_Tool::Update_Scene(const _float& fTimeDelta)
 {
+	ShowCursor(true);
 	_int		iResult = 0;
 	CImGuiMgr::GetInstance()->Update_ImGui(fTimeDelta);
 	for (auto& iter : m_mapLayer)

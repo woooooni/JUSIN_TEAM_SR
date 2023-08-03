@@ -183,7 +183,7 @@ void CDefaultItem::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eColli
 	{
 		CPlayer* player = dynamic_cast<CPlayer*>(pCollider->GetOwner());
 
-		if (player->Is_GetItem())
+		if (player->Get_State() == PLAYER_STATE::GETTIEM)
 			return;
 
 		CInventoryMgr::GetInstance()->Add_Item(this);

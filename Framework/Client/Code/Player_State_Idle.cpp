@@ -28,6 +28,7 @@
 #include "Effect_Smoke.h"
 #include "Effect_Trail.h"
 #include "Effect_NueTrail.h"
+#include "Particle_SilkWorm.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -78,7 +79,7 @@ HRESULT CPlayer_State_Idle::Ready_State(void)
 		_vec3 vPos;
 		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 		vPos.y += 0.3f;
-		vPos.z -= 0.0001f;
+		vPos.z -= 0.01f;
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
 	}
 
@@ -157,11 +158,26 @@ void CPlayer_State_Idle::Reset_State(void)
 
 void CPlayer_State_Idle::Update_Hat()
 {
-	_vec3 vPos;
+	/*_vec3 vPos;
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.y += 0.3f;
 	vPos.z -= 0.005f;
-	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
+	dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);*/
+
+
+
+	if (dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat())
+	{
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Reset();
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Scale(1.0f);
+
+		_vec3 vPos;
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		vPos.y += 0.3f;
+		vPos.z -= 0.01f;
+		dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Pos(vPos);
+	}
 }
 
 void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
@@ -229,7 +245,7 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::H))
 	{
-		CEffect_NueTrail* pEffect = CEffect_NueTrail::Create(Get_Device());
+		/*CEffect_NueTrail* pEffect = CEffect_NueTrail::Create(Get_Device());
 		pEffect->Ready_Object();
 		_vec3 vPos;
 		_vec3 vDir = _vec3(1.0f, 0.0f, 0.0f);
@@ -261,7 +277,13 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 		pEffect->Ready_Object();
 
 		pEffect->Set_Effect(m_pOwner, 0.1f, vDir, _vec3(2.0f, 0.0f, 0.0f), _vec3(0.0f, 0.0f, 2.0f), 0.2f);
-		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", pEffect);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", pEffect);*/
+
+		_vec3 vPos, vDir;
+
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		vDir = { 0.0f, 0.0f, -1.0f };
+		CParticle_SilkWorm::Get_Effect(vPos, vDir, 1, 1.0f, 5.0f);
 	}
 
 

@@ -61,7 +61,6 @@ void CQuest_NueHero1::Clear_Quest()
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
 
 	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_INTRO);
-	// TODO :: ÄÆ¾À
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 

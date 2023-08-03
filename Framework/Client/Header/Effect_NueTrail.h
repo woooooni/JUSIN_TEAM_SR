@@ -45,7 +45,7 @@ public:
 		m_vColor.a = _iA / 255.0f;
 	}
 
-	void	Set_End() { m_bEnd = true; }
+	void	Set_End() { m_bEnd = true; m_eTrailState = NUETRAIL_STATE::TRAIL_END; }
 
 
 	void		Move_Start();
