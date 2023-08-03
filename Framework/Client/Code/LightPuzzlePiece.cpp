@@ -194,3 +194,10 @@ CLightPuzzlePiece* CLightPuzzlePiece::Create(LPDIRECT3DDEVICE9 p_Dev, const _uin
 	ret->Set_MinHeight(0.02f);
 	return ret;
 }
+
+void CLightPuzzlePiece::Set_Lighting(const _bool& pBool) 
+{ 
+	m_bIsLighting = pBool; 
+	Play_Sound(L"SFX_99_MazePuzzle_Complete.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
+
+}

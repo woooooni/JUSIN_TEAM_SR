@@ -273,7 +273,11 @@ HRESULT CBalpanObj::Ready_Component()
 
 	 m_bIsPushed = true;
 	 if (!m_bIsStoneSwitch)
+	 {
+		 Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+		 Play_Sound(L"SFX_27_StonePressBlock_On.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .8f);
 		 m_pAnimator->Play_Animation(L"Pushed", false);
+	 }
 
 
 

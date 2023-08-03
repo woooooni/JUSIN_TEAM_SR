@@ -197,6 +197,8 @@ void CLightPuzzleBase::Set_Lighting(const _bool& pBool)
 		{
 			if (m_eCutSceneType != CCutSceneMgr::CUTSCENE_TYPE::TYPE_END)
 			{
+				Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+				Play_Sound(L"SFX_99_MazePuzzle_Complete.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
 				CCutSceneMgr::GetInstance()->Set_EventNum(m_iMyEvent);
 				CCutSceneMgr::GetInstance()->Start_CutScene(m_eCutSceneType);
 			}

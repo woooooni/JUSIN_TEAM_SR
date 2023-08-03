@@ -83,6 +83,9 @@ _int CBarrelBomb::Update_Object(const _float& fTimeDelta)
         _vec3 mypos;
         m_pTransformCom->Get_Info(INFO_POS, &mypos);
 
+        Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+        Play_Sound(L"Boom_2.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .5f);
+
         mypos.y = 0.02f;
         m_pTransformCom->Set_Pos(&mypos);
         m_pTransformCom->RotationAxis({ 1, 0, 0 }, D3DXToRadian(90.f));
