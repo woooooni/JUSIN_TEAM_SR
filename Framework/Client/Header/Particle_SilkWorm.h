@@ -34,19 +34,21 @@ private:
 	HRESULT			Ready_Component(void);
 	void			Update_Move(const _float& fTimeDelta);
 
-public:
-	static CParticle_SilkWorm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-
 private:
 	_float m_fAccTime;
 	_float m_fEndTime;
-	_float m_fAccMoveTime;
-	_float m_fMoveTime;
+	_float m_fAccEffectTime;
+	_float m_fEffectTime;
 
 	_uint m_iAlpha;
 	_uint m_iR;
 	_uint m_iG;
 	_uint m_iB;
+
+	_vec3 m_vDir;
+
+public:
+	static CParticle_SilkWorm* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free() override;

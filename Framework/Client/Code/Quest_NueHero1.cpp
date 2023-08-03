@@ -42,6 +42,9 @@ void CQuest_NueHero1::Update_Quest(_float& fTimeDelta)
 
 	if (m_eQuestProgress == QUEST_PROGRESS::CONTINUE)
 		Clear_Quest();
+
+	CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(false);
+
 }
 
 void CQuest_NueHero1::Accept_Quest()
