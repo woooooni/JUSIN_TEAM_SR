@@ -153,7 +153,7 @@ void CInventoryUI::Render_Object(void)
 		if (tmp == L"1")
 			continue;
 
-		iter->DrawTextW(NULL, tmp.c_str(), tmp.length(), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE, D3DCOLOR_ARGB(255, 255, 255, 255));
+		iter->DrawTextW(NULL, tmp.c_str(), tmp.length(), &rc, DT_CENTER | DT_VCENTER | DT_NOCLIP | DT_SINGLELINE, D3DCOLOR_ARGB(255, 0, 0, 0));
 	}
 
 
@@ -182,7 +182,7 @@ void CInventoryUI::Render_Object(void)
 			return;
 		wstring src = CItem::Get_Explain(code);
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, src.c_str(), src.length(), &rc, DT_CENTER | DT_WORDBREAK, D3DCOLOR_ARGB(255, 255, 255, 255));
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, src.c_str(), src.length(), &rc, DT_CENTER | DT_WORDBREAK, D3DCOLOR_ARGB(255, 0, 0, 0));
 
 
 		
@@ -211,7 +211,7 @@ void CInventoryUI::Render_Object(void)
 		m_pUseBtnTex->Render_Texture();
 		m_pBufferCom->Render_Buffer();
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, tmp.c_str(), tmp.length(), &rc, DT_SINGLELINE | DT_VCENTER | DT_CENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, tmp.c_str(), tmp.length(), &rc, DT_SINGLELINE | DT_VCENTER | DT_CENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 0, 0, 0));
 	}
 
 }

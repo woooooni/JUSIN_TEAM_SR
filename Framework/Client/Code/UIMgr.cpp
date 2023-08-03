@@ -30,6 +30,8 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     m_pInventory = CInventoryUI::Create(_pGraphicDev);
     m_pWallet = CUI_Wallet::Create(_pGraphicDev);
     m_pNewQuest = CUI_NewQuest::Create(_pGraphicDev);
+    m_pEnding = CUI_Ending::Create(_pGraphicDev);
+
 
     m_pQuestList = CUI_QuestList::Create(_pGraphicDev);
     m_pFade = CUI_Fade::Create(_pGraphicDev);
@@ -43,6 +45,8 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     NULL_CHECK_RETURN(m_pWallet, E_FAIL);
     NULL_CHECK_RETURN(m_pNewQuest, E_FAIL);
     NULL_CHECK_RETURN(m_pQuestList, E_FAIL);
+    NULL_CHECK_RETURN(m_pEnding, E_FAIL);
+
     //NULL_CHECK_RETURN(m_pMapName, E_FAIL);
 
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
@@ -54,6 +58,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
 
     m_pNewQuest->Set_Active(false);
     m_pQuestList->Set_Active(false);
+    m_pEnding->Set_Active(false);
     FAILED_CHECK_RETURN(Add_Frame(_pGraphicDev), E_FAIL);
 
     return S_OK;
@@ -107,16 +112,22 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
         }
     }
 
-    if (m_bUpdateUI)
-        m_pInventory->Update_Object(fTimeDelta);
 
     if (KEY_TAP(KEY::P))
     {
+        m_pFade->Set_White(true);
         m_pFade->Set_Fade(!m_pFade->Get_Fade(), 3.f);
-        m_pFade->Set_White(false);
+
     }
+    if (m_bUpdateUI)
+        m_pInventory->Update_Object(fTimeDelta);
+
 
     m_pFade->Update_Object(fTimeDelta);
+
+    if (m_pEnding->Is_Active())
+        m_pEnding->Update_Object(fTimeDelta);
+
 }
 
 void CUIMgr::Late_Update_UIMgr()

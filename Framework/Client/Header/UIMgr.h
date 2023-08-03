@@ -16,6 +16,7 @@
 #include "UI_NewQuest.h"
 #include "UI_QuestList.h"
 #include "UI_Fade.h"
+#include "UI_Ending.h"
 
 class CUIMgr : public CBase
 {
@@ -47,6 +48,7 @@ public:
 	CUI_QuestList* Get_QuestList() { return m_pQuestList; }
 	_bool	Get_ShopUpdate() { return m_bUpdateUI; }
 	CUI_Fade* Get_Fade() { return m_pFade; }
+	CUI_Ending* Get_Ending() { return m_pEnding; }
 
 private:
 	CUI_Wallet*		m_pWallet = nullptr;
@@ -64,6 +66,7 @@ private:
 	CUI_ShortCutKey* m_pShortCutKey = nullptr;
 	CQuickSlot*		 m_pQuickSlot = nullptr;
 	CUI_BossHP*		 m_pBossHpBar = nullptr;
+	CUI_Ending* m_pEnding = nullptr;
 
 	_bool			m_bUpdateUI;
 
