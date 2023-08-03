@@ -58,6 +58,9 @@ _int CSludgeBall::Update_Object(const _float& fTimeDelta)
 			{
 				m_pAnimator->GetCurrAnimation()->Set_Idx(6);
 				m_pMonsterAim->Set_Active(false);
+				Stop_Sound(CHANNELID::SOUND_EFFECT_MONSTER2);
+				Play_Sound(L"SFX_166_SunGolemDeath.wav", CHANNELID::SOUND_EFFECT_MONSTER2, .5f);
+
 			}
 			return iExit;
 		}

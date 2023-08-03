@@ -204,7 +204,7 @@ void CBullet_SilkWormDoppel::Create_Line()
 	}
 	_vec3 vPos, vUp, vLook, vRight;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	vPos.y = 0.09f+ m_fActivateTime*0.01f;
+	vPos.y = 0.09f+ m_fPriority *0.01f;
 	m_pLine->Get_TransformCom()->Set_Pos(&vPos);
 	_vec3 vScale = m_pLine->Get_TransformCom()->Get_Scale();
 	vScale.y = sqrtf(((45.f * 2.f) * (45.f * 2.f)) * 2.f);
@@ -258,23 +258,10 @@ CBullet_SilkWormDoppel* CBullet_SilkWormDoppel::Create(LPDIRECT3DDEVICE9 pGraphi
 	pInstance->m_eColor = _eColor;
 	pInstance->m_iAtk = _iAtk;
 	pInstance->m_vRandPos = vRandPos;
+	pInstance->m_fPriority = _fTime;
 	return pInstance;
 }
 
-CBullet_SilkWormDoppel* CBullet_SilkWormDoppel::Create(LPDIRECT3DDEVICE9 pGraphicDev)
-{
-	CBullet_SilkWormDoppel* pInstance = new CBullet_SilkWormDoppel(pGraphicDev);
-
-	if (FAILED(pInstance->Ready_Object()))
-	{
-		Safe_Release(pInstance);
-
-		MSG_BOX("Bullet_SilkWormDoppel Create Failed");
-		return nullptr;
-	}
-
-	return pInstance;
-}
 
 
 void CBullet_SilkWormDoppel::Free()
