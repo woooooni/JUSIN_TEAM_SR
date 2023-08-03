@@ -137,6 +137,9 @@ HRESULT CUI_SlotItems::Wear_Item()
 
 	PLAYER_HAT eHat;
 
+	Stop_Sound(CHANNELID::SOUND_UI);
+	Play_Sound(L"SFX_448_QuickSlotAdd.wav", CHANNELID::SOUND_UI, 0.5f);
+
 	switch (m_eCode)
 	{
 	case Engine::ITEM_CODE::HAT_DRILL:

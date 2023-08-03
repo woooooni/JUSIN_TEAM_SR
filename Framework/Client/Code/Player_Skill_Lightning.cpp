@@ -113,10 +113,28 @@ void CPlayer_Skill_Lightning::Key_Input(const _float& fTimeDelta)
 			D3DXVec3TransformNormal(&m_vDir, &m_vDir, &matRot);
 		}
 
+		_uint iSound = rand() % 4;
+		switch (iSound)
+		{
+		case 0:
+			Play_Sound(L"SFX_301_Dowsing_Signal1.wav", CHANNELID::SOUND_SKILL, 0.8f);
+			break;
+		case 1:
+			Play_Sound(L"SFX_302_Dowsing_Signal2.wav", CHANNELID::SOUND_SKILL, 0.8f);
+			break;
+		case 2:
+			Play_Sound(L"SFX_302_Dowsing_Signal3.wav", CHANNELID::SOUND_SKILL, 0.8f);
+			break;
+		case 3:
+			Play_Sound(L"SFX_302_Dowsing_Signal4.wav", CHANNELID::SOUND_SKILL, 0.8f);
+			break;
+
+		default:
+			break;
+		}
 
 		_vec3 vAimPos = m_vPos + m_vDir;
 		dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Get_TransformCom()->Set_Pos(&vAimPos);
-
 	}
 	else if (KEY_AWAY(KEY::Q))
 	{
@@ -138,11 +156,44 @@ HRESULT CPlayer_Skill_Lightning::Shoot(void)
 	dynamic_cast<CBullet*>(pLightning)->Set_Owner(m_pOwner);
 	FAILED_CHECK_RETURN(Engine::Get_Layer(LAYER_TYPE::PLAYER)->Add_GameObject(L"Lightning", pLightning), E_FAIL);
 
-
 	D3DXVec3Normalize(&m_vDir, &m_vDir);
 	_vec3 vAimPos = m_vPos + m_vDir;
 	vAimPos.y += 2.5f;
 	dynamic_cast<CPlayer_Bullet_Lightning*>(pLightning)->Shoot(vAimPos, m_vDir, 5, 0);
+	
+	Stop_Sound(CHANNELID::SOUND_SKILL);
+
+	_uint iSound = rand() % 8;
+	switch (iSound)
+	{
+	case 0:
+		Play_Sound(L"SFX_549_Hat_Lightning_0.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+	case 1:
+		Play_Sound(L"SFX_549_Hat_Lightning_1.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+	case 2:
+		Play_Sound(L"SFX_549_Hat_Lightning_2.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+	case 3:
+		Play_Sound(L"SFX_549_Hat_Lightning_3.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+	case 4:
+		Play_Sound(L"SFX_549_Hat_Lightning_4.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+	case 5:
+		Play_Sound(L"SFX_549_Hat_Lightning_5.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+	case 6:
+		Play_Sound(L"SFX_549_Hat_Lightning_6.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+	case 7:
+		Play_Sound(L"SFX_549_Hat_Lightning_7.wav", CHANNELID::SOUND_SKILL, 0.5f);
+		break;
+		
+	default:
+		break;
+	}
 
 	return 0;
 }

@@ -1,6 +1,7 @@
 #include "UI_Shop.h"
 #include "Export_Function.h"
 #include "UI_ItemInfo.h"
+#include "GameMgr.h"
 
 CUI_Shop::CUI_Shop(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CUI(pGraphicDev)
@@ -207,13 +208,19 @@ void CUI_Shop::Key_Input()
 
 	if (m_bShown)
 	{
-		if (KEY_TAP(KEY::ENTER) && m_iCursorX >= 0 && m_iCursorX < 3 && m_iCursorY == 0
-			&& m_vecShown[m_iCursorX])
-		{
-			m_vecShown[m_iCursorX] = false;
+		CGameObject* pPlayer = CGameMgr::GetInstance()->Get_Player();;
 
-			Stop_Sound(CHANNELID::SOUND_UI);
-			Play_Sound(L"SFX_201_ShopBuy.wav", CHANNELID::SOUND_UI, 0.5f);
+		if (pPlayer != nullptr)
+		{
+			if (KEY_TAP(KEY::ENTER) && m_iCursorX >= 0 && m_iCursorX < 3 && m_iCursorY == 0
+				&& m_vecShown[m_iCursorX]
+				&& m_iItemPrice <= dynamic_cast<CPlayer*>(pPlayer)->Get_PlayerStat().iMoney)
+			{
+				m_vecShown[m_iCursorX] = false;
+
+				Stop_Sound(CHANNELID::SOUND_UI);
+				Play_Sound(L"SFX_201_ShopBuy.wav", CHANNELID::SOUND_UI, 0.5f);
+			}
 		}
 	}
 }

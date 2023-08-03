@@ -68,7 +68,7 @@ void CQuest_MonkeyCheif2::Update_Quest(_float& fTimeDelta)
 		!CUIMgr::GetInstance()->Get_Dialog()->Is_Active())
 		CUIMgr::GetInstance()->Get_QuestList()->Set_Title(m_strQuestSub);
 	
-	if (m_eQuestProgress == QUEST_PROGRESS::PROGRESS_END)
+	if (m_eQuestProgress == QUEST_PROGRESS::COMPLETE)
 	{
 		CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(false);
 	}

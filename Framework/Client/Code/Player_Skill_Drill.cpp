@@ -29,6 +29,9 @@ HRESULT CPlayer_Skill_Drill::Ready_State(void)
 
     dynamic_cast<CPlayer*>(m_pOwner)->Get_Hat()->Set_Active(false);
 
+    Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+    Play_Sound(L"SFX_552_Hat_Drill_In.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
+
     return S_OK;
 }
 
@@ -145,8 +148,6 @@ void CPlayer_Skill_Drill::Update_OutGround(const _float& fTimeDelta)
 
 void CPlayer_Skill_Drill::LateUpdate_Start()
 {
-
-
 }
 
 void CPlayer_Skill_Drill::LateUpdate_InGround()
@@ -225,24 +226,31 @@ void CPlayer_Skill_Drill::Key_Input(const _float& fTimeDelta)
     if (KEY_HOLD(KEY::RIGHT_ARROW))
     {
         m_pOwner->Get_TransformCom()->Move_Pos(OBJ_DIR::DIR_R, m_fSpeed, fTimeDelta);
+        Play_Sound(L"SFX_552_Hat_Drill_Ing.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
     }
     if (KEY_HOLD(KEY::LEFT_ARROW))
     {
         m_pOwner->Get_TransformCom()->Move_Pos(OBJ_DIR::DIR_L, m_fSpeed, fTimeDelta);
+        Play_Sound(L"SFX_552_Hat_Drill_Ing.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
     }
     if (KEY_HOLD(KEY::UP_ARROW))
     {
         m_pOwner->Get_TransformCom()->Move_Pos(OBJ_DIR::DIR_U, m_fSpeed, fTimeDelta);
+        Play_Sound(L"SFX_552_Hat_Drill_Ing.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
     }
     if (KEY_HOLD(KEY::DOWN_ARROW))
     {
         m_pOwner->Get_TransformCom()->Move_Pos(OBJ_DIR::DIR_D, m_fSpeed, fTimeDelta);
+        Play_Sound(L"SFX_552_Hat_Drill_Ing.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
     }
 
     if (KEY_TAP(KEY::Q))
     {
         m_eState = DRILL_STATE::OUTGROUND;
         dynamic_cast<CPlayer*>(m_pOwner)->Get_Aim()->Set_Active(false);
+
+        Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+        Play_Sound(L"SFX_552_Hat_Drill_Out.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
     }
 }
 

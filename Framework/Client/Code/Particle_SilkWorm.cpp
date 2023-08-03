@@ -30,14 +30,13 @@ HRESULT CParticle_SilkWorm::Ready_Object(void)
 	m_pAnimator->Play_Animation(L"SilkWorm", false);
 
 	m_iR = m_iG = m_iB = 255;
-	m_iAlpha = 255;
+	m_iAlpha = 200;
 
 	m_fAccTime = 0.0f;
-	m_fEndTime = 3.0f;
-	m_fAccEffectTime = 0.0f;
 	m_fEffectTime = 0.5f;
+	m_vDir = { 0.f, 0.f, 0.f };
 
-	Set_Active(true);
+	Set_Active(false);
 
     return S_OK;
 }
@@ -47,9 +46,23 @@ _int CParticle_SilkWorm::Update_Object(const _float& fTimeDelta)
 	if (!Is_Active())
 		return S_OK;
 
-	m_pTransformCom->Move_Pos(&m_vDir, 0.5f, fTimeDelta);
+	m_pTransformCom->Move_Pos(&m_vDir, 1.f, fTimeDelta);
 
-	Update_Move(fTimeDelta);
+	m_fAccTime += fTimeDelta;
+
+	if (m_fAccTime > m_fEffectTime)
+	{
+		m_iAlpha -= 2;
+
+		if (m_iAlpha <= 60)
+		{
+			m_iAlpha = 0;
+			Set_Active(false);
+			CPool<CParticle_SilkWorm>::Return_Obj(this);
+		}
+
+		m_fAccTime = 0.f;
+	}
 
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
@@ -79,19 +92,19 @@ void CParticle_SilkWorm::Render_Object(void)
 	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	D3DVECTOR vCamPos = vPos;
 
-	// 노란 계열 색상
-	_float m_fR = 255.0f;
-	_float m_fG = rand() % 26 + 230;
-	_float m_fB = rand() % 72;
-	_float m_fAlpha = 255.0f;
+	_float fR = 255.f;
+	_float fG = (rand() % 26 + 230) * 1.f;
+	_float fB = (rand() % 52) * 0.1f;
 
-	D3DCOLORVALUE vColor = { m_fR, m_fG, m_fB, m_fAlpha };
+	D3DCOLORVALUE vColor = { fR, fG, fB, m_iAlpha / 255.f };
 
 	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
 	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
 	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+
 	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
 	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+
 	pEffect->SetFloat("g_AlphaRef", 0.0f);
 
 	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
@@ -112,8 +125,6 @@ void CParticle_SilkWorm::Render_Object(void)
 
 void CParticle_SilkWorm::Random_Particle(_vec3& _vPos)
 {
-	m_fAccTime = 0.0f;
-
 	_matrix matWorld;
 	D3DXMatrixIdentity(&matWorld);
 
@@ -126,23 +137,24 @@ void CParticle_SilkWorm::Random_Particle(_vec3& _vPos)
 
 	_vPos.z += 0.1f;
 	_float fScale = 0.1f + ((rand() % 10) * 0.05f);
-	_float fAngle = _float(rand() % 360);
+	_float fAngle = _float(rand() % 45);
 
 	m_pTransformCom->Set_Scale(_vec3(fScale, fScale, 0.0f));
 	m_pTransformCom->Set_Pos(&_vPos);
 
-//	_float fX = (rand() % 11) * 0.1f;
-//	_float fY = (rand() % 11 + 1) * 0.1f;
-//
-//	_uint i = 
-}
+	_float fX = (rand() % 10) * 0.1f;
+	_float fZ = (rand() % 10) * 0.1f;
 
-void CParticle_SilkWorm::Update_Move(const _float& fTimeDelta)
-{
-	if (m_fAccEffectTime > m_fEffectTime)
-	{
+	_uint i = rand() % 2;
+	if (i == 0)
+		fX *= -1.0f;
 
-	}
+	m_vDir = { fX, 0.f, fZ };
+	D3DXVec3Normalize(&m_vDir, &m_vDir);
+
+	Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", this);
+
+	Set_Active(true);
 }
 
 HRESULT CParticle_SilkWorm::Ready_Component(void)

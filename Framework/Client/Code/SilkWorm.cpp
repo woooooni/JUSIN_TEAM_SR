@@ -757,28 +757,24 @@ void CSilkWorm::Create_Effect(_vec3 vPos )
 		}
 	}
 
+	CGameObject* pParticle = CPool<CParticle_SilkWorm>::Get_Obj();
+	if (pParticle)
+	{
+		dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
+		pParticle->Set_Active(true);
+		Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
+	}
 
-	// 0803 ¼öÁ¤Áß
-//	for (int i = 0; i < 20; i++)
-//	{
-//		CGameObject* pParticle = CPool<CParticle_SilkWorm>::Get_Obj();
-//		if (pParticle)
-//		{
-//			dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
-//			pParticle->Set_Active(true);
-//			Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
-//		}
-//		else
-//		{
-//			pParticle = dynamic_cast<CParticle_SilkWorm*>(pParticle)->Create(Engine::Get_Device());
-//			if (pParticle)
-//			{
-//				pParticle->Set_Active(true);
-//				dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
-//				Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
-//			}
-//		}
-//	}
+	else
+	{
+		pParticle = dynamic_cast<CParticle_SilkWorm*>(pParticle)->Create(Engine::Get_Device());
+		if (pParticle)
+		{
+			pParticle->Set_Active(true);
+			dynamic_cast<CParticle_SilkWorm*>(pParticle)->Random_Particle(vPos);
+			Engine::Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"SilkWorm", pParticle);
+		}
+	}
 }
 void CSilkWorm::Shoot_BugBall()
 {

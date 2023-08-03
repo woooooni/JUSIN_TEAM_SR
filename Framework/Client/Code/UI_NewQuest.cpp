@@ -123,7 +123,7 @@ void CUI_NewQuest::LateUpdate_Object(void)
 	{
 		FMOD_RESULT pRes = FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), true);
 		Stop_Sound(CHANNELID::SOUND_UI);
-		Play_Sound(L"SFX_446_QuestClear.wav", CHANNELID::SOUND_UI, 0.9f);
+		Play_Sound(L"SFX_446_QuestClear.wav", CHANNELID::SOUND_UI, 1.f);
 	}
 
 	__super::LateUpdate_Object();

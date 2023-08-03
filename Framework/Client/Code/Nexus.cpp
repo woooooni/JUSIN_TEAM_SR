@@ -215,7 +215,7 @@ void CNexus::Render_Object(void)
 
 	if (m_bStart && !m_bClear)
 	{
-		RECT rc = { WINCX / 2 - 50 + 1 , 60 , WINCX / 2 + 50 + 1 , 160 };
+		RECT rc = { WINCX / 2 - 50 + 1 , 80 , WINCX / 2 + 50 + 1 , 180 };
 		wstring szBuf;
 		szBuf = to_wstring(m_fDefenceTime - m_fDefenceAccTime);
 		szBuf = szBuf.substr(0, 5);

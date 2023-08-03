@@ -89,9 +89,19 @@ _int CItem_Hat_Light::Update_Object(const _float& fTimeDelta)
 	if (KEY_TAP(KEY::Q))
 	{
 		if (CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Is_LightOn())
+		{
 			CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Set_LightOff();
+
+			Stop_Sound(CHANNELID::SOUND_SKILL);
+			Play_Sound(L"SFX_27_StonePressBlock_On.wav", CHANNELID::SOUND_SKILL, 0.8f);
+		}
 		else
+		{
 			CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_SPOTLIGHT_HAT)->Set_LightOn();
+
+			Stop_Sound(CHANNELID::SOUND_SKILL);
+			Play_Sound(L"SFX_28_StonePressBlock_Off.wav", CHANNELID::SOUND_SKILL, 0.8f);
+		}
 	}
 
 

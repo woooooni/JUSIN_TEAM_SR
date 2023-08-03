@@ -64,8 +64,6 @@ _int CEffect_GetItem::Update_Object(const _float& fTimeDelta)
 	m_pTransformCom->Set_Scale(m_vScale);
 
 
-
-
 	Engine::Add_RenderGroup(RENDERID::RENDER_ALPHA, this);
 
 	_int iExit = __super::Update_Object(fTimeDelta);

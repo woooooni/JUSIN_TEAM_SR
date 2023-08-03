@@ -93,7 +93,7 @@ void CScene_TutorialVillage::Render_Scene()
 void CScene_TutorialVillage::Enter_Scene()
 {
 	Stop_Sound(CHANNELID::SOUND_BGM);
-	Play_BGM(L"BGM_0_Null.wav", 0.5f);
+	Play_BGM(L"BGM_0_Null.wav", 0.3f);
 
 
 	CUI_Shop* pShop = CUIMgr::GetInstance()->Get_ShopUI();
@@ -158,7 +158,7 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Environment()
 	CNpc_Sheep* pNpcSheep = CNpc_Sheep::Create(m_pGraphicDev);
 	CNpc_Cow* pNpcCow = CNpc_Cow::Create(m_pGraphicDev);
 
-	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::SILK_WORM);
+	CPortal* pPortal = CPortal::Create(m_pGraphicDev, SCENE_TYPE::MONKEY_FOREST1);
 
 	//CLightFlower* pFlower = CLightFlower::Create(m_pGraphicDev, nullptr);
 
