@@ -19,9 +19,10 @@ HRESULT CEffect_StoneSpike::Ready_Object(void)
 {
 
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
-	m_pAnimator->Add_Animation(L"StoneSpike", L"Proto_Texture_Effect_StoneSpike", 0.1f);
+	m_pAnimator->Add_Animation(L"StoneSpike", L"Proto_Texture_Effect_StoneSpike", 0.05f);
 	m_pAnimator->Play_Animation(L"StoneSpike", true);
-
+	Stop_Sound(CHANNELID::SOUND_EFFECT_MONSTER4);
+	Play_Sound(L"SFX_333_StoneSpike_In.wav", CHANNELID::SOUND_EFFECT_MONSTER4, .5f);
 	m_pTransformCom->Set_Pos(&_vec3(-5.0f, -0.5f, 0.0f));
 	m_pTransformCom->Set_Scale({ 0.5f, 0.5f, 0.5f });
 	dynamic_cast<CBoxCollider*>(m_pColliderCom)->Set_Scale({ 1.f, 1.f, 1.f });
