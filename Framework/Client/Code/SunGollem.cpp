@@ -74,11 +74,6 @@ HRESULT CSunGollem::Ready_Object(void)
 
 _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 {
-	if (KEY_TAP(KEY::NUM_1))
-	{
-		m_tStat.iHp -= 5;
-	}
-
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);;
 	if(m_eState!=SUNGOLEM_STATE::DIE)

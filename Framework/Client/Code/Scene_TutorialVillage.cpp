@@ -202,14 +202,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_Monster()
 
 HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 {
-	CBarrelBomb* barrel = CBarrelBomb::Create(m_pGraphicDev, { -1, 0, -1 });
-	NULL_CHECK_RETURN(barrel, E_FAIL);
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Barrel", barrel);
-
-	CBreakObj* breaj = CBreakObj::Create(m_pGraphicDev, { -1, 0, -2 });
-	NULL_CHECK_RETURN(breaj, E_FAIL);
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Break", breaj);
-
 	CDefaultItem* def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_SMALL);
 	def->Get_TransformCom()->Set_Pos(&_vec3(11, 0, 5));
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
@@ -229,10 +221,6 @@ HRESULT CScene_TutorialVillage::Ready_Layer_InterationObj()
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
 	def->Get_TransformCom()->Set_Pos(&_vec3(13, 0, 2));
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
-
-	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_MIDDLE);
-	def->Get_TransformCom()->Set_Pos(&_vec3(5, 0, 2));
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Item", def);
 
 	def = CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::HP_BIG);

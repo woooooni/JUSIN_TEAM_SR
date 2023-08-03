@@ -51,7 +51,7 @@ void CUI_Mouse::LateUpdate_Object(void)
 void CUI_Mouse::Render_Object(void)
 {
 	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) ,
-				((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.001f };
+				((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.000f };
 
 	m_pTransformCom->Set_Pos(&vPos);
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());

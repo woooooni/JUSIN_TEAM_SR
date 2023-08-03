@@ -17,11 +17,15 @@ public:
 	virtual void		LateUpdate_Object(void) override;
 	virtual void		Render_Object(void) override;
 
-	static CUI_Ending* Create(LPDIRECT3DDEVICE9 p_GraphicDev);
+private:
+	HRESULT Ready_Component();
 
 protected:
 	vector<wstring>		m_vecNameTags;
 	vector<float>		m_vecPosition;
+
+public:
+	static CUI_Ending* Create(LPDIRECT3DDEVICE9 p_GraphicDev);
 
 };
 

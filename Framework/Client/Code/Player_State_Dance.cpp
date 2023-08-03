@@ -51,6 +51,8 @@ HRESULT CPlayer_State_Dance::Ready_State(void)
 	m_bDown = false;
 	m_fAccTime = 0.0f;
 
+	
+	FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), true);
 	Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
 	Play_Sound(L"BGM_29_OguBeggarHatBongZak.wav", CHANNELID::SOUND_EFFECT_PLAYER, 0.5f);
 
@@ -130,6 +132,9 @@ void CPlayer_State_Dance::Key_Input(const _float& fTimeDelta)
 		KEY_HOLD(KEY::UP_ARROW) ||
 		KEY_HOLD(KEY::DOWN_ARROW))
 	{
+		FMOD_Channel_SetPaused(Get_Channel(CHANNELID::SOUND_BGM), false);
+		Stop_Sound(CHANNELID::SOUND_EFFECT_PLAYER);
+
 		if (KEY_HOLD(KEY::SHIFT))
 			dynamic_cast<CPlayer*>(m_pOwner)->Change_State(PLAYER_STATE::RUN);
 		else if (dynamic_cast<CPlayer*>(m_pOwner)->Is_Push())

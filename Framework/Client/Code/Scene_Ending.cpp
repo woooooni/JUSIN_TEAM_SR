@@ -1,7 +1,7 @@
 #include "Scene_Ending.h"
 #include "UI_LoadingBackGround.h"
 #include "UIMgr.h"
-#include "UI_MainLogo.h"
+#include "UI_Ending.h"
 #include "GameMgr.h"
 
 CScene_Ending::CScene_Ending(LPDIRECT3DDEVICE9 pGraphicDev) 
@@ -48,7 +48,6 @@ HRESULT CScene_Ending::Ready_Scene()
 _int CScene_Ending::Update_Scene(const _float& fTimeDelta)
 {
     CUIMgr::GetInstance()->Get_Ending()->Update_Object(fTimeDelta);
-
     return __super::Update_Scene(fTimeDelta);
 }
 
@@ -105,10 +104,6 @@ HRESULT CScene_Ending::Ready_Layer_UI()
 {
     Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
     NULL_CHECK_RETURN(pLayer, E_FAIL);
-
-    CUI_MainLogo* pUIBackGround = CUI_MainLogo::Create(m_pGraphicDev);
-
-    HRESULT tmp = pLayer->Add_GameObject(L"BackGround", pUIBackGround);
 
     pLayer->Ready_Layer();
 

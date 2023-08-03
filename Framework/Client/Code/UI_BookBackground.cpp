@@ -26,6 +26,10 @@ HRESULT CUI_BookBackground::Ready_Object(void)
 	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
 	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
 
+	m_pTransformCom->Set_Scale(_vec3(_float(m_tInfo.fCX), _float(m_tInfo.fCY), 1.f));
+
+
+
     return S_OK;
 }
 
@@ -62,6 +66,7 @@ void CUI_BookBackground::Render_Object(void)
 	_vec3 vScale = _vec3(fWidth * fRatio, fHeight * fRatio, 0.f);
 
 	m_pTransformCom->Set_Scale(vScale);
+
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	m_pTextureCom->Render_Texture(0);

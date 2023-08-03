@@ -96,25 +96,28 @@ void CNpc::LateUpdate_Object(void)
 
 	if (bCompleteQuest)
 	{
-		_vec3 vPos;
+		_vec3 vPos, vScale;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vPos.y += 1.f;
+		vScale = m_pTransformCom->Get_Scale();
+		vPos.y += vScale.y / 2.f + .5f;
 		m_pQuestion->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 		m_pQuestion->Update_Object(fTimeDelta);
 	}
 	else if (bContinueQuest)
 	{
-		_vec3 vPos;
+		_vec3 vPos, vScale;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vPos.y += 1.f;
+		vScale = m_pTransformCom->Get_Scale();
+		vPos.y += vScale.y / 2.f + .5f;
 		m_pContinue->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 		m_pContinue->Update_Object(fTimeDelta);
 	}
 	else if (bBeforeQuest)
 	{
-		_vec3 vPos;
+		_vec3 vPos, vScale;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
-		vPos.y += 1.f;
+		vScale = m_pTransformCom->Get_Scale();
+		vPos.y += vScale.y / 2.f + .5f;
 		m_pExclamation->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 		m_pExclamation->Update_Object(fTimeDelta);
 	}
@@ -129,7 +132,8 @@ void CNpc::LateUpdate_Object(void)
 	}
 
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
-	if (pPlayer != nullptr && (bBeforeQuest || bContinueQuest || bCompleteQuest))
+	if (pPlayer != nullptr 
+		&& (bBeforeQuest || bContinueQuest || bCompleteQuest))
 	{
 		_vec3 vPos, vPlayerPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
@@ -151,7 +155,7 @@ void CNpc::LateUpdate_Object(void)
 				Play_Sound(L"SFX_69_UISlotBigMove.wav", CHANNELID::SOUND_UI, 0.9f);
 			}
 		}
-		else
+		else if(!CUIMgr::GetInstance()->Get_Dialog()->Get_CurrQuest())
 		{
 			CUI_Dialog* pDialog = CUIMgr::GetInstance()->Get_Dialog();
 			pDialog->Set_Active(false);

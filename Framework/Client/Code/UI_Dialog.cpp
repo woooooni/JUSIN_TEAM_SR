@@ -49,7 +49,7 @@ _int CUI_Dialog::Update_Object(const _float& fTimeDelta)
 	{
 		m_strDesc = L"";
 	}
-	Key_Input();
+	 Key_Input();
 
 	if (!Is_Active())
 		return S_OK;
@@ -238,7 +238,9 @@ void CUI_Dialog::Print_Next()
 			if (vecObj[i]->GetObj_Type() == OBJ_TYPE::OBJ_NPC)
 			{
 				CNpc* pNpc = dynamic_cast<CNpc*>(vecObj[i]);
-				if (pNpc != nullptr && m_pQuest && pNpc->Get_NpcCode() == m_pQuest->Get_NpcCode())
+				if (pNpc != nullptr 
+					&& m_pQuest
+					&& pNpc->Get_NpcCode() == m_pQuest->Get_NpcCode())
 				{
 					pNpc->Set_TalkEnable(false);
 					break;

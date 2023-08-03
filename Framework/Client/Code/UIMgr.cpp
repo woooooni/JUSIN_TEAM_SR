@@ -77,7 +77,7 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_pShop->Update_Object(fTimeDelta);
     m_pQuickSlot->Update_Object(fTimeDelta);
     //m_pMapName->Update_Object(fTimeDelta);
-    m_pMouse->Update_Object(fTimeDelta);
+
 
     m_vecIcon[PLAYERHP_FRAME]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_1]->Update_Object(fTimeDelta);
@@ -91,7 +91,8 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     if (m_pShortCutKey->Is_Active())
         m_pShortCutKey->Update_Object(fTimeDelta);
 
-    m_pDialog->Update_Object(fTimeDelta);
+    if (m_pDialog->Is_Active())
+        m_pDialog->Update_Object(fTimeDelta);
 
     if (m_pWallet->Is_Active())
         m_pWallet->Update_Object(fTimeDelta);
@@ -125,11 +126,13 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     if (m_bUpdateUI)
         m_pInventory->Update_Object(fTimeDelta);
 
+    m_pMouse->Update_Object(fTimeDelta);
 
     m_pFade->Update_Object(fTimeDelta);
 
     if (m_pEnding->Is_Active())
         m_pEnding->Update_Object(fTimeDelta);
+
 
 }
 

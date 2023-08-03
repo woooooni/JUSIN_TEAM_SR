@@ -15,10 +15,17 @@ CUI_Ending::~CUI_Ending()
 
 HRESULT CUI_Ending::Ready_Object(void)
 {
+	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
+	m_tInfo.fX = WINCX / 2.f;
+	m_tInfo.fY = WINCY / 2.f;
+
+	m_tInfo.fCX = _float(WINCX);
+	m_tInfo.fCY = _float(WINCY);
+
+	m_pTransformCom->Set_Scale(_vec3(_float(m_tInfo.fCX), _float(m_tInfo.fCY), 1.f));
+
 	for (size_t i = 0; i < 6; i++)
-	{
 		m_vecPosition.push_back((WINCY + ((float)i + 0.5f) * 150.f));
-	}
 
 
 	m_vecNameTags.resize(6, L"");
@@ -68,6 +75,16 @@ void CUI_Ending::LateUpdate_Object(void)
 
 void CUI_Ending::Render_Object(void)
 {
+	_vec3 vPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11) ,
+					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+
+	m_pTransformCom->Set_Pos(&vPos);
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
+
+	m_pTextureCom->Render_Texture(0);
+	m_pBufferCom->Render_Buffer();
+
+
 	RECT rc;
 
 	for (size_t i = 0; i < m_vecPosition.size(); i++)
@@ -76,6 +93,27 @@ void CUI_Ending::Render_Object(void)
 	    auto iter = Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_BOLD)->DrawText(NULL, m_vecNameTags[i].c_str(), INT(m_vecNameTags[i].size()), &rc, DT_CENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 255, 255, 255));
 		int k = 0;
 	}
+
+
+}
+
+HRESULT CUI_Ending::Ready_Component()
+{
+	m_pBufferCom = dynamic_cast<CRcTex*>(Engine::Clone_Proto(L"Proto_RcTex"));
+	NULL_CHECK_RETURN(m_pBufferCom, E_FAIL);
+	m_pBufferCom->SetOwner(this);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_BUFFER, m_pBufferCom });
+
+	m_pTransformCom = dynamic_cast<CTransform*>(Engine::Clone_Proto(L"Proto_Transform"));
+	NULL_CHECK_RETURN(m_pTransformCom, E_FAIL);
+	m_pTransformCom->SetOwner(this);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TRANSFORM, m_pTransformCom });
+
+	m_pTextureCom = dynamic_cast<CTexture*>(Engine::Clone_Proto(L"Proto_Texture_EndingBackGround"));
+	NULL_CHECK_RETURN(m_pTextureCom, E_FAIL);
+	m_pTextureCom->SetOwner(this);
+	m_mapComponent[ID_STATIC].insert({ COMPONENT_TYPE::COM_TEXTURE, m_pTextureCom });
+	return S_OK;
 }
 
 CUI_Ending* CUI_Ending::Create(LPDIRECT3DDEVICE9 p_GraphicDev)

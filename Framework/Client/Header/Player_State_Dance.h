@@ -37,6 +37,8 @@ private:
 
 	bool m_bDown = false;
 
+	wstring	m_strBgmName;
+
 
 	
 };
