@@ -348,6 +348,9 @@ void CPlayer_Bullet_Bomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP 
 
 		m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));
 
+		Stop_Sound(CHANNELID::SOUND_SKILL);
+		Play_Sound(L"SFX_550_Hat_Missile_Hit.wav", CHANNELID::SOUND_SKILL, 0.5f);
+
 		CPool<CPlayer_Bullet_Bomb>::Return_Obj(this);
 	}
 }

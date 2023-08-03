@@ -1073,7 +1073,7 @@ HRESULT CLoading::Ready_Effect_Texture()
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Trail", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Trail/Trail_%d.png", 1)), E_FAIL);
 
 	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_Eye", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/Eye/Eye_%d.png", 1)), E_FAIL);
-	//FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_SilkWorm", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/SilkWorm/SilkWorm_%d.png", 1)), E_FAIL);
+	FAILED_CHECK_RETURN(Engine::Ready_Proto(L"Proto_Texture_Effect_SilkWorm", CTexture::Create(m_pGraphicDev, TEXTUREID::TEX_NORMAL, L"../Bin/Resource/Texture/Effect/SilkWorm/SilkWorm_%d.png", 1)), E_FAIL);
 	
 	return S_OK;
 }

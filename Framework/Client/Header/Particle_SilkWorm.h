@@ -32,12 +32,9 @@ public:
 
 private:
 	HRESULT			Ready_Component(void);
-	void			Update_Move(const _float& fTimeDelta);
 
 private:
 	_float m_fAccTime;
-	_float m_fEndTime;
-	_float m_fAccEffectTime;
 	_float m_fEffectTime;
 
 	_uint m_iAlpha;

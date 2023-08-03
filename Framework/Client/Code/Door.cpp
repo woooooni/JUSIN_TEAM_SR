@@ -302,6 +302,8 @@ void CDoor::Effect(void)
 		dynamic_cast<CEffect_Smoke*>(pEffect)->Get_Effect(vEffectPos, _vec3(1.5f, 1.5f, 1.5f), 255, 255, 255);
 	}
 
+	Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+	Play_Sound(L"SFX_359_JellyStopeOfficeSecretDoor.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 0.9f);
 }
 
 CDoor* CDoor::Create(LPDIRECT3DDEVICE9 pGraphicDev)

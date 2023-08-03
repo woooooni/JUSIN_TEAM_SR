@@ -179,6 +179,8 @@ HRESULT CPlayer_Skill_Missile::Shoot(void)
 	dynamic_cast<CBullet*>(pBomb)->Set_Owner(m_pOwner);
 	++m_iBombCount;
 
+	Stop_Sound(CHANNELID::SOUND_SKILL);
+	Play_Sound(L"SFX_550_Hat_Missile_Launch.wav", CHANNELID::SOUND_SKILL, 0.5f);
 
 	return 0;
 }
