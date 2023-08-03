@@ -33,6 +33,9 @@ void CInteractionMgr::Free()
 	m_vecResetList.clear();
 	m_vecResetList.resize(100);
 
+	ZeroMemory(m_bEventSwitch, sizeof(bool) * 1000);
+
+
 }
 
 

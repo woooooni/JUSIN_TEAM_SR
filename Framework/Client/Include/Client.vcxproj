@@ -423,6 +423,7 @@
     <ClInclude Include="..\Header\UI_ContinueMark.h" />
     <ClInclude Include="..\Header\UI_Cursor.h" />
     <ClInclude Include="..\Header\UI_Dialog.h" />
+    <ClInclude Include="..\Header\UI_Ending.h" />
     <ClInclude Include="..\Header\UI_ExclamationMark.h" />
     <ClInclude Include="..\Header\UI_Fade.h" />
     <ClInclude Include="..\Header\UI_ItemInfo.h" />
@@ -686,6 +687,7 @@
     <ClCompile Include="..\Code\UI_ContinueMark.cpp" />
     <ClCompile Include="..\Code\UI_Cursor.cpp" />
     <ClCompile Include="..\Code\UI_Dialog.cpp" />
+    <ClCompile Include="..\Code\UI_Ending.cpp" />
     <ClCompile Include="..\Code\UI_ExclamationMark.cpp">
       <FileType>CppCode</FileType>
     </ClCompile>
