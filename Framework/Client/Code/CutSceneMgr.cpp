@@ -376,6 +376,8 @@ void CCutSceneMgr::Update_CutSceneMonkeyForest2(const _float& fTimeDelta)
 	{
 		m_pCamera->CamShake(1.f, 0.5f);
 		m_bCutsceneSwitch[0] = true;
+		Stop_Sound(CHANNELID::SOUND_EFFECT_ENVIRONMENT);
+		Play_Sound(L"SFX_51_MysteryVoice_In.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, 1.f);
 	}
 	else if (m_fAccTimeMonkeyForest2 >= 1.f && !m_bCutsceneSwitch[1])
 	{

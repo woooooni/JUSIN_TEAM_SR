@@ -93,6 +93,9 @@ void CHoleObj::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollision
 		tmp->Set_Off();
 		m_pAnimator->Play_Animation(L"In", false);
 		m_pStone = tmp;
+		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+		Play_Sound(L"SFX_41_Catapult_StoneHit.wav", CHANNELID::SOUND_EFFECT_ENVIRONMENT, .5f);
+
 	}
 }
 

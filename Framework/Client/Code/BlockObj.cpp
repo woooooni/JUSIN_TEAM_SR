@@ -414,4 +414,11 @@ void CBlockObj::Change_State()
 		Play_Sound(L"SFX_22_StoneGateMove.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
 		
 	}
+	else
+	{
+
+		Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+		Play_Sound(L"SFX_77_StoneUnload.wav", CHANNELID::SOUND_EFFECT_INTERACTION, 0.5f);
+
+	}
 }

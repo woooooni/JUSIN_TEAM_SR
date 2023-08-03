@@ -266,12 +266,18 @@ void CBreakStone::Event_Start(_uint iEventNum)
 {
 	m_bBreak = true;
 	m_pAnimator->Play_Animation(L"Breaking", false);
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+	Play_Sound(L"SFX_333_StoneSpike_In.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .8f);
 }
 
 void CBreakStone::Event_End(_uint iEventNum)
 {
 	m_bBreak = true;
 	m_pAnimator->Play_Animation(L"Breaking", false);
+
+	Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
+	Play_Sound(L"SFX_333_StoneSpike_In.wav", CHANNELID::SOUND_EFFECT_INTERACTION, .8f);
 
 }
 
