@@ -27,6 +27,7 @@
 #include "Effect_Dig.h"
 #include "Effect_Smoke.h"
 #include "Effect_Trail.h"
+#include "Effect_NueTrail.h"
 
 CPlayer_State_Idle::CPlayer_State_Idle(CGameObject* _pOwner)
 	:CPlayer_State(_pOwner)
@@ -228,7 +229,39 @@ void CPlayer_State_Idle::Key_Input(const _float& fTimeDelta)
 
 	if (KEY_TAP(KEY::H))
 	{
-		
+		CEffect_NueTrail* pEffect = CEffect_NueTrail::Create(Get_Device());
+		pEffect->Ready_Object();
+		_vec3 vPos;
+		_vec3 vDir = _vec3(1.0f, 0.0f, 0.0f);
+		m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+		vPos += vDir;
+
+		pEffect->Set_Effect(m_pOwner, 0.1f, vDir, _vec3(2.0f, 0.0f, 0.0f), _vec3(0.0f, 2.0f, 0.0f), 0.2f);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", pEffect);
+
+
+
+		pEffect = CEffect_NueTrail::Create(Get_Device());
+		pEffect->Ready_Object();
+
+		pEffect->Set_Effect(m_pOwner, 0.1f, vDir, _vec3(2.0f, 0.0f, 0.0f), _vec3(0.0f, -2.0f, 0.0f), 0.2f);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", pEffect);
+
+
+
+		pEffect = CEffect_NueTrail::Create(Get_Device());
+		pEffect->Ready_Object();
+
+		pEffect->Set_Effect(m_pOwner, 0.1f, vDir, _vec3(2.0f, 0.0f, 0.0f), _vec3(0.0f, 0.0f, -2.0f), 0.2f);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", pEffect);
+
+
+
+		pEffect = CEffect_NueTrail::Create(Get_Device());
+		pEffect->Ready_Object();
+
+		pEffect->Set_Effect(m_pOwner, 0.1f, vDir, _vec3(2.0f, 0.0f, 0.0f), _vec3(0.0f, 0.0f, 2.0f), 0.2f);
+		Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", pEffect);
 	}
 
 

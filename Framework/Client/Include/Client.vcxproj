@@ -243,6 +243,7 @@
     <ClInclude Include="..\Header\Effect_Leaf.h" />
     <ClInclude Include="..\Header\Effect_LightningGround.h" />
     <ClInclude Include="..\Header\Effect_MotionTrail.h" />
+    <ClInclude Include="..\Header\Effect_NueTrail.h" />
     <ClInclude Include="..\Header\Effect_Shadow.h" />
     <ClInclude Include="..\Header\Effect_Smoke.h" />
     <ClInclude Include="..\Header\Effect_StoneSpike.h" />
@@ -512,6 +513,7 @@
     <ClCompile Include="..\Code\Effect_Leaf.cpp" />
     <ClCompile Include="..\Code\Effect_LightningGround.cpp" />
     <ClCompile Include="..\Code\Effect_MotionTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_NueTrail.cpp" />
     <ClCompile Include="..\Code\Effect_Shadow.cpp" />
     <ClCompile Include="..\Code\Effect_Smoke.cpp" />
     <ClCompile Include="..\Code\Effect_StoneSpike.cpp" />

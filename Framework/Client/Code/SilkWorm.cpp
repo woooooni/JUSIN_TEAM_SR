@@ -16,6 +16,8 @@
 #include "CutSceneMgr.h"
 #include "Effect_MotionTrail.h"
 #include "Particle_SilkWorm.h"
+#include "Effect_NueTrail.h"
+#include "Pool.h"
 
 CSilkWorm::CSilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev, OBJ_TYPE::OBJ_MONSTER, OBJ_ID::SILK_WORM)
@@ -435,6 +437,8 @@ void CSilkWorm::Update_Attack(_float fTimeDelta)
 				m_pTransformCom->RotationAxis(vCurrentRight, D3DXToRadian(30.f));
 				m_bRotate[0] = true;
 
+
+				Create_NueTrail();
 			}
 		}
 		if (m_pAnimator->GetCurrAnimation()->Get_Idx() == 3)
@@ -649,9 +653,11 @@ void CSilkWorm::Trace(_float fTimeDelta)
 		m_pAnimator->GetCurrAnimation()->Set_Idx(0);
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Attack", false);
 		m_pTransformCom->Set_Pos(&m_vRandomPos[rand() % 8]);
+		Delete_NueTrail();
 
 		vDir = vTargetPos - vPos;
 		m_vDir = vTargetPos - vPos;
+
 		if (m_bRotate[2])
 		{
 			_vec3 vScale = m_pTransformCom->Get_Scale();
@@ -680,6 +686,8 @@ void CSilkWorm::Trace(_float fTimeDelta)
 	_float fRight = m_vOrigin.x + m_fiInterval * 0.7f;
 	_float fUp = m_vOrigin.z + m_fiInterval * 0.7f;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+
+
 	 if (nullptr == m_pBeatles[m_eCOLORPATTERN]&&vPos.x>fLeft&&vPos.z> fDown&& vPos.x < fRight && vPos.z < fUp)
 	{
 		 Stop_Sound(CHANNELID::SOUND_BOSS);
@@ -716,6 +724,7 @@ void CSilkWorm::Trace(_float fTimeDelta)
 		Set_State(SILKWORM_STATE::DOWN);
 		m_fMoveTime = 0.f;
 		m_pAnimator->Play_Animation(L"BugBoss_Phase2_Down", false);
+		Delete_NueTrail();
 		for (int i = 0; i < COLOR_END; i++)
 		{
 		
@@ -989,4 +998,104 @@ void CSilkWorm::Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisio
 			m_tStat.iHp -= 1;
 	
 		}
+}
+
+void CSilkWorm::Create_NueTrail()
+{
+	if (m_pTrailEffect[0] ||
+		m_pTrailEffect[1] ||
+		m_pTrailEffect[2] ||
+		m_pTrailEffect[3])
+	{
+		for (_int i = 0; i < 4; ++i)
+		{
+			m_pTrailEffect[i]->Return_Pool();
+			m_pTrailEffect[i] = nullptr;
+		}
+	}
+
+	m_pTrailEffect[0] = CPool<CEffect_NueTrail>::Get_Obj();
+	if (!m_pTrailEffect[0])
+	{
+		m_pTrailEffect[0] = CEffect_NueTrail::Create(m_pGraphicDev);
+		NULL_CHECK(m_pTrailEffect);
+	}
+	m_pTrailEffect[0]->Ready_Object();
+
+
+	m_pTrailEffect[1] = CPool<CEffect_NueTrail>::Get_Obj();
+	if (!m_pTrailEffect[1])
+	{
+		m_pTrailEffect[1] = CEffect_NueTrail::Create(m_pGraphicDev);
+		NULL_CHECK(m_pTrailEffect);
+	}
+	m_pTrailEffect[1]->Ready_Object();
+
+	m_pTrailEffect[2] = CPool<CEffect_NueTrail>::Get_Obj();
+	if (!m_pTrailEffect[2])
+	{
+		m_pTrailEffect[2] = CEffect_NueTrail::Create(m_pGraphicDev);
+		NULL_CHECK(m_pTrailEffect);
+	}
+	m_pTrailEffect[2]->Ready_Object();
+
+	m_pTrailEffect[3] = CPool<CEffect_NueTrail>::Get_Obj();
+	if (!m_pTrailEffect[3])
+	{
+		m_pTrailEffect[3] = CEffect_NueTrail::Create(m_pGraphicDev);
+		NULL_CHECK(m_pTrailEffect);
+	}
+	m_pTrailEffect[3]->Ready_Object();
+
+
+
+
+
+	_vec3 vDir, vFront, vUp;
+	_float fAngleSpeed = 0.2f;
+	_float fScale = 3.0f;
+	D3DXVec3Normalize(&vDir, &m_vDir);
+
+
+
+	vFront = vDir * fScale;
+	vUp = _vec3(0.0f, fScale, 0.0f);
+
+	_matrix matRot;
+	D3DXMatrixRotationAxis(&matRot, &vDir, D3DXToRadian(45.0f));
+	D3DXVec3TransformNormal(&vUp, &vUp, &matRot);
+
+	m_pTrailEffect[0]->Set_Effect(this, 0.1f, vDir, vFront, vUp, fAngleSpeed);
+	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", m_pTrailEffect[0]);
+
+
+	D3DXMatrixRotationAxis(&matRot, &vDir, D3DXToRadian(90.0f));
+	D3DXVec3TransformNormal(&vUp, &vUp, &matRot);
+	m_pTrailEffect[1]->Set_Effect(this, 0.1f, vDir, vFront, vUp, fAngleSpeed);
+	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", m_pTrailEffect[1]);
+
+
+	D3DXVec3TransformNormal(&vUp, &vUp, &matRot);
+	m_pTrailEffect[2]->Set_Effect(this, 0.1f, vDir, vFront, vUp, fAngleSpeed);
+	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", m_pTrailEffect[2]);
+
+
+	D3DXVec3TransformNormal(&vUp, &vUp, &matRot);
+	m_pTrailEffect[3]->Set_Effect(this, 0.1f, vDir, vFront, vUp, fAngleSpeed);
+	Get_Layer(LAYER_TYPE::EFFECT)->Add_GameObject(L"NueTrail", m_pTrailEffect[3]);
+}
+
+void CSilkWorm::Delete_NueTrail()
+{
+	if (m_pTrailEffect[0] ||
+		m_pTrailEffect[1] ||
+		m_pTrailEffect[2] ||
+		m_pTrailEffect[3])
+	{
+		for (_int i = 0; i < 4; ++i)
+		{
+			m_pTrailEffect[i]->Return_Pool();
+			m_pTrailEffect[i] = nullptr;
+		}
+	}
 }
