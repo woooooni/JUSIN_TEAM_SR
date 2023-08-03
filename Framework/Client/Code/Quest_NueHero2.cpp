@@ -28,10 +28,6 @@ CQuest_NueHero2::CQuest_NueHero2()
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"엄마도 네가 자랑스럽단다.");
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::BEFORE].push_back(L"이제 마을도 구했으니까 취업해야겠지?");
 
-
-
-	// 오글거려서 더는 못쓰겠어요 ^^
-
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::CONTINUE].push_back(L"");
 
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"");
@@ -40,7 +36,7 @@ CQuest_NueHero2::CQuest_NueHero2()
 
 void CQuest_NueHero2::Update_Quest(_float& fTimeDelta)
 {
-
+	CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(false);
 }
 
 void CQuest_NueHero2::Accept_Quest()

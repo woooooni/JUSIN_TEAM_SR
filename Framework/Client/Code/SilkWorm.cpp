@@ -739,7 +739,7 @@ void CSilkWorm::Create_Effect(_vec3 vPos )
 	}
 
 	// 0803 МіСЄСп
-//	for (int i = 0; i < 50; i++)
+//	for (int i = 0; i < 20; i++)
 //	{
 //		CGameObject* pParticle = CPool<CParticle_SilkWorm>::Get_Obj();
 //		if (pParticle)
@@ -751,7 +751,6 @@ void CSilkWorm::Create_Effect(_vec3 vPos )
 //		else
 //		{
 //			pParticle = dynamic_cast<CParticle_SilkWorm*>(pParticle)->Create(Engine::Get_Device());
-//			int a = 0;
 //			if (pParticle)
 //			{
 //				pParticle->Set_Active(true);

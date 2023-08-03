@@ -34,8 +34,8 @@ HRESULT CParticle_SilkWorm::Ready_Object(void)
 
 	m_fAccTime = 0.0f;
 	m_fEndTime = 3.0f;
-	m_fAccMoveTime = 0.0f;
-	m_fMoveTime = 0.5f;
+	m_fAccEffectTime = 0.0f;
+	m_fEffectTime = 0.5f;
 
 	Set_Active(true);
 
@@ -47,12 +47,7 @@ _int CParticle_SilkWorm::Update_Object(const _float& fTimeDelta)
 	if (!Is_Active())
 		return S_OK;
 
-	if (m_fAccTime > m_fEndTime)
-	{
-
-	}
-	else
-		m_fAccTime += fTimeDelta;
+	m_pTransformCom->Move_Pos(&m_vDir, 0.5f, fTimeDelta);
 
 	Update_Move(fTimeDelta);
 
@@ -72,46 +67,47 @@ void CParticle_SilkWorm::LateUpdate_Object(void)
 
 void CParticle_SilkWorm::Render_Object(void)
 {
-//	__super::Render_Object();
-//
-//	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
-//
-//	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
-//	if (pCamera == nullptr)
-//		return;
-//
-//	_vec3 vPos;
-//	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
-//	D3DVECTOR vCamPos = vPos;
-//
-//	_float m_fR = 255.0f;
-//	_float m_fG = rand() % 26 + 230;
-//	_float m_fB = rand() % 72;
-//	_float m_fAlpha = 255.0f;
-//
-//	D3DCOLORVALUE vColor = { m_fR, m_fG, m_fB, m_fAlpha };
-//
-//	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
-//	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
-//	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
-//	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
-//	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
-//	pEffect->SetFloat("g_AlphaRef", 0.0f);
-//
-//	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
-//	pEffect->SetTexture("g_Texture", pTexture);
-//
-//	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
-//
-//	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
-//
-//	pEffect->Begin(nullptr, 0);
-//	pEffect->BeginPass(1);
-//
-//	m_pBufferCom->Render_Buffer();
-//
-//	pEffect->EndPass();
-//	pEffect->End();
+	__super::Render_Object();
+
+	LPD3DXEFFECT pEffect = m_pShader->Get_Effect();
+
+	CCamera* pCamera = dynamic_cast<CCamera*>(Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::CAMERA)->Find_GameObject(L"MainCamera"));
+	if (pCamera == nullptr)
+		return;
+
+	_vec3 vPos;
+	pCamera->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
+	D3DVECTOR vCamPos = vPos;
+
+	// 노란 계열 색상
+	_float m_fR = 255.0f;
+	_float m_fG = rand() % 26 + 230;
+	_float m_fB = rand() % 72;
+	_float m_fAlpha = 255.0f;
+
+	D3DCOLORVALUE vColor = { m_fR, m_fG, m_fB, m_fAlpha };
+
+	pEffect->SetMatrix("g_WorldMatrix", m_pTransformCom->Get_WorldMatrix());
+	pEffect->SetMatrix("g_ViewMatrix", &pCamera->GetViewMatrix());
+	pEffect->SetMatrix("g_ProjMatrix", &pCamera->GetProjectionMatrix());
+	pEffect->SetValue("g_CamPos", &vCamPos, sizeof(D3DVECTOR));
+	pEffect->SetValue("g_Color", &vColor, sizeof(D3DCOLORVALUE));
+	pEffect->SetFloat("g_AlphaRef", 0.0f);
+
+	IDirect3DBaseTexture9* pTexture = m_pAnimator->GetCurrAnimation()->Get_Texture(m_pAnimator->GetCurrAnimation()->Get_Idx());
+	pEffect->SetTexture("g_Texture", pTexture);
+
+	CLightMgr::GetInstance()->Set_LightToEffect(pEffect);
+
+	pEffect->SetValue("g_Material", &m_tMaterial, sizeof(D3DMATERIAL9));
+
+	pEffect->Begin(nullptr, 0);
+	pEffect->BeginPass(1);
+
+	m_pBufferCom->Render_Buffer();
+
+	pEffect->EndPass();
+	pEffect->End();
 }
 
 void CParticle_SilkWorm::Random_Particle(_vec3& _vPos)
@@ -127,12 +123,25 @@ void CParticle_SilkWorm::Random_Particle(_vec3& _vPos)
 		memcpy(&vInfo, &matWorld.m[i][0], sizeof(_vec3));
 		m_pTransformCom->Set_Info((MATRIX_INFO)i, &vInfo);
 	}
+
+	_vPos.z += 0.1f;
+	_float fScale = 0.1f + ((rand() % 10) * 0.05f);
+	_float fAngle = _float(rand() % 360);
+
+	m_pTransformCom->Set_Scale(_vec3(fScale, fScale, 0.0f));
+	m_pTransformCom->Set_Pos(&_vPos);
+
+//	_float fX = (rand() % 11) * 0.1f;
+//	_float fY = (rand() % 11 + 1) * 0.1f;
+//
+//	_uint i = 
 }
 
 void CParticle_SilkWorm::Update_Move(const _float& fTimeDelta)
 {
-	if (m_fAccMoveTime > m_fMoveTime)
+	if (m_fAccEffectTime > m_fEffectTime)
 	{
+
 	}
 }
 
