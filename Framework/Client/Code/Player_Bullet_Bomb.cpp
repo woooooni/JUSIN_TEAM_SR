@@ -337,13 +337,18 @@ void CPlayer_Bullet_Bomb::Collision_Enter(CCollider* pCollider, COLLISION_GROUP 
 		_vec3 vPos;
 		m_pTransformCom->Get_Info(INFO_POS, &vPos);
 		CGameObject* pExplosion = CPool<CEffect_Explosion>::Get_Obj();
+
+
+		vPos.x += ((rand() % 3) - 2) * 0.1f;
+		vPos.y += ((rand() % 3) - 2) * 0.1f;
+
 		if (pExplosion)
-			dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+			dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f));
 		else
 		{
 			pExplosion = dynamic_cast<CEffect_Explosion*>(pExplosion)->Create(Engine::Get_Device());
 			if (pExplosion)
-				dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(0.7f, 0.7f, 0.7f));
+				dynamic_cast<CEffect_Explosion*>(pExplosion)->Get_Effect(vPos, _vec3(2.f, 2.f, 2.f));
 		}
 
 		m_pRigidBodyCom->SetVelocity(_vec3(0.0f, 0.0f, 0.0f));

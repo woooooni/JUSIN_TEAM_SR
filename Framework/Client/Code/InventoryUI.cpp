@@ -24,6 +24,7 @@ CInventoryUI::CInventoryUI(const CInventoryUI& rhs)
 	, m_bIsRenderCurs(rhs.m_bIsRenderCurs)
 	, m_pCursurTex(rhs.m_pCursurTex)
 	, m_pUseBtnTex(rhs.m_pUseBtnTex)
+	, m_pInfoTex(rhs.m_pInfoTex)
 	, m_tBtnInfo(rhs.m_tBtnInfo)
 {
 }
@@ -45,10 +46,11 @@ HRESULT CInventoryUI::Ready_Object(void)
 
 	m_tCursorInfo = { 310.f, 310.f, 100.f, 100.f };
 	m_tBtnInfo = { WINCX - 100.f, WINCY - 100.f, 150.f, 75.f };
-	m_tExplainInfo = { WINCX * 0.5f + 250.f + 150.f, WINCY * 0.5f, 300.f, 500.f };
+	m_tExplainInfo = { WINCX * 0.5f + 150.f + 150.f, WINCY * 0.5f - 100.f, 300.f, 400.f };
 
 	m_pUseBtnTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Shop_Button"));
 	m_pCursurTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_Shop_Cursor"));
+	m_pInfoTex = dynamic_cast<CTexture*>(Clone_Proto(L"Proto_Texture_InventoryInfo"));
 
 	return S_OK;
 } 
@@ -62,6 +64,7 @@ _int CInventoryUI::Update_Object(const _float& fTimeDelta)
 		iter->Update_Object(fTimeDelta);
 	}
 
+	m_tExplainInfo = { WINCX * 0.5f + 250.f + 150.f, WINCY * 0.5f, 300.f, 400.f };
 	if (CKeyMgr::GetInstance()->GetKeyState(KEY::LBTN) == KEY_STATE::TAP)
 	{
 		if (m_bIsRenderCurs)
@@ -167,7 +170,7 @@ void CInventoryUI::Render_Object(void)
 
 
 		m_pGraphicDev->SetTransform(D3DTS_WORLD, &Trans_Matrix(m_tExplainInfo));
-		m_pUseBtnTex->Render_Texture();
+		m_pInfoTex->Render_Texture();
 		m_pBufferCom->Render_Buffer();
 
 		RECT rc = { WINCX * 0.5f + 250 + 30, WINCY * 0.5f - 150, WINCX * 0.5f + 250 + 270, WINCY * 0.5f + 150 };
@@ -211,7 +214,7 @@ void CInventoryUI::Render_Object(void)
 		m_pUseBtnTex->Render_Texture();
 		m_pBufferCom->Render_Buffer();
 
-		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, tmp.c_str(), tmp.length(), &rc, DT_SINGLELINE | DT_VCENTER | DT_CENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 100, 100, 100));
+		Engine::Get_Font(FONT_TYPE::CAFE24_SURROUND_AIR)->DrawTextW(NULL, tmp.c_str(), tmp.length(), &rc, DT_SINGLELINE | DT_VCENTER | DT_CENTER | DT_NOCLIP, D3DCOLOR_ARGB(255, 80, 80, 80));
 	}
 
 }

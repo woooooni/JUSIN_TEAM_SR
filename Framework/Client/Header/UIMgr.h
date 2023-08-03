@@ -16,6 +16,7 @@
 #include "UI_NewQuest.h"
 #include "UI_QuestList.h"
 #include "UI_Fade.h"
+#include "UI_Mouse.h"
 
 class CUIMgr : public CBase
 {
@@ -58,6 +59,7 @@ private:
 	CUI_NewQuest*	m_pNewQuest = nullptr;
 	CUI_QuestList*	m_pQuestList = nullptr;
 	CUI_Fade*		m_pFade = nullptr;
+	CUI_Mouse*		m_pMouse = nullptr;
 	
 	CInventoryUI*	 m_pInventory = nullptr;
 

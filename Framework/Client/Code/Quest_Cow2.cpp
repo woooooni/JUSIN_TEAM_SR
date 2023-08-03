@@ -2,9 +2,11 @@
 #include "Quest_Cow2.h"
 #include "Quest_MonkeyCheif1.h"
 #include "Quest_Artist1.h"
+#include "Quest_DanceTeacher.h"
 #include "QuestMgr.h"
 #include "UIMgr.h"
 #include "UI_NewQuest.h"
+
 
 CQuest_Cow2::CQuest_Cow2()
 	:CQuest_Conversation(NPC_CODE::NPC_COW, nullptr)
@@ -44,8 +46,11 @@ void CQuest_Cow2::Accept_Quest()
 {
 	m_eQuestProgress = QUEST_PROGRESS::CONTINUE;
 	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
+
 	CQuestMgr::GetInstance()->Add_Quest(new CQuest_Artist1(NPC_CODE::NPC_ARTIST, nullptr));
-	
+	CQuestMgr::GetInstance()->Add_Quest(new CQuest_DanceTeacher(NPC_CODE::NPC_DANCETEACHER, nullptr));
+
+
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Title(m_strQuestTitle);
 	CUIMgr::GetInstance()->Get_NewQuestUI()->Set_Desc(m_strQuestDesc);
 

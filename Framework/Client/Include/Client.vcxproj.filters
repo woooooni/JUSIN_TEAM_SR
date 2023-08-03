@@ -694,6 +694,15 @@
     <Filter Include="02. GameObject\04. UI\13. Ending">
       <UniqueIdentifier>{58295a55-8280-46f2-a2ce-212eadf41902}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\Sub\Draw">
+      <UniqueIdentifier>{a2e9e3d3-25a2-4c7e-adf7-4ac06f26fe3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Manager\04. Quest\Quest\Quests\Sub\Dance">
+      <UniqueIdentifier>{6949e7bf-fe55-477d-ad7d-d3a9e51c21e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObject\04. UI\14. Mouse">
+      <UniqueIdentifier>{94df54eb-76a1-4f28-bda5-4dbd9c6cc23c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1381,9 +1390,6 @@
     <ClInclude Include="..\Header\Quest_MonkeyCheif3.h">
       <Filter>98. Manager\04. Quest\Quest\Quests\05</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\Quest_Artist1.h">
-      <Filter>98. Manager\04. Quest\Quest\Quests\Sub</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\Quest_NueHero1.h">
       <Filter>98. Manager\04. Quest\Quest\Quests\06</Filter>
     </ClInclude>
@@ -1426,6 +1432,15 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_MainLogo.h" />
     <ClInclude Include="..\Header\UI_Ending.h" />
+    <ClInclude Include="..\Header\Quest_Artist1.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\Sub\Draw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Quest_DanceTeacher.h">
+      <Filter>98. Manager\04. Quest\Quest\Quests\Sub\Dance</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\UI_Mouse.h">
+      <Filter>02. GameObject\04. UI\14. Mouse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2075,9 +2090,6 @@
     <ClCompile Include="..\Code\Quest_MonkeyChief3.cpp">
       <Filter>98. Manager\04. Quest\Quest\Quests\05</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Quest_Artist1.cpp">
-      <Filter>98. Manager\04. Quest\Quest\Quests\Sub</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Quest_NueHero1.cpp">
       <Filter>98. Manager\04. Quest\Quest\Quests\06</Filter>
     </ClCompile>
@@ -2120,6 +2132,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_MainLogo.cpp" />
     <ClCompile Include="..\Code\UI_Ending.cpp" />
+    <ClCompile Include="..\Code\Quest_Artist1.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\Sub\Draw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Quest_DanceTeacher.cpp">
+      <Filter>98. Manager\04. Quest\Quest\Quests\Sub\Dance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Mouse.cpp">
+      <Filter>02. GameObject\04. UI\14. Mouse</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

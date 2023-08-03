@@ -374,6 +374,7 @@
     <ClInclude Include="..\Header\Quest_Conversation.h" />
     <ClInclude Include="..\Header\Quest_Cow1.h" />
     <ClInclude Include="..\Header\Quest_Cow2.h" />
+    <ClInclude Include="..\Header\Quest_DanceTeacher.h" />
     <ClInclude Include="..\Header\Quest_Hunting.h" />
     <ClInclude Include="..\Header\Quest_MonkeyCheif1.h" />
     <ClInclude Include="..\Header\Quest_MonkeyCheif3.h" />
@@ -432,6 +433,7 @@
     <ClInclude Include="..\Header\UI_MainLogo.h" />
     <ClInclude Include="..\Header\UI_MapName.h" />
     <ClInclude Include="..\Header\UI_MonsterHP.h" />
+    <ClInclude Include="..\Header\UI_Mouse.h" />
     <ClInclude Include="..\Header\UI_NewItem.h" />
     <ClInclude Include="..\Header\UI_NewQuest.h" />
     <ClInclude Include="..\Header\UI_Notification.h" />
@@ -638,6 +640,7 @@
     <ClCompile Include="..\Code\Quest_Conversation.cpp" />
     <ClCompile Include="..\Code\Quest_Cow1.cpp" />
     <ClCompile Include="..\Code\Quest_Cow2.cpp" />
+    <ClCompile Include="..\Code\Quest_DanceTeacher.cpp" />
     <ClCompile Include="..\Code\Quest_Hunting.cpp" />
     <ClCompile Include="..\Code\Quest_MonkeyCheif1.cpp" />
     <ClCompile Include="..\Code\Quest_MonkeyCheif2.cpp" />
@@ -698,6 +701,7 @@
     <ClCompile Include="..\Code\UI_MainLogo.cpp" />
     <ClCompile Include="..\Code\UI_MapName.cpp" />
     <ClCompile Include="..\Code\UI_MonsterHP.cpp" />
+    <ClCompile Include="..\Code\UI_Mouse.cpp" />
     <ClCompile Include="..\Code\UI_NewItem.cpp" />
     <ClCompile Include="..\Code\UI_NewQuest.cpp" />
     <ClCompile Include="..\Code\UI_Notification.cpp" />
