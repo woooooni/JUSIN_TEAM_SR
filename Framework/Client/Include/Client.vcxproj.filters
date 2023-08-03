@@ -694,6 +694,9 @@
     <Filter Include="02. GameObject\04. UI\13. Ending">
       <UniqueIdentifier>{58295a55-8280-46f2-a2ce-212eadf41902}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\06. Ending">
+      <UniqueIdentifier>{4dcf4730-5d6d-424b-83cb-3d743052103e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1426,6 +1429,9 @@
     </ClInclude>
     <ClInclude Include="..\Header\UI_MainLogo.h" />
     <ClInclude Include="..\Header\UI_Ending.h" />
+    <ClInclude Include="..\Header\Scene_Ending.h">
+      <Filter>01. Scene\06. Ending</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2120,6 +2126,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\UI_MainLogo.cpp" />
     <ClCompile Include="..\Code\UI_Ending.cpp" />
+    <ClCompile Include="..\Code\Scene_Ending.cpp">
+      <Filter>01. Scene\06. Ending</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

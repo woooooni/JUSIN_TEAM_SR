@@ -39,6 +39,7 @@
 #include "Scene_Test.h"
 #include "Scene_Tool.h"
 #include "Scene_SilkWorm.h"
+#include "Scene_Ending.h"
 #include <thread>
 
 #include "Pool.h"
@@ -147,6 +148,9 @@ unsigned int CLoading::Thread_Main(void* pArg)
 		pLoading->m_pLoadingScene = CScene_Test::Create(pLoading->m_pGraphicDev);
 		break;
 
+	case  Engine::SCENE_TYPE::ENDING:
+		pLoading->m_pLoadingScene = CScene_Ending::Create(pLoading->m_pGraphicDev);
+		break;
 	default:
 		break;
 	}

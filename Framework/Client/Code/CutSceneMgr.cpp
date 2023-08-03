@@ -10,6 +10,7 @@
 #include "Npc_OguMom.h"
 #include "Npc_Sheep.h"
 #include "Npc_Chief.h"
+#include "Scene_Loading.h"
 
 IMPLEMENT_SINGLETON(CCutSceneMgr)
 
@@ -443,7 +444,7 @@ void CCutSceneMgr::Update_CutSceneEnding(const _float& fTimeDelta)
 
 	if (!m_bCutsceneSwitch[0] && m_fAccTimeEnding >= 3.f)
 	{
-		CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 5.f);
+//		CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 5.f);
 		m_bCutsceneSwitch[0] = true;
 	}
 	else if (m_bCutsceneSwitch[0] && !m_bCutsceneSwitch[1] && !CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
@@ -468,19 +469,13 @@ void CCutSceneMgr::Update_CutSceneEnding(const _float& fTimeDelta)
 
 		//엔딩크레딧 생성
 		m_bCutsceneSwitch[1] = true;
-	}
-	else if (m_bCutsceneSwitch[1])
-	{
-		_vec3 campos;
-		m_pCamera->Get_TransformCom()->Get_Info(INFO_POS, &campos);
-		campos.y += 10 * fTimeDelta;
-		m_pCamera->Get_TransformCom()->Set_Info(INFO_POS, &campos);
-		campos -= m_pCamera->Get_Offset();
-		m_pCamera->Get_TransformCom()->Set_Info(INFO_LOOK, &campos);
 
-
-		//크레딧 없으면 게임 종료
+		CUIMgr::GetInstance()->Get_Ending()->Set_Active(true);
+		CScene_Loading* pScene = CScene_Loading::Create(Get_Device(), SCENE_TYPE::ENDING);
+		Engine::Reserve_SceneChange(pScene);
+		Finish_CutSceneEnding();
 	}
+
 
 
 }
@@ -695,7 +690,7 @@ void CCutSceneMgr::Finish_CutSceneNueHero_Intro()
 {
 	m_bCutScenePlaying = false;
 	m_pCamera->Set_CameraState(CAMERA_STATE::GAME);
-	m_pCamera->Set_Offset(m_pCamera->Get_Offset() * 4.f);
+	m_pCamera->Set_Offset(m_pCamera->Get_Offset() * 2.f);
 
 	m_pCamera->Set_TargetObj(CGameMgr::GetInstance()->Get_Player());
 	CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);
@@ -706,7 +701,7 @@ void CCutSceneMgr::Finish_CutSceneNueHero_Die()
 {
 	m_bCutScenePlaying = false;
 	m_pCamera->Set_CameraState(CAMERA_STATE::GAME);
-	m_pCamera->Set_Offset(m_pCamera->Get_Offset() * 0.25f);
+	m_pCamera->Set_Offset(m_pCamera->Get_Offset() * 0.5f);
 
 	m_pCamera->Set_TargetObj(CGameMgr::GetInstance()->Get_Player());
 	CGameMgr::GetInstance()->Get_Player()->Set_Stop(false);

@@ -387,6 +387,7 @@
     <ClInclude Include="..\Header\RabitObj.h" />
     <ClInclude Include="..\Header\RedBeatle.h" />
     <ClInclude Include="..\Header\RollingBug.h" />
+    <ClInclude Include="..\Header\Scene_Ending.h" />
     <ClInclude Include="..\Header\Scene_Loading.h" />
     <ClInclude Include="..\Header\Scene_MonkeyForest1.h" />
     <ClInclude Include="..\Header\Scene_MonkeyForest2.h" />
@@ -651,6 +652,7 @@
     <ClCompile Include="..\Code\RabitObj.cpp" />
     <ClCompile Include="..\Code\RedBeatle.cpp" />
     <ClCompile Include="..\Code\RollingBug.cpp" />
+    <ClCompile Include="..\Code\Scene_Ending.cpp" />
     <ClCompile Include="..\Code\Scene_Loading.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyForest1.cpp" />
     <ClCompile Include="..\Code\Scene_MonkeyForest2.cpp" />

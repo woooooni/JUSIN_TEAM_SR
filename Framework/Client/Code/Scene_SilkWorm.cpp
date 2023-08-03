@@ -142,11 +142,11 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Nue_NPC", nue);
 
 	//// Test
-	//CQuest* pQuest = new CQuest_NueHero2();
-	//CQuestMgr::GetInstance()->Add_Quest(pQuest);
+	CQuest* pQuest = new CQuest_NueHero2();
+	CQuestMgr::GetInstance()->Add_Quest(pQuest);
 
 
-	//m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
 }

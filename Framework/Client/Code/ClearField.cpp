@@ -97,7 +97,7 @@ _int CClearField::Update_Object(const _float& fTimeDelta)
     else
     {
         Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_TRIGGER);
-        Add_RenderGroup(RENDER_ALPHA, this);
+        Add_RenderGroup(RENDER_PRIORITY, this);
         m_fExistTime += fTimeDelta;
     }
 
