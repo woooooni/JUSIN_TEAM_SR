@@ -39,6 +39,7 @@ protected:
 
 	CTexture* m_pCursurTex;
 	CTexture* m_pUseBtnTex;
+	CTexture* m_pInfoTex;
 
 	UI_INFO		m_tCursorInfo;
 	UI_INFO		m_tBtnInfo;

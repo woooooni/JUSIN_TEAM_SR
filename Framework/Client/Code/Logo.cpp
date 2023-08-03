@@ -4,7 +4,7 @@
 #include "Loading.h"
 #include "UI_MainLogo.h"
 #include "Scene_Loading.h"
-
+#include "UIMgr.h"
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
 {
@@ -38,8 +38,6 @@ HRESULT CLogo::Ready_Scene()
 
 	m_pGraphicDev->SetViewport(&vp);
 
-	
-
 	return S_OK;
 }
 
@@ -50,7 +48,7 @@ Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 		CScene_Loading* pScene = CScene_Loading::Create(m_pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE);
 		Engine::Reserve_SceneChange(pScene);
 	}
-
+	// CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
 	return __super::Update_Scene(fTimeDelta);
 }
 
@@ -97,6 +95,7 @@ CLogo* CLogo::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CLogo::Ready_Prototype()
 {
+	// FAILED_CHECK_RETURN(CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev), E_FAIL);
 	return S_OK;
 }
 
@@ -183,6 +182,9 @@ HRESULT CLogo::Ready_Layer_UI()
 
 	CUI_MainLogo* pUI = CUI_MainLogo::Create(m_pGraphicDev);
 	pLayer->Add_GameObject(L"MainLogo", pUI);
+
+	CUI_Mouse* pUIMouse = CUI_Mouse::Create(m_pGraphicDev);
+	pLayer->Add_GameObject(L"Mouse", pUIMouse);
 
 	pLayer->Ready_Layer();
 

@@ -31,7 +31,7 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     m_pWallet = CUI_Wallet::Create(_pGraphicDev);
     m_pNewQuest = CUI_NewQuest::Create(_pGraphicDev);
     m_pEnding = CUI_Ending::Create(_pGraphicDev);
-
+    m_pMouse = CUI_Mouse::Create(_pGraphicDev);
 
     m_pQuestList = CUI_QuestList::Create(_pGraphicDev);
     m_pFade = CUI_Fade::Create(_pGraphicDev);
@@ -44,9 +44,10 @@ HRESULT CUIMgr::Ready_UIMgr(LPDIRECT3DDEVICE9 _pGraphicDev)
     NULL_CHECK_RETURN(m_pInventory, E_FAIL);
     NULL_CHECK_RETURN(m_pWallet, E_FAIL);
     NULL_CHECK_RETURN(m_pNewQuest, E_FAIL);
+    NULL_CHECK_RETURN(m_pMouse, E_FAIL);
     NULL_CHECK_RETURN(m_pQuestList, E_FAIL);
     NULL_CHECK_RETURN(m_pEnding, E_FAIL);
-
+    NULL_CHECK_RETURN(m_pFade, E_FAIL);
     //NULL_CHECK_RETURN(m_pMapName, E_FAIL);
 
     // m_pVeil = CUI_Veil::Create(_pGraphicDev);
@@ -76,6 +77,7 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_pShop->Update_Object(fTimeDelta);
     m_pQuickSlot->Update_Object(fTimeDelta);
     //m_pMapName->Update_Object(fTimeDelta);
+    m_pMouse->Update_Object(fTimeDelta);
 
     m_vecIcon[PLAYERHP_FRAME]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_1]->Update_Object(fTimeDelta);
@@ -84,11 +86,12 @@ void CUIMgr::Update_UIMgr(const _float& fTimeDelta)
     m_vecIcon[KEYBUTTON_4]->Update_Object(fTimeDelta);
     m_vecIcon[KEYBUTTON_L]->Update_Object(fTimeDelta);
 
+
+
     if (m_pShortCutKey->Is_Active())
         m_pShortCutKey->Update_Object(fTimeDelta);
 
-
-        m_pDialog->Update_Object(fTimeDelta);
+    m_pDialog->Update_Object(fTimeDelta);
 
     if (m_pWallet->Is_Active())
         m_pWallet->Update_Object(fTimeDelta);

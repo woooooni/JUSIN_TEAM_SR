@@ -599,11 +599,12 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		m_eHat = PLAYER_HAT::DRILL;
 		Set_Hat(m_vecHats[(_uint)m_eHat]);
 	}
-	else if (KEY_TAP(KEY::NUM_6))
+	*/
+	if (KEY_TAP(KEY::NUM_6))
 	{
 		m_eHat = PLAYER_HAT::MISSILE;
 		Set_Hat(m_vecHats[(_uint)m_eHat]);
-	}*/
+	}
 }
 
 void CPlayer::Set_ItemEffect(ITEM_CODE eItemCode)

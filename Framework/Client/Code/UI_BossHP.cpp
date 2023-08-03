@@ -24,7 +24,7 @@ HRESULT CUI_BossHP::Ready_Object(void)
 	m_tInfo.fY = WINCY / 2.f - 340.f;
 
 	m_vDefaultPos = { ((2 * (m_tInfo.fX)) / WINCX - 1) * (1 / m_matProj._11),
-					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
+					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.1f };
 
 	m_tInfo.fCX = m_pTextureCom->Get_TextureDesc(0).Width;
 	m_tInfo.fCY = m_pTextureCom->Get_TextureDesc(0).Height;
