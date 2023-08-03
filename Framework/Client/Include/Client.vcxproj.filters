@@ -691,6 +691,9 @@
     <Filter Include="02. GameObject\17. Particle\04. SilkWorm">
       <UniqueIdentifier>{8d9c2ddb-9ea1-417d-9afc-2dc0325ae4a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. UI\13. Ending">
+      <UniqueIdentifier>{58295a55-8280-46f2-a2ce-212eadf41902}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\MainApp.h">
@@ -1421,6 +1424,8 @@
     <ClInclude Include="..\Header\Particle_SilkWorm.h">
       <Filter>02. GameObject\17. Particle\04. SilkWorm</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\UI_MainLogo.h" />
+    <ClInclude Include="..\Header\UI_Ending.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\MainApp.cpp">
@@ -2113,6 +2118,8 @@
     <ClCompile Include="..\Code\Particle_SilkWorm.cpp">
       <Filter>02. GameObject\17. Particle\04. SilkWorm</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\UI_MainLogo.cpp" />
+    <ClCompile Include="..\Code\UI_Ending.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
