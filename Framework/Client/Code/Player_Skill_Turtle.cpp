@@ -71,6 +71,7 @@ void CPlayer_Skill_Turtle::LateUpdate_State(void)
 	m_pOwner->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.z -= 0.01f;
 	vPos.y += 0.1f;
+	vPos.z -= 0.1f;
 	m_pBarrier->Get_TransformCom()->Set_Pos(&vPos);
 }
 

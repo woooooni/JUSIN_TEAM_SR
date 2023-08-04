@@ -49,6 +49,7 @@ CMainApp::~CMainApp()
 
 HRESULT CMainApp::Ready_MainApp(void)
 {
+	SetWindowText(g_hWnd, L"오구와 비밀의 숲");
 	// _CrtSetBreakAlloc(3474);//문제 발생 시, 메모리 릭 부분에 중단점
 	FAILED_CHECK_RETURN(SetUp_DefaultSetting(&m_pGraphicDev), E_FAIL);
 	FAILED_CHECK_RETURN(Ready_Default_SamplerState(), E_FAIL);
@@ -102,18 +103,18 @@ void CMainApp::Render_MainApp()
 
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 
-#ifdef _DEBUG
-	++m_iNumDraw;
-	
-	if (m_fTimeAcc >= 1.f)
-	{
-		wsprintf(m_szFPS, TEXT("fps : %d"), m_iNumDraw);
-		m_iNumDraw = 0;
-		m_fTimeAcc = 0.f;
-	}
-
-	SetWindowText(g_hWnd, m_szFPS);
-#endif // _DEBUG
+//#ifdef _DEBUG
+//	++m_iNumDraw;
+//	
+//	if (m_fTimeAcc >= 1.f)
+//	{
+//		wsprintf(m_szFPS, TEXT("fps : %d"), m_iNumDraw);
+//		m_iNumDraw = 0;
+//		m_fTimeAcc = 0.f;
+//	}
+//
+//	SetWindowText(g_hWnd, m_szFPS);
+//#endif // _DEBUG
 
 
 	Engine::Update_EventMgr(0.f);

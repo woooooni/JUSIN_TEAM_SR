@@ -46,7 +46,7 @@ HRESULT CScene_SilkWorm::Ready_Scene()
 	D3DLIGHT9 tLight;
 	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
 	tLight.Direction = { 0.0f, -1.0f, 1.0f };
-	tLight.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+	tLight.Ambient = { 0.3f, 0.3f, 0.3f, 1.0f };
 	tLight.Diffuse = { 0.2f, 0.2f, 0.2f, 1.0f };
 	tLight.Specular = { 0.2f, 0.2f, 0.2f, 1.0f };
 
@@ -151,11 +151,11 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 
 HRESULT CScene_SilkWorm::Ready_Layer_Monster()
 {
-	CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
-	_vec3 vPos = _vec3(53.f, 0.5f, 26.f);
-	pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
+	//CSilkWorm* pSilkWorm = CSilkWorm::Create(m_pGraphicDev);
+	//_vec3 vPos = _vec3(53.f, 0.5f, 26.f);
+	//pSilkWorm->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
-	m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);
+	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"SilkWorm", pSilkWorm);
 
 	return S_OK;
 }

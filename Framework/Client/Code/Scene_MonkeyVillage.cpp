@@ -206,6 +206,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	pElite->Get_TransformCom()->Set_Info(INFO_POS, &vElitePos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Elite7", pElite);
 	VILLAGERTYPE VillagerTypeArray[5] = { VILLAGERTYPE::MONKEY_HOOD,VILLAGERTYPE::MONKEY_FUR,VILLAGERTYPE::MONKEY_LEAVES1,VILLAGERTYPE::MONKEY_LEAVES2,VILLAGERTYPE::MONKEY_DANCER};
+
 	CNpc_VillagerMonkey* pVillagerMonkey = CNpc_VillagerMonkey::Create(m_pGraphicDev, VillagerTypeArray[rand()%5]);
 	_vec3 vVillagerMonkeyPos = _vec3(123.f, 0.75f, 22.1f);
 	pVillagerMonkey->Get_TransformCom()->Set_Info(INFO_POS, &vVillagerMonkeyPos);
@@ -325,11 +326,15 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 	_vec3 vOrangiPos = _vec3(59.f, 0.75f, 85.49f);
 	pOrangi->Get_TransformCom()->Set_Info(INFO_POS, &vOrangiPos);
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Orangi", pOrangi);
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+	
+	if (!bPlayedCutScene)
+	{
+		CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_MONKEYTOWN));
+		pDrawing->Get_TransformCom()->Set_Pos(&_vec3(139.5f, 0.6f, 81.f));
+		m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
+	}
 
-	CGameObject* pDrawing = CDrawingEnter::Create(m_pGraphicDev, CDefaultItem::Create(m_pGraphicDev, OBJ_ID::ITEM, ITEM_CODE::DRAWING_MONKEYTOWN));
-	pDrawing->Get_TransformCom()->Set_Pos(&_vec3(139.5f, 0.6f, 81.f));
-	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
+	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
 }

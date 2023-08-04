@@ -574,7 +574,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	if (fTimeDelta == 0)
 		return;
 
-	if (KEY_TAP(KEY::NUM_1))
+	/*if (KEY_TAP(KEY::NUM_1))
 	{
 		m_eHat = PLAYER_HAT::LIGHT;
 		Set_Hat(m_vecHats[(_uint)m_eHat]);
@@ -604,7 +604,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	{
 		m_eHat = PLAYER_HAT::MISSILE;
 		Set_Hat(m_vecHats[(_uint)m_eHat]);
-	}
+	}*/
 }
 
 void CPlayer::Set_ItemEffect(ITEM_CODE eItemCode)

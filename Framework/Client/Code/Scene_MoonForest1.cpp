@@ -10,9 +10,9 @@
 #include "BalpanObj.h"
 #include "LightFlower.h"
 #include "Door.h"
-#include	"LightPuzzleBase.h"
-#include	"LightPuzzlePiece.h"
-#include	"LightPuzzleTerrain.h"
+#include "LightPuzzleBase.h"
+#include "LightPuzzlePiece.h"
+#include "LightPuzzleTerrain.h"
 #include "RollingBug.h"
 #include "Portal.h"
 #include "UI_MapName.h"
@@ -77,7 +77,7 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 	D3DLIGHT9 tLight;
 	tLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
 	tLight.Direction = { 0.0f, -1.0f, 1.0f };
-	tLight.Ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
+	tLight.Ambient = { 0.3f, 0.3f, 0.3f, 1.0f };
 	tLight.Diffuse = { 0.2f, 0.2f, 0.2f, 1.0f };
 	tLight.Specular = { 0.2f, 0.2f, 0.2f, 1.0f };
 
@@ -435,85 +435,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_InterationObj()
 		}
 	);
 	pTrig->Set_Once();
-
 	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
-
-	pTrig = CTriggerObj::Create(m_pGraphicDev, { 100.f, 0.f, 74.f });
-
-	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
-	pTrig->Add_Trigger([]()
-		{
-			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
-
-			if (KEY_TAP(KEY::Z))
-			{
-				CUI_Dialog* dia = CUIMgr::GetInstance()->Get_Dialog();
-
-				if (!dia->Is_Active() && dia->Get_Desc() == L"")
-				{
-					dia->Get_StringVec().clear();
-					dia->Set_Name(L"안내판");
-					dia->Get_StringVec().push_back(L"태양의 방향을 바라보는 위대한 \n벌레전사들이 답을 알고있다.");
-					dia->Set_Quest(nullptr);
-					dia->Set_Active(true);
-				}
-			}
-		}, CTriggerObj::COLLIDE_EVENT_TYPE::STAY);
-
-	pTrig->Set_UpdateDialogue();
-
-	pTrig->Add_Trigger([]()
-		{
-			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
-			CUIMgr::GetInstance()->Get_Dialog()->Set_Active(false);
-		}, CTriggerObj::COLLIDE_EVENT_TYPE::EXIT);
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
-
-	pTrig = CTriggerObj::Create(m_pGraphicDev, { 51.5f, 0.f, 70.f });
-
-	pTrig->Set_Target(CGameMgr::GetInstance()->Get_Player());
-	pTrig->Add_Trigger([]()
-		{
-			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(true);
-
-			if (KEY_TAP(KEY::Z))
-			{
-				CUI_Dialog* dia = CUIMgr::GetInstance()->Get_Dialog();
-
-				if (!dia->Is_Active() && dia->Get_Desc() == L"")
-				{
-					dia->Get_StringVec().clear();
-					dia->Set_Name(L"안내판");
-					dia->Get_StringVec().push_back(L"남, 동, 서쪽의 수수께끼를 풀어야 문이 열린다.");
-					dia->Set_Quest(nullptr);
-					dia->Set_Active(true);
-				}
-			}
-		}, CTriggerObj::COLLIDE_EVENT_TYPE::STAY);
-
-	pTrig->Set_UpdateDialogue();
-
-	pTrig->Add_Trigger([]()
-		{
-			CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
-			CUIMgr::GetInstance()->Get_Dialog()->Set_Active(false);
-		}, CTriggerObj::COLLIDE_EVENT_TYPE::EXIT);
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);
-
-
-
-	/*pTrig = CTriggerObj::Create(m_pGraphicDev, {-10, -10, -10});
-	pTrig->Set_EventTrigger(
-		21,
-		[]()
-		{
-			Check_Event_Start(27);
-		}
-	);
-
-	m_mapLayer[LAYER_TYPE::INTERACTION_OBJ]->Add_GameObject(L"Trigger", pTrig);*/
-
-
 
 	return S_OK;
 }
