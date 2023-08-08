@@ -17,10 +17,10 @@ public:
 	virtual	_int	Update_Component(const _float& fTimeDelta) override;
 	virtual void	LateUpdate_Component() override;
 	virtual void	Render_Component()	override;
-
+	
 public:
 	HRESULT		Add_Animation(const wstring& _strKey, const wstring& _strProtoTexture, _float _fFrame);
-	HRESULT		Play_Animation(const wstring& _strKey);
+	HRESULT		Play_Animation(const wstring& _strKey, _bool _bLoop);
 	CTexture*	GetCurrAnimation()							{ return m_pCurAnimation; }
 
 

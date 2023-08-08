@@ -18,13 +18,9 @@ CCollider::CCollider(LPDIRECT3DDEVICE9 _pDevice, COMPONENT_TYPE _eComType, COLLI
 	, m_bRender(true)
 	, m_iID(g_iNextID++)
 	, m_eType(_eColType)
+	, m_vOffset(_vec3(0.f, 0.f, 0.f))
 {
 	ZeroMemory(m_vCenterPos, sizeof(D3DXVECTOR3));
-	ZeroMemory(m_vAxisDir, 3 * sizeof(D3DXVECTOR3));
-	ZeroMemory(m_fAxisLen, 3 * sizeof(float));
-
-	for (int i = 0; i < 3; ++i)
-		m_fAxisLen[i] = 1.f;
 }
 
 CCollider::CCollider(const CCollider & rhs)
@@ -33,10 +29,9 @@ CCollider::CCollider(const CCollider & rhs)
 	, m_bRender(rhs.m_bRender)
 	, m_iID(g_iNextID++)
 	, m_eType(rhs.m_eType)
+	, m_vOffset(rhs.m_vOffset)
 {
 	CopyMemory(m_vCenterPos, rhs.m_vCenterPos, sizeof(D3DXVECTOR3));
-	CopyMemory(m_vAxisDir, rhs.m_vAxisDir, 3 * sizeof(D3DXVECTOR3));
-	CopyMemory(m_fAxisLen, rhs.m_fAxisLen, 3 * sizeof(float));
 }
 
 

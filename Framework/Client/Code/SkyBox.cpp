@@ -3,12 +3,12 @@
 #include "Export_Function.h"
 
 CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev)
-	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_SKYBOX)
+	: CGameObject(pGraphicDev, OBJ_TYPE::OBJ_SKYBOX, OBJ_ID::SKYBOX) , m_iIndex(0)
 {
 }
 
 CSkyBox::CSkyBox(const CSkyBox& rhs)
-	: CGameObject(rhs)
+	: CGameObject(rhs), m_iIndex(rhs.m_iIndex)
 {
 }
 
@@ -20,18 +20,15 @@ HRESULT CSkyBox::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Add_Component(), E_FAIL);
 
-	m_pTransformCom->m_vScale = { 40.f, 40.f, 40.f };
-
+	m_pTransformCom->Set_Scale({ 1.f, 1.f, 1.f });
 	return S_OK;
 }
 
 _int CSkyBox::Update_Object(const _float& fTimeDelta)
 {
-
-	_int iExit = __super::Update_Object(fTimeDelta);
-
 	Engine::Add_RenderGroup(RENDER_PRIORITY, this);
-
+	_int iExit = __super::Update_Object(fTimeDelta);
+	m_pTransformCom->Set_Scale({ 50.f, 50.f, 50.f });
 	return iExit;
 }
 
@@ -50,21 +47,21 @@ void CSkyBox::LateUpdate_Object(void)
 void CSkyBox::Render_Object(void)
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	
 	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
-	m_pTextureCom->Render_Texture(3);
+	m_pTextureCom->Set_Idx(m_iIndex);
+	m_pTextureCom->Render_Texture();
 	m_pBufferCom->Render_Buffer();
 
 	m_pGraphicDev->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 HRESULT CSkyBox::Add_Component(void)
 {
 	CComponent* pComponent = nullptr;
 
-	pComponent = m_pBufferCom = dynamic_cast<CCubeTex*>(Engine::Clone_Proto(L"Proto_CubeTex"));
+	pComponent = m_pBufferCom = dynamic_cast<CCubeTex*>(Engine::Clone_Proto(L"Proto_RcCube"));
 	NULL_CHECK_RETURN(pComponent, E_FAIL);
 	m_mapComponent[ID_STATIC].emplace(COMPONENT_TYPE::COM_BUFFER, pComponent);
 
@@ -79,17 +76,16 @@ HRESULT CSkyBox::Add_Component(void)
 	return S_OK;
 }
 
-CSkyBox* CSkyBox::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CSkyBox* CSkyBox::Create(LPDIRECT3DDEVICE9 pGraphicDev, _int _iIndex)
 {
 	CSkyBox* pInstance = new CSkyBox(pGraphicDev);
-
 	if (FAILED(pInstance->Ready_Object()))
 	{
 		Safe_Release(pInstance);
 		MSG_BOX("SkyBox Create Failed");
 		return nullptr;
 	}
-
+	pInstance->Set_Index(_iIndex);
 	return pInstance;
 }
 

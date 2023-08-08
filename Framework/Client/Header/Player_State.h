@@ -13,6 +13,7 @@ public:
 	virtual _int		Update_State(const _float& fTimeDelta) PURE;
 	virtual void		LateUpdate_State(void) PURE;
 	virtual void		Render_State(void) PURE;
+	virtual void		Reset_State(void) PURE;
 
 protected:
 	CGameObject* m_pOwner;
@@ -22,7 +23,7 @@ protected:
 		if (m_pOwner->GetObj_Dir() != _eDir)
 		{
 			m_pOwner->SetObj_Dir(_eDir);
-			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(_Animation);
+			dynamic_cast<CAnimator*>(m_pOwner->Get_Component(COMPONENT_TYPE::COM_ANIMATOR, ID_DYNAMIC))->Play_Animation(_Animation, true);
 		}
 	}
 };

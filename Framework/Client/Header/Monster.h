@@ -1,10 +1,11 @@
 #pragma once
 
 #include "GameObject.h"
+#include "UI_MonsterHP.h"
 
 BEGIN(Engine)
 
-class CTriCol;
+class CRcTex;
 class CTransform;
 class CCollider;
 
@@ -12,8 +13,8 @@ END
 
 class CMonster : public Engine::CGameObject
 {
-private:
-	explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev);
+protected:
+	explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev, OBJ_ID _eObjId);
 	explicit CMonster(const CMonster& rhs);
 	virtual ~CMonster();
 
@@ -23,25 +24,71 @@ public:
 	virtual void	LateUpdate_Object(void)						override;
 	virtual void	Render_Object(void)							override;
 
-private:
+protected:
 	HRESULT	Add_Component(void);
-	virtual void Trace() PURE;
+	
+public:
+	void	Set_Speed(_float _fSpeed)	{ m_fSpeed = _fSpeed; }
+	_float  Get_Speed()					{ return m_fSpeed; }
+
+	MONSTER_STATE	Get_State()			{ return m_eState; }
+	void			Set_State(MONSTER_STATE _eState)
+	{
+		if (m_eState == _eState)
+			return;
+		m_eState = _eState;
+	}
+
+	MONSTERSTAT Get_Stat()				{ return m_tStat; }
 
 public:
-	void Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
-	
+	void		 Set_Target(CGameObject* _pTarget) { m_pTarget = _pTarget; }
+	virtual void Trace(_float fTimeDelta) PURE;
+
+	void		Set_Stun(_float _fStunTime);
+
+	void Set_Summoned_By_Prist(_bool _bSummonedByPrist) { m_bSummonedByPrist = _bSummonedByPrist; }
+	void Set_DefenceMode(CGameObject* _pTarget);
+
+public:
+	virtual void Update_Idle(_float fTimeDelta)		PURE;
+	virtual void Update_Regen(_float fTimeDelta)	PURE;
+	virtual void Update_Move(_float fTimeDelta)		PURE;
+	virtual void Update_Attack(_float fTimeDelta)	PURE;
+	virtual void Update_Die(_float fTimeDelta)		PURE;
+	virtual void Update_Stun(_float fTimeDelta);
+	virtual void Update_DefenceMode(_float fTimeDelta);
+
 
 private:
-	CTriCol* m_pBufferCom = nullptr;
-	CTransform* m_pTransformCom = nullptr;
-	CCollider* m_pColliderCom = nullptr;
-	_float m_fSpeed = 5.f;
+	_float			m_fSpeed = 5.f;
+	MONSTER_STATE	m_eState;
 
-private:
-	CGameObject* m_pTarget;
+protected:
+	CGameObject*	m_pTarget;
+	_vec3			m_vTargetPos;
 
-private:
+	MONSTERSTAT		m_tStat;
+	_bool m_bPushable = true;
+	_bool m_bSummonedByPrist = false;
+	CUI_MonsterHP*	m_pUIBack;
+	CUI_MonsterHP*	m_pUIFrame;
+	CUI_MonsterHP*	m_pUIGauge;
+
+	_vec3 m_vLook = {0.f,0.f,-1.f};
+	MONSTER_STATE m_ePreviousState;
+	OBJ_DIR m_eDir;
+
+	_float m_fStunTime;
+
+	_bool m_bDefenceMode = false;
+protected:
 	virtual void Free() override;
-
+	virtual void Collision_Enter(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID) override;
+	virtual void Collision_Stay(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)	;
+	virtual void Collision_Exit(CCollider* pCollider, COLLISION_GROUP _eCollisionGroup, UINT _iColliderID)	override;
+	void Push_Me(CCollider* other);
+	void Push_Me(_vec3 vPos);
+	void On_Death();
 };
 

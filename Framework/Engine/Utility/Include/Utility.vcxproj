@@ -55,6 +55,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -119,16 +120,21 @@ call CopyUtility.bat</Command>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;UTILITY_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;UTILITY_EXPORTS;%(PreprocessorDefinitions);ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../../ThirdParty;../../Header;../../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../../ThirdParty;../../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodex64_vc.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>cd /d $(SolutionDir)
+call CopyUtility.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -174,6 +180,13 @@ call CopyUtility.bat</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\ThirdParty\fmod.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod.hpp" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_codec.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_dsp.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_errors.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_memoryinfo.h" />
+    <ClInclude Include="..\..\..\ThirdParty\fmod_output.h" />
     <ClInclude Include="..\..\Header\Animator.h" />
     <ClInclude Include="..\..\Header\BoxCollider.h" />
     <ClInclude Include="..\..\Header\Camera.h" />
@@ -181,6 +194,8 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\Collider.h" />
     <ClInclude Include="..\..\Header\CollisionMgr.h" />
     <ClInclude Include="..\..\Header\Component.h" />
+    <ClInclude Include="..\..\Header\EventMgr.h" />
+    <ClInclude Include="..\..\Header\InteractionMgr.h" />
     <ClInclude Include="..\..\Header\Export_Utility.h" />
     <ClInclude Include="..\..\Header\GameObject.h" />
     <ClInclude Include="..\..\Header\KeyMgr.h" />
@@ -192,6 +207,11 @@ call CopyUtility.bat</Command>
     <ClInclude Include="..\..\Header\ProtoMgr.h" />
     <ClInclude Include="..\..\Header\RcCol.h" />
     <ClInclude Include="..\..\Header\CubeTex.h" />
+    <ClInclude Include="..\..\Header\RcCubeCol.h" />
+    <ClInclude Include="..\..\Header\RcPuzzleBuff.h" />
+    <ClInclude Include="..\..\Header\RigidBody.h" />
+    <ClInclude Include="..\..\Header\Shader.h" />
+    <ClInclude Include="..\..\Header\SoundMgr.h" />
     <ClInclude Include="..\..\Header\TerrainTex.h" />
     <ClInclude Include="..\..\Header\RcTex.h" />
     <ClInclude Include="..\..\Header\Renderer.h" />
@@ -209,6 +229,8 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\Collider.cpp" />
     <ClCompile Include="..\Code\CollisionMgr.cpp" />
     <ClCompile Include="..\Code\Component.cpp" />
+    <ClCompile Include="..\Code\EventMgr.cpp" />
+    <ClCompile Include="..\Code\InteractionMgr.cpp" />
     <ClCompile Include="..\Code\GameObject.cpp" />
     <ClCompile Include="..\Code\KeyMgr.cpp" />
     <ClCompile Include="..\Code\Layer.cpp" />
@@ -219,6 +241,11 @@ call CopyUtility.bat</Command>
     <ClCompile Include="..\Code\ProtoMgr.cpp" />
     <ClCompile Include="..\Code\RcCol.cpp" />
     <ClCompile Include="..\Code\CubeTex.cpp" />
+    <ClCompile Include="..\Code\RcCubeCol.cpp" />
+    <ClCompile Include="..\Code\RcPuzzleBuff.cpp" />
+    <ClCompile Include="..\Code\RigidBody.cpp" />
+    <ClCompile Include="..\Code\Shader.cpp" />
+    <ClCompile Include="..\Code\SoundMgr.cpp" />
     <ClCompile Include="..\Code\TerrainTex.cpp" />
     <ClCompile Include="..\Code\RcTex.cpp" />
     <ClCompile Include="..\Code\Renderer.cpp" />
@@ -233,5 +260,6 @@ call CopyUtility.bat</Command>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

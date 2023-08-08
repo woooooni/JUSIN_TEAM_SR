@@ -11,6 +11,8 @@ int g_arrVK[(int)KEY::TYPE_END] =
 	VK_UP,
 	VK_DOWN,
 	VK_TAB,
+	VK_OEM_4,
+	VK_OEM_6,
 	VK_F1, VK_F2, VK_F3, VK_F4, VK_F5, VK_F6, VK_F7, VK_F8, VK_F9,
 	VK_INSERT, VK_DELETE, VK_HOME, VK_END, VK_PRIOR, VK_NEXT,
 	'1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -45,6 +47,8 @@ HRESULT CKeyMgr::Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 	for (int i = 0; i < (int)KEY::TYPE_END; ++i)
 		m_vecKey.push_back(tKeyInfo{ KEY_STATE::NONE, false });
 
+
+	ZeroMemory(&m_tMousePos, sizeof(POINT));
 
 	return S_OK;
 }
@@ -94,6 +98,9 @@ void CKeyMgr::Update_KeyMgr()
 			}
 		}
 	}
+
+	GetCursorPos(&m_tMousePos);
+	ScreenToClient(m_hWnd, &m_tMousePos);
 }
 
 

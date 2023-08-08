@@ -55,6 +55,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -101,6 +102,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SYSTEM_EXPORTS;%(PreprocessorDefinitions);ENGINE_EXPORTS;%(PreprocessorDefinitions);ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../../ThirdParty;../../Header;../../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MaxFilesInUnityFile>0</MaxFilesInUnityFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,9 +120,10 @@ call CopySystem.bat</Command>
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;SYSTEM_EXPORTS;ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SYSTEM_EXPORTS;%(PreprocessorDefinitions);ENGINE_EXPORTS;%(PreprocessorDefinitions);ENGINE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../../../ThirdParty;../../Header;../../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MaxFilesInUnityFile>0</MaxFilesInUnityFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,7 +131,8 @@ call CopySystem.bat</Command>
       <AdditionalDependencies>dinput8.lib;d3d9.lib;d3dx9.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cd /d $(SolutionDir) call CopySystem.bat</Command>
+      <Command>cd /d $(SolutionDir)
+call CopySystem.bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -175,6 +179,7 @@ call CopySystem.bat</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Header\Export_System.h" />
+    <ClInclude Include="..\..\Header\FontMgr.h" />
     <ClInclude Include="..\..\Header\Frame.h" />
     <ClInclude Include="..\..\Header\FrameMgr.h" />
     <ClInclude Include="..\..\Header\GraphicDev.h" />
@@ -186,6 +191,7 @@ call CopySystem.bat</Command>
     <None Include="..\..\Header\Export_System.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Code\FontMgr.cpp" />
     <ClCompile Include="..\Code\Frame.cpp" />
     <ClCompile Include="..\Code\FrameMgr.cpp" />
     <ClCompile Include="..\Code\GraphicDev.cpp" />
@@ -195,5 +201,6 @@ call CopySystem.bat</Command>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

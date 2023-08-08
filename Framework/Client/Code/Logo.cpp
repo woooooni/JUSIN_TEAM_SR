@@ -1,7 +1,10 @@
 #include "..\Header\Logo.h"
 #include "Export_Function.h"
-#include "CUI.h"
-
+#include "../Include/stdafx.h"
+#include "Loading.h"
+#include "UI_MainLogo.h"
+#include "Scene_Loading.h"
+#include "UIMgr.h"
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CScene(pGraphicDev, SCENE_TYPE::LOADING)
 {
@@ -13,9 +16,17 @@ CLogo::~CLogo()
 
 HRESULT CLogo::Ready_Scene()
 {
-	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
+	__super::Ready_AllLayer();
 
-	FAILED_CHECK_RETURN(Ready_Layer_Environment(LAYER_TYPE::ENVIRONMENT), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Prototype(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Player(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Camera(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Terrrain(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Environment(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Monster(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_InterationObj(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_Effect(), E_FAIL);
+	FAILED_CHECK_RETURN(Ready_Layer_UI(), E_FAIL);
 
 	D3DVIEWPORT9 vp;
 	vp.X = 0;
@@ -32,10 +43,13 @@ HRESULT CLogo::Ready_Scene()
 
 Engine::_int CLogo::Update_Scene(const _float& fTimeDelta)
 {
-
-	__super::Update_Scene(fTimeDelta);
-
-	return 0;
+	if (KEY_TAP(KEY::ENTER))
+	{
+		CScene_Loading* pScene = CScene_Loading::Create(m_pGraphicDev, SCENE_TYPE::TUTORIAL_VILLAGE);
+		Engine::Reserve_SceneChange(pScene);
+	}
+	// CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
+	return __super::Update_Scene(fTimeDelta);
 }
 
 void CLogo::LateUpdate_Scene()
@@ -46,6 +60,17 @@ void CLogo::LateUpdate_Scene()
 void CLogo::Render_Scene()
 {
 	
+}
+
+void CLogo::Enter_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
+	Play_BGM(L"BGM_5_JungleArea_Clear_Cave.wav", .4f);
+}
+
+void CLogo::Exit_Scene()
+{
+	Stop_Sound(CHANNELID::SOUND_BGM);
 }
 
 void CLogo::Free()
@@ -70,39 +95,99 @@ CLogo* CLogo::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 HRESULT CLogo::Ready_Prototype()
 {
+	// FAILED_CHECK_RETURN(CUIMgr::GetInstance()->Ready_UIMgr(m_pGraphicDev), E_FAIL);
 	return S_OK;
 }
 
-HRESULT CLogo::Ready_Layer_Environment(LAYER_TYPE _eType)
+
+
+HRESULT CLogo::Ready_Layer_Player()
 {
-	Engine::CLayer*		pLayer = Engine::CLayer::Create();
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::PLAYER];
 	NULL_CHECK_RETURN(pLayer, E_FAIL);
 
-	Engine::CGameObject*		pGameObject = nullptr;
 
-	//Terrain
-	CTerrain* pTerrain = CTerrain::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pTerrain, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Terrain", pTerrain), E_FAIL);
-
-	// Player
-	CPlayer* pPlayer = CPlayer::Create(m_pGraphicDev);
-	NULL_CHECK_RETURN(pPlayer, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"Player", pPlayer), E_FAIL);
-
-	// Camera
-	CCamera* pCamera = Engine::CreateCamera(g_hWnd, m_pGraphicDev, 1.f, 1000.f);
-	NULL_CHECK_RETURN(pCamera, E_FAIL);
-	FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"MainCamera", pCamera), E_FAIL);
-	
-	// UI
-	//CUI* pUI = CUI::Create(m_pGraphicDev);
-	//NULL_CHECK_RETURN(pUI, E_FAIL);
-	//FAILED_CHECK_RETURN(pLayer->Add_GameObject(L"UI", pUI), E_FAIL);
-	
-	pCamera->Set_TargetObj(pPlayer);
-
-	m_mapLayer.insert({ _eType, pLayer });
+	pLayer->Ready_Layer();
 
 	return S_OK;
 }
+
+HRESULT CLogo::Ready_Layer_Camera()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::CAMERA];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	Engine::CLayer* pPlayerLayer = m_mapLayer[LAYER_TYPE::PLAYER];
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Terrrain()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::TERRAIN];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Environment()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::ENVIRONMENT];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Monster()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::MONSTER];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_InterationObj()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::INTERACTION_OBJ];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_Effect()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::EFFECT];
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+
+HRESULT CLogo::Ready_Layer_UI()
+{
+	Engine::CLayer* pLayer = m_mapLayer[LAYER_TYPE::UI];
+	NULL_CHECK_RETURN(pLayer, E_FAIL);
+
+	CUI_MainLogo* pUI = CUI_MainLogo::Create(m_pGraphicDev);
+	pLayer->Add_GameObject(L"MainLogo", pUI);
+
+	CUI_Mouse* pUIMouse = CUI_Mouse::Create(m_pGraphicDev);
+	pLayer->Add_GameObject(L"Mouse", pUIMouse);
+
+	pLayer->Ready_Layer();
+
+	return S_OK;
+}
+

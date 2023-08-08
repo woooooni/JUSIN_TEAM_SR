@@ -20,11 +20,46 @@ public:
 	virtual void		Render_Scene() PURE;
 
 protected:
+	virtual HRESULT			Ready_Layer_Player() PURE;
+	virtual HRESULT			Ready_Layer_Camera() PURE;
+	virtual HRESULT			Ready_Layer_Terrrain() PURE;
+	virtual HRESULT			Ready_Layer_Environment() PURE;
+	virtual HRESULT			Ready_Layer_Monster() PURE;
+	virtual HRESULT			Ready_Layer_InterationObj() PURE;
+	virtual HRESULT			Ready_Layer_Effect() PURE;
+	virtual HRESULT			Ready_Layer_UI() PURE;
+
+public:
+	virtual void Enter_Scene() {};
+	virtual void Exit_Scene() {};
+
+public:
+	void					PlayVideo(HWND _hWnd, const wstring& _strFilePath);
+
+protected:
+	HRESULT Ready_AllLayer()
+	{
+		for (_uint i = 0; i < (_uint)LAYER_TYPE::LAYER_END; ++i)
+		{
+			Engine::CLayer* pLayer = Engine::CLayer::Create();
+			NULL_CHECK_RETURN(pLayer, E_FAIL);
+			m_mapLayer.insert({ (LAYER_TYPE)i, pLayer });
+		}
+
+		return S_OK;
+	}
+
+protected:
 	LPDIRECT3DDEVICE9					m_pGraphicDev;
 	map<LAYER_TYPE, CLayer*>			m_mapLayer;
 	SCENE_TYPE							m_eType;
+	HWND								m_hVideoHandle;
+	_bool	m_bVideoPlaying;
 
 public:
+
+	const SCENE_TYPE& Get_SceneType() { return m_eType; }
+
 	virtual void	Free();
 };
 

@@ -13,6 +13,7 @@ END
 
 class CTerrain : public CGameObject
 {
+	CLONE(CTerrain)
 private:
 	explicit CTerrain(LPDIRECT3DDEVICE9 _pDevice);
 	explicit CTerrain(const CTerrain& rhs);

@@ -14,6 +14,10 @@ HRESULT		Set_Scene(CScene* pScene)
 {
 	return CManagement::GetInstance()->Set_Scene(pScene);
 }
+inline void Reserve_SceneChange(CScene* pScene)
+{
+	CManagement::GetInstance()->Reserve_SceneChange(pScene);
+}
 _int			Update_Scene(const _float& fTimeDelta)
 {
 	return CManagement::GetInstance()->Update_Scene(fTimeDelta);
@@ -64,6 +68,8 @@ void		Clear_RenderGroup()
 	CRenderer::GetInstance()->Clear_RenderGroup();
 }
 
+// PickingMgr
+
 inline HRESULT Ready_PickingMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 {
 	return CPickingMgr::GetInstance()->Ready_PickingMgr(_pDevice, _hWnd);
@@ -74,11 +80,13 @@ inline void Update_PickingMgr()
 	CPickingMgr::GetInstance()->Update_PickingMgr();
 }
 
+
 inline BOOL IsPicking(CGameObject * _pObj, _vec3 * _vHit)
 {
 	return CPickingMgr::GetInstance()->IsPicking(_pObj, _vHit);
 }
 
+// LightMgr
 HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	const D3DLIGHT9* pLightInfo,
 	const _uint& iIndex)
@@ -86,6 +94,12 @@ HRESULT		Ready_Light(LPDIRECT3DDEVICE9 pGraphicDev,
 	return	CLightMgr::GetInstance()->Ready_Light(pGraphicDev, pLightInfo, iIndex);
 }
 
+inline void LateUpdate_LightMgr()
+{
+	CLightMgr::GetInstance()->LateUpdate_LightMgr();
+}
+
+// KeyMgr
 inline HRESULT Ready_KeyMgr(LPDIRECT3DDEVICE9 _pDevice, HWND _hWnd)
 {
 	return CKeyMgr::GetInstance()->Ready_KeyMgr(_pDevice, _hWnd);
@@ -96,13 +110,143 @@ inline void Update_KeyMgr()
 	CKeyMgr::GetInstance()->Update_KeyMgr();
 }
 
+
+// CollisionMgr
+inline void Add_CollisionGroup(CCollider* pCol, COLLISION_GROUP pState)
+{
+	CCollisionMgr::GetInstance()->Add_CollisionGroup(pCol, pState);
+}
+
+inline HRESULT Ready_CollisionMgr(LPDIRECT3DDEVICE9 _pDevice)
+{
+	return CCollisionMgr::GetInstance()->Ready_CollisionMgr(_pDevice);
+}
+
+inline void Update_Collision()
+{
+	CCollisionMgr::GetInstance()->Update_Collision();
+}
+
+inline void CheckGroupType(COLLISION_GROUP _eLeft, COLLISION_GROUP _eRight)
+{
+	CCollisionMgr::GetInstance()->CheckGroupType(_eLeft, _eRight);
+}
+
+inline void Reset()
+{
+	CCollisionMgr::GetInstance()->Reset();
+}
+
+inline HRESULT Add_Event(EVENT* pEvent)
+{
+	return CInteractionMgr::GetInstance()->Add_Event(pEvent);
+}
+
+inline void Set_Event()
+{
+	CInteractionMgr::GetInstance()->Set_Event();
+}
+
+inline HRESULT Add_Subscribe(_uint pEventKey, CGameObject* pSubscriber)
+{
+	return CInteractionMgr::GetInstance()->Add_Subscribe(pEventKey, pSubscriber);
+}
+
+inline HRESULT Check_Event_Start(const _uint& pCheckNum)
+{
+	return CInteractionMgr::GetInstance()->Check_Event_Start(pCheckNum);
+}
+
+inline void Add_Reset(const _uint& resetIndex, const _uint& eventKey)
+{
+	CInteractionMgr::GetInstance()->Add_Reset(resetIndex, eventKey);
+}
+
+inline void Reset(const _uint& resetIndex)
+{
+	CInteractionMgr::GetInstance()->Reset(resetIndex);
+
+}
+
+inline void Add_Reset(const _uint& resetIndex, const _uint& minIndex, const _uint& maxIndex)
+{
+	CInteractionMgr::GetInstance()->Add_Reset(resetIndex, minIndex, maxIndex);
+}
+
+inline void Clear_Event()
+{
+	CInteractionMgr::GetInstance()->Clear_Event();
+}
+
+// EventMgr
+
+inline HRESULT Ready_EventMgr()
+{
+	return CEventMgr::GetInstance()->Ready_EventMgr();
+}
+
+inline void Update_EventMgr(const _float& fTimeDelta)
+{
+	CEventMgr::GetInstance()->Update_EventMgr(fTimeDelta);
+}
+
+inline void DeleteObjEvt(CGameObject* pObj)
+{
+	CEventMgr::GetInstance()->DeleteObjEvt(pObj);
+}
+
+inline vector<CGameObject*>& Get_DelteObj_Vec(OBJ_TYPE _eObjType)
+{
+	return CEventMgr::GetInstance()->Get_DelteObj_Vec(_eObjType);
+}
+
+inline HRESULT Ready_SoundMgr()
+{
+	return CSoundMgr::GetInstance()->Ready_SoundMgr();
+}
+
+inline void Play_Sound(TCHAR* pSoundKey, CHANNELID eID, float fVolume)
+{
+	CSoundMgr::GetInstance()->Play_Sound(pSoundKey, eID, fVolume);
+}
+
+inline void Play_BGM(TCHAR* pSoundKey, float fVolume)
+{
+	CSoundMgr::GetInstance()->Play_BGM(pSoundKey, fVolume);
+}
+
+inline void Stop_Sound(CHANNELID eID)
+{
+	CSoundMgr::GetInstance()->Stop_Sound(eID);
+}
+
+inline void Stop_All()
+{
+	CSoundMgr::GetInstance()->Stop_All();
+}
+
+inline void Set_ChannelVolume(CHANNELID eID, float fVolume)
+{
+	CSoundMgr::GetInstance()->Set_ChannelVolume(eID, fVolume);
+}
+
+inline FMOD_CHANNEL* Get_Channel(CHANNELID eID)
+{
+	return CSoundMgr::GetInstance()->Get_Channel(eID);
+}
+
 void			Release_Utility()
 {
 	CKeyMgr::GetInstance()->DestroyInstance();
 	CPickingMgr::GetInstance()->DestroyInstance();
+	CCollisionMgr::GetInstance()->DestroyInstance();
 	CRenderer::GetInstance()->DestroyInstance();
 	CLightMgr::GetInstance()->DestroyInstance();
 	CCameraMgr::GetInstance()->DestroyInstance();
 	CProtoMgr::GetInstance()->DestroyInstance();
 	CManagement::GetInstance()->DestroyInstance();
+	CInteractionMgr::GetInstance()->DestroyInstance();
+	CEventMgr::GetInstance()->DestroyInstance();
+	CSoundMgr::GetInstance()->DestroyInstance();
 }
+

@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>false</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -54,6 +55,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -80,7 +82,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(DXSDK_DIR)Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(DXSDK_DIR)lib\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>../Bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -100,7 +102,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../Header;../../Reference/Header;../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../ThirdParty;../Header;../../Reference/Header;../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
       <MaxFilesInUnityFile>5</MaxFilesInUnityFile>
       <AddCodeBeforeSourceInclude>#pragma message("$$file_name$$")</AddCodeBeforeSourceInclude>
@@ -114,19 +116,31 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../Header;../../Reference/Header;../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../ThirdParty;../Header;../../Reference/Header;../../Base;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AddCodeBeforeSourceInclude>#pragma message("$$file_name$$")</AddCodeBeforeSourceInclude>
+      <MaxFilesInUnityFile>5</MaxFilesInUnityFile>
+      <CombineFilesOnlyFromTheSameFolder>true</CombineFilesOnlyFromTheSameFolder>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../ThirdParty;../../Reference/Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>dinput8.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;Utility.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodex64_vc.lib;dinput8.lib;d3d9.lib;d3dx9.lib;dxguid.lib;System.lib;Utility.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>2.0</ShaderModel>
+      <EntryPointName>main</EntryPointName>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -172,36 +186,548 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Header\BackGround.h" />
+    <ClInclude Include="..\..\ThirdParty\fmod.h" />
+    <ClInclude Include="..\..\ThirdParty\fmod.hpp" />
+    <ClInclude Include="..\..\ThirdParty\fmod_codec.h" />
+    <ClInclude Include="..\..\ThirdParty\fmod_dsp.h" />
+    <ClInclude Include="..\..\ThirdParty\fmod_errors.h" />
+    <ClInclude Include="..\..\ThirdParty\fmod_memoryinfo.h" />
+    <ClInclude Include="..\..\ThirdParty\fmod_output.h" />
+    <ClInclude Include="..\..\ThirdParty\imconfig.h" />
+    <ClInclude Include="..\..\ThirdParty\imgui.h" />
+    <ClInclude Include="..\..\ThirdParty\imgui_impl_dx9.h" />
+    <ClInclude Include="..\..\ThirdParty\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\ThirdParty\imgui_internal.h" />
+    <ClInclude Include="..\..\ThirdParty\imstb_rectpack.h" />
+    <ClInclude Include="..\..\ThirdParty\imstb_textedit.h" />
+    <ClInclude Include="..\..\ThirdParty\imstb_truetype.h" />
+    <ClInclude Include="..\Header\BalpanObj.h" />
+    <ClInclude Include="..\Header\BarrelBomb.h" />
+    <ClInclude Include="..\Header\BenchObj.h" />
+    <ClInclude Include="..\Header\BlockObj.h" />
+    <ClInclude Include="..\Header\BlueBeatle.h" />
+    <ClInclude Include="..\Header\BossDoor.h" />
+    <ClInclude Include="..\Header\BossDoorEnter.h" />
+    <ClInclude Include="..\Header\BreakObj.h" />
+    <ClInclude Include="..\Header\BreakStone.h" />
+    <ClInclude Include="..\Header\Bullet.h" />
+    <ClInclude Include="..\Header\Bullet_SilkWormDoppel.h" />
+    <ClInclude Include="..\Header\ButterFly.h" />
+    <ClInclude Include="..\Header\BugBall.h" />
+    <ClInclude Include="..\Header\CactusNeedle.h" />
+    <ClInclude Include="..\Header\ClearBomb.h" />
+    <ClInclude Include="..\Header\ClearField.h" />
+    <ClInclude Include="..\Header\Coin.h" />
+    <ClInclude Include="..\Header\CParticle_Stone.h" />
     <ClInclude Include="..\Header\CUI.h" />
+    <ClInclude Include="..\Header\Cupa.h" />
+    <ClInclude Include="..\Header\CutSceneMgr.h" />
+    <ClInclude Include="..\Header\DefenceEnter.h" />
+    <ClInclude Include="..\Header\Door.h" />
+    <ClInclude Include="..\Header\DoorEnter.h" />
+    <ClInclude Include="..\Header\DrawingEnter.h" />
+    <ClInclude Include="..\Header\Effect.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\Header\Effect_Block.h" />
+    <ClInclude Include="..\Header\Effect_CatapultHit.h" />
+    <ClInclude Include="..\Header\Effect_CircleBlur.h" />
+    <ClInclude Include="..\Header\Effect_DieSmoke.h" />
+    <ClInclude Include="..\Header\Effect_Dig.h" />
+    <ClInclude Include="..\Header\Effect_Explosion.h" />
+    <ClInclude Include="..\Header\Effect_EyeTrail.h" />
+    <ClInclude Include="..\Header\Effect_GetItem.h" />
+    <ClInclude Include="..\Header\Effect_GolemFist.h" />
+    <ClInclude Include="..\Header\Effect_Hit.h" />
+    <ClInclude Include="..\Header\Effect_Item.h" />
+    <ClInclude Include="..\Header\Effect_Leaf.h" />
+    <ClInclude Include="..\Header\Effect_LightningGround.h" />
+    <ClInclude Include="..\Header\Effect_MotionTrail.h" />
+    <ClInclude Include="..\Header\Effect_NueTrail.h" />
+    <ClInclude Include="..\Header\Effect_Shadow.h" />
+    <ClInclude Include="..\Header\Effect_Smoke.h" />
+    <ClInclude Include="..\Header\Effect_StoneSpike.h" />
+    <ClInclude Include="..\Header\Effect_StoneParticle.h" />
+    <ClInclude Include="..\Header\Effect_Stun.h" />
+    <ClInclude Include="..\Header\Effect_Trail.h" />
+    <ClInclude Include="..\Header\FieldObject.h" />
+    <ClInclude Include="..\Header\DesertRhino.h" />
+    <ClInclude Include="..\Header\Effect_MothFlyLine.h" />
+    <ClInclude Include="..\Header\FistEffect.h" />
+    <ClInclude Include="..\Header\FixedObj.h" />
+    <ClInclude Include="..\Header\FloorDoor.h" />
+    <ClInclude Include="..\Header\GameMgr.h" />
+    <ClInclude Include="..\Header\GolemFace.h" />
+    <ClInclude Include="..\Header\GolemFist.h" />
+    <ClInclude Include="..\Header\GolemHead.h" />
+    <ClInclude Include="..\Header\GolemLeftArm.h" />
+    <ClInclude Include="..\Header\GolemLeftHand.h" />
+    <ClInclude Include="..\Header\GolemLeftLeg.h" />
+    <ClInclude Include="..\Header\GolemLowerJaw.h" />
+    <ClInclude Include="..\Header\GolemPart.h" />
+    <ClInclude Include="..\Header\GolemParts.h" />
+    <ClInclude Include="..\Header\GolemRightArm.h" />
+    <ClInclude Include="..\Header\GolemRightHand.h" />
+    <ClInclude Include="..\Header\GolemRightLeg.h" />
+    <ClInclude Include="..\Header\GolemUpperJaw.h" />
+    <ClInclude Include="..\Header\Grass.h" />
+    <ClInclude Include="..\Header\GreenBeatle.h" />
+    <ClInclude Include="..\Header\HitObj.h" />
+    <ClInclude Include="..\Header\HoleObj.h" />
+    <ClInclude Include="..\Header\House.h" />
+    <ClInclude Include="..\Header\Icon.h" />
+    <ClInclude Include="..\Header\ImGuiMgr.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\Header\InvenTabButton.h" />
+    <ClInclude Include="..\Header\InventoryMgr.h" />
+    <ClInclude Include="..\Header\InventoryUI.h" />
+    <ClInclude Include="..\Header\Item.h" />
+    <ClInclude Include="..\Header\Item_Hat.h" />
+    <ClInclude Include="..\Header\Item_Hat_Drill.h" />
+    <ClInclude Include="..\Header\Item_Hat_Light.h" />
+    <ClInclude Include="..\Header\Item_Hat_Mask.h" />
+    <ClInclude Include="..\Header\Item_Hat_Missile.h" />
+    <ClInclude Include="..\Header\Item_Hat_Monkey.h" />
+    <ClInclude Include="..\Header\Item_Hat_Turtle.h" />
+    <ClInclude Include="..\Header\JellyBomb.h" />
+    <ClInclude Include="..\Header\JellyBombCreator.h" />
+    <ClInclude Include="..\Header\JellyCombined.h" />
+    <ClInclude Include="..\Header\JellyStone.h" />
+    <ClInclude Include="..\Header\DefaultItem.h" />
+    <ClInclude Include="..\Header\LightFlower.h" />
+    <ClInclude Include="..\Header\LightPuzzle.h" />
+    <ClInclude Include="..\Header\LightPuzzleBase.h" />
+    <ClInclude Include="..\Header\LightPuzzlePiece.h" />
+    <ClInclude Include="..\Header\LightPuzzleTerrain.h" />
+    <ClInclude Include="..\Header\Loading.h" />
+    <ClInclude Include="..\Header\MonkeyBarrelCleaner.h" />
+    <ClInclude Include="..\Header\MonsterAim.h" />
+    <ClInclude Include="..\Header\MonsterSpawner.h" />
+    <ClInclude Include="..\Header\MothMage.h" />
+    <ClInclude Include="..\Header\MothOrb.h" />
+    <ClInclude Include="..\Header\NearReactMoonObj.h" />
+    <ClInclude Include="..\Header\NearReactMushroom.h" />
+    <ClInclude Include="..\Header\NearReactObj.h" />
+    <ClInclude Include="..\Header\Nexus.h" />
+    <ClInclude Include="..\Header\Npc.h" />
+    <ClInclude Include="..\Header\Npc_Artist.h" />
+    <ClInclude Include="..\Header\Npc_Chief.h" />
+    <ClInclude Include="..\Header\Npc_Cow.h" />
+    <ClInclude Include="..\Header\Npc_Dancer.h" />
+    <ClInclude Include="..\Header\Npc_DanceTeacher.h" />
+    <ClInclude Include="..\Header\Npc_Elite.h" />
+    <ClInclude Include="..\Header\Npc_Fishing.h" />
+    <ClInclude Include="..\Header\Npc_NueHero.h" />
+    <ClInclude Include="..\Header\Npc_OguMom.h" />
+    <ClInclude Include="..\Header\Npc_Orangi.h" />
+    <ClInclude Include="..\Header\Npc_Sheep.h" />
+    <ClInclude Include="..\Header\Npc_VillagerMonkey.h" />
+    <ClInclude Include="..\Header\Npc_VillagerMoon.h" />
+    <ClInclude Include="..\Header\Npc_Wholesaler.h" />
+    <ClInclude Include="..\Header\Particle_LargeStone.h" />
+    <ClInclude Include="..\Header\NueFlower.h" />
+    <ClInclude Include="..\Header\Particle_SilkWorm.h" />
+    <ClInclude Include="..\Header\PlantBall.h" />
+    <ClInclude Include="..\Header\PlantCannon.h" />
+    <ClInclude Include="..\Header\Particle_FixedLeaf.h" />
+    <ClInclude Include="..\Header\Particle_MapCircle.h" />
+    <ClInclude Include="..\Header\Particle_MovingLeaf.h" />
+    <ClInclude Include="..\Header\Player_Bullet_Bomb.h" />
+    <ClInclude Include="..\Header\Player_Bullet_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Bullet_Lightning.h" />
+    <ClInclude Include="..\Header\Player_Skill_Aim.h" />
+    <ClInclude Include="..\Header\Player_Skill_Barrier.h" />
+    <ClInclude Include="..\Header\Player_Skill_Drill.h" />
+    <ClInclude Include="..\Header\Player_Skill_GolemFist.h" />
+    <ClInclude Include="..\Header\Player_Skill_Lightning.h" />
+    <ClInclude Include="..\Header\Player_Skill_Missile.h" />
+    <ClInclude Include="..\Header\Player_Skill_Range.h" />
+    <ClInclude Include="..\Header\Player_Skill_Turtle.h" />
+    <ClInclude Include="..\Header\Player_State_BallonFly.h" />
+    <ClInclude Include="..\Header\Player_State_Dance.h" />
+    <ClInclude Include="..\Header\Player_State_Down.h" />
+    <ClInclude Include="..\Header\Player_State_Drawing.h" />
+    <ClInclude Include="..\Header\Player_State_GameOver.h" />
+    <ClInclude Include="..\Header\Player_State_GetItem.h" />
+    <ClInclude Include="..\Header\Player_State_Skill.h" />
+    <ClInclude Include="..\Header\Pool.h" />
+    <ClInclude Include="..\Header\Portal.h" />
+    <ClInclude Include="..\Header\Prop.h" />
     <ClInclude Include="..\Header\Logo.h" />
     <ClInclude Include="..\Header\MainApp.h" />
     <ClInclude Include="..\Header\Monster.h" />
     <ClInclude Include="..\Header\Player.h" />
     <ClInclude Include="..\Header\Player_State.h" />
+    <ClInclude Include="..\Header\Player_State_Hit.h" />
     <ClInclude Include="..\Header\Player_State_Idle.h" />
+    <ClInclude Include="..\Header\Player_State_Jump.h" />
+    <ClInclude Include="..\Header\Player_State_Lift.h" />
+    <ClInclude Include="..\Header\Player_State_Push.h" />
+    <ClInclude Include="..\Header\Player_State_Rolling.h" />
+    <ClInclude Include="..\Header\Player_State_Run.h" />
+    <ClInclude Include="..\Header\Player_State_Swing.h" />
     <ClInclude Include="..\Header\Player_State_Walk.h" />
+    <ClInclude Include="..\Header\PushStone.h" />
+    <ClInclude Include="..\Header\Quest.h" />
+    <ClInclude Include="..\Header\QuestMgr.h" />
+    <ClInclude Include="..\Header\Quest_Artist1.h" />
+    <ClInclude Include="..\Header\Quest_Conversation.h" />
+    <ClInclude Include="..\Header\Quest_Cow1.h" />
+    <ClInclude Include="..\Header\Quest_Cow2.h" />
+    <ClInclude Include="..\Header\Quest_DanceTeacher.h" />
+    <ClInclude Include="..\Header\Quest_Hunting.h" />
+    <ClInclude Include="..\Header\Quest_MonkeyCheif1.h" />
+    <ClInclude Include="..\Header\Quest_MonkeyCheif3.h" />
+    <ClInclude Include="..\Header\Quest_MonkeyCheif2.h" />
+    <ClInclude Include="..\Header\Quest_NueHero1.h" />
+    <ClInclude Include="..\Header\Quest_NueHero2.h" />
+    <ClInclude Include="..\Header\Quest_Sheep.h" />
+    <ClInclude Include="..\Header\QuickSlot.h" />
+    <ClInclude Include="..\Header\QuizStatue.h" />
+    <ClInclude Include="..\Header\RabbitMgr.h" />
+    <ClInclude Include="..\Header\RabitObj.h" />
+    <ClInclude Include="..\Header\RedBeatle.h" />
+    <ClInclude Include="..\Header\RollingBug.h" />
+    <ClInclude Include="..\Header\Scene_Ending.h" />
+    <ClInclude Include="..\Header\Scene_Loading.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest1.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest2.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyForest3.h" />
+    <ClInclude Include="..\Header\Scene_MonkeyVillage.h" />
+    <ClInclude Include="..\Header\Scene_MoonForest1.h" />
+    <ClInclude Include="..\Header\Scene_SilkWorm.h" />
+    <ClInclude Include="..\Header\Scene_SunGolemCave1.h" />
+    <ClInclude Include="..\Header\Scene_Tool.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\Header\Scene_TutorialVillage.h" />
+    <ClInclude Include="..\Header\SilkWorm.h" />
     <ClInclude Include="..\Header\SkyBox.h" />
-    <ClInclude Include="..\Header\Stage.h" />
+    <ClInclude Include="..\Header\SludgeBall.h" />
+    <ClInclude Include="..\Header\SludgeWave.h" />
+    <ClInclude Include="..\Header\SpitCactus.h" />
+    <ClInclude Include="..\Header\SunGollem.h" />
     <ClInclude Include="..\Header\Terrain.h" />
+    <ClInclude Include="..\Header\Scene_Test.h" />
+    <ClInclude Include="..\Header\Test_Cube.h" />
+    <ClInclude Include="..\Header\Tile.h" />
+    <ClInclude Include="..\Header\TrashBig.h" />
+    <ClInclude Include="..\Header\TrashBummer.h" />
+    <ClInclude Include="..\Header\TrashFast.h" />
+    <ClInclude Include="..\Header\TrashPrist.h" />
+    <ClInclude Include="..\Header\TrashSlime.h" />
+    <ClInclude Include="..\Header\TriggerObj.h" />
+    <ClInclude Include="..\Header\Turret.h" />
+    <ClInclude Include="..\Header\Tree.h" />
+    <ClInclude Include="..\Header\TurretBullet.h" />
+    <ClInclude Include="..\Header\UIMgr.h" />
+    <ClInclude Include="..\Header\UI_BossHP.h" />
+    <ClInclude Include="..\Header\UI_ContinueMark.h" />
+    <ClInclude Include="..\Header\UI_Cursor.h" />
+    <ClInclude Include="..\Header\UI_Dialog.h" />
+    <ClInclude Include="..\Header\UI_Ending.h" />
+    <ClInclude Include="..\Header\UI_ExclamationMark.h" />
+    <ClInclude Include="..\Header\UI_Fade.h" />
+    <ClInclude Include="..\Header\UI_ItemInfo.h" />
+    <ClInclude Include="..\Header\UI_LoadingBackGround.h" />
+    <ClInclude Include="..\Header\UI_LoadingOgu.h" />
+    <ClInclude Include="..\Header\UI_MainLogo.h" />
+    <ClInclude Include="..\Header\UI_MapName.h" />
+    <ClInclude Include="..\Header\UI_MonsterHP.h" />
+    <ClInclude Include="..\Header\UI_Mouse.h" />
+    <ClInclude Include="..\Header\UI_NewItem.h" />
+    <ClInclude Include="..\Header\UI_NewQuest.h" />
+    <ClInclude Include="..\Header\UI_Notification.h" />
+    <ClInclude Include="..\Header\UI_Pages.h" />
+    <ClInclude Include="..\Header\UI_AdventureBook.h" />
+    <ClInclude Include="..\Header\UI_BookBackground.h" />
+    <ClInclude Include="..\Header\Catapult.h" />
+    <ClInclude Include="..\Header\UI_HPBar.h" />
+    <ClInclude Include="..\Header\UI_QuestIcon.h" />
+    <ClInclude Include="..\Header\UI_QuestionMark.h" />
+    <ClInclude Include="..\Header\UI_QuestList.h" />
+    <ClInclude Include="..\Header\UI_Shop.h" />
+    <ClInclude Include="..\Header\UI_ShortCutKey.h" />
+    <ClInclude Include="..\Header\UI_SlotFour.h" />
+    <ClInclude Include="..\Header\UI_SlotItems.h" />
+    <ClInclude Include="..\Header\UI_SlotOne.h" />
+    <ClInclude Include="..\Header\UI_SlotThree.h" />
+    <ClInclude Include="..\Header\UI_SlotTwo.h" />
+    <ClInclude Include="..\Header\UI_TurretGauge.h" />
+    <ClInclude Include="..\Header\UI_Veil.h" />
+    <ClInclude Include="..\Header\UI_Wallet.h" />
+    <ClInclude Include="..\Header\UseItem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Code\BackGround.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui_demo.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui_draw.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui_impl_dx9.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui_tables.cpp" />
+    <ClCompile Include="..\..\ThirdParty\imgui_widgets.cpp" />
+    <ClCompile Include="..\Code\BalpanObj.cpp" />
+    <ClCompile Include="..\Code\BarrelBomb.cpp" />
+    <ClCompile Include="..\Code\BenchObj.cpp" />
+    <ClCompile Include="..\Code\BlockObj.cpp" />
+    <ClCompile Include="..\Code\BlueBeatle.cpp" />
+    <ClCompile Include="..\Code\BossDoor.cpp" />
+    <ClCompile Include="..\Code\BossDoorEnter.cpp" />
+    <ClCompile Include="..\Code\BreakObj.cpp" />
+    <ClCompile Include="..\Code\BreakStone.cpp" />
+    <ClCompile Include="..\Code\Bullet.cpp" />
+    <ClCompile Include="..\Code\Bullet_SilkWormDoppel.cpp" />
+    <ClCompile Include="..\Code\ButterFly.cpp" />
+    <ClCompile Include="..\Code\BugBall.cpp" />
+    <ClCompile Include="..\Code\CactusNeedle.cpp" />
+    <ClCompile Include="..\Code\ClearBomb.cpp" />
+    <ClCompile Include="..\Code\ClearField.cpp" />
+    <ClCompile Include="..\Code\Coin.cpp" />
+    <ClCompile Include="..\Code\CParticle_Stone.cpp" />
     <ClCompile Include="..\Code\CUI.cpp" />
+    <ClCompile Include="..\Code\Cupa.cpp" />
+    <ClCompile Include="..\Code\CutSceneMgr.cpp" />
+    <ClCompile Include="..\Code\DefenceEnter.cpp" />
+    <ClCompile Include="..\Code\Door.cpp" />
+    <ClCompile Include="..\Code\DoorEnter.cpp" />
+    <ClCompile Include="..\Code\DrawingEnter.cpp" />
+    <ClCompile Include="..\Code\Effect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Code\Effect_Block.cpp" />
+    <ClCompile Include="..\Code\Effect_CatapultHit.cpp" />
+    <ClCompile Include="..\Code\Effect_CircleBlur.cpp" />
+    <ClCompile Include="..\Code\Effect_DieSmoke.cpp" />
+    <ClCompile Include="..\Code\Effect_Dig.cpp" />
+    <ClCompile Include="..\Code\Effect_Explosion.cpp" />
+    <ClCompile Include="..\Code\Effect_EyeTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_GetItem.cpp" />
+    <ClCompile Include="..\Code\Effect_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Effect_Hit.cpp" />
+    <ClCompile Include="..\Code\Effect_Item.cpp" />
+    <ClCompile Include="..\Code\Effect_Leaf.cpp" />
+    <ClCompile Include="..\Code\Effect_LightningGround.cpp" />
+    <ClCompile Include="..\Code\Effect_MotionTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_NueTrail.cpp" />
+    <ClCompile Include="..\Code\Effect_Shadow.cpp" />
+    <ClCompile Include="..\Code\Effect_Smoke.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneSpike.cpp" />
+    <ClCompile Include="..\Code\Effect_StoneParticle.cpp" />
+    <ClCompile Include="..\Code\Effect_Stun.cpp" />
+    <ClCompile Include="..\Code\Effect_Trail.cpp" />
+    <ClCompile Include="..\Code\FieldObject.cpp" />
+    <ClCompile Include="..\Code\DesertRhino.cpp" />
+    <ClCompile Include="..\Code\Effect_MothFlyLine.cpp" />
+    <ClCompile Include="..\Code\FistEffect.cpp" />
+    <ClCompile Include="..\Code\FixedObj.cpp" />
+    <ClCompile Include="..\Code\FloorDoor.cpp" />
+    <ClCompile Include="..\Code\GameMgr.cpp" />
+    <ClCompile Include="..\Code\GolemFace.cpp" />
+    <ClCompile Include="..\Code\GolemFist.cpp" />
+    <ClCompile Include="..\Code\GolemHead.cpp" />
+    <ClCompile Include="..\Code\GolemLeftArm.cpp" />
+    <ClCompile Include="..\Code\GolemLeftHand.cpp" />
+    <ClCompile Include="..\Code\GolemLeftLeg.cpp" />
+    <ClCompile Include="..\Code\GolemLowerJaw.cpp" />
+    <ClCompile Include="..\Code\GolemPart.cpp" />
+    <ClCompile Include="..\Code\GolemRightArm.cpp" />
+    <ClCompile Include="..\Code\GolemRightHand.cpp" />
+    <ClCompile Include="..\Code\GolemRightLeg.cpp" />
+    <ClCompile Include="..\Code\GolemUpperJaw.cpp" />
+    <ClCompile Include="..\Code\Grass.cpp" />
+    <ClCompile Include="..\Code\GreenBeatle.cpp" />
+    <ClCompile Include="..\Code\HitObj.cpp" />
+    <ClCompile Include="..\Code\HoleObj.cpp" />
+    <ClCompile Include="..\Code\House.cpp" />
+    <ClCompile Include="..\Code\Icon.cpp" />
+    <ClCompile Include="..\Code\ImGuiMgr.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Code\InvenTabButton.cpp" />
+    <ClCompile Include="..\Code\InventoryMgr.cpp" />
+    <ClCompile Include="..\Code\InventoryUI.cpp" />
+    <ClCompile Include="..\Code\Item.cpp" />
+    <ClCompile Include="..\Code\Item_Hat.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Drill.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Light.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Mask.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Missile.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Monkey.cpp" />
+    <ClCompile Include="..\Code\Item_Hat_Turtle.cpp" />
+    <ClCompile Include="..\Code\JellyBomb.cpp" />
+    <ClCompile Include="..\Code\JellyBombCreator.cpp" />
+    <ClCompile Include="..\Code\JellyCombined.cpp" />
+    <ClCompile Include="..\Code\JellyStone.cpp" />
+    <ClCompile Include="..\Code\DefaultItem.cpp" />
+    <ClCompile Include="..\Code\LightFlower.cpp" />
+    <ClCompile Include="..\Code\LightPuzzle.cpp" />
+    <ClCompile Include="..\Code\LightPuzzleBase.cpp" />
+    <ClCompile Include="..\Code\LightPuzzlePiece.cpp" />
+    <ClCompile Include="..\Code\LightPuzzleTerrain.cpp" />
+    <ClCompile Include="..\Code\Loading.cpp" />
+    <ClCompile Include="..\Code\MonkeyBarrelCleaner.cpp" />
+    <ClCompile Include="..\Code\MonsterAim.cpp" />
+    <ClCompile Include="..\Code\MonsterSpawner.cpp" />
+    <ClCompile Include="..\Code\MothMage.cpp" />
+    <ClCompile Include="..\Code\MothOrb.cpp" />
+    <ClCompile Include="..\Code\NearReactMoonObj.cpp" />
+    <ClCompile Include="..\Code\NearReactMushroom.cpp" />
+    <ClCompile Include="..\Code\NearReactObj.cpp" />
+    <ClCompile Include="..\Code\Nexus.cpp" />
+    <ClCompile Include="..\Code\Npc.cpp" />
+    <ClCompile Include="..\Code\Npc_Artist.cpp" />
+    <ClCompile Include="..\Code\Npc_Chief.cpp" />
+    <ClCompile Include="..\Code\Npc_Cow.cpp" />
+    <ClCompile Include="..\Code\Npc_Dancer.cpp" />
+    <ClCompile Include="..\Code\Npc_DanceTeacher.cpp" />
+    <ClCompile Include="..\Code\Npc_Elite.cpp" />
+    <ClCompile Include="..\Code\Npc_Fishing.cpp" />
+    <ClCompile Include="..\Code\Npc_NueHero.cpp" />
+    <ClCompile Include="..\Code\Npc_OguMom.cpp" />
+    <ClCompile Include="..\Code\Npc_Orangi.cpp" />
+    <ClCompile Include="..\Code\Npc_Sheep.cpp" />
+    <ClCompile Include="..\Code\Npc_VillagerMonkey.cpp" />
+    <ClCompile Include="..\Code\Npc_VillagerMoon.cpp" />
+    <ClCompile Include="..\Code\Npc_Wholesaler.cpp" />
+    <ClCompile Include="..\Code\Particle_LargeStone.cpp" />
+    <ClCompile Include="..\Code\NueFlower.cpp" />
+    <ClCompile Include="..\Code\Particle_SilkWorm.cpp" />
+    <ClCompile Include="..\Code\PlantBall.cpp" />
+    <ClCompile Include="..\Code\PlantCannon.cpp" />
+    <ClCompile Include="..\Code\Particle_FixedLeaf.cpp" />
+    <ClCompile Include="..\Code\Particle_MapCircle.cpp" />
+    <ClCompile Include="..\Code\Particle_MovingLeaf.cpp" />
+    <ClCompile Include="..\Code\Player_Bullet_Bomb.cpp" />
+    <ClCompile Include="..\Code\Player_Bullet_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Bullet_Lightning.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Aim.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Barrier.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Drill.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_GolemFist.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Lightning.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Missile.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Range.cpp" />
+    <ClCompile Include="..\Code\Player_Skill_Turtle.cpp" />
+    <ClCompile Include="..\Code\Player_State_BallonFly.cpp" />
+    <ClCompile Include="..\Code\Player_State_Dance.cpp" />
+    <ClCompile Include="..\Code\Player_State_Down.cpp" />
+    <ClCompile Include="..\Code\Player_State_Drawing.cpp" />
+    <ClCompile Include="..\Code\Player_State_GameOver.cpp" />
+    <ClCompile Include="..\Code\Player_State_GetItem.cpp" />
+    <ClCompile Include="..\Code\Player_State_Skill.cpp" />
+    <ClCompile Include="..\Code\Portal.cpp" />
+    <ClCompile Include="..\Code\Prop.cpp" />
     <ClCompile Include="..\Code\Logo.cpp" />
     <ClCompile Include="..\Code\MainApp.cpp" />
     <ClCompile Include="..\Code\Monster.cpp" />
     <ClCompile Include="..\Code\Player.cpp" />
     <ClCompile Include="..\Code\Player_State.cpp" />
+    <ClCompile Include="..\Code\Player_State_Hit.cpp" />
     <ClCompile Include="..\Code\Player_State_Idle.cpp" />
+    <ClCompile Include="..\Code\Player_State_Jump.cpp" />
+    <ClCompile Include="..\Code\Player_State_Lift.cpp" />
+    <ClCompile Include="..\Code\Player_State_Push.cpp" />
+    <ClCompile Include="..\Code\Player_State_Rolling.cpp" />
+    <ClCompile Include="..\Code\Player_State_Run.cpp" />
+    <ClCompile Include="..\Code\Player_State_Swing.cpp" />
     <ClCompile Include="..\Code\Player_State_Walk.cpp" />
+    <ClCompile Include="..\Code\PushStone.cpp" />
+    <ClCompile Include="..\Code\Quest.cpp" />
+    <ClCompile Include="..\Code\QuestMgr.cpp" />
+    <ClCompile Include="..\Code\Quest_Artist1.cpp" />
+    <ClCompile Include="..\Code\Quest_Conversation.cpp" />
+    <ClCompile Include="..\Code\Quest_Cow1.cpp" />
+    <ClCompile Include="..\Code\Quest_Cow2.cpp" />
+    <ClCompile Include="..\Code\Quest_DanceTeacher.cpp" />
+    <ClCompile Include="..\Code\Quest_Hunting.cpp" />
+    <ClCompile Include="..\Code\Quest_MonkeyCheif1.cpp" />
+    <ClCompile Include="..\Code\Quest_MonkeyCheif2.cpp" />
+    <ClCompile Include="..\Code\Quest_MonkeyChief3.cpp" />
+    <ClCompile Include="..\Code\Quest_NueHero1.cpp" />
+    <ClCompile Include="..\Code\Quest_NueHero2.cpp" />
+    <ClCompile Include="..\Code\Quest_Sheep.cpp" />
+    <ClCompile Include="..\Code\QuickSlot.cpp" />
+    <ClCompile Include="..\Code\QuizStatue.cpp" />
+    <ClCompile Include="..\Code\RabbitMgr.cpp" />
+    <ClCompile Include="..\Code\RabitObj.cpp" />
+    <ClCompile Include="..\Code\RedBeatle.cpp" />
+    <ClCompile Include="..\Code\RollingBug.cpp" />
+    <ClCompile Include="..\Code\Scene_Ending.cpp" />
+    <ClCompile Include="..\Code\Scene_Loading.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest1.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest2.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyForest3.cpp" />
+    <ClCompile Include="..\Code\Scene_MonkeyVillage.cpp" />
+    <ClCompile Include="..\Code\Scene_MoonForest1.cpp" />
+    <ClCompile Include="..\Code\Scene_SilkWorm.cpp" />
+    <ClCompile Include="..\Code\Scene_SunGolemCave1.cpp" />
+    <ClCompile Include="..\Code\Scene_Tool.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Code\Scene_TutorialVillage.cpp" />
+    <ClCompile Include="..\Code\SilkWorm.cpp" />
     <ClCompile Include="..\Code\SkyBox.cpp" />
-    <ClCompile Include="..\Code\Stage.cpp" />
+    <ClCompile Include="..\Code\SludgeBall.cpp" />
+    <ClCompile Include="..\Code\SludgeWave.cpp" />
+    <ClCompile Include="..\Code\SpitCactus.cpp" />
+    <ClCompile Include="..\Code\SunGollem.cpp" />
     <ClCompile Include="..\Code\Terrain.cpp" />
+    <ClCompile Include="..\Code\Scene_Test.cpp" />
+    <ClCompile Include="..\Code\Test_Cube.cpp" />
+    <ClCompile Include="..\Code\Tile.cpp" />
+    <ClCompile Include="..\Code\TrashBig.cpp" />
+    <ClCompile Include="..\Code\TrashBummer.cpp" />
+    <ClCompile Include="..\Code\TrashFast.cpp" />
+    <ClCompile Include="..\Code\TrashPrist.cpp" />
+    <ClCompile Include="..\Code\TrashSlime.cpp" />
+    <ClCompile Include="..\Code\TriggerObj.cpp" />
+    <ClCompile Include="..\Code\Turret.cpp" />
+    <ClCompile Include="..\Code\Tree.cpp" />
+    <ClCompile Include="..\Code\TurretBullet.cpp" />
+    <ClCompile Include="..\Code\UIMgr.cpp" />
+    <ClCompile Include="..\Code\UI_BossHP.cpp" />
+    <ClCompile Include="..\Code\UI_ContinueMark.cpp" />
+    <ClCompile Include="..\Code\UI_Cursor.cpp" />
+    <ClCompile Include="..\Code\UI_Dialog.cpp" />
+    <ClCompile Include="..\Code\UI_Ending.cpp" />
+    <ClCompile Include="..\Code\UI_ExclamationMark.cpp">
+      <FileType>CppCode</FileType>
+    </ClCompile>
+    <ClCompile Include="..\Code\UI_Fade.cpp" />
+    <ClCompile Include="..\Code\UI_ItemInfo.cpp" />
+    <ClCompile Include="..\Code\UI_LoadingBackGround.cpp" />
+    <ClCompile Include="..\Code\UI_LoadingOgu.cpp" />
+    <ClCompile Include="..\Code\UI_MainLogo.cpp" />
+    <ClCompile Include="..\Code\UI_MapName.cpp" />
+    <ClCompile Include="..\Code\UI_MonsterHP.cpp" />
+    <ClCompile Include="..\Code\UI_Mouse.cpp" />
+    <ClCompile Include="..\Code\UI_NewItem.cpp" />
+    <ClCompile Include="..\Code\UI_NewQuest.cpp" />
+    <ClCompile Include="..\Code\UI_Notification.cpp" />
+    <ClCompile Include="..\Code\UI_Pages.cpp" />
+    <ClCompile Include="..\Code\UI_AdventureBook.cpp" />
+    <ClCompile Include="..\Code\UI_BookBackground.cpp" />
+    <ClCompile Include="..\Code\Catapult.cpp" />
+    <ClCompile Include="..\Code\UI_HPBar.cpp" />
+    <ClCompile Include="..\Code\UI_QuestIcon.cpp" />
+    <ClCompile Include="..\Code\UI_QuestionMark.cpp" />
+    <ClCompile Include="..\Code\UI_QuestList.cpp" />
+    <ClCompile Include="..\Code\UI_Shop.cpp" />
+    <ClCompile Include="..\Code\UI_SlotFour.cpp" />
+    <ClCompile Include="..\Code\UI_SlotItems.cpp" />
+    <ClCompile Include="..\Code\UI_SlotOne.cpp" />
+    <ClCompile Include="..\Code\UI_SlotThree.cpp" />
+    <ClCompile Include="..\Code\UI_SlotTwo.cpp" />
+    <ClCompile Include="..\Code\UI_ShortCutKey.cpp" />
+    <ClCompile Include="..\Code\UI_TurretGauge.cpp" />
+    <ClCompile Include="..\Code\UI_Veil.cpp" />
+    <ClCompile Include="..\Code\UI_Wallet.cpp" />
+    <ClCompile Include="..\Code\UseItem.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -217,7 +743,11 @@
     <Image Include="Client.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Bin\ShaderFiles\LightShader.hlsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

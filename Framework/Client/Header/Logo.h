@@ -1,13 +1,9 @@
 #pragma once
 
 #include "Scene.h"
-#include "BackGround.h"
+class CLoading;
 
-#include "Player.h"
-#include "Monster.h"
-#include "Terrain.h"
-
-class CLogo : public Engine::CScene
+class CLogo final : public Engine::CScene
 {
 private:
 	explicit CLogo(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -19,17 +15,28 @@ public:
 	virtual void LateUpdate_Scene() override;
 	virtual void Render_Scene() override;
 
+public:
+	virtual void Enter_Scene() override;
+	virtual void Exit_Scene() override;
+
 private:
-	HRESULT			Ready_Prototype();
-	HRESULT			Ready_Layer_Environment(LAYER_TYPE _eType);
-	HRESULT			Ready_Layer_GameLogic(const _tchar* pLayerTag) { return S_OK; }
-	HRESULT			Ready_Layer_UI(const _tchar* pLayerTag) { return S_OK; }
+	virtual HRESULT			Ready_Prototype();
+	virtual HRESULT			Ready_Layer_Player()			override;
+	virtual HRESULT			Ready_Layer_Camera()			override;
+	virtual HRESULT			Ready_Layer_Terrrain()			override;
+	virtual HRESULT			Ready_Layer_Environment()		override;
+	virtual HRESULT			Ready_Layer_Monster()			override;
+	virtual HRESULT			Ready_Layer_InterationObj()		override;
+	virtual HRESULT			Ready_Layer_Effect()			override;
+	virtual HRESULT			Ready_Layer_UI()				override;
+
 
 public:
 	static CLogo*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free() override;
+
 
 };
 

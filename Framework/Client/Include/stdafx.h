@@ -39,7 +39,17 @@ extern HINSTANCE g_hInstance;
 
 #include <fstream>
 
+#include "fmod.h"
+#include "fmod.hpp"
+#pragma comment(lib, "fmodex_vc.lib")
+
 #ifdef _DEBUG
+
+//#ifdef UNICODE                                                                                      
+//#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+//#else                                                                                                    
+//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+//#endif
 
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>

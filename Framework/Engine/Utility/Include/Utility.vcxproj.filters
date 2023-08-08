@@ -49,9 +49,6 @@
     <Filter Include="05. Component\02. Collider\BoxCollider">
       <UniqueIdentifier>{2a497733-a43f-4cdf-836d-c8f923f69e93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Component\02. Collider\SphereCollider">
-      <UniqueIdentifier>{e65e3f5e-aa93-423c-b6e2-64869a3873b1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Component\03. Texture">
       <UniqueIdentifier>{832ff2e2-37a5-40b5-b58e-c396606f19a7}</UniqueIdentifier>
     </Filter>
@@ -73,9 +70,6 @@
     <Filter Include="00. Manager\03. PickingMgr">
       <UniqueIdentifier>{c593a441-d9f5-457b-8504-bba9c55b2751}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Light">
-      <UniqueIdentifier>{28a1cc40-f85d-4d6b-a753-ca2718b8f91b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. Manager\04. LightMgr">
       <UniqueIdentifier>{52fcbec9-7e73-4a87-ba23-cc6f7ce59fee}</UniqueIdentifier>
     </Filter>
@@ -84,6 +78,39 @@
     </Filter>
     <Filter Include="00. Manager\05. KeyMgr">
       <UniqueIdentifier>{379e7162-36ec-4381-a7ad-2c3a14435d37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\05. RigidBody">
+      <UniqueIdentifier>{89a82244-198a-4d7f-9cce-0b9e7fd95c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\00. VIBuffer\05. RcPuzzleTer">
+      <UniqueIdentifier>{e9faae54-6c79-41b7-b2bb-ae6a4d3cb3b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\02. Collider\SphereCollider">
+      <UniqueIdentifier>{e65e3f5e-aa93-423c-b6e2-64869a3873b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Light">
+      <UniqueIdentifier>{28a1cc40-f85d-4d6b-a753-ca2718b8f91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\00. VIBuffer\06. CubeCol">
+      <UniqueIdentifier>{4acd586c-c404-42aa-a299-a231f28e327f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\07. SoundMgr">
+      <UniqueIdentifier>{869fe32c-c5b7-4d83-8cd8-82b8f38ec936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\06. InteractionMgr">
+      <UniqueIdentifier>{238b1654-e1ab-402f-9f3d-41e29a8b9cd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\08. EventMgr">
+      <UniqueIdentifier>{fedb74c0-bda4-478d-8899-3ee361d8c423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Manager\07. SoundMgr\Lib">
+      <UniqueIdentifier>{67821aff-8bbf-4c0f-b305-c74cf3f81050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. GameObject\Camera\Veil">
+      <UniqueIdentifier>{d0b9944a-e036-41b6-94fc-f419bad609bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\06. Shader">
+      <UniqueIdentifier>{47ffc286-2287-4474-a780-68edb6c05912}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +192,48 @@
     <ClInclude Include="..\..\Header\KeyMgr.h">
       <Filter>00. Manager\05. KeyMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Header\RigidBody.h">
+      <Filter>05. Component\05. RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\InteractionMgr.h">
+      <Filter>00. Manager\06. InteractionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\RcPuzzleBuff.h">
+      <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\RcCubeCol.h">
+      <Filter>05. Component\00. VIBuffer\06. CubeCol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\SoundMgr.h">
+      <Filter>00. Manager\07. SoundMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\EventMgr.h">
+      <Filter>00. Manager\08. EventMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod.hpp">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_codec.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_dsp.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_errors.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_memoryinfo.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ThirdParty\fmod_output.h">
+      <Filter>00. Manager\07. SoundMgr\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\Shader.h">
+      <Filter>05. Component\06. Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Scene.cpp">
@@ -241,6 +310,27 @@
     </ClCompile>
     <ClCompile Include="..\Code\KeyMgr.cpp">
       <Filter>00. Manager\05. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RigidBody.cpp">
+      <Filter>05. Component\05. RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\InteractionMgr.cpp">
+      <Filter>00. Manager\06. InteractionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RcPuzzleBuff.cpp">
+      <Filter>05. Component\00. VIBuffer\05. RcPuzzleTer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\RcCubeCol.cpp">
+      <Filter>05. Component\00. VIBuffer\06. CubeCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\SoundMgr.cpp">
+      <Filter>00. Manager\07. SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\EventMgr.cpp">
+      <Filter>00. Manager\08. EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Shader.cpp">
+      <Filter>05. Component\06. Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

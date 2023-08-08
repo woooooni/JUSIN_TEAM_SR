@@ -19,11 +19,11 @@
     <Filter Include="02. Frame\Manager">
       <UniqueIdentifier>{3f2641a0-a958-4db9-ab12-93b39ff210e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="98. ImGui">
-      <UniqueIdentifier>{ecb18418-d9ab-4c5c-961f-1a0548abba06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. InputDevice">
+    <Filter Include="03. InputDevice">
       <UniqueIdentifier>{5c3e7fd6-05db-434e-b76c-9146195c1775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Font">
+      <UniqueIdentifier>{4ba683ba-a5cd-4a5e-acc5-a63efabc5f8b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,7 +46,10 @@
       <Filter>02. Frame\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Header\InputDevice.h">
-      <Filter>04. InputDevice</Filter>
+      <Filter>03. InputDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Header\FontMgr.h">
+      <Filter>04. Font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -71,7 +74,10 @@
       <Filter>02. Frame\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\InputDevice.cpp">
-      <Filter>04. InputDevice</Filter>
+      <Filter>03. InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\FontMgr.cpp">
+      <Filter>04. Font</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

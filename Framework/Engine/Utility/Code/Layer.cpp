@@ -2,7 +2,8 @@
 
 CLayer::CLayer()
 {
-	m_vecObject.reserve(100);
+	m_vecObject.reserve(5);
+	m_vecReserveObj.reserve(100);
 }
 
 CLayer::~CLayer()
@@ -12,7 +13,7 @@ CLayer::~CLayer()
 HRESULT CLayer::Add_GameObject(const wstring & _strObjName, CGameObject * pGameObject)
 {
 	pGameObject->Set_Name(_strObjName);
-	m_vecObject.push_back(pGameObject);
+	m_vecReserveObj.push_back(pGameObject);
 	return S_OK;
 }
 
@@ -29,6 +30,12 @@ CGameObject * CLayer::Find_GameObject(const wstring& _strObjName)
 
 HRESULT CLayer::Ready_Layer()
 {
+
+	for (auto iter : m_vecReserveObj)
+		m_vecObject.push_back(iter);
+
+	m_vecReserveObj.clear();
+
 	return S_OK;
 }
 
@@ -36,12 +43,31 @@ _int CLayer::Update_Layer(const _float & fTimeDelta)
 {
 	_int		iResult = 0;
 
-	for (auto& iter : m_vecObject)
-	{
-		iResult = iter->Update_Object(fTimeDelta);
+	for (auto iter : m_vecReserveObj)
+		m_vecObject.push_back(iter);
 
-		if (iResult & 0x80000000)
-			return iResult;
+	m_vecReserveObj.clear();
+
+
+	auto iter = m_vecObject.begin();
+	for (; iter != m_vecObject.end();)
+	{
+		if ((*iter) == nullptr)
+		{
+			iter = m_vecObject.erase(iter);
+			continue;
+		}
+
+		if ((*iter)->Is_Active())
+		{
+			iResult = (*iter)->Update_Object(fTimeDelta);
+			++iter;
+		}
+		else
+		{
+			iter = m_vecObject.erase(iter);
+			continue;
+		}
 	}
 	
 	return iResult;
@@ -50,7 +76,8 @@ _int CLayer::Update_Layer(const _float & fTimeDelta)
 void CLayer::LateUpdate_Layer()
 {
 	for (auto& iter : m_vecObject)
-		iter->LateUpdate_Object();
+		if(iter->Is_Active())
+			iter->LateUpdate_Object();
 }
 
 CLayer * CLayer::Create()
@@ -70,7 +97,7 @@ CLayer * CLayer::Create()
 
 void CLayer::Free()
 {
+	
 	for_each(m_vecObject.begin(), m_vecObject.end(), CDeleteObj());
 	m_vecObject.clear();
-	m_vecObject.shrink_to_fit();
 }

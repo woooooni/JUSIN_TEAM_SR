@@ -1,4 +1,5 @@
 #include "Export_System.h"
+
 HRESULT		Ready_GraphicDev(HWND hWnd, WINMODE eMode, const _uint& iSizeX, const _uint& iSizeY, CGraphicDev** ppGraphicDev)
 {
 	return CGraphicDev::GetInstance()->Ready_GraphicDev(hWnd, eMode, iSizeX, iSizeY, ppGraphicDev);
@@ -12,6 +13,11 @@ void			Render_End()
 	CGraphicDev::GetInstance()->Render_End();
 }
 
+inline LPDIRECT3DDEVICE9 Get_Device()
+{
+	return CGraphicDev::GetInstance()->Get_GraphicDev();
+}
+
 _float		Get_TimeDelta(const _tchar* pTimerTag)
 {
 	return CTimerMgr::GetInstance()->Get_TimeDelta(pTimerTag);
@@ -23,6 +29,12 @@ void			Set_TimeDelta(const _tchar* pTimerTag)
 HRESULT		Ready_Timer(const _tchar* pTimerTag)
 {
 	return CTimerMgr::GetInstance()->Ready_Timer(pTimerTag);
+
+}
+
+inline CTimer* Find_Timer(const _tchar* pTimerTag)
+{
+	return CTimerMgr::GetInstance()->Find_Timer(pTimerTag);
 }
 
 _bool	Ispermit_Call(const _tchar* pFrameTag, const _float& fTimeDelta)
@@ -56,6 +68,15 @@ void		Update_InputDev(void)
 	CInputDevice::GetInstance()->Update_InputDev();
 }
 
+inline HRESULT Ready_Font(LPDIRECT3DDEVICE9 pDevice)
+{
+	return CFontMgr::GetInstance()->Ready_Font(pDevice);
+}
+
+inline const LPD3DXFONT& Get_Font(FONT_TYPE _eType)
+{
+	return CFontMgr::GetInstance()->Get_Font(_eType);
+}
 
 void			Release_System()
 {

@@ -24,30 +24,44 @@ CCubeTex::~CCubeTex()
 HRESULT CCubeTex::Ready_Buffer(void)
 {
 	m_dwFVF = FVF_CUBE;
-	
+	m_dwTriCnt = 12;
 	m_dwVtxCnt = 8;
 	m_dwVtxSize = sizeof(VTXCUBE);
 
 	m_dwIdxSize = sizeof(INDEX32);
-	m_dwTriCnt = 16;
-
 	m_IdxFmt = D3DFMT_INDEX32;
 
 	FAILED_CHECK_RETURN(CVIBuffer::Ready_Buffer(), E_FAIL);
 
+
 	VTXCUBE*		pVertices = nullptr;
 
 	m_pVB->Lock(0, /*m_iStride * m_iNumVertices*/0, (void**)&pVertices, 0);
-	pVertices[0].vPosition = pVertices[0].vTexUV = _vec3(-0.5f, 0.5f, -0.5f);
-	pVertices[1].vPosition = pVertices[1].vTexUV = _vec3(0.5f, 0.5f, -0.5f);
-	pVertices[2].vPosition = pVertices[2].vTexUV = _vec3(0.5f, -0.5f, -0.5f);
-	pVertices[3].vPosition = pVertices[3].vTexUV = _vec3(-0.5f, -0.5f, -0.5f);
+	// 전면
+	pVertices[0].vPosition = { -1.f, 1.f, -1.f };
+	pVertices[0].vTexUV = pVertices[0].vPosition;
 
+	pVertices[1].vPosition = { 1.f, 1.f, -1.f };
+	pVertices[1].vTexUV = pVertices[1].vPosition;
 
-	pVertices[4].vPosition = pVertices[4].vTexUV = _vec3(-0.5f, 0.5f, 0.5f);
-	pVertices[5].vPosition = pVertices[5].vTexUV = _vec3(0.5f, 0.5f, 0.5f);
-	pVertices[6].vPosition = pVertices[6].vTexUV = _vec3(0.5f, -0.5f, 0.5f);
-	pVertices[7].vPosition = pVertices[7].vTexUV = _vec3(-0.5f, -0.5f, 0.5f);
+	pVertices[2].vPosition = { 1.f, -1.f, -1.f };
+	pVertices[2].vTexUV = pVertices[2].vPosition;
+
+	pVertices[3].vPosition = { -1.f, -1.f, -1.f };
+	pVertices[3].vTexUV = pVertices[3].vPosition;
+
+	// 후면
+	pVertices[4].vPosition = { -1.f, 1.f, 1.f };
+	pVertices[4].vTexUV = pVertices[4].vPosition;
+
+	pVertices[5].vPosition = { 1.f, 1.f, 1.f };
+	pVertices[5].vTexUV = pVertices[5].vPosition;
+
+	pVertices[6].vPosition = { 1.f, -1.f, 1.f };
+	pVertices[6].vTexUV = pVertices[6].vPosition;
+
+	pVertices[7].vPosition = { -1.f, -1.f, 1.f };
+	pVertices[7].vTexUV = pVertices[7].vPosition;
 	
 	m_pVB->Unlock();
 
@@ -95,12 +109,17 @@ void CCubeTex::SetAlpha(_int _iAlpha)
 
 }
 
-CCubeTex * CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CCubeTex * CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev , _float fCX, _float fCY, _float fCZ)
 {
 	CCubeTex *	pInstance = new CCubeTex(pGraphicDev);
 
+	pInstance->Set_Width(fCX);
+	pInstance->Set_Height(fCY);
+	pInstance->Set_Depth(fCZ);
+
 	if (FAILED(pInstance->Ready_Buffer()))
 	{
+		
 		Safe_Release(pInstance);
 		MSG_BOX("CubeTex Create Failed");
 		return nullptr;

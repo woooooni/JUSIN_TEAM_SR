@@ -17,7 +17,9 @@ public:
 	const _matrix Get_WorldInverseMatrix()
 	{
 		_matrix	matWorldInv;
-		return	*D3DXMatrixInverse(&matWorldInv, nullptr, &m_matWorld);
+		D3DXMatrixIdentity(&matWorldInv);
+		D3DXMatrixInverse(&matWorldInv, nullptr, &m_matWorld);
+		return	matWorldInv;
 	}
 
 	void Get_Info(MATRIX_INFO eType, _vec3* pInfo)
@@ -27,6 +29,7 @@ public:
 
 	void Set_Info(MATRIX_INFO eType, _vec3* pInfo)
 	{
+		m_vInfo[eType] = *pInfo;
 		memcpy(&m_matWorld.m[eType][0], pInfo, sizeof(_vec3));
 	}
 
@@ -50,7 +53,7 @@ public:
 public:
 	void RotationAxis(const _vec3& vAxis, const _float& fAngle);
 	const _matrix* Compute_LookAtTarget(const _vec3* pTargetPos);
-	
+
 
 
 public:
