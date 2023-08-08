@@ -16,6 +16,10 @@ CUI_Ending::~CUI_Ending()
 HRESULT CUI_Ending::Ready_Object(void)
 {
 	FAILED_CHECK_RETURN(Ready_Component(), E_FAIL);
+
+	D3DXMatrixOrthoLH(&m_matProj, WINCX, WINCY, 0, 1);
+	D3DXMatrixIdentity(&m_matView);
+
 	m_tInfo.fX = WINCX / 2.f;
 	m_tInfo.fY = WINCY / 2.f;
 
@@ -30,19 +34,19 @@ HRESULT CUI_Ending::Ready_Object(void)
 
 	m_vecNameTags.resize(6, L"");
 	auto iter = m_vecNameTags.begin();
-	*iter = L"팀장, 프레임워크\n\n김태원";
+	*iter = L"팀장, 프레임워크, 맵툴\n\n김태원";
 	++iter;
 
-	*iter = L"플레이어, 이펙트\n\n황인범";
+	*iter = L"플레이어, 이펙트, 파티클\n\n황인범";
 	++iter;
 
-	*iter = L"기믹\n\n임동규";
+	*iter = L"월드 기믹, 트리거\n\n임동규";
 	++iter;
 
 	*iter = L"보스, 몬스터\n\n이종석";
 	++iter;
 
-	*iter = L"UI\n\n좌원혜";
+	*iter = L"카메라, UI, 파티클 일부\n\n좌원혜";
 	++iter;
 
 	*iter = L"\n\n\n감사합니다.";
@@ -79,6 +83,7 @@ void CUI_Ending::Render_Object(void)
 					((-2 * (m_tInfo.fY)) / WINCY + 1) * (1 / m_matProj._22), 0.f };
 
 	m_pTransformCom->Set_Pos(&vPos);
+
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_WorldMatrix());
 
 	m_pTextureCom->Render_Texture(0);

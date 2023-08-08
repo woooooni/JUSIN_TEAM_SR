@@ -15,6 +15,8 @@
 #include "DoorEnter.h"
 #include "UI_MapName.h"
 #include "SkyBox.h" 
+#include "Quest_MonkeyCheif2.h"
+#include "QuestMgr.h"
 
 CScene_MonkeyForest1::CScene_MonkeyForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MONKEY_FOREST1)
@@ -228,6 +230,9 @@ HRESULT CScene_MonkeyForest1::Ready_Layer_Environment()
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Drill Hat", pDefaultItem);
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
+
+
+	
 
 	
 

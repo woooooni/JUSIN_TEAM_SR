@@ -15,6 +15,7 @@ CSunGollem::CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev)
 	, m_eState(SUNGOLEM_STATE::REGEN)
 	, m_fSpeed(20.f)
 {
+
 }
 CSunGollem::CSunGollem(const CSunGollem& rhs)
 	: Engine::CGameObject(rhs)
@@ -26,6 +27,7 @@ CSunGollem::CSunGollem(const CSunGollem& rhs)
 
 CSunGollem::~CSunGollem()
 {
+
 }
 
 
@@ -76,13 +78,18 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 {
 	int iExit = __super::Update_Object(fTimeDelta);
 	Add_RenderGroup(RENDERID::RENDER_ALPHA, this);;
+
 	if(m_eState!=SUNGOLEM_STATE::DIE)
-	Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
+		Add_CollisionGroup(m_pColliderCom, COLLISION_GROUP::COLLIDE_BOSS);
+
 	if(!m_bStop)
 		m_fTime += 1.2f*fTimeDelta;
+
 	if (!m_bStop&& m_eState == SUNGOLEM_STATE::DIE)
 		m_fTime += 0.8f * fTimeDelta;
+
 	m_iIndex = (int)m_fTime;
+
 	switch (m_eState)
 	{
 	case SUNGOLEM_STATE::IDLE:
@@ -127,7 +134,9 @@ _int CSunGollem::Update_Object	(const _float& fTimeDelta)
 			m_pParts[i]->Set_Index(m_iIndex);
 			m_pParts[i]->Set_State(m_eState);
 			m_pParts[i]->Update_Object(fTimeDelta);
+
 			m_pParts[i]->Rotate();
+
 			if (m_eState != SUNGOLEM_STATE::REGEN && m_eState != SUNGOLEM_STATE::DIRTY)
 			{
 				_vec3 vOffset = m_pParts[i]->Get_Offset();
@@ -263,7 +272,6 @@ HRESULT CSunGollem::Add_Component(void)
 	pComponent = m_pRigidBodyCom = dynamic_cast<CRigidBody*>(Engine::Clone_Proto(L"Proto_RigidBody"));
 	pComponent->SetOwner(this);
 	m_mapComponent[ID_DYNAMIC].emplace(COMPONENT_TYPE::COM_RIGIDBODY, pComponent);
-
 
 	pComponent = m_pShader = dynamic_cast<CShader*>(Engine::Clone_Proto(L"Proto_Shader"));
 	pComponent->SetOwner(this);
@@ -418,7 +426,9 @@ void CSunGollem::Update_Move(_float fTimeDelta)
 		m_fMoveTime = 0.f;
 		D3DXVec3Normalize(&vDir, &vDir);
 		m_pRigidBodyCom->AddForce(vDir *80.f);
+
 		Set_State(SUNGOLEM_STATE::ATTACK);
+
 		if (m_bDirty && m_tStat.iHp < 15)
 			Create_Wave(vPos);
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
@@ -584,7 +594,6 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 				m_pParts[RIGHTARM2]->Set_Active(true);
 				m_pParts[LEFTHAND2]->Set_Active(true);
 				m_pParts[RIGHTHAND2]->Set_Active(true);
-
 			}
 			if (m_iActiveArm > 6)
 			{
@@ -600,8 +609,6 @@ void CSunGollem::Update_Attack(_float fTimeDelta)
 		{
 			m_pParts[i]->Move_Offset(m_vPartPos[i], fTimeDelta, 2.f);
 			m_pParts[i]->Set_RotationAngle(m_fPartAngleArray[i]);
-
-
 		}
 	}
 	else
@@ -661,7 +668,8 @@ void CSunGollem::Update_Regen(_float fTimeDelta)
 			m_bSoundPlay = true;
 			Stop_Sound(CHANNELID::SOUND_BOSS);
 			Play_Sound(L"SFX_37_SunGolemActivate_1.wav", CHANNELID::SOUND_BOSS, .5f);
-		}break;
+		}
+		break;
 	case 6:
 		m_bSoundPlay = false;
 		break;
@@ -676,7 +684,6 @@ void CSunGollem::Update_Regen(_float fTimeDelta)
 			m_fMinHeight += 3.f * fTimeDelta;
 		else
 			m_fMinHeight = 3.f;
-	
 		break;
 	default:
 		m_fTime = 0.f;
@@ -706,11 +713,13 @@ void CSunGollem::Create_Fist(bool _BummerFist, _int _iSrc)
 	CGolemFist* pGolemFist = CGolemFist::Create(m_pGraphicDev);
 	NULL_CHECK_RETURN(pGolemFist, );
 	m_vTargetPos.y = 7.f;
+
 	pGolemFist->Get_TransformCom()->Set_Pos(&m_vTargetPos);
 	pGolemFist->Set_Dirty(m_bDirty);
 	pGolemFist->Set_Bummer(_BummerFist);
 	pGolemFist->Set_Atk(m_tStat.iAttack); 
 	pGolemFist->Set_Owner(this);
+
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::MONSTER);
 	pLayer->Add_GameObject(L"GolemFist", pGolemFist);
 
@@ -734,8 +743,10 @@ void CSunGollem::Create_Stone()
 {
 
 	_vec3 vPos = { m_vRandomPos[1].x+(rand()%10)-5,7.f,m_vRandomPos[1].z + (rand() % 6) - 3 - 7.f};
+
 	CPushStone* pPushStone = CPushStone::Create(vPos,m_pGraphicDev);
 	NULL_CHECK_RETURN(pPushStone, );
+
 	CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::INTERACTION_OBJ);
 	pLayer->Add_GameObject(L"Stone", pPushStone);
 }
@@ -770,6 +781,7 @@ void CSunGollem::Create_Monkey()
 		if (i < 2)
 			pMonkeyBarrelCleaner->Set_Right(true);
 		pMonkeyBarrelCleaner->Get_TransformCom()->Set_Pos(&vPos[i]);
+
 		CLayer* pLayer = Engine::GetCurrScene()->Get_Layer(LAYER_TYPE::ENVIRONMENT);
 		pLayer->Add_GameObject(L"MonkeyBarrelCleaner", pMonkeyBarrelCleaner);
 	}

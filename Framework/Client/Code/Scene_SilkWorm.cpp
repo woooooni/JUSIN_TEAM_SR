@@ -14,7 +14,7 @@
 
 // Test Header
 #include "QuestMgr.h"
-#include "Quest_NueHero2.h"
+#include "Quest_NueHero1.h"
 
 CScene_SilkWorm::CScene_SilkWorm(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::SILK_WORM)
@@ -60,8 +60,9 @@ HRESULT CScene_SilkWorm::Ready_Scene()
 
 _int CScene_SilkWorm::Update_Scene(const _float& fTimeDelta)
 {
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
-
+	
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
@@ -69,7 +70,6 @@ _int CScene_SilkWorm::Update_Scene(const _float& fTimeDelta)
 void CScene_SilkWorm::LateUpdate_Scene()
 {
 	CUIMgr::GetInstance()->Late_Update_UIMgr();
-
 	__super::LateUpdate_Scene();
 }
 
@@ -92,10 +92,14 @@ void CScene_SilkWorm::Enter_Scene()
 
 }
 
+void CScene_SilkWorm::Exit_Scene()
+{
+	Stop_All();
+}
+
 HRESULT CScene_SilkWorm::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-
 	return S_OK;
 }
 
@@ -121,8 +125,10 @@ HRESULT CScene_SilkWorm::Ready_Layer_Camera()
 
 	pCamera->Set_TargetObj(m_mapLayer[LAYER_TYPE::PLAYER]->Find_GameObject(L"Player"));
 	m_mapLayer[LAYER_TYPE::CAMERA]->Ready_Layer();
+
 	CSkyBox* pSkyBox = CSkyBox::Create(m_pGraphicDev, 3);
 	m_mapLayer[LAYER_TYPE::CAMERA]->Add_GameObject(L"Skybox", pSkyBox);
+
 	return S_OK;
 }
 
@@ -140,9 +146,6 @@ HRESULT CScene_SilkWorm::Ready_Layer_Environment()
 	nue->Get_TransformCom()->Set_Pos(&_vec3(53.f, 0.5f, 26.f));
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"Nue_NPC", nue);
 
-	//// Test
-	/*CQuest* pQuest = new CQuest_NueHero2();
-	CQuestMgr::GetInstance()->Add_Quest(pQuest);*/
 
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
@@ -162,6 +165,7 @@ HRESULT CScene_SilkWorm::Ready_Layer_Monster()
 
 HRESULT CScene_SilkWorm::Ready_Layer_InterationObj()
 {
+	CQuestMgr::GetInstance()->Add_Quest(new CQuest_NueHero1);
 	return S_OK;
 }
 

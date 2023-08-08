@@ -16,6 +16,7 @@ public:
 	virtual void Render_Scene() override;
 
 	virtual void Enter_Scene() override;
+	virtual void Exit_Scene() override;
 
 
 private:

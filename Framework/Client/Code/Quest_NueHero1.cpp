@@ -9,6 +9,7 @@
 #include "SilkWorm.h"
 #include "CutSceneMgr.h"
 
+
 CQuest_NueHero1::CQuest_NueHero1()
 	: CQuest_Hunting(NPC_CODE::NPC_NUE_HERO, nullptr, OBJ_ID::SILK_WORM, 1)
 {
@@ -28,7 +29,6 @@ CQuest_NueHero1::CQuest_NueHero1()
 
 	m_vecNpcDescList[(_uint)QUEST_PROGRESS::COMPLETE].push_back(L"¸»µµ ¾ÈµÅ!");
 
-	m_iRewardCoin = 100000;
 }
 
 CQuest_NueHero1::~CQuest_NueHero1()
@@ -39,29 +39,28 @@ CQuest_NueHero1::~CQuest_NueHero1()
 void CQuest_NueHero1::Update_Quest(_float& fTimeDelta)
 {
 	__super::Update_Quest(fTimeDelta);
-
 	if (m_eQuestProgress == QUEST_PROGRESS::CONTINUE)
 	{
 		CUIMgr::GetInstance()->Get_QuestList()->Set_Shown(false);
+		CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 		Clear_Quest();
 	}
-
 }
 
 void CQuest_NueHero1::Accept_Quest()
 {
 	m_eQuestProgress = QUEST_PROGRESS::CONTINUE;
 	CQuestMgr::GetInstance()->Add_PlayerQuest(this);
+	CUIMgr::GetInstance()->Get_ShortcutKey()->Set_Active(false);
 }
 
 void CQuest_NueHero1::Clear_Quest()
 {
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
-	CQuest_NueHero2* pNextQuest = new CQuest_NueHero2();
+	CQuest_NueHero2* pNextQuest = new CQuest_NueHero2;
 	CQuestMgr::GetInstance()->Add_Quest(pNextQuest);
 
 	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::BOSS_NUEHERO_INTRO);
-
 	CPlayer* pPlayer = CGameMgr::GetInstance()->Get_Player();
 
 	if (pPlayer != nullptr)

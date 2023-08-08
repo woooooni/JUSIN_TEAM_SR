@@ -449,7 +449,7 @@ void CCutSceneMgr::Update_CutSceneEnding(const _float& fTimeDelta)
 //		CUIMgr::GetInstance()->Get_Fade()->Set_Fade(true, 5.f);
 		m_bCutsceneSwitch[0] = true;
 	}
-	else if (m_bCutsceneSwitch[0] && !m_bCutsceneSwitch[1] && !CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	else if (m_bCutsceneSwitch[0] && !m_bCutsceneSwitch[1] && m_fAccTimeEnding < 6.f)
 	{
 		_vec3 campos;
 		m_pCamera->Get_TransformCom()->Get_Info(INFO_POS, &campos);
@@ -457,10 +457,8 @@ void CCutSceneMgr::Update_CutSceneEnding(const _float& fTimeDelta)
 		m_pCamera->Get_TransformCom()->Set_Info(INFO_POS, &campos);
 		campos -= m_pCamera->Get_Offset();
 		m_pCamera->Get_TransformCom()->Set_Info(INFO_LOOK, &campos);
-
-
 	}
-	else if (m_bCutsceneSwitch[0] && !m_bCutsceneSwitch[1] && CUIMgr::GetInstance()->Get_Fade()->Get_Finish())
+	else if (m_bCutsceneSwitch[0] && !m_bCutsceneSwitch[1] && m_fAccTimeEnding >= 6.f)
 	{
 		_vec3 campos;
 		m_pCamera->Get_TransformCom()->Get_Info(INFO_POS, &campos);
@@ -751,6 +749,10 @@ void CCutSceneMgr::Finish_CutSceneMonkeyForest_OpenGate()
 
 void CCutSceneMgr::Finish_CutSceneEnding()
 {
+	m_bCutScenePlaying = false;
+	m_pCamera->Set_CameraState(CAMERA_STATE::GAME);
+	m_pCamera->Set_TargetObj(CGameMgr::GetInstance()->Get_Player());
+
 
 }
 

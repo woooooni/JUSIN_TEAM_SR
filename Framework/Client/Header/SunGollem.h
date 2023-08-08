@@ -15,10 +15,12 @@ class CSunGollem : public Engine::CGameObject
 {
 	CLONE(CSunGollem)
 public:
-	enum BODYPARTS {
+	enum BODYPARTS 
+	{
 		HEAD=0, LOWERJAW, UPPERJAW, LEFTLEG, RIGHTLEG, LEFTARM0, LEFTARM1,
 		LEFTARM2, RIGHTARM0,RIGHTARM1, RIGHTARM2, LEFTHAND0, 
-		LEFTHAND1, LEFTHAND2,RIGHTHAND0, RIGHTHAND1, RIGHTHAND2,FACE,PARTSEND};
+		LEFTHAND1, LEFTHAND2,RIGHTHAND0, RIGHTHAND1, RIGHTHAND2,FACE,PARTSEND
+	};
 
 protected:
 	explicit CSunGollem(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -93,7 +95,7 @@ CMonsterAim* m_pMonsterAim;
 	_bool m_bExhale = false;
 	_bool m_bStop = false;
 	_bool m_bJump = false;
-	_bool	m_bScream = true;
+	_bool m_bScream = true;
 	_vec3 m_vVerticalDir = { 0,0,0 };
 	_vec3 m_vRandomPos[3] = {};
 	_vec3 m_vTargetPos ={0.f,0.f ,0.f};

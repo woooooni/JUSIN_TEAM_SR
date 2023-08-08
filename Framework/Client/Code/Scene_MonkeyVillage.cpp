@@ -22,6 +22,8 @@
 #include "UI_MapName.h"
 #include "CutSceneMgr.h"
 #include "SkyBox.h" 
+#include "Quest_MonkeyCheif2.h"
+#include "QuestMgr.h"
 
 static _bool bPlayedCutScene = false;
 
@@ -71,7 +73,7 @@ HRESULT CScene_MonkeyVillage::Ready_Scene()
 _int CScene_MonkeyVillage::Update_Scene(const _float& fTimeDelta)
 {
 	CUIMgr::GetInstance()->Update_UIMgr(fTimeDelta);
-	
+
 	__super::Update_Scene(fTimeDelta);
 	return S_OK;
 }
@@ -110,7 +112,6 @@ void CScene_MonkeyVillage::Enter_Scene()
 HRESULT CScene_MonkeyVillage::Ready_Prototype()
 {
 	CGameMgr::GetInstance()->Ready_GameMgr(m_pGraphicDev);
-	
 	return S_OK;
 }
 
@@ -334,6 +335,8 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 		m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Add_GameObject(L"DrawingEnter", pDrawing);
 	}
 
+
+
 	m_mapLayer[LAYER_TYPE::ENVIRONMENT]->Ready_Layer();
 
 	return S_OK;
@@ -341,6 +344,7 @@ HRESULT CScene_MonkeyVillage::Ready_Layer_Environment()
 
 HRESULT CScene_MonkeyVillage::Ready_Layer_Monster()
 {
+
 	//CRollingBug* pRolling = CRollingBug::Create(m_pGraphicDev, _vec3(207.f, 0.5f, 151.f), BUGCOLORTYPE::YELLOW);
 	//m_mapLayer[LAYER_TYPE::MONSTER]->Add_GameObject(L"RollingBug", pRolling);
 

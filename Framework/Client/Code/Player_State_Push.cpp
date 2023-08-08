@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "KeyMgr.h"
 #include "RigidBody.h"
-
+#include "Export_Function.h"
 CPlayer_State_Push::CPlayer_State_Push(CGameObject* _pOwner)
 	: CPlayer_State(_pOwner), m_fAccTime(0.0f), m_fKeyDelayTime(0.05f)
 {
@@ -63,7 +63,7 @@ void CPlayer_State_Push::Render_State(void)
 
 void CPlayer_State_Push::Reset_State(void)
 {
-	
+	Engine::Stop_Sound(CHANNELID::SOUND_EFFECT_INTERACTION);
 }
 
 void CPlayer_State_Push::Key_Input(const _float& fTimeDelta)

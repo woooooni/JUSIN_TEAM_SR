@@ -53,5 +53,4 @@ void CQuest_NueHero2::Clear_Quest()
 	m_eQuestProgress = QUEST_PROGRESS::PROGRESS_END;
 	CGameMgr::GetInstance()->Get_Player()->Change_State(PLAYER_STATE::DOWN);
 	CCutSceneMgr::GetInstance()->Start_CutScene(CCutSceneMgr::CUTSCENE_TYPE::ENDING);
-	// TODO :: 컷씬 후 게임 종료
 }

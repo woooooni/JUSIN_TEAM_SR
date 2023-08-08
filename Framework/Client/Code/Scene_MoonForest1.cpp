@@ -22,6 +22,8 @@
 #include "TriggerObj.h"
 #include "Particle_MapCircle.h"
 #include "SkyBox.h" 
+#include "InventoryMgr.h"
+#include "DefaultItem.h"
 
 CScene_MoonForest1::CScene_MoonForest1(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CScene(pGraphicDev, SCENE_TYPE::MOON_FOREST1)
@@ -84,6 +86,10 @@ HRESULT CScene_MoonForest1::Ready_Scene()
 	CLightMgr::GetInstance()->Reset_Light();
 	CLightMgr::GetInstance()->Get_Light(LIGHT_TYPE::LIGHT_DIRECTION)->Set_LightInfo(tLight);
 
+	CInventoryMgr::GetInstance()->Add_Item(CDefaultItem::Create(Engine::Get_Device(), OBJ_ID::ITEM, ITEM_CODE::HAT_TURTLE));
+	CInventoryMgr::GetInstance()->Add_Item(CDefaultItem::Create(Engine::Get_Device(), OBJ_ID::ITEM, ITEM_CODE::HAT_MONKEY));
+	CInventoryMgr::GetInstance()->Add_Item(CDefaultItem::Create(Engine::Get_Device(), OBJ_ID::ITEM, ITEM_CODE::HAT_MISSLE));
+	CInventoryMgr::GetInstance()->Add_Item(CDefaultItem::Create(Engine::Get_Device(), OBJ_ID::ITEM, ITEM_CODE::HAT_MASK));
 	return S_OK;
 }
 
@@ -143,7 +149,7 @@ HRESULT CScene_MoonForest1::Ready_Layer_Player()
 	_vec3 vPos;
 	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Get_Info(INFO_POS, &vPos);
 	vPos.x = 58.5f;
-	vPos.z = 2.f;
+	vPos.z = 65.f;
 	CGameMgr::GetInstance()->Get_Player()->Set_BalloonFly(false);
 	CGameMgr::GetInstance()->Get_Player()->Get_TransformCom()->Set_Info(INFO_POS, &vPos);
 
